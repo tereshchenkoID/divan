@@ -1,25 +1,57 @@
 @import "../../../scss/config";
 
 .block {
-  @include make-spacer('py', 3);
-  @include make-spacer('px', 4);
-  @include flex($align-items: center, $direction: column);
+  @include make-spacer('pl', 3);
+  @include make-spacer('pr', 2);
+  @include flex($align-items: center);
 
-  background-color: var(--color-white);
-  color: var(--color-primary);
+  position: relative;
+  cursor: pointer;
+  height: 45px;
 
+  &.active,
   &:hover {
-    background-color: var(--color-secondary);
-    border-color: var(--color-primary);
+    background-color: var(--primary);
+
+    &::before {
+      width: 4px;
+    }
+
+    .text,
+    .icon {
+      color: var(--text-for-material);
+    }
+  }
+
+  &::before {
+    @include size(0, 100%);
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    background-color: var(--link);
+    content: '';
   }
 }
 
-.icon {
-  @include make-spacer('mb', 2);
-  @include size(40px);
+.icon,
+.country {
+  @include make-spacer('mr', 2);
+}
 
-  svg {
-    fill: currentColor;
+.icon {
+  @include size(29px);
+}
+
+.country {
+  @include size(29px, 16px);
+
+  img {
+    @include size(100%);
+
+    display: block;
+    object-fit: cover;
   }
 }
 

@@ -1,10 +1,10 @@
-import { SET_SPORT } from "../actionTypes";
+import { SET_CATEGORY } from "../actionTypes";
 
-const setSport = (data) => {
+const setCategory = (data) => {
     return {
-        type: SET_SPORT,
+        type: SET_CATEGORY,
         payload: data
     };
 };
 
-export { setSport };
+export { setCategory };

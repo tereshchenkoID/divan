@@ -1,10 +1,15 @@
 import { createStore, combineReducers } from "redux";
-import cartReducer from "./reducers/cartReducer";
-import aboutReducer from "./reducers/aboutReducer";
+
+import categoryReducer from "./reducers/categoryReducer";
+import sportReducer from "./reducers/sportReducer";
+import urlReducer from "./reducers/urlReducer";
+import leagueReducer from "./reducers/leagueReducer";
 
 const allReducer = combineReducers({
-    cards: cartReducer,
-    about: aboutReducer
+    category: categoryReducer,
+    sport: sportReducer,
+    league: leagueReducer,
+    url: urlReducer
 });
 
 

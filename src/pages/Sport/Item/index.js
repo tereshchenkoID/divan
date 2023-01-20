@@ -2,11 +2,11 @@ import {NavLink} from "react-router-dom";
 
 import style from './index.module.scss';
 
-const Category = ({id, data}) => {
+const Item = ({data}) => {
 
     return (
         <NavLink
-            to={`/${id}/${data._id}`}
+            to={`/${data._sid}/${data._id}`}
             className={style.block}
             aria-label={data.na}
         >
@@ -28,4 +28,4 @@ const Category = ({id, data}) => {
     );
 }
 
-export default Category;
+export default Item;

@@ -1,3 +1,59 @@
+@import "scss/config";
+
 .block {
-  border: 1px solid red;
+  position: relative;
+}
+
+.top,
+.center {
+  @include make-spacer('p', 2);
+}
+
+.top,
+.center,
+.bottom {
+  background-color: var(--material);
+}
+
+.center {
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.toggle,
+.link {
+  @include size(24px);
+
+  display: block;
+
+  svg {
+    @include size(100%);
+
+    display: block;
+    fill: var(--sub-text);
+  }
+
+  &:hover {
+
+    svg {
+      fill: var(--text-for-material);
+    }
+  }
+}
+
+.options {
+  display: grid;
+  grid-template-columns: 30px 1fr 150px;
+  grid-gap: 10px;
+}
+
+.meta {
+  @include flex(flex-end, center);
+}
+
+.divider {
+  @include size(1px, 24px);
+  @include make-spacer('mx', 4);
+
+  background-color: var(--sub-text);
 }

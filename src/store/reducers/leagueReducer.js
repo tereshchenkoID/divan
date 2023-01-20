@@ -1,23 +1,23 @@
-import { GET_CATEGORY, SET_CATEGORY } from "../actionTypes";
+import { GET_LEAGUE, SET_LEAGUE } from "../actionTypes";
 
 const initialState = {
-    category: {}
+    league: {}
 };
 
-const categoryReducer = (state = initialState, action) => {
+const leagueReducer = (state = initialState, action) => {
     switch (action.type) {
-        case GET_CATEGORY:
+        case GET_LEAGUE:
             return {
                 ...state
             };
-        case SET_CATEGORY:
+        case SET_LEAGUE:
             return {
                 ...state,
-                category: action.payload
+                league: action.payload
             };
         default:
             return state;
     }
 };
 
-export default categoryReducer;
+export default leagueReducer;

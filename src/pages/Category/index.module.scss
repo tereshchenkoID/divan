@@ -1,19 +1,19 @@
-@import "../../scss/config";
+@import "scss/config";
 
-.list {
-  @include make-spacer('py', 4);
+.block {
+  background-color: var(--material);
 }
 
 .item {
-  border-top: 1px solid var(--color-border);
-  border-left: 1px solid var(--color-border);
-  border-right: 1px solid var(--color-border);
+  border-top: 1px solid var(--border);
+  border-left: 1px solid var(--border);
+  border-right: 1px solid var(--border);
 
   &:first-child {
     border-top: 0;
   }
 
   &:last-child {
-    border-bottom: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--border);
   }
 }

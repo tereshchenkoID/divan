@@ -1,23 +1,23 @@
-import { GET_BREADCRUMBS, SET_BREADCRUMBS } from "../actionTypes";
+import { GET_CATEGORY, SET_CATEGORY } from "../actionTypes";
 
 const initialState = {
-    breadcrumbs: {}
+    category: {}
 };
 
-const breadcrumbsReducer = (state = initialState, action) => {
+const categoryReducer = (state = initialState, action) => {
     switch (action.type) {
-        case GET_BREADCRUMBS:
+        case GET_CATEGORY:
             return {
                 ...state
             };
-        case SET_BREADCRUMBS:
+        case SET_CATEGORY:
             return {
                 ...state,
-                breadcrumbs: action.payload
+                category: action.payload
             };
         default:
             return state;
     }
 };
 
-export default breadcrumbsReducer;
+export default categoryReducer;

@@ -11,13 +11,12 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
   overflow-y: auto;
-  background-color: var(--color-white);
-  color: var(--color-text);
+  background-color: var(--bg);
+  color: var(--sub-text);
   line-height: var(--line-height);
   font-family: var(--font-family);
   font-size: var(--font-size);
   font-weight: var(--typography-regular);
-  letter-spacing: 3px;
 }
 
 hr {
@@ -34,7 +33,7 @@ button,
 a {
   @include transition(all);
 
-  color: var(--color-text);
+  color: var(--sub-text);
 
   &:focus {
     outline: none;
@@ -63,10 +62,4 @@ img {
   display: block;
   object-fit: contain;
   object-position: center;
-}
-
-section {
-  @include make-spacer('mx', auto);
-
-  max-width: 1366px;
 }

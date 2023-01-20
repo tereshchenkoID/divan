@@ -1,13 +1,11 @@
 import style from './index.module.scss';
 
-const Logo = () => {
+const Container = ({children}) => {
     return (
-        <a
-            href={"./"}
-            className={style.block}
-            aria-label={"Logo"}
-        />
+        <div className={style.block}>
+            {children}
+        </div>
     );
 }
 
-export default Logo;
+export default Container;

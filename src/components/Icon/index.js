@@ -1,15 +1,13 @@
-import {NavLink} from "react-router-dom";
-
 import style from './index.module.scss';
 
-const Logo = () => {
+import icon from './icon.svg';
+
+const Icon = ({id}) => {
     return (
-        <NavLink
-            to={'/'}
-            className={style.block}
-            aria-label={'Home'}
-        />
+        <svg className={style.block}>
+            <use xlinkHref={`${icon}#${id}`} />
+        </svg>
     );
 }
 
-export default Logo;
+export default Icon;

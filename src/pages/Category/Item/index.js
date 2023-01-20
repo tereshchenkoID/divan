@@ -1,16 +1,18 @@
+import {NavLink} from "react-router-dom";
+
 import style from './index.module.scss';
 
-const Category = ({data}) => {
-    console.log(data)
+const Item = ({data}) => {
 
     return (
-        <a
-            href="#"
+        <NavLink
+            to={`/${data._sid}/${data._rcid}/${data.currentseason}/overview`}
             className={style.block}
+            aria-label={data.na}
         >
             <span>{data.name}</span>
-        </a>
+        </NavLink>
     );
 }
 
-export default Category;
+export default Item;

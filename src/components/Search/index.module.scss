@@ -1,8 +1,35 @@
-@import "../../scss/config";
+@import "scss/config";
 
 .block {
-  @include size(150px, 40px);
+  @include size(100%, 45px);
 
-  display: block;
-  background-color: rgba(0, 0, 0, 0.5);
+  position: relative;
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+
+.icon {
+  @include absolute-center-left(15px);
+  @include size(29px);
+
+  svg {
+    fill: var(--sub-text);
+  }
+}
+
+.field {
+  @include size(100%);
+  @include make-spacer('pl', 11);
+
+  border: 0;
+  background-color: transparent;
+  color: var(--text-for-material);
+
+  &:focus {
+    outline: 0;
+  }
+
+  &::placeholder {
+    color: var(--sub-text);
+  }
 }

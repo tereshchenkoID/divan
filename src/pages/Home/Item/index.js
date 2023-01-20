@@ -2,20 +2,22 @@ import {NavLink} from "react-router-dom";
 
 import style from './index.module.scss';
 
-const Category = ({id, text}) => {
+import Icon from "components/Icon";
+
+const Item = ({data}) => {
 
     return (
         <NavLink
-            to={`/${id}`}
+            to={`/${data._id}`}
             className={style.block}
-            aria-label={text}
+            aria-label={data.name}
         >
             <span className={style.icon}>
-                <img src={`./img/categories/${id}.svg`} alt={text} />
+                <Icon id={`sport-${data._id}`} />
             </span>
-            <span className={style.text}>{text}</span>
+            <span className={style.text}>{data.name}</span>
         </NavLink>
     );
 }
 
-export default Category;
+export default Item;

@@ -1,12 +1,15 @@
+import {NavLink} from "react-router-dom";
+
 import style from './index.module.scss';
 
-const Navigation = () => {
+const Logo = () => {
     return (
-        <nav className={style.block}>
-            <div className={style.top}>Top</div>
-            <div className={style.bottom}>Bottom</div>
-        </nav>
+        <NavLink
+            to={'/'}
+            className={style.block}
+            aria-label={'Home'}
+        />
     );
 }
 
-export default Navigation;
+export default Logo;

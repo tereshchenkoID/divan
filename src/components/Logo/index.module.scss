@@ -1,11 +1,8 @@
+@import "scss/config";
+
 .block {
-  border: 1px solid red;
-}
+  @include size(150px, 40px);
 
-.top {
-
-}
-
-.bottom {
-  
+  display: block;
+  background-color: rgba(0, 0, 0, 0.5);
 }

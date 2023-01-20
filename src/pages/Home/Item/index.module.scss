@@ -1,26 +1,21 @@
-@import "../../../scss/config";
+@import "scss/config";
 
 .block {
   @include make-spacer('py', 3);
   @include make-spacer('px', 4);
   @include flex($align-items: center, $direction: column);
 
-  background-color: var(--color-white);
-  color: var(--color-primary);
+  background-color: var(--material);
 
   &:hover {
-    background-color: var(--color-secondary);
-    border-color: var(--color-primary);
+    background-color: var(--primary);
+    color: var(--text-for-material);
   }
 }
 
 .icon {
   @include make-spacer('mb', 2);
   @include size(40px);
-
-  svg {
-    fill: currentColor;
-  }
 }
 
 .text {

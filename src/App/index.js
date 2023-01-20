@@ -1,25 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import {Suspense} from "react";
+import {Routes, Route, useParams} from "react-router-dom";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import {router} from "../router";
+
+import Loader from "../components/Loader";
+import Navigation from "../components/Navigation";
+
+import style from './index.module.scss';
+
+const App = () => {
+
+    return (
+        <div data-theme={'dark'}>
+            <Navigation />
+            <main className={style.main}>
+                <Suspense fallback={<Loader />}>
+                    <Routes>
+                        {
+                            router.map(item =>
+                                <Route
+                                    key={new Date().getTime()}
+                                    path={item.path} element = {item.element}
+                                />
+                            )
+                        }
+                    </Routes>
+                </Suspense>
+            </main>
+        </div>
+    );
 }
 
 export default App;

@@ -1,7 +1,6 @@
 :root {
-  --font-size: 14px;
+  --font-size: 16px;
   --font-family: 'Roboto', serif;
-  --font-family-alt: 'Libre Baskerville', serif;
 
   --line-height: 1.5;
 
@@ -17,7 +16,7 @@ h4,
 h5,
 h6 {
   margin: 0;
-  color: var(--color-text);
+  color: var(--sub-text);
   font-family: var(--font-family);
   font-weight: var(--typography-bold);
   line-height: 1.15;

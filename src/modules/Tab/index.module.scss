@@ -1,8 +1,126 @@
-@import "../../scss/config";
+@import "scss/config";
 
 .block {
-  @include size(150px, 40px);
+  @include size(100%, 46px);
+  @include flex;
 
-  display: block;
-  background-color: rgba(0, 0, 0, 0.5);
+  position: relative;
+}
+
+.select,
+.link {
+  @include make-spacer('px', 3);
+  @include flex($align-items: center);
+
+  position: relative;
+  cursor: pointer;
+  height: 100%;
+  white-space: nowrap;
+
+  svg {
+    @include make-spacer('mr', 2);
+    @include size(20px);
+
+    fill: currentColor;
+  }
+}
+
+.select {
+  width: 100%;
+
+  @include media-breakpoint-up(md) {
+    display: none;
+  }
+}
+
+.text {
+  flex-grow: 1;
+}
+
+.link {
+
+  &:after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    background-color: var(--link);
+    transition: var(--default-transition);
+    width: 0;
+    content: '';
+
+    @include media-breakpoint-up(md) {
+      top: unset;
+      right: 0;
+      height: 4px;
+    }
+  }
+
+  &:hover {
+    color: var(--text-for-material);
+  }
+
+  &.active {
+
+    &::after {
+      width: 4px;
+
+      @include media-breakpoint-up(md) {
+        width: 100%;
+      }
+    }
+  }
+}
+
+.dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: var(--material);
+  z-index: 11;
+
+  @include media-breakpoint-up(md) {
+    @include flex($direction: row);
+
+    position: static;
+  }
+
+  .link {
+    @include size(100%, 40px);
+
+    border-top: 1px solid var(--border);
+
+    @include media-breakpoint-up(md) {
+      border-top: 0;
+      height: 100%;
+    }
+  }
+
+  .icon {
+
+    @include media-breakpoint-up(md) {
+      display: none;
+    }
+  }
+
+  &.active {
+    @include flex($direction: column);
+
+    @include media-breakpoint-up(md) {
+      @include flex($direction: row);
+    }
+  }
+}
+
+.icon {
+  @include size(15px);
+
+  svg {
+    @include size(100%);
+
+    display: block;
+    fill: currentColor;
+  }
 }

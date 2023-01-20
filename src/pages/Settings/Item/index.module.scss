@@ -1,15 +1,16 @@
-@import "../../../scss/config";
+@import "scss/config";
 
 .block {
+  @include size(100%, 45px);
   @include make-spacer('pl', 3);
   @include make-spacer('pr', 2);
   @include flex($align-items: center);
 
   position: relative;
-  height: 45px;
 
   &:hover {
     background-color: var(--primary);
+    color: var(--text-for-material);
 
     &::before {
       width: 4px;

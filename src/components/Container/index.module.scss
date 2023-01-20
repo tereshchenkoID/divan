@@ -1,8 +1,9 @@
-@import "../../scss/config";
+@import "scss/config";
 
 .block {
-  @include size(150px, 40px);
+  @include make-spacer('px', var(--gutter));
+  @include make-spacer('mx', auto);
 
-  display: block;
-  background-color: rgba(0, 0, 0, 0.5);
+  position: relative;
+  max-width: var(--max-width);
 }

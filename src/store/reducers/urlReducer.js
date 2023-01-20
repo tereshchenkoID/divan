@@ -1,23 +1,23 @@
-import { GET_CATEGORY, SET_CATEGORY } from "../actionTypes";
+import { SET_URL, GET_URL } from "../actionTypes";
 
 const initialState = {
-    category: {}
+    url: {}
 };
 
-const categoryReducer = (state = initialState, action) => {
+const urlReducer = (state = initialState, action) => {
     switch (action.type) {
-        case GET_CATEGORY:
+        case GET_URL:
             return {
                 ...state
             };
-        case SET_CATEGORY:
+        case SET_URL:
             return {
                 ...state,
-                category: action.payload
+                url: action.payload
             };
         default:
             return state;
     }
 };
 
-export default categoryReducer;
+export default urlReducer;

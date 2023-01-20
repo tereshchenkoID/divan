@@ -2,14 +2,14 @@ import {useState, useEffect} from "react";
 import {useDispatch} from "react-redux";
 import {useParams} from "react-router-dom";
 
-import {setUrl} from "../../../store/actions/urlAction";
+import {setUrl} from "store/actions/urlAction";
 
-import {getSeason} from "../../../helpers/api";
+import {getSeason} from "helpers/api";
 
 import style from './index.module.scss';
 
-import Loader from "../../../components/Loader";
-import Container from "../../../components/Container";
+import Loader from "components/Loader";
+import Container from "components/Container";
 
 const Overview = () => {
     let url = useParams()
@@ -38,7 +38,7 @@ const Overview = () => {
                         <Loader />
                         :
                         <>
-                            Season
+                            Season Match
                         </>
                 }
             </div>

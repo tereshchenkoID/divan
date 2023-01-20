@@ -1,49 +1,69 @@
 import {useState, useEffect} from "react";
+import {useParams} from "react-router-dom";
+import {useDispatch} from "react-redux";
 
-import axios from 'axios';
+import {setCategory} from "store/actions/categoryAction";
+import {setUrl} from "store/actions/urlAction";
+
+import {getCategory} from "helpers/api";
 
 import style from './index.module.scss';
 
-import Loader from "../../components/Loader";
-import Container from "../../components/Container";
-import Category from "./Category";
+import Loader from "components/Loader";
+import Container from "components/Container";
+import Search from "components/Search";
+import Item from "./Item";
 
-const Home = () => {
-    const [data, setData] = useState({});
-    const [loading, setLoading] = useState(true);
+const Sport = () => {
+    let url = useParams()
+    const dispatch = useDispatch()
+    const [data, setData] = useState({})
+    const [loading, setLoading] = useState(true)
+    const [search, setSearch] = useState('')
 
     useEffect(() => {
-        axios.get(`./json/categories.json`)
-            .then(res => {
-                setData(res.data)
-                setLoading(false)
-            })
+        getCategory(`config_tree_mini/41/0/${url.id}`).then(data => {
+            setData(data.data[0].realcategories)
+            dispatch(setCategory(data.data[0].realcategories))
+            dispatch(setUrl(url))
+            setLoading(false)
+        })
     }, []);
 
+    const searchItems = (data) => {
+        return data.filter(item => item.name.toLowerCase().indexOf(search) !== -1)
+    }
+
     return (
-        <div className={style.block}>
-            <Container>
+        <Container>
+            <div className={style.block}>
                 {
                     loading
                         ?
-                            <Loader />
+                        <Loader />
                         :
+                        <>
+                            <Search
+                                search={search}
+                                setSearch={setSearch}
+                            />
                             <div className={style.list}>
                                 {
-                                    data.RESULTS.map((el, idx) =>
-                                        <div key={idx}>
-                                            <Category
-                                                id={el.ID}
-                                                text={el.NA}
-                                            />
+                                    searchItems(data).map((el, idx) =>
+                                        <div
+                                            className={style.item}
+                                            key={idx}
+                                        >
+                                            <Item data={el} />
                                         </div>
                                     )
                                 }
                             </div>
+                        </>
                 }
-            </Container>
-        </div>
+            </div>
+        </Container>
     );
 }
 
-export default Home;
+export default Sport;

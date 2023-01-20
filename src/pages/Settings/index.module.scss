@@ -1,9 +1,19 @@
-@import "../../scss/config";
+@import "scss/config";
 
-.list {
-  @include make-spacer('py', 4);
+.block {
+  background-color: var(--material);
+}
 
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  grid-gap: 10px;
+.item {
+  border-top: 1px solid var(--border);
+  border-left: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+
+  &:first-child {
+    border-top: 0;
+  }
+
+  &:last-child {
+    border-bottom: 1px solid var(--border);
+  }
 }

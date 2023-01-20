@@ -1,24 +1,61 @@
-@import "../../scss/config";
+@import "scss/config";
 
 .block {
+  @include flex($direction: column);
+
+  position: absolute;
+  top: calc(100% + 1px);
+  left: 0;
+  right: 0;
+  background-color: var(--material);
+  z-index: 11;
+  box-shadow: 0 2px 2px var(--shadow);
+}
+
+.header {
   @include flex($align-items: center);
+  @include make-spacer('p', 2);
+
+  height: 40px;
+  flex-shrink: 0;
+  text-transform: uppercase;
+  color: var(--text-for-material);
+}
+
+.divider {
+  @include size(100%, 2px);
+
+  background-color: var(--link);
+}
+
+.body {
+  @include make-spacer('pb', 2);
+  @include make-spacer('px', 2);
+  @include flex;
+
+  gap: 10px;
+}
+
+.column {
+  flex: 1;
+  min-width: 30%;
+}
+
+.list {
+  @include scroll;
+
+  border-bottom: 1px solid var(--border);
+  border-left: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+  min-height: 300px;
+  max-height: 300px;
 }
 
 .item {
-  position: relative;
-  color: var(--color-white);
-  white-space: nowrap;
-
-  &::after {
-    @include make-spacer('mx', 2);
-
-    content: '/';
-  }
+  display: block;
+  border-bottom: 1px solid var(--border);
 
   &:last-child {
-
-    &::after {
-      display: none;
-    }
+    border-bottom: 0;
   }
 }

@@ -1,10 +1,10 @@
-import { SET_BREADCRUMBS } from "../actionTypes";
+import { SET_SPORT } from "../actionTypes";
 
-const setBreadcrumbs = (data) => {
+const setSport = (data) => {
     return {
-        type: SET_BREADCRUMBS,
+        type: SET_SPORT,
         payload: data
     };
 };
 
-export { setBreadcrumbs };
+export { setSport };
