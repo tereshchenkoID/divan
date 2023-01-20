@@ -1,0 +1,28 @@
+@import "../../../scss/config";
+
+.block {
+  @include make-spacer('py', 3);
+  @include make-spacer('px', 4);
+  @include flex($align-items: center, $direction: column);
+
+  background-color: var(--color-white);
+  color: var(--color-primary);
+
+  &:hover {
+    background-color: var(--color-secondary);
+    border-color: var(--color-primary);
+  }
+}
+
+.icon {
+  @include make-spacer('mb', 2);
+  @include size(40px);
+
+  svg {
+    fill: currentColor;
+  }
+}
+
+.text {
+  @include ellipsis;
+}

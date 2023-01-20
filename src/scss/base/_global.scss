@@ -1,0 +1,72 @@
+*,
+::after,
+::before {
+  box-sizing: border-box;
+}
+
+body {
+  @include smooth-font;
+
+  min-width: var(--min-width);
+  min-height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background-color: var(--color-white);
+  color: var(--color-text);
+  line-height: var(--line-height);
+  font-family: var(--font-family);
+  font-size: var(--font-size);
+  font-weight: var(--typography-regular);
+  letter-spacing: 3px;
+}
+
+hr {
+  @include make-spacer('m', 0);
+
+  border: 0;
+}
+
+menu {
+  @include make-spacer('p', 0);
+}
+
+button,
+a {
+  @include transition(all);
+
+  color: var(--color-text);
+
+  &:focus {
+    outline: none;
+  }
+}
+
+button {
+  @include reset-button;
+}
+
+a {
+  cursor: pointer;
+  text-decoration: none;
+}
+
+p {
+  @include make-spacer(m, 0);
+  @include make-spacer(p, 0);
+}
+
+picture,
+svg,
+img {
+  @include size(100%);
+
+  display: block;
+  object-fit: contain;
+  object-position: center;
+}
+
+section {
+  @include make-spacer('mx', auto);
+
+  max-width: 1366px;
+}

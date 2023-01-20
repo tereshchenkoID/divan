@@ -1,0 +1,9 @@
+@import "../../scss/config";
+
+.list {
+  @include make-spacer('py', 4);
+
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  grid-gap: 10px;
+}

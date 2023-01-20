@@ -1,0 +1,19 @@
+@import "../../../scss/config";
+
+.block {
+  background-color: var(--material);
+}
+
+.item {
+  border-top: 1px solid var(--border);
+  border-left: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+
+  &:first-child {
+    border-top: 0;
+  }
+
+  &:last-child {
+    border-bottom: 1px solid var(--border);
+  }
+}
