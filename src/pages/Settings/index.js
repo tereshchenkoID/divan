@@ -9,7 +9,7 @@ import Container from "components/Container";
 import Search from "components/Search";
 import Item from "./Item";
 
-const Home = () => {
+const Settings = () => {
     const [data, setData] = useState({})
     const [loading, setLoading] = useState(true)
     const [search, setSearch] = useState('')
@@ -57,4 +57,4 @@ const Home = () => {
     );
 }
 
-export default Home;
+export default Settings;

@@ -8,7 +8,9 @@ const Logo = () => {
             to={'/'}
             className={style.block}
             aria-label={'Home'}
-        />
+        >
+            Statistics
+        </NavLink>
     );
 }
 

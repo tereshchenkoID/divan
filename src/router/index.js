@@ -6,13 +6,13 @@ const Settings = lazy(() => import("../pages/Settings"))
 const Category = lazy(() => import("../pages/Category"))
 
 const OverviewLeague = lazy(() => import("../pages/league/Overview"))
-const StandingsLeague = lazy(() => import("../pages/league/Standings"))
+const TablesLeague = lazy(() => import("../pages/league/Tables"))
 const TeamsLeague = lazy(() => import("../pages/league/Teams"))
 const ArchiveLeague = lazy(() => import("../pages/league/Archive"))
 
 const OverviewMatch = lazy(() => import("../pages/match/Overview"))
 const HeadToHeadMatch = lazy(() => import("../pages/match/HeadToHead"))
-const StandingsMatch = lazy(() => import("../pages/match/Standings"))
+const TablesMatch = lazy(() => import("../pages/match/Tables"))
 const ArchiveMatch = lazy(() => import("../pages/match/Archive"))
 
 export const router = [
@@ -33,8 +33,8 @@ export const router = [
         element: (<OverviewLeague />)
     },
     {
-        path: "/:id/:category/:league/standings",
-        element: (<StandingsLeague />)
+        path: "/:id/:category/:league/tables",
+        element: (<TablesLeague />)
     },
     {
         path: "/:id/:category/:league/teams",
@@ -53,8 +53,8 @@ export const router = [
         element: (<HeadToHeadMatch />)
     },
     {
-        path: "/:id/:league/standings",
-        element: (<StandingsMatch />)
+        path: "/:id/:league/tables",
+        element: (<TablesMatch />)
     },
     {
         path: "/:id/:league/archive",

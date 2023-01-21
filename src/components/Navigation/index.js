@@ -1,5 +1,5 @@
 import {NavLink} from "react-router-dom";
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {useSelector} from "react-redux";
 
 import style from './index.module.scss';
@@ -15,6 +15,7 @@ const Navigation = () => {
     const {url} = useSelector((state) => state.url);
     const [toggle, setToggle] = useState(false)
     const [tab, setTab] = useState(false)
+    const buttonRef = useRef(null)
 
     useEffect(() => {
         setTab(url.league)
@@ -31,6 +32,7 @@ const Navigation = () => {
                 <Container>
                     <div className={style.options}>
                         <button
+                            ref={buttonRef}
                             className={style.toggle}
                             onClick={() => {
                                 setToggle(!toggle)
@@ -82,6 +84,7 @@ const Navigation = () => {
                 <Dropdown
                     data={toggle}
                     action={setToggle}
+                    buttonRef={buttonRef}
                 />
             </Container>
         </nav>

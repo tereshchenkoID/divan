@@ -1,18 +1,19 @@
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {NavLink} from "react-router-dom";
 
 import {setSport} from "store/actions/sportAction";
+import {setUrl} from "store/actions/urlAction";
 
-import {getCategory, getSport} from "helpers/api";
 import checkData from "helpers/checkData";
+import {getCategory, getSport} from "helpers/api";
 
 import style from './index.module.scss';
 
 import Search from "components/Search";
 import Item from "./Item";
 
-const Dropdown = ({data, action}) => {
+const Dropdown = ({data, action, buttonRef}) => {
     const dispatch = useDispatch()
     const {sport} = useSelector((state) => state.sport);
     const [category, setCategory] = useState([])
@@ -21,6 +22,8 @@ const Dropdown = ({data, action}) => {
     const [searchSport, setSearchSport] = useState('')
     const [searchCategory, setSearchCategory] = useState('')
     const [searchLeague, setSearchLeague] = useState('')
+
+    const blockRef = useRef(null)
 
     useEffect(() => {
         sport.length === 0 && fetchSport()
@@ -33,6 +36,31 @@ const Dropdown = ({data, action}) => {
         setCategory([])
         setLeague({})
         action(false)
+   }
+
+    const useOutsideClick = (elementRef, handler, attached = true) => {
+
+        useEffect(() => {
+            if (!attached) return;
+
+            const handleClick = (e) => {
+
+                if (e.target === buttonRef.current) return;
+                if (!elementRef.current && !buttonRef.current) return
+                if (!elementRef.current.contains(e.target)) {
+                    handler()
+
+                    resetFilter()
+                }
+            }
+
+            document.addEventListener('click', handleClick)
+
+            return () => {
+                document.removeEventListener('click', handleClick)
+            }
+
+        }, [elementRef, handler, attached])
     }
 
     const fetchSport = () => {
@@ -59,9 +87,12 @@ const Dropdown = ({data, action}) => {
         return data.filter(item => item.name.toLowerCase().indexOf(search) !== -1)
     }
 
+    useOutsideClick(blockRef, action, data)
+
+    if (!data) return null;
+
     return (
-        data &&
-        <div className={style.block}>
+        <div className={style.block} ref={blockRef}>
             <div className={style.body}>
                 <div className={style.column}>
                     <div className={style.header}>Sports</div>
@@ -136,6 +167,11 @@ const Dropdown = ({data, action}) => {
                                         key={idx}
                                         aria-label={data.name}
                                         onClick={() => {
+                                            dispatch(setUrl({
+                                                id: el._sid,
+                                                category: el._rcid,
+                                                league: el.currentseason
+                                            }))
                                             resetFilter()
                                         }}
                                     >

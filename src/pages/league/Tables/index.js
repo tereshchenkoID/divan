@@ -9,7 +9,7 @@ import style from './index.module.scss';
 import Loader from "components/Loader";
 import Container from "components/Container";
 
-const Standings = () => {
+const Tables = () => {
     let url = useParams()
     const dispatch = useDispatch()
     const [loading, setLoading] = useState(false)
@@ -27,7 +27,7 @@ const Standings = () => {
                             <Loader />
                         :
                             <div>
-                                Standings Match
+                                Tables League
                             </div>
                 }
             </Container>
@@ -35,4 +35,4 @@ const Standings = () => {
     );
 }
 
-export default Standings;
+export default Tables;

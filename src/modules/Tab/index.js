@@ -1,35 +1,46 @@
 import {NavLink} from "react-router-dom";
 import {useState} from "react";
+
 import classNames from "classnames";
 
 import style from './index.module.scss';
 
 import Icon from "components/Icon";
 
-const links = [
+const matchLinks = [
     {
         text: 'Overview',
-        icon: 'overview',
         path: 'overview'
     },
-    // {
-    //     text: 'Head to Head',
-    //     icon: 'h2h',
-    //     path: 'h2h'
-    // },
+    {
+        text: 'Head to Head',
+        path: 'h2h'
+    },
     {
         text: 'Tables',
-        icon: 'tables',
-        path: 'standings'
+        path: 'tables'
+    },
+    {
+        text: 'Archive',
+        path: 'archive'
+    }
+]
+
+const leagueLinks = [
+    {
+        text: 'Overview',
+        path: 'overview'
+    },
+    {
+        text: 'Tables',
+        path: 'tables'
     },
     {
         text: 'Teams',
-        icon: 'teams',
         path: 'teams'
     },
     {
         text: 'Archive',
-        icon: 'archive',
         path: 'archive'
     }
 ]
@@ -38,6 +49,8 @@ const Tab = ({url}) => {
     const [select, setSelect] = useState('Overview')
     const [icon, setIcon] = useState('overview')
     const [toggle, setToggle] = useState(false)
+
+    const links = url.category ? leagueLinks : matchLinks
 
     const handleClick = (text, icon) => {
         setSelect(text)
@@ -50,6 +63,17 @@ const Tab = ({url}) => {
         setIcon(icon)
 
         return 'active'
+    }
+
+    const setUrl = (path) => {
+        let a = ''
+
+        // eslint-disable-next-line array-callback-return
+        Object.keys(url).map(key => {
+            a += `/${url[key]}`
+        })
+
+        return `${a}/${path}`
     }
 
     return (
@@ -71,7 +95,7 @@ const Tab = ({url}) => {
                     links.map((el, idx) =>
                         <NavLink
                             key={idx}
-                            to={`/${url.id}/${url.category}/${url.league}/${el.path}`}
+                            to={setUrl(el.path)}
                             className={({ isActive }) =>
                                 classNames(
                                     isActive && style[setDefault(el.text, el.icon)],
@@ -81,7 +105,7 @@ const Tab = ({url}) => {
                             onClick={() => {handleClick(el.text, el.icon)}}
                             aria-label={el.text}
                         >
-                            <Icon id={el.icon}/>
+                            <Icon id={el.path}/>
                             <span className={style.text}>{el.text}</span>
                             <span className={style.icon}>
                                 <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">

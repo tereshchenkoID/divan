@@ -1,10 +1,10 @@
 import {Suspense} from "react";
-import {Routes, Route, useParams} from "react-router-dom";
+import {Routes, Route} from "react-router-dom";
 
-import {router} from "../router";
+import {router} from "router";
 
-import Loader from "../components/Loader";
-import Navigation from "../components/Navigation";
+import Loader from "components/Loader";
+import Navigation from "components/Navigation";
 
 import style from './index.module.scss';
 

@@ -11,6 +11,7 @@ const setLink = (data, i) => {
         a += `/${data[key]}`
         if (key === 'league') a += '/overview'
     })
+
     return a
 }
 

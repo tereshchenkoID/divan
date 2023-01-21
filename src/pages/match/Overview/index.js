@@ -14,18 +14,21 @@ import Container from "components/Container";
 const Overview = () => {
     let url = useParams()
     const [data, setData] = useState({})
-    const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(false)
     const dispatch = useDispatch()
 
     useEffect(() => {
+        dispatch(setUrl(url))
 
-        getSeason(`stats_season_overunder/${url.league}`).then(data => {
-            setData(data.data[0])
-            setLoading(false)
-            dispatch(setUrl(url))
+        console.log(url)
 
-            // console.log(data)
-        })
+        // getSeason(`stats_season_overunder/${url.league}`).then(data => {
+        //     setData(data.data[0])
+        //     setLoading(false)
+        //     dispatch(setUrl(url))
+        //
+        //     // console.log(data)
+        // })
     }, []);
 
 
