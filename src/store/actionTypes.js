@@ -1,8 +1,11 @@
-export const SET_SPORT = "SET_SPORT"
-export const GET_SPORT = "GET_SPORT"
-export const SET_CATEGORY = "SET_CATEGORY"
-export const GET_CATEGORY = "GET_CATEGORY"
-export const SET_URL = "SET_URL"
-export const GET_URL = "GET_URL"
-export const SET_LEAGUE = "SET_LEAGUE"
-export const GET_LEAGUE = "GET_LEAGUE"
+export const types = {
+    DEFAULT: 'DEFAULT',
+    SET_SPORT: 'SET_SPORT',
+    GET_SPORT: 'GET_SPORT',
+    SET_CATEGORY: 'SET_CATEGORY',
+    GET_CATEGORY: 'GET_CATEGORY',
+    SET_URL: 'SET_URL',
+    GET_URL: 'GET_URL',
+    SET_LEAGUE: 'SET_LEAGUE',
+    GET_LEAGUE: 'GET_LEAGUE'
+};

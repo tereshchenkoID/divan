@@ -4,8 +4,6 @@ import {useParams} from "react-router-dom";
 
 import {setUrl} from "store/actions/urlAction";
 
-import {getSeason} from "helpers/api";
-
 import style from './index.module.scss';
 
 import Loader from "components/Loader";

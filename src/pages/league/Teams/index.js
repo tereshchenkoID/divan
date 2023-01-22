@@ -4,13 +4,13 @@ import {useParams} from "react-router-dom";
 
 import {setUrl} from "store/actions/urlAction";
 
-import {getTeams} from "helpers/api";
-
-import style from './index.module.scss';
+import {fetchData} from "helpers/api";
 
 import Loader from "components/Loader";
 import Container from "components/Container";
 import Search from "components/Search";
+
+import style from './index.module.scss';
 
 const Teams = () => {
     let url = useParams()
@@ -20,13 +20,10 @@ const Teams = () => {
     const [search, setSearch] = useState('')
 
     useEffect(() => {
-
-        getTeams(`stats_season_teams2/${url.league}`).then(data => {
-            setData(data.data)
+        fetchData(`stats_season_teams2/${url.league}`).then((data) => {
+            setData(data.doc[0].data)
             setLoading(false)
             dispatch(setUrl(url))
-
-            console.log(data)
         })
     }, []);
 

@@ -1,19 +1,19 @@
 import {lazy} from "react";
 
-const Home = lazy(() => import("../pages/Home"))
-const Sport = lazy(() => import("../pages/Sport"))
-const Settings = lazy(() => import("../pages/Settings"))
-const Category = lazy(() => import("../pages/Category"))
+const Home = lazy(() => import("pages/Home"))
+const Sport = lazy(() => import("pages/Sport"))
+const Settings = lazy(() => import("pages/Settings"))
+const Category = lazy(() => import("pages/Category"))
 
-const OverviewLeague = lazy(() => import("../pages/league/Overview"))
-const TablesLeague = lazy(() => import("../pages/league/Tables"))
-const TeamsLeague = lazy(() => import("../pages/league/Teams"))
-const ArchiveLeague = lazy(() => import("../pages/league/Archive"))
+const OverviewLeague = lazy(() => import("pages/league/Overview"))
+const TablesLeague = lazy(() => import("pages/league/Tables"))
+const TeamsLeague = lazy(() => import("pages/league/Teams"))
+const ArchiveLeague = lazy(() => import("pages/league/Archive"))
 
-const OverviewMatch = lazy(() => import("../pages/match/Overview"))
-const HeadToHeadMatch = lazy(() => import("../pages/match/HeadToHead"))
-const TablesMatch = lazy(() => import("../pages/match/Tables"))
-const ArchiveMatch = lazy(() => import("../pages/match/Archive"))
+const OverviewMatch = lazy(() => import("pages/match/Overview"))
+const HeadToHeadMatch = lazy(() => import("pages/match/HeadToHead"))
+const TablesMatch = lazy(() => import("pages/match/Tables"))
+const ArchiveMatch = lazy(() => import("pages/match/Archive"))
 
 export const router = [
     {

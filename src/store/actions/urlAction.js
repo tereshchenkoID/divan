@@ -1,4 +1,4 @@
-import { SET_URL } from "../actionTypes";
+import { types } from "store/actionTypes";
 
 const setUrl = (data) => {
     const r = () => {
@@ -6,7 +6,7 @@ const setUrl = (data) => {
     }
 
     return {
-        type: SET_URL,
+        type: types.SET_URL,
         payload: data || r
     };
 };

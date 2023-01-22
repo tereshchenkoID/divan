@@ -1,4 +1,4 @@
-import { SET_URL, GET_URL } from "../actionTypes";
+import { types } from "store/actionTypes";
 
 const initialState = {
     url: {}
@@ -6,11 +6,11 @@ const initialState = {
 
 const urlReducer = (state = initialState, action) => {
     switch (action.type) {
-        case GET_URL:
+        case types.GET_URL:
             return {
                 ...state
             };
-        case SET_URL:
+        case types.SET_URL:
             return {
                 ...state,
                 url: action.payload

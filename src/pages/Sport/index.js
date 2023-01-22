@@ -1,32 +1,30 @@
 import {useState, useEffect} from "react";
 import {useParams} from "react-router-dom";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
-import {setCategory} from "store/actions/categoryAction";
 import {setUrl} from "store/actions/urlAction";
-
-import {getCategory} from "helpers/api";
-
-import style from './index.module.scss';
+import {loadCategoryData} from "store/actions/categoryAction";
 
 import Loader from "components/Loader";
 import Container from "components/Container";
 import Search from "components/Search";
 import Item from "./Item";
 
+import style from './index.module.scss';
+
 const Sport = () => {
     let url = useParams()
     const dispatch = useDispatch()
-    const [data, setData] = useState({})
+    const {category} = useSelector((state) => state.category);
     const [loading, setLoading] = useState(true)
     const [search, setSearch] = useState('')
 
     useEffect(() => {
-        getCategory(`config_tree_mini/41/0/${url.id}`).then(data => {
-            setData(data.data[0].realcategories)
-            dispatch(setCategory(data.data[0].realcategories))
-            dispatch(setUrl(url))
-            setLoading(false)
+        dispatch(loadCategoryData(url.id)).then(() => {
+            if (!category) return null;
+            if (category)
+                setLoading(false)
+                dispatch(setUrl(url))
         })
     }, []);
 
@@ -49,7 +47,7 @@ const Sport = () => {
                             />
                             <div className={style.list}>
                                 {
-                                    searchItems(data).map((el, idx) =>
+                                    searchItems(category).map((el, idx) =>
                                         <div
                                             className={style.item}
                                             key={idx}

@@ -1,6 +1,6 @@
 import {useState, useEffect} from "react";
 
-import {getLanguage} from "helpers/api";
+import {fetchData} from "helpers/api";
 
 import style from './index.module.scss';
 
@@ -15,7 +15,7 @@ const Settings = () => {
     const [search, setSearch] = useState('')
 
     useEffect(() => {
-        getLanguage('config_languages/41').then(data => {
+        fetchData('config_languages/41').then((data) => {
             setData(data)
             setLoading(false)
         })

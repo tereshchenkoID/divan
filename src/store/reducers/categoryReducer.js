@@ -1,4 +1,4 @@
-import { GET_CATEGORY, SET_CATEGORY } from "../actionTypes";
+import { types } from "store/actionTypes";
 
 const initialState = {
     category: {}
@@ -6,11 +6,11 @@ const initialState = {
 
 const categoryReducer = (state = initialState, action) => {
     switch (action.type) {
-        case GET_CATEGORY:
+        case types.GET_CATEGORY:
             return {
                 ...state
             };
-        case SET_CATEGORY:
+        case types.SET_CATEGORY:
             return {
                 ...state,
                 category: action.payload

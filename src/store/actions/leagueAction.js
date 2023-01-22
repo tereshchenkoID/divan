@@ -1,10 +1,18 @@
-import { SET_LEAGUE } from "../actionTypes";
+import { types } from "store/actionTypes";
 
-const setLeague = (data) => {
-    return {
-        type: SET_LEAGUE,
-        payload: data
-    };
+import {useRequest} from "hooks/useRequest";
+
+export const loadLeagueData = (id, category) => async dispatch => {
+    const { get } = useRequest();
+
+    try {
+        const data = await get(`config_tree_mini/41/0/${id}/${category}`)
+
+        dispatch({
+            type: types.SET_LEAGUE,
+            payload: data.doc[0].data[0].realcategories[0].uniquetournaments,
+        })
+    } catch (e) {
+        console.log(e)
+    }
 };
-
-export { setLeague };

@@ -2,23 +2,22 @@ import {useEffect, useRef, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {NavLink} from "react-router-dom";
 
-import {setSport} from "store/actions/sportAction";
+import {fetchData} from "helpers/api";
+
 import {setUrl} from "store/actions/urlAction";
-
-import checkData from "helpers/checkData";
-import {getCategory, getSport} from "helpers/api";
-
-import style from './index.module.scss';
+import {loadSportData} from "store/actions/sportAction";
 
 import Search from "components/Search";
 import Item from "./Item";
+
+import style from './index.module.scss';
 
 const Dropdown = ({data, action, buttonRef}) => {
     const dispatch = useDispatch()
     const {sport} = useSelector((state) => state.sport);
     const [category, setCategory] = useState([])
     const [league, setLeague] = useState({})
-
+    const [step, setStep] = useState(0)
     const [searchSport, setSearchSport] = useState('')
     const [searchCategory, setSearchCategory] = useState('')
     const [searchLeague, setSearchLeague] = useState('')
@@ -26,16 +25,17 @@ const Dropdown = ({data, action, buttonRef}) => {
     const blockRef = useRef(null)
 
     useEffect(() => {
-        sport.length === 0 && fetchSport()
+        sport.length === 0 && dispatch(loadSportData())
     }, []);
 
    const resetFilter = () => {
-        setSearchSport('')
-        setSearchCategory('')
-        setSearchLeague('')
-        setCategory([])
-        setLeague({})
-        action(false)
+       setSearchSport('')
+       setSearchCategory('')
+       setSearchLeague('')
+       setStep(0)
+       setCategory([])
+       setLeague({})
+       action(false)
    }
 
     const useOutsideClick = (elementRef, handler, attached = true) => {
@@ -49,7 +49,6 @@ const Dropdown = ({data, action, buttonRef}) => {
                 if (!elementRef.current && !buttonRef.current) return
                 if (!elementRef.current.contains(e.target)) {
                     handler()
-
                     resetFilter()
                 }
             }
@@ -61,26 +60,6 @@ const Dropdown = ({data, action, buttonRef}) => {
             }
 
         }, [elementRef, handler, attached])
-    }
-
-    const fetchSport = () => {
-        getSport(`config_sports/41/0`).then(data => {
-            dispatch(setSport(data.data))
-        })
-    }
-
-    const fetchCategory = (data) => {
-        getCategory(`config_tree_mini/41/0/${data._id}`).then(data => {
-            setCategory(data.data[0].realcategories)
-        })
-    }
-
-    const fetchLeague = (data) => {
-        getCategory(`config_tree_mini/41/0/${data._sid}/${data._id}`).then(data => {
-            console.log(data)
-
-            setLeague(Object.values(data.data[0].realcategories[0].uniquetournaments))
-        })
     }
 
     const searchItems = (data, search) => {
@@ -108,7 +87,10 @@ const Dropdown = ({data, action, buttonRef}) => {
                                     className={style.item}
                                     key={idx}
                                     onClick={() => {
-                                        fetchCategory(el)
+                                        fetchData(`config_tree_mini/41/0/${el._id}`).then((data) => {
+                                            setCategory(data.doc[0].data[0].realcategories)
+                                            setStep(1)
+                                        })
                                     }}
                                 >
                                     <Item
@@ -121,7 +103,7 @@ const Dropdown = ({data, action, buttonRef}) => {
                     </div>
                 </div>
                 {
-                    category.length > 0 &&
+                    step >= 1 &&
                     <div className={style.column}>
                         <div className={style.header}>Region</div>
                         <Search
@@ -136,7 +118,10 @@ const Dropdown = ({data, action, buttonRef}) => {
                                         className={style.item}
                                         key={idx}
                                         onClick={() => {
-                                            fetchLeague(el)
+                                            fetchData(`config_tree_mini/41/0/${el._sid}/${el._id}`).then((data) => {
+                                                setLeague(data.doc[0].data[0].realcategories[0].uniquetournaments,)
+                                                setStep(2)
+                                            })
                                         }}
                                     >
                                         <Item
@@ -150,7 +135,7 @@ const Dropdown = ({data, action, buttonRef}) => {
                     </div>
                 }
                 {
-                    !checkData(league) &&
+                    step >= 2 &&
                     <div className={style.column}>
                         <div className={style.header}>Tournament</div>
                         <Search

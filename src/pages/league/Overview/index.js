@@ -4,12 +4,12 @@ import {useParams} from "react-router-dom";
 
 import {setUrl} from "store/actions/urlAction";
 
-import {getSeason} from "helpers/api";
-
-import style from './index.module.scss';
+import {fetchData} from "helpers/api";
 
 import Loader from "components/Loader";
 import Container from "components/Container";
+
+import style from './index.module.scss';
 
 const Overview = () => {
     let url = useParams()
@@ -18,13 +18,10 @@ const Overview = () => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-
-        getSeason(`stats_season_overunder/${url.league}`).then(data => {
-            setData(data.data[0])
+        fetchData(`stats_season_overunder/${url.league}`).then((data) => {
+            setData(data)
             setLoading(false)
             dispatch(setUrl(url))
-
-            // console.log(data)
         })
     }, []);
 

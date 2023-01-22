@@ -1,4 +1,4 @@
-import { GET_LEAGUE, SET_LEAGUE } from "../actionTypes";
+import { types } from "store/actionTypes";
 
 const initialState = {
     league: {}
@@ -6,11 +6,11 @@ const initialState = {
 
 const leagueReducer = (state = initialState, action) => {
     switch (action.type) {
-        case GET_LEAGUE:
+        case types.GET_LEAGUE:
             return {
                 ...state
             };
-        case SET_LEAGUE:
+        case types.SET_LEAGUE:
             return {
                 ...state,
                 league: action.payload

@@ -2,7 +2,7 @@ import classNames from "classnames";
 
 import style from './index.module.scss';
 
-import Icon from "../../../components/Icon";
+import Icon from "components/Icon";
 
 const Item = ({data, type}) => {
 

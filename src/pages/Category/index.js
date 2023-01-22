@@ -1,32 +1,30 @@
 import {useState, useEffect} from "react";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {useParams} from 'react-router-dom';
 
+import {loadLeagueData} from "store/actions/leagueAction";
 import {setUrl} from "store/actions/urlAction";
-import {setLeague} from "store/actions/leagueAction";
-
-import {getLeague} from "helpers/api";
-
-import style from './index.module.scss';
 
 import Loader from "components/Loader";
 import Container from "components/Container";
 import Search from "components/Search";
 import Item from "./Item";
 
+import style from './index.module.scss';
+
 const Category = () => {
     let url = useParams();
     const dispatch = useDispatch()
-    const [data, setData] = useState({})
+    const {league} = useSelector((state) => state.league);
     const [loading, setLoading] = useState(true)
     const [search, setSearch] = useState('')
 
     useEffect(() => {
-        getLeague(`config_tree_mini/41/0/${url.id}/${url.category}`).then(data => {
-           setData(data.data[0].realcategories[0].uniquetournaments)
-           dispatch(setLeague(Object.values(data.data[0].realcategories[0].uniquetournaments)))
-           dispatch(setUrl(url))
-           setLoading(false)
+        dispatch(loadLeagueData(url.id, url.category)).then(() => {
+            if (!league) return null;
+            if (league)
+                setLoading(false)
+                dispatch(setUrl(url))
         })
     }, []);
 
@@ -49,7 +47,7 @@ const Category = () => {
                                 />
                                 <div className={style.list}>
                                     {
-                                        searchItems(Object.values(data)).map((el, idx) =>
+                                        searchItems(Object.values(league)).map((el, idx) =>
                                             <div
                                                 className={style.item}
                                                 key={idx}
