@@ -2,7 +2,7 @@ import {useTranslation} from "react-i18next";
 
 import style from './index.module.scss';
 
-const Search = ({search, setSearch}) => {
+const Search = ({setSearch}) => {
     const { t } = useTranslation()
 
     const onchangeInput = (data) => {

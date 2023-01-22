@@ -4,11 +4,14 @@ import style from './index.module.scss';
 
 import Icon from "components/Icon";
 
-const Item = ({data, type}) => {
+const Item = ({data, type, active}) => {
 
     return (
         <div className={
-            classNames(style.block)
+            classNames(
+                style.block,
+                active && style.active
+            )
         }
         >
             {

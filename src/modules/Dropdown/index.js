@@ -22,6 +22,10 @@ const Dropdown = ({data, action, buttonRef}) => {
     const [searchCategory, setSearchCategory] = useState('')
     const [searchLeague, setSearchLeague] = useState('')
 
+    const [activeSport, setActiveSport] = useState('')
+    const [activeCategory, setActiveCategory] = useState('')
+    const [activeLeague, setActiveLeague] = useState('')
+
     const blockRef = useRef(null)
 
     useEffect(() => {
@@ -35,6 +39,10 @@ const Dropdown = ({data, action, buttonRef}) => {
        setStep(0)
        setCategory([])
        setLeague({})
+
+       setActiveSport('')
+       setActiveCategory('')
+       setActiveLeague('')
        action(false)
    }
 
@@ -75,10 +83,7 @@ const Dropdown = ({data, action, buttonRef}) => {
             <div className={style.body}>
                 <div className={style.column}>
                     <div className={style.header}>Sports</div>
-                    <Search
-                        search={searchSport}
-                        setSearch={setSearchSport}
-                    />
+                    <Search setSearch={setSearchSport} />
                     <hr className={style.divider}/>
                     <div className={style.list}>
                         {
@@ -87,6 +92,9 @@ const Dropdown = ({data, action, buttonRef}) => {
                                     className={style.item}
                                     key={idx}
                                     onClick={() => {
+                                        setActiveSport(idx)
+                                        setActiveCategory('')
+                                        setActiveLeague('')
                                         fetchData(`config_tree_mini/41/0/${el._id}`).then((data) => {
                                             setCategory(data.doc[0].data[0].realcategories)
                                             setStep(1)
@@ -96,6 +104,7 @@ const Dropdown = ({data, action, buttonRef}) => {
                                     <Item
                                         data={el}
                                         type={0}
+                                        active={activeSport === idx}
                                     />
                                 </div>
                             )
@@ -106,10 +115,7 @@ const Dropdown = ({data, action, buttonRef}) => {
                     step >= 1 &&
                     <div className={style.column}>
                         <div className={style.header}>Region</div>
-                        <Search
-                            search={searchCategory}
-                            setSearch={setSearchCategory}
-                        />
+                        <Search setSearch={setSearchCategory} />
                         <hr className={style.divider}/>
                         <div className={style.list}>
                             {
@@ -118,6 +124,8 @@ const Dropdown = ({data, action, buttonRef}) => {
                                         className={style.item}
                                         key={idx}
                                         onClick={() => {
+                                            setActiveCategory(idx)
+                                            setActiveLeague('')
                                             fetchData(`config_tree_mini/41/0/${el._sid}/${el._id}`).then((data) => {
                                                 setLeague(data.doc[0].data[0].realcategories[0].uniquetournaments,)
                                                 setStep(2)
@@ -127,6 +135,7 @@ const Dropdown = ({data, action, buttonRef}) => {
                                         <Item
                                             data={el}
                                             type={1}
+                                            active={activeCategory === idx}
                                         />
                                     </div>
                                 )
@@ -138,10 +147,7 @@ const Dropdown = ({data, action, buttonRef}) => {
                     step >= 2 &&
                     <div className={style.column}>
                         <div className={style.header}>Tournament</div>
-                        <Search
-                            search={searchLeague}
-                            setSearch={setSearchLeague}
-                        />
+                        <Search setSearch={setSearchLeague} />
                         <hr className={style.divider}/>
                         <div className={style.list}>
                             {
@@ -152,6 +158,7 @@ const Dropdown = ({data, action, buttonRef}) => {
                                         key={idx}
                                         aria-label={data.name}
                                         onClick={() => {
+                                            setActiveLeague(idx)
                                             dispatch(setUrl({
                                                 id: el._sid,
                                                 category: el._rcid,
@@ -163,6 +170,7 @@ const Dropdown = ({data, action, buttonRef}) => {
                                         <Item
                                             data={el}
                                             type={2}
+                                            active={activeLeague === idx}
                                         />
                                     </NavLink>
                                 )

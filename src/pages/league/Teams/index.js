@@ -40,10 +40,7 @@ const Teams = () => {
                         <Loader />
                         :
                         <>
-                            <Search
-                                search={search}
-                                setSearch={setSearch}
-                            />
+                            <Search setSearch={setSearch} />
                             <div className={style.list}>
                                 {
                                     searchItems(data.teams).map((el, idx) =>

@@ -41,10 +41,7 @@ const Category = () => {
                             <Loader />
                         :
                             <>
-                                <Search
-                                    search={search}
-                                    setSearch={setSearch}
-                                />
+                                <Search setSearch={setSearch} />
                                 <div className={style.list}>
                                     {
                                         searchItems(Object.values(league)).map((el, idx) =>

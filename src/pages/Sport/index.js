@@ -41,10 +41,7 @@ const Sport = () => {
                         <Loader />
                         :
                         <>
-                            <Search
-                                search={search}
-                                setSearch={setSearch}
-                            />
+                            <Search setSearch={setSearch} />
                             <div className={style.list}>
                                 {
                                     searchItems(category).map((el, idx) =>

@@ -98,7 +98,7 @@ const Tab = ({url}) => {
                             to={setUrl(el.path)}
                             className={({ isActive }) =>
                                 classNames(
-                                    isActive && style[setDefault(el.text, el.icon)],
+                                    isActive && style[setDefault(el.text, el.path)],
                                     style.link,
                                 )
                             }
