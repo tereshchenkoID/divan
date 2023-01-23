@@ -1,8 +1,7 @@
 import {NavLink} from "react-router-dom";
 import {useEffect, useRef, useState} from "react";
 import {useSelector} from "react-redux";
-
-import style from './index.module.scss';
+import classNames from "classnames";
 
 import Container from "components/Container";
 import Logo from "components/Logo";
@@ -11,26 +10,53 @@ import Breadcrumbs from "modules/Breadcrumbs";
 import Dropdown from "modules/Dropdown";
 import Tab from "modules/Tab";
 
-const Navigation = () => {
+import style from './index.module.scss';
+
+const Navigation = ({action}) => {
     const {url} = useSelector((state) => state.url);
     const [toggle, setToggle] = useState(false)
     const [tab, setTab] = useState(false)
     const buttonRef = useRef(null)
 
     useEffect(() => {
-        setTab(url.league)
+        setTab(url.league || url.match)
     }, [url]);
 
     return (
         <nav className={style.block}>
             <div className={style.top}>
                 <Container>
-                    <Logo />
+                    <div className={classNames(
+                        style.options, style.sm
+                    )}>
+                        <Logo />
+                        <div className={style.theme}>
+                            <button
+                                type={"button"}
+                                onClick={() => {
+                                    action('light')
+                                }}
+                            >
+                                Light
+                            </button>
+                            <hr/>
+                            <button
+                                type={"button"}
+                                onClick={() => {
+                                    action('dark')
+                                }}
+                            >
+                                Dark
+                            </button>
+                        </div>
+                    </div>
                 </Container>
             </div>
             <div className={style.center}>
                 <Container>
-                    <div className={style.options}>
+                    <div className={classNames(
+                        style.options, style.lg
+                    )}>
                         <button
                             ref={buttonRef}
                             className={style.toggle}

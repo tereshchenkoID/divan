@@ -1,1 +1,119 @@
 @import "scss/config";
+
+.panel {
+  @include make-spacer('mb', 4);
+
+  background-color: var(--material);
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.wrapper,
+.table {
+  @include make-spacer('p', 2);
+}
+
+.table {
+  @include flex($direction: column);
+
+  &.reverse {
+    flex-direction: column-reverse;
+  }
+}
+
+.sort {
+  @include make-spacer('px', 4);
+  @include flex($align-items: center);
+
+  border-bottom: 1px solid var(--border);
+  height: 40px;
+}
+
+.row {
+  @include make-spacer('py', 2);
+  @include make-spacer('py', 0, md);
+
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 5px;
+  align-items: center;
+  min-height: 38px;
+
+  @include media-breakpoint-up(sm) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include media-breakpoint-up(md) {
+    grid-template-columns: repeat(3, 1fr) 30px 50px;
+  }
+
+  &:nth-child(odd) {
+    background-color: var(--primary);
+  }
+}
+
+.cell {
+  @include make-spacer('pl', 2);
+
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.scroll {
+  overflow-y: hidden;
+  overflow-x: auto;
+}
+
+.scoreboard {
+  @include make-spacer('p', 2);
+
+  min-width: 600px;
+
+  & > div {
+    @include make-spacer('px', 2);
+    @include size(100%, 38px);
+    @include flex($align-items: center);
+
+    text-align: center;
+
+    div {
+      @include make-spacer('mx', 1, md);
+
+      flex-shrink: 0;
+      min-width: 50px;
+
+      &:first-child {
+        @include flex($align-items: center);
+        @include make-spacer('ml', 0);
+
+        flex-grow: 1;
+        text-align: left;
+
+        .logo {
+          @include size(20px);
+
+          flex-grow: unset;
+        }
+      }
+
+      &:last-child {
+        @include make-spacer('mr', 0);
+      }
+    }
+
+    &:nth-child(odd) {
+      background-color: var(--primary);
+    }
+  }
+
+  p {
+    color: var(--amber);
+  }
+
+  svg {
+    @include make-spacer('mx', auto);
+    @include size(24px);
+  }
+}

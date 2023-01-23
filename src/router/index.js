@@ -45,19 +45,19 @@ export const router = [
         element: (<ArchiveLeague />)
     },
     {
-        path: "/:id/:league/overview",
+        path: "/:id/:match/overview",
         element: (<OverviewMatch />)
     },
     {
-        path: "/:id/:league/h2h",
+        path: "/:id/:match/h2h",
         element: (<HeadToHeadMatch />)
     },
     {
-        path: "/:id/:league/tables",
+        path: "/:id/:match/tables",
         element: (<TablesMatch />)
     },
     {
-        path: "/:id/:league/archive",
+        path: "/:id/:match/archive",
         element: (<ArchiveMatch />)
     },
     {

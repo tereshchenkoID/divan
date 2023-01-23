@@ -5,44 +5,24 @@
 }
 
 body {
-  @include scroll;
   @include smooth-font;
 
   min-width: var(--min-width);
-  min-height: 100vh;
   overflow-x: hidden;
-  overflow-y: auto;
-  background-color: var(--bg);
-  color: var(--sub-text);
-  line-height: var(--line-height);
-  font-family: var(--font-family);
-  font-size: var(--font-size);
-  font-weight: var(--typography-regular);
-}
-
-hr {
-  @include make-spacer('m', 0);
-
-  border: 0;
 }
 
 menu {
   @include make-spacer('p', 0);
 }
 
-button,
-a {
-  @include transition(all);
-
-  color: var(--sub-text);
-
-  &:focus {
-    outline: none;
-  }
-}
-
 button {
   @include reset-button;
+}
+
+hr {
+  @include make-spacer('m', 0);
+
+  border: 0;
 }
 
 a {

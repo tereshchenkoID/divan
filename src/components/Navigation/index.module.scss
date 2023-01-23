@@ -44,8 +44,15 @@
 
 .options {
   display: grid;
-  grid-template-columns: 30px 1fr 150px;
   grid-gap: 10px;
+
+  &.sm {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  &.lg {
+    grid-template-columns: 30px 1fr 150px;
+  }
 }
 
 .meta {
@@ -57,4 +64,16 @@
   @include make-spacer('mx', 4);
 
   background-color: var(--sub-text);
+}
+
+.theme {
+  @include make-spacer('ml', auto);
+  @include flex($align-items: center);
+
+  hr {
+    @include size(1px, 24px);
+    @include make-spacer('mx', 2);
+
+    background-color: var(--sub-text);
+  }
 }
