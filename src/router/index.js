@@ -1,5 +1,6 @@
 import {lazy} from "react";
 
+const Live = lazy(() => import("pages/Live"))
 const Home = lazy(() => import("pages/Home"))
 const Sport = lazy(() => import("pages/Sport"))
 const Settings = lazy(() => import("pages/Settings"))
@@ -16,6 +17,10 @@ const TablesMatch = lazy(() => import("pages/match/Tables"))
 const ArchiveMatch = lazy(() => import("pages/match/Archive"))
 
 export const router = [
+    {
+        path: "/live",
+        element: (<Live />)
+    },
     {
         path: "/",
         element: (<Home />)
@@ -61,7 +66,7 @@ export const router = [
         element: (<ArchiveMatch />)
     },
     {
-        path: "settings",
+        path: "/settings",
         element: (<Settings />)
     },
 ];

@@ -1,0 +1,58 @@
+@import "scss/config";
+
+.list {
+  background-color: var(--material);
+}
+
+.item {
+  @include make-spacer('pl', 3);
+  @include make-spacer('pr', 2);
+  @include flex($align-items: center);
+
+  border-top: 1px solid var(--border);
+  border-left: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+  position: relative;
+  height: 45px;
+  text-transform: capitalize;
+
+  &:first-child {
+    border-top: 0;
+  }
+
+  &:last-child {
+    border-bottom: 1px solid var(--border);
+  }
+
+  &:hover {
+    background-color: var(--primary);
+    color: var(--text-for-material);
+
+    &::before {
+      width: 4px;
+    }
+
+    .icon {
+
+      svg {
+        fill: var(--text-for-material);
+      }
+    }
+  }
+
+  &::before {
+    @include size(0, 100%);
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    background-color: var(--link);
+    content: '';
+  }
+
+  &.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+  }
+}

@@ -5,12 +5,14 @@ import categoryReducer from "./reducers/categoryReducer";
 import sportReducer from "./reducers/sportReducer";
 import urlReducer from "./reducers/urlReducer";
 import leagueReducer from "./reducers/leagueReducer";
+import eventMatchReducer from "./reducers/eventMatchReducer";
 
 const allReducer = combineReducers({
     category: categoryReducer,
     sport: sportReducer,
     league: leagueReducer,
-    url: urlReducer
+    url: urlReducer,
+    eventMatch: eventMatchReducer,
 });
 
 const composeEnhancers = process.env.NODE_ENV !== 'production' && typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : compose;

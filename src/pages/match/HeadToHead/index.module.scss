@@ -1,1 +1,97 @@
 @import "scss/config";
+
+.panel {
+  @include make-spacer('mb', 4);
+
+  background-color: var(--material);
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.table {
+  @include make-spacer('p', 2);
+}
+
+.sort {
+  @include make-spacer('px', 4);
+  @include flex($align-items: center);
+
+  border-bottom: 1px solid var(--border);
+  height: 40px;
+}
+
+.row {
+  @include make-spacer('py', 2);
+  @include make-spacer('py', 0, md);
+
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 5px;
+  align-items: center;
+  min-height: 38px;
+
+  @include media-breakpoint-up(sm) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include media-breakpoint-up(md) {
+    grid-template-columns: repeat(3, 1fr) 30px 50px;
+  }
+
+  &:nth-child(odd) {
+    background-color: var(--primary);
+  }
+}
+
+.cell {
+  overflow: hidden;
+  text-align: center;
+  white-space: nowrap;
+
+  &:nth-child(1) {
+    @include make-spacer('pl', 2);
+
+    @include media-breakpoint-up(md) {
+      text-align: left;
+    }
+  }
+}
+
+.team {
+  display: grid;
+  grid-template-columns: 1fr 20px 1fr;
+  column-gap: 5px;
+
+  span {
+    @include ellipsis();
+
+    overflow: hidden;
+
+    &.l {
+      color: var(--text-for-material);
+    }
+  }
+}
+
+.badge {
+  @include make-spacer('mx', auto);
+  @include flex(center, center);
+  @include size(30px);
+
+  color: var(--white);
+  text-transform: uppercase;
+
+  &.w {
+    background-color: var(--green);
+  }
+
+  &.d {
+    background-color: var(--amber);
+  }
+
+  &.l {
+    background-color: var(--red);
+  }
+}

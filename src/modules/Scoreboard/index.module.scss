@@ -1,0 +1,120 @@
+@import "scss/config";
+
+.block {
+  @include make-spacer('mb', 4);
+
+  text-transform: capitalize;
+}
+
+.head,
+.body {
+  @include make-spacer('px', 2);
+}
+
+.head {
+  @include flex($align-items: center, $direction: column);
+  @include make-spacer('py', 2);
+  @include make-spacer('py', 0, md);
+
+  margin-bottom: 2px;
+  background-color: var(--material);
+  min-height: 45px;
+  color: var(--color-primary);
+
+  @include media-breakpoint-up(md) {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+.body {
+  @include make-spacer('py', 4);
+
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 10px;
+  background-color: var(--material);
+
+  @include media-breakpoint-up(md) {
+    grid-template-columns: 300px 1fr 300px;
+  }
+}
+
+.cell {
+  @include flex(center, center, column);
+
+  min-height: 80px;
+
+  &:last-child {
+    flex-direction: column-reverse;
+
+    @include media-breakpoint-up(md) {
+      flex-direction: column;
+    }
+  }
+}
+
+.logo {
+  @include make-spacer('p', 2);
+  @include size(70px);
+
+  @include media-breakpoint-up(md) {
+    @include size(100px);
+  }
+}
+
+.nickname {
+  @include make-spacer('my', 2);
+
+  font-size: 20px;
+  font-weight: var(--typography-bold);
+  text-align: center;
+}
+
+.wrapper,
+.league,
+.manager {
+  @include flex($justify-content: center, $align-items: center, $wrap: wrap);
+
+  @include media-breakpoint-up(md) {
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+}
+
+.country {
+  @include size(30px, 15px);
+}
+
+.divider {
+  @include size(1px, 15px);
+  @include make-spacer('mx', 2);
+
+  background-color: var(--sub-text);
+}
+
+.icon {
+  @include make-spacer('mr', 1);
+  @include size(18px);
+
+  svg {
+    fill: var(--icon);
+  }
+}
+
+.score {
+  display: grid;
+  grid-template-columns: 1fr 20px 1fr;
+  align-items: center;
+  font-size: 32px;
+  text-align: center;
+  font-weight: var(--typography-bold);
+}
+
+.timer {
+  @include flex(center, center);
+
+  span {
+    margin: 0 1px;
+  }
+}

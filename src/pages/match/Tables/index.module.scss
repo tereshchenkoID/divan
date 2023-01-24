@@ -1,1 +1,117 @@
 @import "scss/config";
+
+.sort {
+  @include flex(center);
+
+  background-color: var(--material);
+  border-bottom: 1px solid var(--border);
+  height: 40px;
+}
+
+.link {
+  @include make-spacer('px', 1);
+  @include make-spacer('px', 4, md);
+  @include make-spacer('mx', 4);
+  @include flex(center, center);
+
+  position: relative;
+  height: 100%;
+
+  @include media-breakpoint-up(md) {
+    font-size: 14px;
+  }
+
+  &::after {
+    @include size(0, 2px);
+
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--link);
+    transition: var(--default-transition);
+    content: '';
+  }
+
+  &:hover {
+    color: var(--text-for-material);
+  }
+
+  &.active {
+    color: var(--text-for-material);
+
+    &::after {
+      width: 100%;
+    }
+  }
+}
+
+.table {
+  @include make-spacer('p', 2);
+
+  background-color: var(--material);
+}
+
+.row {
+  @include make-spacer('py', 2);
+  @include make-spacer('py', 0, md);
+
+  display: grid;
+  grid-template-columns: 30px 1fr repeat(3, 30px) 50px repeat(2, 30px);
+  align-items: center;
+  min-height: 38px;
+  font-size: 12px;
+
+  @include media-breakpoint-up(sm) {
+    grid-template-columns: 50px 1fr repeat(3, 50px) 100px repeat(2, 50px);
+    font-size: 14px;
+  }
+
+  @include media-breakpoint-up(md) {
+    grid-template-columns: 75px 1fr repeat(3, 75px) 100px repeat(2, 75px);
+  }
+
+  &.head {
+    text-transform: capitalize;
+    font-weight: var(--typography-bold);
+
+    @include media-breakpoint-up(md) {
+      font-size: 14px;
+    }
+  }
+
+  &:nth-child(odd) {
+    background-color: var(--primary);
+  }
+}
+
+.cell {
+  text-align: center;
+  overflow: hidden;
+
+  &:nth-child(2) {
+    text-align: left;
+  }
+}
+
+.team {
+  @include ellipsis();
+
+  @include media-breakpoint-up(md) {
+    @include flex($align-items: center);
+  }
+}
+
+.logo {
+  @include make-spacer('mr', 2);
+  @include size(20px);
+
+  flex-shrink: 0;
+
+  img {
+    @include size(100%);
+
+    display: block;
+    object-fit: contain;
+  }
+}
