@@ -9,7 +9,7 @@ const setLink = (data, i) => {
 
     Object.keys(data).splice(0, i + 1).map(key => {
         a += `/${data[key]}`
-        if (key === 'league') a += '/overview'
+        if (key === 'league' || key === 'match') a += '/overview'
     })
 
     return a
@@ -32,7 +32,7 @@ const Breadcrumbs = () => {
                         className={style.item}
                         aria-label={key}
                     >
-                        {url[key]}
+                        <span>{url[key]}</span>
                     </NavLink>
                 )
             }

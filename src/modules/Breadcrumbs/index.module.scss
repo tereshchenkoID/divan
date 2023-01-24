@@ -16,9 +16,19 @@
   }
 
   &:last-child {
+    pointer-events: none;
+    opacity: 0.8;
 
     &::after {
       display: none;
     }
+
+    span {
+      text-decoration: none;
+    }
+  }
+
+  span {
+    text-decoration: underline;
   }
 }
