@@ -12,7 +12,6 @@ import style from './index.module.scss';
 const App = () => {
     const [theme, setTheme] = useState(localStorage.getItem('theme') || 'dark')
 
-
     const handleTheme = (data) => {
         setTheme(data)
         localStorage.setItem('theme', data)
@@ -32,8 +31,9 @@ const App = () => {
                         {
                             router.map(item =>
                                 <Route
-                                    key={new Date().getTime()}
-                                    path={item.path} element = {item.element}
+                                    key = {new Date().getTime()}
+                                    path = {item.path}
+                                    element = {item.element}
                                 />
                             )
                         }

@@ -36,7 +36,6 @@ const Tables = () => {
         league && fetchData(`https://matchtracker.live/api/table/${league}`).then((data) => {
             setData(data.results)
             setLoading(false)
-            console.log(data.results)
         })
 
     }, [event, league]);
