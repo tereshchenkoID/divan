@@ -30,6 +30,22 @@ const Navigation = ({action}) => {
                         style.options, style.sm
                     )}>
                         <Logo />
+                        <menu className={style.menu}>
+                            <NavLink
+                                to='/'
+                                className={style.link}
+                                aria-label={"Live"}
+                            >
+                                Sport
+                            </NavLink>
+                            <NavLink
+                                to='/live'
+                                className={style.link}
+                                aria-label={"Live"}
+                            >
+                                Live
+                            </NavLink>
+                        </menu>
                         <div className={style.theme}>
                             <button
                                 type={"button"}

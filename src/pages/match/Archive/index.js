@@ -27,7 +27,7 @@ const Archive = () => {
                             <Loader />
                         :
                             <div>
-                                Archive Match
+                                Archive
                             </div>
                 }
             </Container>

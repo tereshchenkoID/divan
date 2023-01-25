@@ -18,10 +18,6 @@ const ArchiveMatch = lazy(() => import("pages/match/Archive"))
 
 export const router = [
     {
-        path: "/live",
-        element: (<Live />)
-    },
-    {
         path: "/",
         element: (<Home />)
     },
@@ -69,4 +65,14 @@ export const router = [
         path: "/settings",
         element: (<Settings />)
     },
+    {
+        path: "/live",
+        element: (<Live />)
+    },
+    {
+        path: "*",
+        element: (
+            <Home />
+        )
+    }
 ];

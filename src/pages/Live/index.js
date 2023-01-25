@@ -17,8 +17,6 @@ const Live = () => {
         fetchData(`https://matchtracker.live/mapping/`).then((data) => {
             setData(data)
             setLoading(false)
-
-            console.log(data)
         })
     }, []);
 
@@ -38,7 +36,8 @@ const Live = () => {
                                     aria-label={data.categoryName}
                                     key={idx}
                                 >
-                                    {el.participants.home} - {el.participants.away}
+                                    <span>{el.sportName}: {el.categoryName}, {el.tournamentName}</span>
+                                    <strong>[{el.participants.home} - {el.participants.away}]</strong>
                                 </NavLink>
                             )
                         }

@@ -36,6 +36,7 @@ const Tables = () => {
         league && fetchData(`https://matchtracker.live/api/table/${league}`).then((data) => {
             setData(data.results)
             setLoading(false)
+            console.log(data.results)
         })
 
     }, [event, league]);
@@ -77,6 +78,7 @@ const Tables = () => {
                                 <div className={style.cell}>{t('interface.pts')}</div>
                             </div>
                             {
+                                data[type].tables.length > 0 &&
                                 data[type].tables[0].rows.map((el, idx) =>
                                     <div
                                         key={idx}
