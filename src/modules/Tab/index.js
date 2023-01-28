@@ -1,4 +1,5 @@
 import {NavLink} from "react-router-dom";
+import {useTranslation} from "react-i18next";
 import {useState} from "react";
 
 import classNames from "classnames";
@@ -7,50 +8,55 @@ import style from './index.module.scss';
 
 import Icon from "components/Icon";
 
-const matchLinks = [
-    {
-        text: 'Overview',
-        path: 'overview'
-    },
-    {
-        text: 'Head to Head',
-        path: 'h2h'
-    },
-    {
-        text: 'Tables',
-        path: 'tables'
-    },
-    {
-        text: 'Archive',
-        path: 'archive'
-    }
-]
+const matchLinks = (t) => {
+    return [
+        {
+            text: t(`interface.overview`),
+            path: 'overview'
+        },
+        {
+            text:  t(`interface.h2h`),
+            path: 'h2h'
+        },
+        {
+            text:  t(`interface.archive`),
+            path: 'tables'
+        },
+        {
+            text:  t(`interface.archive`),
+            path: 'archive'
+        }
+    ]
+}
 
-const leagueLinks = [
-    {
-        text: 'Overview',
-        path: 'overview'
-    },
-    {
-        text: 'Tables',
-        path: 'tables'
-    },
-    {
-        text: 'Teams',
-        path: 'teams'
-    },
-    {
-        text: 'Archive',
-        path: 'archive'
-    }
-]
+const leagueLinks = (t) => {
+    return [
+        {
+            text: t(`interface.overview`),
+            path: 'overview'
+        },
+        {
+            text:  t(`interface.league_table`),
+            path: 'tables'
+        },
+        {
+            text:  t(`interface.teams`),
+            path: 'teams'
+        },
+        {
+            text:  t(`interface.archive`),
+            path: 'archive'
+        }
+    ]
+}
 
 const Tab = ({url}) => {
+    const { t } = useTranslation()
     const [select, setSelect] = useState('Overview')
     const [icon, setIcon] = useState('overview')
     const [toggle, setToggle] = useState(false)
 
-    const links = url.category ? leagueLinks : matchLinks
+    const links = url.category ? leagueLinks(t) : matchLinks(t)
 
     const handleClick = (text, icon) => {
         setSelect(text)

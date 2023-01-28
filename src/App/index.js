@@ -24,7 +24,10 @@ const App = () => {
                 style[theme]
             )}
         >
-            <Navigation action={handleTheme} />
+            <Navigation
+                data={theme}
+                action={handleTheme}
+            />
             <main className={style.main}>
                 <Suspense fallback={<Loader />}>
                     <Routes>

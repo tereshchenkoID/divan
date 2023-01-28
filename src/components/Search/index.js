@@ -19,7 +19,7 @@ const Search = ({setSearch}) => {
             <input
                 type={"text"}
                 className={style.field}
-                placeholder={t(`interface.search`)}
+                placeholder={t('interface.search')}
                 onChange={(e) => {
                     onchangeInput(e.target.value)
                 }}

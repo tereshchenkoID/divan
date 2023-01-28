@@ -1,0 +1,73 @@
+@import "scss/config";
+
+.block {
+  @include size(40px, 20px);
+
+  display: block;
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  cursor: pointer;
+
+  .input {
+    @include size(0);
+
+    opacity: 0;
+
+    &:checked + .slide {
+      background-color: var(--link-hover);
+
+      &::before {
+        transform: translateX(20px);
+        background-color: var(--white);
+      }
+    }
+
+    &:checked ~ .icon {
+
+      &.right {
+        color: var(--link-hover);
+      }
+    }
+  }
+
+  .slide {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    transition: all 0.3s;
+    background-color: var(--sub-text);
+    cursor: pointer;
+
+    &::before {
+      @include size(16px);
+
+      position: absolute;
+      bottom: 2px;
+      left: 2px;
+      transition: var(--default-transition);
+      border-radius: 50%;
+      background-color: var(--bg);
+      content: '';
+    }
+  }
+
+  .icon {
+    @include size(14px);
+
+    position: absolute;
+    z-index: 1;
+
+    &.left {
+      @include absolute-center-left(3px);
+    }
+
+    &.right {
+      @include absolute-center-right(3px);
+
+      color: var(--bg);
+    }
+  }
+}

@@ -18,9 +18,10 @@ const Home = () => {
     useEffect(() => {
         dispatch(loadSportData()).then(() => {
             if (!sport) return null;
-            if (sport)
+            if (sport) {
                 setLoading(false)
                 dispatch(setUrl({}))
+            }
         })
     }, []);
 

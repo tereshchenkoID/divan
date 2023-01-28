@@ -9,10 +9,11 @@ import Social from "components/Social";
 import Breadcrumbs from "modules/Breadcrumbs";
 import Dropdown from "modules/Dropdown";
 import Tab from "modules/Tab";
+import Theme from "modules/Theme";
 
 import style from './index.module.scss';
 
-const Navigation = ({action}) => {
+const Navigation = ({data, action}) => {
     const {url} = useSelector((state) => state.url);
     const [toggle, setToggle] = useState(false)
     const [tab, setTab] = useState(false)
@@ -47,23 +48,10 @@ const Navigation = ({action}) => {
                             </NavLink>
                         </menu>
                         <div className={style.theme}>
-                            <button
-                                type={"button"}
-                                onClick={() => {
-                                    action('light')
-                                }}
-                            >
-                                Light
-                            </button>
-                            <hr/>
-                            <button
-                                type={"button"}
-                                onClick={() => {
-                                    action('dark')
-                                }}
-                            >
-                                Dark
-                            </button>
+                            <Theme
+                                data={data}
+                                action={action}
+                            />
                         </div>
                     </div>
                 </Container>

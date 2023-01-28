@@ -6,7 +6,7 @@
 
 .top,
 .center {
-  @include make-spacer('p', 2);
+  @include make-spacer('py', 2);
 }
 
 .top,
@@ -69,14 +69,6 @@
 
 .theme {
   @include make-spacer('ml', auto);
-  @include flex($align-items: center);
-
-  hr {
-    @include size(1px, 24px);
-    @include make-spacer('mx', 2);
-
-    background-color: var(--sub-text);
-  }
 }
 
 .menu {
