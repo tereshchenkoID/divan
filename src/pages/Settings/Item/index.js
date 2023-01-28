@@ -1,23 +1,25 @@
 import {useTranslation} from "react-i18next";
 import {useNavigate} from "react-router-dom";
+import {useLocalStorage} from "helpers/localStorage";
 
 import style from './index.module.scss';
 
 const Item = ({data}) => {
-    const { i18n } = useTranslation();
-    const navigate = useNavigate();
+    const { i18n } = useTranslation()
+    const {setLocalStorage} = useLocalStorage()
+    const navigate = useNavigate()
 
     const changeLanguage = (language) => {
         i18n.changeLanguage(language);
-        localStorage.setItem('language', language)
+        setLocalStorage('language', language)
+        navigate('/')
     };
 
     return (
         <button
             className={style.block}
             onClick={() => {
-                changeLanguage(data.cc.a2)
-                navigate('/')
+                changeLanguage(data.isocode)
             }}
         >
             <span className={style.icon}>

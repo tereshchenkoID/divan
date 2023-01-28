@@ -1,10 +1,14 @@
 import axios from 'axios'
 
-const server = axios.create({
-  baseURL: `https://stats.fn.sportradar.com/betradar/en/Europe:Berlin/gismo/`,
-})
+import {useLocalStorage} from "helpers/localStorage";
 
 export const useRequest = () => {
+  const {getLocalStorage} = useLocalStorage()
+
+  const server = axios.create({
+    baseURL: `https://stats.fn.sportradar.com/betradar/${getLocalStorage('i18nextLng')}/Europe:Berlin/gismo/`,
+  })
+
   const get = async (url, headers) => {
     try {
       const req = await server({

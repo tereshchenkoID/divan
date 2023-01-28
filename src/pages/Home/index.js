@@ -12,7 +12,7 @@ import style from './index.module.scss';
 
 const Home = () => {
     const dispatch = useDispatch()
-    const {sport} = useSelector((state) => state.sport);
+    const {sport} = useSelector((state) => state.sport)
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
