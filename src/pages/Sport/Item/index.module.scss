@@ -34,11 +34,17 @@
     background-color: var(--link);
     content: '';
   }
+
+  span {
+    @include ellipsis();
+  }
 }
 
 .country,
 .icon {
   @include make-spacer('mr', 2);
+
+  flex-shrink: 0;
 
   svg,
   img {

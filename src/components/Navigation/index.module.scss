@@ -52,12 +52,20 @@
   }
 
   &.lg {
-    grid-template-columns: 30px 1fr 150px;
+    grid-template-columns: 30px 1fr 65px;
+
+    @include media-breakpoint-up(md) {
+      grid-template-columns: 30px 1fr 150px;
+    }
   }
 }
 
 .meta {
   @include flex(flex-end, center);
+}
+
+.breadcrumbs {
+  overflow: hidden;
 }
 
 .divider {
@@ -75,4 +83,12 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
   grid-gap: 10px;
+}
+
+.social {
+  display: none;
+
+  @include media-breakpoint-up(md) {
+    display: block;
+  }
 }

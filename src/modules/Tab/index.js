@@ -1,6 +1,6 @@
+import {useState, useRef, useEffect} from "react";
 import {NavLink} from "react-router-dom";
 import {useTranslation} from "react-i18next";
-import {useState} from "react";
 
 import classNames from "classnames";
 
@@ -52,10 +52,10 @@ const leagueLinks = (t) => {
 
 const Tab = ({url}) => {
     const { t } = useTranslation()
+    const childRef = useRef([])
     const [select, setSelect] = useState('Overview')
     const [icon, setIcon] = useState('overview')
     const [toggle, setToggle] = useState(false)
-
     const links = url.category ? leagueLinks(t) : matchLinks(t)
 
     const handleClick = (text, icon) => {
@@ -67,8 +67,6 @@ const Tab = ({url}) => {
     const setDefault = (text, icon) => {
         setSelect(text)
         setIcon(icon)
-
-        return 'active'
     }
 
     const setUrl = (path) => {
@@ -81,6 +79,15 @@ const Tab = ({url}) => {
 
         return `${a}/${path}`
     }
+
+    useEffect(() => {
+        // eslint-disable-next-line array-callback-return
+        childRef.current.map(ref => {
+            if (ref.className.split(' ').length > 1) {
+                setDefault(ref.dataset.text, ref.dataset.icon)
+            }
+        })
+    }, [childRef])
 
     return (
         <div className={style.block}>
@@ -104,11 +111,14 @@ const Tab = ({url}) => {
                             to={setUrl(el.path)}
                             className={({ isActive }) =>
                                 classNames(
-                                    isActive && style[setDefault(el.text, el.path)],
+                                    isActive && style.active,
                                     style.link,
                                 )
                             }
-                            onClick={() => {handleClick(el.text, el.icon)}}
+                            data-text={el.text}
+                            data-icon={el.path}
+                            ref={el => childRef.current[idx] = el}
+                            onClick={() => {handleClick(el.text, el.path)}}
                             aria-label={el.text}
                         >
                             <Icon id={el.path}/>

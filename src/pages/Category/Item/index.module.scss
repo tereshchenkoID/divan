@@ -27,4 +27,8 @@
     background-color: var(--link);
     content: '';
   }
+
+  span {
+    @include ellipsis();
+  }
 }

@@ -1,8 +1,8 @@
 import {NavLink} from "react-router-dom";
 
-import style from './index.module.scss';
-
 import Icon from "components/Icon";
+
+import style from './index.module.scss';
 
 const Item = ({data}) => {
 

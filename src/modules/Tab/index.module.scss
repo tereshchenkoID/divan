@@ -1,10 +1,13 @@
 @import "scss/config";
 
 .block {
-  @include size(100%, 46px);
   @include flex;
+  @include make-spacer('mx', -3);
+  @include make-spacer('mx', 0);
 
   position: relative;
+
+  height: 56px;
 }
 
 .select,

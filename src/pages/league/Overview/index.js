@@ -18,6 +18,7 @@ const Overview = () => {
     const dispatch = useDispatch()
 
     useEffect(() => {
+
         fetchData(`stats_season_overunder/${url.league}`).then((data) => {
             setData(data)
             setLoading(false)

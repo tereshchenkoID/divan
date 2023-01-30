@@ -1,30 +1,41 @@
 @import "scss/config";
 
 .block {
-  @include flex($align-items: center);
+  @include flex($align-items: center, $wrap: wrap);
 }
 
 .item {
   position: relative;
   color: var(--color-white);
-  white-space: nowrap;
-
-  &::after {
-    @include make-spacer('mx', 2);
-
-    content: '/';
-  }
 
   &:last-child {
     pointer-events: none;
     opacity: 0.8;
 
-    &::after {
-      display: none;
-    }
-
     span {
       text-decoration: none;
+    }
+  }
+
+  &:nth-child(2) {
+
+    &::before {
+      @include make-spacer('mx', 1);
+
+      content: '/';
+    }
+  }
+
+  &:nth-child(3) {
+
+    width: 100%;
+
+    span {
+      @include ellipsis();
+
+      @include media-breakpoint-up(md) {
+        font-size: 18px;
+      }
     }
   }
 

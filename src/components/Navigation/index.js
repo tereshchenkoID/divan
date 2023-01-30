@@ -33,13 +33,6 @@ const Navigation = ({data, action}) => {
                         <Logo />
                         <menu className={style.menu}>
                             <NavLink
-                                to='/'
-                                className={style.link}
-                                aria-label={"Live"}
-                            >
-                                Sport
-                            </NavLink>
-                            <NavLink
                                 to='/live'
                                 className={style.link}
                                 aria-label={"Live"}
@@ -80,11 +73,13 @@ const Navigation = ({data, action}) => {
                                         </svg>
                             }
                         </button>
-                        <div>
+                        <div className={style.breadcrumbs}>
                             <Breadcrumbs />
                         </div>
                         <div className={style.meta}>
-                            <Social />
+                            <div className={style.social}>
+                                <Social />
+                            </div>
                             <hr className={style.divider} />
                             <NavLink
                                 to='/settings'
