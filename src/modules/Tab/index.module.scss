@@ -3,11 +3,9 @@
 .block {
   @include flex;
   @include make-spacer('mx', -3);
-  @include make-spacer('mx', 0);
 
   position: relative;
-
-  height: 56px;
+  height: 46px;
 }
 
 .select,

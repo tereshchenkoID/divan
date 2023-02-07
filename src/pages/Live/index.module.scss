@@ -1,7 +1,23 @@
 @import "scss/config";
 
-.list {
+.panel {
+  @include make-spacer('mb', 4);
+
   background-color: var(--material);
+
+  &:last-child {
+    @include make-spacer('mb', 0);
+  }
+}
+
+.head {
+  @include flex($align-items: center);
+  @include make-spacer('pl', 3);
+
+  border-bottom: 1px solid var(--border);
+  height: 40px;
+  text-transform: uppercase;
+  font-weight: var(--typography-bold);
 }
 
 .item {

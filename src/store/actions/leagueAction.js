@@ -10,7 +10,7 @@ export const loadLeagueData = (id, category) => async dispatch => {
 
         dispatch({
             type: types.SET_LEAGUE,
-            payload: data.doc[0].data[0].realcategories[0].uniquetournaments,
+            payload: data.doc[0].data[0],
         })
     } catch (e) {
         console.log(e)

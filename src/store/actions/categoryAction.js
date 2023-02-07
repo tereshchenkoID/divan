@@ -10,7 +10,7 @@ export const loadCategoryData = (id) => async dispatch => {
 
         dispatch({
             type: types.SET_CATEGORY,
-            payload: data.doc[0].data[0].realcategories,
+            payload: data.doc[0].data[0],
         })
     } catch (e) {
         console.log(e)

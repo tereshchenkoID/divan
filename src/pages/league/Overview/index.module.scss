@@ -1,1 +1,72 @@
 @import "scss/config";
+
+.block {
+  @include make-spacer('pt', 4);
+}
+
+.wrapper {
+  @include make-spacer('mb', 4);
+
+  overflow-x: auto;
+
+  &:last-child {
+    @include make-spacer('mb', 0);
+  }
+}
+
+.title {
+  @include make-spacer('mb', 2);
+
+  text-transform: uppercase;
+}
+
+.table {
+  background-color: var(--material);
+  border: 1px solid var(--border);
+  min-width: 800px;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 45px minmax(150px, 1fr) repeat(4, 45px) 140px 140px 50px 50px;
+  align-items: center;
+  border-bottom: 1px solid var(--border);
+  height: 45px;
+
+  &:nth-child(odd) {
+    background-color: var(--primary);
+  }
+
+  &:last-child {
+    border-bottom: 0;
+  }
+}
+
+.cell {
+  @include make-spacer('px', half);
+  @include flex(center, center);
+
+  text-align: center;
+
+  span {
+    @include ellipsis();
+  }
+
+  &:nth-child(2) {
+    justify-content: flex-start;
+  }
+}
+
+.country {
+  @include size(24px, 16px);
+  @include make-spacer('mr', 2);
+
+  flex-shrink: 0;
+
+  img {
+    @include size(100%);
+
+    display: block;
+    object-fit: cover;
+  }
+}

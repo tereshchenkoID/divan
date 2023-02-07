@@ -1,12 +1,7 @@
 import { types } from "store/actionTypes";
-import {useLocalStorage} from "helpers/localStorage";
-
-
-// eslint-disable-next-line react-hooks/rules-of-hooks
-const {getLocalStorage} = useLocalStorage()
 
 const initialState = {
-    breadcrumbs: JSON.parse(getLocalStorage('breadcrumbs')) || {}
+    breadcrumbs: {}
 };
 
 const breadcrumbsReducer = (state = initialState, action) => {

@@ -1,0 +1,43 @@
+// https://stats.fn.sportradar.com/betradar/ukr/Europe:Berlin/gismo/config_tree_mini/41/0/1/1
+{
+  "doc": [
+    {
+      "data": [
+        {
+          "_id": 1,
+          "name": "Футбол",
+          "realcategories": [
+            {
+              "_id": 1,
+              "_sid": 1,
+              "name": "Англія",
+              "cc": {
+                "_id": 240,
+                "a2": "en",
+                "name": "Англія",
+                "a3": "АНГ",
+                "ioc": "ENG"
+              },
+              "tournaments": [
+                {
+                  "_id": 1,
+                  "_sid": 1,
+                  "_rcid": 1,
+                  "seasonid": 93741,
+                  "name": "Прем'єр-Ліга"
+                },
+                {
+                  "_id": 2,
+                  "_sid": 1,
+                  "_rcid": 1,
+                  "seasonid": 93743,
+                  "name": "Чемпіоншип"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

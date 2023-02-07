@@ -1,0 +1,51 @@
+// https://stats.fn.sportradar.com/betradar/ukr/Europe:Berlin/gismo/config_sports/41/0
+{
+  "doc": [
+    {
+      "data": [
+        {
+          "_id": 1,
+          "name": "Футбол"
+        },
+        {
+          "_id": 5,
+          "name": "Теніс"
+        },
+        {
+          "_id": 4,
+          "name": "Хокей"
+        },
+        {
+          "_id": 2,
+          "_sid": 2,
+          "name": "Баскетбол"
+        },
+        {
+          "_id": 6,
+          "name": "Гандбол"
+        },
+        {
+
+          "_id": 23,
+          "name": "Волейбол"
+        },
+        {
+          "_id": 3,
+          "name": "Бейсбол"
+        },
+        {
+          "_id": 7,
+          "name": "Флорбол"
+        },
+        {
+          "_id": 9,
+          "name": "Гольф"
+        },
+        {
+          "_id": 12,
+          "name": "Регбі"
+        }
+      ]
+    }
+  ]
+}

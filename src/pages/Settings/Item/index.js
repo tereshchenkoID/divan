@@ -12,7 +12,7 @@ const Item = ({data}) => {
     const changeLanguage = (language) => {
         i18n.changeLanguage(language);
         setLocalStorage('language', language)
-        navigate('/')
+        navigate(-1)
     };
 
     return (

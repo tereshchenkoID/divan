@@ -1,10 +1,6 @@
 import { types } from "store/actionTypes";
 
-import set from "helpers/breadcrumbs";
-
-const setBreadcrumbs = (id, name, idx) => {
-    const data = set(id, name, idx)
-
+const setBreadcrumbs = (data) => {
     return {
         type: types.SET_BREADCRUMBS,
         payload: data

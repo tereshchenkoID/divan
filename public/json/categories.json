@@ -1,0 +1,72 @@
+// https://stats.fn.sportradar.com/betradar/ukr/Europe:Berlin/gismo/config_tree_mini/41/0/1
+{
+  "doc": [
+    {
+      "data": [
+        {
+          "_doc": "sport",
+          "_id": 1,
+          "name": "Футбол",
+          "realcategories": [
+            {
+              "_id": 4,
+              "_sid": 1,
+              "name": "Міжнародні змагання",
+              "cc": null
+            },
+            {
+              "_id": 393,
+              "_sid": 1,
+              "name": "Міжнародні клубні змагання",
+              "cc": null
+            },
+            {
+              "_id": 1,
+              "_sid": 1,
+              "name": "Англія",
+              "cc": {
+                "a2": "en",
+                "name": "Англія",
+                "a3": "АНГ",
+                "ioc": "ENG"
+              }
+            },
+            {
+              "_id": 30,
+              "_sid": 1,
+              "name": "Німеччина",
+              "cc": {
+                "a2": "de",
+                "name": "Німеччина",
+                "a3": "НІМ",
+                "ioc": "GER"
+              }
+            },
+            {
+              "_id": 32,
+              "_sid": 1,
+              "name": "Іспанія",
+              "cc": {
+                "a2": "es",
+                "name": "Іспанія",
+                "a3": "ІСП",
+                "ioc": "ESP"
+              }
+            },
+            {
+              "_id": 31,
+              "_sid": 1,
+              "name": "Італія",
+              "cc": {
+                "a2": "it",
+                "name": "Італія",
+                "a3": "ІТА",
+                "ioc": "ITA"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

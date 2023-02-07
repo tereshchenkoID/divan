@@ -2,8 +2,10 @@ import {useState, useEffect} from "react";
 import {useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 
+import checkData from "helpers/checkData";
 import {setUrl} from "store/actions/urlAction";
 import {loadCategoryData} from "store/actions/categoryAction";
+import {setBreadcrumbs} from "store/actions/breadcrumbsAction";
 
 import Loader from "components/Loader";
 import Container from "components/Container";
@@ -21,12 +23,19 @@ const Sport = () => {
 
     useEffect(() => {
         dispatch(loadCategoryData(url.id)).then(() => {
-            if (!category) return null;
-            if (category)
-                setLoading(false)
-                dispatch(setUrl(url))
+            setLoading(false)
         })
-    }, []);
+
+        if (!checkData(category)) {
+            dispatch(setUrl(url))
+            dispatch(setBreadcrumbs({
+                0: {
+                    id: parseInt(category._id, 10),
+                    name: category.name
+                }
+            }))
+        }
+    }, [loading]);
 
     const searchItems = (data) => {
         return data.filter(item => item.name.toLowerCase().indexOf(search) !== -1)
@@ -44,7 +53,7 @@ const Sport = () => {
                             <Search setSearch={setSearch} />
                             <div className={style.list}>
                                 {
-                                    searchItems(category).map((el, idx) =>
+                                    searchItems(category.realcategories).map((el, idx) =>
                                         <div
                                             className={style.item}
                                             key={idx}
