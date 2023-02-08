@@ -1,0 +1,129 @@
+@import "scss/config";
+
+.block {
+  position: relative;
+  min-height: 300px;
+}
+
+.panel {
+  @include make-spacer('mb', 4);
+
+  &:last-child {
+    @include make-spacer('mb', 0);
+  }
+}
+
+.head,
+.footer {
+  @include make-spacer('p', 2);
+}
+
+.head {
+  text-transform: uppercase;
+}
+
+.wrapper {
+  background-color: var(--material);
+}
+
+.tab {
+  @include flex($justify-content: center);
+  @include size(100%, 45px);
+
+  border-bottom: 1px solid var(--border);
+  text-transform: uppercase;
+}
+
+.link {
+  @include make-spacer('px', 4);
+
+  position: relative;
+  height: 100%;
+  text-transform: uppercase;
+
+  &:after {
+    @include size(0, 4px);
+
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--link);
+    transition: var(--default-transition);
+    content: '';
+  }
+
+  &:hover {
+    color: var(--text-for-material);
+  }
+
+  &.active {
+
+    &::after {
+      width: 100%;
+    }
+  }
+}
+
+.body {
+  @include make-spacer('p', 2);
+}
+
+.overflow {
+  overflow-x: auto;
+}
+
+.table {
+  min-width: 800px;
+  border: 1px solid var(--border);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 45px minmax(150px, 1fr) repeat(4, 45px) 140px 140px 50px 50px;
+  align-items: center;
+  border-bottom: 1px solid var(--border);
+  height: 45px;
+
+  &:nth-child(odd) {
+    background-color: var(--primary);
+  }
+
+  &:first-child {
+    font-weight: var(--typography-bold);
+  }
+
+  &:last-child {
+    border-bottom: 0;
+  }
+}
+
+.cell {
+  @include make-spacer('px', half);
+  @include flex(center, center);
+
+  text-align: center;
+  text-transform: capitalize;
+
+  span {
+    @include ellipsis();
+  }
+
+  &:nth-child(2) {
+    justify-content: flex-start;
+  }
+}
+
+.country {
+  @include size(24px, 16px);
+  @include make-spacer('mr', 2);
+
+  flex-shrink: 0;
+
+  img {
+    @include size(100%);
+
+    display: block;
+    object-fit: cover;
+  }
+}

@@ -1,0 +1,73 @@
+@import "scss/config";
+
+.block {
+  @include size(100%);
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: var(--material);
+  z-index: 12;
+}
+
+.wrapper {
+  @include size(100px);
+
+  display: block;
+  position: relative;
+  left: 50%;
+  top: 50%;
+  margin: -75px 0 0 -75px;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  border-top-color: var(--link);
+  animation: spin 2s linear infinite;
+}
+
+.wrapper {
+
+  &:before {
+    top: 5px;
+    left: 5px;
+    right: 5px;
+    bottom: 5px;
+    border: 3px solid transparent;
+    border-top-color: var(--link-hover);
+    animation: spin 3s linear infinite;
+  }
+
+  &:after {
+    top: 15px;
+    left: 15px;
+    right: 15px;
+    bottom: 15px;
+    border: 3px solid transparent;
+    border-top-color: var(--link-disabled);
+    animation: spin 1.5s linear infinite;
+  }
+
+  &::after,
+  &::before {
+    position: absolute;
+    border-radius: 50%;
+    content: '';
+  }
+}
+
+@-webkit-keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

@@ -3,6 +3,7 @@
 .block {
   @include flex;
   @include make-spacer('mx', -3);
+  @include make-spacer('mx', 0, md);
 
   position: relative;
   height: 46px;

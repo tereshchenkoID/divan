@@ -4,12 +4,14 @@
   @include scroll;
 
   background-color: var(--bg);
+  overflow-x: hidden;
+  min-width: var(--min-width);
+  height: 100vh;
   color: var(--sub-text);
   line-height: var(--line-height);
   font-family: var(--font-family);
   font-size: var(--font-size);
   font-weight: var(--typography-regular);
-  height: 100vh;
 
   button,
   a {

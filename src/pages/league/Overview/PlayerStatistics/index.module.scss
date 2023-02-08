@@ -1,0 +1,58 @@
+@import "scss/config";
+
+.block {
+  position: relative;
+}
+
+.wrapper {
+  background-color: var(--material);
+}
+
+.head {
+  @include make-spacer('p', 2);
+
+  text-transform: uppercase;
+}
+
+.body {
+  @include make-spacer('p', 2);
+}
+
+.tab {
+  @include flex($justify-content: center);
+  @include size(100%, 45px);
+
+  border-bottom: 1px solid var(--border);
+  text-transform: uppercase;
+}
+
+.link {
+  @include make-spacer('px', 4);
+
+  position: relative;
+  height: 100%;
+  text-transform: uppercase;
+
+  &:after {
+    @include size(0, 4px);
+
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--link);
+    transition: var(--default-transition);
+    content: '';
+  }
+
+  &:hover {
+    color: var(--text-for-material);
+  }
+
+  &.active {
+
+    &::after {
+      width: 100%;
+    }
+  }
+}
