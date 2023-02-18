@@ -22,8 +22,8 @@ const Sport = () => {
 
     useEffect(() => {
         fetchData(`config_tree/${url.id}`).then((json) => {
-            setData(json.doc[0].data[0])
             dispatch(setUrl(url))
+            setData(json.doc[0].data[0])
             dispatch(setBreadcrumbs({
                 0: {
                     id: parseInt(json.doc[0].data[0]._id, 10),

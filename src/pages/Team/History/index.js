@@ -1,12 +1,11 @@
 import {useState, useEffect} from "react";
 import {useParams} from "react-router-dom";
-
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, ReferenceLine, ResponsiveContainer } from 'recharts';
 
 import {fetchData} from "helpers/api";
 import {useLocalStorage} from "helpers/localStorage";
 
-import Loading from "components/Loading";
+import Loader from "components/Loader";
 
 import style from './index.module.scss';
 
@@ -77,7 +76,7 @@ const History = () => {
             {
                 loading
                     ?
-                        <Loading />
+                        <Loader type={'block'} />
                     :
                         <>
                             <div className={style.head}> ПОЗИЦІЯ КОМАНДИ</div>

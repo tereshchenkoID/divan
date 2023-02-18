@@ -1,6 +1,6 @@
-import {NavLink} from "react-router-dom";
 import {useEffect, useRef, useState} from "react";
 import {useSelector} from "react-redux";
+import {NavLink} from "react-router-dom";
 import classNames from "classnames";
 
 import Container from "components/Container";
@@ -48,6 +48,7 @@ const Navigation = ({data, action}) => {
                         <button
                             ref={buttonRef}
                             className={style.toggle}
+                            aria-label={"Toggle"}
                             onClick={() => {
                                 setToggle(!toggle)
                             }}

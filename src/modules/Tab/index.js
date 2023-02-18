@@ -19,7 +19,7 @@ const matchLinks = (t) => {
             path: 'h2h'
         },
         {
-            text:  t(`interface.archive`),
+            text:  t(`interface.league_table`),
             path: 'tables'
         },
         {

@@ -9,7 +9,7 @@ import {fetchData} from "helpers/api";
 import {setUrl} from "store/actions/urlAction";
 
 import Search from "components/Search";
-import Loading from "components/Loading";
+import Loader from "components/Loader";
 import Item from "./Item";
 
 import style from './index.module.scss';
@@ -84,7 +84,7 @@ const Dropdown = ({data, action, buttonRef}) => {
                 {
                     loading
                     ?
-                        <Loading />
+                        <Loader type={'block'} />
                     :
                         <div className={style.column}>
                             <div className={style.header}>{t('interface.sport')}</div>

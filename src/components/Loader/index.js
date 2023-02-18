@@ -1,9 +1,18 @@
+import classNames from "classnames";
+
 import style from './index.module.scss';
 
-const Loader = () => {
+const Loader = ({type = 'page'}) => {
 
     return (
-        <div className={style.block}>
+        <div
+            className={
+                classNames(
+                    style.block,
+                    style[type]
+                )
+            }
+        >
             <div className={style.wrapper} />
         </div>
     );

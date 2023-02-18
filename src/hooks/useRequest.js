@@ -1,12 +1,14 @@
 import axios from 'axios'
 
+import {hostnames} from "constant/config"
+
 import {useLocalStorage} from "helpers/localStorage";
 
 export const useRequest = () => {
   const {getLocalStorage} = useLocalStorage()
 
   const server = axios.create({
-    baseURL: `https://api.matchtracker.live/${getLocalStorage('i18nextLng')}/`,
+    baseURL: `${hostnames.PROD}/${getLocalStorage('i18nextLng')}/`,
   })
 
   const get = async (url, headers) => {

@@ -9,6 +9,7 @@ const Theme = ({data, action}) => {
             <input
                 type={"checkbox"}
                 className={style.input}
+                aria-label={"Theme"}
                 onChange={() => {
                     action(data === 'light' ? 'dark' : 'light')
                 }}
@@ -16,7 +17,10 @@ const Theme = ({data, action}) => {
             />
             <span className={style.slide} />
             <div className={
-                    classNames(style.icon, style.left)
+                    classNames(
+                        style.icon,
+                        style.left
+                    )
                 }
             >
                 <svg viewBox="0 0 24 24">
@@ -27,7 +31,10 @@ const Theme = ({data, action}) => {
                 </svg>
             </div>
             <div className={
-                    classNames(style.icon, style.right)
+                    classNames(
+                        style.icon,
+                        style.right
+                    )
                 }
             >
                 <svg viewBox="0 0 24 24">

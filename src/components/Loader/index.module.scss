@@ -4,16 +4,29 @@
   @include flex(center, center);
   @include size(100%);
 
-  position: fixed;
   top: 0;
   left: 0;
-  background-color: var(--material);
   z-index: 12;
+  background-color: var(--material);
+
+  &.block {
+    position: absolute;
+
+    .wrapper {
+      @include size(75px);
+    }
+  }
+
+  &.page {
+    position: fixed;
+
+    .wrapper {
+      @include size(rem(100px));
+    }
+  }
 }
 
 .wrapper {
-  @include size(rem(100px));
-
   display: block;
   position: relative;
   border-radius: 50%;
@@ -24,12 +37,19 @@
 
 .wrapper {
 
+  &::after,
+  &::before {
+    position: absolute;
+    border-radius: 50%;
+    border: rem(3px) solid transparent;
+    content: '';
+  }
+
   &:before {
     top: rem(5px);
     left: rem(5px);
     right: rem(5px);
     bottom: rem(5px);
-    border: 3px solid transparent;
     border-top-color: var(--link-hover);
     animation: spin 3s linear infinite;
   }
@@ -39,16 +59,8 @@
     left: rem(15px);
     right: rem(15px);
     bottom: rem(15px);
-    border: 3px solid transparent;
     border-top-color: var(--link-disabled);
     animation: spin 1.5s linear infinite;
-  }
-
-  &::after,
-  &::before {
-    position: absolute;
-    border-radius: 50%;
-    content: '';
   }
 }
 
