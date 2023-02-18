@@ -1,8 +1,5 @@
 @import "scss/config";
 
 .block {
-  @include size(100%);
-
-  display: block;
   fill: currentColor;
 }

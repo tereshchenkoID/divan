@@ -6,7 +6,7 @@ const Item = ({data}) => {
 
     return (
         <NavLink
-            to={`/${data._sid}/${data._rcid}/${data.currentseason}/overview`}
+            to={`/${data._sid}/${data._rcid}/${data.seasonid}/overview`}
             className={style.block}
             aria-label={data.na}
         >

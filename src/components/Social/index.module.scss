@@ -6,7 +6,7 @@
 
 .item {
   @include make-spacer('mx', 1);
-  @include size(24px);
+  @include size(rem(24px));
 
   &:first-child {
     @include make-spacer('ml', 0);

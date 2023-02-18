@@ -1,0 +1,82 @@
+@import "scss/config";
+
+.header,
+.footer {
+  @include make-spacer('p', 2);
+}
+
+.overflow {
+  overflow-y: hidden;
+  overflow-x: auto;
+}
+
+.table {
+  border: 1px solid var(--border);
+  background-color: var(--material);
+  min-width: 850px;
+}
+
+.row {
+  @include flex($align-items: center);
+
+  border-bottom: 1px solid var(--border);
+  height: 45px;
+
+  &:nth-child(odd) {
+    background-color: var(--primary);
+  }
+
+  &:first-child {
+    font-size: 14px;
+    font-weight: var(--typography-bold);
+    text-transform: uppercase;
+    line-height: 1;
+  }
+
+  &:last-child {
+    border-bottom: 0;
+  }
+}
+
+.cell {
+  @include make-spacer('px', 1);
+  @include flex(center, center);
+
+  flex: 1;
+  min-width: 70px;
+  text-align: center;
+  flex-shrink: 0;
+
+  &:nth-child(1) {
+    @include make-spacer('pl', 2);
+
+    min-width: 70px!important;
+    max-width: 70px!important;
+    justify-content: flex-start;
+    text-align: left;
+  }
+
+  &.lg {
+    justify-content: flex-start;
+    min-width: 150px;
+    text-align: left;
+  }
+
+  span {
+    @include ellipsis;
+  }
+}
+
+.country {
+  @include size(24px, 16px);
+  @include make-spacer('mr', 2);
+
+  flex-shrink: 0;
+
+  img {
+    @include size(100%);
+
+    display: block;
+    object-fit: cover;
+  }
+}

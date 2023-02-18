@@ -1,0 +1,95 @@
+@import "scss/config";
+
+.block {
+  position: relative;
+}
+
+.head {
+  @include make-spacer('p', 2);
+
+  text-transform: uppercase;
+}
+
+.wrapper {
+  background-color: var(--material);
+}
+
+.overflow {
+  overflow-x: auto;
+}
+
+.table {
+  min-width: 850px;
+  border: 1px solid var(--border);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: minmax(300px, 1fr) 150px repeat(5, 80px);
+  align-items: center;
+  border-bottom: 1px solid var(--border);
+  height: 45px;
+
+  &:nth-child(odd) {
+    background-color: var(--primary);
+  }
+
+  &:first-child {
+    font-weight: var(--typography-bold);
+  }
+
+  &:last-child {
+    border-bottom: 0;
+  }
+}
+
+.cell {
+  @include make-spacer('px', half);
+  @include flex(center, center);
+
+  text-align: center;
+  text-transform: capitalize;
+
+  span {
+    @include ellipsis();
+  }
+
+  &:nth-child(1) {
+    @include make-spacer('pl', 2);
+
+    justify-content: flex-start;
+  }
+}
+
+.icon {
+  @include size(20px, 30px);
+}
+
+.country {
+  @include size(24px, 16px);
+  @include make-spacer('mr', 2);
+
+  flex-shrink: 0;
+
+  img {
+    @include size(100%);
+
+    display: block;
+    object-fit: cover;
+  }
+}
+
+.meta {
+  display: grid;
+  grid-template-columns: 50px 50px 24px 1fr;
+  align-items: center;
+  grid-gap: 10px;
+  text-align: left;
+
+  div {
+
+    &:nth-child(2) {
+      text-align: center;
+    }
+  }
+}

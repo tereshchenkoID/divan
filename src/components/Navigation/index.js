@@ -31,15 +31,6 @@ const Navigation = ({data, action}) => {
                         style.options, style.sm
                     )}>
                         <Logo />
-                        <menu className={style.menu}>
-                            <NavLink
-                                to='/live'
-                                className={style.link}
-                                aria-label={"Live"}
-                            >
-                                Live
-                            </NavLink>
-                        </menu>
                         <div className={style.theme}>
                             <Theme
                                 data={data}
@@ -106,11 +97,14 @@ const Navigation = ({data, action}) => {
                 </div>
             }
             <Container>
-                <Dropdown
-                    data={toggle}
-                    action={setToggle}
-                    buttonRef={buttonRef}
-                />
+                {
+                    toggle &&
+                    <Dropdown
+                        data={toggle}
+                        action={setToggle}
+                        buttonRef={buttonRef}
+                    />
+                }
             </Container>
         </nav>
     );

@@ -34,7 +34,7 @@
       @include ellipsis();
 
       @include media-breakpoint-up(md) {
-        font-size: 18px;
+        font-size: rem(18px);
       }
     }
   }

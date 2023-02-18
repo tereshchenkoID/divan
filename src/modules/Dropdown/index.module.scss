@@ -10,20 +10,26 @@
   background-color: var(--material);
   z-index: 11;
   box-shadow: 0 2px 2px var(--shadow);
+  min-height: rem(150px);
+
+  @include media-breakpoint-up(md) {
+    left: rem(15px);
+    right: rem(15px);
+  }
 }
 
 .header {
   @include flex($align-items: center);
   @include make-spacer('p', 2);
 
-  height: 40px;
+  height: var(--base-height-sm);
   flex-shrink: 0;
   text-transform: uppercase;
   color: var(--text-for-material);
 }
 
 .divider {
-  @include size(100%, 2px);
+  @include size(100%, rem(2px));
 
   background-color: var(--link);
 }
@@ -33,12 +39,37 @@
   @include make-spacer('px', 2);
   @include flex;
 
-  gap: 10px;
+  gap: rem(10px);
+
+  &.step-1 {
+
+    .column {
+
+      &:nth-child(1) {
+        display: none;
+      }
+    }
+  }
+
+  &.step-2 {
+
+    .column {
+
+      &:nth-child(1),
+      &:nth-child(2) {
+        display: none;
+      }
+    }
+  }
 }
 
 .column {
   flex: 1;
   min-width: 30%;
+
+  @include media-breakpoint-up(lg) {
+    display: block!important;
+  }
 }
 
 .list {
@@ -47,8 +78,8 @@
   border-bottom: 1px solid var(--border);
   border-left: 1px solid var(--border);
   border-right: 1px solid var(--border);
-  min-height: 300px;
-  max-height: 300px;
+  min-height: rem(300px);
+  max-height: rem(300px);
 }
 
 .item {

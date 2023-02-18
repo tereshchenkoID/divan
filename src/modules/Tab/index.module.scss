@@ -6,7 +6,7 @@
   @include make-spacer('mx', 0, md);
 
   position: relative;
-  height: 46px;
+  height: var(--base-height-md);
 }
 
 .select,
@@ -14,14 +14,14 @@
   @include make-spacer('px', 3);
   @include flex($align-items: center);
 
-  position: relative;
   cursor: pointer;
-  height: 100%;
+  position: relative;
   white-space: nowrap;
+  height: 100%;
 
   svg {
     @include make-spacer('mr', 2);
-    @include size(20px);
+    @include size(rem(20px));
 
     fill: currentColor;
   }
@@ -54,7 +54,7 @@
     @include media-breakpoint-up(md) {
       top: unset;
       right: 0;
-      height: 4px;
+      height: rem(4px);
     }
   }
 
@@ -65,7 +65,7 @@
   &.active {
 
     &::after {
-      width: 4px;
+      width: rem(4px);
 
       @include media-breakpoint-up(md) {
         width: 100%;
@@ -90,7 +90,7 @@
   }
 
   .link {
-    @include size(100%, 40px);
+    @include size(100%, var(--base-height-sm));
 
     border-top: 1px solid var(--border);
 
@@ -117,12 +117,9 @@
 }
 
 .icon {
-  @include size(15px);
+  @include size(rem(15px));
 
   svg {
-    @include size(100%);
-
-    display: block;
     fill: currentColor;
   }
 }

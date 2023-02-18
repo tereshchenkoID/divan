@@ -1,20 +1,24 @@
 import {useEffect, useRef, useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
+import {useTranslation} from "react-i18next";
 import {NavLink} from "react-router-dom";
 
-import {fetchData} from "helpers/api";
+import classNames from "classnames";
 
+import {fetchData} from "helpers/api";
 import {setUrl} from "store/actions/urlAction";
-import {loadSportData} from "store/actions/sportAction";
 
 import Search from "components/Search";
+import Loading from "components/Loading";
 import Item from "./Item";
 
 import style from './index.module.scss';
 
 const Dropdown = ({data, action, buttonRef}) => {
     const dispatch = useDispatch()
-    const {sport} = useSelector((state) => state.sport);
+    const { t } = useTranslation()
+    const [loading, setLoading] = useState(true)
+    const [sport, setSport] = useState([])
     const [category, setCategory] = useState([])
     const [league, setLeague] = useState({})
     const [step, setStep] = useState(0)
@@ -29,25 +33,13 @@ const Dropdown = ({data, action, buttonRef}) => {
     const blockRef = useRef(null)
 
     useEffect(() => {
-        sport.length === 0 && dispatch(loadSportData())
+        fetchData('config_sports').then((data) => {
+            setSport(data.doc[0].data)
+            setLoading(false)
+        })
     }, []);
 
-   const resetFilter = () => {
-       setSearchSport('')
-       setSearchCategory('')
-       setSearchLeague('')
-       setStep(0)
-       setCategory([])
-       setLeague({})
-
-       setActiveSport('')
-       setActiveCategory('')
-       setActiveLeague('')
-       action(false)
-   }
-
     const useOutsideClick = (elementRef, handler, attached = true) => {
-
         useEffect(() => {
             if (!attached) return;
 
@@ -57,7 +49,7 @@ const Dropdown = ({data, action, buttonRef}) => {
                 if (!elementRef.current && !buttonRef.current) return
                 if (!elementRef.current.contains(e.target)) {
                     handler()
-                    resetFilter()
+                    action(false)
                 }
             }
 
@@ -76,58 +68,72 @@ const Dropdown = ({data, action, buttonRef}) => {
 
     useOutsideClick(blockRef, action, data)
 
-    if (!data) return null;
-
     return (
-        <div className={style.block} ref={blockRef}>
-            <div className={style.body}>
-                <div className={style.column}>
-                    <div className={style.header}>Sports</div>
-                    <Search setSearch={setSearchSport} />
-                    <hr className={style.divider}/>
-                    <div className={style.list}>
-                        {
-                            searchItems(sport, searchSport).map((el, idx) =>
-                                <div
-                                    className={style.item}
-                                    key={idx}
-                                    onClick={() => {
-                                        setActiveSport(idx)
-                                        setActiveCategory('')
-                                        setActiveLeague('')
-                                        fetchData(`config_tree_mini/41/0/${el._id}`).then((data) => {
-                                            setCategory(data.doc[0].data[0].realcategories)
-                                            setStep(1)
-                                        })
-                                    }}
-                                >
-                                    <Item
-                                        data={el}
-                                        type={0}
-                                        active={activeSport === idx}
-                                    />
-                                </div>
-                            )
-                        }
-                    </div>
-                </div>
+        <div
+            className={style.block}
+            ref={blockRef}
+        >
+            <div
+                className={
+                    classNames(
+                        style.body,
+                        style[`step-${step}`]
+                    )
+                }
+            >
+                {
+                    loading
+                    ?
+                        <Loading />
+                    :
+                        <div className={style.column}>
+                            <div className={style.header}>{t('interface.sport')}</div>
+                            <Search setSearch={setSearchSport} />
+                            <hr className={style.divider}/>
+                            <ul className={style.list}>
+                                {
+                                    searchItems(sport, searchSport).map((el, idx) =>
+                                        <li
+                                            className={style.item}
+                                            key={idx}
+                                            onClick={() => {
+                                                setActiveSport(idx)
+                                                setActiveCategory('')
+                                                setActiveLeague('')
+                                                fetchData(`config_tree/${el._id}`).then((data) => {
+                                                    setCategory(data.doc[0].data[0].realcategories)
+                                                    setStep(1)
+                                                })
+                                            }}
+                                        >
+                                            <Item
+                                                data={el}
+                                                type={0}
+                                                active={activeSport === idx}
+                                            />
+                                        </li>
+                                    )
+                                }
+                            </ul>
+                        </div>
+                }
                 {
                     step >= 1 &&
                     <div className={style.column}>
-                        <div className={style.header}>Region</div>
+                        <div className={style.header}>{t('interface.region')}</div>
                         <Search setSearch={setSearchCategory} />
                         <hr className={style.divider}/>
-                        <div className={style.list}>
+                        <ul className={style.list}>
                             {
                                 searchItems(category, searchCategory).map((el, idx) =>
-                                    <div
+                                    <li
                                         className={style.item}
                                         key={idx}
                                         onClick={() => {
                                             setActiveCategory(idx)
                                             setActiveLeague('')
-                                            fetchData(`config_tree_mini/41/0/${el._sid}/${el._id}`).then((data) => {
-                                                setLeague(data.doc[0].data[0].realcategories[0].uniquetournaments,)
+                                            fetchData(`config_tree/${el._sid}/${el._id}`).then((data) => {
+                                                setLeague(data.doc.data.realcategories[0].tournaments)
                                                 setStep(2)
                                             })
                                         }}
@@ -137,23 +143,23 @@ const Dropdown = ({data, action, buttonRef}) => {
                                             type={1}
                                             active={activeCategory === idx}
                                         />
-                                    </div>
+                                    </li>
                                 )
                             }
-                        </div>
+                        </ul>
                     </div>
                 }
                 {
                     step >= 2 &&
                     <div className={style.column}>
-                        <div className={style.header}>Tournament</div>
+                        <div className={style.header}>{t('interface.tournament')}</div>
                         <Search setSearch={setSearchLeague} />
                         <hr className={style.divider}/>
                         <div className={style.list}>
                             {
                                 searchItems(Object.values(league), searchLeague).map((el, idx) =>
                                     <NavLink
-                                        to={`/${el._sid}/${el._rcid}/${el.currentseason}/overview`}
+                                        to={`/${el._sid}/${el._rcid}/${el.seasonid}/overview`}
                                         className={style.item}
                                         key={idx}
                                         aria-label={data.name}
@@ -162,9 +168,9 @@ const Dropdown = ({data, action, buttonRef}) => {
                                             dispatch(setUrl({
                                                 id: el._sid,
                                                 category: el._rcid,
-                                                league: el.currentseason
+                                                league: el.seasonid
                                             }))
-                                            resetFilter()
+                                            action(false)
                                         }}
                                     >
                                         <Item

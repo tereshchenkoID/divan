@@ -7,14 +7,14 @@
 
   position: relative;
   cursor: pointer;
-  height: 45px;
+  height: var(--base-height-md);
 
   &.active,
   &:hover {
     background-color: var(--primary);
 
     &::before {
-      width: 4px;
+      width: rem(4px);
     }
 
     .text,
@@ -41,16 +41,13 @@
 }
 
 .icon {
-  @include size(29px);
+  @include size(rem(29px));
 }
 
 .country {
-  @include size(29px, 16px);
+  @include size(rem(29px), rem(16px));
 
   img {
-    @include size(100%);
-
-    display: block;
     object-fit: cover;
   }
 }

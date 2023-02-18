@@ -1,7 +1,7 @@
 @import "scss/config";
 
 .block {
-  @include size(100%, 45px);
+  @include size(100%, var(--base-height-md));
 
   position: relative;
   border: 1px solid var(--border);
@@ -9,8 +9,8 @@
 }
 
 .icon {
-  @include absolute-center-left(15px);
-  @include size(29px);
+  @include absolute-center-left(rem(15px));
+  @include size(rem(29px));
 
   svg {
     fill: var(--sub-text);

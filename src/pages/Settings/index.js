@@ -11,6 +11,9 @@ import Item from "./Item";
 
 import style from './index.module.scss';
 
+const searchItems = (data, search) => {
+    return data.filter(item => item.name.toLowerCase().indexOf(search) !== -1)
+}
 const Settings = () => {
     const dispatch = useDispatch()
     const [data, setData] = useState({})
@@ -20,15 +23,11 @@ const Settings = () => {
     useEffect(() => {
         dispatch(setUrl({}))
 
-        fetchData('config_languages/41').then((data) => {
+        fetchData('config_language').then((data) => {
             setData(data)
             setLoading(false)
         })
     }, []);
-
-    const searchItems = (data) => {
-        return data.filter(item => item.name.toLowerCase().indexOf(search) !== -1)
-    }
 
     return (
         <Container>
@@ -40,18 +39,20 @@ const Settings = () => {
                         :
                             <>
                                 <Search setSearch={setSearch} />
-                                <div className={style.list}>
+                                <ul className={style.list}>
                                     {
-                                        searchItems(data.doc[0].data).map((el, idx) =>
-                                            <div
-                                                className={style.item}
+                                        searchItems(data.doc[0].data, search).map((el, idx) =>
+                                            <li
                                                 key={idx}
+                                                className={style.item}
                                             >
-                                                <Item data={el} />
-                                            </div>
+                                                <Item
+                                                    data={el}
+                                                />
+                                            </li>
                                         )
                                     }
-                                </div>
+                                </ul>
                             </>
                 }
             </div>

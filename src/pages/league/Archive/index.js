@@ -4,6 +4,7 @@ import {NavLink, useParams} from "react-router-dom";
 
 import {fetchData} from "helpers/api";
 import {setUrl} from "store/actions/urlAction";
+import {useLocalStorage} from "helpers/localStorage";
 
 import Search from "components/Search";
 import Loader from "components/Loader";
@@ -17,9 +18,10 @@ const Archive = () => {
     const [data, setData] = useState({})
     const [loading, setLoading] = useState(true)
     const [search, setSearch] = useState('')
+    const {getLocalStorage} = useLocalStorage()
 
     useEffect(() => {
-        fetchData(`uniquetournament_seasons/s-${url.league}`).then((data) => {
+        fetchData(`https://stats.fn.sportradar.com/betradar/${getLocalStorage('i18nextLng')}/Europe:Helsinki/gismo/uniquetournament_seasons/s-${url.league}`).then((data) => {
             setData(data)
             setLoading(false)
             dispatch(setUrl(url))

@@ -15,7 +15,7 @@
 
 .icon {
   @include make-spacer('mb', 2);
-  @include size(40px);
+  @include size(rem(40px));
 }
 
 .text {

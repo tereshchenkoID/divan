@@ -6,7 +6,7 @@ export const useRequest = () => {
   const {getLocalStorage} = useLocalStorage()
 
   const server = axios.create({
-    baseURL: `https://stats.fn.sportradar.com/betradar/${getLocalStorage('i18nextLng')}/Europe:Berlin/gismo/`,
+    baseURL: `https://api.matchtracker.live/${getLocalStorage('i18nextLng')}/`,
   })
 
   const get = async (url, headers) => {

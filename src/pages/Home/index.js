@@ -1,8 +1,6 @@
 import {useState, useEffect} from "react";
-import {useDispatch, useSelector} from "react-redux";
 
-import {setUrl} from "store/actions/urlAction";
-import {loadSportData} from "store/actions/sportAction";
+import {fetchData} from "helpers/api";
 
 import Loader from "components/Loader";
 import Container from "components/Container";
@@ -11,17 +9,13 @@ import Item from "./Item";
 import style from './index.module.scss';
 
 const Home = () => {
-    const dispatch = useDispatch()
-    const {sport} = useSelector((state) => state.sport)
+    const [sport, setSport] = useState([])
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-        dispatch(loadSportData()).then(() => {
-            if (!sport) return null;
-            if (sport) {
-                setLoading(false)
-                dispatch(setUrl({}))
-            }
+        fetchData('config_sports').then((json) => {
+            setSport(json.doc[0].data)
+            setLoading(false)
         })
     }, []);
 
@@ -30,17 +24,17 @@ const Home = () => {
             {
                 loading
                     ?
-                    <Loader />
+                        <Loader />
                     :
-                    <div className={style.list}>
-                        {
-                            sport.map((el, idx) =>
-                                <div key={idx}>
-                                    <Item data={el} />
-                                </div>
-                            )
-                        }
-                    </div>
+                        <ul className={style.list}>
+                            {
+                                sport.map((el, idx) =>
+                                    <li key={idx}>
+                                        <Item data={el} key={idx}/>
+                                    </li>
+                                )
+                            }
+                        </ul>
             }
         </Container>
     );

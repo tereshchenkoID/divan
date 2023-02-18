@@ -54,10 +54,10 @@
 
   @if (length($prop-postfixes) > 0) {
     @each $postfix in $prop-postfixes {
-      #{$prop-name}#{$postfix}: $prop-value;
+      #{$prop-name}#{$postfix}: rem($prop-value);
     }
   } @else {
-    #{$prop-name}: $prop-value;
+    #{$prop-name}: rem($prop-value);
   }
 }
 

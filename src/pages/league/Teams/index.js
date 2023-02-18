@@ -1,10 +1,11 @@
 import {useState, useEffect} from "react";
 import {useDispatch} from "react-redux";
-import {useParams} from "react-router-dom";
+import {useParams, NavLink} from "react-router-dom";
 
 import {setUrl} from "store/actions/urlAction";
 
 import {fetchData} from "helpers/api";
+import {useLocalStorage} from "helpers/localStorage";
 
 import Loader from "components/Loader";
 import Container from "components/Container";
@@ -18,9 +19,10 @@ const Teams = () => {
     const [data, setData] = useState({})
     const [loading, setLoading] = useState(true)
     const [search, setSearch] = useState('')
+    const {getLocalStorage} = useLocalStorage()
 
     useEffect(() => {
-        fetchData(`stats_season_teams2/${url.league}`).then((data) => {
+        fetchData(`https://stats.fn.sportradar.com/betradar/${getLocalStorage('i18nextLng')}/Europe:Helsinki/gismo/stats_season_teams2/${url.league}`).then((data) => {
             setData(data.doc[0].data)
             setLoading(false)
             dispatch(setUrl(url))
@@ -44,9 +46,10 @@ const Teams = () => {
                             <div className={style.list}>
                                 {
                                     searchItems(data.teams).map((el, idx) =>
-                                        <div
-                                            className={style.item}
+                                        <NavLink
                                             key={idx}
+                                            className={style.item}
+                                            to={`/${url.id}/${url.category}/${url.league}/team/${el._id}`}
                                         >
                                             {
                                                 el.cc &&
@@ -55,7 +58,7 @@ const Teams = () => {
                                                 </span>
                                             }
                                             {el.name}
-                                        </div>
+                                        </NavLink>
                                     )
                                 }
                             </div>

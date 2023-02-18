@@ -1,6 +1,7 @@
 @import "scss/config";
 
 .block {
+  @include flex(center, center);
   @include size(100%);
 
   position: fixed;
@@ -11,13 +12,10 @@
 }
 
 .wrapper {
-  @include size(100px);
+  @include size(rem(100px));
 
   display: block;
   position: relative;
-  left: 50%;
-  top: 50%;
-  margin: -75px 0 0 -75px;
   border-radius: 50%;
   border: 3px solid transparent;
   border-top-color: var(--link);
@@ -27,20 +25,20 @@
 .wrapper {
 
   &:before {
-    top: 5px;
-    left: 5px;
-    right: 5px;
-    bottom: 5px;
+    top: rem(5px);
+    left: rem(5px);
+    right: rem(5px);
+    bottom: rem(5px);
     border: 3px solid transparent;
     border-top-color: var(--link-hover);
     animation: spin 3s linear infinite;
   }
 
   &:after {
-    top: 15px;
-    left: 15px;
-    right: 15px;
-    bottom: 15px;
+    top: rem(15px);
+    left: rem(15px);
+    right: rem(15px);
+    bottom: rem(15px);
     border: 3px solid transparent;
     border-top-color: var(--link-disabled);
     animation: spin 1.5s linear infinite;

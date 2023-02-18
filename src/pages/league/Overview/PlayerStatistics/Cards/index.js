@@ -3,6 +3,7 @@ import {useParams} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 
 import {fetchData} from "helpers/api";
+import {useLocalStorage} from "helpers/localStorage";
 
 import Icon from "components/Icon";
 import Preloader from "components/Preloader";
@@ -14,9 +15,10 @@ const Cards = () => {
     const { t } = useTranslation()
     const [data, setData] = useState({})
     const [loading, setLoading] = useState(true)
+    const {getLocalStorage} = useLocalStorage()
 
     useEffect(() => {
-        fetchData(`stats_season_topcards/${url.league}`).then((data) => {
+        fetchData(`https://stats.fn.sportradar.com/betradar/${getLocalStorage('i18nextLng')}/Europe:Helsinki/gismo/stats_season_topcards/${url.league}`).then((data) => {
             setData(data)
             setLoading(false)
         })

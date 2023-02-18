@@ -5,19 +5,14 @@
 }
 
 .top,
-.center {
-  @include make-spacer('py', 2);
-}
-
-.top,
 .center,
 .bottom {
   background-color: var(--material);
 }
 
+.top,
 .center {
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
+  @include make-spacer('py', 2);
 }
 
 .toggle,
@@ -42,20 +37,25 @@
   }
 }
 
+.center {
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
 .options {
   display: grid;
-  grid-gap: 10px;
+  grid-gap: rem(10px);
   align-items: center;
 
   &.sm {
-    grid-template-columns: 160px repeat(2, 1fr);
+    grid-template-columns: rem(160px) 1fr;
   }
 
   &.lg {
-    grid-template-columns: 30px 1fr 65px;
+    grid-template-columns: rem(30px) 1fr rem(65px);
 
     @include media-breakpoint-up(md) {
-      grid-template-columns: 30px 1fr 150px;
+      grid-template-columns: rem(30px) 1fr rem(150px);
     }
   }
 }
@@ -69,7 +69,7 @@
 }
 
 .divider {
-  @include size(1px, 24px);
+  @include size(rem(1px), rem(24px));
   @include make-spacer('mx', 4);
 
   background-color: var(--sub-text);
@@ -81,8 +81,8 @@
 
 .menu {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
-  grid-gap: 10px;
+  grid-template-columns: repeat(auto-fill, minmax(rem(50px), 1fr));
+  grid-gap: rem(10px);
 }
 
 .social {

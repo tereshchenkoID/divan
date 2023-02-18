@@ -1,0 +1,539 @@
+{
+  "doc": [
+    {
+      "data": [
+        {
+          "_id": 1,
+          "name": "Football",
+          "realcategory": {
+            "_id": 1,
+            "name": "England",
+            "cc": {
+              "a2": "en",
+              "name": "England",
+              "a3": "ENG",
+              "ioc": "ENG"
+            }
+          },
+          "season": {
+            "_id": "93741",
+            "name": "Premier League 22/23",
+            "cc": {
+              "a2": "en",
+              "name": "England",
+              "a3": "АНГ",
+              "ioc": "ENG"
+            },
+            "header": [
+              {
+                "id": 1,
+                "name": "changeTotal",
+                "column": "",
+                "tooltip": ""
+              },
+              {
+                "id": 2,
+                "name": "changeHome",
+                "column": "",
+                "tooltip": ""
+              },
+              {
+                "id": 3,
+                "name": "changeAway",
+                "column": "",
+                "tooltip": ""
+              },
+              {
+                "id": 4,
+                "name": "drawTotal",
+                "column": "D",
+                "tooltip": "Draw"
+              },
+              {
+                "id": 5,
+                "name": "drawHome",
+                "column": "D",
+                "tooltip": "Draw"
+              },
+              {
+                "id": 6,
+                "name": "drawAway",
+                "column": "D",
+                "tooltip": "Draw"
+              },
+              {
+                "id": 7,
+                "name": "goalDiffTotal",
+                "column": "DIFF",
+                "tooltip": "Goal difference"
+              },
+              {
+                "id": 8,
+                "name": "goalDiffHome",
+                "column": "DIFF",
+                "tooltip": "Goal difference"
+              },
+              {
+                "id": 9,
+                "name": "goalDiffAway",
+                "column": "DIFF",
+                "tooltip": "Goal difference"
+              },
+              {
+                "id": 10,
+                "name": "goalsAgainstTotal",
+                "column": "GA",
+                "tooltip": "Goals against"
+              },
+              {
+                "id": 11,
+                "name": "goalsAgainstHome",
+                "column": "GA",
+                "tooltip": "Goals against"
+              },
+              {
+                "id": 12,
+                "name": "goalsAgainstAway",
+                "column": "GA",
+                "tooltip": "Goals against"
+              },
+              {
+                "id": 13,
+                "name": "goalsForTotal",
+                "column": "GF",
+                "tooltip": "Goals for total"
+              },
+              {
+                "id": 14,
+                "name": "goalsForHome",
+                "column": "GF",
+                "tooltip": "Goals for total"
+              },
+              {
+                "id": 15,
+                "name": "goalsForAway",
+                "column": "GF",
+                "tooltip": "Goals for total"
+              },
+              {
+                "id": 16,
+                "name": "lossTotal",
+                "column": "L",
+                "tooltip": "loss"
+              },
+              {
+                "id": 17,
+                "name": "lossHome",
+                "column": "L",
+                "tooltip": "loss"
+              },
+              {
+                "id": 18,
+                "name": "lossAway",
+                "column": "L",
+                "tooltip": "loss"
+              },
+              {
+                "id": 19,
+                "name": "total",
+                "column": "P",
+                "tooltip": "Matches played"
+              },
+              {
+                "id": 20,
+                "name": "home",
+                "column": "P",
+                "tooltip": "Matches played"
+              },
+              {
+                "id": 21,
+                "name": "away",
+                "column": "P",
+                "tooltip": "Matches played"
+              },
+              {
+                "id": 22,
+                "name": "pointsTotal",
+                "column": "PTS",
+                "tooltip": "Points"
+              },
+              {
+                "id": 23,
+                "name": "pointsHome",
+                "column": "PTS",
+                "tooltip": "Points"
+              },
+              {
+                "id": 24,
+                "name": "pointsAway",
+                "column": "PTS",
+                "tooltip": "Points"
+              },
+              {
+                "id": 25,
+                "name": "pos",
+                "column": "Pos",
+                "tooltip": "Position"
+              },
+              {
+                "id": 26,
+                "name": "posHome",
+                "column": "Pos",
+                "tooltip": "Position"
+              },
+              {
+                "id": 27,
+                "name": "posAway",
+                "column": "Pos",
+                "tooltip": "Position"
+              },
+              {
+                "id": 28,
+                "name": "sortPositionTotal",
+                "column": "",
+                "tooltip": "Sort"
+              },
+              {
+                "id": 29,
+                "name": "sortPositionHome",
+                "column": "",
+                "tooltip": "Sort"
+              },
+              {
+                "id": 30,
+                "name": "sortPositionAway",
+                "column": "",
+                "tooltip": "Sort"
+              },
+              {
+                "id": 31,
+                "name": "team",
+                "column": "Team",
+                "tooltip": "Team"
+              },
+              {
+                "id": 32,
+                "name": "winTotal",
+                "column": "W",
+                "tooltip": "win"
+              },
+              {
+                "id": 33,
+                "name": "winHome",
+                "column": "W",
+                "tooltip": "win"
+              },
+              {
+                "id": 34,
+                "name": "winAway",
+                "column": "W",
+                "tooltip": "win"
+              },
+              {
+                "id": 35,
+                "name": "concededGoals",
+                "column": "Goals Conceded",
+                "tooltip": "Goals Conceded"
+              },
+              {
+                "id": 36,
+                "name": "concededPerMatch",
+                "column": "Conceded p/m",
+                "tooltip": "Conceded per match"
+              },
+              {
+                "id": 37,
+                "name": "goalsScored",
+                "column": "Goals Scored",
+                "tooltip": "Goals Scored"
+              },
+              {
+                "id": 38,
+                "name": "goalsPerMatch",
+                "column": "Goals p/m",
+                "tooltip": "Goals per match"
+              },
+              {
+                "id": 39,
+                "name": "yellowCards",
+                "column": "Yellow cards",
+                "tooltip": "Yellow cards"
+              },
+              {
+                "id": 40,
+                "name": "redCards",
+                "column": "Red cards",
+                "tooltip": "Red cards"
+              },
+              {
+                "id": 41,
+                "name": "firstGoal",
+                "column": "FG",
+                "tooltip": "First goal"
+              },
+              {
+                "id": 42,
+                "name": "lastGoal",
+                "column": "LG",
+                "tooltip": "Last goal"
+              }
+            ],
+            "tablerows": [
+              {
+                "_id": 123390025,
+                "changeTotal": 0,
+                "changeHome": -1,
+                "changeAway": 0,
+                "drawTotal": 2,
+                "drawHome": 1,
+                "drawAway": 1,
+                "goalDiffTotal": 28,
+                "goalDiffHome": 15,
+                "goalDiffAway": 13,
+                "goalsAgainstTotal": 17,
+                "goalsAgainstHome": 10,
+                "goalsAgainstAway": 7,
+                "goalsForTotal": 45,
+                "goalsForHome": 25,
+                "goalsForAway": 20,
+                "lossTotal": 2,
+                "lossHome": 0,
+                "lossAway": 2,
+                "total": 20,
+                "home": 9,
+                "away": 11,
+                "pointsTotal": 50,
+                "pointsHome": 25,
+                "pointsAway": 25,
+                "pos": 1,
+                "posHome": 3,
+                "posAway": 1,
+                "sortPositionTotal": 1,
+                "sortPositionHome": 3,
+                "sortPositionAway": 1,
+                "team": {
+                  "_doc": "team",
+                  "_id": 4871,
+                  "_sid": 1,
+                  "uid": 42,
+                  "virtual": false,
+                  "name": "Arsenal",
+                  "mediumname": "Arsenal FC",
+                  "abbr": "ARS",
+                  "nickname": null,
+                  "iscountry": true,
+                  "cc": {
+                    "a2": "en",
+                    "name": "Англія",
+                    "a3": "АНГ",
+                    "ioc": "ENG"
+                  }
+                },
+                "winTotal": 16,
+                "winHome": 8,
+                "winAway": 8,
+                "concededGoals": 43,
+                "concededPerMatch": 0.57,
+                "firstGoal": 14,
+                "lastGoal": 19,
+                "goalsScored": 45,
+                "goalsPerMatch": 2.25,
+                "yellowCards": 4,
+                "redCards": 1
+              },
+              {
+                "_id": 123390013,
+                "changeTotal": 0,
+                "changeHome": 0,
+                "changeAway": 0,
+                "drawTotal": 3,
+                "drawHome": 1,
+                "drawAway": 2,
+                "goalDiffTotal": 32,
+                "goalDiffHome": 26,
+                "goalDiffAway": 6,
+                "goalsAgainstTotal": 21,
+                "goalsAgainstHome": 12,
+                "goalsAgainstAway": 9,
+                "goalsForTotal": 53,
+                "goalsForHome": 38,
+                "goalsForAway": 15,
+                "lossTotal": 4,
+                "lossHome": 1,
+                "lossAway": 3,
+                "total": 21,
+                "home": 11,
+                "away": 10,
+                "pointsTotal": 45,
+                "pointsHome": 28,
+                "pointsAway": 17,
+                "pos": 2,
+                "posHome": 1,
+                "posAway": 4,
+                "sortPositionTotal": 2,
+                "sortPositionHome": 1,
+                "sortPositionAway": 4,
+                "team": {
+                  "_id": 4861,
+                  "_sid": 1,
+                  "uid": 17,
+                  "name": "Man City",
+                  "mediumname": "Manchester City",
+                  "abbr": "MCI",
+                  "iscountry": true,
+                  "cc": {
+                    "a2": "en",
+                    "name": "Англія",
+                    "a3": "АНГ",
+                    "ioc": "ENG"
+                  }
+                },
+                "winTotal": 14,
+                "winHome": 9,
+                "winAway": 5,
+                "concededGoals": 21,
+                "concededPerMatch": 1.00,
+                "firstGoal": 22,
+                "lastGoal": 34,
+                "goalsScored": 53,
+                "goalsPerMatch": 2.52,
+                "yellowCards": 4,
+                "redCards": 1
+              }
+            ],
+            "tables": [
+              {
+                "name": "Test",
+                "set": [
+                  {
+                    "id": 1,
+                    "name": "Total",
+                    "headers": [
+                      25,
+                      31,
+                      19,
+                      32,
+                      4,
+                      16,
+                      22
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "Premier league",
+                "rules": {
+                  "name": "In the event that two (or more) teams have an equal number of points, the following rules break the tie:\n1. Goal difference\n2. Goals scored"
+                },
+                "set": [
+                  {
+                    "id": 1,
+                    "name": "Total",
+                    "headers": [
+                      25,
+                      31,
+                      19,
+                      32,
+                      4,
+                      16,
+                      13,
+                      10,
+                      7,
+                      22
+                    ]
+                  },
+                  {
+                    "id": 2,
+                    "name": "Home",
+                    "headers": [
+                      26,
+                      31,
+                      20,
+                      33,
+                      5,
+                      17,
+                      14,
+                      11,
+                      8,
+                      23
+                    ]
+                  },
+                  {
+                    "id": 3,
+                    "name": "Away",
+                    "headers": [
+                      27,
+                      31,
+                      21,
+                      34,
+                      6,
+                      18,
+                      15,
+                      12,
+                      9,
+                      24
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "Top offense/defence",
+                "set": [
+                  {
+                    "id": 1,
+                    "name": "Top offense",
+                    "headers": [
+                      25,
+                      31,
+                      37,
+                      38
+                    ]
+                  },
+                  {
+                    "id": 2,
+                    "name": "Top defense",
+                    "headers": [
+                      25,
+                      31,
+                      35,
+                      36
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "Team statistics",
+                "set": [
+                  {
+                    "id": 1,
+                    "name": "Goals",
+                    "headers": [
+                      25,
+                      31,
+                      19,
+                      37,
+                      35,
+                      41,
+                      42
+                    ]
+                  },
+                  {
+                    "id": 2,
+                    "name": "Cards",
+                    "headers": [
+                      25,
+                      31,
+                      19,
+                      39,
+                      40
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

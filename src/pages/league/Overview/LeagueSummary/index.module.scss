@@ -1,0 +1,118 @@
+@import "scss/config";
+
+.block {
+  position: relative;
+}
+
+.panel {
+
+  @include media-breakpoint-up(lg) {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 10px;
+  }
+}
+
+.head {
+  @include make-spacer('p', 2);
+
+  text-transform: uppercase;
+}
+
+.table {
+  @include make-spacer('p', 2);
+
+  background-color: var(--material);
+  text-transform: uppercase;
+  text-align: center;
+  height: 240px;
+
+  &.default {
+
+    .row {
+      grid-template-columns: repeat(3, 1fr);
+      column-gap: 10px;
+    }
+  }
+
+  &.custom {
+
+    .row {
+      grid-template-columns: 80px 1fr 80px;
+      column-gap: 15px;
+    }
+
+    .cell {
+
+      &:nth-child(1),
+      &:nth-child(3) {
+        @include make-spacer('pb', 5);
+
+        align-self: flex-end;
+      }
+
+      &:nth-child(1) {
+        text-align: right;
+      }
+
+      &:nth-child(3) {
+        text-align: left;
+      }
+    }
+  }
+}
+
+.row {
+  display: grid;
+  align-items: center;
+  height: 165px;
+}
+
+.score {
+  font-size: 20px;
+  font-weight: var(--typography-bold);
+}
+
+.meta {
+  @include flex(center, center);
+  @include make-spacer('mt', 4);
+
+  gap: 10px;
+}
+
+.icon {
+  @include size(25px);
+}
+
+.scale {
+  @include make-spacer('mt', 2);
+  @include make-spacer('mx', auto);
+
+  position: relative;
+  gap: 5px;
+
+  &.vertical {
+    @include flex($justify-content: flex-end, $direction: column);
+    @include size(50px, 100px);
+
+    background-color: var(--primary);
+  }
+
+  &.horizontal {
+    @include flex($align-items: stretch);
+
+    height: 40px;
+  }
+
+  .left {
+    background-color: var(--brand);
+  }
+
+  .center {
+    background-color: var(--border);
+  }
+
+  .right {
+    background-color: var(--brand-disabled);
+  }
+}

@@ -1,11 +1,10 @@
 import {useState, useEffect} from "react";
 import {useParams} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 
-import checkData from "helpers/checkData";
 import {setUrl} from "store/actions/urlAction";
-import {loadCategoryData} from "store/actions/categoryAction";
 import {setBreadcrumbs} from "store/actions/breadcrumbsAction";
+import {fetchData} from "helpers/api";
 
 import Loader from "components/Loader";
 import Container from "components/Container";
@@ -17,25 +16,24 @@ import style from './index.module.scss';
 const Sport = () => {
     let url = useParams()
     const dispatch = useDispatch()
-    const {category} = useSelector((state) => state.category);
+    const [data, setData] = useState([])
     const [loading, setLoading] = useState(true)
     const [search, setSearch] = useState('')
 
     useEffect(() => {
-        dispatch(loadCategoryData(url.id)).then(() => {
-            setLoading(false)
-        })
-
-        if (!checkData(category)) {
+        fetchData(`config_tree/${url.id}`).then((json) => {
+            setData(json.doc[0].data[0])
             dispatch(setUrl(url))
             dispatch(setBreadcrumbs({
                 0: {
-                    id: parseInt(category._id, 10),
-                    name: category.name
+                    id: parseInt(json.doc[0].data[0]._id, 10),
+                    name: json.doc[0].data[0].name
                 }
             }))
-        }
-    }, [loading]);
+
+            setLoading(false)
+        })
+    }, []);
 
     const searchItems = (data) => {
         return data.filter(item => item.name.toLowerCase().indexOf(search) !== -1)
@@ -47,23 +45,23 @@ const Sport = () => {
                 {
                     loading
                         ?
-                        <Loader />
+                            <Loader />
                         :
-                        <>
-                            <Search setSearch={setSearch} />
-                            <div className={style.list}>
-                                {
-                                    searchItems(category.realcategories).map((el, idx) =>
-                                        <div
-                                            className={style.item}
-                                            key={idx}
-                                        >
-                                            <Item data={el} />
-                                        </div>
-                                    )
-                                }
-                            </div>
-                        </>
+                            <>
+                                <Search setSearch={setSearch} />
+                                <ul className={style.list}>
+                                    {
+                                        searchItems(data.realcategories).map((el, idx) =>
+                                            <li
+                                                key={idx}
+                                                className={style.item}
+                                            >
+                                                <Item data={el} />
+                                            </li>
+                                        )
+                                    }
+                                </ul>
+                            </>
                 }
             </div>
         </Container>

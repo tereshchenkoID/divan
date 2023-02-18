@@ -1,12 +1,11 @@
 import {useState, useEffect} from "react";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {useParams} from 'react-router-dom';
 
-import checkData from "helpers/checkData";
-
 import {setUrl} from "store/actions/urlAction";
-import {loadLeagueData} from "store/actions/leagueAction";
 import {setBreadcrumbs} from "store/actions/breadcrumbsAction";
+
+import {fetchData} from "helpers/api";
 
 import Loader from "components/Loader";
 import Container from "components/Container";
@@ -15,31 +14,31 @@ import Item from "./Item";
 
 import style from './index.module.scss';
 
+
 const Category = () => {
     let url = useParams();
     const dispatch = useDispatch()
-    const {league} = useSelector((state) => state.league);
+    const [data, setData] = useState([])
     const [loading, setLoading] = useState(true)
     const [search, setSearch] = useState('')
 
     useEffect(() => {
-        dispatch(loadLeagueData(url.id, url.category)).then(() => {
+        fetchData(`config_tree/${url.id}/${url.category}`).then((json) => {
+            setData(json.doc.data)
+            dispatch(setUrl(url))
+                dispatch(setBreadcrumbs({
+                    0: {
+                        id: parseInt(json.doc.data._id, 10),
+                        name: json.doc.data.name
+                    },
+                    1: {
+                        id: parseInt(json.doc.data.realcategories[0]._id, 10),
+                        name: json.doc.data.realcategories[0].name
+                    }
+                }))
+
             setLoading(false)
         })
-
-        if (!checkData(league)) {
-            dispatch(setUrl(url))
-            dispatch(setBreadcrumbs({
-                0: {
-                    id: parseInt(league._id, 10),
-                    name: league.name
-                },
-                1: {
-                    id: parseInt(league.realcategories[0]._id, 10),
-                    name: league.realcategories[0].name
-                }
-            }))
-        }
     }, [loading]);
 
     const searchItems = (data) => {
@@ -56,18 +55,18 @@ const Category = () => {
                         :
                             <>
                                 <Search setSearch={setSearch} />
-                                <div className={style.list}>
+                                <ul className={style.list}>
                                     {
-                                        searchItems(Object.values(league.realcategories[0].uniquetournaments)).map((el, idx) =>
-                                            <div
-                                                className={style.item}
+                                        searchItems(Object.values(data.realcategories[0].tournaments)).map((el, idx) =>
+                                            <li
                                                 key={idx}
+                                                className={style.item}
                                             >
                                                 <Item data={el} />
-                                            </div>
+                                            </li>
                                         )
                                     }
-                                </div>
+                                </ul>
                             </>
                 }
             </div>

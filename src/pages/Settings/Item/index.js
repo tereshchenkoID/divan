@@ -3,21 +3,30 @@ import {useNavigate} from "react-router-dom";
 import {useLocalStorage} from "helpers/localStorage";
 
 import style from './index.module.scss';
+import {useState} from "react";
+import classNames from "classnames";
 
 const Item = ({data}) => {
     const { i18n } = useTranslation()
     const {setLocalStorage} = useLocalStorage()
+    const [language, setLanguage] = useState(localStorage.getItem('i18nextLng') || 'en')
     const navigate = useNavigate()
 
     const changeLanguage = (language) => {
         i18n.changeLanguage(language);
-        setLocalStorage('language', language)
+        setLocalStorage('i18nextLng', language)
+        setLanguage(language)
         navigate(-1)
     };
 
     return (
         <button
-            className={style.block}
+            className={
+                classNames(
+                    style.block,
+                    language === data.isocode && style.active
+                )
+            }
             onClick={() => {
                 changeLanguage(data.isocode)
             }}

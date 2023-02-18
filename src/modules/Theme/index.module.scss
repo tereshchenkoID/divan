@@ -1,11 +1,11 @@
 @import "scss/config";
 
 .block {
-  @include size(40px, 20px);
+  @include size(rem(40px), rem(20px));
 
   display: block;
   position: relative;
-  border-radius: 20px;
+  border-radius: rem(20px);
   overflow: hidden;
   cursor: pointer;
 
@@ -18,7 +18,7 @@
       background-color: var(--link-hover);
 
       &::before {
-        transform: translateX(20px);
+        transform: translateX(rem(20px));
         background-color: var(--white);
       }
     }
@@ -32,21 +32,18 @@
   }
 
   .slide {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    transition: all 0.3s;
-    background-color: var(--sub-text);
+    @include absolute-filled;
+
     cursor: pointer;
+    transition: var(--default-transition);
+    background-color: var(--sub-text);
 
     &::before {
-      @include size(16px);
+      @include size(rem(16px));
 
       position: absolute;
-      bottom: 2px;
-      left: 2px;
+      bottom: rem(2px);
+      left: rem(2px);
       transition: var(--default-transition);
       border-radius: 50%;
       background-color: var(--bg);
@@ -55,17 +52,17 @@
   }
 
   .icon {
-    @include size(14px);
+    @include size(rem(14px));
 
     position: absolute;
     z-index: 1;
 
     &.left {
-      @include absolute-center-left(3px);
+      @include absolute-center-left(rem(3px));
     }
 
     &.right {
-      @include absolute-center-right(3px);
+      @include absolute-center-right(rem(3px));
 
       color: var(--bg);
     }

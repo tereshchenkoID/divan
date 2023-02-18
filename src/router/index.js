@@ -5,6 +5,7 @@ const Home = lazy(() => import("pages/Home"))
 const Sport = lazy(() => import("pages/Sport"))
 const Settings = lazy(() => import("pages/Settings"))
 const Category = lazy(() => import("pages/Category"))
+const Team = lazy(() => import("pages/Team"))
 
 const OverviewLeague = lazy(() => import("pages/league/Overview"))
 const TablesLeague = lazy(() => import("pages/league/Tables"))
@@ -28,6 +29,10 @@ export const router = [
     {
         path: "/:id/:category",
         element: (<Category />)
+    },
+    {
+        path: "/:id/:category/:league/team/:team",
+        element: (<Team />)
     },
     {
         path: "/:id/:category/:league/overview",

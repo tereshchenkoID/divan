@@ -1,19 +1,20 @@
 @import "scss/config";
 
 .block {
-  @include size(100%, 45px);
+  @include flex($align-items: center);
+  @include size(100%, var(--base-height-md));
   @include make-spacer('pl', 3);
   @include make-spacer('pr', 2);
-  @include flex($align-items: center);
 
   position: relative;
 
+  &.active,
   &:hover {
     background-color: var(--primary);
     color: var(--text-for-material);
 
     &::before {
-      width: 4px;
+      width: rem(4px);
     }
   }
 
@@ -31,12 +32,9 @@
 
 .icon {
   @include make-spacer('mr', 2);
-  @include size(29px, 18px);
+  @include size(rem(29px), rem(18px));
 
   img {
-    @include size(100%);
-
-    display: block;
     object-fit: cover;
   }
 }
