@@ -1,0 +1,22 @@
+@import "scss/config";
+
+.block {
+  @include flex(space-between, center);
+  @include make-spacer('px', 4);
+  @include make-spacer('mb', 2);
+
+  position: relative;
+  height: rem(57px);
+  border-top: rem(2px) solid var(--color-yellow);
+  border-bottom: rem(2px) solid var(--color-yellow);
+  background: linear-gradient(360deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 100%);
+  background-color: #ffd76d;
+  overflow: hidden;
+}
+
+.setting {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: rem(10px);
+  color: var(--color-white);
+}

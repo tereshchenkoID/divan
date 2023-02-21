@@ -1,4 +1,3 @@
 export const hostnames = {
-    PROD:   "https://api.matchtracker.live",
-    DEV:    "https://stats.fn.sportradar.com/betradar"
+    PROD:   "https://view.divan.bet/engine/shop",
 }

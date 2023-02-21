@@ -1,0 +1,98 @@
+@import "scss/config";
+
+.block {
+  @include flex($direction: column);
+  @include make-spacer('pt', 2);
+
+  border: rem(2px) solid var(--color-orange);
+  border-radius: rem(10px);
+  background-color: var(--color-black);
+  height: 100%;
+}
+
+.wrapper {
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+.row {
+  @include make-spacer('mb', 2);
+  @include make-spacer('px', 1);
+
+  display: grid;
+  grid-template-columns: 1fr rem(55px) rem(88px);
+  column-gap: rem(5px);
+  align-items: center;
+  overflow: hidden;
+  font-size: rem(12px);
+  font-weight: var(--typography-bold);
+  text-align: center;
+  color: var(--color-orange);
+}
+
+.item {
+  @include make-spacer('mb', 4);
+
+  &:last-child {
+    @include make-spacer('mb', 0);
+  }
+}
+
+.market {
+  @include ellipsis;
+}
+
+.stake {
+  @include make-spacer('py', half);
+  @include make-spacer('px', 2);
+
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  align-items: center;
+  background-color: #333333;
+  color: var(--color-white);
+  font-size: rem(13px);
+
+  div {
+
+    &:last-child {
+      text-align: right;
+    }
+  }
+}
+
+.footer {
+  @include make-spacer('p', 1);
+  @include flex(space-between);
+}
+
+.option {
+  @include make-spacer('p', 2);
+  @include size(rem(64px));
+
+  border-radius: rem(8px);
+  border-width: 1px;
+  border-style: solid;
+  color: var(--color-white);
+  background: linear-gradient(360deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.1) 100%);
+
+  &.red {
+    background-color: #d6233c;
+    border-color: #8b0e26;
+  }
+
+  &.blue {
+    background-color: #1b79c9;
+    border-color: #1d4c89;
+  }
+
+  &.olive {
+    background-color: #3fa025;
+    border-color: #113808;
+  }
+
+  &.green {
+    background-color: #0b5a07;
+    border-color: #15490a;
+  }
+}

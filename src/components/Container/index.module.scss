@@ -1,9 +1,0 @@
-@import "scss/config";
-
-.block {
-  @include make-spacer('px', 3);
-  @include make-spacer('mx', auto);
-
-  position: relative;
-  max-width: var(--max-width);
-}

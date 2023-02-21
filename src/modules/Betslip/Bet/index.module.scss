@@ -1,0 +1,105 @@
+@import "scss/config";
+
+.block {
+  @include make-spacer('px', 1);
+}
+
+.bet {
+  @include make-spacer('mb', 2);
+
+  display: grid;
+  grid-template-columns: 1fr rem(105px) rem(50px) rem(58px) rem(25px);
+  column-gap: rem(5px);
+  align-items: center;
+  overflow: hidden;
+  color: var(--color-white);
+  font-size: rem(12px);
+}
+
+.keyboard {
+  @include flex(space-between);
+
+  gap: rem(10px);
+}
+
+.key {
+  @include make-spacer('px', 2);
+
+  flex: 1;
+  background-color: var(--color-green);
+  border-radius: rem(3px);
+  height: rem(25px);
+  color: var(--color-white);
+  font-size: rem(14px);
+}
+
+.market {
+  @include ellipsis;
+}
+
+.odd {
+  text-align: center;
+}
+
+.meta,
+.field {
+  @include size(100%, rem(25px));
+
+  border: 1px solid #808080;
+  background-color: #363636;
+  border-radius: rem(5px);
+  overflow: hidden;
+  text-align: center;
+  font-weight: var(--typography-bold);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.meta {
+  @include flex($align-items: center);
+  @include make-spacer('px', 1);
+}
+
+.close {
+  @include size(rem(25px));
+
+  padding: rem(5px);
+  overflow: hidden;
+  background-color: var(--color-red);
+  border-radius: rem(3px);
+  color: var(--color-white);
+}
+
+.odd {
+  text-align: center;
+}
+
+.field {
+  -moz-appearance: textfield;
+  color: var(--color-white);
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
+
+.stake {
+  @include make-spacer('py', half);
+  @include make-spacer('px', 2);
+
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  align-items: center;
+  background-color: #333333;
+  color: var(--color-white);
+  font-size: rem(13px);
+
+  div {
+
+    &:last-child {
+      text-align: right;
+    }
+  }
+}

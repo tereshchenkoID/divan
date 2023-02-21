@@ -1,16 +1,4 @@
 {
-  "stats": {
-  },
   "interface": {
-    "search": "Search",
-    "overview": "Overview",
-    "league_table": "League Table",
-    "archive": "Archive",
-    "h2h": "Head to Head",
-    "teams": "Teams",
-    "sport": "Sport",
-    "region": "Region",
-    "competition": "Competition",
-    "tournament": "Tournament"
   }
 }

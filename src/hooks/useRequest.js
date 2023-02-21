@@ -2,13 +2,9 @@ import axios from 'axios'
 
 import {hostnames} from "constant/config"
 
-import {useLocalStorage} from "helpers/localStorage";
-
 export const useRequest = () => {
-  const {getLocalStorage} = useLocalStorage()
-
   const server = axios.create({
-    baseURL: `${hostnames.PROD}/${getLocalStorage('i18nextLng')}/`,
+    baseURL: `${hostnames.PROD}`,
   })
 
   const get = async (url, headers) => {

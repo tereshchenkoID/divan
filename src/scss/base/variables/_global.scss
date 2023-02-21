@@ -1,12 +1,8 @@
 :root {
-  --min-width: 23.43rem;
-  --max-width: 75rem;
+  --min-width: 85.375rem;     // 1366px
+  --max-width: 100%;
 
   --gutter: 1.05px;           // 15px
-
-  --base-height-sm: 2.5rem;   // 40px
-  --base-height-md: 2.81rem;  // 45px
-  --base-height-xl: 3.125rem; // 50px
 
   --default-transition: all 0.3s;
 }

@@ -1,0 +1,21 @@
+@import "scss/config";
+
+.block {
+  @include flex(center, center, column);
+  @include size(rem(95px));
+
+  border-radius: 50%;
+  background-color: #223923;
+  text-align: center;
+}
+
+.top {
+  font-size: rem(24px);
+  font-weight: var(--typography-bold);
+  color: var(--color-white);
+}
+
+.bottom {
+  color: var(--color-green);
+  font-size: rem(14px);
+}

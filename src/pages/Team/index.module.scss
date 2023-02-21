@@ -1,9 +1,0 @@
-@import "scss/config";
-
-.wrapper {
-  @include make-spacer('mb', 4);
-
-  &:last-child {
-    @include make-spacer('mb', 0);
-  }
-}

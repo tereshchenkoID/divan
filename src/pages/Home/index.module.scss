@@ -1,7 +1,21 @@
 @import "scss/config";
 
-.list {
+.block {
+  @include flex($direction: column);
+
+  height: 100%;
+}
+
+.content {
+  @include make-spacer('pr', 2);
+  @include make-spacer('pb', 2);
+
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(rem(150px), 1fr));
-  gap: rem(10px);
+  grid-template-columns: 1fr rem(357px);
+  column-gap: rem(10px);
+  flex-grow: 1;
+}
+
+.column {
+  //border: 1px solid red;
 }

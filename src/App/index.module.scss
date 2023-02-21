@@ -3,90 +3,34 @@
 .root {
   @include scroll;
 
-  background-color: var(--bg);
   overflow-x: hidden;
+  background-color: #09230a;
   min-width: var(--min-width);
   height: 100vh;
-  color: var(--sub-text);
   line-height: var(--line-height);
   font-family: var(--font-family);
   font-size: var(--font-size);
   font-weight: var(--typography-regular);
-
-  button,
-  a {
-    @include transition(all);
-
-    color: var(--sub-text);
-
-    &:focus {
-      outline: none;
-    }
-  }
-
-  &.light {
-    --brand: #7280d2;
-    --brand-hover: #4558c4;
-    --brand-disabled: #a6afe3;
-    --link: #6173d4;
-    --link-hover: #354cc4;
-    --link-disabled: #8b98df;
-    --material: #fff;
-    --material-hover: #f2f4fd;
-    --material-disabled: #f6f6f6;
-    --primary: #f2f4fd;
-    --primary-hover: #e2e6f9;
-    --primary-disabled: #f2f4fd;
-    --bg: #e3e4ec;
-    --border: #e3e4ec;
-    --text-for-material: #464e64;
-    --text-for-material-disabled: #aab1c4;
-    --sub-text: #848ca0;
-    --icon: #9ca9c6;
-    --icon-hover: #7e8fb4;
-    --text-for-brand: #fff;
-    --text-for-brand-disabled: #ebebeb;
-    --odd: #000;
-    --amber: #ffb822;
-    --red: #dd0e0e;
-    --green: #079864;
-    --shadow: #dadadc;
-    --disable-button: #fff;
-    --white: #fff
-  }
-
-  &.dark {
-    --brand: #4155c6;
-    --brand-hover: #6a7ad2;
-    --brand-disabled: #343d72;
-    --link: #8e9cf6;
-    --link-hover: #bdc5fa;
-    --link-disabled: #5c6076;
-    --material: #222430;
-    --material-hover: #292d42;
-    --material-disabled: #090a0b;
-    --primary: #2d3146;
-    --primary-hover: #424866;
-    --primary-disabled: #1c1e2b;
-    --bg: #14151e;
-    --border: #14151e;
-    --text-for-material: #fff;
-    --text-for-material-disabled: #b2b2b2;
-    --sub-text: #868c98;
-    --icon: #ccc;
-    --icon-hover: #fff;
-    --text-for-brand: #fff;
-    --text-for-brand-disabled: #898989;
-    --odd: #e7cf90;
-    --amber: #ffb822;
-    --red: #f26f89;
-    --green: #01b64f;
-    --shadow: #000;
-    --disable-button: #000;
-    --white: #fff
-  }
 }
 
 .main {
-  @include make-spacer('py', 2);
+  height: 100%;
+}
+
+button,
+a,
+input {
+
+  &:focus {
+    outline: none;
+  }
+}
+
+button,
+a {
+  @include transition(all);
+}
+
+button {
+  text-shadow: 1px 1px 1px var(--color-black);
 }

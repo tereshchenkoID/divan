@@ -1,16 +1,4 @@
 {
-  "stats": {
-  },
   "interface": {
-    "search": "Пошук",
-    "overview": "Загалом",
-    "league_table": "Таблиця ліги",
-    "archive": "Архів",
-    "h2h": "Оч. зуст.",
-    "teams": "Команди",
-    "sport": "Спорт",
-    "region": "Регіон",
-    "competition": "Змагання",
-    "tournament": "Турнір"
   }
 }
