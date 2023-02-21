@@ -18,5 +18,5 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: rem(10px);
-  color: var(--color-white);
+  font-weight: var(--typography-bold);
 }

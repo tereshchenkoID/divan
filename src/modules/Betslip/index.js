@@ -1,4 +1,4 @@
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
 import classNames from "classnames";
 
@@ -6,8 +6,10 @@ import Icon from "components/Icon";
 import Bet from "./Bet";
 
 import style from './index.module.scss';
+import {deleteBetslip} from "../../store/actions/betslipAction";
 
 const Betslip = () => {
+    const dispatch = useDispatch()
     const {betslip} = useSelector((state) => state.betslip)
 
     return (
@@ -57,6 +59,10 @@ const Betslip = () => {
                             style.red
                         )
                     }
+                    onClick={() => {
+                        dispatch(deleteBetslip([]))
+                    }}
+                    aria-label={'Remove'}
                 >
                     <Icon id={'close'} />
                 </button>

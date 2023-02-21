@@ -8,12 +8,11 @@ import {fetchData} from "helpers/api";
 import Loader from "components/Loader";
 import Icon from "components/Icon";
 
-import Timer from "modules/Timer";
-
 import Odd from "../Odd";
+import Subtitle from "../Subtitle";
+import Timer from "../Timer";
 
 import style from './index.module.scss';
-import Subtitle from "../Subtitle";
 
 const Table = () => {
     const {game} = useSelector((state) => state.game)
