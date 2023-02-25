@@ -1,9 +1,10 @@
 import {useState, useEffect} from "react";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
 import classNames from "classnames";
 
-import {fetchData} from "helpers/api";
+import {setLive} from "store/actions/liveAction";
+import {setData} from "store/actions/dataAction";
 
 import Loader from "components/Loader";
 import Icon from "components/Icon";
@@ -15,12 +16,16 @@ import Timer from "../Timer";
 import style from './index.module.scss';
 
 const Table = () => {
+    const dispatch = useDispatch()
     const {game} = useSelector((state) => state.game)
-    const [data, setData] = useState([])
+    const {data} = useSelector((state) => state.data)
+    const {live} = useSelector((state) => state.live)
+
     const [loading, setLoading] = useState(true)
-    const [active, setActive] = useState()
-    const [week, setWeek] = useState()
+    const [active, setActive] = useState(0)
+    const [week, setWeek] = useState(0)
     const [group, setGroup] = useState(0)
+
     const [toggle, setToggle] = useState({
         id: null,
         toggle: false
@@ -28,17 +33,27 @@ const Table = () => {
 
     useEffect(() => {
         if (game !== null) {
-            //`feed/events?locale=en_US&gameType=FOOTBALL_LEAGUE&leagueId=${game}`
 
-            fetchData('https://virstas.com/client/feed.php').then((json) => {
-                setData(json)
-                setWeek(json.events[0].league.week)
-                setActive(0)
-                setLoading(false)
-            })
+            if (live === 0) {
+                dispatch(setData(game)).then((json) => {
+                    setWeek(json.events[0].league.week)
+                    setActive(0)
+                    setLoading(false)
+                })
+            }
         }
 
-    }, [game]);
+        // if (live === 1) {
+        //     const a = active + 1
+        //     const w = data.events[a].league.week
+        //
+        //     setActive(a)
+        //     setWeek(w)
+        //
+        //     console.log(week, active)
+        // }
+
+    }, [game, live]);
 
     const handleToggle = (id) => {
         setToggle({
@@ -74,8 +89,6 @@ const Table = () => {
             }
         })
 
-        console.log(result)
-
         return result
     }
 
@@ -99,6 +112,7 @@ const Table = () => {
                                                 )
                                             }
                                             onClick={() => {
+                                                dispatch(setLive(0))
                                                 setWeek(el.league.week)
                                                 setActive(idx)
                                             }}
@@ -107,6 +121,8 @@ const Table = () => {
                                         </button>
                                     )
                                 }
+                                <div style={{color: '#fff'}}>{live}</div>
+                                <div style={{color: '#fff'}}>{active}</div>
                             </div>
                             <div className={style.info}>
                                 <div className={style.league}>
@@ -115,10 +131,7 @@ const Table = () => {
                                        alt={data.events[active].league.name}
                                    />
                                 </div>
-                                <Timer
-                                    start={data.events[active].start}
-                                    next={data.events[active].nextUpdate}
-                                />
+                                <Timer data={data.events[active]}/>
                             </div>
                             <div className={style.body}>
                                 {
@@ -282,7 +295,8 @@ const Table = () => {
                                                                                                     ...el,
                                                                                                     ...el_m.teams,
                                                                                                     pos: el_m.pos,
-                                                                                                    market: el_o.name
+                                                                                                    market: el_o.printname,
+                                                                                                    c: el.c
                                                                                                 }}
                                                                                             />
                                                                                         </div>
@@ -348,7 +362,8 @@ const Table = () => {
                                                                                         ...el,
                                                                                         ...el_e.league.matches[toggle.id].teams,
                                                                                         pos: el_e.league.matches[toggle.id].pos,
-                                                                                        market: el_e.league.matches[toggle.id].odds[0].groups[6].name.replaceAll(' ', '_')
+                                                                                        market: el_e.league.matches[toggle.id].odds[0].groups[6].markets[0].printname,
+                                                                                        c: el.a
                                                                                     }}
                                                                                     label={el.a}
                                                                                 />
@@ -387,7 +402,8 @@ const Table = () => {
                                                                                                                     ...el,
                                                                                                                     ...el_e.league.matches[toggle.id].teams,
                                                                                                                     pos: el_e.league.matches[toggle.id].pos,
-                                                                                                                    market: el_e.league.matches[toggle.id].odds[0].groups[7].name
+                                                                                                                    market: el_e.league.matches[toggle.id].odds[0].groups[7].markets[0].printname,
+                                                                                                                    c: el.a
                                                                                                                 }}
                                                                                                                 label={el.a}
                                                                                                             />

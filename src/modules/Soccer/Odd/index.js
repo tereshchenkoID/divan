@@ -11,7 +11,7 @@ const Odd = ({data, label = false}) => {
     const {betslip} = useSelector((state) => state.betslip)
 
     const handleClick = (data) => {
-        const a = [...betslip]
+        const a = betslip.slice(0);
         const find = a.find(el => {
             return el.id === data.id
         })
@@ -27,6 +27,7 @@ const Odd = ({data, label = false}) => {
                 b: data.b || 1.00,
                 pos: data.pos,
                 market: data.market || "OVER_UNDER",
+                c: data.c,
                 stake: 0,
                 teams: {
                     home: data.home,
@@ -48,7 +49,8 @@ const Odd = ({data, label = false}) => {
                 classNames(
                     style.block,
                     label && style.sm,
-                    betslip.length > 0 && activeClass(data.id) && style.active,
+                    (!data.b || data.b === 1.00) && style.disabled,
+                    betslip.length > 0 && activeClass(data.id) && style.active
                 )
             }
             onClick={() => {

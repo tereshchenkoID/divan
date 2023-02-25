@@ -10,3 +10,5 @@ export const fetchData = async (url) => {
         console.log(e)
     }
 }
+
+export default fetchData

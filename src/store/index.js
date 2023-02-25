@@ -4,10 +4,14 @@ import thunk from 'redux-thunk';
 import gameReducer from "./reducers/gameReducer";
 import settingsReducer from "./reducers/settingsReducer";
 import betslipReducer from "./reducers/betslipReducer";
+import liveReducer from "./reducers/liveReducer";
+import dataReducer from "./reducers/dataReducer";
 
 const allReducer = combineReducers({
+    data: dataReducer,
     game: gameReducer,
     settings: settingsReducer,
+    live: liveReducer,
     betslip: betslipReducer
 });
 
