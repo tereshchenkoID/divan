@@ -2,6 +2,7 @@ import {useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
 
 import {setLive} from "store/actions/liveAction";
+import {setModal} from "store/actions/modalAction";
 
 const getDifferent = (data) => {
     const c = new Date().getTime(),
@@ -28,6 +29,10 @@ const StartTimer = ({start}) => {
             if (r === '0') {
                 dispatch(setLive(1))
                 clearInterval(a)
+            }
+
+            if (r === '00:06') {
+                dispatch(setModal(1))
             }
         },1000)
 

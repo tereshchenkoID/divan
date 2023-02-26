@@ -1,5 +1,6 @@
-import style from './index.module.scss';
 import classNames from "classnames";
+
+import style from './index.module.scss';
 
 const Subtitle = ({data, size}) => {
 

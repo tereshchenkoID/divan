@@ -8,6 +8,7 @@ import 'swiper/css';
 import classNames from "classnames";
 
 import {setGame} from "store/actions/gameAction";
+import {setLive} from "store/actions/liveAction";
 
 import style from './index.module.scss';
 
@@ -42,6 +43,7 @@ const Slider = () => {
                                 aria-label={el.e}
                                 onClick={() => {
                                     dispatch(setGame(el.c))
+                                    dispatch(setLive(0))
                                 }}
                             >
                                 {el.e}

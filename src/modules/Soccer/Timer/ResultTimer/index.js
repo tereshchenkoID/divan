@@ -26,7 +26,7 @@ const ResultTimer = ({end}) => {
             let r = getDifferent(end)
             setTimer(r)
             if (r === '0') {
-                dispatch(setLive(0))
+                dispatch(setLive(3))
                 clearInterval(a)
             }
         },1000)

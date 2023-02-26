@@ -1,0 +1,23 @@
+@import "scss/config";
+
+.block {
+  @include flex(center, center);
+  @include make-spacer('p', 2);
+
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 11;
+  background-color: rgba(0, 0, 0,0.5);
+}
+
+.button {
+  @include make-spacer('px', 4);
+  @include make-spacer('py', 2);
+
+  background-color: var(--color-green);
+  color: var(--color-white);
+  text-transform: uppercase;
+}

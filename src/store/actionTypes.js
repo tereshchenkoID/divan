@@ -11,4 +11,6 @@ export const types = {
     GET_LIVE:       'GET_LIVE',
     SET_DATA:       'SET_DATA',
     GET_DATA:       'GET_DATA',
+    SET_MODAL:      'SET_MODAL',
+    GET_MODAL:      'GET_MODAL',
 };

@@ -6,12 +6,14 @@ import settingsReducer from "./reducers/settingsReducer";
 import betslipReducer from "./reducers/betslipReducer";
 import liveReducer from "./reducers/liveReducer";
 import dataReducer from "./reducers/dataReducer";
+import modalReducer from "./reducers/modalReducer";
 
 const allReducer = combineReducers({
     data: dataReducer,
     game: gameReducer,
     settings: settingsReducer,
     live: liveReducer,
+    modal: modalReducer,
     betslip: betslipReducer
 });
 

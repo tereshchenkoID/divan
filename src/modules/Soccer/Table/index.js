@@ -5,13 +5,14 @@ import classNames from "classnames";
 
 import {setLive} from "store/actions/liveAction";
 import {setData} from "store/actions/dataAction";
+import {setModal} from "store/actions/modalAction";
 
 import Loader from "components/Loader";
 import Icon from "components/Icon";
-
 import Odd from "../Odd";
 import Subtitle from "../Subtitle";
 import Timer from "../Timer";
+import Modal from "../Modal";
 
 import style from './index.module.scss';
 
@@ -20,6 +21,7 @@ const Table = () => {
     const {game} = useSelector((state) => state.game)
     const {data} = useSelector((state) => state.data)
     const {live} = useSelector((state) => state.live)
+    const {modal} = useSelector((state) => state.modal)
 
     const [loading, setLoading] = useState(true)
     const [active, setActive] = useState(0)
@@ -33,27 +35,37 @@ const Table = () => {
 
     useEffect(() => {
         if (game !== null) {
-
-            if (live === 0) {
-                dispatch(setData(game)).then((json) => {
-                    setWeek(json.events[0].league.week)
-                    setActive(0)
-                    setLoading(false)
-                })
-            }
+            dispatch(setData(game)).then((json) => {
+                setWeek(json.events[0].league.week)
+                setActive(0)
+                setLoading(false)
+            })
         }
 
-        // if (live === 1) {
-        //     const a = active + 1
-        //     const w = data.events[a].league.week
-        //
-        //     setActive(a)
-        //     setWeek(w)
-        //
-        //     console.log(week, active)
-        // }
+    }, [game]);
 
-    }, [game, live]);
+    useEffect(() => {
+        if (modal === 1) {
+            const a = active + 1
+            const w = data.events[a].league.week
+
+            setActive(a)
+            setWeek(w)
+
+            dispatch(setLive(0))
+            dispatch(setModal(0))
+        }
+
+        if (live === 3) {
+            dispatch(setData(game)).then((json) => {
+                setWeek(json.events[0].league.week)
+                setActive(0)
+                setLoading(false)
+                dispatch(setLive(0))
+            })
+        }
+
+    }, [live]);
 
     const handleToggle = (id) => {
         setToggle({
@@ -92,6 +104,12 @@ const Table = () => {
         return result
     }
 
+    console.log({
+        live: live,
+        active: active,
+        modal: modal
+    })
+
     return (
         <div className={style.block}>
             {
@@ -100,6 +118,10 @@ const Table = () => {
                         <Loader />
                     :
                         <>
+                            {
+                                modal === 1 &&
+                                <Modal />
+                            }
                             <div className={style.tab}>
                                 {
                                     data.events.map((el, idx) =>
@@ -113,6 +135,7 @@ const Table = () => {
                                             }
                                             onClick={() => {
                                                 dispatch(setLive(0))
+                                                dispatch(setModal(0))
                                                 setWeek(el.league.week)
                                                 setActive(idx)
                                             }}
@@ -121,8 +144,6 @@ const Table = () => {
                                         </button>
                                     )
                                 }
-                                <div style={{color: '#fff'}}>{live}</div>
-                                <div style={{color: '#fff'}}>{active}</div>
                             </div>
                             <div className={style.info}>
                                 <div className={style.league}>
