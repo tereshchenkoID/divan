@@ -2,6 +2,7 @@ import {useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
 
 import {setLive} from "store/actions/liveAction";
+import {setLiveTimer} from "store/actions/liveTimerAction";
 
 const MAX = '90'
 
@@ -26,6 +27,7 @@ const MatchTimer = ({start, end}) => {
     useEffect(() => {
         const a = setInterval(() => {
             let r = getDifferent(start, end)
+            dispatch(setLiveTimer(r))
             setTimer(`${r}'`)
 
             if (r === '0') {
@@ -36,6 +38,7 @@ const MatchTimer = ({start, end}) => {
 
         return () => {
             setTimer('')
+            dispatch(setLiveTimer('0'))
             clearInterval(a);
         }
     }, [start]);

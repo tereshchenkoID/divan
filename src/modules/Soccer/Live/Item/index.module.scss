@@ -1,0 +1,75 @@
+@import "scss/config";
+
+.block {
+  display: grid;
+  grid-template-columns: rem(35px) rem(215px) 1fr;
+  column-gap: rem(10px);
+  align-items: center;
+  border-bottom: 1px solid #a7a7a7;
+  transition: var(--default-transition);
+  height: rem(53px);
+  text-align: center;
+  color: var(--color-white);
+
+  &:nth-child(even) {
+    background-color: #323232;
+  }
+
+  &:nth-child(odd) {
+    background-color: #272727;
+  }
+
+  &:last-child {
+    border-bottom: 0;
+  }
+
+  &.active {
+    background-color: var(--color-green);
+  }
+}
+
+.cell {
+}
+
+.odds {
+  @include flex;
+}
+
+.odd {
+  flex: 1;
+}
+
+.label {
+  font-size: rem(12px);
+  opacity: 0.6;
+}
+
+.value {
+
+}
+
+.meta {
+  display: grid;
+  grid-template-columns: rem(40px) 1fr rem(40px) 1fr rem(40px);
+  align-items: center;
+  text-align: center;
+  font-size: rem(15px);
+  color: var(--color-white);
+}
+
+.score {
+  display: grid;
+  grid-template-columns: 1fr rem(5px) 1fr;
+  column-gap: rem(5px);
+  color: var(--color-green);
+  font-weight: var(--typography-bold);
+}
+
+.logo {
+  @include make-spacer('p', 1);
+  @include size(rem(40px));
+
+  img {
+    object-fit: contain;
+  }
+}

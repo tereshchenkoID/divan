@@ -1,9 +1,9 @@
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 
 import {deleteBetslip} from "store/actions/betslipAction";
+import {setUpdate} from "store/actions/updateAction";
 
-import fetchData from "helpers/api";
 import convertTime from "helpers/convertTime";
 import checkData from "helpers/checkData";
 
@@ -16,13 +16,11 @@ import style from './index.module.scss';
 const Timer = ({data}) => {
     const dispatch = useDispatch()
     const {live} = useSelector((state) => state.live)
-    const [update, setUpdate] = useState({})
+    const {update} = useSelector((state) => state.update)
 
     useEffect(() => {
         if (live === 1 || live === 2) {
-            fetchData(`/client/getFeed/football/?eventId=${data.id}`).then((json) => {
-                setUpdate(json)
-            })
+            dispatch(setUpdate(data.id))
         }
 
         if (live === 1) {

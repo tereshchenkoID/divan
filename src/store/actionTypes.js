@@ -13,4 +13,8 @@ export const types = {
     GET_DATA:       'GET_DATA',
     SET_MODAL:      'SET_MODAL',
     GET_MODAL:      'GET_MODAL',
+    SET_UPDATE:     'SET_UPDATE',
+    GET_UPDATE:     'GET_UPDATE',
+    SET_LIVE_TIMER: 'SET_LIVE_TIMER',
+    GET_LIVE_TIMER: 'GET_LIVE_TIMER',
 };

@@ -31,7 +31,7 @@ const StartTimer = ({start}) => {
                 clearInterval(a)
             }
 
-            if (r === '00:06') {
+            if (r === '00:05') {
                 dispatch(setModal(1))
             }
         },1000)

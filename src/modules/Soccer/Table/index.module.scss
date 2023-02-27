@@ -132,7 +132,6 @@
     height: rem(53px);
     text-align: center;
 
-
     &:nth-child(even) {
       background-color: #323232;
     }
@@ -174,7 +173,7 @@
 
 .row {
   display: grid;
-  grid-template-columns: 35px rem(215px) 1fr;
+  grid-template-columns: rem(35px) rem(215px) 1fr;
   column-gap: rem(10px);
   align-items: center;
   color: var(--color-white);
