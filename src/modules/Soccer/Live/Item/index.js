@@ -23,16 +23,22 @@ const WINNER = (score, data) => {
 }
 
 const GOAL_NO_GOAL = (score, data) => {
+    let a
+
     if (score.home > 0 && score.away > 0) {
-        return data.find(el => {
+        a = data.find(el => {
             return el.a === "GOAL"
         })
+
+        a.active = true
     }
     else {
-        return data.find(el => {
+        a = data.find(el => {
             return el.a === "NO_GOAL"
         })
     }
+
+    return a
 }
 
 const GOALS = (score, data) => {
@@ -67,16 +73,22 @@ const SCORE = (score, data) => {
 
 const OVER_UNDER = (score, data) => {
     const r = score.home + score.away
+    let a
+
     if (r <= 2) {
-        return data.find(el => {
+        a = data.find(el => {
             return el.a === "UNDER_2.5"
         })
     }
     else {
-        return data.find(el => {
+        a = data.find(el => {
             return el.a === "OVER_2.5"
         })
+
+        a.active = true
     }
+
+    return a
 }
 
 const DOUBLE_CHANCE = (score, data) => {
@@ -158,20 +170,10 @@ const Item = ({data, timer, types}) => {
     const [odds, setOdds] = useState([])
     const [markets, setMarkets] = useState([])
 
-    const filterMarket = () => {
-        const a = []
-        a.push(
-            ...data.odds[0].groups[0].markets,
-            ...data.odds[0].groups[6].markets,
-            goalsMarket(data.odds[0].groups[7])
-        )
-
-        setMarkets(a)
-    }
-
-    const filterOdds = (score) => {
+    const filterOdds = (score, a) => {
         const s = []
-        markets.map(el_m => {
+        const e = a || markets
+        e.map(el_m => {
             s.push(
                 getOdds(
                     el_m.name,
@@ -180,45 +182,78 @@ const Item = ({data, timer, types}) => {
                 )
             )
         })
-
         setOdds(s)
-        console.log(s)
     }
 
-    const filterScene = (data, timer) => {
-        let a = data.filter(el => el.update !== null)
+    const filterMarket = () => {
+        const a = []
 
-        a.map(el => {
-            if (el.update === parseInt(timer, 10)) {
-                filterOdds(el)
+        a.push(
+            ...data.odds[0].groups[0].markets,
+            ...data.odds[0].groups[6].markets,
+            goalsMarket(data.odds[0].groups[7])
+        )
 
-                setScore([el.home, el.away])
-                setActive(true)
+        setMarkets(a)
 
-                setTimeout(() => {
-                    setActive(false)
-                }, 1000)
-            }
+        filterOdds(
+            {
+                home: 0,
+                away: 0
+            },
+            a
+        )
+    }
 
-            return el
-        })
+    const filterScene = (data, timer, init) => {
+
+        if (init === 0) {
+            filterOdds(data, markets)
+
+            setScore([data.home, data.away])
+        }
+        else {
+            let a = data.filter(el => el.update !== null)
+
+            a.map(el => {
+                if (el.update === parseInt(timer, 10)) {
+                    filterOdds(el, markets)
+
+                    setScore([el.home, el.away])
+                    setActive(true)
+
+                    setTimeout(() => {
+                        setActive(false)
+                    }, 1000)
+                }
+
+                return el
+            })
+        }
     }
 
     useEffect(() => {
+
+        const p = Math.ceil(timer / 15)
+        filterScene(data.scenes[p], timer, 0)
         filterMarket()
+
+        console.log(timer, data.scenes[p])
+
     }, []);
 
     useEffect(() => {
-        filterScene(data.scenes, timer)
+        filterScene(data.scenes, timer, 1)
     }, [timer]);
 
     return (
         <div className={
-            classNames(
-                style.block,
-                active && style.active
-            )
-        }>
+                classNames(
+                    style.block,
+                    active && style.active
+                )
+            }
+        >
             <div className={style.cell}>{data.pos}</div>
             <div className={style.cell}>
                 <div
@@ -261,9 +296,15 @@ const Item = ({data, timer, types}) => {
                             {
                                 el.a
                                     ?
-                                        <div className={style.odd}>
+                                        <div className={
+                                            classNames(
+                                                    style.odd,
+                                                    el.active && style.active
+                                                )
+                                            }
+                                        >
                                             <div className={style.label}>{el.c || el.a}</div>
-                                            <div className={style.value}>{el.b}</div>
+                                            <div className={style.value}>{el.b || 1}</div>
                                         </div>
                                     :
                                         <div className={style.odds}>
@@ -271,10 +312,15 @@ const Item = ({data, timer, types}) => {
                                                 el.map((el_d, idx_d) =>
                                                     <div
                                                         key={idx_d}
-                                                        className={style.odd}
+                                                        className={
+                                                            classNames(
+                                                                style.odd,
+                                                                el.active && style.active
+                                                            )
+                                                        }
                                                     >
                                                         <div className={style.label}>{el_d.c || el_d.a}</div>
-                                                        <div className={style.value}>{el_d.b}</div>
+                                                        <div className={style.value}>{el_d.b || 1}</div>
                                                     </div>
                                                 )
                                             }
