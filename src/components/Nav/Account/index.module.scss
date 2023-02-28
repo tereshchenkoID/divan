@@ -1,0 +1,24 @@
+@import "scss/config";
+
+.block {
+  @include flex($align-items: center);
+
+  gap: rem(10px);
+  font-weight: var(--typography-bold);
+}
+
+.cell {
+  @include flex($align-items: center);
+
+  gap: rem(10px);
+}
+
+.icon {
+  @include size(rem(30px));
+
+  color: #000;
+
+  path {
+    stroke: #000;
+  }
+}

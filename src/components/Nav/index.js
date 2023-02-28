@@ -1,5 +1,6 @@
 import Clock from "./Clock";
 import Slider from "./Slider";
+import Account from "./Account";
 
 import style from './index.module.scss';
 
@@ -12,10 +13,7 @@ const Nav = () => {
             </div>
             <div className={style.setting}>
                 <div className={style.cell}>
-                    <div>Cashier131</div>
-                </div>
-                <div className={style.cell}>
-                    <div>$4,40000</div>
+                    <Account />
                 </div>
                 <div className={style.cell}>
                     <Clock />

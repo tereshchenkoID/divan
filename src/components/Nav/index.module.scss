@@ -15,8 +15,8 @@
 }
 
 .setting {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: rem(10px);
+  @include flex($align-items: center);
+
+  gap: rem(10px);
   font-weight: var(--typography-bold);
 }

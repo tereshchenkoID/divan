@@ -66,8 +66,3 @@ const Timer = ({data}) => {
 }
 
 export default Timer;
-
-
-// Status:
-// PROGRESS
-// ANNOUNCEMENT

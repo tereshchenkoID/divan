@@ -9,10 +9,10 @@ import {setModal} from "store/actions/modalAction";
 
 import Loader from "components/Loader";
 import Icon from "components/Icon";
+import Subtitle from "./Subtitle";
+import Modal from "./Modal";
 import Odd from "../Odd";
-import Subtitle from "../Subtitle";
 import Timer from "../Timer";
-import Modal from "../Modal";
 import Live from "../Live";
 
 import style from './index.module.scss';
@@ -38,9 +38,21 @@ const Table = () => {
         if (game !== null) {
             setLoading(true)
             dispatch(setData(game)).then((json) => {
-                setWeek(json.events[0].league.week)
-                setActive(0)
-                setLoading(false)
+
+                const f = json.events.find(el => {
+                    return el.status !== "ANNOUNCEMENT"
+                })
+
+                if (f) {
+                    setWeek(json.events[1].league.week)
+                    setActive(1)
+                    setLoading(false)
+                }
+                else {
+                    setWeek(json.events[0].league.week)
+                    setActive(0)
+                    setLoading(false)
+                }
             })
         }
 
