@@ -5,12 +5,12 @@
   @include make-spacer('p', 2);
 
   position: fixed;
-  top: 0;
-  right: 0;
+  top: rem(57px);
+  right: rem(370px);
   bottom: 0;
   left: 0;
   z-index: 11;
-  background-color: rgba(0, 0, 0,0.5);
+  background-color: rgba(0, 0, 0, 1);
 }
 
 .button {

@@ -29,7 +29,6 @@ const Table = () => {
     const [active, setActive] = useState(0)
     const [week, setWeek] = useState(0)
     const [group, setGroup] = useState(0)
-
     const [toggle, setToggle] = useState({
         id: null,
         toggle: false
@@ -49,14 +48,7 @@ const Table = () => {
 
     useEffect(() => {
         if (modal === 1) {
-            const a = active + 1
-            const w = data.events[a].league.week
-
-            setActive(a)
-            setWeek(w)
-
-            dispatch(setLive(0))
-            dispatch(setModal(0))
+            handleNext()
         }
 
         if (live === 3) {
@@ -69,6 +61,17 @@ const Table = () => {
         }
 
     }, [live]);
+
+    const handleNext = () => {
+        const a = active + 1
+        const w = data.events[a].league.week
+
+        setActive(a)
+        setWeek(w)
+
+        dispatch(setLive(0))
+        dispatch(setModal(0))
+    }
 
     const handleToggle = (id) => {
         setToggle({
@@ -84,7 +87,7 @@ const Table = () => {
         let count = 0
 
         // eslint-disable-next-line array-callback-return
-        data.map((el, idx) => {
+        data.map(el => {
             const a = el.a.split('-')
             const sum = parseInt(a[0], 10) + parseInt(a[1], 10)
 
@@ -119,7 +122,9 @@ const Table = () => {
                         <>
                             {
                                 modal === 1 &&
-                                <Modal />
+                                <Modal
+                                    action={handleNext}
+                                />
                             }
                             <div className={style.tab}>
                                 {

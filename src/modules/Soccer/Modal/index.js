@@ -1,20 +1,12 @@
-import {useDispatch} from "react-redux";
-
-import {setLive} from "store/actions/liveAction";
-import {setModal} from "store/actions/modalAction";
-
 import style from './index.module.scss';
 
-const Modal = () => {
-    const dispatch = useDispatch()
-
+const Modal = ({action}) => {
     return (
         <div className={style.block}>
             <button
                 className={style.button}
                 onClick={() => {
-                    dispatch(setLive(0))
-                    dispatch(setModal(0))
+                    action()
                 }}
             >
                 Skip Next game

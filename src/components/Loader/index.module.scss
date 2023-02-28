@@ -8,9 +8,11 @@
   left: 0;
   z-index: 12;
   background-color: var(--color-black);
+  overflow: hidden;
 
   &.block {
     position: absolute;
+    border-radius: rem(8px);
 
     .wrapper {
       @include size(75px);
