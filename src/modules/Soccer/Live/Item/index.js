@@ -164,7 +164,7 @@ const goalsMarket = (data) => {
     return r
 }
 
-const Item = ({data, timer, types}) => {
+const Item = ({data, timer}) => {
     const [active, setActive] = useState(false)
     const [score, setScore] = useState([0, 0])
     const [odds, setOdds] = useState([])
@@ -185,7 +185,7 @@ const Item = ({data, timer, types}) => {
         setOdds(s)
     }
 
-    const filterMarket = () => {
+    const filterMarket = (s) => {
         const a = []
 
         a.push(
@@ -195,11 +195,10 @@ const Item = ({data, timer, types}) => {
         )
 
         setMarkets(a)
-
         filterOdds(
             {
-                home: 0,
-                away: 0
+                home: s[0],
+                away: s[1]
             },
             a
         )
@@ -233,13 +232,10 @@ const Item = ({data, timer, types}) => {
     }
 
     useEffect(() => {
-
         const p = Math.ceil(timer / 15)
         filterScene(data.scenes[p], timer, 0)
-        filterMarket()
-
-        console.log(timer, data.scenes[p])
-
+        filterMarket([data.scenes[p].home, data.scenes[p].away])
+        setScore([data.scenes[p].home, data.scenes[p].away])
     }, []);
 
     useEffect(() => {

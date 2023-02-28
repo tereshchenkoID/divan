@@ -70,6 +70,7 @@
   @include flex($align-items: center);
 
   padding-left: rem(275px);
+  min-height: rem(75px);
 }
 
 .market {

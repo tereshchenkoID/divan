@@ -105,12 +105,6 @@ const Table = () => {
         return result
     }
 
-    // console.log({
-    //     live: live,
-    //     active: active,
-    //     modal: modal
-    // })
-
     return (
         <div className={style.block}>
             {
@@ -169,6 +163,7 @@ const Table = () => {
                                         >
                                             <div className={style.sort}>
                                                 {
+                                                    live === 0 &&
                                                     el_e.league.matches[0].odds[0].groups.map((el, idx) =>
                                                         (
                                                             el.name !== 'Score' &&
@@ -195,7 +190,6 @@ const Table = () => {
                                                     )
                                                 }
                                             </div>
-                                            {/*<Live />*/}
                                             {
                                                 live === 0
                                                     ?

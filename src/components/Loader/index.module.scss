@@ -7,7 +7,7 @@
   top: 0;
   left: 0;
   z-index: 12;
-  background-color: var(--color-white);
+  background-color: var(--color-black);
 
   &.block {
     position: absolute;
@@ -31,7 +31,7 @@
   position: relative;
   border-radius: 50%;
   border: 3px solid transparent;
-  border-top-color: var(--link);
+  border-top-color: var(--color-green );
   animation: spin 2s linear infinite;
 }
 
@@ -50,7 +50,7 @@
     left: rem(5px);
     right: rem(5px);
     bottom: rem(5px);
-    border-top-color: var(--link-hover);
+    border-top-color: var(--color-orange-900);
     animation: spin 3s linear infinite;
   }
 
@@ -59,7 +59,7 @@
     left: rem(15px);
     right: rem(15px);
     bottom: rem(15px);
-    border-top-color: var(--link-disabled);
+    border-top-color: var(--color-orange);
     animation: spin 1.5s linear infinite;
   }
 }

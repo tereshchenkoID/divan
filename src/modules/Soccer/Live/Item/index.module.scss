@@ -28,9 +28,6 @@
   }
 }
 
-.cell {
-}
-
 .odds {
   @include flex;
 
@@ -48,10 +45,6 @@
 .label {
   font-size: rem(12px);
   opacity: 0.6;
-}
-
-.value {
-
 }
 
 .meta {

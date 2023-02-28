@@ -1,54 +1,37 @@
-import {useEffect, useState, Fragment} from "react";
+import {useEffect, useState} from "react";
 import {useSelector} from "react-redux";
 
-import classNames from "classnames";
-
 import checkData from "helpers/checkData";
-import fetchData from "helpers/api";
 
+import Loader from "components/Loader";
 import Item from "./Item";
 
 import style from './index.module.scss';
 
 const TYPES = [
     {
-        name: "Main",
-        markets: [
-            {
-                name: "WINNER",
-                value: "WINNER"
-            },
-            {
-                name: "DOUBLE CHANCE",
-                value: "DOUBLE_CHANCE"
-            },
-            {
-                name: "GOAL/NO GOAL",
-                value: "GOAL_NO_GOAL"
-            },
-            {
-                name: "OV/UN 2.5",
-                value: "OVER_UNDER"
-            }
-        ]
+        name: "WINNER",
+        value: "WINNER"
     },
     {
-        name: "Exact Goals",
-        markets: [
-            {
-                name: "TOTAL GOALS",
-                value: "GOALS"
-            }
-        ]
+        name: "DOUBLE CHANCE",
+        value: "DOUBLE_CHANCE"
     },
     {
-        name: "Score",
-        markets: [
-            {
-                name: "CORRECT SCORE",
-                value: "SCORE"
-            }
-        ]
+        name: "GOAL/NO GOAL",
+        value: "GOAL_NO_GOAL"
+    },
+    {
+        name: "OV/UN 2.5",
+        value: "OVER_UNDER"
+    },
+    {
+        name: "TOTAL GOALS",
+        value: "GOALS"
+    },
+    {
+        name: "CORRECT SCORE",
+        value: "SCORE"
     }
 ]
 
@@ -57,18 +40,9 @@ const Live = () => {
     const {update} = useSelector((state) => state.update)
     const {liveTimer} = useSelector((state) => state.liveTimer)
 
-    // const [update, setUpdate] = useState({})
-
     useEffect(() => {
         !checkData(update) && setLoading(false)
     }, [update, liveTimer]);
-
-    // useEffect(() => {
-    //     fetchData('https://view.divan.bet/client/getFeed/football/?eventId=926415277').then((json) => {
-    //         setUpdate(json)
-    //         setLoading(false)
-    //     })
-    // }, []);
 
     return (
         <div className={style.block}>
@@ -78,21 +52,13 @@ const Live = () => {
                 <div className={style.cell}>
                     <div className={style.odds}>
                         {
-                            TYPES.map((el_t, idx_t) =>
-                                <Fragment
-                                    key={idx_t}
+                            TYPES.map((el, idx) =>
+                                <div
+                                    key={idx}
+                                    className={style.column}
                                 >
-                                    {
-                                        el_t.markets.map((el_m, idx_m) =>
-                                            <div
-                                                key={idx_m}
-                                                className={style.column}
-                                            >
-                                                <div className={style.label}>{el_m.name}</div>
-                                            </div>
-                                        )
-                                    }
-                                </Fragment>
+                                    <div className={style.label}>{el.name}</div>
+                                </div>
                             )
                         }
                     </div>
@@ -100,15 +66,17 @@ const Live = () => {
             </div>
             <div className={style.wrapper}>
                 {
-                    !loading &&
-                    update.event.league.matches.map((el, idx) =>
-                        <Item
-                            key={idx}
-                            data={el}
-                            timer={liveTimer}
-                            types={TYPES}
-                        />
-                    )
+                    loading
+                        ?
+                            <Loader type={'block'}/>
+                        :
+                            update.event.league.matches.map((el, idx) =>
+                                <Item
+                                    key={idx}
+                                    data={el}
+                                    timer={liveTimer}
+                                />
+                            )
                 }
             </div>
         </div>
