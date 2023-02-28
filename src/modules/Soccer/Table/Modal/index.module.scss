@@ -18,6 +18,7 @@
   @include make-spacer('py', 2);
 
   background-color: var(--color-green);
+  border-radius: rem(5px);
   color: var(--color-white);
   text-transform: uppercase;
 }

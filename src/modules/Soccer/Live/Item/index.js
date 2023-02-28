@@ -185,7 +185,7 @@ const Item = ({data, timer}) => {
         setOdds(s)
     }
 
-    const filterMarket = (s) => {
+    const filterMarket = (score) => {
         const a = []
 
         a.push(
@@ -197,22 +197,21 @@ const Item = ({data, timer}) => {
         setMarkets(a)
         filterOdds(
             {
-                home: s[0],
-                away: s[1]
+                home: score[0],
+                away: score[1]
             },
             a
         )
     }
 
-    const filterScene = (data, timer, init) => {
+    const filterScene = (scene, timer, init) => {
 
         if (init === 0) {
-            filterOdds(data, markets)
-
-            setScore([data.home, data.away])
+            filterOdds(scene, markets)
+            setScore([scene.home, scene.away])
         }
         else {
-            let a = data.filter(el => el.update !== null)
+            let a = scene.filter(el => el.update !== null)
 
             a.map(el => {
                 if (el.update === parseInt(timer, 10)) {
@@ -235,7 +234,7 @@ const Item = ({data, timer}) => {
         const p = Math.ceil(timer / 15)
         filterScene(data.scenes[p], timer, 0)
         filterMarket([data.scenes[p].home, data.scenes[p].away])
-        setScore([data.scenes[p].home, data.scenes[p].away])
+        // setScore([data.scenes[p].home, data.scenes[p].away])
     }, []);
 
     useEffect(() => {

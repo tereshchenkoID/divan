@@ -9,8 +9,10 @@ import classNames from "classnames";
 
 import {setGame} from "store/actions/gameAction";
 import {setLive} from "store/actions/liveAction";
+import {resetUpdate} from "store/actions/updateAction";
 
 import style from './index.module.scss';
+
 
 const Slider = () => {
     const dispatch = useDispatch()
@@ -42,6 +44,7 @@ const Slider = () => {
                                 }
                                 aria-label={el.e}
                                 onClick={() => {
+                                    dispatch(resetUpdate())
                                     dispatch(setGame(el.c))
                                     dispatch(setLive(0))
                                 }}

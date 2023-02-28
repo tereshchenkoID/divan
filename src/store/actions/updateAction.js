@@ -2,7 +2,7 @@ import {useRequest} from "hooks/useRequest";
 
 import { types } from "store/actionTypes";
 
-export const setUpdate = (id) => async dispatch => {
+const setUpdate = (id) => async dispatch => {
     const { get } = useRequest();
 
     try {
@@ -18,3 +18,12 @@ export const setUpdate = (id) => async dispatch => {
         console.log(e)
     }
 };
+
+const resetUpdate = () => {
+    return {
+        type: types.SET_UPDATE,
+        payload: {}
+    };
+};
+
+export { setUpdate, resetUpdate };

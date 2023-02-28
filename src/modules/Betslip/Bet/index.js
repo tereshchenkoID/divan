@@ -108,9 +108,6 @@ const Bet = ({data, betslip}) => {
                         onFocus={() => {
                             setEdit(true)
                         }}
-                        // onBlur={() => {
-                        //     setEdit(false)
-                        // }}
                     />
                 </div>
                 <div>
