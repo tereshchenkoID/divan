@@ -8,7 +8,7 @@ import Item from "./Item";
 
 import style from './index.module.scss';
 
-const TYPES = [
+const MARKETS = [
     {
         name: "WINNER",
         value: "WINNER"
@@ -52,7 +52,7 @@ const Live = () => {
                 <div className={style.cell}>
                     <div className={style.odds}>
                         {
-                            TYPES.map((el, idx) =>
+                            MARKETS.map((el, idx) =>
                                 <div
                                     key={idx}
                                     className={style.column}

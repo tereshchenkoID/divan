@@ -1,11 +1,11 @@
 @import "scss/config";
 
 .block {
-  @include make-spacer('pl', 4);
-
+  position: relative;
   text-transform: uppercase;
   text-align: center;
   font-weight: var(--typography-bold);
+  min-height: rem(700px);
 }
 
 .info {
@@ -13,8 +13,15 @@
   grid-template-columns: 1fr rem(95px);
   align-items: center;
   position: absolute;
-  top: rem(115px);
+  top: rem(55px);
   width: rem(250px);
+}
+
+.body {
+  @include make-spacer('mt', 2);
+
+  position: relative;
+  min-height: rem(655px);
 }
 
 .league {
@@ -53,9 +60,6 @@
   }
 }
 
-.body {
-}
-
 .table {
   display: none;
 
@@ -65,12 +69,12 @@
 }
 
 .sort {
-  @include make-spacer('p', 2);
-  @include make-spacer('mb', 2);
+  @include make-spacer('py', 2);
+  @include make-spacer('mb', 1);
   @include flex($align-items: center);
 
-  padding-left: rem(275px);
-  min-height: rem(75px);
+  padding-left: rem(270px);
+  min-height: rem(77px);
 }
 
 .market {
@@ -85,7 +89,7 @@
   height: rem(55px);
   color: var(--color-green-900);
   font-weight: var(--typography-bold);
-  font-size: rem(13px);
+  font-size: rem(12px);
   text-transform: uppercase;
 
   &:last-child {

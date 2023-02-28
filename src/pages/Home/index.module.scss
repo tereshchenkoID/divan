@@ -7,7 +7,7 @@
 }
 
 .content {
-  @include make-spacer('pr', 2);
+  @include make-spacer('px', 2);
   @include make-spacer('pb', 2);
 
   display: grid;

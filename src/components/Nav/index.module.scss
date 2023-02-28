@@ -2,7 +2,7 @@
 
 .block {
   @include flex(space-between, center);
-  @include make-spacer('px', 4);
+  @include make-spacer('px', 2);
   @include make-spacer('mb', 2);
 
   position: relative;
