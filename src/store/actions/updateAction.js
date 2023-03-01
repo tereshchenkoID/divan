@@ -19,11 +19,4 @@ const setUpdate = (id) => async dispatch => {
     }
 };
 
-const resetUpdate = () => {
-    return {
-        type: types.SET_UPDATE,
-        payload: {}
-    };
-};
-
-export { setUpdate, resetUpdate };
+export { setUpdate };

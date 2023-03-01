@@ -61,7 +61,7 @@ const Odd = ({data, label = false}) => {
                 label &&
                 <div className={style.label}>{label}</div>
             }
-            <div className={style.odd}>{data.b || 1.00}</div>
+            <div className={style.odd}>{data.b || '1.00'}</div>
         </div>
     );
 }

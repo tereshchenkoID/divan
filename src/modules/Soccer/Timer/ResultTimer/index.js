@@ -22,11 +22,13 @@ const ResultTimer = ({end}) => {
     const [timer, setTimer] = useState('')
 
     useEffect(() => {
+        console.log("Results")
+
         const a = setInterval(() => {
             let r = getDifferent(end)
             setTimer(r)
             if (r === '0') {
-                dispatch(setLive(3))
+                dispatch(setLive(4))
                 clearInterval(a)
             }
         },1000)

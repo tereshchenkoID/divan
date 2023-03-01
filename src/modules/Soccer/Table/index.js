@@ -6,6 +6,7 @@ import classNames from "classnames";
 import {setLive} from "store/actions/liveAction";
 import {setData} from "store/actions/dataAction";
 import {setModal} from "store/actions/modalAction";
+import {reloadUpdate, setUpdate} from "store/actions/updateAction";
 
 import Loader from "components/Loader";
 import Icon from "components/Icon";
@@ -16,6 +17,22 @@ import Timer from "../Timer";
 import Live from "../Live";
 
 import style from './index.module.scss';
+import fetchData from "../../../helpers/api";
+
+const conditionStatus = (data) => {
+    console.log(data.status)
+
+    switch (data.status) {
+        case "ANNOUNCEMENT":
+            return 1
+        case "PROGRESS":
+            return 2
+        case "RESULTS":
+            return 3
+        default:
+            return 1;
+    }
+}
 
 const Table = () => {
     const dispatch = useDispatch()
@@ -38,21 +55,23 @@ const Table = () => {
         if (game !== null) {
             setLoading(true)
             dispatch(setData(game)).then((json) => {
-
                 const f = json.events.find(el => {
-                    return el.status !== "ANNOUNCEMENT"
+                    return el.status === "PROGRESS" || el.status === "RESULTS"
                 })
 
                 if (f) {
+                    // dispatch(setLive(conditionStatus(f)))
                     setWeek(json.events[1].league.week)
                     setActive(1)
-                    setLoading(false)
                 }
                 else {
+                    // dispatch(setLive(1))
                     setWeek(json.events[0].league.week)
                     setActive(0)
-                    setLoading(false)
                 }
+
+                dispatch(setLive(1))
+                setLoading(false)
             })
         }
 
@@ -63,16 +82,27 @@ const Table = () => {
             handleNext()
         }
 
-        if (live === 3) {
+        if (live === 4) {
             dispatch(setData(game)).then((json) => {
                 setWeek(json.events[0].league.week)
                 setActive(0)
                 setLoading(false)
-                dispatch(setLive(0))
+                dispatch(setLive(1))
             })
         }
 
     }, [live]);
+
+    const checkStatus = (id) => {
+        dispatch(setUpdate(id)).then((json) => {
+            dispatch(setLive(conditionStatus(json.event)))
+        })
+
+        // fetchData(`/client/getFeed/football/?eventId=${id}`).then((json) => {
+        //     dispatch(setLive(conditionStatus(json.event)))
+        //     dispatch(reloadUpdate(json))
+        // })
+    }
 
     const handleNext = () => {
         const a = active + 1
@@ -81,7 +111,7 @@ const Table = () => {
         setActive(a)
         setWeek(w)
 
-        dispatch(setLive(0))
+        dispatch(setLive(1))
         dispatch(setModal(0))
     }
 
@@ -151,8 +181,8 @@ const Table = () => {
                                             }
                                             onClick={() => {
                                                 setPreloader(true)
-                                                dispatch(setLive(0))
-                                                dispatch(setModal(0))
+                                                checkStatus(el.id)
+                                                // dispatch(setModal(0))
                                                 setWeek(el.league.week)
                                                 setActive(idx)
 
@@ -197,7 +227,7 @@ const Table = () => {
                                                 >
                                                     <div className={style.sort}>
                                                         {
-                                                            live === 0 &&
+                                                            live === 1 &&
                                                             el_e.league.matches[0].odds[0].groups.map((el, idx) =>
                                                                 (
                                                                     el.name !== 'Score' &&
@@ -225,7 +255,7 @@ const Table = () => {
                                                         }
                                                     </div>
                                                     {
-                                                        live === 0
+                                                        live === 1
                                                             ?
                                                                 <>
                                                                     <div

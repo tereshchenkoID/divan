@@ -42,7 +42,7 @@ const Live = () => {
 
     useEffect(() => {
         !checkData(update) && setLoading(false)
-    }, [update, liveTimer]);
+    }, [liveTimer]);
 
     return (
         <div className={style.block}>

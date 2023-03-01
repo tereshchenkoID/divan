@@ -3,6 +3,8 @@ import {useEffect, useState} from "react";
 import classNames from "classnames";
 
 import style from './index.module.scss';
+import {useSelector} from "react-redux";
+import live from "../index";
 
 const WINNER = (score, data) => {
     if (score.home > score.away) {
@@ -169,6 +171,7 @@ const Item = ({data, timer}) => {
     const [score, setScore] = useState([0, 0])
     const [odds, setOdds] = useState([])
     const [markets, setMarkets] = useState([])
+    const [init, setInit] = useState(true)
 
     const filterOdds = (score, a) => {
         const s = []
@@ -230,15 +233,38 @@ const Item = ({data, timer}) => {
         }
     }
 
-    useEffect(() => {
-        const p = Math.ceil(timer / 15)
-        filterScene(data.scenes[p], timer, 0)
-        filterMarket([data.scenes[p].home, data.scenes[p].away])
-        // setScore([data.scenes[p].home, data.scenes[p].away])
-    }, []);
+    // useEffect(() => {
+    //     if(init) {
+    //         const p = Math.ceil(timer / 15)
+    //         filterScene(data.scenes[p], timer, 0)
+    //         filterMarket([data.scenes[p].home, data.scenes[p].away])
+    //         setScore([data.scenes[p].home, data.scenes[p].away])
+    //         setInit(false)
+    //
+    //         console.log(timer)
+    //     }
+    // }, [timer]);
 
     useEffect(() => {
-        filterScene(data.scenes, timer, 1)
+        console.log(init)
+
+        // if(init) {
+        //     const p = Math.ceil(timer / 15)
+        //     filterScene(data.scenes[p], timer, 0)
+        //     filterMarket([data.scenes[p].home, data.scenes[p].away])
+        //     setScore([data.scenes[p].home, data.scenes[p].away])
+        //     setInit(false)
+        //
+        //     console.log("Init")
+        // }
+        // else {
+        //     filterScene(data.scenes, timer, 1)
+        //     console.log("Not Init")
+        // }
+
+        // return () => {
+        //     setInit(true)
+        // }
     }, [timer]);
 
     return (
@@ -299,7 +325,7 @@ const Item = ({data, timer}) => {
                                             }
                                         >
                                             <div className={style.label}>{el.c || el.a}</div>
-                                            <div className={style.value}>{el.b || 1}</div>
+                                            <div className={style.value}>{el.b || '1.00'}</div>
                                         </div>
                                     :
                                         <div className={style.odds}>

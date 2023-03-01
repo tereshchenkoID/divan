@@ -25,13 +25,15 @@ const MatchTimer = ({start, end}) => {
     const [timer, setTimer] = useState('')
 
     useEffect(() => {
+        console.log('Match')
+
         const a = setInterval(() => {
             let r = getDifferent(start, end)
             dispatch(setLiveTimer(r))
             setTimer(`${r}'`)
 
             if (r === '0') {
-                dispatch(setLive(2))
+                dispatch(setLive(3))
                 clearInterval(a)
             }
         },1000)

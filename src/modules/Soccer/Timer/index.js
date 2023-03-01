@@ -19,48 +19,54 @@ const Timer = ({data}) => {
     const {update} = useSelector((state) => state.update)
 
     useEffect(() => {
-        if (live === 1 || live === 2) {
+        if (live === 2 || live === 3) {
             dispatch(setUpdate(data.id))
         }
 
-        if (live === 1) {
+        if (live === 2) {
             dispatch(deleteBetslip([]))
         }
-    }, [data, live]);
+
+    }, [live]);
 
     return (
         <div className={style.block}>
-            <div className={style.top}>
-                {
-                    live === 1 && 'Live'
-                }
-                {
-                    live === 0 &&
-                        <StartTimer
-                            start={data.start}
-                        />
-                }
-            </div>
-            <div className={style.bottom}>
-                {
-                    live === 0 && <div>{convertTime(data.start)}</div>
-                }
-                {
-                    live === 1 &&
-                    !checkData(update) &&
-                        <MatchTimer
-                            start={update.event.start}
-                            end={update.event.nextUpdate}
-                        />
-                }
-                {
-                    live === 2 &&
-                    !checkData(update) &&
-                        <ResultTimer
-                            end={update.event.nextUpdate}
-                        />
-                }
-            </div>
+            {
+                live &&
+                <>
+                    <div className={style.top}>
+                        {
+                            live === 1 &&
+                            <StartTimer
+                                start={data.start}
+                            />
+                        }
+                        {
+                            live === 2 && 'Live'
+                        }
+                    </div>
+                    <div className={style.bottom}>
+                        {
+                            live === 1 && <div>{convertTime(data.start)}</div>
+                        }
+                        {
+                            live === 2 &&
+                            !checkData(update) &&
+                            <MatchTimer
+                                start={update.event.start}
+                                end={update.event.nextUpdate}
+                            />
+                        }
+                        {
+                            live === 3 &&
+                            !checkData(update) &&
+                            <ResultTimer
+                                end={update.event.nextUpdate}
+                            />
+                        }
+                    </div>
+                </>
+            }
         </div>
     );
 }

@@ -23,11 +23,13 @@ const StartTimer = ({start}) => {
     const [timer, setTimer] = useState('')
 
     useEffect(() => {
+        console.log('Start')
+
         const a = setInterval(() => {
             let r = getDifferent(start)
             setTimer(r)
             if (r === '0') {
-                dispatch(setLive(1))
+                dispatch(setLive(2))
                 clearInterval(a)
             }
 
