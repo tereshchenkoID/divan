@@ -4,7 +4,6 @@ import classNames from "classnames";
 
 import style from './index.module.scss';
 import {useSelector} from "react-redux";
-import live from "../index";
 
 const WINNER = (score, data) => {
     if (score.home > score.away) {
@@ -139,7 +138,7 @@ const getOdds = (type, data, score) => {
             a = SCORE(score, data)
         break;
         default:
-        return 0;
+        return '';
     }
 
     return a
@@ -167,11 +166,13 @@ const goalsMarket = (data) => {
 }
 
 const Item = ({data, timer}) => {
+    const {live} = useSelector((state) => state.live)
+
+    const [init, setInit] = useState(true)
     const [active, setActive] = useState(false)
     const [score, setScore] = useState([0, 0])
     const [odds, setOdds] = useState([])
     const [markets, setMarkets] = useState([])
-    const [init, setInit] = useState(true)
 
     const filterOdds = (score, a) => {
         const s = []
@@ -198,6 +199,7 @@ const Item = ({data, timer}) => {
         )
 
         setMarkets(a)
+        setScore([score[0], score[1]])
         filterOdds(
             {
                 home: score[0],
@@ -207,64 +209,57 @@ const Item = ({data, timer}) => {
         )
     }
 
-    const filterScene = (scene, timer, init) => {
+    const updateScene = (scenes, timer) => {
+        scenes.map(el => {
+            if (el.update === parseInt(timer, 10)) {
+                filterOdds(el, markets)
 
-        if (init === 0) {
-            filterOdds(scene, markets)
-            setScore([scene.home, scene.away])
-        }
-        else {
-            let a = scene.filter(el => el.update !== null)
+                filterMarket([el.home, el.away])
+                setScore([el.home, el.away])
+                setActive(true)
 
-            a.map(el => {
-                if (el.update === parseInt(timer, 10)) {
-                    filterOdds(el, markets)
+                setTimeout(() => {
+                    setActive(false)
+                }, 1000)
 
-                    setScore([el.home, el.away])
-                    setActive(true)
-
-                    setTimeout(() => {
-                        setActive(false)
-                    }, 1000)
-                }
-
-                return el
-            })
-        }
+                return null
+            }
+        })
     }
 
-    // useEffect(() => {
-    //     if(init) {
-    //         const p = Math.ceil(timer / 15)
-    //         filterScene(data.scenes[p], timer, 0)
-    //         filterMarket([data.scenes[p].home, data.scenes[p].away])
-    //         setScore([data.scenes[p].home, data.scenes[p].away])
-    //         setInit(false)
-    //
-    //         console.log(timer)
-    //     }
-    // }, [timer]);
+    const initScene = (scenes, timer) => {
+        const TIME = 90
+        const DELAY = Math.ceil(TIME / scenes.length)
+        const i = Math.ceil(parseInt(timer, 10) / DELAY) - 1
+        const f = scenes[i]
+
+        setScore([f.home, f.away])
+        filterMarket([f.home, f.away])
+
+        setInit(false)
+    }
 
     useEffect(() => {
-        console.log(init)
+        if (init) {
+            if (live === 3) {
+                setScore([data.results.home, data.results.away])
+                filterMarket([data.results.home, data.results.away])
+                setInit(false)
+            }
 
-        // if(init) {
-        //     const p = Math.ceil(timer / 15)
-        //     filterScene(data.scenes[p], timer, 0)
-        //     filterMarket([data.scenes[p].home, data.scenes[p].away])
-        //     setScore([data.scenes[p].home, data.scenes[p].away])
-        //     setInit(false)
-        //
-        //     console.log("Init")
-        // }
-        // else {
-        //     filterScene(data.scenes, timer, 1)
-        //     console.log("Not Init")
-        // }
+            if (timer !== '0') {
+                initScene(data.scenes, timer)
+                setInit(false)
+            }
+        }
 
-        // return () => {
-        //     setInit(true)
-        // }
+        if(!init) {
+            updateScene(data.scenes, timer)
+        }
+
+        return () => {
+            setMarkets([])
+        }
     }, [timer]);
 
     return (
@@ -308,7 +303,7 @@ const Item = ({data, timer}) => {
             <div className={style.cell}>
                 <div className={style.odds}>
                 {
-                    odds.length &&
+                    odds.length > 0 &&
                     odds.map((el, idx) =>
                         <div
                             key={idx}
