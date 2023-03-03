@@ -240,21 +240,29 @@ const Item = ({data, timer}) => {
     }
 
     useEffect(() => {
+
         if (init) {
-            if (live === 3) {
-                setScore([data.results.home, data.results.away])
+            if (live === 3 && timer === '0') {
+                setScore([data.results[0].home, data.results[0].away])
                 filterMarket([data.results.home, data.results.away])
                 setInit(false)
             }
 
-            if (timer !== '0') {
+            if (live === 2 && timer !== '0') {
                 initScene(data.scenes, timer)
                 setInit(false)
             }
         }
 
         if(!init) {
-            updateScene(data.scenes, timer)
+            if (live === 2 && timer !== '0') {
+                updateScene(data.scenes, timer)
+            }
+
+            if (live === 3 && timer === '0') {
+                setScore([data.results[0].home, data.results[0].away])
+                setInit(true)
+            }
         }
 
         return () => {

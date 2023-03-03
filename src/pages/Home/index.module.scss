@@ -14,8 +14,10 @@
   grid-template-columns: 1fr rem(357px);
   column-gap: rem(10px);
   flex-grow: 1;
+  overflow: hidden;
 }
 
 .column {
-  //border: 1px solid red;
+  height: 100%;
+  overflow: hidden;
 }

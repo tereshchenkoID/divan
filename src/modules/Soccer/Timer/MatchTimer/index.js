@@ -4,7 +4,7 @@ import {useDispatch} from "react-redux";
 import {setLive} from "store/actions/liveAction";
 import {setLiveTimer} from "store/actions/liveTimerAction";
 
-const MAX = '90'
+const MAX = 90
 
 const getDifferent = (start, end) => {
     const c = new Date().getTime(),

@@ -6,7 +6,7 @@
   text-transform: uppercase;
   text-align: center;
   font-weight: var(--typography-bold);
-  min-height: rem(700px);
+  min-height: rem(690px);
 }
 
 .info {
@@ -14,17 +14,13 @@
   grid-template-columns: 1fr rem(95px);
   align-items: center;
   position: absolute;
-  top: rem(55px);
+  top: rem(48px);
   width: rem(250px);
 }
 
 .body {
-  @include make-spacer('mt', 2);
-
   position: relative;
   min-height: rem(655px);
-  border: 1px solid red;
-
 }
 
 .league {
@@ -136,7 +132,7 @@
   overflow: hidden;
 
   .row {
-    border-bottom: 1px solid #a7a7a7;
+    border-top: 1px solid #a7a7a7;
     height: rem(53px);
     text-align: center;
 
@@ -148,8 +144,8 @@
       background-color: #272727;
     }
 
-    &:last-child {
-      border-bottom: 0;
+    &:first-child {
+      border-top: 0;
     }
   }
 

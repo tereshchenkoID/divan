@@ -6,7 +6,7 @@ import classNames from "classnames";
 import {setLive} from "store/actions/liveAction";
 import {setData} from "store/actions/dataAction";
 import {setModal} from "store/actions/modalAction";
-import {reloadUpdate, setUpdate} from "store/actions/updateAction";
+import {setUpdate} from "store/actions/updateAction";
 
 import Loader from "components/Loader";
 import Icon from "components/Icon";
@@ -100,11 +100,6 @@ const Table = () => {
         dispatch(setUpdate(id)).then((json) => {
             dispatch(setLive(conditionStatus(json.event)))
         })
-
-        // fetchData(`/client/getFeed/football/?eventId=${id}`).then((json) => {
-        //     dispatch(setLive(conditionStatus(json.event)))
-        //     dispatch(reloadUpdate(json))
-        // })
     }
 
     const handleNext = () => {
@@ -185,7 +180,6 @@ const Table = () => {
                                             onClick={() => {
                                                 setPreloader(true)
                                                 checkStatus(el.id)
-                                                // dispatch(setModal(0))
                                                 setWeek(el.league.week)
                                                 setActive(idx)
 

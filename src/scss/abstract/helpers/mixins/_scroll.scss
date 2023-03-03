@@ -2,22 +2,21 @@
   overflow-y: auto;
 
   &::-webkit-scrollbar {
-    width: 5px;
+    width: rem(5px);
   }
 
   &::-webkit-scrollbar-corner {
-    background-color: var(--material);
+    background-color: var(--color-green);
   }
 
   &::-webkit-scrollbar-thumb {
-    border: 2px solid var(--brand);
-    border-radius: 3px;
+    border: rem(1px) solid var(--color-green);
     background-clip: content-box;
-    background-color: var(--brand);
+    background-color: var(--color-green);
   }
 
   &::-webkit-scrollbar-track {
-    border: 1px solid var(--material);
-    background-color: var(--material);
+    border: rem(1px) solid var(--color-orange);
+    background-color: var(--color-orange);
   }
 }

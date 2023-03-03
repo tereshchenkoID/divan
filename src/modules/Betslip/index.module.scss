@@ -2,17 +2,19 @@
 
 .block {
   @include flex($direction: column);
-  @include make-spacer('pt', 2);
 
   border: rem(2px) solid var(--color-orange);
   border-radius: rem(10px);
   background-color: var(--color-black);
   height: 100%;
+  overflow: hidden;
 }
 
 .wrapper {
+  @include scroll;
+  @include make-spacer('py', 2);
+
   flex-grow: 1;
-  overflow-y: auto;
 }
 
 .row {
@@ -118,7 +120,7 @@
   border-bottom: 1px solid #808080;
 
   .tr {
-    grid-template-columns: 50px 60px 120px 1fr;
+    grid-template-columns: rem(50px) rem(60px) rem(120px) 1fr;
 
     .tr {
       grid-template-columns: repeat(2, 1fr);
@@ -145,7 +147,7 @@
 
 .tr {
   display: grid;
-  grid-template-columns: 50px 60px repeat(2, 60px) 1fr;
+  grid-template-columns: rem(50px) rem(60px) repeat(2, 60px) 1fr;
   align-items: center;
 }
 

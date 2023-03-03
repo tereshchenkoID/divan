@@ -3,14 +3,18 @@
 .root {
   @include scroll;
 
-  overflow-x: hidden;
-  background-color: #09230a;
-  min-width: var(--min-width);
+  //overflow-x: hidden;
+  background-color: var(--color-green-100);
+  //min-width: var(--min-width);
   height: 100vh;
   line-height: var(--line-height);
   font-family: var(--font-family);
   font-size: var(--font-size);
   font-weight: var(--typography-regular);
+
+  min-height: rem(768px);
+  min-width: rem(1366px);
+  overflow: hidden;
 }
 
 .main {
