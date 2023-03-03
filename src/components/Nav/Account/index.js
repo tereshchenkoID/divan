@@ -1,4 +1,7 @@
 import {useEffect, useState} from "react";
+import {useDispatch} from "react-redux";
+
+import {setDelta} from "store/actions/deltaAction";
 
 import fetchData from "helpers/api";
 
@@ -7,12 +10,14 @@ import Icon from "components/Icon";
 import style from './index.module.scss';
 
 const Account = () => {
+    const dispatch = useDispatch()
     const [data, setData] = useState([])
     const [loading, setLoading] = useState(true)
 
     const getData = () => {
         fetchData('client/getFeed/balance/').then((json) => {
             setData(json)
+            dispatch(setDelta(json.timer))
             setLoading(false)
         })
     }

@@ -9,12 +9,14 @@ import dataReducer from "./reducers/dataReducer";
 import modalReducer from "./reducers/modalReducer";
 import updateReducer from "./reducers/updateReducer";
 import liveTimerReducer from "./reducers/liveTimerReducer";
+import deltaReducer from "./reducers/deltaReducer";
 
 const allReducer = combineReducers({
     data: dataReducer,
     update: updateReducer,
     game: gameReducer,
     settings: settingsReducer,
+    delta: deltaReducer,
     live: liveReducer,
     liveTimer: liveTimerReducer,
     modal: modalReducer,

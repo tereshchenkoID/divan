@@ -1,28 +1,27 @@
+import {useSelector} from "react-redux";
 import {useEffect, useState} from "react";
 
 import style from './index.module.scss';
 
-const getTime = () => {
-    const date = new Date(),
-          hours = (date.getHours() < 10) ? '0' + date.getHours() : date.getHours(),
-          minutes = (date.getMinutes() < 10) ? '0' + date.getMinutes() : date.getMinutes(),
-          seconds = (date.getSeconds() < 10) ? '0' + date.getSeconds() : date.getSeconds();
+const getTime = (delta) => {
+    const current = new Date().getTime() + delta, date = new Date(current)
 
-    return {hours, minutes, seconds}
+    return ('0' + date.getHours()).slice(-2) + ':' + ('0' + date.getMinutes()).slice(-2) + ':' + ('0' + date.getSeconds()).slice(-2);
 }
 const Clock = () => {
-    const [dateNow, setDate] = useState(getTime())
+    const {delta} = useSelector((state) => state.delta)
+    const [dateNow, setDate] = useState('00:00:00')
 
     useEffect(() => {
         setInterval(()=>{
-            setDate(getTime())
+            setDate(getTime(delta))
         },1000)
 
     }, []);
 
     return (
         <div className={style.block}>
-            {`${dateNow.hours}:${dateNow.minutes}:${dateNow.seconds}`}
+            {dateNow}
         </div>
     );
 }

@@ -13,10 +13,15 @@ import ResultTimer from "./ResultTimer";
 
 import style from './index.module.scss';
 
+
 const Timer = ({data}) => {
     const dispatch = useDispatch()
     const {live} = useSelector((state) => state.live)
     const {update} = useSelector((state) => state.update)
+    const {delta} = useSelector((state) => state.delta)
+
+    useEffect(() => {
+    }, [delta]);
 
     useEffect(() => {
         if (live === 2 || live === 3) {
@@ -39,6 +44,7 @@ const Timer = ({data}) => {
                             live === 1 &&
                             <StartTimer
                                 start={data.start}
+                                delta={delta}
                             />
                         }
                         {
@@ -47,7 +53,7 @@ const Timer = ({data}) => {
                     </div>
                     <div className={style.bottom}>
                         {
-                            live === 1 && <div>{convertTime(data.start)}</div>
+                            live === 1 && <div>{convertTime(data.start, delta)}</div>
                         }
                         {
                             live === 2 &&
@@ -55,6 +61,7 @@ const Timer = ({data}) => {
                             <MatchTimer
                                 start={update.event.start}
                                 end={update.event.nextUpdate}
+                                delta={delta}
                             />
                         }
                         {
@@ -62,6 +69,7 @@ const Timer = ({data}) => {
                             !checkData(update) &&
                             <ResultTimer
                                 end={update.event.nextUpdate}
+                                delta={delta}
                             />
                         }
                     </div>

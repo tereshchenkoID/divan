@@ -4,11 +4,14 @@
   box-sizing: border-box;
 }
 
+html {
+  min-width: var(--min-width);
+  min-height: var(--min-height);
+  background-color: var(--color-green-100);
+}
+
 body {
   @include smooth-font;
-
-  min-width: var(--min-width);
-  overflow: hidden;
 }
 
 menu {

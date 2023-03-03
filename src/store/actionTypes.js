@@ -17,4 +17,6 @@ export const types = {
     GET_UPDATE:     'GET_UPDATE',
     SET_LIVE_TIMER: 'SET_LIVE_TIMER',
     GET_LIVE_TIMER: 'GET_LIVE_TIMER',
+    SET_DELTA:       'SET_DELTA',
+    GET_DELTA:       'GET_DELTA',
 };

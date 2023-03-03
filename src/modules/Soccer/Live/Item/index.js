@@ -95,6 +95,7 @@ const OVER_UNDER = (score, data) => {
 const DOUBLE_CHANCE = (score, data) => {
     let r = []
 
+    // eslint-disable-next-line array-callback-return
     data.map(el => {
         if (score.home === score.away) {
             if (el.c === '1X' ||el.c ==='X2') {
@@ -150,6 +151,7 @@ const goalsMarket = (data) => {
         outcomes: []
     }
 
+    // eslint-disable-next-line array-callback-return
     data.markets.map((el_m, idx_m) => {
         if (idx_m === 0) {
             r.name = el_m.name
@@ -157,6 +159,7 @@ const goalsMarket = (data) => {
         }
         r.headers.push(el_m.headers[0])
 
+        // eslint-disable-next-line array-callback-return
         el_m.outcomes.map(el_o => {
             r.outcomes.push(el_o)
         })
@@ -177,6 +180,7 @@ const Item = ({data, timer}) => {
     const filterOdds = (score, a) => {
         const s = []
         const e = a || markets
+        // eslint-disable-next-line array-callback-return
         e.map(el_m => {
             s.push(
                 getOdds(
@@ -210,6 +214,7 @@ const Item = ({data, timer}) => {
     }
 
     const updateScene = (scenes, timer) => {
+        // eslint-disable-next-line array-callback-return
         scenes.map(el => {
             if (el.update === parseInt(timer, 10)) {
                 filterOdds(el, markets)
@@ -244,7 +249,7 @@ const Item = ({data, timer}) => {
         if (init) {
             if (live === 3 && timer === '0') {
                 setScore([data.results[0].home, data.results[0].away])
-                filterMarket([data.results.home, data.results.away])
+                filterMarket([data.results[0].home, data.results[0].away])
                 setInit(false)
             }
 

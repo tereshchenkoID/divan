@@ -6,29 +6,30 @@ import {setLiveTimer} from "store/actions/liveTimerAction";
 
 const MAX = 90
 
-const getDifferent = (start, end) => {
-    const c = new Date().getTime(),
-          n = new Date(end).getTime()
+const getDifferent = (start, end, delta) => {
+    const c = new Date().getTime() + delta
+
     let r = 0,
         result = '0'
 
-    if (n > c) {
-        r = new Date(n - c)
+    if (end > c) {
+        r = new Date(end - c)
         result = MAX - (r.getSeconds() + (r.getMinutes() * 60))
     }
 
     return result
 }
 
-const MatchTimer = ({start, end}) => {
+const MatchTimer = ({start, end, delta}) => {
     const dispatch = useDispatch()
     const [timer, setTimer] = useState('')
 
     useEffect(() => {
-        console.log('Match')
+        // console.log('Match')
 
         const a = setInterval(() => {
-            let r = getDifferent(start, end)
+            console.log('Match', delta)
+            let r = getDifferent(start, end, delta)
             dispatch(setLiveTimer(r))
             setTimer(`${r}'`)
 
@@ -43,7 +44,7 @@ const MatchTimer = ({start, end}) => {
             dispatch(setLiveTimer('0'))
             clearInterval(a);
         }
-    }, [start]);
+    }, [start, delta]);
 
     return timer
 }

@@ -53,18 +53,31 @@ const Table = () => {
     useEffect(() => {
         if (game !== null) {
             setLoading(true)
+            resetActiveElements()
+
             dispatch(setData(game)).then((json) => {
                 const f = json.events.find(el => {
                     return el.status === "PROGRESS" || el.status === "RESULTS"
                 })
 
+
+                // if (f) {
+                //
+                //     console.log(f.id, f.status, f.nextUpdate)
+                //
+                //     if (f.status === "PROGRESS") {
+                //
+                //     }
+                //     else if (f.status === "RESULTS") {
+                //
+                //     }
+                // }
+
                 if (f) {
-                    // dispatch(setLive(conditionStatus(f)))
                     setWeek(json.events[1].league.week)
                     setActive(1)
                 }
                 else {
-                    // dispatch(setLive(1))
                     setWeek(json.events[0].league.week)
                     setActive(0)
                 }
@@ -79,10 +92,6 @@ const Table = () => {
     useEffect(() => {
         if (modal === 1) {
             handleNext()
-            setToggle({
-                id: null,
-                toggle: false
-            })
         }
 
         if (live === 4) {
@@ -102,12 +111,22 @@ const Table = () => {
         })
     }
 
+    const resetActiveElements = () => {
+        setGroup(0)
+        setToggle({
+            id: null,
+            toggle: false
+        })
+    }
+
     const handleNext = () => {
         const a = active + 1
         const w = data.events[a].league.week
 
         setActive(a)
         setWeek(w)
+
+        resetActiveElements()
 
         dispatch(setLive(1))
         dispatch(setModal(0))
@@ -180,6 +199,7 @@ const Table = () => {
                                             onClick={() => {
                                                 setPreloader(true)
                                                 checkStatus(el.id)
+                                                resetActiveElements()
                                                 setWeek(el.league.week)
                                                 setActive(idx)
 

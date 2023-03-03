@@ -3,10 +3,11 @@
 .block {
   position: relative;
   overflow: hidden;
+  min-height: rem(690px);
+  height: 100%;
   text-transform: uppercase;
   text-align: center;
   font-weight: var(--typography-bold);
-  min-height: rem(690px);
 }
 
 .info {
@@ -21,6 +22,7 @@
 .body {
   position: relative;
   min-height: rem(655px);
+  height: 100%;
 }
 
 .league {
@@ -185,7 +187,7 @@
   &.head {
     padding-left: rem(2px);
     padding-right: rem(2px);
-    margin-bottom: rem(2px);
+    margin-bottom: rem(3px);
     height: rem(37px);
 
     .cell,
