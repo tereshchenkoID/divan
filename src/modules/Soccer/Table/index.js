@@ -18,9 +18,11 @@ import Live from "../Live";
 
 import style from './index.module.scss';
 
-const conditionStatus = (data) => {
-    console.log(data.status)
+import resultTimer from "./resultsTimer";
+import progressTimer from "./progressTimer";
+import Alert from "../../Alert";
 
+const conditionStatus = (data) => {
     switch (data.status) {
         case "ANNOUNCEMENT":
             return 1
@@ -39,6 +41,7 @@ const Table = () => {
     const {data} = useSelector((state) => state.data)
     const {live} = useSelector((state) => state.live)
     const {modal} = useSelector((state) => state.modal)
+    const {delta} = useSelector((state) => state.delta)
 
     const [loading, setLoading] = useState(true)
     const [preloader, setPreloader] = useState(false)
@@ -50,40 +53,158 @@ const Table = () => {
         toggle: false
     })
 
+    const [count, setCount] = useState(null)
+
+
+
+    const updateLeague = (json, f) => {
+        let a = 0
+        let b = 0
+
+        if (f.status === "PROGRESS") {
+            if (count === null) {
+                setCount(0)
+                a = setInterval(() => {
+                    if (progressTimer(f.nextUpdate, delta) === '0') {
+                        dispatch(setUpdate(f.id)).then((json) => {
+                            console.log(json)
+
+                            b = setInterval(() => {
+                                if (resultTimer(json.event.nextUpdate, delta) === '0') {
+
+                                    dispatch(setData(game)).then(() => {
+                                        setCount(null)
+                                    })
+                                    clearInterval(b)
+                                }
+                                else {
+                                    console.log(resultTimer(json.event.nextUpdate, delta))
+                                }
+                            },1000)
+                        })
+
+                        clearInterval(a)
+                    }
+                    else {
+                        console.log(progressTimer(f.nextUpdate, delta))
+                    }
+                },1000)
+            }
+            else {
+                clearInterval(a)
+                clearInterval(b)
+            }
+        }
+        else if (f.status === "RESULTS") {
+            if (count === null) {
+                setCount(0)
+                a = setInterval(() => {
+                    if (resultTimer(json.event.nextUpdate, delta) === '0') {
+
+                        dispatch(setData(game)).then(() => {
+                            setCount(null)
+                        })
+                        clearInterval(a)
+                    }
+                    else {
+                        console.log(resultTimer(json.event.nextUpdate, delta))
+                    }
+                }, 1000)
+            }
+            else {
+                clearInterval(a)
+            }
+        }
+    }
+
+
     useEffect(() => {
         if (game !== null) {
             setLoading(true)
             resetActiveElements()
 
             dispatch(setData(game)).then((json) => {
-                const f = json.events.find(el => {
-                    return el.status === "PROGRESS" || el.status === "RESULTS"
-                })
+                if (json.events.length > 0) {
 
+                    const f = json.events.find(el => {
+                        return el.status === "PROGRESS" || el.status === "RESULTS"
+                    })
 
-                // if (f) {
-                //
-                //     console.log(f.id, f.status, f.nextUpdate)
-                //
-                //     if (f.status === "PROGRESS") {
-                //
-                //     }
-                //     else if (f.status === "RESULTS") {
-                //
-                //     }
-                // }
+                    console.log(f)
 
-                if (f) {
-                    setWeek(json.events[1].league.week)
-                    setActive(1)
+                    if (f) {
+                        updateLeague(json, f)
+
+                        // if (f.status === "PROGRESS") {
+                        //     if (count === null) {
+                        //         setCount(0)
+                        //         a = setInterval(() => {
+                        //             if (progressTimer(f.nextUpdate, delta) === '0') {
+                        //                 dispatch(setUpdate(f.id)).then((json) => {
+                        //                     console.log(json)
+                        //
+                        //                     b = setInterval(() => {
+                        //                         if (resultTimer(json.event.nextUpdate, delta) === '0') {
+                        //
+                        //                             dispatch(setData(game)).then(() => {
+                        //                                 setCount(null)
+                        //                             })
+                        //                             clearInterval(b)
+                        //                         }
+                        //                         else {
+                        //                             console.log(resultTimer(json.event.nextUpdate, delta))
+                        //                         }
+                        //                     },1000)
+                        //                 })
+                        //
+                        //                 clearInterval(a)
+                        //             }
+                        //             else {
+                        //                 console.log(progressTimer(f.nextUpdate, delta))
+                        //             }
+                        //         },1000)
+                        //     }
+                        //     else {
+                        //         clearInterval(a)
+                        //         clearInterval(b)
+                        //     }
+                        // }
+                        // else if (f.status === "RESULTS") {
+                        //     if (count === null) {
+                        //         a = setInterval(() => {
+                        //             if (resultTimer(json.event.nextUpdate, delta) === '0') {
+                        //
+                        //                 dispatch(setData(game)).then(() => {
+                        //                     setCount(null)
+                        //                 })
+                        //                 clearInterval(a)
+                        //             }
+                        //             else {
+                        //                 console.log(resultTimer(json.event.nextUpdate, delta))
+                        //             }
+                        //         }, 1000)
+                        //     }
+                        //     else {
+                        //         clearInterval(a)
+                        //     }
+                        // }
+                    }
+
+                    if (f) {
+                        setWeek(json.events[1].league.week)
+                        setActive(1)
+                    }
+                    else {
+                        setWeek(json.events[0].league.week)
+                        setActive(0)
+                    }
+
+                    dispatch(setLive(1))
+                    setLoading(false)
                 }
                 else {
-                    setWeek(json.events[0].league.week)
-                    setActive(0)
+                    setLoading(false)
                 }
-
-                dispatch(setLive(1))
-                setLoading(false)
             })
         }
 
@@ -178,103 +299,105 @@ const Table = () => {
                             type={'block'}
                         />
                     :
-                        <>
-                            {
-                                modal === 1 &&
-                                <Modal
-                                    action={handleNext}
-                                />
-                            }
-                            <div className={style.tab}>
-                                {
-                                    data.events.map((el, idx) =>
-                                        <button
-                                            key={idx}
-                                            className={
-                                                classNames(
-                                                    style.link,
-                                                    week === el.league.week && style.active
-                                                )
-                                            }
-                                            onClick={() => {
-                                                setPreloader(true)
-                                                checkStatus(el.id)
-                                                resetActiveElements()
-                                                setWeek(el.league.week)
-                                                setActive(idx)
+                        data.events.length > 0
+                            ?
+                                <>
+                                    {
+                                        modal === 1 &&
+                                        <Modal
+                                            action={handleNext}
+                                        />
+                                    }
+                                    <div className={style.tab}>
+                                        {
+                                            data.events.map((el, idx) =>
+                                                <button
+                                                    key={idx}
+                                                    className={
+                                                        classNames(
+                                                            style.link,
+                                                            week === el.league.week && style.active
+                                                        )
+                                                    }
+                                                    onClick={() => {
+                                                        setPreloader(true)
+                                                        checkStatus(el.id)
+                                                        resetActiveElements()
+                                                        setWeek(el.league.week)
+                                                        setActive(idx)
 
-                                                setTimeout(() => {
-                                                    setPreloader(false)
-                                                }, 1000)
-                                            }}
-                                        >
-                                            Week {el.league.week}
-                                        </button>
-                                    )
-                                }
-                            </div>
-                            <div className={style.info}>
-                                <div className={style.league}>
-                                   <img
-                                       src={`https://view.divan.bet/engine/shop/resource/${data.events[active].league.img}`}
-                                       alt={data.events[active].league.name}
-                                   />
-                                </div>
-                                <Timer
-                                    data={data.events[active]}
-                                />
-                            </div>
-                            <div className={style.body}>
-                                {
-                                    preloader
-                                        ?
-                                            <Loader
-                                                type={'block'}
+                                                        setTimeout(() => {
+                                                            setPreloader(false)
+                                                        }, 1000)
+                                                    }}
+                                                >
+                                                    Week {el.league.week}
+                                                </button>
+                                            )
+                                        }
+                                    </div>
+                                    <div className={style.info}>
+                                        <div className={style.league}>
+                                            <img
+                                                src={`https://view.divan.bet/engine/shop/resource/${data.events[active].league.img}`}
+                                                alt={data.events[active].league.name}
                                             />
-                                        :
-                                            <>
-                                                {
-                                                    data.events.map((el_e, idx_e) =>
-                                                        <div
-                                                            key={idx_e}
-                                                            className={
-                                                                classNames(
-                                                                    style.table,
-                                                                    week === el_e.league.week && style.active
-                                                                )
-                                                            }
-                                                        >
-                                                            <div className={style.sort}>
-                                                                {
-                                                                    live === 1 &&
-                                                                    el_e.league.matches[0].odds[0].groups.map((el, idx) =>
-                                                                        (
-                                                                            el.name !== 'Score' &&
-                                                                            el.name !== 'Total Goals'
-                                                                        ) &&
-                                                                        <button
-                                                                            key={idx}
-                                                                            className={
-                                                                                classNames(
-                                                                                    style.market,
-                                                                                    group === idx && style.active
-                                                                                )
-                                                                            }
-                                                                            onClick={() => {
-                                                                                setGroup(idx)
-                                                                                setToggle({
-                                                                                    id: null,
-                                                                                    toggle: false
-                                                                                })
-                                                                            }}
-                                                                        >
-                                                                            {el.name}
-                                                                        </button>
+                                        </div>
+                                        <Timer
+                                            data={data.events[active]}
+                                        />
+                                    </div>
+                                    <div className={style.body}>
+                                        {
+                                            preloader
+                                                ?
+                                                <Loader
+                                                    type={'block'}
+                                                />
+                                                :
+                                                <>
+                                                    {
+                                                        data.events.map((el_e, idx_e) =>
+                                                            <div
+                                                                key={idx_e}
+                                                                className={
+                                                                    classNames(
+                                                                        style.table,
+                                                                        week === el_e.league.week && style.active
                                                                     )
                                                                 }
-                                                            </div>
-                                                            {
-                                                                live === 1 &&
+                                                            >
+                                                                <div className={style.sort}>
+                                                                    {
+                                                                        live === 1 &&
+                                                                        el_e.league.matches[0].odds[0].groups.map((el, idx) =>
+                                                                            (
+                                                                                el.name !== 'Score' &&
+                                                                                el.name !== 'Total Goals'
+                                                                            ) &&
+                                                                            <button
+                                                                                key={idx}
+                                                                                className={
+                                                                                    classNames(
+                                                                                        style.market,
+                                                                                        group === idx && style.active
+                                                                                    )
+                                                                                }
+                                                                                onClick={() => {
+                                                                                    setGroup(idx)
+                                                                                    setToggle({
+                                                                                        id: null,
+                                                                                        toggle: false
+                                                                                    })
+                                                                                }}
+                                                                            >
+                                                                                {el.name}
+                                                                            </button>
+                                                                        )
+                                                                    }
+                                                                </div>
+                                                                {
+                                                                    live === 1 &&
                                                                     <>
                                                                         <div
                                                                             className={
@@ -502,18 +625,23 @@ const Table = () => {
                                                                             }
                                                                         </div>
                                                                     </>
-                                                            }
-                                                        </div>
-                                                    )
-                                                }
-                                                {
-                                                    live !== 1 &&
+                                                                }
+                                                            </div>
+                                                        )
+                                                    }
+                                                    {
+                                                        live !== 1 &&
                                                         <Live />
-                                                }
-                                            </>
-                                }
-                            </div>
-                        </>
+                                                    }
+                                                </>
+                                        }
+                                    </div>
+                                </>
+                            :
+                                <Alert
+                                    text={'Events not found'}
+                                    type={'default'}
+                                />
             }
         </div>
     );

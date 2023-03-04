@@ -24,7 +24,7 @@ const StartTimer = ({start, delta}) => {
         // console.log('Start')
 
         const a = setInterval(() => {
-            console.log('Start', delta)
+            // console.log('Start', delta)
             let r = getDifferent(start, delta)
             setTimer(r)
             if (r === '0') {

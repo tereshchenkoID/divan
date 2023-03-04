@@ -1,0 +1,17 @@
+@import "scss/config";
+
+.block {
+  @include make-spacer('px', 4);
+  @include make-spacer('py', 4);
+
+  text-align: center;
+
+  &.default {
+    position: relative;
+    background-color: #272727;
+    border: 2px solid var(--color-orange);
+    border-radius: rem(10px);
+    overflow: hidden;
+    color: var(--color-white);
+  }
+}

@@ -28,7 +28,7 @@ const MatchTimer = ({start, end, delta}) => {
         // console.log('Match')
 
         const a = setInterval(() => {
-            console.log('Match', delta)
+            // console.log('Match', delta)
             let r = getDifferent(start, end, delta)
             dispatch(setLiveTimer(r))
             setTimer(`${r}'`)

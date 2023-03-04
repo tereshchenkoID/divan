@@ -23,7 +23,7 @@ const ResultTimer = ({end, delta}) => {
         // console.log("Results")
 
         const a = setInterval(() => {
-            console.log('Results', delta)
+            // console.log('Results', delta)
             let r = getDifferent(end, delta)
             setTimer(r)
             if (r === '0') {
