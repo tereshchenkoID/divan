@@ -13,7 +13,6 @@ import ResultTimer from "./ResultTimer";
 
 import style from './index.module.scss';
 
-
 const Timer = ({data}) => {
     const dispatch = useDispatch()
     const {live} = useSelector((state) => state.live)

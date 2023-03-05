@@ -10,17 +10,15 @@ import {setUpdate} from "store/actions/updateAction";
 
 import Loader from "components/Loader";
 import Icon from "components/Icon";
+import Alert from "modules/Alert";
 import Subtitle from "./Subtitle";
 import Modal from "./Modal";
 import Odd from "../Odd";
 import Timer from "../Timer";
 import Live from "../Live";
+import Update from "../Update";
 
 import style from './index.module.scss';
-
-import resultTimer from "./resultsTimer";
-import progressTimer from "./progressTimer";
-import Alert from "../../Alert";
 
 const conditionStatus = (data) => {
     switch (data.status) {
@@ -41,7 +39,6 @@ const Table = () => {
     const {data} = useSelector((state) => state.data)
     const {live} = useSelector((state) => state.live)
     const {modal} = useSelector((state) => state.modal)
-    const {delta} = useSelector((state) => state.delta)
 
     const [loading, setLoading] = useState(true)
     const [preloader, setPreloader] = useState(false)
@@ -53,70 +50,7 @@ const Table = () => {
         toggle: false
     })
 
-    const [count, setCount] = useState(null)
-
-
-
-    const updateLeague = (json, f) => {
-        let a = 0
-        let b = 0
-
-        if (f.status === "PROGRESS") {
-            if (count === null) {
-                setCount(0)
-                a = setInterval(() => {
-                    if (progressTimer(f.nextUpdate, delta) === '0') {
-                        dispatch(setUpdate(f.id)).then((json) => {
-                            console.log(json)
-
-                            b = setInterval(() => {
-                                if (resultTimer(json.event.nextUpdate, delta) === '0') {
-
-                                    dispatch(setData(game)).then(() => {
-                                        setCount(null)
-                                    })
-                                    clearInterval(b)
-                                }
-                                else {
-                                    console.log(resultTimer(json.event.nextUpdate, delta))
-                                }
-                            },1000)
-                        })
-
-                        clearInterval(a)
-                    }
-                    else {
-                        console.log(progressTimer(f.nextUpdate, delta))
-                    }
-                },1000)
-            }
-            else {
-                clearInterval(a)
-                clearInterval(b)
-            }
-        }
-        else if (f.status === "RESULTS") {
-            if (count === null) {
-                setCount(0)
-                a = setInterval(() => {
-                    if (resultTimer(json.event.nextUpdate, delta) === '0') {
-
-                        dispatch(setData(game)).then(() => {
-                            setCount(null)
-                        })
-                        clearInterval(a)
-                    }
-                    else {
-                        console.log(resultTimer(json.event.nextUpdate, delta))
-                    }
-                }, 1000)
-            }
-            else {
-                clearInterval(a)
-            }
-        }
-    }
-
+    const [find, setFind] = useState(null)
 
     useEffect(() => {
         if (game !== null) {
@@ -130,65 +64,7 @@ const Table = () => {
                         return el.status === "PROGRESS" || el.status === "RESULTS"
                     })
 
-                    console.log(f)
-
-                    if (f) {
-                        updateLeague(json, f)
-
-                        // if (f.status === "PROGRESS") {
-                        //     if (count === null) {
-                        //         setCount(0)
-                        //         a = setInterval(() => {
-                        //             if (progressTimer(f.nextUpdate, delta) === '0') {
-                        //                 dispatch(setUpdate(f.id)).then((json) => {
-                        //                     console.log(json)
-                        //
-                        //                     b = setInterval(() => {
-                        //                         if (resultTimer(json.event.nextUpdate, delta) === '0') {
-                        //
-                        //                             dispatch(setData(game)).then(() => {
-                        //                                 setCount(null)
-                        //                             })
-                        //                             clearInterval(b)
-                        //                         }
-                        //                         else {
-                        //                             console.log(resultTimer(json.event.nextUpdate, delta))
-                        //                         }
-                        //                     },1000)
-                        //                 })
-                        //
-                        //                 clearInterval(a)
-                        //             }
-                        //             else {
-                        //                 console.log(progressTimer(f.nextUpdate, delta))
-                        //             }
-                        //         },1000)
-                        //     }
-                        //     else {
-                        //         clearInterval(a)
-                        //         clearInterval(b)
-                        //     }
-                        // }
-                        // else if (f.status === "RESULTS") {
-                        //     if (count === null) {
-                        //         a = setInterval(() => {
-                        //             if (resultTimer(json.event.nextUpdate, delta) === '0') {
-                        //
-                        //                 dispatch(setData(game)).then(() => {
-                        //                     setCount(null)
-                        //                 })
-                        //                 clearInterval(a)
-                        //             }
-                        //             else {
-                        //                 console.log(resultTimer(json.event.nextUpdate, delta))
-                        //             }
-                        //         }, 1000)
-                        //     }
-                        //     else {
-                        //         clearInterval(a)
-                        //     }
-                        // }
-                    }
+                    setFind(f)
 
                     if (f) {
                         setWeek(json.events[1].league.week)
@@ -271,8 +147,6 @@ const Table = () => {
             const a = el.a.split('-')
             const sum = parseInt(a[0], 10) + parseInt(a[1], 10)
 
-            // const sum = parseInt(a.join('+'), 10)
-
             if (sum >= count) {
                 result[result.length - 1].data.push(el)
                 count = sum
@@ -307,6 +181,11 @@ const Table = () => {
                                         <Modal
                                             action={handleNext}
                                         />
+                                    }
+                                    {
+                                        find &&
+                                        live === 1 &&
+                                        <Update find={find}/>
                                     }
                                     <div className={style.tab}>
                                         {
