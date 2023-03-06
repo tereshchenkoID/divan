@@ -16,8 +16,39 @@
 }
 
 .setting {
+  @include make-spacer('mr', 4);
+  @include make-spacer('ml', auto);
   @include flex($align-items: center);
 
   gap: rem(10px);
   font-weight: var(--typography-bold);
+  font-size: rem(13px);
+}
+
+.options {
+  @include flex($align-items: center);
+
+  gap: rem(17px);
+}
+
+.option {
+  @include make-spacer('p', 1);
+  @include size(rem(38px));
+
+  position: relative;
+  border-radius: rem(5px);
+  background-color: var(--color-black);
+  box-shadow: 0 0 rem(2px) rem(3px) rgba(0, 0, 0, 0.4);
+  color: var(--color-white);
+
+  &::before {
+    position: absolute;
+    top: rem(1px);
+    right: rem(1px);
+    left: rem(1px);
+    height: rem(8px);
+    border-radius: rem(5px);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.1) 100%);
+    content: '';
+  }
 }

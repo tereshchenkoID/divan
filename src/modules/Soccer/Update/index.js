@@ -7,7 +7,7 @@ import {setData} from "store/actions/dataAction";
 import resultTimer from "./resultsTimer";
 import progressTimer from "./progressTimer";
 
-const Update = ({find}) => {
+const Update = ({find, setActive}) => {
     const dispatch = useDispatch()
     const {delta} = useSelector((state) => state.delta)
     const {game} = useSelector((state) => state.game)
@@ -32,6 +32,7 @@ const Update = ({find}) => {
                                     if (resultTimer(json.event.nextUpdate, delta) === '0') {
 
                                         dispatch(setData(game)).then(() => {
+                                            setActive(0)
                                             setCount(null)
                                         })
                                         clearInterval(b)
@@ -58,11 +59,14 @@ const Update = ({find}) => {
                 if (count === null) {
                     setCount(0)
                     a = setInterval(() => {
+
                         if (resultTimer(find.nextUpdate, delta) === '0') {
 
                             dispatch(setData(game)).then(() => {
+                                setActive(0)
                                 setCount(null)
                             })
+
                             clearInterval(a)
                         }
                         else {
@@ -81,7 +85,7 @@ const Update = ({find}) => {
             clearInterval(b);
             setCount(null)
         }
-    }, [game]);
+    }, [game, data, find]);
 }
 
 export default Update;

@@ -3,20 +3,23 @@ import {useDispatch, useSelector} from "react-redux";
 
 import classNames from "classnames";
 
+import checkData from "helpers/checkData";
+
 import {setLive} from "store/actions/liveAction";
 import {setData} from "store/actions/dataAction";
 import {setModal} from "store/actions/modalAction";
 import {setUpdate} from "store/actions/updateAction";
 
+import Alert from "modules/Alert";
+import Odd from "modules/Soccer/Odd";
+import Timer from "modules/Soccer/Timer";
+import Live from "modules/Soccer/Live";
+import Update from "modules/Soccer/Update";
 import Loader from "components/Loader";
 import Icon from "components/Icon";
-import Alert from "modules/Alert";
+
 import Subtitle from "./Subtitle";
 import Modal from "./Modal";
-import Odd from "../Odd";
-import Timer from "../Timer";
-import Live from "../Live";
-import Update from "../Update";
 
 import style from './index.module.scss';
 
@@ -49,8 +52,17 @@ const Table = () => {
         id: null,
         toggle: false
     })
-
     const [find, setFind] = useState(null)
+
+    useEffect(() => {
+        if(!checkData(data)) {
+            const f = data.events.find(el => {
+                return el.status === "PROGRESS" || el.status === "RESULTS"
+            })
+
+            f && setFind(f)
+        }
+    }, [data])
 
     useEffect(() => {
         if (game !== null) {
@@ -59,7 +71,6 @@ const Table = () => {
 
             dispatch(setData(game)).then((json) => {
                 if (json.events.length > 0) {
-
                     const f = json.events.find(el => {
                         return el.status === "PROGRESS" || el.status === "RESULTS"
                     })
@@ -103,6 +114,10 @@ const Table = () => {
     }, [live]);
 
     const checkStatus = (id) => {
+        // setLoading(true)
+        // dispatch(setLive(conditionStatus(data.events[id].status)))
+        // setLoading(false)
+
         dispatch(setUpdate(id)).then((json) => {
             dispatch(setLive(conditionStatus(json.event)))
         })
@@ -117,16 +132,19 @@ const Table = () => {
     }
 
     const handleNext = () => {
-        const a = active + 1
-        const w = data.events[a].league.week
+        const w = data.events[1].league.week
 
-        setActive(a)
+        setActive(1)
         setWeek(w)
-
         resetActiveElements()
-
-        dispatch(setLive(1))
         dispatch(setModal(0))
+        dispatch(setLive(1))
+
+        setTimeout(() => {
+            dispatch(setData(game)).then((json) => {
+                console.log(json)
+            })
+        }, 7000)
     }
 
     const handleToggle = (id) => {
@@ -185,7 +203,10 @@ const Table = () => {
                                     {
                                         find &&
                                         live === 1 &&
-                                        <Update find={find}/>
+                                        <Update
+                                            find={find}
+                                            setActive={setActive}
+                                        />
                                     }
                                     <div className={style.tab}>
                                         {

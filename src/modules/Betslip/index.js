@@ -1,9 +1,9 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 
 import classNames from "classnames";
 
-import {deleteBetslip} from "store/actions/betslipAction";
+import {deleteBetslip, setBetslip} from "store/actions/betslipAction";
 
 import {useTotalStake} from "./useTotalStake";
 import {useMinMaxOdd} from "./useMinMaxOdd";
@@ -24,14 +24,25 @@ const getMaxWin = (data) => {
     return result
 }
 
-const getMinWin = (data) => {
-    const a = data.slice(0).filter(el => el.stake > 0).sort((a, b) => a.b - b.b)[0]
-    return a ? a.b * a.stake : 0
-}
+
+// PER_BET ставка в каждое поле
+// PER_GROUP дефолтовое значение делиться на количество исходов
+// e
+    // a - min
+    // b - max
+    // c - default
+
+
+// const getMinWin = (data) => {
+//     const a = data.slice(0).filter(el => el.stake > 0).sort((a, b) => a.b - b.b)[0]
+//     return a ? a.b * a.stake : 0
+// }
 
 const Betslip = () => {
     const dispatch = useDispatch()
     const {betslip} = useSelector((state) => state.betslip)
+    const {settings} = useSelector((state) => state.settings)
+
     const [type, setType] = useState(0)
 
     const oddsState = {
@@ -122,16 +133,16 @@ const Betslip = () => {
                             </div>
                         </div>
                     </div>
-                    <div>
-                        <div className={style.stake}>
-                            <div>Potential MIN Win</div>
-                            <div>{getMinWin(betslip).toFixed(2)}</div>
-                        </div>
-                        <div className={style.stake}>
-                            <div>Potential MAX Win</div>
-                            <div>{getMaxWin(betslip).toFixed(2)}</div>
-                        </div>
-                    </div>
+                    {/*<div>*/}
+                    {/*    <div className={style.stake}>*/}
+                    {/*        <div>Potential MIN Win</div>*/}
+                    {/*        <div>{getMinWin(betslip).toFixed(2)}</div>*/}
+                    {/*    </div>*/}
+                    {/*    <div className={style.stake}>*/}
+                    {/*        <div>Potential MAX Win</div>*/}
+                    {/*        <div>{getMaxWin(betslip).toFixed(2)}</div>*/}
+                    {/*    </div>*/}
+                    {/*</div>*/}
                 </>
             }
             </div>

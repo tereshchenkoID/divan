@@ -13,6 +13,9 @@ import ResultTimer from "./ResultTimer";
 
 import style from './index.module.scss';
 
+import {setData} from "store/actions/dataAction";
+import {setLive} from "../../../store/actions/liveAction";
+
 const Timer = ({data}) => {
     const dispatch = useDispatch()
     const {live} = useSelector((state) => state.live)
@@ -23,6 +26,7 @@ const Timer = ({data}) => {
     }, [delta]);
 
     useEffect(() => {
+
         if (live === 2 || live === 3) {
             dispatch(setUpdate(data.id))
         }

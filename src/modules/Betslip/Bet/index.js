@@ -17,9 +17,21 @@ const Bet = ({data, betslip}) => {
     const dispatch = useDispatch()
     const {settings} = useSelector((state) => state.settings)
     const [edit, setEdit] = useState(false)
+    const [type, setType] = useState(2)
 
     const buttonRef = useRef(null)
     const blockRef = useRef(null)
+
+    useEffect(() => {
+        let a = type === 1 ? settings.f.c : settings.f.c / betslip.length
+        let b = betslip
+
+        b.map((e) => {
+            return e.stake = a
+        });
+
+        dispatch(deleteBetslip(b))
+    }, [betslip])
 
     const removeBet = () => {
         const a = betslip.slice(0);
@@ -100,8 +112,8 @@ const Bet = ({data, betslip}) => {
                         type={"number"}
                         className={style.field}
                         placeholder={'100'}
-                        defaultValue={data.stake}
-                        value={data.stake}
+                        defaultValue={data.stake.toFixed(2)}
+                        value={data.stake.toFixed(2)}
                         onChange={(e) => {
                             changeBet(parseInt(e.target.value, 10))
                         }}

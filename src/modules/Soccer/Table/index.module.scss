@@ -83,6 +83,7 @@
   @include make-spacer('mr', 1);
   @include make-spacer('px', 5);
 
+  position: relative;
   background-color: #0e0e0e;
   background: linear-gradient(360deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.1) 100%);
   border-radius: rem(10px);
@@ -92,6 +93,17 @@
   font-weight: var(--typography-bold);
   font-size: rem(12px);
   text-transform: uppercase;
+
+  &::before {
+    position: absolute;
+    top: rem(1px);
+    right: rem(1px);
+    left: rem(1px);
+    height: rem(12px);
+    border-radius: rem(5px);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.08) 100%);
+    content: '';
+  }
 
   &:last-child {
     @include make-spacer('mr', 0);
