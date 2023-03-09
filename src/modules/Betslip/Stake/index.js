@@ -3,6 +3,15 @@ import {useDispatch, useSelector} from "react-redux";
 
 import {setStake} from "store/actions/stakeAction";
 
+import {useMinMaxOdd} from "../useMinMaxOdd";
+import {
+    getOdds,
+    getUniquePermutations,
+    getBetMinMaxSystem,
+    getCoverBetMaxSingle,
+    getBetMaxSingle
+} from 'modules/Betslip/useStake'
+
 import style from './index.module.scss';
 
 const findStake = (data, id) => {
@@ -13,6 +22,7 @@ const findStake = (data, id) => {
 
 const Stake = ({data}) => {
     const dispatch = useDispatch()
+    const {betslip} = useSelector((state) => state.betslip)
     const {settings} = useSelector((state) => state.settings)
     const {stake} = useSelector((state) => state.stake)
     const [edit, setEdit] = useState(false)
@@ -48,10 +58,34 @@ const Stake = ({data}) => {
     const updateStake = (val) => {
         const a = stake.slice(0);
 
-        findStake(a, data.id).stake = val
+        if (data.type === 0) {
+            const f = a[0]
+
+            // eslint-disable-next-line react-hooks/rules-of-hooks
+            const minOdd = useMinMaxOdd(betslip, 0)
+            const maxWin = getBetMaxSingle(betslip)
+
+            f.stake = val
+            f.minWin = minOdd * val
+            f.maxWin = maxWin * val
+        }
+
+        if (data.type === 1) {
+            const f = findStake(a, data.id)
+            const m = getUniquePermutations(getOdds(betslip), f.id)
+            const maxWin = getBetMinMaxSystem(m, 2)
+
+            f.stake = val
+            f.minWin = f.min * val
+            f.maxWin = maxWin * val
+        }
 
         dispatch(setStake(a))
     }
+
+    useEffect(() => {
+
+    }, [data])
 
     return (
         <div
@@ -68,7 +102,7 @@ const Stake = ({data}) => {
                         type={"number"}
                         className={style.field}
                         placeholder={'100'}
-                        value={data.stake.toFixed(2)}
+                        defaultValue={data.stake.toFixed(2)}
                         onFocus={() => {
                             setEdit(true)
                         }}
