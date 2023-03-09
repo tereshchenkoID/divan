@@ -1,0 +1,88 @@
+@import "scss/config";
+
+.block {
+  position: relative;
+}
+
+.tr {
+  @include make-spacer('px', 1);
+
+  display: grid;
+  grid-template-columns: rem(50px) rem(60px) repeat(2, 60px) 1fr;
+  align-items: center;
+  height: rem(35px);
+  border-bottom: 1px solid #808080;
+
+  &:last-child {
+    border-bottom: 0;
+  }
+}
+
+.th {
+  @include flex(center, center);
+
+  min-height: rem(30px);
+  font-size: rem(14px);
+  text-align: center;
+  color: var(--color-white);
+}
+
+.field {
+  @include size(100%, rem(25px));
+
+  border: 1px solid #808080;
+  background-color: #363636;
+  border-radius: rem(5px);
+  overflow: hidden;
+  text-align: center;
+  font-weight: var(--typography-bold);
+  line-height: 1;
+  white-space: nowrap;
+  -moz-appearance: textfield;
+  color: var(--color-white);
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
+
+.keyboard {
+  @include make-spacer('px', 1);
+  @include make-spacer('pt', 2);
+  @include make-spacer('pb', 1);
+  @include flex(space-between);
+
+  gap: rem(10px);
+}
+
+.key {
+  @include make-spacer('px', 2);
+
+  flex: 1;
+  background-color: var(--color-green);
+  border-radius: rem(3px);
+  height: rem(25px);
+  color: var(--color-white);
+  font-size: rem(14px);
+}
+
+.stake {
+  @include make-spacer('py', half);
+  @include make-spacer('px', 2);
+
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  align-items: center;
+  background-color: #333333;
+  color: var(--color-white);
+  font-size: rem(13px);
+
+  div {
+
+    &:last-child {
+      text-align: right;
+    }
+  }
+}

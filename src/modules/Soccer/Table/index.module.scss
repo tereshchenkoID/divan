@@ -2,7 +2,7 @@
 
 .block {
   position: relative;
-  overflow: hidden;
+  //overflow: hidden;
   min-height: rem(690px);
   height: 100%;
   text-transform: uppercase;
@@ -31,6 +31,23 @@
   img {
     width: auto;
   }
+}
+
+.banners {
+  @include flex;
+
+  position: absolute;
+  left: 50%;
+  transform: translateX(-40%);
+  gap: rem(3px);
+  height: rem(42px);
+}
+
+.banner {
+  flex: 1;
+  min-width: rem(150px);
+  background-color: var(--color-black);
+  height: 100%;
 }
 
 .tab {

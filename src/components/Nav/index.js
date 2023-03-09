@@ -1,19 +1,29 @@
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
+
+import {setSetting} from "store/actions/settingAction";
 
 import Clock from "./Clock";
 import Slider from "./Slider";
 import Account from "./Account";
-
-import style from './index.module.scss';
 import Icon from "../Icon";
 
+import style from './index.module.scss';
+
 const Nav = () => {
+    const dispatch = useDispatch()
     const {delta} = useSelector((state) => state.delta)
+    const {setting} = useSelector((state) => state.setting)
 
     useEffect(() => {
 
     }, [delta])
+
+    const handleSetting = () => {
+        const a = setting
+        a.show = true
+        dispatch(setSetting(a))
+    }
 
     return (
         <nav className={style.block}>
@@ -44,6 +54,9 @@ const Nav = () => {
                 </button>
                 <button
                     className={style.option}
+                    onClick={() => {
+                        handleSetting()
+                    }}
                 >
                     <Icon id={'settings'} />
                 </button>

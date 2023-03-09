@@ -8,7 +8,7 @@
 
 .content {
   @include make-spacer('px', 2);
-  @include make-spacer('pb', 2);
+  @include make-spacer('py', 2);
 
   display: grid;
   grid-template-columns: 1fr rem(357px);

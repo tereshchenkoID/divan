@@ -6,6 +6,8 @@ export const types = {
     GET_GAME:       'GET_GAME',
     SET_BETSLIP:    'SET_BETSLIP',
     GET_BETSLIP:    'GET_BETSLIP',
+    SET_STAKE:      'SET_STAKE',
+    GET_STAKE:      'GET_STAKE',
     DELETE_BETSLIP: 'DELETE_BETSLIP',
     SET_LIVE:       'SET_LIVE',
     GET_LIVE:       'GET_LIVE',
@@ -19,4 +21,6 @@ export const types = {
     GET_LIVE_TIMER: 'GET_LIVE_TIMER',
     SET_DELTA:       'SET_DELTA',
     GET_DELTA:       'GET_DELTA',
+    SET_SETTING:     'SET_SETTING',
+    GET_SETTING:     'GET_SETTING',
 };

@@ -2,13 +2,26 @@
 
 .block {
   @include make-spacer('px', 1);
+
+  &.lg {
+
+    .bet {
+      grid-template-columns: rem(85px) 1fr rem(50px) rem(58px) rem(25px);
+    }
+  }
+
+  &.sm {
+
+    .bet {
+      grid-template-columns: rem(85px) 1fr rem(50px) rem(25px);
+    }
+  }
 }
 
 .bet {
   @include make-spacer('mb', 2);
 
   display: grid;
-  grid-template-columns: 1fr rem(105px) rem(50px) rem(58px) rem(25px);
   column-gap: rem(5px);
   align-items: center;
   overflow: hidden;

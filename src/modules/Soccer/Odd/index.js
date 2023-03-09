@@ -9,7 +9,6 @@ import style from './index.module.scss';
 const Odd = ({data, label = false}) => {
     const dispatch = useDispatch()
     const {betslip} = useSelector((state) => state.betslip)
-
     const handleClick = (data) => {
         const a = betslip.slice(0);
         const find = a.find(el => {
@@ -22,6 +21,7 @@ const Odd = ({data, label = false}) => {
         }
         else {
             dispatch(setBetslip({
+                sid: data.sid,
                 id: data.id,
                 a: data.a,
                 b: data.b || 1.00,

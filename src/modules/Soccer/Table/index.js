@@ -113,6 +113,9 @@ const Table = () => {
 
     }, [live]);
 
+    useEffect(() => {
+    }, [setActive])
+
     const checkStatus = (id) => {
         // setLoading(true)
         // dispatch(setLive(conditionStatus(data.events[id].status)))
@@ -208,6 +211,11 @@ const Table = () => {
                                             setActive={setActive}
                                         />
                                     }
+                                    <div className={style.banners}>
+                                        <div className={style.banner} />
+                                        <div className={style.banner} />
+                                        <div className={style.banner} />
+                                    </div>
                                     <div className={style.tab}>
                                         {
                                             data.events.map((el, idx) =>
@@ -422,7 +430,8 @@ const Table = () => {
                                                                                                                                 ...el_m.teams,
                                                                                                                                 pos: el_m.pos,
                                                                                                                                 market: el_o.printname,
-                                                                                                                                c: el.c
+                                                                                                                                c: el.c,
+                                                                                                                                sid: el_m.id
                                                                                                                             }}
                                                                                                                         />
                                                                                                                     </div>
@@ -465,7 +474,8 @@ const Table = () => {
                                                                                                                 ...el_e.league.matches[toggle.id].teams,
                                                                                                                 pos: el_e.league.matches[toggle.id].pos,
                                                                                                                 market: el_e.league.matches[toggle.id].odds[0].groups[6].markets[0].printname,
-                                                                                                                c: el.a
+                                                                                                                c: el.a,
+                                                                                                                sid: el_e.league.matches[toggle.id].id
                                                                                                             }}
                                                                                                             label={el.a}
                                                                                                         />
@@ -505,7 +515,8 @@ const Table = () => {
                                                                                                                                             ...el_e.league.matches[toggle.id].teams,
                                                                                                                                             pos: el_e.league.matches[toggle.id].pos,
                                                                                                                                             market: el_e.league.matches[toggle.id].odds[0].groups[7].markets[0].printname,
-                                                                                                                                            c: el.a
+                                                                                                                                            c: el.a,
+                                                                                                                                            sid: el_e.league.matches[toggle.id].id
                                                                                                                                         }}
                                                                                                                                         label={el.a}
                                                                                                                                     />

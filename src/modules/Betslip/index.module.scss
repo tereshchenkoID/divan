@@ -14,15 +14,16 @@
   @include scroll;
   @include make-spacer('py', 2);
 
+  overflow-x: hidden;
   flex-grow: 1;
 }
 
 .row {
   @include make-spacer('mb', 2);
-  @include make-spacer('px', 1);
+  @include make-spacer('pl', 1);
+  @include make-spacer('pr', 7);
 
   display: grid;
-  grid-template-columns: 1fr rem(55px) rem(88px);
   column-gap: rem(5px);
   align-items: center;
   overflow: hidden;
@@ -30,6 +31,14 @@
   font-weight: var(--typography-bold);
   text-align: center;
   color: var(--color-orange);
+
+  &.lg {
+    grid-template-columns: 1fr rem(50px) rem(60px);
+  }
+
+  &.sm {
+    grid-template-columns: 1fr rem(50px);
+  }
 }
 
 .item {
@@ -109,46 +118,27 @@
       width: 100%;
     }
   }
-}
 
-.table {
+  &.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
 }
 
 .thead {
   @include make-spacer('py', 2);
 
   border-bottom: 1px solid #808080;
-
-  .tr {
-    grid-template-columns: rem(50px) rem(60px) rem(120px) 1fr;
-
-    .tr {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-}
-
-.tbody {
-
-  .tr {
-    border-bottom: 1px solid #808080;
-
-    &:last-child {
-      border-bottom: 0;
-    }
-  }
-
-  .th {
-    @include flex(center, center);
-
-    min-height: rem(30px);
-  }
 }
 
 .tr {
   display: grid;
-  grid-template-columns: rem(50px) rem(60px) repeat(2, 60px) 1fr;
+  grid-template-columns: rem(50px) rem(60px) rem(120px) 1fr;
   align-items: center;
+
+  .tr {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 .th {

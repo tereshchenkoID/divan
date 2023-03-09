@@ -3,54 +3,245 @@ import {useDispatch, useSelector} from "react-redux";
 
 import classNames from "classnames";
 
-import {deleteBetslip, setBetslip} from "store/actions/betslipAction";
+import {deleteBetslip} from "store/actions/betslipAction";
+import {setStake} from "store/actions/stakeAction";
 
 import {useTotalStake} from "./useTotalStake";
 import {useMinMaxOdd} from "./useMinMaxOdd";
 
 import Icon from "components/Icon";
 import Bet from "./Bet";
+import Stake from "./Stake";
 
 import style from './index.module.scss';
 
-const getMaxWin = (data) => {
-    let result = 0
-
-    // eslint-disable-next-line array-callback-return
-    data.map(el => {
-        result += el.stake > 0 ? el.b * el.stake : 0
-    })
-
-    return result
+const getWinnings = (stake, decimalPrice) => {
+    return stake*decimalPrice;
 }
 
+const getAccumulatorPrice = (priceArray) => {
+    let result = 1;
 
-// PER_BET ставка в каждое поле
-// PER_GROUP дефолтовое значение делиться на количество исходов
-// e
-    // a - min
-    // b - max
-    // c - default
+    for (let i = 0; i < priceArray.length; i++) {
+        result = result * priceArray[i];
+    }
 
+    return result;
+}
+
+const getCoverBetMaxSystem = (priceArray, minAccSize, stake) => {
+    let total = 0;
+
+    for(let i = minAccSize; i <= priceArray.length; i++) {
+        let perms = getUniquePermutations(priceArray, i);
+
+        for(let j = 0; j < perms.length; j++) {
+            total += getAccumulatorPrice(perms[j]) * stake;
+        }
+    }
+
+    return total;
+}
+
+const getUniquePermutations = (arr, permLength) => {
+    if(arr.length <= permLength)
+        return [arr];
+
+    let permutations = [];
+    let newArr = [];
+
+    newArr = arr.slice(0);
+
+    for(let i = 0; i < arr.length; i++)
+    {
+        newArr = arr.slice(0);
+        newArr.splice(i, 1);
+        permutations = twoDimArrayUnion(permutations,(getUniquePermutations(newArr, permLength)));
+    }
+
+    return permutations;
+}
+
+const twoDimArrayUnion = (arr1, arr2) => {
+    for(let i = 0; i < arr2.length; i++)
+    {
+        let duplicate = false;
+
+        for(let j = 0; j < arr1.length; j++)
+
+            if(arr1[j].length === arr2[i].length)
+
+                for(let k = 0; k < arr1[j].length; k++)
+
+                    if(arr1[j][k] !== arr2[i][k])
+                        break;
+                    else if(k === arr1[j].length-1)
+                        duplicate = true;
+
+        if(!duplicate)
+            arr1.push(arr2[i]);
+    }
+
+    return arr1;
+}
+
+// console.log(getUniquePermutations([5.20, 3.17, 1.21], 2))
+// console.log(getCoverBetMaxReturns([5.20, 3.17, 1.21, 2.22], 3, 10))
+
+const getCoverBetMaxSingle = (data) => {
+    let result = 0;
+
+    for (let i = 0; i < data.length; i++) {
+        result += data[i].stake > 0 ? data[i].b * data[i].stake : 0
+    }
+
+    return result;
+}
 
 // const getMinWin = (data) => {
 //     const a = data.slice(0).filter(el => el.stake > 0).sort((a, b) => a.b - b.b)[0]
 //     return a ? a.b * a.stake : 0
 // }
 
+const getOdds = (data) => {
+    let a = []
+
+    // eslint-disable-next-line array-callback-return
+    data.map((el) => {
+        a.push(el.b)
+    });
+
+    return a
+}
+
+const getBetMinMaxSystem = (data, type) => {
+    const r = []
+    for(let i = 0; i < data.length; i++) {
+        r.push(getAccumulatorPrice(data[i]))
+    }
+
+    switch (type) {
+        case 0:
+            return Math.min(...r)
+        case 1:
+            return Math.max(...r)
+        case 2:
+            const add = arr => arr.reduce((a, b) => a + b, 0);
+            return add(r);
+        default:
+            return 0;
+    }
+}
+
 const Betslip = () => {
     const dispatch = useDispatch()
     const {betslip} = useSelector((state) => state.betslip)
+    const {stake} = useSelector((state) => state.stake)
+    const {setting} = useSelector((state) => state.setting)
     const {settings} = useSelector((state) => state.settings)
+    const [init, setInit] = useState(false)
 
+    const [disabled, setDisabled] = useState(true)
     const [type, setType] = useState(0)
 
-    const oddsState = {
-        length: betslip.length,
-        minOdd: useMinMaxOdd(betslip, 0),
-        maxOdd: useMinMaxOdd(betslip, 1),
-        totalStake: useTotalStake(betslip)
+    const systemHandler = () => {
+        const a = []
+
+        betslip.map((el, idx) => {
+            if (idx !== 0) {
+                console.log(stake)
+
+                const m = getUniquePermutations(getOdds(betslip), idx + 1)
+                const min = getBetMinMaxSystem(m, 0)
+                const max = getBetMinMaxSystem(m, 1)
+                const maxWin = getBetMinMaxSystem(m, 2)
+                const s = 0
+
+                a.push({
+                    id: idx,
+                    gr: idx + 1,
+                    combi: m.length,
+                    min: min,
+                    max: max,
+                    minWin: min * s,
+                    maxWin: maxWin * s,
+                    stake: 0
+                })
+            }
+        })
+
+        return a
     }
+
+    const singleHandler = () => {
+        // eslint-disable-next-line react-hooks/rules-of-hooks
+        const minOdd = useMinMaxOdd(betslip, 0)
+        // eslint-disable-next-line react-hooks/rules-of-hooks
+        const maxOdd = useMinMaxOdd(betslip, 1)
+        const s = setting['stake-mode'] === 1 ? settings.f.c : settings.f.c
+
+        return [{
+            id:     0,
+            gr:     1,
+            combi:  betslip.length,
+            min:    minOdd,
+            max:    maxOdd,
+            minWin: 0,
+            maxWin: 0,
+            stake:  s
+        }]
+    }
+
+    const checkType = () => {
+        if (betslip.length) {
+            let e = betslip[0].sid
+
+            betslip.map((el) => {
+                if (e !== el.sid) {
+                    setDisabled(false)
+                    setType(1)
+                }
+                else {
+                    setDisabled(true)
+                    setType(0)
+                }
+
+                return null
+            });
+        }
+    }
+
+    useEffect(() => {
+        let b = betslip
+
+        if (!init) {
+            let a = setting['stake-mode'] === 1 ? settings.f.c : settings.f.c / betslip.length
+
+            b.map((e) => {
+                return e.stake = a
+            });
+
+            dispatch(deleteBetslip(b))
+        }
+        else {
+            b.map((e) => {
+                return e.stake = e.stake === 0 ? settings.f.c : e.stake
+            });
+
+            dispatch(deleteBetslip(b))
+        }
+
+        // checkType()
+    }, [betslip, setting])
+
+    useEffect(() => {
+        if (type === 0) {
+            dispatch(setStake(singleHandler()))
+        }
+        else {
+            dispatch(setStake(systemHandler()))
+        }
+    }, [betslip, type])
 
     return (
         <div className={style.block}>
@@ -58,10 +249,20 @@ const Betslip = () => {
             {
                 betslip.length > 0 &&
                 <>
-                    <div className={style.row}>
+                    <div
+                        className={
+                            classNames(
+                                style.row,
+                                type === 0 ? style.lg : style.sm
+                            )
+                        }
+                    >
                         <div>Selection</div>
                         <div>Odds</div>
-                        <div>Stake</div>
+                        {
+                            type === 0 &&
+                            <div>Stake</div>
+                        }
                     </div>
                     <div className={style.list}>
                         {
@@ -73,6 +274,8 @@ const Betslip = () => {
                                     <Bet
                                         data={el}
                                         betslip={betslip}
+                                        type={type}
+                                        setInit={setInit}
                                     />
                                 </div>
                             )
@@ -97,6 +300,7 @@ const Betslip = () => {
                             className={
                                 classNames(
                                     style.type,
+                                    disabled && style.disabled,
                                     type === 1 && style.active
                                 )
                             }
@@ -124,13 +328,14 @@ const Betslip = () => {
                             </div>
                         </div>
                         <div className={style.tbody}>
-                            <div className={style.tr}>
-                                <div className={style.th}>1</div>
-                                <div className={style.th}>{oddsState.length}</div>
-                                <div className={style.th}>{oddsState.minOdd}</div>
-                                <div className={style.th}>{oddsState.maxOdd}</div>
-                                <div className={style.th}>1</div>
-                            </div>
+                            {
+                                stake.map((el, idx) =>
+                                    <Stake
+                                        key={idx}
+                                        data={el}
+                                    />
+                                )
+                            }
                         </div>
                     </div>
                     {/*<div>*/}
@@ -149,11 +354,27 @@ const Betslip = () => {
             <div>
                 <div className={style.stake}>
                     <div>Total Stake</div>
-                    <div>{oddsState.totalStake.toFixed(2)}</div>
+                    {
+                        type === 0 &&
+                        // eslint-disable-next-line react-hooks/rules-of-hooks
+                        <div>{useTotalStake(betslip).toFixed(2)}</div>
+                    }
+                    {
+                        type === 1 &&
+                        <div>-</div>
+                    }
                 </div>
                 <div className={style.stake}>
                     <div>Max Total Win</div>
-                    <div>{getMaxWin(betslip).toFixed(2)}</div>
+                    {
+                        type === 0 &&
+                        <div>{getCoverBetMaxSingle(betslip).toFixed(2)}</div>
+
+                    }
+                    {
+                        type === 1 &&
+                        <div>{getCoverBetMaxSystem(getOdds(betslip), betslip.length - 1, 10).toFixed(2)}</div>
+                    }
                 </div>
             </div>
             <div className={style.footer}>
@@ -166,6 +387,7 @@ const Betslip = () => {
                     }
                     onClick={() => {
                         dispatch(deleteBetslip([]))
+                        setInit(false)
                     }}
                     aria-label={'Remove'}
                 >

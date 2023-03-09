@@ -8,6 +8,7 @@ import Nav from "components/Nav";
 
 import Table from "modules/Soccer/Table";
 import Betslip from "modules/Betslip";
+import Settings from "modules/Settings";
 
 import style from './index.module.scss';
 
@@ -38,6 +39,7 @@ const Home = () => {
                                 <Betslip />
                             </div>
                         </div>
+                        <Settings />
                     </>
             }
         </div>

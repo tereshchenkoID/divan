@@ -1,6 +1,8 @@
 import {useRef, useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 
+import classNames from "classnames";
+
 import {deleteBetslip} from "store/actions/betslipAction";
 
 import Icon from "components/Icon";
@@ -13,25 +15,13 @@ const findBet = (data, id) => {
     })
 }
 
-const Bet = ({data, betslip}) => {
+const Bet = ({data, betslip, type, setInit}) => {
     const dispatch = useDispatch()
     const {settings} = useSelector((state) => state.settings)
     const [edit, setEdit] = useState(false)
-    const [type, setType] = useState(2)
 
     const buttonRef = useRef(null)
     const blockRef = useRef(null)
-
-    useEffect(() => {
-        let a = type === 1 ? settings.f.c : settings.f.c / betslip.length
-        let b = betslip
-
-        b.map((e) => {
-            return e.stake = a
-        });
-
-        dispatch(deleteBetslip(b))
-    }, [betslip])
 
     const removeBet = () => {
         const a = betslip.slice(0);
@@ -42,6 +32,8 @@ const Bet = ({data, betslip}) => {
     }
 
     const updateBet = (stake) => {
+        setInit(true)
+
         const a = betslip.slice(0);
 
         if (stake)
@@ -87,7 +79,12 @@ const Bet = ({data, betslip}) => {
 
     return (
         <div
-            className={style.block}
+            className={
+                classNames(
+                    style.block,
+                    type === 0 ? style.lg : style.sm
+                )
+            }
             ref={blockRef}
         >
             <div className={style.bet}>
@@ -106,22 +103,25 @@ const Bet = ({data, betslip}) => {
                     {data.c || data.a}
                 </div>
                 <div className={style.odd}>{data.b}</div>
-                <div>
-                    <input
-                        ref={buttonRef}
-                        type={"number"}
-                        className={style.field}
-                        placeholder={'100'}
-                        defaultValue={data.stake.toFixed(2)}
-                        value={data.stake.toFixed(2)}
-                        onChange={(e) => {
-                            changeBet(parseInt(e.target.value, 10))
-                        }}
-                        onFocus={() => {
-                            setEdit(true)
-                        }}
-                    />
-                </div>
+                {
+                    type === 0 &&
+                    <div>
+                        <input
+                            ref={buttonRef}
+                            type={"number"}
+                            className={style.field}
+                            placeholder={'100'}
+                            // defaultValue={data.stake.toFixed(2)}
+                            value={data.stake.toFixed(2)}
+                            onChange={(e) => {
+                                changeBet(parseInt(e.target.value, 10))
+                            }}
+                            onFocus={() => {
+                                setEdit(true)
+                            }}
+                        />
+                    </div>
+                }
                 <div>
                     <button
                         aria-label={'Close'}
@@ -136,9 +136,7 @@ const Bet = ({data, betslip}) => {
             </div>
             {
                 edit &&
-                <div
-                    className={style.keyboard}
-                >
+                <div className={style.keyboard}>
                     {
                         Object.values(settings.f.h).map((el, idx) =>
                             <button
