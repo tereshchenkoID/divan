@@ -1,0 +1,109 @@
+@import "scss/config";
+
+.block {
+  @include make-spacer('p', 2);
+  @include flex(center, center);
+
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 12;
+  background-color: var(--color-green-100);
+}
+
+.body,
+.header {
+
+  .key {
+
+    &:hover {
+      background-color: #272727;
+    }
+  }
+}
+
+.content {
+  @include make-spacer('p', 3);
+
+  background-color: var(--color-black);
+  border-radius: rem(12px);
+  min-width: rem(350px);
+}
+
+.header {
+  position: relative;
+  border-radius: rem(3px);
+  overflow: hidden;
+  background-color: rgba(255, 255, 255, 0.3);
+
+  .key {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    height: 100%;
+    border-radius: 0;
+  }
+}
+
+.body {
+  @include make-spacer('py', 3);
+}
+
+.field {
+  @include make-spacer('pr', 12);
+  @include size(100%, rem(65px));
+
+  border: 0;
+  background-color: transparent;
+  color: var(--color-white);
+  font-size: rem(28px);
+  font-weight: var(--typography-bold);
+  text-align: right;
+}
+
+.keyboard {
+  @include make-spacer('mb', 3);
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: rem(2px);
+}
+
+.keys {
+  @include flex;
+
+  gap: rem(2px);
+}
+
+.key {
+  position: relative;
+  flex: 1;
+  background-color: #323232;
+  border-radius: rem(5px);
+  min-width: rem(50px);
+  height: rem(50px);
+  color: var(--color-white);
+  font-size: rem(25px);
+
+  &::before {
+    position: absolute;
+    top: rem(1px);
+    right: rem(1px);
+    left: rem(1px);
+    height: rem(12px);
+    border-radius: rem(5px);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.05) 100%);
+    content: '';
+  }
+
+  &.red {
+    background-color: var(--color-red);
+  }
+
+  &.green {
+    background-color: var(--color-green);
+  }
+}

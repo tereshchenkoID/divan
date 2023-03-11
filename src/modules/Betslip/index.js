@@ -14,7 +14,8 @@ import {
     getUniquePermutations,
     getBetMinMaxSystem,
     getCoverBetMaxSingle,
-    getCoverBetMaxSystem, getBetMaxSingle
+    getCoverBetMaxSystem,
+    getBetMaxSingle
 } from 'modules/Betslip/useStake'
 
 import Icon from "components/Icon";
@@ -35,8 +36,8 @@ const Betslip = () => {
     const {stake} = useSelector((state) => state.stake)
     const {setting} = useSelector((state) => state.setting)
     const {settings} = useSelector((state) => state.settings)
-    const [init, setInit] = useState(false)
 
+    const [init, setInit] = useState(false)
     const [disabled, setDisabled] = useState(true)
     const [type, setType] = useState(0)
 
@@ -109,24 +110,24 @@ const Betslip = () => {
     }
 
     useEffect(() => {
-        let b = betslip
-
-        if (!init) {
-            let a = setting['stake-mode'] === 1 ? settings.f.c : settings.f.c / betslip.length
-
-            b.map((e) => {
-                return e.stake = a
-            });
-
-            dispatch(deleteBetslip(b))
-        }
-        else {
-            b.map((e) => {
-                return e.stake = e.stake === 0 ? settings.f.c : e.stake
-            });
-
-            dispatch(deleteBetslip(b))
-        }
+        // let b = betslip
+        //
+        // if (!init) {
+        //     let a = setting['stake-mode'] === 1 ? settings.f.c : settings.f.c / betslip.length
+        //
+        //     b.map((e) => {
+        //         return e.stake = a
+        //     });
+        //
+        //     dispatch(deleteBetslip(b))
+        // }
+        // else {
+        //     b.map((e) => {
+        //         return e.stake = e.stake === 0 ? settings.f.c : e.stake
+        //     });
+        //
+        //     dispatch(deleteBetslip(b))
+        // }
 
         // checkType()
     }, [betslip, setting])
@@ -172,6 +173,7 @@ const Betslip = () => {
                                         data={el}
                                         betslip={betslip}
                                         type={type}
+                                        init={init}
                                         setInit={setInit}
                                     />
                                 </div>
@@ -284,7 +286,6 @@ const Betslip = () => {
                     }
                     onClick={() => {
                         dispatch(deleteBetslip([]))
-                        setInit(false)
                     }}
                     aria-label={'Remove'}
                 >

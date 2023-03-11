@@ -23,7 +23,7 @@ const Settings = () => {
         preview[idx] = value
         dispatch(setSetting(preview))
 
-        console.log(setting)
+        // console.log(setting)
     }
 
     const save = (ref, idx) => {

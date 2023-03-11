@@ -8,11 +8,14 @@ import {
     getOdds,
     getUniquePermutations,
     getBetMinMaxSystem,
-    getCoverBetMaxSingle,
     getBetMaxSingle
 } from 'modules/Betslip/useStake'
 
+import Calculator from "modules/Calculator";
+import Icon from "components/Icon";
+
 import style from './index.module.scss';
+
 
 const findStake = (data, id) => {
     return data.find(el => {
@@ -26,6 +29,8 @@ const Stake = ({data}) => {
     const {settings} = useSelector((state) => state.settings)
     const {stake} = useSelector((state) => state.stake)
     const [edit, setEdit] = useState(false)
+    const [calculate, setCalculate] = useState(false)
+    const [value, setValue] = useState(0)
 
     const buttonRef = useRef(null)
     const blockRef = useRef(null)
@@ -55,9 +60,7 @@ const Stake = ({data}) => {
 
     useOutsideClick(blockRef, setEdit, data)
 
-    const updateStake = (val) => {
-        const a = stake.slice(0);
-
+    const changeProps = (a, val) => {
         if (data.type === 0) {
             const f = a[0]
 
@@ -79,13 +82,58 @@ const Stake = ({data}) => {
             f.minWin = f.min * val
             f.maxWin = maxWin * val
         }
+    }
 
+    const updateStake = (val) => {
+        let r
+        const regex = /[^0-9.]|(?<=\..*)\./g
+        const a = stake.slice(0);
+
+        if (!regex.test(val)) {
+            r = val
+
+            if (val.length > 1) {
+                if (val[0] === '0' && val[1] !== '.') {
+                    r = val.substr(1)
+                }
+            }
+
+            if (val === '') {
+                r = 0
+            }
+
+            changeProps(a, r)
+            dispatch(setStake(a))
+        }
+    }
+
+    const changeStake = (val) => {
+        const a = stake.slice(0);
+        const f = (data.type === 0) ? a[0] : findStake(a, data.id)
+        let v
+
+        if (val) {
+            if (f.stake.toString().indexOf('.') !== -1) {
+                const a = f.stake.split('.')
+                a[0] = parseInt(a[0]) + val
+                a[1] = a[1] === '' ? 0 : a[1]
+                v = a.join('.')
+            }
+            else {
+                v = parseInt(f.stake, 10) + val
+            }
+        }
+        else {
+            v = 0
+        }
+
+        changeProps(a, v)
         dispatch(setStake(a))
     }
 
     useEffect(() => {
-
-    }, [data])
+        updateStake(value)
+    }, [value])
 
     return (
         <div
@@ -98,19 +146,30 @@ const Stake = ({data}) => {
                 <div className={style.th}>{data.min.toFixed(1)}</div>
                 <div className={style.th}>{data.max.toFixed(1)}</div>
                 <div className={style.th}>
-                    <input
-                        type={"number"}
-                        className={style.field}
-                        placeholder={'100'}
-                        defaultValue={data.stake.toFixed(2)}
-                        onFocus={() => {
-                            setEdit(true)
-                        }}
-                        onChange={(e) => {
-                            updateStake(parseInt(e.target.value, 10) || 0)
-                        }}
-                        ref={buttonRef}
-                    />
+                    <div className={style.input}>
+                        <input
+                            ref={buttonRef}
+                            type={"text"}
+                            className={style.field}
+                            placeholder={'100'}
+                            // defaultValue={data.stake.toFixed(2).replace(',', '.')}
+                            value={data.stake}
+                            onFocus={() => {
+                                setEdit(true)
+                            }}
+                            onChange={(e) => {
+                                updateStake(e.target.value || 0)
+                            }}
+                        />
+                        <button
+                            className={style.calculate}
+                            onClick={() => {
+                                setCalculate(true)
+                            }}
+                        >
+                            <Icon id={'calculate'} />
+                        </button>
+                    </div>
                 </div>
             </div>
             {
@@ -123,6 +182,7 @@ const Stake = ({data}) => {
                                 className={style.key}
                                 aria-label={'Key'}
                                 onClick={() => {
+                                    changeStake(el)
                                 }}
                             >
                                 {el}
@@ -133,22 +193,34 @@ const Stake = ({data}) => {
                         aria-label={'Clear'}
                         className={style.key}
                         onClick={() => {
+                            changeStake(null)
                         }}
                     >
                         Clear
                     </button>
                 </div>
             }
-            <div>
-                <div className={style.stake}>
-                    <div>Potential MIN Win</div>
-                    <div>{data.minWin.toFixed(2)}</div>
+            {
+                data.stake > 0 &&
+                <div>
+                    <div className={style.stake}>
+                        <div>Potential MIN Win</div>
+                        <div>{data.minWin.toFixed(2)}</div>
+                    </div>
+                    <div className={style.stake}>
+                        <div>Potential MAX Win</div>
+                        <div>{data.maxWin.toFixed(2)}</div>
+                    </div>
                 </div>
-                <div className={style.stake}>
-                    <div>Potential MAX Win</div>
-                    <div>{data.maxWin.toFixed(2)}</div>
-                </div>
-            </div>
+            }
+            {
+                calculate &&
+                <Calculator
+                    data={data.stake}
+                    action={setValue}
+                    toggle={setCalculate}
+                />
+            }
         </div>
     );
 }

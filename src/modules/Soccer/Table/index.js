@@ -114,7 +114,7 @@ const Table = () => {
     }, [live]);
 
     useEffect(() => {
-    }, [setActive])
+    }, [active, setActive])
 
     const checkStatus = (id) => {
         // setLoading(true)
@@ -214,7 +214,6 @@ const Table = () => {
                                     <div className={style.banners}>
                                         <div className={style.banner} />
                                         <div className={style.banner} />
-                                        <div className={style.banner} />
                                     </div>
                                     <div className={style.tab}>
                                         {
@@ -244,17 +243,20 @@ const Table = () => {
                                             )
                                         }
                                     </div>
-                                    <div className={style.info}>
-                                        <div className={style.league}>
-                                            <img
-                                                src={`https://view.divan.bet/engine/shop/resource/${data.events[active].league.img}`}
-                                                alt={data.events[active].league.name}
+                                    {
+                                        data.events[active] &&
+                                        <div className={style.info}>
+                                            <div className={style.league}>
+                                                <img
+                                                    src={`https://view.divan.bet/engine/shop/resource/${data.events[active].league.img}`}
+                                                    alt={data.events[active].league.name}
+                                                />
+                                            </div>
+                                            <Timer
+                                                data={data.events[active]}
                                             />
                                         </div>
-                                        <Timer
-                                            data={data.events[active]}
-                                        />
-                                    </div>
+                                    }
                                     <div className={style.body}>
                                         {
                                             preloader

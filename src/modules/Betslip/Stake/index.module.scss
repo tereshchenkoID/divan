@@ -27,14 +27,28 @@
   color: var(--color-white);
 }
 
-.field {
+.input {
   @include size(100%, rem(25px));
+
+  position: relative;
+}
+
+.calculate {
+  @include size(rem(22px));
+  @include absolute-center-right(0);
+
+  color: var(--color-white);
+}
+
+.field {
+  @include make-spacer('pr', 6);
+  @include size(100%);
 
   border: 1px solid #808080;
   background-color: #363636;
   border-radius: rem(5px);
   overflow: hidden;
-  text-align: center;
+  text-align: right;
   font-weight: var(--typography-bold);
   line-height: 1;
   white-space: nowrap;

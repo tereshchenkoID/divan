@@ -30,7 +30,6 @@ const Update = ({find, setActive}) => {
 
                                 b = setInterval(() => {
                                     if (resultTimer(json.event.nextUpdate, delta) === '0') {
-
                                         dispatch(setData(game)).then(() => {
                                             setActive(0)
                                             setCount(null)
@@ -61,7 +60,6 @@ const Update = ({find, setActive}) => {
                     a = setInterval(() => {
 
                         if (resultTimer(find.nextUpdate, delta) === '0') {
-
                             dispatch(setData(game)).then(() => {
                                 setActive(0)
                                 setCount(null)

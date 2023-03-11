@@ -15,10 +15,12 @@ const findBet = (data, id) => {
     })
 }
 
-const Bet = ({data, betslip, type, setInit}) => {
+const Bet = ({data, betslip, type, init, setInit}) => {
     const dispatch = useDispatch()
+    const {setting} = useSelector((state) => state.setting)
     const {settings} = useSelector((state) => state.settings)
     const [edit, setEdit] = useState(false)
+    const [load, setLoad] = useState(false)
 
     const buttonRef = useRef(null)
     const blockRef = useRef(null)
@@ -31,25 +33,57 @@ const Bet = ({data, betslip, type, setInit}) => {
         dispatch(deleteBetslip(a))
     }
 
-    const updateBet = (stake) => {
-        setInit(true)
-
+    const updateBet = (val) => {
+        let r
+        const regex = /[^0-9.]|(?<=\..*)\./g
         const a = betslip.slice(0);
+        const f = findBet(a, data.id)
 
-        if (stake)
-            findBet(a, data.id).stake += stake
-        else
-            findBet(a, data.id).stake = 0
+        if (!regex.test(val)) {
+            r = val
 
-        dispatch(deleteBetslip(a))
+            if (val.length > 1) {
+                if (val[0] === '0' && val[1] !== '.') {
+                    r = val.substr(1)
+                }
+            }
+
+            if (val === '') {
+                r = 0
+            }
+
+            f.stake = r
+
+            dispatch(deleteBetslip(a))
+            setInit(true)
+            setLoad(true)
+        }
     }
 
-    const changeBet = (stake) => {
-        const a = betslip.slice(0);
+    const changeBet = (val) => {
+        const a = betslip.slice(0)
+        const f = (data.type === 0) ? a[0] : findBet(a, data.id)
+        let v
 
-        findBet(a, data.id).stake = stake
+        if (val) {
+            if (f.stake.toString().indexOf('.') !== -1) {
+                const a = f.stake.split('.')
+                a[0] = parseInt(a[0]) + val
+                a[1] = a[1] === '' ? 0 : a[1]
+                v = a.join('.')
+            }
+            else {
+                v = f.stake + parseInt(val, 10)
+            }
+        }
+        else {
+            v = 0
+        }
 
+        f.stake = v
         dispatch(deleteBetslip(a))
+        setInit(true)
+        setLoad(true)
     }
 
     const useOutsideClick = (elementRef, handler, attached = true) => {
@@ -76,6 +110,17 @@ const Bet = ({data, betslip, type, setInit}) => {
     }
 
     useOutsideClick(blockRef, setEdit, data)
+
+    useEffect(() => {
+        if (!init) {
+            data.stake = setting['stake-mode'] === 1 ? settings.f.c : settings.f.c / betslip.length
+        }
+        else {
+            if (!load) {
+                data.stake = settings.f.c
+            }
+        }
+    }, [betslip])
 
     return (
         <div
@@ -108,13 +153,12 @@ const Bet = ({data, betslip, type, setInit}) => {
                     <div>
                         <input
                             ref={buttonRef}
-                            type={"number"}
+                            type={"text"}
                             className={style.field}
                             placeholder={'100'}
-                            // defaultValue={data.stake.toFixed(2)}
-                            value={data.stake.toFixed(2)}
+                            value={data.stake}
                             onChange={(e) => {
-                                changeBet(parseInt(e.target.value, 10))
+                                updateBet(e.target.value || 0)
                             }}
                             onFocus={() => {
                                 setEdit(true)
@@ -144,7 +188,7 @@ const Bet = ({data, betslip, type, setInit}) => {
                                 className={style.key}
                                 aria-label={'Key'}
                                 onClick={() => {
-                                    updateBet(el)
+                                    changeBet(el)
                                 }}
                             >
                                 {el}
@@ -155,7 +199,7 @@ const Bet = ({data, betslip, type, setInit}) => {
                         aria-label={'Clear'}
                         className={style.key}
                         onClick={() => {
-                            updateBet(null)
+                            changeBet(null)
                         }}
                     >
                         Clear
