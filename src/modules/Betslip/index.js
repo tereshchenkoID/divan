@@ -15,6 +15,7 @@ import {
     getBetMinMaxSystem,
     getCoverBetMaxSingle,
     getCoverBetMaxSystem,
+    getCoverStakeMaxSystem,
     getBetMaxSingle
 } from 'modules/Betslip/useStake'
 
@@ -250,32 +251,32 @@ const Betslip = () => {
                 </>
             }
             </div>
-            {/*<div>*/}
-            {/*    <div className={style.stake}>*/}
-            {/*        <div>Total Stake</div>*/}
-            {/*        {*/}
-            {/*            type === 0 &&*/}
-            {/*            // eslint-disable-next-line react-hooks/rules-of-hooks*/}
-            {/*            <div>{useTotalStake(betslip).toFixed(2)}</div>*/}
-            {/*        }*/}
-            {/*        {*/}
-            {/*            type === 1 &&*/}
-            {/*            <div>-</div>*/}
-            {/*        }*/}
-            {/*    </div>*/}
-            {/*    <div className={style.stake}>*/}
-            {/*        <div>Max Total Win</div>*/}
-            {/*        {*/}
-            {/*            type === 0 &&*/}
-            {/*            <div>{getCoverBetMaxSingle(betslip).toFixed(2)}</div>*/}
-
-            {/*        }*/}
-            {/*        {*/}
-            {/*            type === 1 &&*/}
-            {/*            <div>{getCoverBetMaxSystem(getOdds(betslip), betslip.length - 1, 10).toFixed(2)}</div>*/}
-            {/*        }*/}
-            {/*    </div>*/}
-            {/*</div>*/}
+            <div>
+                <div className={style.stake}>
+                    <div>Total Stake</div>
+                    {
+                        type === 0 &&
+                        // eslint-disable-next-line react-hooks/rules-of-hooks
+                        <div>{useTotalStake(betslip).toFixed(2)}</div>
+                    }
+                    {
+                        type === 1 &&
+                        // eslint-disable-next-line react-hooks/rules-of-hooks
+                        <div>{useTotalStake(stake).toFixed(2)}</div>
+                    }
+                </div>
+                <div className={style.stake}>
+                    <div>Max Total Win</div>
+                    {
+                        type === 0 &&
+                        <div>{getCoverBetMaxSingle(betslip).toFixed(2)}</div>
+                    }
+                    {
+                        type === 1 &&
+                        <div>{getCoverStakeMaxSystem(stake).toFixed(2)}</div>
+                    }
+                </div>
+            </div>
             <div className={style.footer}>
                 <button
                     className={
