@@ -23,6 +23,7 @@ const Odd = ({data, label = false}) => {
         else {
             dispatch(setBetslip({
                 sid: data.sid,
+                mid: data.mid,
                 id: data.id,
                 a: data.a,
                 b: data.b || 1.00,

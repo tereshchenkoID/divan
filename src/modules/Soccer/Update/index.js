@@ -37,14 +37,14 @@ const Update = ({find, setActive}) => {
                                         clearInterval(b)
                                     }
                                     else {
-                                        console.log(resultTimer(json.event.nextUpdate, delta))
+                                        // console.log(resultTimer(json.event.nextUpdate, delta))
                                     }
                                 },1000)
                             })
                             clearInterval(a)
                         }
                         else {
-                            console.log(progressTimer(find.nextUpdate, delta))
+                            // console.log(progressTimer(find.nextUpdate, delta))
                         }
                     },1000)
                 }
@@ -54,7 +54,6 @@ const Update = ({find, setActive}) => {
                 }
             }
             else if (find.status === "RESULTS") {
-
                 if (count === null) {
                     setCount(0)
                     a = setInterval(() => {
@@ -64,11 +63,10 @@ const Update = ({find, setActive}) => {
                                 setActive(0)
                                 setCount(null)
                             })
-
                             clearInterval(a)
                         }
                         else {
-                            console.log(resultTimer(find.nextUpdate, delta))
+                            // console.log(resultTimer(find.nextUpdate, delta))
                         }
                     }, 1000)
                 }

@@ -4,10 +4,12 @@ import {useDispatch, useSelector} from "react-redux";
 import classNames from "classnames";
 
 import {deleteBetslip} from "store/actions/betslipAction";
+import {setStake} from "store/actions/stakeAction";
 
 import Icon from "components/Icon";
 
 import style from './index.module.scss';
+
 
 const findBet = (data, id) => {
     return data.find(el => {
@@ -15,12 +17,10 @@ const findBet = (data, id) => {
     })
 }
 
-const Bet = ({data, betslip, type, init, setInit}) => {
+const Bet = ({data, betslip, type, setInit, setDisabled}) => {
     const dispatch = useDispatch()
-    const {setting} = useSelector((state) => state.setting)
     const {settings} = useSelector((state) => state.settings)
     const [edit, setEdit] = useState(false)
-    const [load, setLoad] = useState(false)
 
     const buttonRef = useRef(null)
     const blockRef = useRef(null)
@@ -30,6 +30,11 @@ const Bet = ({data, betslip, type, init, setInit}) => {
 
         a.splice(a.indexOf(findBet(a, data.id)), 1)
 
+        if (betslip.length === 1) {
+            setInit(false)
+            setDisabled(true)
+            dispatch(setStake([]))
+        }
         dispatch(deleteBetslip(a))
     }
 
@@ -56,7 +61,7 @@ const Bet = ({data, betslip, type, init, setInit}) => {
 
             dispatch(deleteBetslip(a))
             setInit(true)
-            setLoad(true)
+            // setLoad(true)
         }
     }
 
@@ -83,7 +88,7 @@ const Bet = ({data, betslip, type, init, setInit}) => {
         f.stake = v
         dispatch(deleteBetslip(a))
         setInit(true)
-        setLoad(true)
+        // setLoad(true)
     }
 
     const useOutsideClick = (elementRef, handler, attached = true) => {
@@ -110,17 +115,6 @@ const Bet = ({data, betslip, type, init, setInit}) => {
     }
 
     useOutsideClick(blockRef, setEdit, data)
-
-    useEffect(() => {
-        if (!init) {
-            data.stake = setting['stake-mode'] === 1 ? settings.f.c : settings.f.c / betslip.length
-        }
-        else {
-            if (!load) {
-                data.stake = settings.f.c
-            }
-        }
-    }, [betslip])
 
     return (
         <div

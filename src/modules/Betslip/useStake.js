@@ -1,7 +1,5 @@
-
-
 const getWinnings = (stake, decimalPrice) => {
-    return stake*decimalPrice;
+    return stake * decimalPrice;
 }
 
 const getAccumulatorPrice = (priceArray) => {
@@ -112,17 +110,41 @@ export const getBetMinMaxSystem = (data, type) => {
 export const getOdds = (data) => {
     let a = []
 
-    // eslint-disable-next-line array-callback-return
-    data.map((el) => {
-        a.push(el.b)
-    });
+    for(let i = 0; i < data.length; i++) {
+        a.push(data[i].b)
+    }
 
     return a
 }
 
-export const getBetMaxSingle = (data, stake) => {
+export const getBetMaxSingle = (data) => {
     let a = getOdds(data);
     const add = arr => arr.reduce((a, b) => a + b, 0);
 
     return add(a);
+}
+
+export const getMinMaxOdd = (data, type) => {
+    const a = data.slice(0).sort((a, b) => type === 0 ? a.b - b.b : b.b - a.b)[0]
+    return a ? a.b : 0;
+}
+
+export const getTotalStakeSingle = (data) => {
+    let result = 0
+
+    for(let i = 0; i < data.length; i++) {
+        result += parseFloat(data[i].stake)
+    }
+
+    return result
+}
+
+export const getTotalStakeSystem = (data, mode) => {
+    let result = 0
+
+    for (let i = 0; i < data.length; i++) {
+        result = mode === 1 ? result + parseFloat(data[i].stake) * data[i].combi : result + parseFloat(data[i].stake)
+    }
+
+    return result
 }

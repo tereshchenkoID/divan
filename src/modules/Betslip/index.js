@@ -6,9 +6,6 @@ import classNames from "classnames";
 import {deleteBetslip} from "store/actions/betslipAction";
 import {setStake} from "store/actions/stakeAction";
 
-import {useTotalStake} from "./useTotalStake";
-import {useMinMaxOdd} from "./useMinMaxOdd";
-
 import {
     getOdds,
     getUniquePermutations,
@@ -16,7 +13,10 @@ import {
     getCoverBetMaxSingle,
     getCoverBetMaxSystem,
     getCoverStakeMaxSystem,
-    getBetMaxSingle
+    getMinMaxOdd,
+    getBetMaxSingle,
+    getTotalStakeSystem,
+    getTotalStakeSingle
 } from 'modules/Betslip/useStake'
 
 import Icon from "components/Icon";
@@ -24,12 +24,6 @@ import Bet from "./Bet";
 import Stake from "./Stake";
 
 import style from './index.module.scss';
-
-// const getMinWin = (data) => {
-//     const a = data.slice(0).filter(el => el.stake > 0).sort((a, b) => a.b - b.b)[0]
-//     return a ? a.b * a.stake : 0
-// }
-
 
 const Betslip = () => {
     const dispatch = useDispatch()
@@ -55,7 +49,7 @@ const Betslip = () => {
 
                 a.push({
                     type: 1,
-                    id: idx + 1,
+                    id: m.length,
                     gr: idx + 1,
                     combi: m.length,
                     min: min,
@@ -71,12 +65,17 @@ const Betslip = () => {
     }
 
     const singleHandler = () => {
-        // eslint-disable-next-line react-hooks/rules-of-hooks
-        const minOdd = useMinMaxOdd(betslip, 0)
-        // eslint-disable-next-line react-hooks/rules-of-hooks
-        const maxOdd = useMinMaxOdd(betslip, 1)
-        const s = setting['stake-mode'] === 1 ? settings.f.c : settings.f.c
+        const minOdd = getMinMaxOdd(betslip, 0)
+        const maxOdd = getMinMaxOdd(betslip, 1)
         const maxWin = getBetMaxSingle(betslip)
+        let s
+
+        if (init) {
+            s = setting['stake-mode'] === 1 ? settings.f.c : settings.f.c
+        }
+        else {
+            s = (stake.length && stake[0].stake) || settings.f.c
+        }
 
         return [{
             type:   0,
@@ -92,191 +91,197 @@ const Betslip = () => {
     }
 
     const checkType = () => {
-        if (betslip.length) {
-            let e = betslip[0].sid
+            if (betslip.length > 1) {
+                if (disabled) {
+                    let e = betslip[0].mid
 
-            betslip.map((el) => {
-                if (e !== el.sid) {
-                    setDisabled(false)
-                    setType(1)
-                }
-                else {
-                    setDisabled(true)
-                    setType(0)
-                }
+                    betslip.map((el) => {
+                        if (e !== el.mid) {
+                            setDisabled(false)
+                            setType(1)
+                        }
+                        else {
+                            setDisabled(true)
+                            setType(0)
+                        }
 
-                return null
-            });
+                        setDisabled(false)
+                        return null
+                    });
+                }
+            }
+            else {
+                setType(0)
+                setDisabled(true)
+            }
+    }
+
+    const updateStake = (a) => {
+        if (!init) {
+            for(let i = 0; i < betslip.length; i++) {
+                betslip[i].stake = setting['stake-mode'] === 1 ? a : (a / betslip.length).toFixed(2)
+            }
         }
+        else {
+            for(let i = 0; i < betslip.length; i++) {
+                if (betslip[i].stake === 0) {
+                    betslip[i].stake = a
+                }
+            }
+        }
+
+        dispatch(deleteBetslip(betslip))
     }
 
     useEffect(() => {
-        // let b = betslip
-        //
-        // if (!init) {
-        //     let a = setting['stake-mode'] === 1 ? settings.f.c : settings.f.c / betslip.length
-        //
-        //     b.map((e) => {
-        //         return e.stake = a
-        //     });
-        //
-        //     dispatch(deleteBetslip(b))
-        // }
-        // else {
-        //     b.map((e) => {
-        //         return e.stake = e.stake === 0 ? settings.f.c : e.stake
-        //     });
-        //
-        //     dispatch(deleteBetslip(b))
-        // }
+        checkType()
 
-        // checkType()
-    }, [betslip, setting])
+        if (betslip.length) {
+            if (type === 0) {
+                dispatch(setStake(singleHandler()))
+            }
+            else {
+                dispatch(setStake(systemHandler()))
+            }
+        }
+    }, [betslip, type])
 
     useEffect(() => {
         if (type === 0) {
-            dispatch(setStake(singleHandler()))
+            if (stake.length) {
+                updateStake(stake[0].stake)
+            }
         }
-        else {
-            dispatch(setStake(systemHandler()))
-        }
-    }, [betslip, type])
+
+    }, [stake])
 
     return (
         <div className={style.block}>
             <div className={style.wrapper}>
-            {
-                betslip.length > 0 &&
-                <>
-                    <div
-                        className={
-                            classNames(
-                                style.row,
-                                type === 0 ? style.lg : style.sm
-                            )
-                        }
-                    >
-                        <div>Selection</div>
-                        <div>Odds</div>
-                        {
-                            type === 0 &&
-                            <div>Stake</div>
-                        }
-                    </div>
-                    <div className={style.list}>
-                        {
-                            betslip.map((el, idx) =>
-                                <div
-                                    key={idx}
-                                    className={style.item}
-                                >
-                                    <Bet
-                                        data={el}
-                                        betslip={betslip}
-                                        type={type}
-                                        init={init}
-                                        setInit={setInit}
-                                    />
-                                </div>
-                            )
-                        }
-                    </div>
-                    <div className={style.types}>
-                        <button
+                {
+                    betslip.length > 0 &&
+                    <>
+                        <div
                             className={
                                 classNames(
-                                    style.type,
-                                    type === 0 && style.active
+                                    style.row,
+                                    type === 0 ? style.lg : style.sm
                                 )
                             }
-                            onClick={() => {
-                                setType(0)
-                            }}
-                            aria-label={'Single'}
                         >
-                            Single
-                        </button>
-                        <button
-                            className={
-                                classNames(
-                                    style.type,
-                                    // disabled && style.disabled,
-                                    type === 1 && style.active
-                                )
+                            <div>Selection</div>
+                            <div>Odds</div>
+                            {
+                                type === 0 &&
+                                <div>Stake</div>
                             }
-                            onClick={() => {
-                                setType(1)
-                            }}
-                            aria-label={'System'}
-                        >
-                            System
-                        </button>
-                    </div>
-                    <div className={style.table}>
-                        <div className={style.thead}>
-                            <div className={style.tr}>
-                                <div className={style.th}>GR</div>
-                                <div className={style.th}>Combi</div>
-                                <div className={style.th}>
-                                    <div className={style.th}>Odds</div>
-                                    <div className={style.tr}>
-                                        <div className={style.th}>Min</div>
-                                        <div className={style.th}>Max</div>
+                        </div>
+                        <div className={style.list}>
+                            {
+                                betslip.map((el, idx) =>
+                                    <div
+                                        key={idx}
+                                        className={style.item}
+                                    >
+                                        <Bet
+                                            data={el}
+                                            betslip={betslip}
+                                            type={type}
+                                            setInit={setInit}
+                                            setDisabled={setDisabled}
+                                        />
                                     </div>
+                                )
+                            }
+                        </div>
+                        <div className={style.types}>
+                            <button
+                                className={
+                                    classNames(
+                                        style.type,
+                                        type === 0 && style.active
+                                    )
+                                }
+                                onClick={() => {
+                                    setType(0)
+                                }}
+                                aria-label={'Single'}
+                            >
+                                Single
+                            </button>
+                            <button
+                                className={
+                                    classNames(
+                                        style.type,
+                                        disabled && style.disabled,
+                                        type === 1 && style.active
+                                    )
+                                }
+                                onClick={() => {
+                                    setType(1)
+                                }}
+                                aria-label={'System'}
+                            >
+                                System
+                            </button>
+                        </div>
+                        <div className={style.table}>
+                            <div className={style.thead}>
+                                <div className={style.tr}>
+                                    <div className={style.th}>GR</div>
+                                    <div className={style.th}>Combi</div>
+                                    <div className={style.th}>
+                                        <div className={style.th}>Odds</div>
+                                        <div className={style.tr}>
+                                            <div className={style.th}>Min</div>
+                                            <div className={style.th}>Max</div>
+                                        </div>
+                                    </div>
+                                    <div className={style.th}>Stake / Bet</div>
                                 </div>
-                                <div className={style.th}>Stake / Bet</div>
+                            </div>
+                            <div className={style.tbody}>
+                                {
+                                    stake.map((el, idx) =>
+                                        <Stake
+                                            key={idx}
+                                            data={el}
+                                            setInit={setInit}
+                                        />
+                                    )
+                                }
                             </div>
                         </div>
-                        <div className={style.tbody}>
-                            {
-                                stake.map((el, idx) =>
-                                    <Stake
-                                        key={idx}
-                                        data={el}
-                                    />
-                                )
-                            }
-                        </div>
+                    </>
+                }
+            </div>
+            {
+                betslip.length > 0 &&
+                <div>
+                    <div className={style.stake}>
+                        <div>Total Stake</div>
+                        {
+                            type === 0 &&
+                            <div>{getTotalStakeSingle(stake).toFixed(2)}</div>
+                        }
+                        {
+                            type === 1 &&
+                            <div>{getTotalStakeSystem(stake, setting['stake-mode']).toFixed(2)}</div>
+                        }
                     </div>
-                    {/*<div>*/}
-                    {/*    <div className={style.stake}>*/}
-                    {/*        <div>Potential MIN Win</div>*/}
-                    {/*        <div>{getMinWin(betslip).toFixed(2)}</div>*/}
-                    {/*    </div>*/}
-                    {/*    <div className={style.stake}>*/}
-                    {/*        <div>Potential MAX Win</div>*/}
-                    {/*        <div>{getMaxWin(betslip).toFixed(2)}</div>*/}
-                    {/*    </div>*/}
-                    {/*</div>*/}
-                </>
+                    <div className={style.stake}>
+                        <div>Max Total Win</div>
+                        {
+                            type === 0 &&
+                            <div>{getCoverBetMaxSingle(betslip).toFixed(2)}</div>
+                        }
+                        {
+                            type === 1 &&
+                            <div>{getCoverStakeMaxSystem(stake).toFixed(2)}</div>
+                        }
+                    </div>
+                </div>
             }
-            </div>
-            <div>
-                <div className={style.stake}>
-                    <div>Total Stake</div>
-                    {
-                        type === 0 &&
-                        // eslint-disable-next-line react-hooks/rules-of-hooks
-                        <div>{useTotalStake(betslip).toFixed(2)}</div>
-                    }
-                    {
-                        type === 1 &&
-                        // eslint-disable-next-line react-hooks/rules-of-hooks
-                        <div>{useTotalStake(stake).toFixed(2)}</div>
-                    }
-                </div>
-                <div className={style.stake}>
-                    <div>Max Total Win</div>
-                    {
-                        type === 0 &&
-                        <div>{getCoverBetMaxSingle(betslip).toFixed(2)}</div>
-                    }
-                    {
-                        type === 1 &&
-                        <div>{getCoverStakeMaxSystem(stake).toFixed(2)}</div>
-                    }
-                </div>
-            </div>
             <div className={style.footer}>
                 <button
                     className={
@@ -286,7 +291,9 @@ const Betslip = () => {
                         )
                     }
                     onClick={() => {
+                        dispatch(setStake([]))
                         dispatch(deleteBetslip([]))
+                        setDisabled(true)
                     }}
                     aria-label={'Remove'}
                 >

@@ -4,7 +4,9 @@ import {useDispatch, useSelector} from "react-redux";
 import classNames from "classnames";
 
 import checkData from "helpers/checkData";
+import {clearActiveBets} from "helpers/clearActiveBets";
 
+import {deleteBetslip} from "store/actions/betslipAction";
 import {setLive} from "store/actions/liveAction";
 import {setData} from "store/actions/dataAction";
 import {setModal} from "store/actions/modalAction";
@@ -42,6 +44,8 @@ const Table = () => {
     const {data} = useSelector((state) => state.data)
     const {live} = useSelector((state) => state.live)
     const {modal} = useSelector((state) => state.modal)
+    const {betslip} = useSelector((state) => state.betslip)
+
 
     const [loading, setLoading] = useState(true)
     const [preloader, setPreloader] = useState(false)
@@ -60,7 +64,13 @@ const Table = () => {
                 return el.status === "PROGRESS" || el.status === "RESULTS"
             })
 
-            f && setFind(f)
+            if (f) {
+                setFind(f)
+                let a = clearActiveBets(betslip, f.id)
+                if (a) {
+                    dispatch(deleteBetslip(a))
+                }
+            }
         }
     }, [data])
 
@@ -433,7 +443,8 @@ const Table = () => {
                                                                                                                                 pos: el_m.pos,
                                                                                                                                 market: el_o.printname,
                                                                                                                                 c: el.c,
-                                                                                                                                sid: el_m.id
+                                                                                                                                sid: el_e.id,
+                                                                                                                                mid: el_m.id
                                                                                                                             }}
                                                                                                                         />
                                                                                                                     </div>
@@ -477,7 +488,8 @@ const Table = () => {
                                                                                                                 pos: el_e.league.matches[toggle.id].pos,
                                                                                                                 market: el_e.league.matches[toggle.id].odds[0].groups[6].markets[0].printname,
                                                                                                                 c: el.a,
-                                                                                                                sid: el_e.league.matches[toggle.id].id
+                                                                                                                sid: el_e.id,
+                                                                                                                mid: el_e.league.matches[toggle.id].id,
                                                                                                             }}
                                                                                                             label={el.a}
                                                                                                         />
@@ -518,7 +530,8 @@ const Table = () => {
                                                                                                                                             pos: el_e.league.matches[toggle.id].pos,
                                                                                                                                             market: el_e.league.matches[toggle.id].odds[0].groups[7].markets[0].printname,
                                                                                                                                             c: el.a,
-                                                                                                                                            sid: el_e.league.matches[toggle.id].id
+                                                                                                                                            sid: el_e.id,
+                                                                                                                                            mid: el_e.league.matches[toggle.id].id,
                                                                                                                                         }}
                                                                                                                                         label={el.a}
                                                                                                                                     />
