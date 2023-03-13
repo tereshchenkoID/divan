@@ -2,6 +2,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
 
 import {setSetting} from "store/actions/settingAction";
+import {setTicket} from "store/actions/ticketAction";
 
 import Clock from "./Clock";
 import Slider from "./Slider";
@@ -14,6 +15,7 @@ const Nav = () => {
     const dispatch = useDispatch()
     const {delta} = useSelector((state) => state.delta)
     const {setting} = useSelector((state) => state.setting)
+    const {ticket} = useSelector((state) => state.ticket)
 
     useEffect(() => {
 
@@ -32,9 +34,6 @@ const Nav = () => {
             </div>
             <div className={style.setting}>
                 <div className={style.cell}>
-                    Delta - [{delta}]
-                </div>
-                <div className={style.cell}>
                     <Account />
                 </div>
                 <div className={style.cell}>
@@ -44,6 +43,9 @@ const Nav = () => {
             <div className={style.options}>
                 <button
                     className={style.option}
+                    onClick={() => {
+                        dispatch(setTicket(ticket.toggle === 0 ? 1 : 0))
+                    }}
                 >
                     <Icon id={'file-check'} />
                 </button>

@@ -5,7 +5,7 @@ import classNames from "classnames";
 
 import style from './index.module.scss';
 
-const Calculator = ({data, action, toggle}) => {
+const CalculatorModal = ({data, action, toggle}) => {
     const [date, setDate] = useState(data)
     const {settings} = useSelector((state) => state.settings)
 
@@ -266,4 +266,4 @@ const Calculator = ({data, action, toggle}) => {
     );
 }
 
-export default Calculator;
+export default CalculatorModal;

@@ -1,0 +1,164 @@
+@import "scss/config";
+
+.block {
+  @include make-spacer('p', 2);
+  @include flex(center, center);
+
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 12;
+  background-color: var(--color-green-100);
+}
+
+.content {
+  background-color: var(--color-black);
+  border-radius: rem(14px);
+  border: rem(3px) solid var(--color-orange);
+  overflow: hidden;
+  min-width: rem(1150px);
+}
+
+.wrapper {
+  @include make-spacer('mb', 4);
+
+  &:last-child {
+    @include make-spacer('mb', 0);
+  }
+}
+
+.header {
+  @include flex(space-between, center);
+  @include make-spacer('pl', 4);
+  @include make-spacer('pr', 1);
+  @include size(100%, rem(40px));
+
+  background-color: var(--color-orange-900);
+  text-transform: uppercase;
+  font-weight: var(--typography-bold);
+  font-size: rem(14px);
+}
+
+.footer {
+  @include flex(flex-end);
+  @include make-spacer('px', 4);
+  @include make-spacer('py', 1);
+
+  background-color: var(--color-orange-900);
+  gap: rem(5px);
+}
+
+.body {
+  @include make-spacer('p', 4);
+}
+
+.title {
+  @include flex(space-between, center);
+  @include make-spacer('mb', 4);
+}
+
+.table {
+  border: 1px solid #a7a7a7;
+  border-radius: rem(14px);
+  overflow: hidden;
+
+  &.sm {
+
+    .row {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  &.lg {
+
+    .row {
+      grid-template-columns: rem(100px) 1fr 1fr repeat(4, 100px);
+    }
+  }
+}
+
+.row {
+  @include make-spacer('px', 4);
+
+  display: grid;
+  column-gap: rem(10px);
+  align-items: center;
+  border-top: 1px solid #a7a7a7;
+  height: rem(53px);
+
+  &:nth-child(even) {
+    background-color: #323232;
+  }
+
+  &:nth-child(odd) {
+    background-color: #272727;
+  }
+
+  &:first-child {
+    border-top: 0;
+  }
+}
+
+.button {
+  position: relative;
+  background-color: var(--color-black);
+  border-width: 1px;
+  border-style: solid;
+  border-radius: rem(5px);
+  color: var(--color-white);
+  font-size: rem(25px);
+
+  &::before {
+    position: absolute;
+    top: rem(1px);
+    right: rem(1px);
+    left: rem(1px);
+    border-radius: inherit;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.1) 100%);
+    content: '';
+  }
+
+  &.sm {
+    @include size(rem(35px));
+    @include make-spacer('p', half);
+
+    border-radius: rem(5px);
+
+    &::before {
+      height: rem(8px);
+    }
+  }
+
+  &.lg {
+    @include size(rem(64px));
+    @include make-spacer('p', 2);
+
+    border-radius: rem(8px);
+
+    &::before {
+      height: rem(12px);
+    }
+  }
+
+  &.red {
+    background-color: #d6233c;
+    border-color: #8b0e26;
+  }
+
+  &.blue {
+    background-color: #1b79c9;
+    border-color: #1d4c89;
+  }
+
+  &.olive {
+    background-color: #3fa025;
+    border-color: #113808;
+  }
+
+  &.green {
+    background-color: #0b5a07;
+    border-color: #15490a;
+  }
+}

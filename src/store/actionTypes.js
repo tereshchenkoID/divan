@@ -23,4 +23,6 @@ export const types = {
     GET_DELTA:       'GET_DELTA',
     SET_SETTING:     'SET_SETTING',
     GET_SETTING:     'GET_SETTING',
+    SET_TICKET:      'SET_TICKET',
+    GET_TICKET:      'GET_TICKET',
 };

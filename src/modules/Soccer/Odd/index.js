@@ -3,6 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import classNames from "classnames";
 
 import {deleteBetslip, setBetslip} from "store/actions/betslipAction";
+import {setTicket} from "store/actions/ticketAction";
 
 import style from './index.module.scss';
 
@@ -30,6 +31,7 @@ const Odd = ({data, label = false}) => {
                 pos: data.pos,
                 market: data.market || "OVER_UNDER",
                 c: data.c,
+                type: data.type,
                 stake: 0,
                 teams: {
                     home: data.home,
@@ -37,6 +39,8 @@ const Odd = ({data, label = false}) => {
                 }
             }))
         }
+
+        dispatch(setTicket(0))
     }
 
     const activeClass = (id) => {

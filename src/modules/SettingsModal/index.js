@@ -10,7 +10,7 @@ import Icon from "components/Icon";
 
 import style from './index.module.scss';
 
-const Settings = () => {
+const SettingsModal = () => {
     const dispatch = useDispatch()
     const {setting} = useSelector((state) => state.setting)
     const [preview, setPreview] = useState(setting)
@@ -174,4 +174,4 @@ const Settings = () => {
     );
 }
 
-export default Settings;
+export default SettingsModal;

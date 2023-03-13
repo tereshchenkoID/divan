@@ -9,6 +9,7 @@ import {setStake} from "store/actions/stakeAction";
 import Icon from "components/Icon";
 
 import style from './index.module.scss';
+import {getIcon} from "../../../helpers/getIcon";
 
 
 const findBet = (data, id) => {
@@ -127,6 +128,11 @@ const Bet = ({data, betslip, type, setInit, setDisabled}) => {
             ref={blockRef}
         >
             <div className={style.bet}>
+                <div>
+                    <div className={style.icon}>
+                        <Icon id={getIcon(data.type)} />
+                    </div>
+                </div>
                 <div>
                     <div className={style.meta}>
                         {data.pos}

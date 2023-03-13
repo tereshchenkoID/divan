@@ -5,13 +5,13 @@ import classNames from "classnames";
 
 import {deleteBetslip} from "store/actions/betslipAction";
 import {setStake} from "store/actions/stakeAction";
+import {setTicket} from "store/actions/ticketAction";
 
 import {
     getOdds,
     getUniquePermutations,
     getBetMinMaxSystem,
     getCoverBetMaxSingle,
-    getCoverBetMaxSystem,
     getCoverStakeMaxSystem,
     getMinMaxOdd,
     getBetMaxSingle,
@@ -22,6 +22,7 @@ import {
 import Icon from "components/Icon";
 import Bet from "./Bet";
 import Stake from "./Stake";
+import Ticket from "./Ticket";
 
 import style from './index.module.scss';
 
@@ -29,6 +30,7 @@ const Betslip = () => {
     const dispatch = useDispatch()
     const {betslip} = useSelector((state) => state.betslip)
     const {stake} = useSelector((state) => state.stake)
+    const {ticket} = useSelector((state) => state.ticket)
     const {setting} = useSelector((state) => state.setting)
     const {settings} = useSelector((state) => state.settings)
 
@@ -157,106 +159,130 @@ const Betslip = () => {
 
     return (
         <div className={style.block}>
-            <div className={style.wrapper}>
-                {
-                    betslip.length > 0 &&
-                    <>
-                        <div
-                            className={
-                                classNames(
-                                    style.row,
-                                    type === 0 ? style.lg : style.sm
-                                )
-                            }
-                        >
-                            <div>Selection</div>
-                            <div>Odds</div>
+            {
+                ticket.toggle === 0
+                    ?
+                        <div className={style.wrapper}>
                             {
-                                type === 0 &&
-                                <div>Stake</div>
-                            }
-                        </div>
-                        <div className={style.list}>
-                            {
-                                betslip.map((el, idx) =>
+                                betslip.length > 0 &&
+                                <>
                                     <div
-                                        key={idx}
-                                        className={style.item}
+                                        className={
+                                            classNames(
+                                                style.row,
+                                                type === 0 ? style.md : style.sm
+                                            )
+                                        }
                                     >
-                                        <Bet
-                                            data={el}
-                                            betslip={betslip}
-                                            type={type}
-                                            setInit={setInit}
-                                            setDisabled={setDisabled}
-                                        />
+                                        <div>Selection</div>
+                                        <div>Odds</div>
+                                        {
+                                            type === 0 &&
+                                            <div>Stake</div>
+                                        }
                                     </div>
-                                )
-                            }
-                        </div>
-                        <div className={style.types}>
-                            <button
-                                className={
-                                    classNames(
-                                        style.type,
-                                        type === 0 && style.active
-                                    )
-                                }
-                                onClick={() => {
-                                    setType(0)
-                                }}
-                                aria-label={'Single'}
-                            >
-                                Single
-                            </button>
-                            <button
-                                className={
-                                    classNames(
-                                        style.type,
-                                        disabled && style.disabled,
-                                        type === 1 && style.active
-                                    )
-                                }
-                                onClick={() => {
-                                    setType(1)
-                                }}
-                                aria-label={'System'}
-                            >
-                                System
-                            </button>
-                        </div>
-                        <div className={style.table}>
-                            <div className={style.thead}>
-                                <div className={style.tr}>
-                                    <div className={style.th}>GR</div>
-                                    <div className={style.th}>Combi</div>
-                                    <div className={style.th}>
-                                        <div className={style.th}>Odds</div>
-                                        <div className={style.tr}>
-                                            <div className={style.th}>Min</div>
-                                            <div className={style.th}>Max</div>
+                                    <div className={style.list}>
+                                        {
+                                            betslip.map((el, idx) =>
+                                                <div
+                                                    key={idx}
+                                                    className={style.item}
+                                                >
+                                                    <Bet
+                                                        data={el}
+                                                        betslip={betslip}
+                                                        type={type}
+                                                        setInit={setInit}
+                                                        setDisabled={setDisabled}
+                                                    />
+                                                </div>
+                                            )
+                                        }
+                                    </div>
+                                    <div className={style.types}>
+                                        <button
+                                            className={
+                                                classNames(
+                                                    style.type,
+                                                    type === 0 && style.active
+                                                )
+                                            }
+                                            onClick={() => {
+                                                setType(0)
+                                            }}
+                                            aria-label={'Single'}
+                                        >
+                                            Single
+                                        </button>
+                                        <button
+                                            className={
+                                                classNames(
+                                                    style.type,
+                                                    disabled && style.disabled,
+                                                    type === 1 && style.active
+                                                )
+                                            }
+                                            onClick={() => {
+                                                setType(1)
+                                            }}
+                                            aria-label={'System'}
+                                        >
+                                            System
+                                        </button>
+                                    </div>
+                                    <div className={style.table}>
+                                        <div className={style.thead}>
+                                            <div className={style.tr}>
+                                                <div className={style.th}>GR</div>
+                                                <div className={style.th}>Combi</div>
+                                                <div className={style.th}>
+                                                    <div className={style.th}>Odds</div>
+                                                    <div className={style.tr}>
+                                                        <div className={style.th}>Min</div>
+                                                        <div className={style.th}>Max</div>
+                                                    </div>
+                                                </div>
+                                                <div className={style.th}>Stake / Bet</div>
+                                            </div>
+                                        </div>
+                                        <div className={style.tbody}>
+                                            {
+                                                stake.map((el, idx) =>
+                                                    <Stake
+                                                        key={idx}
+                                                        data={el}
+                                                        setInit={setInit}
+                                                    />
+                                                )
+                                            }
                                         </div>
                                     </div>
-                                    <div className={style.th}>Stake / Bet</div>
-                                </div>
-                            </div>
-                            <div className={style.tbody}>
-                                {
-                                    stake.map((el, idx) =>
-                                        <Stake
-                                            key={idx}
-                                            data={el}
-                                            setInit={setInit}
-                                        />
+                                </>
+                            }
+                        </div>
+                    :
+                        <div className={style.wrapper}>
+                            <div
+                                className={
+                                    classNames(
+                                        style.row,
+                                        style.lg
                                     )
                                 }
+                            >
+                                <div></div>
+                                <div>Ticker №</div>
+                                <div>Stake</div>
+                                <div>Payout</div>
+                            </div>
+                            <div className={style.list}>
+                                <Ticket />
+                                <Ticket />
                             </div>
                         </div>
-                    </>
-                }
-            </div>
+            }
             {
-                betslip.length > 0 &&
+                (ticket.toggle === 0 && betslip.length) &&
                 <div>
                     <div className={style.stake}>
                         <div>Total Stake</div>
@@ -293,31 +319,12 @@ const Betslip = () => {
                     onClick={() => {
                         dispatch(setStake([]))
                         dispatch(deleteBetslip([]))
+                        dispatch(setTicket(0))
                         setDisabled(true)
                     }}
                     aria-label={'Remove'}
                 >
                     <Icon id={'close'} />
-                </button>
-                <button
-                    className={
-                        classNames(
-                            style.option,
-                            style.blue
-                        )
-                    }
-                >
-                    <Icon id={'file-times'} />
-                </button>
-                <button
-                    className={
-                        classNames(
-                            style.option,
-                            style.olive
-                        )
-                    }
-                >
-                    <Icon id={'dollar'} />
                 </button>
                 <button
                     className={

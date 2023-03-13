@@ -65,6 +65,8 @@ export const getUniquePermutations = (arr, permLength) => {
         permutations = twoDimArrayUnion(permutations,(getUniquePermutations(newArr, permLength)));
     }
 
+    console.log(permutations)
+
     return permutations;
 }
 

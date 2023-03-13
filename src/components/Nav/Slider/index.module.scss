@@ -6,7 +6,7 @@
 }
 
 .button {
-  @include flex(center, center);
+  @include flex(center, center, column);
   @include size(rem(90px), rem(50px));
 
   padding-top: rem(5px);
@@ -22,4 +22,9 @@
   &.active {
     background-color: var(--color-yellow);
   }
+}
+
+.icon {
+  @include make-spacer('mb', half);
+  @include size(rem(20px));
 }

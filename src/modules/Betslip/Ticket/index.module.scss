@@ -1,0 +1,48 @@
+@import "scss/config";
+
+.block {
+  @include make-spacer('mb', 2);
+  @include make-spacer('pl', 1);
+  @include make-spacer('pr', 2);
+
+  display: grid;
+  grid-template-columns: rem(50px) 1fr rem(80px) rem(100px);
+  align-items: center;
+  column-gap: rem(5px);
+  font-size: rem(12px);
+  color: var(--color-white);
+
+  &:last-child {
+    @include make-spacer('mb', 0);
+  }
+}
+
+.cell {
+
+  &.right {
+    text-align: right;
+  }
+}
+
+.button {
+  @include make-spacer('p', half);
+  @include size(rem(30px));
+
+  position: relative;
+  border-radius: rem(3px);
+  border: 1px solid #8b0e26;
+  background: linear-gradient(360deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.1) 100%);
+  background-color: #d6233c;
+  color: var(--color-white);
+
+  &::before {
+    position: absolute;
+    top: rem(1px);
+    right: rem(1px);
+    left: rem(1px);
+    height: rem(8px);
+    border-radius: rem(3px);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.1) 100%);
+    content: '';
+  }
+}

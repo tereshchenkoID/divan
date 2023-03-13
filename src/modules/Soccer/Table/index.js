@@ -444,7 +444,8 @@ const Table = () => {
                                                                                                                                 market: el_o.printname,
                                                                                                                                 c: el.c,
                                                                                                                                 sid: el_e.id,
-                                                                                                                                mid: el_m.id
+                                                                                                                                mid: el_m.id,
+                                                                                                                                type: el_e.type
                                                                                                                             }}
                                                                                                                         />
                                                                                                                     </div>
@@ -490,6 +491,7 @@ const Table = () => {
                                                                                                                 c: el.a,
                                                                                                                 sid: el_e.id,
                                                                                                                 mid: el_e.league.matches[toggle.id].id,
+                                                                                                                type: el_e.type
                                                                                                             }}
                                                                                                             label={el.a}
                                                                                                         />
@@ -532,6 +534,7 @@ const Table = () => {
                                                                                                                                             c: el.a,
                                                                                                                                             sid: el_e.id,
                                                                                                                                             mid: el_e.league.matches[toggle.id].id,
+                                                                                                                                            type: el_e.type
                                                                                                                                         }}
                                                                                                                                         label={el.a}
                                                                                                                                     />

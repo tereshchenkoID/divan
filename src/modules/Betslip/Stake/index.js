@@ -11,7 +11,7 @@ import {
     getMinMaxOdd
 } from 'modules/Betslip/useStake'
 
-import Calculator from "modules/Calculator";
+import CalculatorModal from "modules/CalculatorModal";
 import Icon from "components/Icon";
 
 import style from './index.module.scss';
@@ -221,7 +221,7 @@ const Stake = ({data, setInit}) => {
             }
             {
                 calculate &&
-                <Calculator
+                <CalculatorModal
                     data={data.stake}
                     action={setValue}
                     toggle={setCalculate}

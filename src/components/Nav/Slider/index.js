@@ -7,10 +7,12 @@ import 'swiper/css';
 
 import classNames from "classnames";
 
+import {getIcon} from "helpers/getIcon";
 import {setGame} from "store/actions/gameAction";
 
-import style from './index.module.scss';
+import Icon from "components/Icon";
 
+import style from './index.module.scss';
 
 const Slider = () => {
     const dispatch = useDispatch()
@@ -45,7 +47,12 @@ const Slider = () => {
                                     dispatch(setGame(el.c))
                                 }}
                             >
-                                {el.e}
+                                <div className={style.icon}>
+                                    <Icon id={getIcon(el.a)} />
+                                </div>
+                                <div className={style.text}>
+                                    {el.e}
+                                </div>
                             </button>
                         </SwiperSlide>
                     )

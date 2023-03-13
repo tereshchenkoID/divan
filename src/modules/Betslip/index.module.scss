@@ -33,6 +33,12 @@
   color: var(--color-orange);
 
   &.lg {
+    @include make-spacer('pr', 2);
+
+    grid-template-columns: rem(50px) 1fr rem(80px) rem(100px);
+  }
+
+  &.md {
     grid-template-columns: 1fr rem(50px) rem(60px);
   }
 
@@ -74,7 +80,9 @@
 
 .footer {
   @include make-spacer('p', 1);
-  @include flex(space-between);
+  @include flex(flex-end);
+
+  gap: rem(5px);
 }
 
 .types {
