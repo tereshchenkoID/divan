@@ -4,11 +4,10 @@ import {useDispatch, useSelector} from "react-redux";
 import {setStake} from "store/actions/stakeAction";
 
 import {
-    getOdds,
-    getUniquePermutations,
-    getBetMinMaxSystem,
     getBetMaxSingle,
-    getMinMaxOdd
+    getMinMaxOdd,
+    getSystemCombination,
+    getSystemBetMinMaxSystem
 } from 'modules/Betslip/useStake'
 
 import CalculatorModal from "modules/CalculatorModal";
@@ -16,11 +15,11 @@ import Icon from "components/Icon";
 
 import style from './index.module.scss';
 
-const findStake = (data, id) => {
-    return data.find(el => {
-        return el.id === id
-    })
-}
+// const findStake = (data, id) => {
+//     return data.find(el => {
+//         return el.id === id
+//     })
+// }
 
 const Stake = ({data, setInit}) => {
     const dispatch = useDispatch()
@@ -79,13 +78,21 @@ const Stake = ({data, setInit}) => {
         }
 
         if (data.type === 1) {
-            const f = findStake(a, data.id)
-            const m = getUniquePermutations(getOdds(betslip), f.id)
-            const maxWin = getBetMinMaxSystem(m, 2)
+            // const f = findStake(a, data.id)
+            // const b = getSystemCombination(betslip)
+            // const s = []
+            //
+            // for (let i = 0; i < b.r.length; i++) {
+            //     if (b.r[i].length === data.gr) {
+            //         s.push(b.r[i])
+            //     }
+            // }
 
-            f.stake = val
-            f.minWin = f.min * val
-            f.maxWin = maxWin * val
+            // const maxWin = getSystemBetMinMaxSystem(s, 2)
+
+            data.stake = val
+            data.minWin = data.min * val
+            // data.maxWin = maxWin * val
         }
     }
 
@@ -114,8 +121,9 @@ const Stake = ({data, setInit}) => {
     }
 
     const changeStake = (val) => {
-        const a = stake.slice(0);
-        const f = (data.type === 0) ? a[0] : findStake(a, data.id)
+        const a = stake.slice(0)
+        const f = (data.type === 0) ? a[0] : data
+        // const f = (data.type === 0) ? a[0] : findStake(a, data.id)
         let r
 
         if (val) {
@@ -206,19 +214,19 @@ const Stake = ({data, setInit}) => {
                     </button>
                 </div>
             }
-            {
-                data.stake > 0 &&
-                <div>
-                    <div className={style.stake}>
-                        <div>Potential MIN Win</div>
-                        <div>{data.minWin.toFixed(2)}</div>
-                    </div>
-                    <div className={style.stake}>
-                        <div>Potential MAX Win</div>
-                        <div>{data.maxWin.toFixed(2)}</div>
-                    </div>
-                </div>
-            }
+            {/*{*/}
+            {/*    data.stake > 0 &&*/}
+            {/*    <div>*/}
+            {/*        <div className={style.stake}>*/}
+            {/*            <div>Potential MIN Win</div>*/}
+            {/*            <div>{data.minWin.toFixed(2)}</div>*/}
+            {/*        </div>*/}
+            {/*        <div className={style.stake}>*/}
+            {/*            <div>Potential MAX Win</div>*/}
+            {/*            <div>{data.maxWin.toFixed(2)}</div>*/}
+            {/*        </div>*/}
+            {/*    </div>*/}
+            {/*}*/}
             {
                 calculate &&
                 <CalculatorModal
