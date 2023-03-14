@@ -6,8 +6,8 @@ import {setStake} from "store/actions/stakeAction";
 import {
     getBetMaxSingle,
     getMinMaxOdd,
-    getSystemCombination,
-    getSystemBetMinMaxSystem
+    // getSystemCombination,
+    // getSystemBetMinMaxSystem
 } from 'modules/Betslip/useStake'
 
 import CalculatorModal from "modules/CalculatorModal";

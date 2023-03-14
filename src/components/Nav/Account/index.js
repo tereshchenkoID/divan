@@ -1,27 +1,24 @@
 import {useEffect, useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
 
-import fetchData from "helpers/api";
+import {setBalance} from "store/actions/balanceAction";
 
 import Icon from "components/Icon";
 
 import style from './index.module.scss';
 
 const Account = () => {
-    const [data, setData] = useState([])
+    const dispatch = useDispatch()
     const [loading, setLoading] = useState(true)
-
-    const getData = () => {
-        fetchData('client/getFeed/balance/').then((json) => {
-            setData(json)
-            setLoading(false)
-        })
-    }
+    const {balance} = useSelector((state) => state.balance)
 
     useEffect(() => {
-        getData()
+        dispatch(setBalance()).then(() => {
+            setLoading(false)
+        })
 
         const a = setInterval(() => {
-            getData()
+            dispatch(setBalance())
         },30000)
 
         return () => {
@@ -38,13 +35,13 @@ const Account = () => {
                         <div className={style.icon}>
                             <Icon id={'user'} />
                         </div>
-                        <div>{data.username}</div>
+                        <div>{balance.username}</div>
                     </div>
                     <div className={style.cell}>
                         <div className={style.icon}>
                             <Icon id={'dollar'} />
                         </div>
-                        <div>[{data.account.currency}] - {data.account.balance}</div>
+                        <div>[{balance.account.currency}] - {balance.account.balance}</div>
                     </div>
                 </>
             }

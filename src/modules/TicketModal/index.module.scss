@@ -15,7 +15,7 @@
 
 .content {
   background-color: var(--color-black);
-  border-radius: rem(14px);
+  border-radius: rem(8px);
   border: rem(3px) solid var(--color-orange);
   overflow: hidden;
   min-width: rem(1150px);
@@ -43,10 +43,9 @@
 
 .footer {
   @include flex(flex-end);
-  @include make-spacer('px', 4);
-  @include make-spacer('py', 1);
+  @include make-spacer('p', 1);
 
-  background-color: var(--color-orange-900);
+  border-top: 1px solid #a7a7a7;
   gap: rem(5px);
 }
 
@@ -61,7 +60,7 @@
 
 .table {
   border: 1px solid #a7a7a7;
-  border-radius: rem(14px);
+  border-radius: rem(8px);
   overflow: hidden;
 
   &.sm {

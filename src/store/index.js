@@ -13,6 +13,7 @@ import updateReducer from "./reducers/updateReducer";
 import liveTimerReducer from "./reducers/liveTimerReducer";
 import deltaReducer from "./reducers/deltaReducer";
 import ticketReducer from "./reducers/ticketReducer";
+import balanceReducer from "./reducers/balanceReducer";
 
 const allReducer = combineReducers({
     data: dataReducer,
@@ -26,7 +27,8 @@ const allReducer = combineReducers({
     modal: modalReducer,
     betslip: betslipReducer,
     stake: stakeReducer,
-    ticket: ticketReducer
+    ticket: ticketReducer,
+    balance: balanceReducer
 });
 
 const composeEnhancers = process.env.NODE_ENV !== 'production' && typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : compose;

@@ -21,7 +21,7 @@
   @include size(100%);
 
   background-color: var(--color-black);
-  border-radius: rem(14px);
+  border-radius: rem(8px);
   border: rem(3px) solid var(--color-orange);
   overflow: hidden;
 }
@@ -60,7 +60,7 @@
 
 .table {
   border: 1px solid #a7a7a7;
-  border-radius: rem(14px);
+  border-radius: rem(8px);
   overflow: hidden;
 
   &.lg {
@@ -98,7 +98,7 @@
   @include size(rem(35px));
 
   position: relative;
-  border-radius: rem(8px);
+  border-radius: rem(5px);
   border-width: 1px;
   border-style: solid;
   background: linear-gradient(360deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.1) 100%);
@@ -111,7 +111,7 @@
     left: rem(1px);
     height: rem(8px);
     border-radius: rem(5px);
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.1) 100%);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.1) 100%);
     content: '';
   }
 

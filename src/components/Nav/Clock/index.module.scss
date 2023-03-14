@@ -1,6 +1,19 @@
 @import "scss/config";
 
 .block {
+  @include flex($align-items: center);
+
+  gap: rem(5px);
   font-weight: var(--typography-bold);
   font-size: rem(13px);
+}
+
+.icon {
+  @include size(rem(21px));
+
+  color: var(--color-black);
+
+  path {
+    stroke: var(--color-black);
+  }
 }

@@ -1,6 +1,8 @@
 import {useSelector} from "react-redux";
 import {useEffect, useState} from "react";
 
+import Icon from "components/Icon";
+
 import style from './index.module.scss';
 
 const getTime = (delta) => {
@@ -21,7 +23,10 @@ const Clock = () => {
 
     return (
         <div className={style.block}>
-            {dateNow}
+            <div className={style.icon}>
+                <Icon id={'clock'} />
+            </div>
+            <div>{dateNow}</div>
         </div>
     );
 }

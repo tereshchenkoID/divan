@@ -35,6 +35,7 @@ const Betslip = () => {
     const {ticket} = useSelector((state) => state.ticket)
     const {setting} = useSelector((state) => state.setting)
     const {settings} = useSelector((state) => state.settings)
+    const {balance} = useSelector((state) => state.balance)
 
     const [init, setInit] = useState(false)
     const [disabled, setDisabled] = useState(true)
@@ -79,7 +80,7 @@ const Betslip = () => {
     const sendStake = () => {
         let type = 0
         const a = {
-            a: "",
+            a: balance.account.currency,
             b: settings.f.b,
             c: "DECIMAL",
             d: [],
@@ -120,7 +121,6 @@ const Betslip = () => {
 
         dispatch(deleteBetslip([]))
         dispatch(setStake([]))
-        console.log(a)
     }
 
     const singleHandler = () => {

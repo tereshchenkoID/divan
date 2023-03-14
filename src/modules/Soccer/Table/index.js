@@ -155,7 +155,7 @@ const Table = () => {
 
         setTimeout(() => {
             dispatch(setData(game)).then((json) => {
-                console.log(json)
+                // console.log(json)
             })
         }, 7000)
     }

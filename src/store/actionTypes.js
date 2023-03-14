@@ -25,4 +25,6 @@ export const types = {
     GET_SETTING:     'GET_SETTING',
     SET_TICKET:      'SET_TICKET',
     GET_TICKET:      'GET_TICKET',
+    SET_BALANCE:     'SET_BALANCE',
+    GET_BALANCE:     'GET_BALANCE',
 };
