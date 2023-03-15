@@ -6,7 +6,7 @@ export const setSettings = () => async dispatch => {
     const { get } = useRequest();
 
     try {
-        const data = await get('/engine/shop/settings')
+        const data = await get('/settings')
         dispatch({
             type: types.SET_SETTINGS,
             payload: data,

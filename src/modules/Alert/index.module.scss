@@ -9,7 +9,7 @@
   &.default {
     position: relative;
     background-color: #272727;
-    border: 2px solid var(--color-orange);
+    border: rem(2px) solid var(--color-orange);
     border-radius: rem(10px);
     overflow: hidden;
     color: var(--color-white);

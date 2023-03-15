@@ -1,25 +1,15 @@
 import {useRef, useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 
-import {setStake} from "store/actions/stakeAction";
+import {useOutsideClick} from "hooks/useOutsideClick";
+import {getBetMaxSingle, getMinMaxOdd } from 'hooks/useStake'
 
-import {
-    getBetMaxSingle,
-    getMinMaxOdd,
-    // getSystemCombination,
-    // getSystemBetMinMaxSystem
-} from 'modules/Betslip/useStake'
+import {setStake} from "store/actions/stakeAction";
 
 import CalculatorModal from "modules/CalculatorModal";
 import Icon from "components/Icon";
 
 import style from './index.module.scss';
-
-// const findStake = (data, id) => {
-//     return data.find(el => {
-//         return el.id === id
-//     })
-// }
 
 const Stake = ({data, setInit}) => {
     const dispatch = useDispatch()
@@ -33,30 +23,7 @@ const Stake = ({data, setInit}) => {
     const buttonRef = useRef(null)
     const blockRef = useRef(null)
 
-    const useOutsideClick = (elementRef, handler, attached = true) => {
-        useEffect(() => {
-            if (!attached) return;
-
-            const handleClick = (e) => {
-
-                if (e.target === buttonRef.current) return;
-                if (!elementRef.current && !buttonRef.current) return
-                if (!elementRef.current.contains(e.target)) {
-                    handler()
-                    setEdit(false)
-                }
-            }
-
-            document.addEventListener('click', handleClick)
-
-            return () => {
-                document.removeEventListener('click', handleClick)
-            }
-
-        }, [elementRef, handler, attached])
-    }
-
-    useOutsideClick(blockRef, setEdit, data)
+    useOutsideClick(blockRef, buttonRef, setEdit, data)
 
     const updateBetslip = (stake) => {
         for(let i = 0; i < betslip.length; i++) {
@@ -78,21 +45,8 @@ const Stake = ({data, setInit}) => {
         }
 
         if (data.type === 1) {
-            // const f = findStake(a, data.id)
-            // const b = getSystemCombination(betslip)
-            // const s = []
-            //
-            // for (let i = 0; i < b.r.length; i++) {
-            //     if (b.r[i].length === data.gr) {
-            //         s.push(b.r[i])
-            //     }
-            // }
-
-            // const maxWin = getSystemBetMinMaxSystem(s, 2)
-
             data.stake = val
             data.minWin = data.min * val
-            // data.maxWin = maxWin * val
         }
     }
 
@@ -123,7 +77,6 @@ const Stake = ({data, setInit}) => {
     const changeStake = (val) => {
         const a = stake.slice(0)
         const f = (data.type === 0) ? a[0] : data
-        // const f = (data.type === 0) ? a[0] : findStake(a, data.id)
         let r
 
         if (val) {
@@ -190,7 +143,7 @@ const Stake = ({data, setInit}) => {
                 edit &&
                 <div className={style.keyboard}>
                     {
-                        Object.values(settings.f.h).map((el, idx) =>
+                        Object.values(settings.betslip.steps).map((el, idx) =>
                             <button
                                 key={idx}
                                 className={style.key}
@@ -214,19 +167,6 @@ const Stake = ({data, setInit}) => {
                     </button>
                 </div>
             }
-            {/*{*/}
-            {/*    data.stake > 0 &&*/}
-            {/*    <div>*/}
-            {/*        <div className={style.stake}>*/}
-            {/*            <div>Potential MIN Win</div>*/}
-            {/*            <div>{data.minWin.toFixed(2)}</div>*/}
-            {/*        </div>*/}
-            {/*        <div className={style.stake}>*/}
-            {/*            <div>Potential MAX Win</div>*/}
-            {/*            <div>{data.maxWin.toFixed(2)}</div>*/}
-            {/*        </div>*/}
-            {/*    </div>*/}
-            {/*}*/}
             {
                 calculate &&
                 <CalculatorModal

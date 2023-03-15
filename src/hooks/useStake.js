@@ -60,7 +60,7 @@ export const getUniquePermutations = (arr, permLength) => {
     return permutations;
 }
 
-function calculateBetsCombinations(bets) {
+const calculateBetsCombinations = (bets) => {
     const r = [];
     let combiCount = {};
 

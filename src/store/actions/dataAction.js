@@ -4,10 +4,10 @@ import {setDelta} from "./deltaAction";
 import { types } from "store/actionTypes";
 
 export const setData = (id) => async dispatch => {
-    const { get } = useRequest();
+    const { get } = useRequest('feed');
 
     try {
-        const data = await get(`/client/getFeed/football/?leagueId=${id}`)
+        const data = await get(`/FOOTBALL_LEAGUE/${id}`)
 
         dispatch(setDelta(data.timer))
         dispatch({

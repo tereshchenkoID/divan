@@ -1,6 +1,7 @@
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
 
+import {setAuth} from "store/actions/authAction";
 import {setSetting} from "store/actions/settingAction";
 import {setTicket} from "store/actions/ticketAction";
 
@@ -25,6 +26,11 @@ const Nav = () => {
         const a = setting
         a.show = true
         dispatch(setSetting(a))
+    }
+
+    const logout = () => {
+        sessionStorage.clear()
+        dispatch(setAuth(false))
     }
 
     return (
@@ -69,6 +75,9 @@ const Nav = () => {
                 </button>
                 <button
                     className={style.option}
+                    onClick={(
+                        logout
+                    )}
                 >
                     <Icon id={'turn-off'} />
                 </button>

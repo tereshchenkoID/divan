@@ -6,7 +6,7 @@ export const setBalance = () => async dispatch => {
     const { get } = useRequest();
 
     try {
-        const data = await get('client/getFeed/balance/')
+        const data = await get('/balance')
         dispatch({
             type: types.SET_BALANCE,
             payload: data,

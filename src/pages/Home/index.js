@@ -1,5 +1,5 @@
 import {useState, useEffect} from "react";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
 import {setSettings} from "store/actions/settingsAction";
 
@@ -9,12 +9,14 @@ import Nav from "components/Nav";
 import Table from "modules/Soccer/Table";
 import Betslip from "modules/Betslip";
 import SettingsModal from "modules/SettingsModal";
+import Notification from "modules/Notification";
 
 import style from './index.module.scss';
 
 const Home = () => {
     const dispatch = useDispatch()
     const [loading, setLoading] = useState(true)
+    const {notification} = useSelector((state) => state.notification)
 
     useEffect(() => {
         dispatch(setSettings()).then(() => {
@@ -40,6 +42,12 @@ const Home = () => {
                             </div>
                         </div>
                         <SettingsModal />
+                        {
+                            notification &&
+                            <Notification
+                                text={notification}
+                            />
+                        }
                     </>
             }
         </div>

@@ -215,7 +215,7 @@ const CalculatorModal = ({data, action, toggle}) => {
 
                     <div className={style.keys}>
                         {
-                            Object.values(settings.f.h).map((el, idx) =>
+                            Object.values(settings.betslip.steps).map((el, idx) =>
                                 <button
                                     key={idx}
                                     className={style.key}

@@ -46,7 +46,6 @@ const Table = () => {
     const {modal} = useSelector((state) => state.modal)
     const {betslip} = useSelector((state) => state.betslip)
 
-
     const [loading, setLoading] = useState(true)
     const [preloader, setPreloader] = useState(false)
     const [active, setActive] = useState(0)

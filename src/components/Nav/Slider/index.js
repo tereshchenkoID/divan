@@ -20,7 +20,7 @@ const Slider = () => {
     const {game} = useSelector((state) => state.game)
 
     useEffect(() => {
-        dispatch(setGame(settings.u[0].c))
+        dispatch(setGame(settings.games[0].id))
     }, []);
 
     return (
@@ -31,7 +31,7 @@ const Slider = () => {
                 modules={[FreeMode, Pagination, Navigation]}
             >
                 {
-                    settings.u.map((el, idx) =>
+                    settings.games.map((el, idx) =>
                         <SwiperSlide
                             key={idx}
                         >
@@ -39,19 +39,19 @@ const Slider = () => {
                                 className={
                                     classNames(
                                         style.button,
-                                        game === el.c && style.active
+                                        game === el.id && style.active
                                     )
                                 }
-                                aria-label={el.e}
+                                aria-label={el.name}
                                 onClick={() => {
-                                    dispatch(setGame(el.c))
+                                    dispatch(setGame(el.id))
                                 }}
                             >
                                 <div className={style.icon}>
-                                    <Icon id={getIcon(el.a)} />
+                                    <Icon id={getIcon(el.type)} />
                                 </div>
                                 <div className={style.text}>
-                                    {el.e}
+                                    {el.name}
                                 </div>
                             </button>
                         </SwiperSlide>

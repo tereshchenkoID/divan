@@ -1,7 +1,10 @@
-import {useRef, useEffect, useState} from "react";
+import {useRef, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 
 import classNames from "classnames";
+
+import {getIcon} from "helpers/getIcon";
+import {useOutsideClick} from "hooks/useOutsideClick";
 
 import {deleteBetslip} from "store/actions/betslipAction";
 import {setStake} from "store/actions/stakeAction";
@@ -9,8 +12,6 @@ import {setStake} from "store/actions/stakeAction";
 import Icon from "components/Icon";
 
 import style from './index.module.scss';
-import {getIcon} from "../../../helpers/getIcon";
-
 
 const findBet = (data, id) => {
     return data.find(el => {
@@ -92,30 +93,7 @@ const Bet = ({data, betslip, type, setInit, setDisabled}) => {
         // setLoad(true)
     }
 
-    const useOutsideClick = (elementRef, handler, attached = true) => {
-        useEffect(() => {
-            if (!attached) return;
-
-            const handleClick = (e) => {
-
-                if (e.target === buttonRef.current) return;
-                if (!elementRef.current && !buttonRef.current) return
-                if (!elementRef.current.contains(e.target)) {
-                    handler()
-                    setEdit(false)
-                }
-            }
-
-            document.addEventListener('click', handleClick)
-
-            return () => {
-                document.removeEventListener('click', handleClick)
-            }
-
-        }, [elementRef, handler, attached])
-    }
-
-    useOutsideClick(blockRef, setEdit, data)
+    useOutsideClick(blockRef, buttonRef, setEdit, data)
 
     return (
         <div
@@ -182,7 +160,7 @@ const Bet = ({data, betslip, type, setInit, setDisabled}) => {
                 edit &&
                 <div className={style.keyboard}>
                     {
-                        Object.values(settings.f.h).map((el, idx) =>
+                        Object.values(settings.betslip.steps).map((el, idx) =>
                             <button
                                 key={idx}
                                 className={style.key}

@@ -3,23 +3,12 @@ import {useDispatch, useSelector} from "react-redux";
 
 import classNames from "classnames";
 
+import {getMinMaxOdd, getBetMaxSingle, getTotalStakeSystem, getTotalStakeSingle, getSystemCombination, getSystemBetMinMaxSystem} from 'hooks/useStake'
+
 import {deleteBetslip} from "store/actions/betslipAction";
 import {setStake} from "store/actions/stakeAction";
 import {setTicket} from "store/actions/ticketAction";
-
-import {
-    // getOdds,
-    // getUniquePermutations,
-    // getBetMinMaxSystem,
-    // getCoverBetMaxSingle,
-    // getCoverStakeMaxSystem,
-    getMinMaxOdd,
-    getBetMaxSingle,
-    getTotalStakeSystem,
-    getTotalStakeSingle,
-    getSystemCombination,
-    getSystemBetMinMaxSystem
-} from 'modules/Betslip/useStake'
+import {setNotification} from "store/actions/notificationAction";
 
 import Icon from "components/Icon";
 import Bet from "./Bet";
@@ -40,6 +29,57 @@ const Betslip = () => {
     const [init, setInit] = useState(false)
     const [disabled, setDisabled] = useState(true)
     const [type, setType] = useState(0)
+
+
+    const sendStake = () => {
+        const max = 200
+
+        dispatch(setNotification('Stake per bet is lower than minimum $300'))
+
+        let type = 0
+        const a = {
+            a: balance.account.currency,
+            b: balance.account.balance,
+            c: settings.betting.odds,
+            d: [],
+            e: []
+        }
+
+        for (let i = 0; i < stake.length; i++) {
+            if (stake[i].stake !== 0) {
+                let s = {}
+                s.b = stake[i].gr
+                type = stake[i].type
+
+                if (type === 1) {
+                    s.a = stake[i].stake
+                }
+
+                a.d.push(s)
+            }
+        }
+
+        for (let i = 0; i < betslip.length; i++) {
+            if (betslip[i].stake !== 0) {
+                let s = {
+                    a: betslip[i].type,
+                    b: betslip[i].mid,
+                    c: betslip[i].b,
+                    e: betslip[i].c,
+                    f: betslip[i].market
+                }
+
+                if(type === 0) {
+                    s.g = betslip[i].stake.toString()
+                }
+
+                a.e.push(s)
+            }
+        }
+
+        dispatch(deleteBetslip([]))
+        dispatch(setStake([]))
+    }
 
     const systemHandler = () => {
         const r = []
@@ -77,63 +117,19 @@ const Betslip = () => {
         return r
     }
 
-    const sendStake = () => {
-        let type = 0
-        const a = {
-            a: balance.account.currency,
-            b: settings.f.b,
-            c: "DECIMAL",
-            d: [],
-            e: []
-        }
-
-        for (let i = 0; i < stake.length; i++) {
-            if (stake[i].stake !== 0) {
-                let s = {}
-                s.b = stake[i].gr
-                type = stake[i].type
-
-                if (type === 1) {
-                    s.a = stake[i].stake
-                }
-
-                a.d.push(s)
-            }
-        }
-
-        for (let i = 0; i < betslip.length; i++) {
-            if (betslip[i].stake !== 0) {
-                let s = {
-                    a: betslip[i].type,
-                    b: betslip[i].mid,
-                    c: betslip[i].b,
-                    e: betslip[i].c,
-                    f: betslip[i].market
-                }
-
-                if(type === 0) {
-                   s.g = betslip[i].stake.toString()
-                }
-
-                a.e.push(s)
-            }
-        }
-
-        dispatch(deleteBetslip([]))
-        dispatch(setStake([]))
-    }
-
     const singleHandler = () => {
         const minOdd = getMinMaxOdd(betslip, 0)
         const maxOdd = getMinMaxOdd(betslip, 1)
         const maxWin = getBetMaxSingle(betslip)
         let s
 
+        console.log(init)
+
         if (init) {
-            s = setting['stake-mode'] === 1 ? settings.f.c : settings.f.c
+            s = settings.betslip.single.default
         }
         else {
-            s = (stake.length && stake[0].stake) || settings.f.c
+            s = (stake.length && stake[0].stake) || settings.betslip.single.default
         }
 
         return [{
@@ -174,7 +170,7 @@ const Betslip = () => {
         }
     }
 
-    const updateStake = (a) => {
+    const updateBetslip = (a) => {
         if (!init) {
             for(let i = 0; i < betslip.length; i++) {
                 betslip[i].stake = setting['stake-mode'] === 1 ? a : (a / betslip.length).toFixed(2)
@@ -186,6 +182,8 @@ const Betslip = () => {
                     betslip[i].stake = a
                 }
             }
+
+            stake[0].stake = getTotalStakeSingle(betslip)
         }
 
         dispatch(deleteBetslip(betslip))
@@ -195,6 +193,7 @@ const Betslip = () => {
         checkType()
 
         if (betslip.length) {
+            // console.log("Init")
             if (type === 0) {
                 dispatch(setStake(singleHandler()))
             }
@@ -207,7 +206,8 @@ const Betslip = () => {
     useEffect(() => {
         if (type === 0) {
             if (stake.length) {
-                updateStake(stake[0].stake)
+                // console.log("Update")
+                updateBetslip(stake[0].stake)
             }
         }
 
@@ -247,6 +247,7 @@ const Betslip = () => {
                                                     <Bet
                                                         data={el}
                                                         betslip={betslip}
+                                                        stake={stake}
                                                         type={type}
                                                         setInit={setInit}
                                                         setDisabled={setDisabled}
@@ -344,24 +345,13 @@ const Betslip = () => {
                         <div>Total Stake</div>
                         {
                             type === 0 &&
-                            <div>{getTotalStakeSingle(stake).toFixed(2)}</div>
+                            <div>{balance.account.symbol} {getTotalStakeSingle(betslip).toFixed(2)}</div>
                         }
                         {
                             type === 1 &&
-                            <div>{getTotalStakeSystem(stake, setting['stake-mode']).toFixed(2)}</div>
+                            <div>{balance.account.symbol} {getTotalStakeSystem(stake, setting['stake-mode']).toFixed(2)}</div>
                         }
                     </div>
-                    {/*<div className={style.stake}>*/}
-                    {/*    <div>Max Total Win</div>*/}
-                    {/*    {*/}
-                    {/*        type === 0 &&*/}
-                    {/*        <div>{getCoverBetMaxSingle(betslip).toFixed(2)}</div>*/}
-                    {/*    }*/}
-                    {/*    {*/}
-                    {/*        type === 1 &&*/}
-                    {/*        <div>{getCoverStakeMaxSystem(stake).toFixed(2)}</div>*/}
-                    {/*    }*/}
-                    {/*</div>*/}
                 </div>
             }
             <div className={style.footer}>

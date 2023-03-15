@@ -14,8 +14,11 @@ import liveTimerReducer from "./reducers/liveTimerReducer";
 import deltaReducer from "./reducers/deltaReducer";
 import ticketReducer from "./reducers/ticketReducer";
 import balanceReducer from "./reducers/balanceReducer";
+import notificationReducer from './reducers/notificationReducer'
+import authReducer from "./reducers/authReducer";
 
 const allReducer = combineReducers({
+    auth: authReducer,
     data: dataReducer,
     update: updateReducer,
     game: gameReducer,
@@ -28,7 +31,8 @@ const allReducer = combineReducers({
     betslip: betslipReducer,
     stake: stakeReducer,
     ticket: ticketReducer,
-    balance: balanceReducer
+    balance: balanceReducer,
+    notification: notificationReducer
 });
 
 const composeEnhancers = process.env.NODE_ENV !== 'production' && typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : compose;

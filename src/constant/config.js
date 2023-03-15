@@ -1,3 +1,3 @@
 export const hostnames = {
-    PROD:   "https://view.divan.bet",
+    PROD: "https://api.qool90.bet"
 }

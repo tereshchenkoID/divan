@@ -11,6 +11,7 @@ const Account = () => {
     const dispatch = useDispatch()
     const [loading, setLoading] = useState(true)
     const {balance} = useSelector((state) => state.balance)
+    const britishNumberFormatter = new Intl.NumberFormat('en-IN');
 
     useEffect(() => {
         dispatch(setBalance()).then(() => {
@@ -41,7 +42,7 @@ const Account = () => {
                         <div className={style.icon}>
                             <Icon id={'dollar'} />
                         </div>
-                        <div>[{balance.account.currency}] - {balance.account.balance}</div>
+                        <div>{balance.account.symbol} {britishNumberFormatter.format(balance.account.balance)}</div>
                     </div>
                 </>
             }
