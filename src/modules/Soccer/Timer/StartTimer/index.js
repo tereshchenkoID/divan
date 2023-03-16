@@ -13,6 +13,15 @@ const getDifferent = (data, delta) => {
 
     if (data > c) {
         r = new Date(data - c)
+
+
+        // const seconds = Math.floor(r / 1000);
+        // const minutes = Math.floor(seconds / 60);
+        // const hours = Math.floor(minutes / 60);
+        // const timer = `${hours.toString().padStart(2, '0')}:${(minutes % 60).toString().padStart(2, '0')}:${(seconds % 60).toString().padStart(2, '0')}`;
+        // console.log(timer);
+
+
         result = `${('0' + r.getMinutes()).slice(-2)}:${('0' + r.getSeconds()).slice(-2)}`
     }
 

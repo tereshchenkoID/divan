@@ -1,16 +1,27 @@
+import {useEffect, useState} from "react";
+
 import classNames from "classnames";
 
 import style from './index.module.scss';
 
-const Banner = ({data, type}) => {
-    const britishNumberFormatter = new Intl.NumberFormat('en-IN');
+const Banner = ({data, timer}) => {
+    const [amount, setAmount] = useState(data.amount)
+    const britishNumberFormatter = new Intl.NumberFormat("en-IN", { minimumFractionDigits: 1 })
+
+    useEffect(() => {
+        if (data.step !== 0) {
+            setAmount(amount + data.step)
+        }
+    }, [timer]);
+
+    console.log(data)
 
     return (
         <div
             className={
                 classNames(
                     style.block,
-                    style[type]
+                    style[data.name.toLowerCase()]
                 )
             }
         >
@@ -18,9 +29,9 @@ const Banner = ({data, type}) => {
                 <div>{data.name}</div>
                 <div>Jackpot</div>
             </div>
-            <div className={style.left}>
-                <span className={style.price}>{britishNumberFormatter.format(data.amount)}</span>
-                <span>{data.symbol}</span>
+            <div className={style.right}>
+                <span className={style.price}>{britishNumberFormatter.format(amount)}</span>
+                <span className={style.symbol}>{data.symbol}</span>
             </div>
         </div>
     );

@@ -6,7 +6,7 @@ import classNames from "classnames";
 import {setSetting} from "store/actions/settingAction";
 import {deleteBetslip} from "store/actions/betslipAction";
 
-import Icon from "components/Icon";
+import Button from "components/Button";
 
 import style from './index.module.scss';
 
@@ -51,20 +51,23 @@ const SettingsModal = () => {
             <div className={style.wrapper}>
                 <div className={style.header}>
                     <p>General settings</p>
-                    <button
-                        aria-label={'Close'}
+                    <div
                         className={
                             classNames(
-                                style.action,
-                                style.close
+                                style.button,
+                                style.sm,
                             )
                         }
-                        onClick={() => {
-                            handleChange('show', false)
-                        }}
                     >
-                        <Icon id={'close'} />
-                    </button>
+                        <Button
+                            type={'red'}
+                            size={'sm'}
+                            icon={'close'}
+                            action={() => {
+                                handleChange('show', false)
+                            }}
+                        />
+                    </div>
                 </div>
                 <div className={style.body}>
                     <div className={style.container}>
@@ -97,20 +100,23 @@ const SettingsModal = () => {
                                 </div>
                                 <div className={style.cell}></div>
                                 <div className={style.cell}>
-                                    <button
-                                        aria-label={'Save'}
+                                    <div
                                         className={
                                             classNames(
-                                                style.action,
-                                                style.save
+                                                style.button,
+                                                style.sm,
                                             )
                                         }
                                         onClick={() => {
                                             save(printingRef, 'printing-mode')
                                         }}
                                     >
-                                        <Icon id={'save'} />
-                                    </button>
+                                        <Button
+                                            type={'green'}
+                                            size={'sm'}
+                                            icon={'save'}
+                                        />
+                                    </div>
                                 </div>
                             </div>
                             <div className={style.row}>
@@ -127,20 +133,23 @@ const SettingsModal = () => {
                                 </div>
                                 <div className={style.cell}></div>
                                 <div className={style.cell}>
-                                    <button
-                                        aria-label={'Save'}
+                                    <div
                                         className={
                                             classNames(
-                                                style.action,
-                                                style.save
+                                                style.button,
+                                                style.sm,
                                             )
                                         }
                                         onClick={() => {
                                             save(stakeRef, 'stake-mode')
                                         }}
                                     >
-                                        <Icon id={'save'} />
-                                    </button>
+                                        <Button
+                                            type={'green'}
+                                            size={'sm'}
+                                            icon={'save'}
+                                        />
+                                    </div>
                                 </div>
                             </div>
                             <div className={style.row}>
@@ -153,17 +162,20 @@ const SettingsModal = () => {
                                 </div>
                                 <div className={style.cell}></div>
                                 <div className={style.cell}>
-                                    <button
-                                        aria-label={'Save'}
+                                    <div
                                         className={
                                             classNames(
-                                                style.action,
-                                                style.save
+                                                style.button,
+                                                style.sm,
                                             )
                                         }
                                     >
-                                        <Icon id={'print'} />
-                                    </button>
+                                        <Button
+                                            type={'green'}
+                                            size={'sm'}
+                                            icon={'print'}
+                                        />
+                                    </div>
                                 </div>
                             </div>
                         </div>

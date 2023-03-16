@@ -7,6 +7,8 @@ import {postData} from "helpers/api";
 
 import {setAuth} from "store/actions/authAction";
 
+import Button from "components/Button";
+
 import style from './index.module.scss';
 
 const Login = () => {
@@ -73,12 +75,13 @@ const Login = () => {
                     error &&
                     <p className={style.error}>Invalid password or Login</p>
                 }
-                <button
-                    type={"submit"}
-                    className={style.button}
-                >
-                    Login
-                </button>
+                <div className={style.button}>
+                    <Button
+                        type={'green'}
+                        size={'md'}
+                        text={'Login'}
+                    />
+                </div>
             </form>
         </div>
     );

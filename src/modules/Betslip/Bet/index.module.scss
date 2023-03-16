@@ -38,18 +38,11 @@
 .keyboard {
   @include flex(space-between);
 
-  gap: rem(10px);
+  gap: rem(5px);
 }
 
 .key {
-  @include make-spacer('px', 2);
-
   flex: 1;
-  background-color: var(--color-green);
-  border-radius: rem(3px);
-  height: rem(25px);
-  color: var(--color-white);
-  font-size: rem(14px);
 }
 
 .market {
@@ -81,12 +74,6 @@
 
 .close {
   @include size(rem(25px));
-
-  padding: rem(5px);
-  overflow: hidden;
-  background-color: var(--color-red);
-  border-radius: rem(3px);
-  color: var(--color-white);
 }
 
 .odd {

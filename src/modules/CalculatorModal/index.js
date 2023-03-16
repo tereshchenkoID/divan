@@ -3,6 +3,8 @@ import {useSelector} from "react-redux";
 
 import classNames from "classnames";
 
+import Button from "components/Button";
+
 import style from './index.module.scss';
 
 const CalculatorModal = ({data, action, toggle}) => {
@@ -91,174 +93,182 @@ const CalculatorModal = ({data, action, toggle}) => {
                             handleTextChange(e.target.value)
                         }}
                     />
-                    <button
-                        className={style.key}
-                        aria-label={'.'}
-                        onClick={() => {
+                    <Button
+                        type={'grey'}
+                        size={'lg'}
+                        text={'CA'}
+                        action={() => {
                             handleClickDelete()
                         }}
-                    >
-                        CA
-                    </button>
+                    />
                 </div>
                 <div className={style.body}>
                     <div className={style.keyboard}>
-                        <button
-                            className={style.key}
-                            aria-label={'7'}
-                            onClick={() => {
-                                handleClickNumber('7')
-                            }}
-                        >
-                            7
-                        </button>
-                        <button
-                            className={style.key}
-                            aria-label={'8'}
-                            onClick={() => {
-                                handleClickNumber('8')
-                            }}
-                        >
-                            8
-                        </button>
-                        <button
-                            className={style.key}
-                            aria-label={'9'}
-                            onClick={() => {
-                                handleClickNumber('9')
-                            }}
-                        >
-                            9
-                        </button>
-                        <button
-                            className={style.key}
-                            aria-label={'4'}
-                            onClick={() => {
-                                handleClickNumber('4')
-                            }}
-                        >
-                            4
-                        </button>
-                        <button
-                            className={style.key}
-                            aria-label={'5'}
-                            onClick={() => {
-                                handleClickNumber('5')
-                            }}
-                        >
-                            5
-                        </button>
-                        <button
-                            className={style.key}
-                            aria-label={'6'}
-                            onClick={() => {
-                                handleClickNumber('6')
-                            }}
-                        >
-                            6
-                        </button>
-                        <button
-                            className={style.key}
-                            aria-label={'1'}
-                            onClick={() => {
-                                handleClickNumber('1')
-                            }}
-                        >
-                            1
-                        </button>
-                        <button
-                            className={style.key}
-                            aria-label={'2'}
-                            onClick={() => {
-                                handleClickNumber('2')
-                            }}
-                        >
-                            2
-                        </button>
-                        <button
-                            className={style.key}
-                            aria-label={'3'}
-                            onClick={() => {
-                                handleClickNumber('3')
-                            }}
-                        >
-                            3
-                        </button>
-                        <button
-                            className={style.key}
-                            aria-label={'c'}
-                            onClick={() => {
-                                setDate(0)
-                            }}
-                        >
-                            C
-                        </button>
-                        <button
-                            className={style.key}
-                            aria-label={'0'}
-                            onClick={() => {
-                                handleClickSymbol('0')
-                            }}
-                        >
-                            0
-                        </button>
-                        <button
-                            className={style.key}
-                            aria-label={'.'}
-                            onClick={() => {
-                                handleClickSymbol('.')
-                            }}
-                        >
-                            .
-                        </button>
+                        <div className={style.key}>
+                            <Button
+                                type={'green'}
+                                size={'lg'}
+                                text={'7'}
+                                action={() => {
+                                    handleClickNumber('7')
+                                }}
+                            />
+                        </div>
+                        <div className={style.key}>
+                            <Button
+                                type={'green'}
+                                size={'lg'}
+                                text={'8'}
+                                action={() => {
+                                    handleClickNumber('8')
+                                }}
+                            />
+                        </div>
+                        <div className={style.key}>
+                            <Button
+                                type={'green'}
+                                size={'lg'}
+                                text={'9'}
+                                action={() => {
+                                    handleClickNumber('9')
+                                }}
+                            />
+                        </div>
+                        <div className={style.key}>
+                            <Button
+                                type={'green'}
+                                size={'lg'}
+                                text={'4'}
+                                action={() => {
+                                    handleClickNumber('4')
+                                }}
+                            />
+                        </div>
+                        <div className={style.key}>
+                            <Button
+                                type={'green'}
+                                size={'lg'}
+                                text={'5'}
+                                action={() => {
+                                    handleClickNumber('5')
+                                }}
+                            />
+                        </div>
+                        <div className={style.key}>
+                            <Button
+                                type={'green'}
+                                size={'lg'}
+                                text={'6'}
+                                action={() => {
+                                    handleClickNumber('6')
+                                }}
+                            />
+                        </div>
+                        <div className={style.key}>
+                            <Button
+                                type={'green'}
+                                size={'lg'}
+                                text={'1'}
+                                action={() => {
+                                    handleClickNumber('1')
+                                }}
+                            />
+                        </div>
+                        <div className={style.key}>
+                            <Button
+                                type={'green'}
+                                size={'lg'}
+                                text={'2'}
+                                action={() => {
+                                    handleClickNumber('2')
+                                }}
+                            />
+                        </div>
+                        <div className={style.key}>
+                            <Button
+                                type={'green'}
+                                size={'lg'}
+                                text={'3'}
+                                action={() => {
+                                    handleClickNumber('3')
+                                }}
+                            />
+                        </div>
+                        <div className={style.key}>
+                            <Button
+                                type={'green'}
+                                size={'lg'}
+                                text={'c'}
+                                action={() => {
+                                    setDate(0)
+                                }}
+                            />
+                        </div>
+                        <div className={style.key}>
+                            <Button
+                                type={'green'}
+                                size={'lg'}
+                                text={'0'}
+                                action={() => {
+                                    handleClickSymbol('0')
+                                }}
+                            />
+                        </div>
+                        <div className={style.key}>
+                            <Button
+                                type={'green'}
+                                size={'lg'}
+                                text={'.'}
+                                action={() => {
+                                    handleClickSymbol('.')
+                                }}
+                            />
+                        </div>
                     </div>
 
                     <div className={style.keys}>
                         {
                             Object.values(settings.betslip.steps).map((el, idx) =>
-                                <button
+                                <div
                                     key={idx}
                                     className={style.key}
-                                    aria-label={'Key'}
-                                    onClick={() => {
-                                        handleClickStake(el)
-                                    }}
                                 >
-                                    {el}
-                                </button>
+                                    <Button
+                                        type={'green'}
+                                        size={'lg'}
+                                        text={el}
+                                        action={() => {
+                                            handleClickStake(el)
+                                        }}
+                                    />
+                                </div>
                             )
                         }
                     </div>
                 </div>
                 <div className={style.footer}>
                     <div className={style.keys}>
-                        <button
-                            className={
-                                classNames(
-                                    style.key,
-                                    style.red
-                                )
-                            }
-                            onClick={() => {
-                                toggle(false)
-                            }}
-                        >
-                            Close
-                        </button>
-                        <button
-                            className={
-                                classNames(
-                                    style.key,
-                                    style.green
-                                )
-                            }
-                            onClick={() => {
-                                action(parseFloat(date))
-                                toggle(false)
-                            }}
-                        >
-                            Accept
-                        </button>
+                        <div className={style.key}>
+                            <Button
+                                type={'red'}
+                                size={'lg'}
+                                text={'Close'}
+                                action={() => {
+                                    toggle(false)
+                                }}
+                            />
+                        </div>
+                        <div className={style.key}>
+                            <Button
+                                type={'green'}
+                                size={'lg'}
+                                text={'Accept'}
+                                action={() => {
+                                    action(parseFloat(date))
+                                    toggle(false)
+                                }}
+                            />
+                        </div>
                     </div>
                 </div>
             </div>

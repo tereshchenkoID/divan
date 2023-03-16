@@ -16,6 +16,7 @@ import Stake from "./Stake";
 import Ticket from "./Ticket";
 
 import style from './index.module.scss';
+import Button from "../../components/Button";
 
 const Betslip = () => {
     const dispatch = useDispatch()
@@ -355,46 +356,36 @@ const Betslip = () => {
                 </div>
             }
             <div className={style.footer}>
-                <button
-                    className={
-                        classNames(
-                            style.option,
-                            style.red
-                        )
-                    }
-                    onClick={() => {
-                        dispatch(setStake([]))
-                        dispatch(deleteBetslip([]))
-                        dispatch(setTicket(0))
-                        setDisabled(true)
-                    }}
-                    aria-label={'Remove'}
-                >
-                    <Icon id={'close'} />
-                </button>
-                <button
-                    className={
-                        classNames(
-                            style.option,
-                            style.green
-                        )
-                    }
-                >
-                    <Icon id={'check'} />
-                </button>
-                <button
-                    className={
-                        classNames(
-                            style.option,
-                            style.olive
-                        )
-                    }
-                    onClick = {() => {
-                        sendStake()
-                    }}
-                >
-                    <Icon id={'print'} />
-                </button>
+                <div className={style.button}>
+                    <Button
+                        type={'red'}
+                        size={'lg'}
+                        icon={'close'}
+                        action={() => {
+                            dispatch(setStake([]))
+                            dispatch(deleteBetslip([]))
+                            dispatch(setTicket(0))
+                            setDisabled(true)
+                        }}
+                    />
+                </div>
+                <div className={style.button}>
+                    <Button
+                        type={'green'}
+                        size={'lg'}
+                        icon={'check'}
+                    />
+                </div>
+                <div className={style.button}>
+                    <Button
+                        type={'olive'}
+                        size={'lg'}
+                        icon={'print'}
+                        action={() => {
+                            sendStake()
+                        }}
+                    />
+                </div>
             </div>
         </div>
     );

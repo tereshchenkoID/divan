@@ -11,7 +11,7 @@ const Account = () => {
     const dispatch = useDispatch()
     const [loading, setLoading] = useState(true)
     const {balance} = useSelector((state) => state.balance)
-    const britishNumberFormatter = new Intl.NumberFormat('en-IN');
+    const britishNumberFormatter = new Intl.NumberFormat('en-IN',{ minimumFractionDigits: 2 });
 
     useEffect(() => {
         dispatch(setBalance()).then(() => {

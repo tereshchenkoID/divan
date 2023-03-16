@@ -8,6 +8,7 @@ import {setStake} from "store/actions/stakeAction";
 
 import CalculatorModal from "modules/CalculatorModal";
 import Icon from "components/Icon";
+import Button from "components/Button";
 
 import style from './index.module.scss';
 
@@ -144,27 +145,31 @@ const Stake = ({data, setInit}) => {
                 <div className={style.keyboard}>
                     {
                         Object.values(settings.betslip.steps).map((el, idx) =>
-                            <button
-                                key={idx}
+                            <div
                                 className={style.key}
-                                aria-label={'Key'}
-                                onClick={() => {
-                                    changeStake(el)
-                                }}
+                                key={idx}
                             >
-                                {el}
-                            </button>
+                                <Button
+                                    type={'green'}
+                                    size={'sm'}
+                                    text={el}
+                                    action={() => {
+                                        changeStake(el)
+                                    }}
+                                />
+                            </div>
                         )
                     }
-                    <button
-                        aria-label={'Clear'}
-                        className={style.key}
-                        onClick={() => {
-                            changeStake(null)
-                        }}
-                    >
-                        Clear
-                    </button>
+                    <div className={style.key}>
+                        <Button
+                            type={'green'}
+                            size={'sm'}
+                            text={'Clear'}
+                            action={() => {
+                                changeStake(null)
+                            }}
+                        />
+                    </div>
                 </div>
             }
             {

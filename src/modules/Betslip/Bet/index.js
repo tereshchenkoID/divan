@@ -10,6 +10,7 @@ import {deleteBetslip} from "store/actions/betslipAction";
 import {setStake} from "store/actions/stakeAction";
 
 import Icon from "components/Icon";
+import Button from "components/Button";
 
 import style from './index.module.scss';
 
@@ -145,15 +146,16 @@ const Bet = ({data, betslip, type, setInit, setDisabled}) => {
                     </div>
                 }
                 <div>
-                    <button
-                        aria-label={'Close'}
-                        className={style.close}
-                        onClick={() => {
-                            removeBet()
-                        }}
-                    >
-                        <Icon id={'close'} />
-                    </button>
+                    <div className={style.close}>
+                        <Button
+                            type={'red'}
+                            size={'sm'}
+                            icon={'close'}
+                            action={() => {
+                                removeBet()
+                            }}
+                        />
+                    </div>
                 </div>
             </div>
             {
@@ -161,27 +163,31 @@ const Bet = ({data, betslip, type, setInit, setDisabled}) => {
                 <div className={style.keyboard}>
                     {
                         Object.values(settings.betslip.steps).map((el, idx) =>
-                            <button
-                                key={idx}
+                            <div
                                 className={style.key}
-                                aria-label={'Key'}
-                                onClick={() => {
-                                    changeBet(el)
-                                }}
+                                key={idx}
                             >
-                                {el}
-                            </button>
+                                <Button
+                                    type={'green'}
+                                    size={'sm'}
+                                    text={el}
+                                    action={() => {
+                                        changeBet(el)
+                                    }}
+                                />
+                            </div>
                         )
                     }
-                    <button
-                        aria-label={'Clear'}
-                        className={style.key}
-                        onClick={() => {
-                            changeBet(null)
-                        }}
-                    >
-                        Clear
-                    </button>
+                    <div className={style.key}>
+                        <Button
+                            type={'green'}
+                            size={'sm'}
+                            text={'Clear'}
+                            action={() => {
+                                changeBet(null)
+                            }}
+                        />
+                    </div>
                 </div>
             }
         </div>

@@ -101,63 +101,18 @@
 }
 
 .button {
-  position: relative;
-  background-color: var(--color-black);
-  border-width: 1px;
-  border-style: solid;
-  border-radius: rem(5px);
-  color: var(--color-white);
-  font-size: rem(25px);
-
-  &::before {
-    position: absolute;
-    top: rem(1px);
-    right: rem(1px);
-    left: rem(1px);
-    border-radius: inherit;
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.1) 100%);
-    content: '';
-  }
 
   &.sm {
-    @include size(rem(35px));
-    @include make-spacer('p', half);
 
-    border-radius: rem(5px);
-
-    &::before {
-      height: rem(8px);
+    button {
+      @include size(rem(35px)!important)
     }
   }
 
   &.lg {
-    @include size(rem(64px));
-    @include make-spacer('p', 2);
 
-    border-radius: rem(8px);
-
-    &::before {
-      height: rem(12px);
+    button {
+      @include size(rem(64px)!important)
     }
-  }
-
-  &.red {
-    background-color: #d6233c;
-    border-color: #8b0e26;
-  }
-
-  &.blue {
-    background-color: #1b79c9;
-    border-color: #1d4c89;
-  }
-
-  &.olive {
-    background-color: #3fa025;
-    border-color: #113808;
-  }
-
-  &.green {
-    background-color: #0b5a07;
-    border-color: #15490a;
   }
 }

@@ -53,27 +53,9 @@
 }
 
 .button {
-  @include make-spacer('mr', 0);
-  @include make-spacer('ml', auto);
-  @include make-spacer('p', 1);
-  @include size(rem(200px), rem(45px));
+  @include flex(flex-end);
 
-  display: block;
-  position: relative;
-  border-radius: rem(5px);
-  background: linear-gradient(360deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.1) 100%);
-  background-color: #3fa025;
-  border: 1px solid #113808;
-  color: var(--color-white);
-
-  &::before {
-    position: absolute;
-    top: rem(1px);
-    right: rem(1px);
-    left: rem(1px);
-    height: rem(8px);
-    border-radius: rem(5px);
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.1) 100%);
-    content: '';
+  button {
+    @include size(rem(200px), rem(45px)!important);
   }
 }

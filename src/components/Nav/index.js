@@ -11,6 +11,7 @@ import Account from "./Account";
 import Icon from "../Icon";
 
 import style from './index.module.scss';
+import Button from "../Button";
 
 const Nav = () => {
     const dispatch = useDispatch()
@@ -28,11 +29,6 @@ const Nav = () => {
         dispatch(setSetting(a))
     }
 
-    const logout = () => {
-        sessionStorage.clear()
-        dispatch(setAuth(false))
-    }
-
     return (
         <nav className={style.block}>
             <div className={style.tab}>
@@ -47,40 +43,51 @@ const Nav = () => {
                 </div>
             </div>
             <div className={style.options}>
-                <button
-                    className={style.option}
-                    onClick={() => {
-                        dispatch(setTicket(ticket.toggle === 0 ? 1 : 0))
-                    }}
-                >
-                    <Icon id={'file-check'} />
-                </button>
-                <button
-                    className={style.option}
-                >
-                    <Icon id={'diagram'} />
-                </button>
-                <button
-                    className={style.option}
-                    onClick={() => {
-                        handleSetting()
-                    }}
-                >
-                    <Icon id={'settings'} />
-                </button>
-                <button
-                    className={style.option}
-                >
-                    <Icon id={'tv'} />
-                </button>
-                <button
-                    className={style.option}
-                    onClick={(
-                        logout
-                    )}
-                >
-                    <Icon id={'turn-off'} />
-                </button>
+                <div className={style.option}>
+                    <Button
+                        type={'grey'}
+                        size={'md'}
+                        icon={'file-check'}
+                        action={() => {
+                            dispatch(setTicket(ticket.toggle === 0 ? 1 : 0))
+                        }}
+                    />
+                </div>
+                <div className={style.option}>
+                    <Button
+                        type={'grey'}
+                        size={'md'}
+                        icon={'diagram'}
+                    />
+                </div>
+                <div className={style.option}>
+                    <Button
+                        type={'grey'}
+                        size={'md'}
+                        icon={'settings'}
+                        action={() => {
+                            handleSetting()
+                        }}
+                    />
+                </div>
+                <div className={style.option}>
+                    <Button
+                        type={'grey'}
+                        size={'md'}
+                        icon={'tv'}
+                    />
+                </div>
+                <div className={style.option}>
+                    <Button
+                        type={'grey'}
+                        size={'md'}
+                        icon={'turn-off'}
+                        action={() => {
+                            sessionStorage.clear()
+                            dispatch(setAuth(false))
+                        }}
+                    />
+                </div>
             </div>
         </nav>
     );

@@ -1,0 +1,76 @@
+@import "scss/config";
+
+.block {
+  position: relative;
+  border-width: 1px;
+  border-style: solid;
+  background: linear-gradient(360deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.1) 100%);
+  color: var(--color-white);
+  width: 100%;
+
+  &::before {
+    position: absolute;
+    top: rem(1px);
+    right: rem(1px);
+    left: rem(1px);
+    height: rem(12px);
+    border-radius: rem(inherit);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.1) 100%);
+    content: '';
+  }
+
+  &.sm {
+    @include make-spacer('p', half);
+
+    border-radius: rem(3px);
+    height: rem(25px);
+
+    &::before {
+      height: rem(3px);
+    }
+  }
+
+  &.md {
+    @include make-spacer('p', 1);
+
+    border-radius: rem(5px);
+    height: rem(38px);
+
+    &::before {
+      height: rem(5px);
+    }
+  }
+
+  &.lg {
+    @include make-spacer('p', 2);
+
+    border-radius: rem(8px);
+    height: rem(64px);
+  }
+
+  &.grey {
+    background-color: #323232;
+    border-color: #000;
+  }
+
+  &.red {
+    background-color: #d6233c;
+    border-color: #8b0e26;
+  }
+
+  &.blue {
+    background-color: #1b79c9;
+    border-color: #1d4c89;
+  }
+
+  &.olive {
+    background-color: #3fa025;
+    border-color: #113808;
+  }
+
+  &.green {
+    background-color: #0b5a07;
+    border-color: #15490a;
+  }
+}
+

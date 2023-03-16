@@ -1,10 +1,8 @@
-import Icon from "components/Icon";
+import classNames from "classnames";
+
+import Button from "components/Button";
 
 import style from './index.module.scss';
-import classNames from "classnames";
-import {setStake} from "../../store/actions/stakeAction";
-import {deleteBetslip} from "../../store/actions/betslipAction";
-import {setTicket} from "../../store/actions/ticketAction";
 
 const TicketModal = ({data, action}) => {
     return (
@@ -12,20 +10,23 @@ const TicketModal = ({data, action}) => {
             <div className={style.content}>
                 <div className={style.header}>
                     <p>Ticket details</p>
-                    <button
+                    <div
                         className={
                             classNames(
                                 style.button,
                                 style.sm,
-                                style.red,
                             )
                         }
-                        onClick={() => {
-                            action(false)
-                        }}
                     >
-                        <Icon id={'close'} />
-                    </button>
+                        <Button
+                            type={'red'}
+                            size={'sm'}
+                            icon={'close'}
+                            action={() => {
+                                action(false)
+                            }}
+                        />
+                    </div>
                 </div>
                 <div className={style.body}>
                     <div className={style.wrapper}>
@@ -92,40 +93,48 @@ const TicketModal = ({data, action}) => {
                     </div>
                 </div>
                 <div className={style.footer}>
-                    <button
+                    <div
                         className={
                             classNames(
                                 style.button,
                                 style.lg,
-                                style.blue
                             )
                         }
                     >
-                        <Icon id={'file-times'} />
-                    </button>
-                    <button
+                        <Button
+                            type={'blue'}
+                            size={'lg'}
+                            icon={'file-times'}
+                        />
+                    </div>
+                    <div
                         className={
                             classNames(
                                 style.button,
                                 style.lg,
-                                style.olive
                             )
                         }
                     >
-                        <Icon id={'dollar'} />
-                    </button>
-                    <button
+                        <Button
+                            type={'olive'}
+                            size={'lg'}
+                            icon={'dollar'}
+                        />
+                    </div>
+                    <div
                         className={
                             classNames(
                                 style.button,
                                 style.lg,
-                                style.red
                             )
                         }
-                        aria-label={'Remove'}
                     >
-                        <Icon id={'close'} />
-                    </button>
+                        <Button
+                            type={'red'}
+                            size={'lg'}
+                            icon={'close'}
+                        />
+                    </div>
                 </div>
             </div>
         </div>

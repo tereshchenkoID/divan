@@ -1,10 +1,11 @@
 import {useState} from "react";
 import classNames from "classnames";
 
-import Icon from "components/Icon";
+import Button from "components/Button";
 import TicketModal from "modules/TicketModal";
 
 import style from './index.module.scss';
+
 
 const Ticket = () => {
     const [active, setActive] = useState(false)
@@ -26,14 +27,16 @@ const Ticket = () => {
                     )
                 }
             >
-                <button
-                    className={style.button}
-                    onClick={() => {
-                        setActive(true)
-                    }}
-                >
-                    <Icon id={'info'} />
-                </button>
+                <div className={style.button}>
+                    <Button
+                        type={'red'}
+                        size={'sm'}
+                        icon={'info'}
+                        action={() => {
+                            setActive(true)
+                        }}
+                    />
+                </div>
             </div>
             <div
                 className={

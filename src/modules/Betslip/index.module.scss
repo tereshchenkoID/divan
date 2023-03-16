@@ -155,46 +155,6 @@
   color: var(--color-white);
 }
 
-.option {
-  @include make-spacer('p', 2);
-
+.button {
   flex: 1;
-  position: relative;
-  border-radius: rem(8px);
-  border-width: 1px;
-  border-style: solid;
-  background: linear-gradient(360deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.1) 100%);
-  height: rem(64px);
-  color: var(--color-white);
-
-  &::before {
-    position: absolute;
-    top: rem(1px);
-    right: rem(1px);
-    left: rem(1px);
-    height: rem(12px);
-    border-radius: rem(5px);
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.1) 100%);
-    content: '';
-  }
-
-  &.red {
-    background-color: #d6233c;
-    border-color: #8b0e26;
-  }
-
-  &.blue {
-    background-color: #1b79c9;
-    border-color: #1d4c89;
-  }
-
-  &.olive {
-    background-color: #3fa025;
-    border-color: #113808;
-  }
-
-  &.green {
-    background-color: #0b5a07;
-    border-color: #15490a;
-  }
 }

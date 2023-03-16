@@ -1,18 +1,67 @@
 @import "scss/config";
 
 .block {
-  @include make-spacer('px', 2);
   @include size(100%);
 
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  align-items: center;
+  align-items: stretch;
   background-color: var(--color-black);
   color: var(--color-white);
   font-size: rem(12px);
   line-height: 1;
+
+  &.bronse {
+
+    .left {
+      background-color: darken(saddlebrown, 20);
+    }
+
+    .right {
+      background-color: saddlebrown;
+    }
+  }
+
+  &.silver {
+
+    .left {
+      background-color: darken(silver, 20);
+    }
+
+    .right {
+      background-color: silver;
+    }
+  }
+
+  &.gold {
+
+    .left {
+      background-color: darken(gold, 20);
+    }
+
+    .right {
+      background-color: gold;
+    }
+  }
 }
 
-.price {
-  font-size: rem(18px);
+.left,
+.right {
+  @include flex(center, center);
+  @include make-spacer('p', 1);
+
+  height: 100%;
+}
+
+.left {
+  flex-direction: column;
+}
+
+.right {
+  min-width: rem(130px);
+  font-size: rem(22px);
+}
+
+.symbol {
+  margin-left: 3px;
 }

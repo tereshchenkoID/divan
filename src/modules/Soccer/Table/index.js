@@ -14,6 +14,7 @@ import {setUpdate} from "store/actions/updateAction";
 
 import Alert from "modules/Alert";
 import Odd from "modules/Soccer/Odd";
+import JackPot from "modules/JackPot";
 import Timer from "modules/Soccer/Timer";
 import Live from "modules/Soccer/Live";
 import Update from "modules/Soccer/Update";
@@ -24,7 +25,6 @@ import Subtitle from "./Subtitle";
 import Modal from "./Modal";
 
 import style from './index.module.scss';
-import JackPot from "../../JackPot";
 
 const conditionStatus = (data) => {
     switch (data.status) {
