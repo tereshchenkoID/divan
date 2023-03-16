@@ -1,0 +1,18 @@
+@import "scss/config";
+
+.block {
+  @include make-spacer('px', 2);
+  @include size(100%);
+
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  align-items: center;
+  background-color: var(--color-black);
+  color: var(--color-white);
+  font-size: rem(12px);
+  line-height: 1;
+}
+
+.price {
+  font-size: rem(18px);
+}

@@ -1,7 +1,9 @@
 import {useState} from "react";
 import {useDispatch} from "react-redux";
 
-import axios from "axios";
+import {hostnames} from "constant/config"
+
+import {postData} from "helpers/api";
 
 import {setAuth} from "store/actions/authAction";
 
@@ -15,47 +17,25 @@ const Login = () => {
     const [password, setPassword] = useState('')
     const [error, setError] = useState(false)
 
-    // const handleSubmit = async (event) => {
-    //     event.preventDefault();
-    //     const url = 'https://view.divan.bet/client/api/account/login';
-    //     const payload = {
-    //         login: login,
-    //         password: password
-    //     };
-    //     // const headers = {
-    //     //     'Content-Type': 'application/json'
-    //     // };
-    //
-    //     try {
-    //         const response = await axios.post(url, payload, { });
-    //         action(true)
-    //         console.log(response.data);
-    //     } catch (error) {
-    //         setError(true)
-    //         console.error(error);
-    //     }
-    // };
-
     const handleSubmit = async (event) => {
         event.preventDefault();
-        const url = 'https://api.qool90.bet/account/login';
 
-        try {
-            const loginResponse = await fetch(url, {
-                method: 'POST',
-                body: JSON.stringify({
+        postData(
+            `${hostnames.PROD}/account/login`,
+                JSON.stringify({
                     login,
                     password
                 })
-            });
-
-            const response = await loginResponse.json()
-            sessionStorage.setItem("authToken", response.authToken);
-            dispatch(setAuth(response.authToken))
-        }
-        catch (error) {
-            setError(true)
-        }
+            )
+            .then((json) => {
+                if (json) {
+                    sessionStorage.setItem("authToken", json.authToken);
+                    dispatch(setAuth(json.authToken))
+                }
+                else {
+                    setError(true)
+                }
+            })
     };
 
     return (

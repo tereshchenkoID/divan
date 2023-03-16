@@ -1,9 +1,9 @@
 import {useRequest} from "hooks/useRequest";
 
-export const fetchData = async (url) => {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    const { get } = useRequest();
+// eslint-disable-next-line react-hooks/rules-of-hooks
+const { post, get } = useRequest();
 
+export const getData = async (url) => {
     try {
         return await get(url)
     } catch (e) {
@@ -11,4 +11,12 @@ export const fetchData = async (url) => {
     }
 }
 
-export default fetchData
+
+export const postData = async (url, data) => {
+    try {
+        return await post(url, data)
+    } catch (e) {
+        console.log(e)
+    }
+}
+

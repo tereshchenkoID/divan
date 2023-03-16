@@ -24,6 +24,7 @@ import Subtitle from "./Subtitle";
 import Modal from "./Modal";
 
 import style from './index.module.scss';
+import JackPot from "../../JackPot";
 
 const conditionStatus = (data) => {
     switch (data.status) {
@@ -221,8 +222,7 @@ const Table = () => {
                                         />
                                     }
                                     <div className={style.banners}>
-                                        <div className={style.banner} />
-                                        <div className={style.banner} />
+                                        <JackPot />
                                     </div>
                                     <div className={style.tab}>
                                         {

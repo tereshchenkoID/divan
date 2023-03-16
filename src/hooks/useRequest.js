@@ -22,9 +22,7 @@ export const useRequest = (type = 'account') => {
     }
   }
 
-  const post = async (url, data, headers, options) => {
-    console.log(headers, options)
-
+  const post = async (url, data, headers) => {
     try {
       const req = await server({
         method: 'post',
@@ -32,9 +30,6 @@ export const useRequest = (type = 'account') => {
         data: data,
         headers: headers
       })
-
-      console.log(server)
-
       return await req.data
     } catch (e) {
       return e.response.status

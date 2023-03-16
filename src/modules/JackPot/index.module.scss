@@ -1,0 +1,14 @@
+@import "scss/config";
+
+.block {
+  @include flex;
+
+  gap: rem(3px);
+  height: rem(42px);
+}
+
+.banner {
+  flex: 1;
+  min-width: rem(180px);
+  height: 100%;
+}
