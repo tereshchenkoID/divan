@@ -5,13 +5,12 @@ import {setAuth} from "store/actions/authAction";
 import {setSetting} from "store/actions/settingAction";
 import {setTicket} from "store/actions/ticketAction";
 
+import Button from "components/Button";
 import Clock from "./Clock";
 import Slider from "./Slider";
 import Account from "./Account";
-import Icon from "../Icon";
 
 import style from './index.module.scss';
-import Button from "../Button";
 
 const Nav = () => {
     const dispatch = useDispatch()

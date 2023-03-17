@@ -31,7 +31,7 @@ const Login = () => {
             )
             .then((json) => {
                 if (json) {
-                    sessionStorage.setItem("authToken", json.authToken);
+                    sessionStorage.setItem("authToken", json.authToken)
                     dispatch(setAuth(json.authToken))
                 }
                 else {

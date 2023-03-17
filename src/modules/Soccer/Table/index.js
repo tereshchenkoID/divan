@@ -444,7 +444,9 @@ const Table = () => {
                                                                                                                                 c: el.c,
                                                                                                                                 sid: el_e.id,
                                                                                                                                 mid: el_m.id,
-                                                                                                                                type: el_e.type
+                                                                                                                                type: el_e.type,
+                                                                                                                                m_old: el_o.name,
+                                                                                                                                o_old: el.a
                                                                                                                             }}
                                                                                                                         />
                                                                                                                     </div>
@@ -490,7 +492,9 @@ const Table = () => {
                                                                                                                 c: el.a,
                                                                                                                 sid: el_e.id,
                                                                                                                 mid: el_e.league.matches[toggle.id].id,
-                                                                                                                type: el_e.type
+                                                                                                                type: el_e.type,
+                                                                                                                m_old: el_e.league.matches[toggle.id].odds[0].groups[6].markets[0].name,
+                                                                                                                o_old: el.a
                                                                                                             }}
                                                                                                             label={el.a}
                                                                                                         />
@@ -533,7 +537,9 @@ const Table = () => {
                                                                                                                                             c: el.a,
                                                                                                                                             sid: el_e.id,
                                                                                                                                             mid: el_e.league.matches[toggle.id].id,
-                                                                                                                                            type: el_e.type
+                                                                                                                                            type: el_e.type,
+                                                                                                                                            m_old: el_e.league.matches[toggle.id].odds[0].groups[7].markets[0].name,
+                                                                                                                                            o_old: el.a
                                                                                                                                         }}
                                                                                                                                         label={el.a}
                                                                                                                                     />

@@ -1,5 +1,5 @@
 import {useSelector} from "react-redux";
-import {Suspense, useState} from "react";
+import {Suspense} from "react";
 import {Routes, Route} from "react-router-dom";
 
 import {router} from "router";

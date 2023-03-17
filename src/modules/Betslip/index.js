@@ -10,13 +10,17 @@ import {setStake} from "store/actions/stakeAction";
 import {setTicket} from "store/actions/ticketAction";
 import {setNotification} from "store/actions/notificationAction";
 
-import Icon from "components/Icon";
+import Button from "components/Button";
 import Bet from "./Bet";
 import Stake from "./Stake";
 import Ticket from "./Ticket";
 
 import style from './index.module.scss';
-import Button from "../../components/Button";
+import bet from "./Bet";
+import {postData} from "../../helpers/api";
+import {hostnames} from "../../constant/config";
+import {setAuth} from "../../store/actions/authAction";
+
 
 const Betslip = () => {
     const dispatch = useDispatch()
@@ -31,16 +35,15 @@ const Betslip = () => {
     const [disabled, setDisabled] = useState(true)
     const [type, setType] = useState(0)
 
-
     const sendStake = () => {
         const max = 200
 
-        dispatch(setNotification('Stake per bet is lower than minimum $300'))
+        // dispatch(setNotification('Stake per bet is lower than minimum $300'))
 
         let type = 0
         const a = {
             a: balance.account.currency,
-            b: balance.account.balance,
+            b: setting['stake-mode'] ? "PER_BET" : "PER_GROUP",
             c: settings.betting.odds,
             d: [],
             e: []
@@ -66,8 +69,8 @@ const Betslip = () => {
                     a: betslip[i].type,
                     b: betslip[i].mid,
                     c: betslip[i].b,
-                    e: betslip[i].c,
-                    f: betslip[i].market
+                    e: betslip[i].m_old,   // Change after
+                    f: betslip[i].o_old    // Change after
                 }
 
                 if(type === 0) {
@@ -78,8 +81,37 @@ const Betslip = () => {
             }
         }
 
-        dispatch(deleteBetslip([]))
-        dispatch(setStake([]))
+        // fetch(`https://api.qool90.bet/account/${sessionStorage.getItem('authToken')}/placebet`, {
+        //     method: 'POST',
+        //     body: JSON.stringify(a),
+        //     headers: {
+        //         'Content-Type': 'application/json'
+        //     }
+        // })
+        //     .then(response => {
+        //         if (!response.ok) {
+        //             throw new Error('Network response was not ok');
+        //         }
+        //         return response.json();
+        //     })
+        //     .catch(error => {
+        //         console.error('There was a problem with the fetch operation:', error);
+        //     });
+
+
+        postData('/placebet', JSON.stringify(a))
+            .then((json) => {
+                if (json) {
+                    console.log(json)
+                }
+                else {
+                    // setError(true)
+                }
+            })
+
+
+        // dispatch(deleteBetslip([]))
+        // dispatch(setStake([]))
     }
 
     const systemHandler = () => {
@@ -124,7 +156,7 @@ const Betslip = () => {
         const maxWin = getBetMaxSingle(betslip)
         let s
 
-        console.log(init)
+        // console.log(init)
 
         if (init) {
             s = settings.betslip.single.default

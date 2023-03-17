@@ -23,6 +23,8 @@ const Odd = ({data, label = false}) => {
         }
         else {
             dispatch(setBetslip({
+                m_old: data.m_old,  // Remove after
+                o_old: data.o_old,  // Remove after
                 sid: data.sid,
                 mid: data.mid,
                 id: data.id,

@@ -2,6 +2,7 @@ import {useSelector} from "react-redux";
 import {useState, useEffect} from "react";
 
 import {getData} from "helpers/api";
+import checkData from "helpers/checkData";
 
 import Banner from "./Banner";
 
@@ -23,17 +24,19 @@ const getDifferent = (data, delta) => {
 }
 
 const JackPot = () => {
-    const [data, setData] = useState([])
+    const [data, setData] = useState({})
     const [loading, setLoading] = useState(true)
     const [timer, setTimer] = useState('')
     const {delta} = useSelector((state) => state.delta)
 
     useEffect(() => {
         getData(`/jackpots`).then((json) => {
-            setData(json)
-            setLoading(false)
+            if (!checkData(json)) {
+                setData(json)
+                setLoading(false)
+            }
         })
-    }, []);
+    }, [loading]);
 
     useEffect(() => {
         const a = setInterval(() => {

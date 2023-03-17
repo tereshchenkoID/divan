@@ -3,7 +3,7 @@ import axios from 'axios'
 import {hostnames} from "constant/config"
 
 export const useRequest = (type = 'account') => {
-  const token = window.sessionStorage.getItem('authToken')
+  const token = sessionStorage.getItem('authToken')
 
   const server = axios.create({
     baseURL: `${hostnames.PROD}/${type}/${token}`,
@@ -13,7 +13,7 @@ export const useRequest = (type = 'account') => {
     try {
       const req = await server({
         method: 'get',
-        url: url,
+        url,
         headers
       })
       return await req.data
@@ -26,12 +26,13 @@ export const useRequest = (type = 'account') => {
     try {
       const req = await server({
         method: 'post',
-        url: url,
-        data: data,
-        headers: headers
+        url,
+        data,
+        headers
       })
       return await req.data
     } catch (e) {
+      console.log(e)
       return e.response.status
     }
   }

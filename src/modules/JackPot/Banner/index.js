@@ -6,15 +6,13 @@ import style from './index.module.scss';
 
 const Banner = ({data, timer}) => {
     const [amount, setAmount] = useState(data.amount)
-    const britishNumberFormatter = new Intl.NumberFormat("en-IN", { minimumFractionDigits: 1 })
+    const britishNumberFormatter = new Intl.NumberFormat("en", { minimumFractionDigits: 1 })
 
     useEffect(() => {
         if (data.step !== 0) {
             setAmount(amount + data.step)
         }
     }, [timer]);
-
-    console.log(data)
 
     return (
         <div

@@ -1,8 +1,6 @@
 import {useEffect, useState} from "react";
 import {useSelector} from "react-redux";
 
-import classNames from "classnames";
-
 import Button from "components/Button";
 
 import style from './index.module.scss';
