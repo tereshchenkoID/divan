@@ -1,26 +1,23 @@
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 
-import classNames from "classnames";
-
 import {getMinMaxOdd, getBetMaxSingle, getTotalStakeSystem, getTotalStakeSingle, getSystemCombination, getSystemBetMinMaxSystem} from 'hooks/useStake'
 
 import {deleteBetslip} from "store/actions/betslipAction";
 import {setStake} from "store/actions/stakeAction";
 import {setTicket} from "store/actions/ticketAction";
+import {postData} from "helpers/api";
 import {setNotification} from "store/actions/notificationAction";
 
 import Button from "components/Button";
-import Bet from "./Bet";
-import Stake from "./Stake";
-import Ticket from "./Ticket";
+
+import Tickets from "./Tickets";
+import Stakes from "./Stakes";
+import Bets from "./Bets";
+import Types from "./Types";
 
 import style from './index.module.scss';
-import bet from "./Bet";
-import {postData} from "../../helpers/api";
-import {hostnames} from "../../constant/config";
-import {setAuth} from "../../store/actions/authAction";
-
+import {setBalance} from "../../store/actions/balanceAction";
 
 const Betslip = () => {
     const dispatch = useDispatch()
@@ -37,8 +34,6 @@ const Betslip = () => {
 
     const sendStake = () => {
         const max = 200
-
-        // dispatch(setNotification('Stake per bet is lower than minimum $300'))
 
         let type = 0
         const a = {
@@ -81,37 +76,21 @@ const Betslip = () => {
             }
         }
 
-        // fetch(`https://api.qool90.bet/account/${sessionStorage.getItem('authToken')}/placebet`, {
-        //     method: 'POST',
-        //     body: JSON.stringify(a),
-        //     headers: {
-        //         'Content-Type': 'application/json'
-        //     }
-        // })
-        //     .then(response => {
-        //         if (!response.ok) {
-        //             throw new Error('Network response was not ok');
-        //         }
-        //         return response.json();
-        //     })
-        //     .catch(error => {
-        //         console.error('There was a problem with the fetch operation:', error);
-        //     });
-
-
         postData('/placebet', JSON.stringify(a))
             .then((json) => {
                 if (json) {
-                    console.log(json)
+                    dispatch(setBalance())
+                    dispatch(deleteBetslip([]))
+                    dispatch(setStake([]))
+                    dispatch(setNotification('Bet was successful!'))
+                    setTimeout(() => {
+                        dispatch(setNotification(null))
+                    }, 2000)
                 }
                 else {
-                    // setError(true)
+                    dispatch(setNotification('Stake per bet is lower than minimum $300'))
                 }
             })
-
-
-        // dispatch(deleteBetslip([]))
-        // dispatch(setStake([]))
     }
 
     const systemHandler = () => {
@@ -248,143 +227,47 @@ const Betslip = () => {
 
     return (
         <div className={style.block}>
+            <div className={style.body}>
             {
                 ticket.toggle === 0
                     ?
-                        <div className={style.wrapper}>
-                            {
-                                betslip.length > 0 &&
-                                <>
-                                    <div
-                                        className={
-                                            classNames(
-                                                style.row,
-                                                type === 0 ? style.md : style.sm
-                                            )
-                                        }
-                                    >
-                                        <div>Selection</div>
-                                        <div>Odds</div>
-                                        {
-                                            type === 0 &&
-                                            <div>Stake</div>
-                                        }
-                                    </div>
-                                    <div className={style.list}>
-                                        {
-                                            betslip.map((el, idx) =>
-                                                <div
-                                                    key={idx}
-                                                    className={style.item}
-                                                >
-                                                    <Bet
-                                                        data={el}
-                                                        betslip={betslip}
-                                                        stake={stake}
-                                                        type={type}
-                                                        setInit={setInit}
-                                                        setDisabled={setDisabled}
-                                                    />
-                                                </div>
-                                            )
-                                        }
-                                    </div>
-                                    <div className={style.types}>
-                                        <button
-                                            className={
-                                                classNames(
-                                                    style.type,
-                                                    type === 0 && style.active
-                                                )
-                                            }
-                                            onClick={() => {
-                                                setType(0)
-                                            }}
-                                            aria-label={'Single'}
-                                        >
-                                            Single
-                                        </button>
-                                        <button
-                                            className={
-                                                classNames(
-                                                    style.type,
-                                                    disabled && style.disabled,
-                                                    type === 1 && style.active
-                                                )
-                                            }
-                                            onClick={() => {
-                                                setType(1)
-                                            }}
-                                            aria-label={'System'}
-                                        >
-                                            System
-                                        </button>
-                                    </div>
-                                    <div className={style.table}>
-                                        <div className={style.thead}>
-                                            <div className={style.tr}>
-                                                <div className={style.th}>GR</div>
-                                                <div className={style.th}>Combi</div>
-                                                <div className={style.th}>
-                                                    <div className={style.th}>Odds</div>
-                                                    <div className={style.tr}>
-                                                        <div className={style.th}>Min</div>
-                                                        <div className={style.th}>Max</div>
-                                                    </div>
-                                                </div>
-                                                <div className={style.th}>Stake / Bet</div>
-                                            </div>
-                                        </div>
-                                        <div className={style.tbody}>
-                                            {
-                                                stake.map((el, idx) =>
-                                                    <Stake
-                                                        key={idx}
-                                                        data={el}
-                                                        setInit={setInit}
-                                                    />
-                                                )
-                                            }
-                                        </div>
-                                    </div>
-                                </>
-                            }
-                        </div>
+                        betslip.length > 0 &&
+                        <>
+                            <Bets
+                                betslip={betslip}
+                                stake={stake}
+                                type={type}
+                                setInit={setInit}
+                                setDisabled={setDisabled}
+                            />
+                            <Types
+                                type={type}
+                                setType={setType}
+                                disabled={disabled}
+                            />
+                            <Stakes
+                                stake={stake}
+                                setInit={setInit}
+                            />
+                        </>
                     :
-                        <div className={style.wrapper}>
-                            <div
-                                className={
-                                    classNames(
-                                        style.row,
-                                        style.lg
-                                    )
-                                }
-                            >
-                                <div></div>
-                                <div>Ticker №</div>
-                                <div>Stake</div>
-                                <div>Payout</div>
-                            </div>
-                            <div className={style.list}>
-                                <Ticket />
-                                <Ticket />
-                            </div>
+                        <div className={style.list}>
+                            <Tickets />
                         </div>
             }
+            </div>
             {
                 (ticket.toggle === 0 && betslip.length) &&
-                <div>
-                    <div className={style.stake}>
-                        <div>Total Stake</div>
-                        {
-                            type === 0 &&
-                            <div>{balance.account.symbol} {getTotalStakeSingle(betslip).toFixed(2)}</div>
-                        }
-                        {
-                            type === 1 &&
-                            <div>{balance.account.symbol} {getTotalStakeSystem(stake, setting['stake-mode']).toFixed(2)}</div>
-                        }
-                    </div>
+                <div className={style.stake}>
+                    <div>Total Stake</div>
+                    {
+                        type === 0 &&
+                        <div>{balance.account.symbol} {getTotalStakeSingle(betslip).toFixed(2)}</div>
+                    }
+                    {
+                        type === 1 &&
+                        <div>{balance.account.symbol} {getTotalStakeSystem(stake, setting['stake-mode']).toFixed(2)}</div>
+                    }
                 </div>
             }
             <div className={style.footer}>
@@ -392,7 +275,7 @@ const Betslip = () => {
                     <Button
                         type={'red'}
                         size={'lg'}
-                        icon={'close'}
+                        icon={'trash'}
                         action={() => {
                             dispatch(setStake([]))
                             dispatch(deleteBetslip([]))
@@ -405,7 +288,14 @@ const Betslip = () => {
                     <Button
                         type={'green'}
                         size={'lg'}
-                        icon={'check'}
+                        icon={'search'}
+                    />
+                </div>
+                <div className={style.button}>
+                    <Button
+                        type={'blue'}
+                        size={'lg'}
+                        icon={'repeat-print'}
                     />
                 </div>
                 <div className={style.button}>

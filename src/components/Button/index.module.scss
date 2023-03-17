@@ -20,7 +20,7 @@
   }
 
   &.sm {
-    @include make-spacer('p', half);
+    @include make-spacer('p', 1);
 
     border-radius: rem(3px);
     height: rem(25px);

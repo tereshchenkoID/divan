@@ -1,0 +1,36 @@
+@import "scss/config";
+
+.block {
+  position: relative;
+}
+
+.row {
+  @include make-spacer('mb', 2);
+  @include make-spacer('pl', 1);
+  @include make-spacer('pr', 7);
+
+  display: grid;
+  column-gap: rem(5px);
+  align-items: center;
+  overflow: hidden;
+  font-size: rem(12px);
+  font-weight: var(--typography-bold);
+  text-align: center;
+  color: var(--color-orange);
+
+  &.lg {
+    grid-template-columns: 1fr rem(50px) rem(60px);
+  }
+
+  &.sm {
+    grid-template-columns: 1fr rem(50px);
+  }
+}
+
+.item {
+  @include make-spacer('mb', 2);
+
+  &:last-child {
+    @include make-spacer('mb', 0);
+  }
+}

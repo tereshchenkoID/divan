@@ -10,53 +10,12 @@
   overflow: hidden;
 }
 
-.wrapper {
+.body {
   @include scroll;
   @include make-spacer('py', 2);
 
   overflow-x: hidden;
   flex-grow: 1;
-}
-
-.row {
-  @include make-spacer('mb', 2);
-  @include make-spacer('pl', 1);
-  @include make-spacer('pr', 7);
-
-  display: grid;
-  column-gap: rem(5px);
-  align-items: center;
-  overflow: hidden;
-  font-size: rem(12px);
-  font-weight: var(--typography-bold);
-  text-align: center;
-  color: var(--color-orange);
-
-  &.lg {
-    @include make-spacer('pr', 2);
-
-    grid-template-columns: rem(50px) 1fr rem(80px) rem(100px);
-  }
-
-  &.md {
-    grid-template-columns: 1fr rem(50px) rem(60px);
-  }
-
-  &.sm {
-    grid-template-columns: 1fr rem(50px);
-  }
-}
-
-.item {
-  @include make-spacer('mb', 4);
-
-  &:last-child {
-    @include make-spacer('mb', 0);
-  }
-}
-
-.market {
-  @include ellipsis;
 }
 
 .stake {
@@ -83,76 +42,6 @@
   @include flex(flex-end);
 
   gap: rem(5px);
-}
-
-.types {
-  @include make-spacer('mt', 2);
-  @include flex;
-
-  background-color: #333333;
-  border-bottom: 1px solid #808080;
-  height: rem(32px);
-}
-
-.type {
-  @include flex(center, center);
-
-  position: relative;
-  flex: 1;
-  transition: var(--default-transition);
-  height: 100%;
-  color: #808080;
-
-  &::after {
-    @include size(0, rem(2px));
-
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 100%;
-    background-color: var(--color-orange-900);
-    transition: var(--default-transition);
-    content: '';
-  }
-
-  &:hover {
-    color: var(--color-orange-900);
-  }
-
-  &.active {
-    color: var(--color-orange-900);
-
-    &::after {
-      width: 100%;
-    }
-  }
-
-  &.disabled {
-    opacity: 0.5;
-    pointer-events: none;
-  }
-}
-
-.thead {
-  @include make-spacer('py', 2);
-
-  border-bottom: 1px solid #808080;
-}
-
-.tr {
-  display: grid;
-  grid-template-columns: rem(50px) rem(60px) rem(120px) 1fr;
-  align-items: center;
-
-  .tr {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-.th {
-  font-size: rem(14px);
-  text-align: center;
-  color: var(--color-white);
 }
 
 .button {

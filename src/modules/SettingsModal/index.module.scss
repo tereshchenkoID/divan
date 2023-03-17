@@ -60,7 +60,7 @@
 
 .table {
   border: 1px solid #a7a7a7;
-  border-radius: rem(8px);
+  border-radius: rem(5px);
   overflow: hidden;
 
   &.lg {
@@ -78,7 +78,7 @@
   column-gap: rem(10px);
   align-items: center;
   border-top: 1px solid #a7a7a7;
-  height: rem(53px);
+  height: rem(50px);
 
   &:nth-child(even) {
     background-color: #323232;

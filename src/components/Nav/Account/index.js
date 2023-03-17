@@ -40,7 +40,7 @@ const Account = () => {
                     </div>
                     <div className={style.cell}>
                         <div className={style.icon}>
-                            <Icon id={'dollar'} />
+                            <Icon id={'money'} />
                         </div>
                         <div>{balance.account.symbol} {britishNumberFormatter.format(balance.account.balance)}</div>
                     </div>

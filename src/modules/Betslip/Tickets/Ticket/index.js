@@ -1,4 +1,5 @@
 import {useState} from "react";
+
 import classNames from "classnames";
 
 import Button from "components/Button";
@@ -6,8 +7,7 @@ import TicketModal from "modules/TicketModal";
 
 import style from './index.module.scss';
 
-
-const Ticket = () => {
+const Ticket = ({data, currency}) => {
     const [active, setActive] = useState(false)
 
     return (
@@ -15,7 +15,7 @@ const Ticket = () => {
             {
                 active &&
                 <TicketModal
-                    data={{}}
+                    id={data.id}
                     action={setActive}
                 />
             }
@@ -46,17 +46,7 @@ const Ticket = () => {
                     )
                 }
             >
-                1111111111
-            </div>
-            <div
-                className={
-                    classNames(
-                        style.cell,
-                        style.left
-                    )
-                }
-            >
-                $6000
+                {data.id}
             </div>
             <div
                 className={
@@ -66,7 +56,23 @@ const Ticket = () => {
                     )
                 }
             >
-                $6000.20
+                {currency} {data.amount}
+            </div>
+            <div
+                className={
+                    classNames(
+                        style.cell,
+                        style.right
+                    )
+                }
+            >
+                {
+                    data.win
+                    ?
+                       `${currency} ${data.win}`
+                    :
+                        data.status
+                }
             </div>
         </div>
     );

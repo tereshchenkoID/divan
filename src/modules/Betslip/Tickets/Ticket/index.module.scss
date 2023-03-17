@@ -1,7 +1,6 @@
 @import "scss/config";
 
 .block {
-  @include make-spacer('mb', 2);
   @include make-spacer('pl', 1);
   @include make-spacer('pr', 2);
 

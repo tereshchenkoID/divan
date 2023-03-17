@@ -1,0 +1,49 @@
+@import "scss/config";
+
+.block {
+  @include make-spacer('mt', 2);
+  @include flex;
+
+  background-color: #333333;
+  border-bottom: 1px solid #808080;
+  height: rem(32px);
+}
+
+.item {
+  @include flex(center, center);
+
+  position: relative;
+  flex: 1;
+  transition: var(--default-transition);
+  height: 100%;
+  color: #808080;
+
+  &::after {
+    @include size(0, rem(2px));
+
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    background-color: var(--color-orange-900);
+    transition: var(--default-transition);
+    content: '';
+  }
+
+  &:hover {
+    color: var(--color-orange-900);
+  }
+
+  &.active {
+    color: var(--color-orange-900);
+
+    &::after {
+      width: 100%;
+    }
+  }
+
+  &.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+}

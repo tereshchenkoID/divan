@@ -14,11 +14,13 @@
 }
 
 .content {
+  position: relative;
   background-color: var(--color-black);
   border-radius: rem(8px);
   border: rem(3px) solid var(--color-orange);
   overflow: hidden;
   min-width: rem(1150px);
+  min-height: rem(300px);
 }
 
 .wrapper {
@@ -60,7 +62,7 @@
 
 .table {
   border: 1px solid #a7a7a7;
-  border-radius: rem(8px);
+  border-radius: rem(5px);
   overflow: hidden;
 
   &.sm {
@@ -73,7 +75,29 @@
   &.lg {
 
     .row {
-      grid-template-columns: rem(100px) 1fr 1fr repeat(4, 100px);
+      grid-template-columns: rem(80px) rem(100px) repeat(3, 1fr) rem(80px) rem(100px);
+    }
+  }
+
+  &.single {
+
+    .row {
+      grid-template-columns: rem(80px) 1fr 1fr repeat(4, 100px);
+    }
+  }
+
+  &.system {
+
+    .row {
+      grid-template-columns: rem(80px) 1fr 1fr repeat(3, 100px);
+    }
+  }
+
+  &.center {
+
+    .cell {
+      text-align: center;
+      justify-content: center;
     }
   }
 }
@@ -85,7 +109,7 @@
   column-gap: rem(10px);
   align-items: center;
   border-top: 1px solid #a7a7a7;
-  height: rem(53px);
+  height: rem(35px);
 
   &:nth-child(even) {
     background-color: #323232;
@@ -98,10 +122,19 @@
   &:first-child {
     border-top: 0;
   }
+
+  &.head {
+    text-transform: uppercase;
+    font-weight: var(--typography-bold);
+  }
 }
 
 .cell {
   @include flex($align-items: center);
+
+  &.left {
+    justify-content: flex-start!important;
+  }
 }
 
 .scoreboard {
@@ -113,7 +146,7 @@
   background-color: #363636;
   border-radius: rem(5px);
   overflow: hidden;
-  min-width: rem(80px);
+  min-width: rem(100px);
   height: rem(25px);
   text-align: center;
   font-weight: var(--typography-bold);
@@ -140,5 +173,79 @@
     button {
       @include size(rem(64px)!important)
     }
+  }
+}
+
+.score {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: rem(25px);
+  position: relative;
+  width: 100%;
+
+  span {
+
+    &:nth-child(1) {
+      text-align: right;
+
+      &::before {
+        @include absolute-center;
+
+        content: '-'
+      }
+    }
+
+    &:nth-child(2) {
+      text-align: left;
+    }
+  }
+}
+
+.status {
+  @include size(rem(10px), rem(25px));
+  @include make-spacer('ml', 0);
+  @include make-spacer('mr', 2);
+
+  border: 1px solid #a7a7a7;
+
+  &.win {
+    background-color: var(--color-green);
+  }
+
+  &.lost {
+    background-color: var(--color-red);
+  }
+
+  &.system_cancelled,
+  &.cancelled {
+    background-color: var(--color-orange-900);
+  }
+}
+
+.state {
+  @include size(rem(446px), rem(150px));
+
+  display: none;
+  position: absolute;
+  top: rem(150px);
+  left: rem(50px);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  transform: rotateZ(-20deg);
+
+  &.system_cancelled,
+  &.cancelled,
+  &.paid {
+    display: block;
+  }
+
+  &.system_cancelled,
+  &.cancelled {
+    background-image: url('https://365virtual.co/client/ShopClientJS/dist/images/wm-cancelled.6365a9358531e0f.png');
+  }
+
+  &.paid {
+    background-image: url('https://365virtual.co/client/ShopClientJS/dist/images/wm-paid.73c473fdefe63b7.png');
   }
 }

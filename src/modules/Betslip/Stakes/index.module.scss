@@ -1,0 +1,35 @@
+@import "scss/config";
+
+.block {
+  position: relative;
+}
+
+.thead {
+  @include make-spacer('py', 2);
+
+  border-bottom: 1px solid #808080;
+}
+
+.tr {
+  display: grid;
+  grid-template-columns: rem(50px) rem(60px) rem(120px) 1fr;
+  align-items: center;
+
+  .tr {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.th {
+  font-size: rem(14px);
+  text-align: center;
+  color: var(--color-white);
+}
+
+.item {
+  @include make-spacer('mb', 2);
+
+  &:last-child {
+    @include make-spacer('mb', 0);
+  }
+}

@@ -36,7 +36,7 @@ const JackPot = () => {
                 setLoading(false)
             }
         })
-    }, [loading]);
+    }, []);
 
     useEffect(() => {
         const a = setInterval(() => {
@@ -55,7 +55,7 @@ const JackPot = () => {
             setTimer('')
             clearInterval(a);
         }
-    }, [data.nextUpdate, delta]);
+    }, [data, delta]);
 
     return (
         <div className={style.block}>
