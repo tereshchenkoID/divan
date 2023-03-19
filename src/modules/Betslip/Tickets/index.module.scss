@@ -28,3 +28,7 @@
     @include make-spacer('mb', 0);
   }
 }
+
+.empty {
+  @include make-spacer('px', 2);
+}

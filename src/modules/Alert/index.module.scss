@@ -1,8 +1,7 @@
 @import "scss/config";
 
 .block {
-  @include make-spacer('px', 4);
-  @include make-spacer('py', 4);
+  @include make-spacer('p', 2);
 
   text-align: center;
 

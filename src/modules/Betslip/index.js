@@ -6,7 +6,9 @@ import {getMinMaxOdd, getBetMaxSingle, getTotalStakeSystem, getTotalStakeSingle,
 import {deleteBetslip} from "store/actions/betslipAction";
 import {setStake} from "store/actions/stakeAction";
 import {setTicket} from "store/actions/ticketAction";
+import {setBalance} from "store/actions/balanceAction";
 import {postData} from "helpers/api";
+
 import {setNotification} from "store/actions/notificationAction";
 
 import Button from "components/Button";
@@ -17,7 +19,7 @@ import Bets from "./Bets";
 import Types from "./Types";
 
 import style from './index.module.scss';
-import {setBalance} from "../../store/actions/balanceAction";
+import TicketModal from "../TicketModal";
 
 const Betslip = () => {
     const dispatch = useDispatch()
@@ -28,9 +30,11 @@ const Betslip = () => {
     const {settings} = useSelector((state) => state.settings)
     const {balance} = useSelector((state) => state.balance)
 
+
     const [init, setInit] = useState(false)
     const [disabled, setDisabled] = useState(true)
     const [type, setType] = useState(0)
+    const [checkTicket, setCheckTicket] = useState(false)
 
     const sendStake = () => {
         const max = 200
@@ -227,6 +231,13 @@ const Betslip = () => {
 
     return (
         <div className={style.block}>
+            {
+                checkTicket &&
+                <TicketModal
+                    id={0}
+                    action={setCheckTicket}
+                />
+            }
             <div className={style.body}>
             {
                 ticket.toggle === 0
@@ -289,6 +300,9 @@ const Betslip = () => {
                         type={'green'}
                         size={'lg'}
                         icon={'search'}
+                        action={() => {
+                            setCheckTicket(true)
+                        }}
                     />
                 </div>
                 <div className={style.button}>

@@ -1,10 +1,10 @@
 import {useEffect, useState} from "react";
 import {useSelector} from "react-redux";
 
-import checkData from "helpers/checkData";
 import {getData} from "helpers/api";
 
 import Loader from "components/Loader";
+import Alert from "modules/Alert";
 import Ticket from "./Ticket";
 
 import style from './index.module.scss';
@@ -16,10 +16,8 @@ const Tickets = () => {
 
     useEffect(() => {
         getData(`/history`).then((json) => {
-            if (!checkData(json)) {
-                setData(json)
-                setLoading(false)
-            }
+            setData(json)
+            setLoading(false)
         })
     }, []);
 
@@ -39,17 +37,26 @@ const Tickets = () => {
                         background={'transparent'}
                     />
                 :
-                    data.tickets.map((el, idx) =>
-                        <div
-                            key={idx}
-                            className={style.item}
-                        >
-                            <Ticket
-                                data={el}
-                                currency={settings.account.symbol}
-                            />
-                        </div>
-                    )
+                    data
+                        ?
+                            data.tickets.map((el, idx) =>
+                                <div
+                                    key={idx}
+                                    className={style.item}
+                                >
+                                    <Ticket
+                                        data={el}
+                                        currency={settings.account.symbol}
+                                    />
+                                </div>
+                            )
+                        :
+                            <div className={style.empty}>
+                                <Alert
+                                    text={'Tickets empty'}
+                                    type={'default'}
+                                />
+                            </div>
             }
         </div>
     );
