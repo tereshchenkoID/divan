@@ -3,52 +3,76 @@ import {useDispatch, useSelector} from "react-redux";
 
 import {setUpdate} from "store/actions/updateAction";
 import {setData} from "store/actions/dataAction";
+import {deleteBetslip} from "store/actions/betslipAction";
+
+import {clearActiveBets} from "helpers/clearActiveBets";
 
 import {matchStatus} from "constant/config";
 
 import announcementTimer from './announcementTimer'
 import resultTimer from "./resultsTimer";
 import progressTimer from "./progressTimer";
-import {setLive} from "../../../store/actions/liveAction";
 
-const Update = ({find, setActive, setWeek}) => {
+import {setLive} from "store/actions/liveAction";
+
+const Update = ({find, setActive, setWeek, betslip}) => {
     const dispatch = useDispatch()
     const {delta} = useSelector((state) => state.delta)
     const {game} = useSelector((state) => state.game)
     const {data} = useSelector((state) => state.data)
 
+    const [at, setAt] = useState()
+
     const [count, setCount] = useState(null)
+
+    useEffect(() => {
+        if (at === '0' || at === '00:05') {
+            let bets = clearActiveBets(betslip, find.id)
+            if (bets) {
+                dispatch(deleteBetslip(bets))
+            }
+        }
+    }, [betslip])
+
 
     useEffect(() => {
         let a, b, c
 
         if (data) {
             if (find.status === matchStatus.ANNOUNCEMENT) {
+
                 if (count === null) {
                     setCount(0)
                     a = setInterval(() => {
-                        if (announcementTimer(find.start, delta) === '0') {
+                        const at = announcementTimer(find.start, delta)
+
+                        if (at === '0') {
                             console.log("END ANNOUNCEMENT")
 
                             dispatch(setUpdate(find.id)).then((json) => {
                                 b = setInterval(() => {
-                                    if (progressTimer(json.event.nextUpdate, delta) === '0') {
+                                    const pt = progressTimer(json.event.nextUpdate, delta)
+
+                                    if (pt === '0') {
                                         console.log("END PROGRESS")
 
                                         dispatch(setUpdate(find.id)).then((json) => {
                                             c = setInterval(() => {
+                                                const rt = resultTimer(json.event.nextUpdate, delta)
 
-                                                if (resultTimer(json.event.nextUpdate, delta) === '0') {
+                                                if (rt === '0') {
                                                     console.log("END RESULTS")
 
-                                                    dispatch(setData(game)).then(() => {
+                                                    dispatch(setData(game)).then((json) => {
+                                                        setWeek(json.events[0].league.week)
                                                         setActive(0)
                                                         setCount(null)
+                                                        dispatch(setLive(1))
                                                     })
                                                     clearInterval(c)
                                                 }
                                                 else {
-                                                    console.log(resultTimer(json.event.nextUpdate, delta))
+                                                    console.log(rt)
                                                 }
                                             }, 1000)
                                         })
@@ -56,7 +80,7 @@ const Update = ({find, setActive, setWeek}) => {
                                         clearInterval(b)
                                     }
                                     else {
-                                        console.log(progressTimer(json.event.nextUpdate, delta))
+                                        console.log(pt)
                                     }
                                 },1000)
                             })
@@ -64,7 +88,7 @@ const Update = ({find, setActive, setWeek}) => {
                             clearInterval(a)
                         }
                         else {
-                            console.log(announcementTimer(find.start, delta))
+                            console.log(at)
                         }
                     }, 1000)
                 }
@@ -73,29 +97,32 @@ const Update = ({find, setActive, setWeek}) => {
                 if (count === null) {
                     setCount(0)
                     a = setInterval(() => {
+                        const pt = progressTimer(find.nextUpdate, delta)
 
-                        if (progressTimer(find.nextUpdate, delta) === '0') {
+                        if (pt === '0') {
                             dispatch(setUpdate(find.id)).then((json) => {
 
                                 b = setInterval(() => {
-                                    if (resultTimer(json.event.nextUpdate, delta) === '0') {
+                                    const rt = resultTimer(json.event.nextUpdate, delta)
+
+                                    if (rt === '0') {
                                         dispatch(setData(game)).then((json) => {
-                                            setActive(0)
                                             setWeek(json.events[0].league.week)
+                                            setActive(0)
                                             setCount(null)
                                             dispatch(setLive(1))
                                         })
                                         clearInterval(b)
                                     }
                                     else {
-                                        console.log(resultTimer(json.event.nextUpdate, delta))
+                                        console.log(rt)
                                     }
                                 },1000)
                             })
                             clearInterval(a)
                         }
                         else {
-                            console.log(progressTimer(find.nextUpdate, delta))
+                            console.log(pt)
                         }
                     },1000)
                 }
@@ -108,8 +135,9 @@ const Update = ({find, setActive, setWeek}) => {
                 if (count === null) {
                     setCount(0)
                     a = setInterval(() => {
+                        const rt = resultTimer(find.nextUpdate, delta)
 
-                        if (resultTimer(find.nextUpdate, delta) === '0') {
+                        if (rt === '0') {
                             dispatch(setData(game)).then((json) => {
                                 setWeek(json.events[0].league.week)
                                 setActive(0)
@@ -119,7 +147,7 @@ const Update = ({find, setActive, setWeek}) => {
                             clearInterval(a)
                         }
                         else {
-                            console.log(resultTimer(find.nextUpdate, delta))
+                            console.log(rt)
                         }
                     }, 1000)
                 }

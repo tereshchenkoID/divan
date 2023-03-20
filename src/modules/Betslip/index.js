@@ -20,9 +20,9 @@ import Stakes from "./Stakes";
 import Bets from "./Bets";
 import Types from "./Types";
 
-import style from './index.module.scss';
-
 import {Print} from './Print';
+
+import style from './index.module.scss';
 
 
 const Betslip = () => {
@@ -44,66 +44,82 @@ const Betslip = () => {
     const [response, setResponse] = useState(null)
 
     const sendStake = () => {
-        const max = 200
+        if (stake.length) {
+            let type = 0
 
-        let type = 0
-        const a = {
-            a: balance.account.currency,
-            b: setting['stake-mode'] ? "PER_BET" : "PER_GROUP",
-            c: settings.betting.odds,
-            d: [],
-            e: []
-        }
-
-        for (let i = 0; i < stake.length; i++) {
-            if (stake[i].stake !== 0) {
-                let s = {}
-                s.b = stake[i].gr
-                type = stake[i].type
-
-                if (type === 1) {
-                    s.a = stake[i].stake
-                }
-
-                a.d.push(s)
+            const a = {
+                a: balance.account.currency,
+                b: setting['stake-mode'] ? "PER_BET" : "PER_GROUP",
+                c: settings.betting.odds,
+                d: [],
+                e: []
             }
-        }
 
-        for (let i = 0; i < betslip.length; i++) {
-            if (betslip[i].stake !== 0) {
-                let s = {
-                    a: betslip[i].type,
-                    b: betslip[i].mid,
-                    c: betslip[i].b,
-                    e: betslip[i].m_old,   // Change after
-                    f: betslip[i].o_old    // Change after
+            for (let i = 0; i < stake.length; i++) {
+                if (stake[i].stake !== 0) {
+                    let s = {}
+                    s.b = stake[i].gr
+                    type = stake[i].type
+
+                    if (type === 1) {
+                        s.a = stake[i].stake
+                    }
+
+                    a.d.push(s)
                 }
-
-                if(type === 0) {
-                    s.g = betslip[i].stake.toString()
-                }
-
-                a.e.push(s)
             }
+
+            for (let i = 0; i < betslip.length; i++) {
+                if (betslip[i].stake !== 0) {
+                    let s = {
+                        a: betslip[i].type,
+                        b: betslip[i].mid,
+                        c: betslip[i].b,
+                        e: betslip[i].m_old,   // Change after
+                        f: betslip[i].o_old    // Change after
+                    }
+
+                    if(type === 0) {
+                        s.g = betslip[i].stake.toString()
+                    }
+
+                    a.e.push(s)
+                }
+            }
+
+
+            const min = stake[0].type === 1 ? settings.betslip.system.min : settings.betslip.single.min
+            const max = stake[0].type === 1 ? settings.betslip.system.max : settings.betslip.single.max
+
+
+            postData('/placebet', JSON.stringify(a))
+                .then((json) => {
+                    if (json) {
+                        setResponse(json)
+
+                        dispatch(setBalance())
+                        dispatch(deleteBetslip([]))
+                        dispatch(setStake([]))
+                    }
+                    else {
+                        dispatch(setNotification(`
+                            Stake per bet is lower than minimum ${settings.account.symbol} ${min} 
+                            or upper than maximum ${settings.account.symbol} ${max}`
+                        ))
+
+                        setTimeout(() => {
+                            dispatch(setNotification(null))
+                        }, 3000)
+                    }
+                })
         }
+        else {
+            dispatch(setNotification('Please pick up a bet to start'))
 
-        postData('/placebet', JSON.stringify(a))
-            .then((json) => {
-                if (json) {
-                    setResponse(json)
-
-                    dispatch(setBalance())
-                    dispatch(deleteBetslip([]))
-                    dispatch(setStake([]))
-                    // dispatch(setNotification('Bet was successful!'))
-                    // setTimeout(() => {
-                    //     dispatch(setNotification(null))
-                    // }, 2000)
-                }
-                else {
-                    dispatch(setNotification('Stake per bet is lower than minimum $300'))
-                }
-            })
+            setTimeout(() => {
+                dispatch(setNotification(null))
+            }, 2000)
+        }
     }
 
     const systemHandler = () => {

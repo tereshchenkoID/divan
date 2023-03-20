@@ -3,10 +3,6 @@ import {useDispatch, useSelector} from "react-redux";
 
 import classNames from "classnames";
 
-import checkData from "helpers/checkData";
-import {clearActiveBets} from "helpers/clearActiveBets";
-
-import {deleteBetslip} from "store/actions/betslipAction";
 import {setLive} from "store/actions/liveAction";
 import {setData} from "store/actions/dataAction";
 import {setModal} from "store/actions/modalAction";
@@ -87,8 +83,6 @@ const Table = () => {
 
                     setFind(f)
 
-                    console.log("UPDATE GAME")
-
                     if (f.status === matchStatus.PROGRESS || f.status === matchStatus.RESULTS) {
                         setWeek(json.events[1].league.week)
                         setActive(1)
@@ -115,6 +109,7 @@ const Table = () => {
         }
 
         if (live === 4) {
+            console.log("LIVE 4")
             dispatch(setData(game)).then((json) => {
                 setWeek(json.events[0].league.week)
                 setActive(0)
@@ -219,6 +214,7 @@ const Table = () => {
                                             find={find}
                                             setActive={setActive}
                                             setWeek={setWeek}
+                                            betslip={betslip}
                                         />
                                     }
                                     <div className={style.banners}>

@@ -8,8 +8,6 @@ import style from './index.module.scss';
 export const Print = React.forwardRef((data, ref) => {
     const {settings} = useSelector((state) => state.settings)
 
-    console.log(data.data)
-
     return (
         <div
             className={style.block}
@@ -17,7 +15,12 @@ export const Print = React.forwardRef((data, ref) => {
         >
             <div className={style.header}>
                 <div>
-                    <div className={style.logo} />
+                    <div className={style.logo}>
+                        <img
+                            src={settings.print.logo}
+                            alt={'Logo'}
+                        />
+                    </div>
                 </div>
                 <div>
                     <ul className={style.info}>
@@ -38,7 +41,7 @@ export const Print = React.forwardRef((data, ref) => {
             </div>
             <div className={style.body}>
                 <div className={style.title}>Ticket #{data.data.stake.id}</div>
-                <div className={style.code} />
+                <div className={style.code}>{data.data.stake.id}</div>
                 {
                     data.data.stake.group &&
                     data.data.stake.group.map((el, idx) =>
