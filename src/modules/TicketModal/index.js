@@ -5,24 +5,13 @@ import classNames from "classnames";
 
 import {getIcon} from "helpers/getIcon";
 import {getData} from "helpers/api";
+import {getDateTime} from "helpers/getDateTime";
 
 import Loader from "components/Loader";
 import Icon from "components/Icon";
 import Button from "components/Button";
 
 import style from './index.module.scss';
-
-const getDate = (data, type) => {
-    const now = new Date(data);
-    const date = now.getDate().toString().padStart(2, '0')
-    const month = (now.getMonth() + 1).toString().padStart(2, '0')
-    const year = now.getFullYear().toString();
-    const hours = now.getHours().toString().padStart(2, '0')
-    const minutes = now.getMinutes().toString().padStart(2, '0')
-    const seconds = now.getSeconds().toString().padStart(2, '0')
-
-    return type === 0 ? `${hours}:${minutes}:${seconds}`: `${date}/${month}/${year} ${hours}:${minutes}:${seconds}`
-}
 
 const TicketModal = ({id, action}) => {
     const {settings} = useSelector((state) => state.settings)
@@ -168,7 +157,7 @@ const TicketModal = ({id, action}) => {
                                                 </div>
                                                 <div className={style.row}>
                                                     <div className={style.cell}>Book time</div>
-                                                    <div className={style.cell}>{getDate(data.placed, 1)}</div>
+                                                    <div className={style.cell}>{getDateTime(data.placed, 1)}</div>
                                                     <div className={style.cell}>Jackpot</div>
                                                     <div className={style.cell}></div>
                                                 </div>
@@ -295,7 +284,7 @@ const TicketModal = ({id, action}) => {
                                                             key={idx}
                                                             className={style.row}
                                                         >
-                                                            <div className={style.cell}>{getDate(el.details.start, 0)}</div>
+                                                            <div className={style.cell}>{getDateTime(el.details.start, 0)}</div>
                                                             <div
                                                                 className={
                                                                     classNames(
@@ -384,7 +373,7 @@ const TicketModal = ({id, action}) => {
                         }
                         {
                             data.status === 'WIN' &&
-                            data.paid === '1' &&
+                            data.paid === '0' &&
                             <div
                                 className={
                                     classNames(

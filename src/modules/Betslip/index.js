@@ -1,5 +1,6 @@
-import {useEffect, useState} from "react";
+import {useEffect, useState, useRef} from "react";
 import {useDispatch, useSelector} from "react-redux";
+import { useReactToPrint } from 'react-to-print';
 
 import {getMinMaxOdd, getBetMaxSingle, getTotalStakeSystem, getTotalStakeSingle, getSystemCombination, getSystemBetMinMaxSystem} from 'hooks/useStake'
 
@@ -11,6 +12,7 @@ import {postData} from "helpers/api";
 
 import {setNotification} from "store/actions/notificationAction";
 
+import TicketModal from "modules/TicketModal";
 import Button from "components/Button";
 
 import Tickets from "./Tickets";
@@ -19,7 +21,9 @@ import Bets from "./Bets";
 import Types from "./Types";
 
 import style from './index.module.scss';
-import TicketModal from "../TicketModal";
+
+import {Print} from './Print';
+
 
 const Betslip = () => {
     const dispatch = useDispatch()
@@ -30,11 +34,14 @@ const Betslip = () => {
     const {settings} = useSelector((state) => state.settings)
     const {balance} = useSelector((state) => state.balance)
 
+    const componentRef = useRef();
 
     const [init, setInit] = useState(false)
     const [disabled, setDisabled] = useState(true)
     const [type, setType] = useState(0)
     const [checkTicket, setCheckTicket] = useState(false)
+
+    const [response, setResponse] = useState(null)
 
     const sendStake = () => {
         const max = 200
@@ -83,13 +90,15 @@ const Betslip = () => {
         postData('/placebet', JSON.stringify(a))
             .then((json) => {
                 if (json) {
+                    setResponse(json)
+
                     dispatch(setBalance())
                     dispatch(deleteBetslip([]))
                     dispatch(setStake([]))
-                    dispatch(setNotification('Bet was successful!'))
-                    setTimeout(() => {
-                        dispatch(setNotification(null))
-                    }, 2000)
+                    // dispatch(setNotification('Bet was successful!'))
+                    // setTimeout(() => {
+                    //     dispatch(setNotification(null))
+                    // }, 2000)
                 }
                 else {
                     dispatch(setNotification('Stake per bet is lower than minimum $300'))
@@ -205,6 +214,14 @@ const Betslip = () => {
         dispatch(deleteBetslip(betslip))
     }
 
+    const a = useReactToPrint({
+        content: () => componentRef.current,
+    })
+
+    useEffect(() => {
+        response && a()
+    }, [response])
+
     useEffect(() => {
         checkType()
 
@@ -231,6 +248,12 @@ const Betslip = () => {
 
     return (
         <div className={style.block}>
+            {
+                response &&
+                <div className={style.print}>
+                    <Print data={response} ref={componentRef} />
+                </div>
+            }
             {
                 checkTicket &&
                 <TicketModal

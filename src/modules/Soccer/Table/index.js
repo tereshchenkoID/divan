@@ -12,6 +12,8 @@ import {setData} from "store/actions/dataAction";
 import {setModal} from "store/actions/modalAction";
 import {setUpdate} from "store/actions/updateAction";
 
+import {matchStatus} from "constant/config";
+
 import Alert from "modules/Alert";
 import Odd from "modules/Soccer/Odd";
 import JackPot from "modules/JackPot";
@@ -28,11 +30,11 @@ import style from './index.module.scss';
 
 const conditionStatus = (data) => {
     switch (data.status) {
-        case "ANNOUNCEMENT":
+        case matchStatus.ANNOUNCEMENT:
             return 1
-        case "PROGRESS":
+        case matchStatus.PROGRESS:
             return 2
-        case "RESULTS":
+        case matchStatus.RESULTS:
             return 3
         default:
             return 1;
@@ -58,21 +60,21 @@ const Table = () => {
     })
     const [find, setFind] = useState(null)
 
-    useEffect(() => {
-        if(!checkData(data)) {
-            const f = data.events.find(el => {
-                return el.status === "PROGRESS" || el.status === "RESULTS"
-            })
-
-            if (f) {
-                setFind(f)
-                let a = clearActiveBets(betslip, f.id)
-                if (a) {
-                    dispatch(deleteBetslip(a))
-                }
-            }
-        }
-    }, [data])
+    // useEffect(() => {
+    //     if(!checkData(data)) {
+    //         const f = data.events[0]
+    //
+    //         console.log("UPDATE DATA")
+    //
+    //         if (f) {
+    //             setFind(f)
+    //             let a = clearActiveBets(betslip, f.id)
+    //             if (a) {
+    //                 dispatch(deleteBetslip(a))
+    //             }
+    //         }
+    //     }
+    // }, [data])
 
     useEffect(() => {
         if (game !== null) {
@@ -81,13 +83,13 @@ const Table = () => {
 
             dispatch(setData(game)).then((json) => {
                 if (json.events.length > 0) {
-                    const f = json.events.find(el => {
-                        return el.status === "PROGRESS" || el.status === "RESULTS"
-                    })
+                    const f = json.events[0]
 
                     setFind(f)
 
-                    if (f) {
+                    console.log("UPDATE GAME")
+
+                    if (f.status === matchStatus.PROGRESS || f.status === matchStatus.RESULTS) {
                         setWeek(json.events[1].league.week)
                         setActive(1)
                     }
@@ -153,11 +155,11 @@ const Table = () => {
         dispatch(setModal(0))
         dispatch(setLive(1))
 
-        setTimeout(() => {
-            dispatch(setData(game)).then((json) => {
-                // console.log(json)
-            })
-        }, 7000)
+        // setTimeout(() => {
+        //     dispatch(setData(game)).then((json) => {
+        //         // console.log(json)
+        //     })
+        // }, 7000)
     }
 
     const handleToggle = (id) => {
@@ -209,16 +211,14 @@ const Table = () => {
                                 <>
                                     {
                                         modal === 1 &&
-                                        <Modal
-                                            action={handleNext}
-                                        />
+                                        <Modal action={handleNext} />
                                     }
                                     {
-                                        find &&
                                         live === 1 &&
                                         <Update
                                             find={find}
                                             setActive={setActive}
+                                            setWeek={setWeek}
                                         />
                                     }
                                     <div className={style.banners}>
