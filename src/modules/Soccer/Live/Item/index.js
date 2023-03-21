@@ -1,24 +1,26 @@
 import {useEffect, useState} from "react";
+import {useSelector} from "react-redux";
 
 import classNames from "classnames";
 
+import {matchMarkets, matchOutcomes} from "constant/config";
+
 import style from './index.module.scss';
-import {useSelector} from "react-redux";
 
 const WINNER = (score, data) => {
     if (score.home > score.away) {
         return data.find(el => {
-            return el.a === "HOME"
+            return el.a === matchOutcomes.HOME
         })
     }
     else if(score.home < score.away) {
         return data.find(el => {
-            return el.a === "AWAY"
+            return el.a === matchOutcomes.AWAY
         })
     }
     else {
         return data.find(el => {
-            return el.a === "DRAW"
+            return el.a === matchOutcomes.DRAW
         })
     }
 }
@@ -28,14 +30,14 @@ const GOAL_NO_GOAL = (score, data) => {
 
     if (score.home > 0 && score.away > 0) {
         a = data.find(el => {
-            return el.a === "GOAL"
+            return el.a === matchOutcomes.GOAL
         })
 
         a.active = true
     }
     else {
         a = data.find(el => {
-            return el.a === "NO_GOAL"
+            return el.a === matchOutcomes.NO_GOAL
         })
     }
 
@@ -78,12 +80,12 @@ const OVER_UNDER = (score, data) => {
 
     if (r <= 2) {
         a = data.find(el => {
-            return el.a === "UNDER_2.5"
+            return el.a === matchOutcomes.UNDER
         })
     }
     else {
         a = data.find(el => {
-            return el.a === "OVER_2.5"
+            return el.a === matchOutcomes.OVER
         })
 
         a.active = true
@@ -98,17 +100,17 @@ const DOUBLE_CHANCE = (score, data) => {
     // eslint-disable-next-line array-callback-return
     data.map(el => {
         if (score.home === score.away) {
-            if (el.c === '1X' ||el.c ==='X2') {
+            if (el.c === matchOutcomes['1X'] ||el.c === matchOutcomes['X2']) {
                 r.push(el)
             }
         }
         else if (score.home > score.away) {
-            if (el.c === '1X' ||el.c ==='12') {
+            if (el.c === matchOutcomes['1X'] ||el.c === matchOutcomes['12']) {
                 r.push(el)
             }
         }
         else if (score.home < score.away) {
-            if (el.c === '12' ||el.c ==='X2') {
+            if (el.c === matchOutcomes['12'] ||el.c === matchOutcomes['X2']) {
                 r.push(el)
             }
         }
@@ -120,22 +122,22 @@ const DOUBLE_CHANCE = (score, data) => {
 const getOdds = (type, data, score) => {
     let a
     switch (type) {
-        case "WINNER":
+        case matchMarkets.WINNER:
             a = WINNER(score, data)
         break;
-        case "DOUBLE_CHANCE":
+        case matchMarkets.DOUBLE_CHANCE:
             a = DOUBLE_CHANCE(score, data)
         break;
-        case "GOAL_NO_GOAL":
+        case matchMarkets.GOAL_NO_GOAL:
             a = GOAL_NO_GOAL(score, data)
         break;
-        case "OVER_UNDER":
+        case matchMarkets.OVER_UNDER:
             a = OVER_UNDER(score, data)
         break;
-        case "GOALS":
+        case matchMarkets.GOALS:
             a = GOALS(score, data)
         break;
-        case "SCORE":
+        case matchMarkets.SCORE:
             a = SCORE(score, data)
         break;
         default:

@@ -22,8 +22,6 @@ const SettingsModal = () => {
     const handleChange = (idx, value) => {
         preview[idx] = value
         dispatch(setSetting(preview))
-
-        // console.log(setting)
     }
 
     const save = (ref, idx) => {

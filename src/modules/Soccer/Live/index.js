@@ -3,6 +3,8 @@ import {useSelector} from "react-redux";
 
 import checkData from "helpers/checkData";
 
+import {matchMarkets} from "constant/config";
+
 import Loader from "components/Loader";
 import Item from "./Item";
 
@@ -11,27 +13,27 @@ import style from './index.module.scss';
 const MARKETS = [
     {
         name: "WINNER",
-        value: "WINNER"
+        value: matchMarkets.WINNER
     },
     {
         name: "DOUBLE CHANCE",
-        value: "DOUBLE_CHANCE"
+        value: matchMarkets.DOUBLE_CHANCE
     },
     {
         name: "GOAL/NO GOAL",
-        value: "GOAL_NO_GOAL"
+        value: matchMarkets.GOAL_NO_GOAL
     },
     {
         name: "OV/UN 2.5",
-        value: "OVER_UNDER"
+        value: matchMarkets.OVER_UNDER
     },
     {
         name: "TOTAL GOALS",
-        value: "GOALS"
+        value: matchMarkets.GOALS
     },
     {
         name: "CORRECT SCORE",
-        value: "SCORE"
+        value: matchMarkets.SCORE
     }
 ]
 

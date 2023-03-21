@@ -43,7 +43,6 @@ const Table = () => {
     const {data} = useSelector((state) => state.data)
     const {live} = useSelector((state) => state.live)
     const {modal} = useSelector((state) => state.modal)
-    const {betslip} = useSelector((state) => state.betslip)
 
     const [loading, setLoading] = useState(true)
     const [preloader, setPreloader] = useState(false)
@@ -55,22 +54,6 @@ const Table = () => {
         toggle: false
     })
     const [find, setFind] = useState(null)
-
-    // useEffect(() => {
-    //     if(!checkData(data)) {
-    //         const f = data.events[0]
-    //
-    //         console.log("UPDATE DATA")
-    //
-    //         if (f) {
-    //             setFind(f)
-    //             let a = clearActiveBets(betslip, f.id)
-    //             if (a) {
-    //                 dispatch(deleteBetslip(a))
-    //             }
-    //         }
-    //     }
-    // }, [data])
 
     useEffect(() => {
         if (game !== null) {
@@ -109,9 +92,9 @@ const Table = () => {
         }
 
         if (live === 4) {
-            console.log("LIVE 4")
             dispatch(setData(game)).then((json) => {
                 setWeek(json.events[0].league.week)
+                setFind(json.events[0].league.week)
                 setActive(0)
                 setLoading(false)
                 dispatch(setLive(1))
@@ -120,16 +103,10 @@ const Table = () => {
 
     }, [live]);
 
-    useEffect(() => {
-    }, [active, setActive])
-
     const checkStatus = (id) => {
-        // setLoading(true)
-        // dispatch(setLive(conditionStatus(data.events[id].status)))
-        // setLoading(false)
-
         dispatch(setUpdate(id)).then((json) => {
             dispatch(setLive(conditionStatus(json.event)))
+            setFind(data.events[0])
         })
     }
 
@@ -144,17 +121,12 @@ const Table = () => {
     const handleNext = () => {
         const w = data.events[1].league.week
 
+        setFind(data.events[0])
         setActive(1)
         setWeek(w)
         resetActiveElements()
         dispatch(setModal(0))
         dispatch(setLive(1))
-
-        // setTimeout(() => {
-        //     dispatch(setData(game)).then((json) => {
-        //         // console.log(json)
-        //     })
-        // }, 7000)
     }
 
     const handleToggle = (id) => {
@@ -209,12 +181,14 @@ const Table = () => {
                                         <Modal action={handleNext} />
                                     }
                                     {
-                                        live === 1 &&
+                                        (live === 0 || live === 1) &&
+                                        active !== 0 &&
                                         <Update
                                             find={find}
+                                            active={active}
                                             setActive={setActive}
                                             setWeek={setWeek}
-                                            betslip={betslip}
+                                            setFind={setFind}
                                         />
                                     }
                                     <div className={style.banners}>
@@ -235,8 +209,8 @@ const Table = () => {
                                                         setPreloader(true)
                                                         checkStatus(el.id)
                                                         resetActiveElements()
-                                                        setWeek(el.league.week)
                                                         setActive(idx)
+                                                        setWeek(el.league.week)
 
                                                         setTimeout(() => {
                                                             setPreloader(false)
@@ -257,9 +231,7 @@ const Table = () => {
                                                     alt={data.events[active].league.name}
                                                 />
                                             </div>
-                                            <Timer
-                                                data={data.events[active]}
-                                            />
+                                            <Timer data={data.events[active]} />
                                         </div>
                                     }
                                     <div className={style.body}>
