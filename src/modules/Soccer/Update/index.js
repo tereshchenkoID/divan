@@ -80,7 +80,7 @@ const Update = ({find, active, setActive, setWeek, setFind}) => {
                                 clearInterval(b)
                             }
                             else {
-                                // console.log(pt)
+                                console.log(pt)
                             }
                         },1000)
                     })
