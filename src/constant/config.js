@@ -29,3 +29,19 @@ export const matchOutcomes = {
     'X2': "X2",
     '12': "12",
 }
+
+export const oddsValue = {
+    DECIMAL: "DECIMAL",
+    AMERICAN: "AMERICAN"
+}
+
+export const oddsType = {
+    PER_BET: "PER_BET",
+    PER_GROUP: "PER_GROUP"
+}
+
+export const printMode = {
+    WEB_PRINT: "WEB_PRINT",
+    POS: "POS",
+    DISABLED: "DISABLED"
+}

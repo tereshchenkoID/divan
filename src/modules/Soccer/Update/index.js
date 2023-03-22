@@ -3,9 +3,6 @@ import {useDispatch, useSelector} from "react-redux";
 
 import {setUpdate} from "store/actions/updateAction";
 import {setData} from "store/actions/dataAction";
-import {deleteBetslip} from "store/actions/betslipAction";
-
-import {clearActiveBets} from "helpers/clearActiveBets";
 
 import {matchStatus} from "constant/config";
 
@@ -19,14 +16,6 @@ const Update = ({find, active, setActive, setWeek, setFind}) => {
     const dispatch = useDispatch()
     const {delta} = useSelector((state) => state.delta)
     const {game} = useSelector((state) => state.game)
-    const {betslip} = useSelector((state) => state.betslip)
-
-    const clearBets = () => {
-        let bets = clearActiveBets(betslip, find.id)
-        if (bets) {
-            dispatch(deleteBetslip(bets))
-        }
-    }
 
     const resetNextWeek = (json) => {
         setFind(json.events[0].league.week)
@@ -37,16 +26,9 @@ const Update = ({find, active, setActive, setWeek, setFind}) => {
 
     useEffect(() => {
         let a, b, c
-
-        clearBets()
-
         if (find.status === matchStatus.ANNOUNCEMENT) {
             a = setInterval(() => {
                 const at = announcementTimer(find.start, delta)
-
-                if (at === '0' || at === '00:05') {
-                    clearBets()
-                }
 
                 if (at === '0') {
                     // console.log("END ANNOUNCEMENT")
@@ -93,7 +75,6 @@ const Update = ({find, active, setActive, setWeek, setFind}) => {
             }, 1000)
         }
         else if (find.status === matchStatus.PROGRESS) {
-            clearBets()
             a = setInterval(() => {
                 const pt = progressTimer(find.nextUpdate, delta)
 
@@ -123,7 +104,6 @@ const Update = ({find, active, setActive, setWeek, setFind}) => {
             },1000)
         }
         else if (find.status === matchStatus.RESULTS) {
-            clearBets()
             a = setInterval(() => {
                 const rt = resultTimer(find.nextUpdate, delta)
 

@@ -1,10 +1,11 @@
 import {useDispatch, useSelector} from "react-redux";
-import {useEffect} from "react";
+import {useState} from "react";
 
 import {setAuth} from "store/actions/authAction";
-import {setSetting} from "store/actions/settingAction";
 import {setTicket} from "store/actions/ticketAction";
 
+import SettingsModal from "modules/SettingsModal";
+import ReportsModal from "modules/ReportsModal";
 import Button from "components/Button";
 import Clock from "./Clock";
 import Slider from "./Slider";
@@ -14,19 +15,10 @@ import style from './index.module.scss';
 
 const Nav = () => {
     const dispatch = useDispatch()
-    const {delta} = useSelector((state) => state.delta)
-    const {setting} = useSelector((state) => state.setting)
+
     const {ticket} = useSelector((state) => state.ticket)
-
-    useEffect(() => {
-
-    }, [delta])
-
-    const handleSetting = () => {
-        const a = setting
-        a.show = true
-        dispatch(setSetting(a))
-    }
+    const [sm, setSm] = useState(false) // Settings Modal
+    const [rm, setRm] = useState(false) // Reports Modal
 
     return (
         <nav className={style.block}>
@@ -57,6 +49,9 @@ const Nav = () => {
                         type={'grey'}
                         size={'md'}
                         icon={'diagram'}
+                        action={() => {
+                            setRm(true)
+                        }}
                     />
                 </div>
                 <div className={style.option}>
@@ -65,7 +60,7 @@ const Nav = () => {
                         size={'md'}
                         icon={'settings'}
                         action={() => {
-                            handleSetting()
+                            setSm(true)
                         }}
                     />
                 </div>
@@ -88,6 +83,13 @@ const Nav = () => {
                     />
                 </div>
             </div>
+
+            {
+                sm && <SettingsModal action={setSm} />
+            }
+            {
+                rm && <ReportsModal action={setRm} />
+            }
         </nav>
     );
 }

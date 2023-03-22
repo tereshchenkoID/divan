@@ -3,7 +3,6 @@ import thunk from 'redux-thunk';
 
 import gameReducer from "./reducers/gameReducer";
 import settingsReducer from "./reducers/settingsReducer";
-import settingReducer from "./reducers/settingReducer";
 import betslipReducer from "./reducers/betslipReducer";
 import stakeReducer from "./reducers/stakeReducer";
 import liveReducer from "./reducers/liveReducer";
@@ -22,7 +21,6 @@ const allReducer = combineReducers({
     data: dataReducer,
     update: updateReducer,
     game: gameReducer,
-    setting: settingReducer,
     settings: settingsReducer,
     delta: deltaReducer,
     live: liveReducer,

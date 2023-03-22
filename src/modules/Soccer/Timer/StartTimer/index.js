@@ -1,11 +1,8 @@
 import {useEffect, useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
-
-import {clearActiveBets} from "helpers/clearActiveBets";
+import {useDispatch} from "react-redux";
 
 import {setLive} from "store/actions/liveAction";
 import {setModal} from "store/actions/modalAction";
-import {deleteBetslip} from "store/actions/betslipAction";
 
 const getDifferent = (data, delta) => {
     const c = new Date().getTime() + delta
@@ -13,7 +10,6 @@ const getDifferent = (data, delta) => {
 
     if (data > c) {
         r = new Date(data - c)
-
 
         // const seconds = Math.floor(r / 1000);
         // const minutes = Math.floor(seconds / 60);
@@ -30,26 +26,19 @@ const getDifferent = (data, delta) => {
 
 const StartTimer = ({start, delta, id}) => {
     const dispatch = useDispatch()
-    const {betslip} = useSelector((state) => state.betslip)
     const [timer, setTimer] = useState('')
 
     useEffect(() => {
-        // console.log('Start')
-
         const a = setInterval(() => {
-            // console.log('Start', delta)
             let r = getDifferent(start, delta)
             setTimer(r)
+
             if (r === '0') {
                 dispatch(setLive(2))
                 clearInterval(a)
             }
 
             if (r === '00:05') {
-                let a = clearActiveBets(betslip, id)
-                if (a) {
-                    dispatch(deleteBetslip(a))
-                }
                 dispatch(setModal(1))
             }
         },1000)

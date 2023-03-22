@@ -2,6 +2,8 @@ import {useEffect, useState, useRef} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import { useReactToPrint } from 'react-to-print';
 
+import {oddsType} from "constant/config";
+
 import {getMinMaxOdd, getBetMaxSingle, getTotalStakeSystem, getTotalStakeSingle, getSystemCombination, getSystemBetMinMaxSystem} from 'hooks/useStake'
 
 import {deleteBetslip} from "store/actions/betslipAction";
@@ -24,13 +26,11 @@ import {Print} from './Print';
 
 import style from './index.module.scss';
 
-
 const Betslip = () => {
     const dispatch = useDispatch()
     const {betslip} = useSelector((state) => state.betslip)
     const {stake} = useSelector((state) => state.stake)
     const {ticket} = useSelector((state) => state.ticket)
-    const {setting} = useSelector((state) => state.setting)
     const {settings} = useSelector((state) => state.settings)
     const {balance} = useSelector((state) => state.balance)
 
@@ -49,7 +49,7 @@ const Betslip = () => {
 
             const a = {
                 a: balance.account.currency,
-                b: setting['stake-mode'] ? "PER_BET" : "PER_GROUP",
+                b: settings.betting.type,
                 c: settings.betting.odds,
                 d: [],
                 e: []
@@ -95,7 +95,9 @@ const Betslip = () => {
             postData('/placebet', JSON.stringify(a))
                 .then((json) => {
                     if (json) {
-                        setResponse(json)
+                        if (settings.print.mode === "WEB_PRINT" && settings.print.payout) {
+                            setResponse(json)
+                        }
 
                         dispatch(setBalance())
                         dispatch(deleteBetslip([]))
@@ -214,7 +216,7 @@ const Betslip = () => {
     const updateBetslip = (a) => {
         if (!init) {
             for(let i = 0; i < betslip.length; i++) {
-                betslip[i].stake = setting['stake-mode'] === 1 ? a : (a / betslip.length).toFixed(2)
+                betslip[i].stake = settings.betting.type === oddsType.PER_BET ?  (a / betslip.length).toFixed(2) : a
             }
         }
         else {
@@ -316,7 +318,7 @@ const Betslip = () => {
                     }
                     {
                         type === 1 &&
-                        <div>{balance.account.symbol} {getTotalStakeSystem(stake, setting['stake-mode']).toFixed(2)}</div>
+                        <div>{balance.account.symbol} {getTotalStakeSystem(stake, settings.betting.type).toFixed(2)}</div>
                     }
                 </div>
             }

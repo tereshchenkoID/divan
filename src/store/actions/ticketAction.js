@@ -16,7 +16,7 @@ export const setTicket = (data) => async dispatch => {
     }
     else {
         try {
-            const data = await get('https://365virtual.co/engine/shop/ticket/latest_history?locale=en_US')
+            const data = await get('/history')
             dispatch({
                 type: types.SET_TICKET,
                 payload: {

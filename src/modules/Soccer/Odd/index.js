@@ -27,6 +27,7 @@ const Odd = ({data, label = false}) => {
                 o_old: data.o_old,  // Remove after
                 sid: data.sid,
                 mid: data.mid,
+                start: data.start - 5000,  // - 5s
                 id: data.id,
                 a: data.a,
                 b: data.b || 1.00,
@@ -69,7 +70,7 @@ const Odd = ({data, label = false}) => {
                 label &&
                 <div className={style.label}>{label}</div>
             }
-            <div className={style.odd}>{data.b || '1.00'}</div>
+            <div className={style.odd}>{data.b ? parseFloat(data.b).toFixed(2) : '1.00'}</div>
         </div>
     );
 }

@@ -23,8 +23,6 @@ export const types = {
     GET_LIVE_TIMER:     'GET_LIVE_TIMER',
     SET_DELTA:          'SET_DELTA',
     GET_DELTA:          'GET_DELTA',
-    SET_SETTING:        'SET_SETTING',
-    GET_SETTING:        'GET_SETTING',
     SET_TICKET:         'SET_TICKET',
     GET_TICKET:         'GET_TICKET',
     SET_BALANCE:        'SET_BALANCE',

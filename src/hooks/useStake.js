@@ -1,3 +1,5 @@
+import {oddsType} from "constant/config";
+
 const getAccumulatorPrice = (priceArray) => {
     let result = 1;
 
@@ -237,7 +239,7 @@ export const getTotalStakeSystem = (data, mode) => {
     let result = 0
 
     for (let i = 0; i < data.length; i++) {
-        result = mode === 1 ? result + parseFloat(data[i].stake) * data[i].combi : result + parseFloat(data[i].stake)
+        result = mode === oddsType.PER_BET ? result + parseFloat(data[i].stake) : result + parseFloat(data[i].stake) * data[i].combi
     }
 
     return result

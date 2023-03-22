@@ -25,6 +25,14 @@ const TicketModal = ({id, action}) => {
     const [loading, setLoading] = useState(true)
     const [type, setType] = useState(0)
 
+    const sendAction = (action) => {
+        getData(`/${action}/${find}`).then((json) => {
+            if (json) {
+                setData(json)
+            }
+        })
+    }
+
     const handleSubmit = (event) => {
         event && event.preventDefault();
 
@@ -120,234 +128,249 @@ const TicketModal = ({id, action}) => {
                         {
                             step === 1 &&
                             <>
-                            {
-                            loading
-                                ?
-                                    <Loader
-                                        type={'block'}
-                                        background={'transparent'}
-                                    />
-                                :
-                                    <>
-                                        <div
-                                            className={
-                                                classNames(
-                                                    style.state,
-                                                    data.paid === '1' && style['paid'],
-                                                    data.status === "CANCELLED" && style['cancelled']
-                                                )
-                                            }
-                                        />
-                                        <div className={style.wrapper}>
-                                            <div className={style.title}>Details</div>
-                                            <div
-                                                className={
-                                                    classNames(
-                                                        style.table,
-                                                        style.left,
-                                                        style.sm
-                                                    )
-                                                }
-                                            >
-                                                <div className={style.row}>
-                                                    <div className={style.cell}>Ticket Number</div>
-                                                    <div className={style.cell}>{data.id}</div>
-                                                    <div className={style.cell}>Total stake</div>
-                                                    <div className={style.cell}>{settings.account.symbol} {data.amount}</div>
-                                                </div>
-                                                <div className={style.row}>
-                                                    <div className={style.cell}>Book time</div>
-                                                    <div className={style.cell}>{getDateTime(data.placed, 1)}</div>
-                                                    <div className={style.cell}>Jackpot</div>
-                                                    <div className={style.cell}></div>
-                                                </div>
-                                                <div className={style.row}>
-                                                    <div className={style.cell}>Selections</div>
-                                                    <div className={style.cell}>{data.bets.length}</div>
-                                                    <div className={style.cell}>Total payout</div>
-                                                    <div className={style.cell}>{data.payout && `${settings.account.symbol} ${data.payout}`}</div>
-                                                </div>
-                                                <div className={style.row}>
-                                                    <div className={style.cell}>Ticket type</div>
-                                                    <div className={style.cell}>{data.group.length ? 'System': 'Single' }</div>
-                                                    <div className={style.cell}>Winning tax</div>
-                                                    <div className={style.cell}>{data.tax}</div>
-                                                </div>
-                                                <div className={style.row}>
-                                                    <div className={style.cell}>Status</div>
-                                                    <div className={style.cell}>
-                                                        <div
-                                                            className={
-                                                                classNames(
-                                                                    style.status,
-                                                                    style[data.status.toLowerCase()]
-                                                                )
-                                                            }
-                                                        />
-                                                        {data.status}
-                                                    </div>
-                                                    <div className={style.cell}>Net payout</div>
-                                                    <div className={style.cell}>{data.payout && `${settings.account.symbol} ${data.payout}`}</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        {
-                                            type === 1 &&
-                                            <div className={style.wrapper}>
-                                                <div className={style.title}>System details</div>
+                                {
+                                    loading
+                                        ?
+                                            <Loader
+                                                type={'block'}
+                                                background={'transparent'}
+                                            />
+                                        :
+                                            <>
                                                 <div
                                                     className={
                                                         classNames(
-                                                            style.table,
-                                                            style.center,
-                                                            style.lg
+                                                            style.state,
+                                                            data.paid === '1' && style['paid'],
+                                                            data.status === "CANCELLED" && style['cancelled']
                                                         )
                                                     }
                                                 >
+                                                    {
+                                                        data.paid === '1'
+                                                            ?
+                                                            <img
+                                                                src={'/img/paid.png'}
+                                                                alt={'Paid'}
+                                                            />
+                                                            :
+                                                            <img
+                                                                src={'/img/cancelled.png'}
+                                                                alt={'Paid'}
+                                                            />
+                                                    }
+
+                                                </div>
+                                                <div className={style.wrapper}>
+                                                    <div className={style.title}>Details</div>
                                                     <div
                                                         className={
                                                             classNames(
-                                                                style.row,
-                                                                style.head
+                                                                style.table,
+                                                                style.left,
+                                                                style.sm
                                                             )
                                                         }
                                                     >
-                                                        <div className={style.cell}>GR</div>
-                                                        <div className={style.cell}>Combi</div>
-                                                        <div className={style.cell}>Stake</div>
-                                                        <div className={style.cell}>Pot. MIN Win</div>
-                                                        <div className={style.cell}>Pot. MAX Win</div>
-                                                        <div className={style.cell}>Win</div>
-                                                        <div className={style.cell}>Bonus</div>
-                                                    </div>
-                                                    {
-                                                        data.group.map((el, idx) =>
-                                                            <div
-                                                                key={idx}
-                                                                className={style.row}
-                                                            >
-                                                                <div className={style.cell}>{el.group}</div>
-                                                                <div className={style.cell}>{el.combi}</div>
-                                                                <div className={style.cell}>
-                                                                    {el.combi} x {settings.account.symbol} {el.amount} = {settings.account.symbol} {el.combi * el.unit}
-                                                                </div>
-                                                                <div className={style.cell}>{settings.account.symbol} {el.minwin.toFixed(2)}</div>
-                                                                <div className={style.cell}>{settings.account.symbol} {el.maxwin.toFixed(2)}</div>
-                                                                <div className={style.cell}>{el.win && `${settings.account.symbol} ${ data.win || 0}`}</div>
-                                                                <div className={style.cell}></div>
-                                                            </div>
-                                                        )
-                                                    }
-                                                </div>
-                                            </div>
-                                        }
-                                        <div className={style.wrapper}>
-                                            <div className={style.title}>Bet list</div>
-                                            <div
-                                                className={
-                                                    classNames(
-                                                        style.table,
-                                                        style.center,
-                                                        style[type === 0 ? 'single' : 'system']
-                                                    )
-                                                }
-                                            >
-                                                <div
-                                                    className={
-                                                        classNames(
-                                                            style.row,
-                                                            style.head
-                                                        )
-                                                    }
-                                                >
-                                                    <div className={style.cell}>Time</div>
-                                                    <div className={style.cell}>Selection</div>
-                                                    <div className={style.cell}>Event result</div>
-                                                    <div className={style.cell}>Outcome</div>
-                                                    <div className={style.cell}>Max odds</div>
-                                                    {
-                                                        type === 0
-                                                            ?
-                                                            <>
-                                                                <div className={style.cell}>Stake</div>
-                                                                <div className={style.cell}>Win</div>
-                                                            </>
-                                                            :
-                                                            <>
-                                                                <div className={style.cell}>Win odds</div>
-                                                            </>
-                                                    }
-                                                </div>
-                                                {
-                                                    data.bets.map((el, idx) =>
-                                                        <div
-                                                            key={idx}
-                                                            className={style.row}
-                                                        >
-                                                            <div className={style.cell}>{getDateTime(el.details.start, 0)}</div>
-                                                            <div
-                                                                className={
-                                                                    classNames(
-                                                                        style.cell,
-                                                                        style.left
-                                                                    )
-                                                                }
-                                                            >
-                                                                <div className={style.icon}>
-                                                                    <Icon id={getIcon(el.type)} />
-                                                                </div>
-                                                                <div className={style.scoreboard}>{el.details.pos}.{el.details.teams.home}-{el.details.teams.away}</div>
-                                                                {el.market}: {el.selection}
-                                                            </div>
+                                                        <div className={style.row}>
+                                                            <div className={style.cell}>Ticket Number</div>
+                                                            <div className={style.cell}>{data.id}</div>
+                                                            <div className={style.cell}>Total stake</div>
+                                                            <div className={style.cell}>{settings.account.symbol} {data.amount}</div>
+                                                        </div>
+                                                        <div className={style.row}>
+                                                            <div className={style.cell}>Book time</div>
+                                                            <div className={style.cell}>{getDateTime(data.placed, 1)}</div>
+                                                            <div className={style.cell}>Jackpot</div>
+                                                            <div className={style.cell}></div>
+                                                        </div>
+                                                        <div className={style.row}>
+                                                            <div className={style.cell}>Selections</div>
+                                                            <div className={style.cell}>{data.bets.length}</div>
+                                                            <div className={style.cell}>Total payout</div>
+                                                            <div className={style.cell}>{data.payout && `${settings.account.symbol} ${data.payout}`}</div>
+                                                        </div>
+                                                        <div className={style.row}>
+                                                            <div className={style.cell}>Ticket type</div>
+                                                            <div className={style.cell}>{data.group.length ? 'System': 'Single' }</div>
+                                                            <div className={style.cell}>Winning tax</div>
+                                                            <div className={style.cell}>{data.tax}</div>
+                                                        </div>
+                                                        <div className={style.row}>
+                                                            <div className={style.cell}>Status</div>
                                                             <div className={style.cell}>
-                                                                <div className={style.score}>
-                                                                    {
-                                                                        el.status !== 'MANUALLY_CANCELLED' &&
-                                                                        el.details.results &&
-                                                                        el.details.results.map((el, idx) =>
-                                                                            <span key={idx}>{el}</span>
-                                                                        )
-                                                                    }
-                                                                </div>
-                                                            </div>
-                                                            <div
-                                                                className={
-                                                                    classNames(
-                                                                        style.cell,
-                                                                        style.left
-                                                                    )
-                                                                }
-                                                            >
                                                                 <div
                                                                     className={
                                                                         classNames(
                                                                             style.status,
-                                                                            style[el.status.toLowerCase()]
+                                                                            style[data.status.toLowerCase()]
                                                                         )
                                                                     }
                                                                 />
-                                                                {el.status}
+                                                                {data.status}
                                                             </div>
-                                                            <div className={style.cell}>{el.odds}</div>
+                                                            <div className={style.cell}>Net payout</div>
+                                                            <div className={style.cell}>{data.payout && `${settings.account.symbol} ${data.payout}`}</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                {
+                                                    type === 1 &&
+                                                    <div className={style.wrapper}>
+                                                        <div className={style.title}>System details</div>
+                                                        <div
+                                                            className={
+                                                                classNames(
+                                                                    style.table,
+                                                                    style.center,
+                                                                    style.lg
+                                                                )
+                                                            }
+                                                        >
+                                                            <div
+                                                                className={
+                                                                    classNames(
+                                                                        style.row,
+                                                                        style.head
+                                                                    )
+                                                                }
+                                                            >
+                                                                <div className={style.cell}>GR</div>
+                                                                <div className={style.cell}>Combi</div>
+                                                                <div className={style.cell}>Stake</div>
+                                                                <div className={style.cell}>Pot. MIN Win</div>
+                                                                <div className={style.cell}>Pot. MAX Win</div>
+                                                                <div className={style.cell}>Win</div>
+                                                                <div className={style.cell}>Bonus</div>
+                                                            </div>
+                                                            {
+                                                                data.group.map((el, idx) =>
+                                                                    <div
+                                                                        key={idx}
+                                                                        className={style.row}
+                                                                    >
+                                                                        <div className={style.cell}>{el.group}</div>
+                                                                        <div className={style.cell}>{el.combi}</div>
+                                                                        <div className={style.cell}>
+                                                                            {el.combi} x {settings.account.symbol} {el.amount} = {settings.account.symbol} {el.combi * el.unit}
+                                                                        </div>
+                                                                        <div className={style.cell}>{settings.account.symbol} {el.minwin.toFixed(2)}</div>
+                                                                        <div className={style.cell}>{settings.account.symbol} {el.maxwin.toFixed(2)}</div>
+                                                                        <div className={style.cell}>{el.win && `${settings.account.symbol} ${ data.win || 0}`}</div>
+                                                                        <div className={style.cell}></div>
+                                                                    </div>
+                                                                )
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                }
+                                                <div className={style.wrapper}>
+                                                    <div className={style.title}>Bet list</div>
+                                                    <div
+                                                        className={
+                                                            classNames(
+                                                                style.table,
+                                                                style.center,
+                                                                style[type === 0 ? 'single' : 'system']
+                                                            )
+                                                        }
+                                                    >
+                                                        <div
+                                                            className={
+                                                                classNames(
+                                                                    style.row,
+                                                                    style.head
+                                                                )
+                                                            }
+                                                        >
+                                                            <div className={style.cell}>Time</div>
+                                                            <div className={style.cell}>Selection</div>
+                                                            <div className={style.cell}>Event result</div>
+                                                            <div className={style.cell}>Outcome</div>
+                                                            <div className={style.cell}>Max odds</div>
                                                             {
                                                                 type === 0
                                                                     ?
                                                                     <>
-                                                                        <div className={style.cell}>{settings.account.symbol} {el.amount}</div>
-                                                                        <div className={style.cell}>{el.win && `${settings.account.symbol} ${ data.win || 0}`}</div>
+                                                                        <div className={style.cell}>Stake</div>
+                                                                        <div className={style.cell}>Win</div>
                                                                     </>
                                                                     :
                                                                     <>
-                                                                        <div className={style.cell}>{el.resOdds}</div>
+                                                                        <div className={style.cell}>Win odds</div>
                                                                     </>
                                                             }
                                                         </div>
-                                                    )
-                                                }
-                                            </div>
-                                        </div>
-                                    </>
-                            }
+                                                        {
+                                                            data.bets.map((el, idx) =>
+                                                                <div
+                                                                    key={idx}
+                                                                    className={style.row}
+                                                                >
+                                                                    <div className={style.cell}>{getDateTime(el.details.start, 0)}</div>
+                                                                    <div
+                                                                        className={
+                                                                            classNames(
+                                                                                style.cell,
+                                                                                style.left
+                                                                            )
+                                                                        }
+                                                                    >
+                                                                        <div className={style.icon}>
+                                                                            <Icon id={getIcon(el.type)} />
+                                                                        </div>
+                                                                        <div className={style.scoreboard}>{el.details.pos}.{el.details.teams.home}-{el.details.teams.away}</div>
+                                                                        {el.market}: {el.selection}
+                                                                    </div>
+                                                                    <div className={style.cell}>
+                                                                        <div className={style.score}>
+                                                                            {
+                                                                                el.status !== 'MANUALLY_CANCELLED' &&
+                                                                                el.details.results &&
+                                                                                el.details.results.map((el, idx) =>
+                                                                                    <span key={idx}>{el}</span>
+                                                                                )
+                                                                            }
+                                                                        </div>
+                                                                    </div>
+                                                                    <div
+                                                                        className={
+                                                                            classNames(
+                                                                                style.cell,
+                                                                                style.left
+                                                                            )
+                                                                        }
+                                                                    >
+                                                                        <div
+                                                                            className={
+                                                                                classNames(
+                                                                                    style.status,
+                                                                                    style[el.status.toLowerCase()]
+                                                                                )
+                                                                            }
+                                                                        />
+                                                                        {el.status}
+                                                                    </div>
+                                                                    <div className={style.cell}>{el.odds}</div>
+                                                                    {
+                                                                        type === 0
+                                                                            ?
+                                                                            <>
+                                                                                <div className={style.cell}>{settings.account.symbol} {el.amount}</div>
+                                                                                <div className={style.cell}>{el.win && `${settings.account.symbol} ${ data.win || 0}`}</div>
+                                                                            </>
+                                                                            :
+                                                                            <>
+                                                                                <div className={style.cell}>{el.resOdds}</div>
+                                                                            </>
+                                                                    }
+                                                                </div>
+                                                            )
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </>
+                                }
                             </>
                         }
                     </div>
@@ -368,6 +391,9 @@ const TicketModal = ({id, action}) => {
                                     type={'blue'}
                                     size={'lg'}
                                     icon={'cancelled'}
+                                    action={() => {
+                                        sendAction('cancel')
+                                    }}
                                 />
                             </div>
                         }
@@ -386,6 +412,9 @@ const TicketModal = ({id, action}) => {
                                     type={'olive'}
                                     size={'lg'}
                                     icon={'dollar'}
+                                    action={() => {
+                                        sendAction('payout')
+                                    }}
                                 />
                             </div>
                         }
@@ -400,7 +429,10 @@ const TicketModal = ({id, action}) => {
                             <Button
                                 type={'red'}
                                 size={'lg'}
-                                icon={'trash'}
+                                icon={'close'}
+                                action={() => {
+                                    action(false)
+                                }}
                             />
                         </div>
                     </div>

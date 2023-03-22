@@ -1,27 +1,29 @@
 import {useRef, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 
+import {printMode, oddsType} from "constant/config";
+
 import classNames from "classnames";
 
-import {setSetting} from "store/actions/settingAction";
 import {deleteBetslip} from "store/actions/betslipAction";
 
 import Button from "components/Button";
 
 import style from './index.module.scss';
 
-const SettingsModal = () => {
+const SettingsModal = ({action}) => {
     const dispatch = useDispatch()
-    const {setting} = useSelector((state) => state.setting)
-    const [preview, setPreview] = useState(setting)
+    const {settings} = useSelector((state) => state.settings)
     const [loading, setLoading] = useState(false)
 
     const printingRef = useRef(0)
     const stakeRef = useRef(0)
 
+    console.log(settings)
+
     const handleChange = (idx, value) => {
-        preview[idx] = value
-        dispatch(setSetting(preview))
+        // preview[idx] = value
+        // dispatch(setSetting(preview))
     }
 
     const save = (ref, idx) => {
@@ -39,13 +41,7 @@ const SettingsModal = () => {
     }
 
     return (
-        <div className={
-                classNames(
-                    style.block,
-                    setting.show && style.active
-                )
-            }
-        >
+        <div className={style.block}>
             <div className={style.wrapper}>
                 <div className={style.header}>
                     <p>General settings</p>
@@ -62,12 +58,33 @@ const SettingsModal = () => {
                             size={'sm'}
                             icon={'close'}
                             action={() => {
-                                handleChange('show', false)
+                                action(false)
                             }}
                         />
                     </div>
                 </div>
                 <div className={style.body}>
+                    <div className={style.container}>
+                        <div
+                            className={
+                                classNames(
+                                    style.table,
+                                    style.sm
+                                )
+                            }
+                        >
+                            <div className={style.row}>
+                                <div className={style.cell}>Username</div>
+                                <div className={style.cell}>{settings.username}</div>
+                                <div className={style.cell}>Change password</div>
+                            </div>
+                            <div className={style.row}>
+                                <div className={style.cell}>Language</div>
+                                <div className={style.cell}>En</div>
+                                <div className={style.cell} />
+                            </div>
+                        </div>
+                    </div>
                     <div className={style.container}>
                         <div className={style.title}>
                             <span>Settings</span>
@@ -76,7 +93,8 @@ const SettingsModal = () => {
                                 <p className={style.notification}>Saved!</p>
                             }
                         </div>
-                        <div className={
+                        <div
+                            className={
                                 classNames(
                                     style.table,
                                     style.lg
@@ -89,11 +107,10 @@ const SettingsModal = () => {
                                     <select
                                         className={style.select}
                                         ref={printingRef}
-                                        defaultValue={setting['printing-mode']}
                                     >
-                                        <option value={1}>Pos not installed</option>
-                                        <option value={2}>Web print</option>
-                                        <option value={3}>Disabled</option>
+                                        <option value={printMode.POS}>Pos not installed</option>
+                                        <option value={printMode.WEB_PRINT}>Web print</option>
+                                        <option value={printMode.DISABLED}>Disabled</option>
                                     </select>
                                 </div>
                                 <div className={style.cell}></div>
@@ -123,10 +140,9 @@ const SettingsModal = () => {
                                     <select
                                         className={style.select}
                                         ref={stakeRef}
-                                        defaultValue={setting['stake-mode']}
                                     >
-                                        <option value={1}>Per bet</option>
-                                        <option value={2}>Per group</option>
+                                        <option value={oddsType.PER_BET}>Per bet</option>
+                                        <option value={oddsType.PER_GROUP}>Per group</option>
                                     </select>
                                 </div>
                                 <div className={style.cell}></div>
@@ -171,7 +187,7 @@ const SettingsModal = () => {
                                         <Button
                                             type={'green'}
                                             size={'sm'}
-                                            icon={'print'}
+                                            icon={'repeat-print'}
                                         />
                                     </div>
                                 </div>

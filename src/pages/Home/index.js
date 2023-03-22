@@ -8,7 +8,6 @@ import Nav from "components/Nav";
 
 import Table from "modules/Soccer/Table";
 import Betslip from "modules/Betslip";
-import SettingsModal from "modules/SettingsModal";
 import Notification from "modules/Notification";
 
 import style from './index.module.scss';
@@ -41,7 +40,6 @@ const Home = () => {
                                 <Betslip />
                             </div>
                         </div>
-                        <SettingsModal />
                         {
                             notification &&
                             <Notification

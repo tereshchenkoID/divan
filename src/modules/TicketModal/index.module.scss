@@ -273,13 +273,4 @@
   &.paid {
     display: block;
   }
-
-  &.system_cancelled,
-  &.cancelled {
-    background-image: url('https://365virtual.co/client/ShopClientJS/dist/images/wm-cancelled.6365a9358531e0f.png');
-  }
-
-  &.paid {
-    background-image: url('https://365virtual.co/client/ShopClientJS/dist/images/wm-paid.73c473fdefe63b7.png');
-  }
 }
