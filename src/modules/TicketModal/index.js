@@ -1,11 +1,13 @@
 import {useEffect, useState} from "react";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
 import classNames from "classnames";
 
 import {getIcon} from "helpers/getIcon";
 import {getData} from "helpers/api";
 import {getDateTime} from "helpers/getDateTime";
+
+import {setNotification} from "store/actions/notificationAction";
 
 import Loader from "components/Loader";
 import Icon from "components/Icon";
@@ -14,6 +16,7 @@ import Button from "components/Button";
 import style from './index.module.scss';
 
 const TicketModal = ({id, action}) => {
+    const dispatch = useDispatch()
     const {settings} = useSelector((state) => state.settings)
 
     const [init, setInit] = useState(false)
@@ -21,7 +24,6 @@ const TicketModal = ({id, action}) => {
     const [find, setFind] = useState(id || 0)
     const [step, setStep] = useState(id ? 1 : 0)
 
-    const [error, setError] = useState(false)
     const [loading, setLoading] = useState(true)
     const [type, setType] = useState(0)
 
@@ -37,14 +39,18 @@ const TicketModal = ({id, action}) => {
         event && event.preventDefault();
 
         getData(`/details/${find}`).then((json) => {
-            if (json) {
+            if (json.hasOwnProperty('stake')) {
+                console.log(json)
                 setData(json)
                 setStep(1)
                 setLoading(false)
-                setType(json.group.length > 0 ? 1 : 0)
+                setType(json.stake.group.length > 0 ? 1 : 0)
             }
             else {
-                setError(true)
+                dispatch(setNotification('Ticket not found'))
+                setTimeout(() => {
+                    dispatch(setNotification(null))
+                }, 2000)
             }
         })
     }
@@ -92,10 +98,6 @@ const TicketModal = ({id, action}) => {
                             step === 0 &&
                             <>
                                 <div className={style.title}>Enter you ticket number</div>
-                                {
-                                    error &&
-                                    <div className={style.error}>Invalid ticket number</div>
-                                }
                                 <form
                                     className={style.form}
                                     onSubmit={handleSubmit}
@@ -105,7 +107,7 @@ const TicketModal = ({id, action}) => {
                                         className={style.field}
                                         onChange={(e) => {
                                             setFind(e.target.value || '')
-                                            setError(false)
+                                            dispatch(setNotification(null))
                                         }}
                                     />
                                     <div
@@ -141,13 +143,13 @@ const TicketModal = ({id, action}) => {
                                                     className={
                                                         classNames(
                                                             style.state,
-                                                            data.paid === '1' && style['paid'],
-                                                            data.status === "CANCELLED" && style['cancelled']
+                                                            data.stake.paid === '1' && style['paid'],
+                                                            data.stake.status === "CANCELLED" && style['cancelled']
                                                         )
                                                     }
                                                 >
                                                     {
-                                                        data.paid === '1'
+                                                        data.stake.paid === '1'
                                                             ?
                                                             <img
                                                                 src={'/img/paid.png'}
@@ -174,27 +176,27 @@ const TicketModal = ({id, action}) => {
                                                     >
                                                         <div className={style.row}>
                                                             <div className={style.cell}>Ticket Number</div>
-                                                            <div className={style.cell}>{data.id}</div>
+                                                            <div className={style.cell}>{data.stake.id}</div>
                                                             <div className={style.cell}>Total stake</div>
-                                                            <div className={style.cell}>{settings.account.symbol} {data.amount}</div>
+                                                            <div className={style.cell}>{settings.account.symbol} {data.stake.amount}</div>
                                                         </div>
                                                         <div className={style.row}>
                                                             <div className={style.cell}>Book time</div>
-                                                            <div className={style.cell}>{getDateTime(data.placed, 1)}</div>
+                                                            <div className={style.cell}>{getDateTime(data.stake.placed, 1)}</div>
                                                             <div className={style.cell}>Jackpot</div>
                                                             <div className={style.cell}></div>
                                                         </div>
                                                         <div className={style.row}>
                                                             <div className={style.cell}>Selections</div>
-                                                            <div className={style.cell}>{data.bets.length}</div>
+                                                            <div className={style.cell}>{data.stake.bets.length}</div>
                                                             <div className={style.cell}>Total payout</div>
-                                                            <div className={style.cell}>{data.payout && `${settings.account.symbol} ${data.payout}`}</div>
+                                                            <div className={style.cell}>{data.stake.payout && `${settings.account.symbol} ${data.stake.payout}`}</div>
                                                         </div>
                                                         <div className={style.row}>
                                                             <div className={style.cell}>Ticket type</div>
-                                                            <div className={style.cell}>{data.group.length ? 'System': 'Single' }</div>
+                                                            <div className={style.cell}>{data.stake.group.length ? 'System': 'Single' }</div>
                                                             <div className={style.cell}>Winning tax</div>
-                                                            <div className={style.cell}>{data.tax}</div>
+                                                            <div className={style.cell}>{data.stake.tax}</div>
                                                         </div>
                                                         <div className={style.row}>
                                                             <div className={style.cell}>Status</div>
@@ -203,14 +205,14 @@ const TicketModal = ({id, action}) => {
                                                                     className={
                                                                         classNames(
                                                                             style.status,
-                                                                            style[data.status.toLowerCase()]
+                                                                            style[data.stake.status.toLowerCase()]
                                                                         )
                                                                     }
                                                                 />
-                                                                {data.status}
+                                                                {data.stake.status}
                                                             </div>
                                                             <div className={style.cell}>Net payout</div>
-                                                            <div className={style.cell}>{data.payout && `${settings.account.symbol} ${data.payout}`}</div>
+                                                            <div className={style.cell}>{data.stake.payout && `${settings.account.symbol} ${data.stake.payout}`}</div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -244,7 +246,7 @@ const TicketModal = ({id, action}) => {
                                                                 <div className={style.cell}>Bonus</div>
                                                             </div>
                                                             {
-                                                                data.group.map((el, idx) =>
+                                                                data.stake.group.map((el, idx) =>
                                                                     <div
                                                                         key={idx}
                                                                         className={style.row}
@@ -256,7 +258,7 @@ const TicketModal = ({id, action}) => {
                                                                         </div>
                                                                         <div className={style.cell}>{settings.account.symbol} {el.minwin.toFixed(2)}</div>
                                                                         <div className={style.cell}>{settings.account.symbol} {el.maxwin.toFixed(2)}</div>
-                                                                        <div className={style.cell}>{el.win && `${settings.account.symbol} ${ data.win || 0}`}</div>
+                                                                        <div className={style.cell}>{el.win && `${settings.account.symbol} ${ data.stake.win || 0}`}</div>
                                                                         <div className={style.cell}></div>
                                                                     </div>
                                                                 )
@@ -302,7 +304,7 @@ const TicketModal = ({id, action}) => {
                                                             }
                                                         </div>
                                                         {
-                                                            data.bets.map((el, idx) =>
+                                                            data.stake.bets.map((el, idx) =>
                                                                 <div
                                                                     key={idx}
                                                                     className={style.row}
@@ -357,7 +359,7 @@ const TicketModal = ({id, action}) => {
                                                                             ?
                                                                             <>
                                                                                 <div className={style.cell}>{settings.account.symbol} {el.amount}</div>
-                                                                                <div className={style.cell}>{el.win && `${settings.account.symbol} ${ data.win || 0}`}</div>
+                                                                                <div className={style.cell}>{el.win && `${settings.account.symbol} ${ data.stake.win || 0}`}</div>
                                                                             </>
                                                                             :
                                                                             <>
@@ -376,9 +378,10 @@ const TicketModal = ({id, action}) => {
                     </div>
                     {
                         step === 1 &&
+                        !loading &&
                         <div className={style.footer}>
                         {
-                            data.status === 'OPEN' &&
+                            data.stake.status === 'OPEN' &&
                             <div
                                 className={
                                     classNames(
@@ -398,8 +401,8 @@ const TicketModal = ({id, action}) => {
                             </div>
                         }
                         {
-                            data.status === 'WIN' &&
-                            data.paid === '0' &&
+                            data.stake.status === 'WIN' &&
+                            data.stake.paid === '0' &&
                             <div
                                 className={
                                     classNames(

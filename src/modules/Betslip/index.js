@@ -2,7 +2,7 @@ import {useEffect, useState, useRef} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import { useReactToPrint } from 'react-to-print';
 
-import {oddsType} from "constant/config";
+import {printMode, oddsType} from "constant/config";
 
 import {getMinMaxOdd, getBetMaxSingle, getTotalStakeSystem, getTotalStakeSingle, getSystemCombination, getSystemBetMinMaxSystem} from 'hooks/useStake'
 
@@ -10,7 +10,7 @@ import {deleteBetslip} from "store/actions/betslipAction";
 import {setStake} from "store/actions/stakeAction";
 import {setTicket} from "store/actions/ticketAction";
 import {setBalance} from "store/actions/balanceAction";
-import {postData} from "helpers/api";
+import {getData, postData} from "helpers/api";
 
 import {setNotification} from "store/actions/notificationAction";
 
@@ -87,15 +87,14 @@ const Betslip = () => {
                 }
             }
 
-
             const min = stake[0].type === 1 ? settings.betslip.system.min : settings.betslip.single.min
             const max = stake[0].type === 1 ? settings.betslip.system.max : settings.betslip.single.max
 
 
             postData('/placebet', JSON.stringify(a))
                 .then((json) => {
-                    if (json) {
-                        if (settings.print.mode === "WEB_PRINT" && settings.print.payout) {
+                    if (!json.data) {
+                        if (settings.print.mode === printMode.WEB_PRINT && settings.print.payout) {
                             setResponse(json)
                         }
 
@@ -122,6 +121,23 @@ const Betslip = () => {
                 dispatch(setNotification(null))
             }, 2000)
         }
+    }
+
+    const repeatPrint = () => {
+        getData(`/reprint`).then((json) => {
+            if (!json.data) {
+                if (settings.print.mode === printMode.WEB_PRINT && settings.print.payout) {
+                    setResponse(json)
+                }
+            }
+            else {
+                dispatch(setNotification('Ticket not found.'))
+
+                setTimeout(() => {
+                    dispatch(setNotification(null))
+                }, 2000)
+            }
+        })
     }
 
     const systemHandler = () => {
@@ -351,6 +367,9 @@ const Betslip = () => {
                         type={'blue'}
                         size={'lg'}
                         icon={'repeat-print'}
+                        action={() => {
+                            repeatPrint()
+                        }}
                     />
                 </div>
                 <div className={style.button}>

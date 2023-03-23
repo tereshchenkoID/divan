@@ -18,8 +18,13 @@ const Home = () => {
     const {notification} = useSelector((state) => state.notification)
 
     useEffect(() => {
-        dispatch(setSettings()).then(() => {
-            setLoading(false)
+        dispatch(setSettings()).then((json) => {
+            if (json.hasOwnProperty('data')) {
+                sessionStorage.clear()
+            }
+            else {
+                setLoading(false)
+            }
         })
     }, []);
 

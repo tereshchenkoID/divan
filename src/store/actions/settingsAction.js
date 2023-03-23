@@ -11,6 +11,8 @@ export const setSettings = () => async dispatch => {
             type: types.SET_SETTINGS,
             payload: data,
         })
+
+        return data
     }
     catch (e) {
         console.log(e)

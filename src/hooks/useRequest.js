@@ -18,7 +18,7 @@ export const useRequest = (type = 'account') => {
       })
       return await req.data
     } catch (e) {
-      return e.response.status
+      return e.response
     }
   }
 
@@ -32,8 +32,7 @@ export const useRequest = (type = 'account') => {
       })
       return await req.data
     } catch (e) {
-      console.log(e)
-      return e.response.status
+      return e.response
     }
   }
 

@@ -68,12 +68,6 @@
   @include flex;
 }
 
-.error {
-  @include make-spacer('mb', 4);
-
-  color: var(--color-red);
-}
-
 .field {
   @include make-spacer('px', 2);
   @include make-spacer('mr', 2);

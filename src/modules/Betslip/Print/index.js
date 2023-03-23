@@ -8,6 +8,8 @@ import style from './index.module.scss';
 export const Print = React.forwardRef((data, ref) => {
     const {settings} = useSelector((state) => state.settings)
 
+    console.log(data)
+
     return (
         <div
             className={style.block}
@@ -95,7 +97,7 @@ export const Print = React.forwardRef((data, ref) => {
                     </li>
                     <li>
                         <div>Min/Max win: </div>
-                        <div>{settings.account.symbol} {data.data.stake.minwin.toFixed(2)} / {settings.account.symbol} {data.data.stake.maxwin.toFixed(2)}</div>
+                        <div>{settings.account.symbol} {data.data.stake.minwin ? data.data.stake.minwin.toFixed(2) : 0} / {settings.account.symbol} {data.data.stake.maxwin ? data.data.stake.maxwin.toFixed(2) : 0}</div>
                     </li>
                 </ul>
             </div>

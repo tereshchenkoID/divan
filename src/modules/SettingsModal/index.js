@@ -1,47 +1,89 @@
-import {useRef, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 
 import {printMode, oddsType} from "constant/config";
 
 import classNames from "classnames";
 
+import {getData, postData} from "helpers/api";
 import {deleteBetslip} from "store/actions/betslipAction";
+import {setNotification} from "store/actions/notificationAction";
 
 import Button from "components/Button";
 
 import style from './index.module.scss';
+import {Print} from "../Betslip/Print";
+import {useReactToPrint} from "react-to-print";
 
 const SettingsModal = ({action}) => {
     const dispatch = useDispatch()
     const {settings} = useSelector((state) => state.settings)
-    const [loading, setLoading] = useState(false)
+    const [response, setResponse] = useState(null)
 
     const printingRef = useRef(0)
     const stakeRef = useRef(0)
-
-    console.log(settings)
-
-    const handleChange = (idx, value) => {
-        // preview[idx] = value
-        // dispatch(setSetting(preview))
-    }
+    const printRef = useRef('0')
+    const componentRef = useRef();
 
     const save = (ref, idx) => {
-        setLoading(true)
 
         if (ref === stakeRef) {
             dispatch(deleteBetslip([]))
         }
 
-        handleChange(idx, parseInt(ref.current.value, 10))
+        postData('/config', JSON.stringify({
+                idx: ref.current.value
+            }))
+            .then((json) => {
+                if (json.code === 'OK') {
+                    setTimeout(() => {
+                        dispatch(setNotification('Saved successfully'))
+                    }, 1000)
+                }
+                 else {
+                    dispatch(setNotification('Something wrong'))
+                }
 
-        setTimeout(() => {
-            setLoading(false)
-        }, 1000)
+                setTimeout(() => {
+                    dispatch(setNotification(null))
+                }, 3000)
+            })
     }
+
+    const print = (ref) => {
+
+        getData(`/details/${ref.current.value}`).then((json) => {
+            if (json.hasOwnProperty('data')) {
+                dispatch(setNotification('Ticket not found.'))
+
+                setTimeout(() => {
+                    dispatch(setNotification(null))
+                }, 2000)
+            }
+            else {
+                if (settings.print.mode === printMode.WEB_PRINT && settings.print.payout) {
+                    setResponse(json)
+                }
+            }
+        })
+    }
+
+    const a = useReactToPrint({
+        content: () => componentRef.current,
+    })
+
+    useEffect(() => {
+        response && a()
+    }, [response])
 
     return (
         <div className={style.block}>
+            {
+                response &&
+                <div className={style.print}>
+                    <Print data={response} ref={componentRef} />
+                </div>
+            }
             <div className={style.wrapper}>
                 <div className={style.header}>
                     <p>General settings</p>
@@ -88,10 +130,6 @@ const SettingsModal = ({action}) => {
                     <div className={style.container}>
                         <div className={style.title}>
                             <span>Settings</span>
-                            {
-                                loading &&
-                                <p className={style.notification}>Saved!</p>
-                            }
                         </div>
                         <div
                             className={
@@ -123,7 +161,7 @@ const SettingsModal = ({action}) => {
                                             )
                                         }
                                         onClick={() => {
-                                            save(printingRef, 'printing-mode')
+                                            save(printingRef, 'printMode')
                                         }}
                                     >
                                         <Button
@@ -155,7 +193,7 @@ const SettingsModal = ({action}) => {
                                             )
                                         }
                                         onClick={() => {
-                                            save(stakeRef, 'stake-mode')
+                                            save(stakeRef, 'betMode')
                                         }}
                                     >
                                         <Button
@@ -172,6 +210,7 @@ const SettingsModal = ({action}) => {
                                     <input
                                         type={"number"}
                                         className={style.input}
+                                        ref={printRef}
                                     />
                                 </div>
                                 <div className={style.cell}></div>
@@ -188,6 +227,9 @@ const SettingsModal = ({action}) => {
                                             type={'green'}
                                             size={'sm'}
                                             icon={'repeat-print'}
+                                            action={() => {
+                                                print(printRef)
+                                            }}
                                         />
                                     </div>
                                 </div>
