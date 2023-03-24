@@ -29,8 +29,15 @@ const TicketModal = ({id, action}) => {
 
     const sendAction = (action) => {
         getData(`/${action}/${find}`).then((json) => {
-            if (json) {
+            if (!json.data) {
                 setData(json)
+            }
+            else {
+                dispatch(setNotification('Ticket not found.'))
+
+                setTimeout(() => {
+                    dispatch(setNotification(null))
+                }, 2000)
             }
         })
     }

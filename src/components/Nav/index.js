@@ -8,7 +8,7 @@ import SettingsModal from "modules/SettingsModal";
 import ReportsModal from "modules/ReportsModal";
 import Button from "components/Button";
 import Clock from "./Clock";
-import Slider from "./Slider";
+import Games from "./Games";
 import Account from "./Account";
 
 import style from './index.module.scss';
@@ -23,7 +23,7 @@ const Nav = () => {
     return (
         <nav className={style.block}>
             <div className={style.tab}>
-                <Slider />
+                <Games />
             </div>
             <div className={style.setting}>
                 <div className={style.cell}>

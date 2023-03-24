@@ -93,6 +93,10 @@
   &:first-child {
     border-top: 0;
   }
+
+  &.lg {
+    height: auto;
+  }
 }
 
 .button {
@@ -102,6 +106,14 @@
     button {
       @include size(rem(35px)!important)
     }
+  }
+}
+
+.toggle {
+  color: var(--color-white);
+
+  &:hover {
+    color: var(--color-orange);
   }
 }
 
@@ -128,10 +140,6 @@
     -webkit-appearance: none;
     margin: 0;
   }
-}
-
-.notification {
-  color: var(--color-green);
 }
 
 .print {

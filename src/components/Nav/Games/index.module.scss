@@ -1,0 +1,81 @@
+@import "scss/config";
+
+.block {
+  @include size(rem(730px), rem(55px));
+
+  transform: translateY(rem(11px));
+}
+
+.button {
+  @include flex(center, center, column);
+  @include size(rem(90px), rem(50px));
+
+  padding-top: rem(5px);
+  padding-bottom: rem(9px);
+  border-radius: rem(10px);
+  background-color: var(--color-orange-900);
+  background: linear-gradient(360deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 100%);
+  font-size: rem(12px);
+  font-weight: var(--typography-bold);
+  text-transform: uppercase;
+  text-shadow: none;
+
+  &.active {
+    background-color: var(--color-yellow);
+  }
+}
+
+.icon {
+  @include make-spacer('mb', half);
+  @include size(rem(20px));
+}
+
+:global {
+
+  .slick-slider {
+    @include size(100%);
+
+    padding: 0 rem(15px);
+  }
+
+  .slick-list,
+  .slick-track,
+  .slick-slide {
+    @include size(100%);
+    overflow: hidden;
+  }
+
+  .slick-track {
+    @include flex($align-items: center);
+
+    overflow: hidden;
+    gap: rem(10px);
+  }
+
+  .slick-slide {
+  }
+
+  .slick-arrow {
+    @include make-spacer('m', 0);
+    @include size(rem(20px), rem(30px));
+
+    position: absolute;
+    top: rem(8px);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23000000' viewBox='0 0 32 32'%3E%3Cpath d='M11.303 8l11.394 7.997L11.303 24z'/%3E%3C/svg%3E");
+    background-size: cover;
+    font-size: 0;
+
+    &::after {
+      display: none;
+    }
+
+    &.slick-next {
+      right: 0;
+    }
+
+    &.slick-prev {
+      left: 0;
+      transform: scaleX(-1);
+    }
+  }
+}

@@ -1,5 +1,6 @@
 import {useEffect, useRef, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
+import {useReactToPrint} from "react-to-print";
 
 import {printMode, oddsType} from "constant/config";
 
@@ -10,15 +11,16 @@ import {deleteBetslip} from "store/actions/betslipAction";
 import {setNotification} from "store/actions/notificationAction";
 
 import Button from "components/Button";
+import {Print} from "modules/Print";
+import Password from "./Password";
 
 import style from './index.module.scss';
-import {Print} from "../Betslip/Print";
-import {useReactToPrint} from "react-to-print";
 
 const SettingsModal = ({action}) => {
     const dispatch = useDispatch()
     const {settings} = useSelector((state) => state.settings)
     const [response, setResponse] = useState(null)
+    const [showPassword, setShowPassword] = useState(false)
 
     const printingRef = useRef(0)
     const stakeRef = useRef(0)
@@ -118,13 +120,31 @@ const SettingsModal = ({action}) => {
                             <div className={style.row}>
                                 <div className={style.cell}>Username</div>
                                 <div className={style.cell}>{settings.username}</div>
-                                <div className={style.cell}>Change password</div>
+                                <div className={style.cell} />
                             </div>
                             <div className={style.row}>
                                 <div className={style.cell}>Language</div>
                                 <div className={style.cell}>En</div>
                                 <div className={style.cell} />
                             </div>
+                            <div className={style.row}>
+                                <div className={style.cell}>Password</div>
+                                <div className={style.cell}>
+                                    <button
+                                        className={style.toggle}
+                                        onClick={() => {
+                                            setShowPassword(!showPassword)
+                                        }}
+                                    >
+                                        Change password
+                                    </button>
+                                </div>
+                                <div className={style.cell} />
+                            </div>
+                            {
+                                showPassword &&
+                                <Password action={setShowPassword}/>
+                            }
                         </div>
                     </div>
                     <div className={style.container}>

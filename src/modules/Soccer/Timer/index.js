@@ -42,6 +42,7 @@ const Timer = ({data}) => {
         <div className={style.block}>
             {
                 live &&
+                data.start &&
                 <>
                     <div className={style.top}>
                         {

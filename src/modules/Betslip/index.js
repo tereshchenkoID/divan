@@ -21,8 +21,7 @@ import Tickets from "./Tickets";
 import Stakes from "./Stakes";
 import Bets from "./Bets";
 import Types from "./Types";
-
-import {Print} from './Print';
+import {Print} from 'modules/Print';
 
 import style from './index.module.scss';
 

@@ -1,9 +1,7 @@
 import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { FreeMode, Pagination, Navigation } from "swiper";
-import 'swiper/css';
+import Slider from "react-slick";
 
 import classNames from "classnames";
 
@@ -14,10 +12,18 @@ import Icon from "components/Icon";
 
 import style from './index.module.scss';
 
-const Slider = () => {
+const Games = () => {
     const dispatch = useDispatch()
     const {settings} = useSelector((state) => state.settings)
     const {game} = useSelector((state) => state.game)
+
+    const init = {
+        dots: true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 7,
+        slidesToScroll: 1
+    };
 
     useEffect(() => {
         dispatch(setGame(settings.games[0].id))
@@ -25,14 +31,10 @@ const Slider = () => {
 
     return (
         <div className={style.block}>
-            <Swiper
-                slidesPerView={7}
-                spaceBetween={10}
-                modules={[FreeMode, Pagination, Navigation]}
-            >
+            <Slider {...init}>
                 {
                     settings.games.map((el, idx) =>
-                        <SwiperSlide
+                        <div
                             key={idx}
                         >
                             <button
@@ -54,12 +56,12 @@ const Slider = () => {
                                     {el.name}
                                 </div>
                             </button>
-                        </SwiperSlide>
+                        </div>
                     )
                 }
-            </Swiper>
+            </Slider>
         </div>
     );
 }
 
-export default Slider;
+export default Games;
