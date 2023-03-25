@@ -71,7 +71,7 @@
 .field {
   @include make-spacer('px', 2);
   @include make-spacer('mr', 2);
-  @include size(100%, rem(35px));
+  @include size(100%, rem(38px));
 
   background-color: var(--color-black);
   border-radius: rem(5px);
@@ -193,6 +193,13 @@
 
     button {
       @include size(rem(35px)!important)
+    }
+  }
+
+  &.md {
+
+    button {
+      @include size(rem(38px)!important)
     }
   }
 

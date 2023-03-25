@@ -6,7 +6,6 @@ import classNames from "classnames";
 import {setLive} from "store/actions/liveAction";
 import {setData} from "store/actions/dataAction";
 import {setModal} from "store/actions/modalAction";
-import {setUpdate} from "store/actions/updateAction";
 
 import {matchStatus} from "constant/config";
 
@@ -104,10 +103,17 @@ const Table = () => {
     }, [live]);
 
     const checkStatus = (id) => {
-        dispatch(setUpdate(id)).then((json) => {
-            dispatch(setLive(conditionStatus(json.event)))
-            setFind(data.events[0])
+        const f = data.events.find(el => {
+            return el.id === id
         })
+
+        dispatch(setLive(conditionStatus(f)))
+        setFind(data.events[0])
+
+        // dispatch(setUpdate(id)).then((json) => {
+        //     dispatch(setLive(conditionStatus(json.event)))
+        //     setFind(data.events[0])
+        // })
     }
 
     const resetActiveElements = () => {

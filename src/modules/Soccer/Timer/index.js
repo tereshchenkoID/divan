@@ -1,8 +1,6 @@
 import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 
-import {deleteBetslip} from "store/actions/betslipAction";
-import {clearActiveBets} from "helpers/clearActiveBets";
 import {setUpdate} from "store/actions/updateAction";
 
 import convertTime from "helpers/convertTime";
@@ -16,7 +14,6 @@ import style from './index.module.scss';
 
 const Timer = ({data}) => {
     const dispatch = useDispatch()
-    const {betslip} = useSelector((state) => state.betslip)
     const {live} = useSelector((state) => state.live)
     const {update} = useSelector((state) => state.update)
     const {delta} = useSelector((state) => state.delta)
@@ -28,14 +25,6 @@ const Timer = ({data}) => {
         if (live === 2 || live === 3) {
             dispatch(setUpdate(data.id))
         }
-
-        if (live === 2) {
-            let a = clearActiveBets(betslip, data.id)
-            if (a) {
-                dispatch(deleteBetslip(a))
-            }
-        }
-
     }, [live]);
 
     return (
@@ -50,7 +39,6 @@ const Timer = ({data}) => {
                             <StartTimer
                                 start={data.start}
                                 delta={delta}
-                                id={data.id}
                             />
                         }
                         {

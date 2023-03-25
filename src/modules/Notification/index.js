@@ -1,4 +1,5 @@
 import {useDispatch} from "react-redux";
+import {useEffect} from "react";
 
 import {setNotification} from "store/actions/notificationAction";
 
@@ -8,6 +9,15 @@ import style from './index.module.scss';
 
 const Notification = ({text}) => {
     const dispatch = useDispatch()
+
+    useEffect(() => {
+
+        if (text.length > 0) {
+            setTimeout(() => {
+                dispatch(setNotification(null))
+            }, 3000)
+        }
+    }, [text])
 
     return (
         <div className={style.block}>

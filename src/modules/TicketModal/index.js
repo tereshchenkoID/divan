@@ -29,15 +29,11 @@ const TicketModal = ({id, action}) => {
 
     const sendAction = (action) => {
         getData(`/${action}/${find}`).then((json) => {
-            if (!json.data) {
+            if (json.hasOwnProperty('stake')) {
                 setData(json)
             }
             else {
-                dispatch(setNotification('Ticket not found.'))
-
-                setTimeout(() => {
-                    dispatch(setNotification(null))
-                }, 2000)
+                dispatch(setNotification(json.data.error_message || 'Ticket not found'))
             }
         })
     }
@@ -47,17 +43,13 @@ const TicketModal = ({id, action}) => {
 
         getData(`/details/${find}`).then((json) => {
             if (json.hasOwnProperty('stake')) {
-                console.log(json)
                 setData(json)
                 setStep(1)
                 setLoading(false)
                 setType(json.stake.group.length > 0 ? 1 : 0)
             }
             else {
-                dispatch(setNotification('Ticket not found'))
-                setTimeout(() => {
-                    dispatch(setNotification(null))
-                }, 2000)
+                dispatch(setNotification(json.data.error_message || 'Ticket not found'))
             }
         })
     }
@@ -110,25 +102,25 @@ const TicketModal = ({id, action}) => {
                                     onSubmit={handleSubmit}
                                 >
                                     <input
-                                        type={"text"}
+                                        type={"number"}
                                         className={style.field}
                                         onChange={(e) => {
                                             setFind(e.target.value || '')
-                                            dispatch(setNotification(null))
                                         }}
                                     />
                                     <div
                                         className={
                                             classNames(
                                                 style.button,
-                                                style.sm,
+                                                style.md,
                                             )
                                         }
                                     >
                                         <Button
                                             type={'green'}
-                                            size={'sm'}
+                                            size={'md'}
                                             icon={'search'}
+                                            props={'submit'}
                                         />
                                     </div>
                                 </form>

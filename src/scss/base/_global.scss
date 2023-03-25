@@ -47,3 +47,17 @@ img {
   object-fit: contain;
   object-position: center;
 }
+
+input[type="number"] {
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
+
+input,
+select {
+  font-size: rem(14px);
+}

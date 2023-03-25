@@ -9,7 +9,8 @@ const Loader = ({
     size,
     icon,
     text,
-    action
+    action,
+    props = 'button'
 }) => {
 
     return (
@@ -24,6 +25,7 @@ const Loader = ({
             onClick={() => {
                 action && action()
             }}
+            type={props}
             aria-label={icon}
         >
             {

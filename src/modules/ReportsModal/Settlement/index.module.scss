@@ -1,0 +1,83 @@
+@import "scss/config";
+
+.block {
+  border: 1px solid #a7a7a7;
+  border-radius: rem(5px);
+  overflow: hidden;
+  color: var(--color-white);
+}
+
+.header {
+  @include flex;
+
+  height: rem(50px);
+  border-bottom: 1px solid #a7a7a7;
+}
+
+.link {
+  flex: 1;
+  background-color: #272727;
+  color: rgba(255, 255, 255, 0.5);
+
+  &:hover {
+    color: var(--color-white);
+  }
+
+  &.active {
+    color: var(--color-orange);
+  }
+}
+
+.body {
+  @include make-spacer('p', 4);
+}
+
+.form,
+.table {
+  max-width: rem(500px);
+}
+
+.table {
+
+  .button {
+
+    button {
+      @include make-spacer('mr', 0);
+      @include make-spacer('ml', auto);
+
+      display: block;
+      width: rem(150px);
+    }
+  }
+}
+
+.stats {
+  @include make-spacer('mb', 2);
+}
+
+.form {
+  display: grid;
+  grid-template-columns: 1fr rem(150px);
+  gap: rem(10px);
+
+  .button {
+
+    button {
+      height: rem(45px);
+    }
+  }
+}
+
+.field {
+  @include make-spacer('px', 2);
+  @include size(100%, rem(45px));
+
+  background-color: var(--color-black);
+  border-radius: rem(5px);
+  border: 2px solid var(--color-orange);
+  color: var(--color-white);
+
+  &:focus {
+    outline: 0;
+  }
+}

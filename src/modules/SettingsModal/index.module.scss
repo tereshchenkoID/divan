@@ -13,12 +13,14 @@
 }
 
 .wrapper {
+  @include make-spacer('mx', auto);
   @include size(100%);
 
   background-color: var(--color-black);
   border-radius: rem(8px);
   border: rem(3px) solid var(--color-orange);
   overflow: hidden;
+  max-width: rem(1200px);
 }
 
 .header {
@@ -57,26 +59,13 @@
   border: 1px solid #a7a7a7;
   border-radius: rem(5px);
   overflow: hidden;
-
-  &.sm {
-
-    .row {
-      grid-template-columns: repeat(3, 1fr);
-    }
-  }
-
-  &.lg {
-
-    .row {
-      grid-template-columns: repeat(3, 1fr) 35px;
-    }
-  }
 }
 
 .row {
   @include make-spacer('px', 4);
 
   display: grid;
+  grid-template-columns: repeat(3, 1fr);
   column-gap: rem(10px);
   align-items: center;
   border-top: 1px solid #a7a7a7;
@@ -102,6 +91,7 @@
 .button {
 
   &.sm {
+    text-align: right;
 
     button {
       @include size(rem(35px)!important)

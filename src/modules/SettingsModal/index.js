@@ -10,8 +10,8 @@ import {getData, postData} from "helpers/api";
 import {deleteBetslip} from "store/actions/betslipAction";
 import {setNotification} from "store/actions/notificationAction";
 
+import {TicketPrint} from "modules/TicketPrint";
 import Button from "components/Button";
-import {Print} from "modules/Print";
 import Password from "./Password";
 
 import style from './index.module.scss';
@@ -38,34 +38,24 @@ const SettingsModal = ({action}) => {
             }))
             .then((json) => {
                 if (json.code === 'OK') {
-                    setTimeout(() => {
-                        dispatch(setNotification('Saved successfully'))
-                    }, 1000)
+                    dispatch(setNotification('Saved'))
                 }
                  else {
-                    dispatch(setNotification('Something wrong'))
+                    dispatch(setNotification(json.error_message || 'Something wrong'))
                 }
-
-                setTimeout(() => {
-                    dispatch(setNotification(null))
-                }, 3000)
             })
     }
 
     const print = (ref) => {
 
         getData(`/details/${ref.current.value}`).then((json) => {
-            if (json.hasOwnProperty('data')) {
-                dispatch(setNotification('Ticket not found.'))
-
-                setTimeout(() => {
-                    dispatch(setNotification(null))
-                }, 2000)
-            }
-            else {
+            if (json.hasOwnProperty('stake')) {
                 if (settings.print.mode === printMode.WEB_PRINT && settings.print.payout) {
                     setResponse(json)
                 }
+            }
+            else {
+                dispatch(setNotification(json.data.error_message || 'Ticket not found'))
             }
         })
     }
@@ -83,7 +73,10 @@ const SettingsModal = ({action}) => {
             {
                 response &&
                 <div className={style.print}>
-                    <Print data={response} ref={componentRef} />
+                    <TicketPrint
+                        data={response}
+                        ref={componentRef}
+                    />
                 </div>
             }
             <div className={style.wrapper}>
@@ -151,14 +144,7 @@ const SettingsModal = ({action}) => {
                         <div className={style.title}>
                             <span>Settings</span>
                         </div>
-                        <div
-                            className={
-                                classNames(
-                                    style.table,
-                                    style.lg
-                                )
-                            }
-                        >
+                        <div className={style.table}>
                             <div className={style.row}>
                                 <div className={style.cell}>Printing mode</div>
                                 <div className={style.cell}>
@@ -171,7 +157,6 @@ const SettingsModal = ({action}) => {
                                         <option value={printMode.DISABLED}>Disabled</option>
                                     </select>
                                 </div>
-                                <div className={style.cell}></div>
                                 <div className={style.cell}>
                                     <div
                                         className={
@@ -203,7 +188,6 @@ const SettingsModal = ({action}) => {
                                         <option value={oddsType.PER_GROUP}>Per group</option>
                                     </select>
                                 </div>
-                                <div className={style.cell}></div>
                                 <div className={style.cell}>
                                     <div
                                         className={
@@ -233,7 +217,6 @@ const SettingsModal = ({action}) => {
                                         ref={printRef}
                                     />
                                 </div>
-                                <div className={style.cell}></div>
                                 <div className={style.cell}>
                                     <div
                                         className={

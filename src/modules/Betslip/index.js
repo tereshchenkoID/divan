@@ -21,7 +21,7 @@ import Tickets from "./Tickets";
 import Stakes from "./Stakes";
 import Bets from "./Bets";
 import Types from "./Types";
-import {Print} from 'modules/Print';
+import {TicketPrint} from 'modules/TicketPrint';
 
 import style from './index.module.scss';
 
@@ -106,35 +106,23 @@ const Betslip = () => {
                             Stake per bet is lower than minimum ${settings.account.symbol} ${min} 
                             or upper than maximum ${settings.account.symbol} ${max}`
                         ))
-
-                        setTimeout(() => {
-                            dispatch(setNotification(null))
-                        }, 3000)
                     }
                 })
         }
         else {
             dispatch(setNotification('Please pick up a bet to start'))
-
-            setTimeout(() => {
-                dispatch(setNotification(null))
-            }, 2000)
         }
     }
 
     const repeatPrint = () => {
         getData(`/reprint`).then((json) => {
-            if (!json.data) {
+            if (json.hasOwnProperty('stake')) {
                 if (settings.print.mode === printMode.WEB_PRINT && settings.print.payout) {
                     setResponse(json)
                 }
             }
             else {
-                dispatch(setNotification('Ticket not found.'))
-
-                setTimeout(() => {
-                    dispatch(setNotification(null))
-                }, 2000)
+                dispatch(setNotification(json.data.error_message || 'Ticket not found'))
             }
         })
     }
@@ -180,8 +168,6 @@ const Betslip = () => {
         const maxOdd = getMinMaxOdd(betslip, 1)
         const maxWin = getBetMaxSingle(betslip)
         let s
-
-        // console.log(init)
 
         if (init) {
             s = settings.betslip.single.default
@@ -259,7 +245,6 @@ const Betslip = () => {
         checkType()
 
         if (betslip.length) {
-            // console.log("Init")
             if (type === 0) {
                 dispatch(setStake(singleHandler()))
             }
@@ -272,7 +257,6 @@ const Betslip = () => {
     useEffect(() => {
         if (type === 0) {
             if (stake.length) {
-                // console.log("Update")
                 updateBetslip(stake[0].stake)
             }
         }
@@ -284,7 +268,10 @@ const Betslip = () => {
             {
                 response &&
                 <div className={style.print}>
-                    <Print data={response} ref={componentRef} />
+                    <TicketPrint
+                        data={response}
+                        ref={componentRef}
+                    />
                 </div>
             }
             {

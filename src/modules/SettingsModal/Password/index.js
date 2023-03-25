@@ -31,7 +31,7 @@ const Password = ({action}) => {
                 }))
                 .then((json) => {
                     if (json.hasOwnProperty('data')) {
-                        dispatch(setNotification('Invalid old password'))
+                        dispatch(setNotification(json.data.error_message || 'Old password invalid'))
                     }
                     else {
                         dispatch(setNotification('Password changed'))
@@ -44,10 +44,6 @@ const Password = ({action}) => {
         else {
             dispatch(setNotification('Password don`t match'))
         }
-
-        setTimeout(() => {
-            dispatch(setNotification(null))
-        }, 2000)
     }
 
     return (
@@ -114,7 +110,6 @@ const Password = ({action}) => {
             </div>
             <div className={style.row}>
                 <div />
-                <div />
                 <div className={style.actions}>
                     <Button
                         type={'green'}
@@ -133,6 +128,7 @@ const Password = ({action}) => {
                         }}
                     />
                 </div>
+                <div />
             </div>
         </div>
     );

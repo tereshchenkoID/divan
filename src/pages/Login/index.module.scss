@@ -21,17 +21,23 @@
   border: rem(3px) solid var(--color-orange);
   overflow: hidden;
   color: var(--color-white);
-  max-width: 400px;
+  max-width: rem(400px);
+  width: 100%;
+}
+
+.row {
+  @include make-spacer('mb', 4);
+
+  &:last-child {
+    @include make-spacer('mb', 0);
+  }
 }
 
 .title {
-  @include make-spacer('mb', 4);
-
   color: var(--color-white);
 }
 
 .field {
-  @include make-spacer('mb', 4);
   @include make-spacer('px', 2);
   @include size(100%, rem(45px));
 
@@ -45,17 +51,18 @@
   }
 }
 
-.error {
-  @include make-spacer('mb', 4);
-
-  text-align: right;
-  color: var(--color-red);
-}
-
 .button {
   @include flex(flex-end);
 
   button {
     @include size(rem(200px), rem(45px)!important);
   }
+}
+
+.toggle {
+  @include make-spacer('ml', auto);
+  @include make-spacer('mr', 0);
+
+  display: block;
+  color: var(--color-white);
 }

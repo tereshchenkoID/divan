@@ -5,10 +5,8 @@ import {getDateTime} from "helpers/getDateTime";
 
 import style from './index.module.scss';
 
-export const Print = React.forwardRef((data, ref) => {
+export const TicketPrint = React.forwardRef((data, ref) => {
     const {settings} = useSelector((state) => state.settings)
-
-    console.log(data)
 
     return (
         <div
