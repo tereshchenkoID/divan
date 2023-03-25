@@ -244,9 +244,7 @@ const Table = () => {
                                         {
                                             preloader
                                                 ?
-                                                <Loader
-                                                    type={'block'}
-                                                />
+                                                <Loader type={'block'}/>
                                                 :
                                                 <>
                                                     {

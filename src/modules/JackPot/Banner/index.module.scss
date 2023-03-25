@@ -4,43 +4,37 @@
   @include size(100%);
 
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  align-items: stretch;
+  grid-template-columns: 80px 1fr;
+  background: linear-gradient(360deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 100%);
   background-color: var(--color-black);
+  border-radius: rem(3px);
+  padding: 2px;
+  overflow: hidden;
   color: var(--color-white);
   font-size: rem(12px);
   line-height: 1;
 
   &.bronse {
-
-    .left {
-      background-color: darken(saddlebrown, 20);
-    }
+    background-color: rgba(#6E6929, 0.8);
 
     .right {
-      background-color: saddlebrown;
+      background-color: #D2B76F;
     }
   }
 
   &.silver {
-
-    .left {
-      background-color: darken(silver, 20);
-    }
+    background-color: rgba(#697267, 0.8);
 
     .right {
-      background-color: silver;
+      background-color: #A8ACA8;
     }
   }
 
   &.gold {
-
-    .left {
-      background-color: darken(gold, 20);
-    }
+    background-color: rgba(#7A5F05, 0.8);
 
     .right {
-      background-color: gold;
+      background-color: #BF8609;
     }
   }
 }
@@ -48,7 +42,6 @@
 .left,
 .right {
   @include flex(center, center);
-  @include make-spacer('p', 1);
 
   height: 100%;
 }
@@ -58,7 +51,9 @@
 }
 
 .right {
-  padding-bottom: 8px;
+  background: linear-gradient(360deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 100%);
+  padding-bottom: rem(2px);
+  border-radius: inherit;
   min-width: rem(130px);
   font-size: rem(22px);
 }
