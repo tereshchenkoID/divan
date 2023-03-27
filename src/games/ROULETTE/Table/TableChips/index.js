@@ -1,21 +1,51 @@
-import {useRef} from "react";
+import {useEffect, useRef, useState} from "react";
+import {useSelector} from "react-redux";
 
 import classNames from "classnames";
 
 import style from './index.module.scss';
+import Button from "../../../../components/Button";
+
+
+const COLORS = ['violet', 'blue', 'green', 'red', 'black', 'orange']
+
+const setStepsValue = (data) => {
+    const a = []
+
+    // eslint-disable-next-line array-callback-return
+    data.map((el, idx) =>
+        a.push({
+            id: idx,
+            amount: el,
+            color: COLORS[idx],
+            active: idx === 0
+        })
+    )
+
+    return a
+}
 
 const TableChips = () => {
-    const b = 36
     const r = 6
     const r_b = 23
 
-    const chips = [
+    const {settings} = useSelector((state) => state.settings)
+
+    const [steps, setSteps] = useState([])
+
+    useEffect(() => {
+        setSteps(setStepsValue(settings.betslip.steps))
+    }, [settings])
+
+    const [chips, setChips] = useState([
         {
             name: 0,
             type: null,
             color: "green",
             line: null,
-            range: []
+            range: [],
+            amount_value: 0,
+            amount_color: null
         },
         {
             name: 1,
@@ -25,7 +55,9 @@ const TableChips = () => {
             range: [
                 '1-12',
                 '1-18'
-            ]
+            ],
+            amount_value: 0,
+            amount_color: null
         },
         {
             name: 2,
@@ -35,7 +67,9 @@ const TableChips = () => {
             range: [
                 '1-12',
                 '1-18'
-            ]
+            ],
+            amount_value: 0,
+            amount_color: null
         },
         {
             name: 3,
@@ -45,7 +79,9 @@ const TableChips = () => {
             range: [
                 '1-12',
                 '1-18'
-            ]
+            ],
+            amount_value: 0,
+            amount_color: null
         },
         {
             name: 4,
@@ -55,7 +91,9 @@ const TableChips = () => {
             range: [
                 '1-12',
                 '1-18'
-            ]
+            ],
+            amount_value: 0,
+            amount_color: null
         },
         {
             name: 5,
@@ -65,7 +103,9 @@ const TableChips = () => {
             range: [
                 '1-12',
                 '1-18'
-            ]
+            ],
+            amount_value: 0,
+            amount_color: null
         },
         {
             name: 6,
@@ -75,7 +115,9 @@ const TableChips = () => {
             range: [
                 '1-12',
                 '1-18'
-            ]
+            ],
+            amount_value: 0,
+            amount_color: null
         },
         {
             name: 7,
@@ -85,7 +127,9 @@ const TableChips = () => {
             range: [
                 '1-12',
                 '1-18'
-            ]
+            ],
+            amount_value: 0,
+            amount_color: null
         },
         {
             name: 8,
@@ -95,7 +139,9 @@ const TableChips = () => {
             range: [
                 '1-12',
                 '1-18'
-            ]
+            ],
+            amount_value: 0,
+            amount_color: null
         },
         {
             name: 9,
@@ -105,7 +151,9 @@ const TableChips = () => {
             range: [
                 '1-12',
                 '1-18'
-            ]
+            ],
+            amount_value: 0,
+            amount_color: null
         },
         {
             name: 10,
@@ -115,7 +163,9 @@ const TableChips = () => {
             range: [
                 '1-12',
                 '1-18'
-            ]
+            ],
+            amount_value: 0,
+            amount_color: null
         },
         {
             name: 11,
@@ -125,7 +175,9 @@ const TableChips = () => {
             range: [
                 '1-12',
                 '1-18'
-            ]
+            ],
+            amount_value: 0,
+            amount_color: null
         },
         {
             name: 12,
@@ -135,7 +187,9 @@ const TableChips = () => {
             range: [
                 '1-12',
                 '1-18'
-            ]
+            ],
+            amount_value: 0,
+            amount_color: null
         },
         {
             name: 13,
@@ -145,7 +199,9 @@ const TableChips = () => {
             range: [
                 '13-24',
                 '1-18'
-            ]
+            ],
+            amount_value: 0,
+            amount_color: null
         },
         {
             name: 14,
@@ -155,7 +211,9 @@ const TableChips = () => {
             range: [
                 '13-24',
                 '1-18'
-            ]
+            ],
+            amount_value: 0,
+            amount_color: null
         },
         {
             name: 15,
@@ -165,7 +223,9 @@ const TableChips = () => {
             range: [
                 '13-24',
                 '1-18'
-            ]
+            ],
+            amount_value: 0,
+            amount_color: null
         },
         {
             name: 16,
@@ -175,7 +235,9 @@ const TableChips = () => {
             range: [
                 '13-24',
                 '1-18'
-            ]
+            ],
+            amount_value: 0,
+            amount_color: null
         },
         {
             name: 17,
@@ -185,7 +247,9 @@ const TableChips = () => {
             range: [
                 '13-24',
                 '1-18'
-            ]
+            ],
+            amount_value: 0,
+            amount_color: null
         },
         {
             name: 18,
@@ -195,7 +259,9 @@ const TableChips = () => {
             range: [
                 '13-24',
                 '1-18'
-            ]
+            ],
+            amount_value: 0,
+            amount_color: null
         },
         {
             name: 19,
@@ -205,7 +271,9 @@ const TableChips = () => {
             range: [
                 '13-24',
                 '19-36'
-            ]
+            ],
+            amount_value: 0,
+            amount_color: null
         },
         {
             name: 20,
@@ -215,7 +283,9 @@ const TableChips = () => {
             range: [
                 '13-24',
                 '19-36'
-            ]
+            ],
+            amount_value: 0,
+            amount_color: null
         },
         {
             name: 21,
@@ -225,7 +295,9 @@ const TableChips = () => {
             range: [
                 '13-24',
                 '19-36'
-            ]
+            ],
+            amount_value: 0,
+            amount_color: null
         },
         {
             name: 22,
@@ -235,7 +307,9 @@ const TableChips = () => {
             range: [
                 '13-24',
                 '19-36'
-            ]
+            ],
+            amount_value: 0,
+            amount_color: null
         },
         {
             name: 23,
@@ -245,7 +319,9 @@ const TableChips = () => {
             range: [
                 '13-24',
                 '19-36'
-            ]
+            ],
+            amount_value: 0,
+            amount_color: null
         },
         {
             name: 24,
@@ -255,7 +331,9 @@ const TableChips = () => {
             range: [
                 '25-36',
                 '19-36'
-            ]
+            ],
+            amount_value: 0,
+            amount_color: null
         },
         {
             name: 25,
@@ -265,7 +343,9 @@ const TableChips = () => {
             range: [
                 '25-36',
                 '19-36'
-            ]
+            ],
+            amount_value: 0,
+            amount_color: null
         },
         {
             name: 26,
@@ -275,7 +355,9 @@ const TableChips = () => {
             range: [
                 '25-36',
                 '19-36'
-            ]
+            ],
+            amount_value: 0,
+            amount_color: null
         },
         {
             name: 27,
@@ -285,7 +367,9 @@ const TableChips = () => {
             range: [
                 '25-36',
                 '19-36'
-            ]
+            ],
+            amount_value: 0,
+            amount_color: null
         },
         {
             name: 28,
@@ -295,7 +379,9 @@ const TableChips = () => {
             range: [
                 '25-36',
                 '19-36'
-            ]
+            ],
+            amount_value: 0,
+            amount_color: null
         },
         {
             name: 29,
@@ -305,7 +391,9 @@ const TableChips = () => {
             range: [
                 '25-36',
                 '19-36'
-            ]
+            ],
+            amount_value: 0,
+            amount_color: null
         },
         {
             name: 30,
@@ -315,7 +403,9 @@ const TableChips = () => {
             range: [
                 '25-36',
                 '19-36'
-            ]
+            ],
+            amount_value: 0,
+            amount_color: null
         },
         {
             name: 31,
@@ -325,7 +415,9 @@ const TableChips = () => {
             range: [
                 '25-36',
                 '19-36'
-            ]
+            ],
+            amount_value: 0,
+            amount_color: null
         },
         {
             name: 32,
@@ -335,7 +427,9 @@ const TableChips = () => {
             range: [
                 '25-36',
                 '19-36'
-            ]
+            ],
+            amount_value: 0,
+            amount_color: null
         },
         {
             name: 33,
@@ -345,7 +439,9 @@ const TableChips = () => {
             range: [
                 '25-36',
                 '19-36'
-            ]
+            ],
+            amount_value: 0,
+            amount_color: null
         },
         {
             name: 34,
@@ -355,7 +451,9 @@ const TableChips = () => {
             range: [
                 '25-36',
                 '19-36'
-            ]
+            ],
+            amount_value: 0,
+            amount_color: null
         },
         {
             name: 35,
@@ -365,7 +463,9 @@ const TableChips = () => {
             range: [
                 '25-36',
                 '19-36'
-            ]
+            ],
+            amount_value: 0,
+            amount_color: null
         },
         {
             name: 36,
@@ -375,9 +475,11 @@ const TableChips = () => {
             range: [
                 '25-36',
                 '19-36'
-            ]
+            ],
+            amount_value: 0,
+            amount_color: null
         }
-    ];
+    ])
 
     const line_1 = useRef([])
     const line_2 = useRef([])
@@ -447,19 +549,16 @@ const TableChips = () => {
 
         if (data.name <= 12) {
             r_1_12.current[r_1_12.current.length] = i
-        }
-        else if(data.name > 12 && data.name < 25) {
+        } else if (data.name > 12 && data.name < 25) {
             r_13_24.current[r_13_24.current.length] = i
-        }
-        else {
+        } else {
             r_25_36.current[r_25_36.current.length] = i
         }
 
 
         if (data.name <= 18) {
             r_1_18.current[r_1_18.current.length] = i
-        }
-        else {
+        } else {
             r_19_36.current[r_19_36.current.length] = i
         }
     }
@@ -467,16 +566,118 @@ const TableChips = () => {
     const onHoverRefs = (data, type) => {
         if (type === 0) {
             data.map(el => el.classList.add(style.hover))
-            console.log('on hover')
         }
         else {
             data.map(el => el.classList.remove(style.hover))
-            console.log('leave hover')
         }
+    }
+
+
+    const currentStakeColor = (value) => {
+        let previous = null;
+
+        for (let i = 0; i < steps.length; i++) {
+            if (value < steps[i].amount) {
+                return previous;
+            }
+            previous = steps[i].color;
+
+        }
+        return previous.color;
+    }
+
+    const buttonAmountSet = (name) => {
+        setChips(prevState =>
+            prevState.map(item =>
+                item.name === name
+                    ?
+                        {
+                            ...item,
+                            amount_value: item.amount_value + buttonStepGet().amount,
+                            amount_color: currentStakeColor(item.amount_value + buttonStepGet().amount)
+                        }
+                    :
+                        item
+            )
+        )
+    }
+
+    const buttonStepSet = (id) => {
+        setSteps(prevState =>
+            prevState.map(item =>
+                item.id === id ? {...item, active: true} : {...item, active: false}
+            )
+        )
+    }
+
+    const buttonStepGet = () => {
+        return steps.find(el => el.active === true)
+    }
+
+    const closeChips = () => {
+        let a = chips.slice(0)
+
+        a.map(item => {
+            item.amount_value = 0
+            item.amount_color = null
+        })
+
+        setChips(a)
+    }
+
+    const doubleChips = () => {
+        let a = chips.slice(0)
+
+        a.map(item => {
+            item.amount_value = item.amount_value * 2
+            item.amount_color = currentStakeColor(item.amount_value)
+        })
+
+        setChips(a)
     }
 
     return (
         <div className={style.block}>
+            <div className={style.coins}>
+                {
+                    steps.map((el, idx) =>
+                        <button
+                            key={idx}
+                            className={
+                                classNames(
+                                    style.coin,
+                                    style[el.color],
+                                    el.active && style.active
+                                )
+                            }
+                            onClick={() => {
+                                buttonStepSet(el.id)
+                            }}
+                        >
+                            {el.amount}
+                        </button>
+                    )
+                }
+            </div>
+            <div className={style.actions}>
+                <Button
+                    type={'blue'}
+                    size={'lg'}
+                    text={'2x'}
+                    action={() => {
+                        doubleChips()
+                    }}
+                />
+                <Button
+                    type={'red'}
+                    size={'lg'}
+                    icon={'close'}
+                    action={() => {
+                        closeChips()
+                    }}
+                />
+            </div>
+
             <div className={style.top}>
                 <div />
                 <div className={style.dozens}>
@@ -540,8 +741,24 @@ const TableChips = () => {
                                         style[el.color]
                                     )
                                 }
+                                onClick={() => {
+                                    buttonAmountSet(el.name)
+                                }}
                             >
-                                {el.name}
+                                <span>{el.name}</span>
+                                {
+                                    el.amount_value > 0 &&
+                                    <span
+                                        className={
+                                            classNames(
+                                                style.amount,
+                                                style[el.amount_color]
+                                            )
+                                        }
+                                    >
+                                        {el.amount_value}
+                                    </span>
+                                }
                             </button>
                         )
                     }
@@ -657,7 +874,7 @@ const TableChips = () => {
                                 )
                             }
                         >
-                            <div />
+                            <div/>
                         </div>
                     </button>
                     <button
@@ -677,7 +894,7 @@ const TableChips = () => {
                                 )
                             }
                         >
-                            <div />
+                            <div/>
                         </div>
                     </button>
                     <button

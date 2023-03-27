@@ -8,6 +8,7 @@ import style from "./index.module.scss";
 
 const Table = () => {
 
+
     return (
         <div className={style.block}>
             <div className={style.banners}>

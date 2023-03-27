@@ -45,14 +45,9 @@
     @include flex(center, center);
 
     flex: 1;
-    border-radius: rem(9px);
     background-color: #1b1b1b;
     border: rem(2px) solid var(--color-white);
-    text-align: center;
-    text-transform: uppercase;
-    font-size: rem(28px);
-    font-weight: var(--typography-bold);
-    color: var(--color-white);
+    font-size: rem(24px);
   }
 }
 
@@ -65,14 +60,9 @@
 
   .button {
     flex: 1;
-    border-radius: rem(9px);
     background-color: #1b1b1b;
     border: rem(2px) solid var(--color-white);
-    text-align: center;
     font-size: rem(12px);
-    font-weight: var(--typography-bold);
-    color: var(--color-white);
-    text-transform: uppercase;
   }
 }
 
@@ -83,13 +73,9 @@
 
   .button {
     flex: 1;
-    border-radius: rem(9px);
     background-color: #1b1b1b;
     border: rem(2px) solid var(--color-green-900);
-    text-align: center;
     font-size: rem(28px);
-    font-weight: var(--typography-bold);
-    color: var(--color-white);
   }
 }
 
@@ -103,16 +89,10 @@
   .button {
     @include size(rem(65px), rem(67px));
 
-    position: relative;
     flex-shrink: 0;
     box-shadow: 0 rem(2px) rem(2px) rgba(255,255,255,0.14);
-    border-radius: rem(9px);
     border: rem(2px) solid var(--color-black);
-    font-size: rem(49px);
-    font-weight: var(--typography-bold);
-    line-height: 0.5;
-    text-align: center;
-    color: var(--color-white);
+    font-size: rem(28px);
 
     &::before {
       position: absolute;
@@ -186,10 +166,15 @@
   }
 }
 
-
 .button {
   position: relative;
   overflow: hidden;
+  border-radius: rem(9px);
+  text-align: center;
+  text-transform: uppercase;
+  font-size: rem(24px);
+  font-weight: var(--typography-bold);
+  color: var(--color-white);
 
   &::after {
     @include absolute-filled;
@@ -226,5 +211,96 @@
 
   .button {
     //@include size(rem(25px));
+  }
+}
+
+.amount {
+  @include flex(center, center);
+  @include size(rem(40px));
+  @include absolute-center;
+
+  background-color: #f00;
+  border-radius: 50%;
+  font-size: rem(14px);
+
+  &.violet {
+    background-color: violet;
+  }
+
+  &.blue {
+    background-color: blue;
+  }
+
+  &.green {
+    background-color: green;
+  }
+
+  &.red {
+    background-color: red;
+  }
+
+  &.black {
+    background-color: black;
+  }
+
+  &.orange{
+    background-color: orange;
+  }
+}
+
+.actions {
+  @include make-spacer('mb', 4);
+
+  display: grid;
+  grid-template-columns: repeat(2, rem(64px));
+  justify-content: center;
+  grid-gap: rem(10px);
+}
+
+.coins {
+  @include make-spacer('mb', 4);
+  @include flex(center, center);
+
+  gap: rem(10px);
+}
+
+.coin {
+  @include flex(center, center);
+  @include size(rem(90px));
+
+  border-radius: 50%;
+  background-color: red;
+  color: var(--color-white);
+  font-size: rem(24px);
+  font-weight: var(--typography-bold);
+
+  &.active {
+    @include size(rem(130px));
+
+    font-size: rem(36px);
+  }
+
+  &.violet {
+    background-color: violet;
+  }
+
+  &.blue {
+    background-color: blue;
+  }
+
+  &.green {
+    background-color: green;
+  }
+
+  &.red {
+    background-color: red;
+  }
+
+  &.black {
+    background-color: black;
+  }
+
+  &.orange{
+    background-color: orange;
   }
 }
