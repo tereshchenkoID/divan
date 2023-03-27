@@ -2,6 +2,12 @@ export const hostnames = {
     PROD: "https://api.qool90.bet"
 }
 
+export const gameType = {
+    FOOTBALL_LEAGUE: "FOOTBALL_LEAGUE",
+    ROULETTE: "ROULETTE",
+}
+
+
 export const matchStatus = {
     ANNOUNCEMENT: "ANNOUNCEMENT",
     PROGRESS: "PROGRESS",

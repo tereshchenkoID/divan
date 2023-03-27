@@ -47,7 +47,7 @@ const Update = ({find, active, setActive, setWeek, setFind}) => {
                                         if (rt === '0') {
                                             // console.log("END RESULTS")
 
-                                            dispatch(setData(game)).then((json) => {
+                                            dispatch(setData(game.id)).then((json) => {
                                                 // console.log("RELOAD 1")
                                                 resetNextWeek(json)
                                             })
@@ -85,7 +85,7 @@ const Update = ({find, active, setActive, setWeek, setFind}) => {
                             const rt = resultTimer(json.event.nextUpdate, delta)
 
                             if (rt === '0') {
-                                dispatch(setData(game)).then((json) => {
+                                dispatch(setData(game.id)).then((json) => {
                                     // console.log("RELOAD 2")
                                     resetNextWeek(json)
                                 })
@@ -108,7 +108,7 @@ const Update = ({find, active, setActive, setWeek, setFind}) => {
                 const rt = resultTimer(find.nextUpdate, delta)
 
                 if (rt === '0') {
-                    dispatch(setData(game)).then((json) => {
+                    dispatch(setData(game.id)).then((json) => {
                         // console.log("RELOAD 3")
                         resetNextWeek(json)
                     })

@@ -31,6 +31,7 @@
 }
 
 :global {
+  @import "slider";
 
   .slick-slider {
     @include size(100%);
@@ -39,20 +40,18 @@
   }
 
   .slick-list,
-  .slick-track,
   .slick-slide {
     @include size(100%);
+
     overflow: hidden;
   }
 
   .slick-track {
-    @include flex($align-items: center);
-
-    overflow: hidden;
-    gap: rem(10px);
+    height: 100%;
   }
 
-  .slick-slide {
+  .slick-track {
+    gap: rem(10px);
   }
 
   .slick-arrow {

@@ -1,0 +1,132 @@
+@import "scss/config";
+
+.block {
+  position: relative;
+  //overflow: hidden;
+  min-height: rem(690px);
+  height: 100%;
+  text-transform: uppercase;
+  text-align: center;
+  font-weight: var(--typography-bold);
+}
+
+.info {
+  display: grid;
+  grid-template-columns: 1fr rem(95px);
+  align-items: center;
+  position: absolute;
+  top: rem(48px);
+  width: rem(250px);
+}
+
+.body {
+  position: relative;
+  min-height: rem(655px);
+  height: 100%;
+}
+
+.league {
+  @include size(rem(135px), rem(70px));
+
+  img {
+    width: auto;
+  }
+}
+
+.banners {
+  position: absolute;
+  left: rem(390px);
+}
+
+.tab {
+  @include flex($align-items: center);
+}
+
+.link {
+  @include flex(center, center);
+  @include size(rem(90px), rem(35px));
+  @include make-spacer('mr', 1);
+
+  border-radius: rem(8px);
+  border: 1px solid #17591b;
+  background: linear-gradient(360deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.1) 100%);
+  background-color: var(--color-green);
+  opacity: 0.5;
+  color: var(--color-white);
+  text-transform: uppercase;
+  font-size: rem(13px);
+
+  &:last-child {
+    @include make-spacer('mr', 0);
+  }
+
+  &:hover,
+  &.active {
+    opacity: 1;
+  }
+}
+
+.table {
+  display: none;
+
+  &.active {
+    display: block;
+  }
+}
+
+.sort {
+  @include make-spacer('py', 2);
+  @include make-spacer('mb', 1);
+  @include flex($align-items: center);
+
+  padding-left: rem(270px);
+  min-height: rem(77px);
+}
+
+.market {
+  @include flex($align-items: center);
+  @include make-spacer('mr', 1);
+  @include make-spacer('px', 5);
+
+  position: relative;
+  background-color: #0e0e0e;
+  background: linear-gradient(360deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.1) 100%);
+  border-radius: rem(10px);
+  border: 3px solid var(--color-black);
+  height: rem(55px);
+  color: var(--color-green-900);
+  font-weight: var(--typography-bold);
+  font-size: rem(22px);
+  text-transform: uppercase;
+
+  &::before {
+    position: absolute;
+    top: rem(1px);
+    right: rem(1px);
+    left: rem(1px);
+    height: rem(12px);
+    border-radius: rem(5px);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.08) 100%);
+    content: '';
+  }
+
+  &:last-child {
+    @include make-spacer('mr', 0);
+  }
+
+  &.active {
+    background-color: #dc5366;
+    color: var(--color-white);
+  }
+}
+
+.wrapper {
+  @include flex(center, center);
+  @include make-spacer('p', 2);
+
+  position: relative;
+  border: 2px solid var(--color-orange);
+  border-radius: rem(9px);
+  overflow: hidden;
+  background-color: #1b1b1b;
+}

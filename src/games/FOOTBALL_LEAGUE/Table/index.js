@@ -10,13 +10,14 @@ import {setModal} from "store/actions/modalAction";
 import {matchStatus} from "constant/config";
 
 import Alert from "modules/Alert";
-import Odd from "modules/Soccer/Odd";
 import JackPot from "modules/JackPot";
-import Timer from "modules/Soccer/Timer";
-import Live from "modules/Soccer/Live";
-import Update from "modules/Soccer/Update";
 import Loader from "components/Loader";
 import Icon from "components/Icon";
+
+import Odd from "games/FOOTBALL_LEAGUE/Odd";
+import Timer from "games/FOOTBALL_LEAGUE/Timer";
+import Live from "games/FOOTBALL_LEAGUE/Live";
+import Update from "games/FOOTBALL_LEAGUE/Update";
 
 import Subtitle from "./Subtitle";
 import Modal from "./Modal";
@@ -59,7 +60,7 @@ const Table = () => {
             setLoading(true)
             resetActiveElements()
 
-            dispatch(setData(game)).then((json) => {
+            dispatch(setData(game.id)).then((json) => {
                 if (json.events.length > 0) {
                     const f = json.events[0]
 
@@ -91,7 +92,7 @@ const Table = () => {
         }
 
         if (live === 4) {
-            dispatch(setData(game)).then((json) => {
+            dispatch(setData(game.id)).then((json) => {
                 setWeek(json.events[0].league.week)
                 setFind(json.events[0].league.week)
                 setActive(0)
