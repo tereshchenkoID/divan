@@ -3,8 +3,9 @@ import {useSelector} from "react-redux";
 
 import classNames from "classnames";
 
+import Button from "components/Button";
+
 import style from './index.module.scss';
-import Button from "../../../../components/Button";
 
 
 const COLORS = ['violet', 'blue', 'green', 'red', 'black', 'orange']
@@ -30,536 +31,581 @@ const TableChips = () => {
     const r_b = 23
 
     const {settings} = useSelector((state) => state.settings)
-
     const [steps, setSteps] = useState([])
 
     useEffect(() => {
         setSteps(setStepsValue(settings.betslip.steps))
     }, [settings])
 
-    const [chips, setChips] = useState([
-        {
-            name: 0,
-            type: null,
-            color: "green",
-            line: null,
-            range: [],
-            amount_value: 0,
-            amount_color: null
+    const [data, setData] = useState({
+        dozen: {
+            '1_12': {
+                id: 0,
+                stake: 'Dozen: 1-12',
+                value: '1_12',
+                amount_value: 0,
+                amount_color: null,
+                refs: useRef([])
+            },
+            '13_24': {
+                id: 1,
+                stake: 'Dozen: 13-24',
+                value: '13_24',
+                amount_value: 0,
+                amount_color: null,
+                refs: useRef([])
+            },
+            '25_36': {
+                id: 2,
+                stake: 'Dozen: 25-36',
+                value: '25_36',
+                amount_value: 0,
+                amount_color: null,
+                refs: useRef([])
+            }
         },
-        {
-            name: 1,
-            type: "odd",
-            color: "red",
-            line: 1,
-            range: [
-                '1-12',
-                '1-18'
-            ],
-            amount_value: 0,
-            amount_color: null
+        color: {
+            'red': {
+                id: 0,
+                stake: 'Color: Red',
+                value: 'red',
+                amount_value: 0,
+                amount_color: null,
+                refs: useRef([])
+            },
+            'black': {
+                id: 1,
+                stake: 'Color: Black',
+                value: 'black',
+                amount_value: 0,
+                amount_color: null,
+                refs: useRef([])
+            }
         },
-        {
-            name: 2,
-            type: "even",
-            color: "black",
-            line: 2,
-            range: [
-                '1-12',
-                '1-18'
-            ],
-            amount_value: 0,
-            amount_color: null
+        line: {
+            '1': {
+                id: 0,
+                stake: 'Column: 1',
+                value: '1',
+                amount_value: 0,
+                amount_color: null,
+                refs: useRef([])
+            },
+            '2': {
+                id: 1,
+                stake: 'Column: 2',
+                value: '2',
+                amount_value: 0,
+                amount_color: null,
+                refs: useRef([])
+            },
+            '3': {
+                id: 2,
+                stake: 'Column: 3',
+                value: '3',
+                amount_value: 0,
+                amount_color: null,
+                refs: useRef([])
+            }
         },
-        {
-            name: 3,
-            type: "odd",
-            color: "red",
-            line: 3,
-            range: [
-                '1-12',
-                '1-18'
-            ],
-            amount_value: 0,
-            amount_color: null
+        even_odd: {
+            'even': {
+                id: 0,
+                stake: 'Even/Odd: Even',
+                value: 'even',
+                amount_value: 0,
+                amount_color: null,
+                refs: useRef([])
+            },
+            'odd': {
+                id: 1,
+                name: 'Even/Odd: Odd',
+                value: 'odd',
+                amount_value: 0,
+                amount_color: null,
+                refs: useRef([])
+            }
         },
-        {
-            name: 4,
-            type: "even",
-            color: "black",
-            line: 1,
-            range: [
-                '1-12',
-                '1-18'
-            ],
-            amount_value: 0,
-            amount_color: null
+        low_high: {
+            '1_18': {
+                id: 0,
+                stake: 'Low/High 1-18',
+                value: '1_18',
+                amount_value: 0,
+                amount_color: null,
+                refs: useRef([])
+            },
+            '19_36': {
+                id: 1,
+                stake: 'Low/High 19-36',
+                value: '19_36',
+                amount_value: 0,
+                amount_color: null,
+                refs: useRef([])
+            }
         },
-        {
-            name: 5,
-            type: "odd",
-            color: "red",
-            line: 2,
-            range: [
-                '1-12',
-                '1-18'
-            ],
-            amount_value: 0,
-            amount_color: null
-        },
-        {
-            name: 6,
-            type: "even",
-            color: "black",
-            line: 3,
-            range: [
-                '1-12',
-                '1-18'
-            ],
-            amount_value: 0,
-            amount_color: null
-        },
-        {
-            name: 7,
-            type: "odd",
-            color: "red",
-            line: 1,
-            range: [
-                '1-12',
-                '1-18'
-            ],
-            amount_value: 0,
-            amount_color: null
-        },
-        {
-            name: 8,
-            type: "even",
-            color: "black",
-            line: 2,
-            range: [
-                '1-12',
-                '1-18'
-            ],
-            amount_value: 0,
-            amount_color: null
-        },
-        {
-            name: 9,
-            type: "odd",
-            color: "red",
-            line: 3,
-            range: [
-                '1-12',
-                '1-18'
-            ],
-            amount_value: 0,
-            amount_color: null
-        },
-        {
-            name: 10,
-            type: "even",
-            color: "black",
-            line: 1,
-            range: [
-                '1-12',
-                '1-18'
-            ],
-            amount_value: 0,
-            amount_color: null
-        },
-        {
-            name: 11,
-            type: "odd",
-            color: "black",
-            line: 2,
-            range: [
-                '1-12',
-                '1-18'
-            ],
-            amount_value: 0,
-            amount_color: null
-        },
-        {
-            name: 12,
-            type: "even",
-            color: "red",
-            line: 3,
-            range: [
-                '1-12',
-                '1-18'
-            ],
-            amount_value: 0,
-            amount_color: null
-        },
-        {
-            name: 13,
-            type: "odd",
-            color: "black",
-            line: 1,
-            range: [
-                '13-24',
-                '1-18'
-            ],
-            amount_value: 0,
-            amount_color: null
-        },
-        {
-            name: 14,
-            type: "even",
-            color: "red",
-            line: 2,
-            range: [
-                '13-24',
-                '1-18'
-            ],
-            amount_value: 0,
-            amount_color: null
-        },
-        {
-            name: 15,
-            type: "odd",
-            color: "black",
-            line: 3,
-            range: [
-                '13-24',
-                '1-18'
-            ],
-            amount_value: 0,
-            amount_color: null
-        },
-        {
-            name: 16,
-            type: "even",
-            color: "red",
-            line: 1,
-            range: [
-                '13-24',
-                '1-18'
-            ],
-            amount_value: 0,
-            amount_color: null
-        },
-        {
-            name: 17,
-            type: "odd",
-            color: "black",
-            line: 2,
-            range: [
-                '13-24',
-                '1-18'
-            ],
-            amount_value: 0,
-            amount_color: null
-        },
-        {
-            name: 18,
-            type: "even",
-            color: "red",
-            line: 3,
-            range: [
-                '13-24',
-                '1-18'
-            ],
-            amount_value: 0,
-            amount_color: null
-        },
-        {
-            name: 19,
-            type: "odd",
-            color: "red",
-            line: 1,
-            range: [
-                '13-24',
-                '19-36'
-            ],
-            amount_value: 0,
-            amount_color: null
-        },
-        {
-            name: 20,
-            type: "even",
-            color: "black",
-            line: 2,
-            range: [
-                '13-24',
-                '19-36'
-            ],
-            amount_value: 0,
-            amount_color: null
-        },
-        {
-            name: 21,
-            type: "odd",
-            color: "red",
-            line: 3,
-            range: [
-                '13-24',
-                '19-36'
-            ],
-            amount_value: 0,
-            amount_color: null
-        },
-        {
-            name: 22,
-            type: "even",
-            color: "black",
-            line: 1,
-            range: [
-                '13-24',
-                '19-36'
-            ],
-            amount_value: 0,
-            amount_color: null
-        },
-        {
-            name: 23,
-            type: "odd",
-            color: "red",
-            line: 2,
-            range: [
-                '13-24',
-                '19-36'
-            ],
-            amount_value: 0,
-            amount_color: null
-        },
-        {
-            name: 24,
-            type: "even",
-            color: "black",
-            line: 3,
-            range: [
-                '25-36',
-                '19-36'
-            ],
-            amount_value: 0,
-            amount_color: null
-        },
-        {
-            name: 25,
-            type: "odd",
-            color: "red",
-            line: 1,
-            range: [
-                '25-36',
-                '19-36'
-            ],
-            amount_value: 0,
-            amount_color: null
-        },
-        {
-            name: 26,
-            type: "even",
-            color: "black",
-            line: 2,
-            range: [
-                '25-36',
-                '19-36'
-            ],
-            amount_value: 0,
-            amount_color: null
-        },
-        {
-            name: 27,
-            type: "odd",
-            color: "red",
-            line: 3,
-            range: [
-                '25-36',
-                '19-36'
-            ],
-            amount_value: 0,
-            amount_color: null
-        },
-        {
-            name: 28,
-            type: "even",
-            color: "black",
-            line: 1,
-            range: [
-                '25-36',
-                '19-36'
-            ],
-            amount_value: 0,
-            amount_color: null
-        },
-        {
-            name: 29,
-            type: "odd",
-            color: "black",
-            line: 2,
-            range: [
-                '25-36',
-                '19-36'
-            ],
-            amount_value: 0,
-            amount_color: null
-        },
-        {
-            name: 30,
-            type: "even",
-            color: "red",
-            line: 3,
-            range: [
-                '25-36',
-                '19-36'
-            ],
-            amount_value: 0,
-            amount_color: null
-        },
-        {
-            name: 31,
-            type: "odd",
-            color: "black",
-            line: 1,
-            range: [
-                '25-36',
-                '19-36'
-            ],
-            amount_value: 0,
-            amount_color: null
-        },
-        {
-            name: 32,
-            type: "even",
-            color: "red",
-            line: 2,
-            range: [
-                '25-36',
-                '19-36'
-            ],
-            amount_value: 0,
-            amount_color: null
-        },
-        {
-            name: 33,
-            type: "odd",
-            color: "black",
-            line: 3,
-            range: [
-                '25-36',
-                '19-36'
-            ],
-            amount_value: 0,
-            amount_color: null
-        },
-        {
-            name: 34,
-            type: "even",
-            color: "red",
-            line: 1,
-            range: [
-                '25-36',
-                '19-36'
-            ],
-            amount_value: 0,
-            amount_color: null
-        },
-        {
-            name: 35,
-            type: "odd",
-            color: "black",
-            line: 2,
-            range: [
-                '25-36',
-                '19-36'
-            ],
-            amount_value: 0,
-            amount_color: null
-        },
-        {
-            name: 36,
-            type: "even",
-            color: "red",
-            line: 3,
-            range: [
-                '25-36',
-                '19-36'
-            ],
-            amount_value: 0,
-            amount_color: null
-        }
-    ])
+        chips: [
+            {
+                name: 0,
+                type: null,
+                color: "green",
+                line: null,
+                range: [],
+                amount_value: 0,
+                amount_color: null
+            },
+            {
+                name: 1,
+                type: "odd",
+                color: "red",
+                line: 1,
+                range: [
+                    '1-12',
+                    '1-18'
+                ],
+                amount_value: 0,
+                amount_color: null
+            },
+            {
+                name: 2,
+                type: "even",
+                color: "black",
+                line: 2,
+                range: [
+                    '1-12',
+                    '1-18'
+                ],
+                amount_value: 0,
+                amount_color: null
+            },
+            {
+                name: 3,
+                type: "odd",
+                color: "red",
+                line: 3,
+                range: [
+                    '1-12',
+                    '1-18'
+                ],
+                amount_value: 0,
+                amount_color: null
+            },
+            {
+                name: 4,
+                type: "even",
+                color: "black",
+                line: 1,
+                range: [
+                    '1-12',
+                    '1-18'
+                ],
+                amount_value: 0,
+                amount_color: null
+            },
+            {
+                name: 5,
+                type: "odd",
+                color: "red",
+                line: 2,
+                range: [
+                    '1-12',
+                    '1-18'
+                ],
+                amount_value: 0,
+                amount_color: null
+            },
+            {
+                name: 6,
+                type: "even",
+                color: "black",
+                line: 3,
+                range: [
+                    '1-12',
+                    '1-18'
+                ],
+                amount_value: 0,
+                amount_color: null
+            },
+            {
+                name: 7,
+                type: "odd",
+                color: "red",
+                line: 1,
+                range: [
+                    '1-12',
+                    '1-18'
+                ],
+                amount_value: 0,
+                amount_color: null
+            },
+            {
+                name: 8,
+                type: "even",
+                color: "black",
+                line: 2,
+                range: [
+                    '1-12',
+                    '1-18'
+                ],
+                amount_value: 0,
+                amount_color: null
+            },
+            {
+                name: 9,
+                type: "odd",
+                color: "red",
+                line: 3,
+                range: [
+                    '1-12',
+                    '1-18'
+                ],
+                amount_value: 0,
+                amount_color: null
+            },
+            {
+                name: 10,
+                type: "even",
+                color: "black",
+                line: 1,
+                range: [
+                    '1-12',
+                    '1-18'
+                ],
+                amount_value: 0,
+                amount_color: null
+            },
+            {
+                name: 11,
+                type: "odd",
+                color: "black",
+                line: 2,
+                range: [
+                    '1-12',
+                    '1-18'
+                ],
+                amount_value: 0,
+                amount_color: null
+            },
+            {
+                name: 12,
+                type: "even",
+                color: "red",
+                line: 3,
+                range: [
+                    '1-12',
+                    '1-18'
+                ],
+                amount_value: 0,
+                amount_color: null
+            },
+            {
+                name: 13,
+                type: "odd",
+                color: "black",
+                line: 1,
+                range: [
+                    '13-24',
+                    '1-18'
+                ],
+                amount_value: 0,
+                amount_color: null
+            },
+            {
+                name: 14,
+                type: "even",
+                color: "red",
+                line: 2,
+                range: [
+                    '13-24',
+                    '1-18'
+                ],
+                amount_value: 0,
+                amount_color: null
+            },
+            {
+                name: 15,
+                type: "odd",
+                color: "black",
+                line: 3,
+                range: [
+                    '13-24',
+                    '1-18'
+                ],
+                amount_value: 0,
+                amount_color: null
+            },
+            {
+                name: 16,
+                type: "even",
+                color: "red",
+                line: 1,
+                range: [
+                    '13-24',
+                    '1-18'
+                ],
+                amount_value: 0,
+                amount_color: null
+            },
+            {
+                name: 17,
+                type: "odd",
+                color: "black",
+                line: 2,
+                range: [
+                    '13-24',
+                    '1-18'
+                ],
+                amount_value: 0,
+                amount_color: null
+            },
+            {
+                name: 18,
+                type: "even",
+                color: "red",
+                line: 3,
+                range: [
+                    '13-24',
+                    '1-18'
+                ],
+                amount_value: 0,
+                amount_color: null
+            },
+            {
+                name: 19,
+                type: "odd",
+                color: "red",
+                line: 1,
+                range: [
+                    '13-24',
+                    '19-36'
+                ],
+                amount_value: 0,
+                amount_color: null
+            },
+            {
+                name: 20,
+                type: "even",
+                color: "black",
+                line: 2,
+                range: [
+                    '13-24',
+                    '19-36'
+                ],
+                amount_value: 0,
+                amount_color: null
+            },
+            {
+                name: 21,
+                type: "odd",
+                color: "red",
+                line: 3,
+                range: [
+                    '13-24',
+                    '19-36'
+                ],
+                amount_value: 0,
+                amount_color: null
+            },
+            {
+                name: 22,
+                type: "even",
+                color: "black",
+                line: 1,
+                range: [
+                    '13-24',
+                    '19-36'
+                ],
+                amount_value: 0,
+                amount_color: null
+            },
+            {
+                name: 23,
+                type: "odd",
+                color: "red",
+                line: 2,
+                range: [
+                    '13-24',
+                    '19-36'
+                ],
+                amount_value: 0,
+                amount_color: null
+            },
+            {
+                name: 24,
+                type: "even",
+                color: "black",
+                line: 3,
+                range: [
+                    '25-36',
+                    '19-36'
+                ],
+                amount_value: 0,
+                amount_color: null
+            },
+            {
+                name: 25,
+                type: "odd",
+                color: "red",
+                line: 1,
+                range: [
+                    '25-36',
+                    '19-36'
+                ],
+                amount_value: 0,
+                amount_color: null
+            },
+            {
+                name: 26,
+                type: "even",
+                color: "black",
+                line: 2,
+                range: [
+                    '25-36',
+                    '19-36'
+                ],
+                amount_value: 0,
+                amount_color: null
+            },
+            {
+                name: 27,
+                type: "odd",
+                color: "red",
+                line: 3,
+                range: [
+                    '25-36',
+                    '19-36'
+                ],
+                amount_value: 0,
+                amount_color: null
+            },
+            {
+                name: 28,
+                type: "even",
+                color: "black",
+                line: 1,
+                range: [
+                    '25-36',
+                    '19-36'
+                ],
+                amount_value: 0,
+                amount_color: null
+            },
+            {
+                name: 29,
+                type: "odd",
+                color: "black",
+                line: 2,
+                range: [
+                    '25-36',
+                    '19-36'
+                ],
+                amount_value: 0,
+                amount_color: null
+            },
+            {
+                name: 30,
+                type: "even",
+                color: "red",
+                line: 3,
+                range: [
+                    '25-36',
+                    '19-36'
+                ],
+                amount_value: 0,
+                amount_color: null
+            },
+            {
+                name: 31,
+                type: "odd",
+                color: "black",
+                line: 1,
+                range: [
+                    '25-36',
+                    '19-36'
+                ],
+                amount_value: 0,
+                amount_color: null
+            },
+            {
+                name: 32,
+                type: "even",
+                color: "red",
+                line: 2,
+                range: [
+                    '25-36',
+                    '19-36'
+                ],
+                amount_value: 0,
+                amount_color: null
+            },
+            {
+                name: 33,
+                type: "odd",
+                color: "black",
+                line: 3,
+                range: [
+                    '25-36',
+                    '19-36'
+                ],
+                amount_value: 0,
+                amount_color: null
+            },
+            {
+                name: 34,
+                type: "even",
+                color: "red",
+                line: 1,
+                range: [
+                    '25-36',
+                    '19-36'
+                ],
+                amount_value: 0,
+                amount_color: null
+            },
+            {
+                name: 35,
+                type: "odd",
+                color: "black",
+                line: 2,
+                range: [
+                    '25-36',
+                    '19-36'
+                ],
+                amount_value: 0,
+                amount_color: null
+            },
+            {
+                name: 36,
+                type: "even",
+                color: "red",
+                line: 3,
+                range: [
+                    '25-36',
+                    '19-36'
+                ],
+                amount_value: 0,
+                amount_color: null
+            }
+        ]
+    })
 
-    const line_1 = useRef([])
-    const line_2 = useRef([])
-    const line_3 = useRef([])
-    const zero = useRef([])
+    const setRefs = (date, i) => {
+        data.color[date.color].refs.current[data.color[date.color].refs.current.length] = i
+        data.line[date.line].refs.current[data.line[date.line].refs.current.length] = i
+        data.even_odd[date.type].refs.current[data.even_odd[date.type].refs.current.length] = i
 
-    const even = useRef([])
-    const odd = useRef([])
-
-    const color_red = useRef([])
-    const color_black = useRef([])
-
-    const r_1_12 = useRef([])
-    const r_13_24 = useRef([])
-    const r_25_36 = useRef([])
-    const r_1_18 = useRef([])
-    const r_19_36 = useRef([])
-
-    const setLines = (data) => {
-        switch (data) {
-            case 1:
-                return line_1
-            case 2:
-                return line_2
-            case 3:
-                return line_3
-            default:
-                return zero
-        }
-    }
-
-    const setColor = (data) => {
-        switch (data) {
-            case 'red':
-                return color_red
-            case 'black':
-                return color_black
-            default:
-                return color_red
-        }
-    }
-
-    const setType = (data) => {
-        switch (data) {
-            case 'odd':
-                return odd
-            case 'even':
-                return even
-            default:
-                return odd
-        }
-    }
-
-    const setRefs = (data, i) => {
-        const lines = setLines(data.line)
-        lines.current[lines.current.length] = i
-
-        zero.current[0] = chips[0]
-
-        const colors = setColor(data.color)
-        colors.current[colors.current.length] = i
-
-
-        const type = setType(data.type)
-        type.current[type.current.length] = i
-
-
-        if (data.name <= 12) {
-            r_1_12.current[r_1_12.current.length] = i
-        } else if (data.name > 12 && data.name < 25) {
-            r_13_24.current[r_13_24.current.length] = i
+        if (date.name <= 12) {
+            data.dozen['1_12'].refs.current[data.dozen['1_12'].refs.current.length] = i
+        } else if (date.name > 12 && date.name < 25) {
+            data.dozen['13_24'].refs.current[data.dozen['13_24'].refs.current.length] = i
         } else {
-            r_25_36.current[r_25_36.current.length] = i
+            data.dozen['25_36'].refs.current[data.dozen['25_36'].refs.current.length] = i
         }
 
-
-        if (data.name <= 18) {
-            r_1_18.current[r_1_18.current.length] = i
+        if (date.name <= 18) {
+            data.low_high['1_18'].refs.current[data.low_high['1_18'].refs.current.length] = i
         } else {
-            r_19_36.current[r_19_36.current.length] = i
+            data.low_high['19_36'].refs.current[data.low_high['19_36'].refs.current.length] = i
         }
     }
 
@@ -571,7 +617,6 @@ const TableChips = () => {
             data.map(el => el.classList.remove(style.hover))
         }
     }
-
 
     const currentStakeColor = (value) => {
         let previous = null;
@@ -586,20 +631,13 @@ const TableChips = () => {
         return previous.color;
     }
 
-    const buttonAmountSet = (name) => {
-        setChips(prevState =>
-            prevState.map(item =>
-                item.name === name
-                    ?
-                        {
-                            ...item,
-                            amount_value: item.amount_value + buttonStepGet().amount,
-                            amount_color: currentStakeColor(item.amount_value + buttonStepGet().amount)
-                        }
-                    :
-                        item
-            )
-        )
+    const buttonAmountSet = (name, type) => {
+        let a = Object.assign({}, data);
+
+        a[type][name].amount_value = a[type][name].amount_value + buttonStepGet().amount
+        a[type][name].amount_color = currentStakeColor(a[type][name].amount_value)
+
+        setData(a)
     }
 
     const buttonStepSet = (id) => {
@@ -615,25 +653,25 @@ const TableChips = () => {
     }
 
     const closeChips = () => {
-        let a = chips.slice(0)
+        let a = Object.assign({}, data);
 
         a.map(item => {
             item.amount_value = 0
             item.amount_color = null
         })
 
-        setChips(a)
+        setData(a)
     }
 
     const doubleChips = () => {
-        let a = chips.slice(0)
-
-        a.map(item => {
-            item.amount_value = item.amount_value * 2
-            item.amount_color = currentStakeColor(item.amount_value)
-        })
-
-        setChips(a)
+        // let a = chips.slice(0)
+        //
+        // a.map(item => {
+        //     item.amount_value = item.amount_value * 2
+        //     item.amount_color = currentStakeColor(item.amount_value)
+        // })
+        //
+        // setChips(a)
     }
 
     return (
@@ -665,7 +703,7 @@ const TableChips = () => {
                     size={'lg'}
                     text={'2x'}
                     action={() => {
-                        doubleChips()
+                        // doubleChips()
                     }}
                 />
                 <Button
@@ -673,7 +711,7 @@ const TableChips = () => {
                     size={'lg'}
                     icon={'close'}
                     action={() => {
-                        closeChips()
+                        // closeChips()
                     }}
                 />
             </div>
@@ -681,39 +719,38 @@ const TableChips = () => {
             <div className={style.top}>
                 <div />
                 <div className={style.dozens}>
-                    <button
-                        className={style.button}
-                        onMouseEnter = {() => {
-                            onHoverRefs(r_1_12.current, 0)
-                        }}
-                        onMouseLeave = {() => {
-                            onHoverRefs(r_1_12.current, 1)
-                        }}
-                    >
-                        1-12
-                    </button>
-                    <button
-                        className={style.button}
-                        onMouseEnter = {() => {
-                            onHoverRefs(r_13_24.current, 0)
-                        }}
-                        onMouseLeave = {() => {
-                            onHoverRefs(r_13_24.current, 1)
-                        }}
-                    >
-                        13-24
-                    </button>
-                    <button
-                        className={style.button}
-                        onMouseEnter = {() => {
-                            onHoverRefs(r_25_36.current, 0)
-                        }}
-                        onMouseLeave = {() => {
-                            onHoverRefs(r_25_36.current, 1)
-                        }}
-                    >
-                        25-36
-                    </button>
+                    {
+                        Object.values(data.dozen).map((el, idx) =>
+                            <button
+                                key={idx}
+                                className={style.button}
+                                onMouseEnter = {() => {
+                                    onHoverRefs(el.refs.current, 0)
+                                }}
+                                onMouseLeave = {() => {
+                                    onHoverRefs(el.refs.current, 1)
+                                }}
+                                onClick={() => {
+                                    buttonAmountSet(el.value, 'dozen')
+                                }}
+                            >
+                                {
+                                    el.amount_value > 0 &&
+                                    <span
+                                        className={
+                                            classNames(
+                                                style.amount,
+                                                style[el.amount_color]
+                                            )
+                                        }
+                                    >
+                                        {el.amount_value}
+                                    </span>
+                                }
+                                {el.value.replace('_', '-')}
+                            </button>
+                        )
+                    }
                 </div>
                 <div />
             </div>
@@ -722,13 +759,29 @@ const TableChips = () => {
                 <div className={style.zero}>
                     <button
                         className={style.button}
+                        onClick={() => {
+                            buttonAmountSet(data.chips[0].name, 'chips')
+                        }}
                     >
-                        0
+                        {
+                            data.chips[0].amount_value > 0 &&
+                            <span
+                                className={
+                                    classNames(
+                                        style.amount,
+                                        style[data.chips[0].amount_color]
+                                    )
+                                }
+                            >
+                                {data.chips[0].amount_value}
+                            </span>
+                        }
+                        <span>{data.chips[0].name}</span>
                     </button>
                 </div>
                 <div className={style.numbers}>
                     {
-                        chips.map((el, idx) =>
+                        data.chips.map((el, idx) =>
                             idx !== 0 &&
                             <button
                                 key={idx}
@@ -742,7 +795,7 @@ const TableChips = () => {
                                     )
                                 }
                                 onClick={() => {
-                                    buttonAmountSet(el.name)
+                                    buttonAmountSet(el.name, 'chips')
                                 }}
                             >
                                 <span>{el.name}</span>
@@ -764,42 +817,39 @@ const TableChips = () => {
                     }
                 </div>
                 <div className={style.rows}>
-                    <button
-                        className={style.button}
-                        onMouseEnter = {() => {
-                            onHoverRefs(line_3.current, 0)
-                        }}
-                        onMouseLeave = {() => {
-                            onHoverRefs(line_3.current, 1)
-                        }}
-                    >
-                        <p>2 to 1</p>
-                        <p>|||</p>
-                    </button>
-                    <button
-                        className={style.button}
-                        onMouseEnter = {() => {
-                            onHoverRefs(line_2.current, 0)
-                        }}
-                        onMouseLeave = {() => {
-                            onHoverRefs(line_2.current, 1)
-                        }}
-                    >
-                        <p>2 to 1</p>
-                        <p>||</p>
-                    </button>
-                    <button
-                        className={style.button}
-                        onMouseEnter = {() => {
-                            onHoverRefs(line_1.current, 0)
-                        }}
-                        onMouseLeave = {() => {
-                            onHoverRefs(line_1.current, 1)
-                        }}
-                    >
-                        <p>2 to 1</p>
-                        <p>|</p>
-                    </button>
+                    {
+                        Object.values(data.line).map((el, idx) =>
+                            <button
+                                key={idx}
+                                className={style.button}
+                                onMouseEnter = {() => {
+                                    onHoverRefs(el.refs.current, 0)
+                                }}
+                                onMouseLeave = {() => {
+                                    onHoverRefs(el.refs.current, 1)
+                                }}
+                                onClick={() => {
+                                    buttonAmountSet(el.value, 'line')
+                                }}
+                            >
+                                {
+                                    el.amount_value > 0 &&
+                                    <span
+                                        className={
+                                            classNames(
+                                                style.amount,
+                                                style[el.amount_color]
+                                            )
+                                        }
+                                    >
+                                        {el.amount_value}
+                                    </span>
+                                }
+                                <p>2 to 1</p>
+                                <p>{el.value}</p>
+                            </button>
+                        )
+                    }
                 </div>
                 {/*<div className={style.coordinate}>*/}
                 {/*    {*/}
@@ -838,86 +888,153 @@ const TableChips = () => {
                     <button
                         className={style.button}
                         onMouseEnter = {() => {
-                            onHoverRefs(r_1_18.current, 0)
+                            onHoverRefs(data.low_high['1_18'].refs.current, 0)
                         }}
                         onMouseLeave = {() => {
-                            onHoverRefs(r_1_18.current, 1)
+                            onHoverRefs(data.low_high['1_18'].refs.current, 1)
+                        }}
+                        onClick={() => {
+                            buttonAmountSet('1_18', 'low_high')
                         }}
                     >
-                        1 to 18
+                        {
+                            data.low_high['1_18'].amount_value > 0 &&
+                            <span
+                                className={
+                                    classNames(
+                                        style.amount,
+                                        style[data.low_high['1_18'].amount_color]
+                                    )
+                                }
+                            >
+                                {data.low_high['1_18'].amount_value}
+                            </span>
+                        }
+                        {data.low_high['1_18'].value.replace('_', ' to ')}
                     </button>
                     <button
                         className={style.button}
                         onMouseEnter = {() => {
-                            onHoverRefs(even.current, 0)
+                            onHoverRefs(data.even_odd.even.refs.current, 0)
                         }}
                         onMouseLeave = {() => {
-                            onHoverRefs(even.current, 1)
+                            onHoverRefs(data.even_odd.even.refs.current, 1)
+                        }}
+                        onClick={() => {
+                            buttonAmountSet('even', 'even_odd')
                         }}
                     >
-                        Even
+                        {
+                            data.even_odd['even'].amount_value > 0 &&
+                            <span
+                                className={
+                                    classNames(
+                                        style.amount,
+                                        style[data.even_odd['even'].amount_color]
+                                    )
+                                }
+                            >
+                                {data.even_odd['even'].amount_value}
+                            </span>
+                        }
+                        {data.even_odd.even.value}
+                    </button>
+
+                    {
+                        Object.values(data.color).map((el, idx) =>
+                            <button
+                                key={idx}
+                                className={style.button}
+                                onMouseEnter = {() => {
+                                    onHoverRefs(el.refs.current, 0)
+                                }}
+                                onMouseLeave = {() => {
+                                    onHoverRefs(el.refs.current, 1)
+                                }}
+                                onClick={() => {
+                                    buttonAmountSet(el.value, 'color')
+                                }}
+                            >
+                                {
+                                    el.amount_value > 0 &&
+                                    <span
+                                        className={
+                                            classNames(
+                                                style.amount,
+                                                style[el.amount_color]
+                                            )
+                                        }
+                                    >
+                                        {el.amount_value}
+                                    </span>
+                                }
+                                <div
+                                    className={
+                                        classNames(
+                                            style.diamond,
+                                            style[el.value]
+                                        )
+                                    }
+                                >
+                                    <div/>
+                                </div>
+                            </button>
+                        )
+                    }
+
+                    <button
+                        className={style.button}
+                        onMouseEnter = {() => {
+                            onHoverRefs(data.even_odd.odd.refs.current, 0)
+                        }}
+                        onMouseLeave = {() => {
+                            onHoverRefs(data.even_odd.odd.refs.current, 1)
+                        }}
+                        onClick={() => {
+                            buttonAmountSet('odd', 'even_odd')
+                        }}
+                    >
+                        {
+                            data.even_odd['odd'].amount_value > 0 &&
+                            <span
+                                className={
+                                    classNames(
+                                        style.amount,
+                                        style[data.even_odd['odd'].amount_color]
+                                    )
+                                }
+                            >
+                                {data.even_odd['odd'].amount_value}
+                            </span>
+                        }
+                        {data.even_odd.odd.value}
                     </button>
                     <button
                         className={style.button}
                         onMouseEnter = {() => {
-                            onHoverRefs(color_red.current, 0)
+                            onHoverRefs(data.low_high['19_36'].refs.current, 0)
                         }}
                         onMouseLeave = {() => {
-                            onHoverRefs(color_red.current, 1)
+                            onHoverRefs(data.low_high['19_36'].refs.current, 1)
+                        }}
+                        onClick={() => {
+                            buttonAmountSet('19_36', 'low_high')
                         }}
                     >
-                        <div
-                            className={
-                                classNames(
-                                    style.diamond,
-                                    style.red
-                                )
-                            }
-                        >
-                            <div/>
-                        </div>
-                    </button>
-                    <button
-                        className={style.button}
-                        onMouseEnter = {() => {
-                            onHoverRefs(color_black.current, 0)
-                        }}
-                        onMouseLeave = {() => {
-                            onHoverRefs(color_black.current, 1)
-                        }}
-                    >
-                        <div
-                            className={
-                                classNames(
-                                    style.diamond,
-                                    style.black
-                                )
-                            }
-                        >
-                            <div/>
-                        </div>
-                    </button>
-                    <button
-                        className={style.button}
-                        onMouseEnter = {() => {
-                            onHoverRefs(odd.current, 0)
-                        }}
-                        onMouseLeave = {() => {
-                            onHoverRefs(odd.current, 1)
-                        }}
-                    >
-                        Odd
-                    </button>
-                    <button
-                        className={style.button}
-                        onMouseEnter = {() => {
-                            onHoverRefs(r_19_36.current, 0)
-                        }}
-                        onMouseLeave = {() => {
-                            onHoverRefs(r_19_36.current, 1)
-                        }}
-                    >
-                        19 to 36
+                        {
+                            data.low_high['19_36'].amount_value > 0 &&
+                            <span
+                                className={
+                                    classNames(
+                                        style.amount,
+                                        style[data.low_high['19_36'].amount_color]
+                                    )
+                                }
+                            >
+                                {data.low_high['19_36'].amount_value}
+                            </span>
+                        }
+                        {data.low_high['19_36'].value.replace('_', ' to ')}
                     </button>
                 </div>
                 <div />

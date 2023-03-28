@@ -52,7 +52,7 @@
 }
 
 .rows {
-  @include flex($direction: column);
+  @include flex($direction: column-reverse);
   @include size(100%);
   @include make-spacer('py', 1);
 
@@ -123,7 +123,7 @@
 }
 
 .diamond {
-  transform: rotateZ(90deg);
+  transform: rotateZ(90deg) translateY(rem(-5px));
 
   &.red {
 
@@ -222,6 +222,7 @@
   background-color: #f00;
   border-radius: 50%;
   font-size: rem(14px);
+  z-index: 1;
 
   &.violet {
     background-color: violet;
