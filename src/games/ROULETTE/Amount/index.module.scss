@@ -1,0 +1,70 @@
+@import "scss/config";
+
+.block {
+  @include size(rem(40px));
+  @include absolute-center;
+
+  z-index: 1;
+}
+
+.animation {
+  position: absolute;
+  top: rem(-5px);
+  left: 0;
+  right: 0;
+  color: var(--color-orange);
+  opacity: 0;
+
+  &.active {
+    animation: amount_move 0.5s linear 0.5s forwards;
+  }
+}
+
+@keyframes amount_move {
+  0% {
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-50%);
+  }
+  100% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+}
+
+.amount {
+  @include size(100%);
+  @include flex(center, center);
+
+  font-size: rem(14px);
+  border-radius: 50%;
+  background-color: red;
+
+  &.violet {
+    background-color: violet;
+  }
+
+  &.blue {
+    background-color: blue;
+  }
+
+  &.green {
+    background-color: green;
+  }
+
+  &.red {
+    background-color: red;
+  }
+
+  &.black {
+    background-color: black;
+  }
+
+  &.orange{
+    background-color: orange;
+  }
+}

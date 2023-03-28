@@ -122,11 +122,4 @@
 
 .wrapper {
   @include flex(center, center);
-  @include make-spacer('p', 2);
-
-  position: relative;
-  border: 2px solid var(--color-orange);
-  border-radius: rem(9px);
-  overflow: hidden;
-  background-color: #1b1b1b;
 }

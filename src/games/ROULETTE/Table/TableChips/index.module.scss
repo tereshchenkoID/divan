@@ -1,5 +1,28 @@
 @import "scss/config";
 
+.block {
+  @include make-spacer('px', 2);
+  @include make-spacer('py', 4);
+
+  position: relative;
+  border: 2px solid var(--color-orange);
+  border-radius: rem(9px);
+  overflow: hidden;
+  background-color: #1b1b1b;
+}
+
+.body {
+  @include make-spacer('mb', 10);
+}
+
+.footer {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  justify-content: space-between;
+  align-items: center;
+}
+
+
 .top,
 .middle,
 .bottom {
@@ -214,41 +237,6 @@
   }
 }
 
-.amount {
-  @include flex(center, center);
-  @include size(rem(40px));
-  @include absolute-center;
-
-  background-color: #f00;
-  border-radius: 50%;
-  font-size: rem(14px);
-  z-index: 1;
-
-  &.violet {
-    background-color: violet;
-  }
-
-  &.blue {
-    background-color: blue;
-  }
-
-  &.green {
-    background-color: green;
-  }
-
-  &.red {
-    background-color: red;
-  }
-
-  &.black {
-    background-color: black;
-  }
-
-  &.orange{
-    background-color: orange;
-  }
-}
-
 .actions {
   @include make-spacer('mb', 4);
 
@@ -256,27 +244,32 @@
   grid-template-columns: repeat(2, rem(64px));
   justify-content: center;
   grid-gap: rem(10px);
+
+  button {
+    font-size: rem(36px);
+  }
 }
 
 .coins {
-  @include make-spacer('mb', 4);
   @include flex(center, center);
 
   gap: rem(10px);
+  height: rem(94px);
 }
 
 .coin {
   @include flex(center, center);
-  @include size(rem(90px));
+  @include size(rem(64px));
 
   border-radius: 50%;
   background-color: red;
   color: var(--color-white);
   font-size: rem(24px);
   font-weight: var(--typography-bold);
+  letter-spacing: rem(-2px);
 
   &.active {
-    @include size(rem(130px));
+    @include size(rem(94px));
 
     font-size: rem(36px);
   }

@@ -1,13 +1,28 @@
+import {useState} from "react";
+
 import classNames from "classnames";
 
 import JackPot from "modules/JackPot";
-
 import TableChips from "./TableChips";
 
 import style from "./index.module.scss";
 
 const Table = () => {
+    const SORT = [1, 2, 3, 5, 7, 10]
+    const [random, setRandom] = useState([])
 
+    const generateRandomArray = (length) => {
+        let array = [];
+
+        while (array.length < length) {
+            let randomNumber = Math.floor(Math.random() * 36);
+            if (!array.includes(randomNumber)) {
+                array.push(randomNumber);
+            }
+        }
+
+        setRandom(array);
+    }
 
     return (
         <div className={style.block}>
@@ -40,27 +55,22 @@ const Table = () => {
                     }
                 >
                     <div className={style.sort}>
-                        <button
-                            className={
-                                classNames(
-                                    style.market
-                                )
-                            }
-                        >
-                            1
-                        </button>
-                        <button
-                            className={
-                                classNames(
-                                    style.market
-                                )
-                            }
-                        >
-                            2
-                        </button>
+                        {
+                            SORT.map((el, idx) =>
+                                <button
+                                    key={idx}
+                                    className={ style.market}
+                                    onClick={() => {
+                                        generateRandomArray(el)
+                                    }}
+                                >
+                                    {el}
+                                </button>
+                            )
+                        }
                     </div>
                     <div className={style.wrapper}>
-                        <TableChips />
+                        <TableChips random={random}/>
                     </div>
                 </div>
             </div>
