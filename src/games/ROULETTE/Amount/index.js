@@ -30,7 +30,11 @@ const Amount = ({data, step}) => {
                         )
                     }
                 >
-                    {data.amount_value}
+                    <img
+                        src={`/img/ROULETTE/chips/${data.amount_color || 'red'}.png`}
+                        alt={'Chips'}
+                    />
+                    <p>{data.amount_value}</p>
                     <div
                         className={
                             classNames(

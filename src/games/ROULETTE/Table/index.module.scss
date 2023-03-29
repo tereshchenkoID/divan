@@ -15,7 +15,7 @@
   grid-template-columns: 1fr rem(95px);
   align-items: center;
   position: absolute;
-  top: rem(48px);
+  top: rem(80px);
   width: rem(250px);
 }
 
@@ -29,7 +29,7 @@
   @include size(rem(135px), rem(70px));
 
   img {
-    width: auto;
+    @include size(100%);
   }
 }
 
@@ -67,16 +67,16 @@
 }
 
 .table {
-  display: none;
+  display: block;
+}
 
-  &.active {
-    display: block;
-  }
+.label {
+  @include make-spacer('mt', 4);
+  color: var(--color-white);
 }
 
 .sort {
-  @include make-spacer('py', 2);
-  @include make-spacer('mb', 1);
+  @include make-spacer('mb', 2);
   @include flex($align-items: center);
 
   padding-left: rem(270px);

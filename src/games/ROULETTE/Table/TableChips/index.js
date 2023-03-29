@@ -90,7 +90,7 @@ const onHoverChips = (el, type, data, value) => {
             b = getRouletteValues(el.name)
             break;
         default:
-            b = null
+            b = []
             break;
     }
 
@@ -1609,15 +1609,11 @@ const TableChips = ({random}) => {
                                         data={el}
                                         step={buttonStepGet()}
                                     />
-                                    <div
-                                        className={
-                                            classNames(
-                                                style.diamond,
-                                                style[el.name]
-                                            )
-                                        }
-                                    >
-                                        <div/>
+                                    <div className={style.diamond}>
+                                        <img
+                                            src={`/img/ROULETTE/decor/${el.name}.png`}
+                                            alt={'Chips'}
+                                        />
                                     </div>
                                 </button>
                             )
@@ -1681,7 +1677,11 @@ const TableChips = ({random}) => {
                                     buttonStepSet(el.id)
                                 }}
                             >
-                                {el.amount}
+                                <img
+                                    src={`/img/ROULETTE/chips/${el.color}.png`}
+                                    alt={'Chips'}
+                                />
+                                <p>{el.amount}</p>
                             </button>
                         )
                     }

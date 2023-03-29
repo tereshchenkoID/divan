@@ -225,47 +225,7 @@
 }
 
 .diamond {
-  transform: rotateZ(90deg) translateY(rem(-5px));
-
-  &.red {
-
-    div {
-
-      &::before {
-        background-color: var(--color-red);
-      }
-    }
-  }
-
-  &.black {
-
-    div {
-
-      &::before {
-        background-color: var(--color-black);
-      }
-    }
-  }
-
-  div {
-    --border: 2px solid #fff;
-    --size: 25px;
-
-    @include size(var(--size));
-
-    margin: calc(var(--size) / 4);
-    margin-top: calc(var(--size) / 1.5);
-    transform: scaleY(1.5);
-
-    &::before {
-      @include size(100%);
-
-      content: '';
-      display: block;
-      border: var(--border);
-      transform: rotate(45deg);
-    }
-  }
+  @include size(rem(75px), rem(34px));
 }
 
 .button {
@@ -319,8 +279,8 @@
   @include flex(center, center);
   @include size(rem(64px));
 
+  position: relative;
   border-radius: 50%;
-  background-color: red;
   color: var(--color-white);
   font-size: rem(24px);
   font-weight: var(--typography-bold);
@@ -332,27 +292,11 @@
     font-size: rem(36px);
   }
 
-  &.violet {
-    background-color: violet;
+  img {
+    @include absolute-filled;
   }
 
-  &.blue {
-    background-color: blue;
-  }
-
-  &.green {
-    background-color: green;
-  }
-
-  &.red {
-    background-color: red;
-  }
-
-  &.black {
-    background-color: black;
-  }
-
-  &.orange{
-    background-color: orange;
+  p {
+    position: relative;
   }
 }

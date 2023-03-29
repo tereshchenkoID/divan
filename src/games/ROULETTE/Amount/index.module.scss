@@ -26,34 +26,17 @@
 
   font-size: rem(14px);
   border-radius: 50%;
-  background-color: red;
 
   &.active {
     animation: chip_move 0.3s ease-in-out forwards;
   }
 
-  &.violet {
-    background-color: violet;
+  img {
+    @include absolute-filled;
   }
 
-  &.blue {
-    background-color: blue;
-  }
-
-  &.green {
-    background-color: green;
-  }
-
-  &.red {
-    background-color: red;
-  }
-
-  &.black {
-    background-color: black;
-  }
-
-  &.orange{
-    background-color: orange;
+  p {
+    position: relative;
   }
 }
 

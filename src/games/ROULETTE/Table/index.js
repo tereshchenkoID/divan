@@ -42,18 +42,15 @@ const Table = () => {
             </div>
             <div className={style.info}>
                 <div className={style.league}>
-
+                    <img
+                        src={`/img/ROULETTE/logo.png`}
+                        alt={'Roulette'}
+                    />
                 </div>
             </div>
             <div className={style.body}>
-                <div
-                    className={
-                        classNames(
-                            style.table,
-                            style.active
-                        )
-                    }
-                >
+                <div className={style.table}>
+                    <div className={style.label}>RANDOM</div>
                     <div className={style.sort}>
                         {
                             SORT.map((el, idx) =>
