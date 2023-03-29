@@ -1,6 +1,8 @@
 @import "scss/config";
 
 .block {
+  @include flex(center, center, column);
+
   @include make-spacer('px', 2);
   @include make-spacer('py', 4);
 
@@ -9,9 +11,11 @@
   border-radius: rem(9px);
   overflow: hidden;
   background-color: #1b1b1b;
+  width: 100%;
 }
 
 .body {
+  @include make-spacer('mx', auto);
   @include make-spacer('mb', 10);
 }
 
@@ -20,8 +24,8 @@
   grid-template-columns: repeat(2, auto);
   justify-content: space-between;
   align-items: center;
+  width: 100%;
 }
-
 
 .top,
 .middle,
@@ -34,42 +38,101 @@
 
 .top,
 .bottom {
+  padding: 0 rem(2px);
   height: rem(55px);
 }
 
-.dozens {
-  @include flex;
-  @include size(100%);
-  @include make-spacer('px', 1);
+.hidden-zero {
+  @include flex($direction: column);
 
-  gap: rem(5px);
+  position: absolute;
+  top: rem(20px);
+  left: rem(32px);
+  bottom: rem(-17px);
+  width: rem(50px);
+  z-index: 1;
 
   .button {
     flex: 1;
-    border: 2px solid var(--color-white);
-    border-radius: rem(9px);
-    gap: rem(5px);
-    background-color: #1b1b1b;
-    text-align: center;
-    font-size: rem(28px);
-    font-weight: var(--typography-bold);
-    color: var(--color-white);
+    border-radius: 0;
+    overflow: visible;
+
+    &::after {
+      display: none;
+    }
   }
 }
 
+.hidden-chips {
+  @include flex($justify-content: space-between, $direction: column);
+
+  padding: 5px 0;
+  position: absolute;
+  top: rem(20px);
+  left: rem(75px);
+  right: rem(75px);
+  bottom: rem(-20px);
+  z-index: 1;
+}
+
+.h-row {
+  height: rem(30px);
+  display: grid;
+  justify-content: space-between;
+  align-items: center;
+
+  .button {
+    @include size(100%);
+
+    border-radius: 0;
+    overflow: visible;
+
+    &::after {
+      display: none;
+    }
+  }
+
+  &:nth-child(odd) {
+    grid-template-columns: repeat(11, rem(30px));
+    padding: 0 rem(37px);
+  }
+
+  &:nth-child(even) {
+    grid-template-columns: repeat(23, 30px);
+    padding: 0 rem(2px);
+  }
+}
+
+.dozens,
+.extra,
+.rows {
+
+  .button {
+    flex: 1;
+    background-color: #1b1b1b;
+    border: rem(2px) solid var(--color-white);
+  }
+}
+
+.dozens,
 .extra {
   @include flex;
   @include size(100%);
   @include make-spacer('px', 1);
 
   gap: rem(5px);
+}
+
+.dozens {
 
   .button {
-    @include flex(center, center);
+    font-size: rem(28px);
+  }
+}
 
-    flex: 1;
-    background-color: #1b1b1b;
-    border: rem(2px) solid var(--color-white);
+.extra {
+
+  .button {
     font-size: rem(24px);
   }
 }
@@ -77,14 +140,12 @@
 .rows {
   @include flex($direction: column-reverse);
   @include size(100%);
-  @include make-spacer('py', 1);
 
-  gap: rem(5px);
+  padding: rem(7px) 0;
+  gap: rem(8px);
 
   .button {
-    flex: 1;
-    background-color: #1b1b1b;
-    border: rem(2px) solid var(--color-white);
+    flex-direction: column;
     font-size: rem(12px);
   }
 }
@@ -92,13 +153,31 @@
 .zero {
   @include flex;
   @include size(100%);
-  @include make-spacer('py', 1);
+
+  padding: rem(7px) 0;
 
   .button {
     flex: 1;
-    background-color: #1b1b1b;
     border: rem(2px) solid var(--color-green-900);
     font-size: rem(28px);
+
+    &::before {
+      position: absolute;
+      top: rem(1px);
+      right: rem(1px);
+      left: rem(1px);
+      height: rem(12px);
+      border-radius: rem(inherit);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.1) 100%);
+      content: '';
+    }
+
+    &.hover {
+
+      &::after {
+        opacity: 1;
+      }
+    }
   }
 }
 
@@ -190,6 +269,8 @@
 }
 
 .button {
+  @include flex(center, center);
+
   position: relative;
   overflow: hidden;
   border-radius: rem(9px);
@@ -216,30 +297,7 @@
   }
 }
 
-.coordinate {
-  @include flex($direction: column);
-
-  position: absolute;
-  top: rem(34px);
-  right: rem(55px);
-  bottom: rem(-30px);
-  left: rem(88px);
-  z-index: 1;
-  border: 1px solid red;
-}
-
-.row {
-  flex: 1;
-  border: 1px solid green;
-
-  .button {
-    //@include size(rem(25px));
-  }
-}
-
 .actions {
-  @include make-spacer('mb', 4);
-
   display: grid;
   grid-template-columns: repeat(2, rem(64px));
   justify-content: center;

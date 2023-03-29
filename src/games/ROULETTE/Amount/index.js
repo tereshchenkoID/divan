@@ -25,7 +25,8 @@ const Amount = ({data, step}) => {
                     className={
                         classNames(
                             style.amount,
-                            style[data.amount_color]
+                            style[data.amount_color],
+                            toggle && style.active
                         )
                     }
                 >

@@ -51,3 +51,13 @@ export const printMode = {
     POS: "POS",
     DISABLED: "DISABLED"
 }
+
+export const rouletteType = {
+    NUMBER: "NUMBER",       // 1
+    SPLIT: "SPLIT",         // 2
+    TRIO: "TRIO",           // 3
+    STREET: "STREET",       // 3
+    CORNER: "CORNER",       // 4
+    BASKET: "BASKET",       // 4
+    SIX_LINE: "SIX LINE"    // 6
+}

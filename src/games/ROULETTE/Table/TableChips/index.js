@@ -3,8 +3,9 @@ import {useSelector} from "react-redux";
 
 import classNames from "classnames";
 
-import Button from "components/Button";
+import {rouletteType} from "constant/config";
 
+import Button from "components/Button";
 import Amount from "games/ROULETTE/Amount";
 
 import style from './index.module.scss';
@@ -27,682 +28,1252 @@ const setStepsValue = (data) => {
     return a
 }
 
-const onHoverRefs = (data, type) => {
+const generateArrayFromRange = (range, filter) => {
+    const [start, end] = range.split('-').map(num => parseInt(num));
+    const arr = [];
+
+    for (let i = start; i <= end; i++) {
+        arr.push(i);
+    }
+
+    if (filter === 'even') {
+        return arr.filter(num => num !== 0 && num % 2 === 0);
+    } else if (filter === 'odd') {
+        return arr.filter(num => num % 2 !== 0);
+    } else {
+        return arr;
+    }
+}
+
+const generateIncreasingArray = (startNum, length)=>  {
+    const arr = [startNum];
+
+    for (let i = 1; i < length; i++) {
+        arr.push(arr[i-1] + 3);
+    }
+
+    return arr;
+}
+
+const getRouletteValues = (color)=>  {
+    const redValues = [1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36];
+    const blackValues = [2, 4, 6, 8, 10, 11, 13, 15, 17, 20, 22, 24, 26, 28, 29, 31, 33, 35];
+
+    if (color === 'red') {
+        return redValues;
+    } else {
+        return blackValues;
+    }
+}
+
+const onHoverChips = (el, type, data, value) => {
+    const a = el.stake
+    let b;
+
+    switch (value) {
+        case 'range':
+            b = generateArrayFromRange(el.name)
+            break;
+        case 'even':
+            b = generateArrayFromRange('0-36', value)
+            break;
+        case 'odd':
+            b = generateArrayFromRange('0-36', value)
+            break;
+        case 'counts':
+            b = a.slice(a.indexOf(':') + 1, a.length).replaceAll(' ', '').split(',')
+            break;
+        case 'line':
+            b = generateIncreasingArray(el.name, 12)
+            break;
+        case 'color':
+            b = getRouletteValues(el.name)
+            break;
+        default:
+            b = null
+            break;
+    }
+
     if (type === 0) {
-        data.map(el => el.classList.add(style.hover))
+        b.map(el => data.current[el].classList.add(style.hover))
     }
     else {
-        data.map(el => el.classList.remove(style.hover))
+        b.map(el => data.current[el].classList.remove(style.hover))
     }
 }
 
 const TableChips = ({random}) => {
-    const r = 6
-    const r_b = 23
-
     const {settings} = useSelector((state) => state.settings)
     const [steps, setSteps] = useState([])
+    const numbers = useRef([])
 
     const [data, setData] = useState({
-        dozen: {
-            '1_12': {
-                odd: 3,
-                stake: 'Dozen: 1-12',
-                value: '1_12',
-                amount_value: 0,
-                amount_color: null,
-                refs: useRef([])
-            },
-            '13_24': {
-                odd: 3,
-                stake: 'Dozen: 13-24',
-                value: '13_24',
-                amount_value: 0,
-                amount_color: null,
-                refs: useRef([])
-            },
-            '25_36': {
-                odd: 3,
-                stake: 'Dozen: 25-36',
-                value: '25_36',
-                amount_value: 0,
-                amount_color: null,
-                refs: useRef([])
-            }
-        },
-        color: {
-            'red': {
-                odd: 2,
-                stake: 'Color: Red',
-                value: 'red',
-                amount_value: 0,
-                amount_color: null,
-                refs: useRef([])
-            },
-            'black': {
-                odd: 2,
-                stake: 'Color: Black',
-                value: 'black',
-                amount_value: 0,
-                amount_color: null,
-                refs: useRef([])
-            }
-        },
-        line: {
-            '1': {
-                odd: 3,
-                stake: 'Column: 1',
-                value: '1',
-                amount_value: 0,
-                amount_color: null,
-                refs: useRef([])
-            },
-            '2': {
-                odd: 3,
-                stake: 'Column: 2',
-                value: '2',
-                amount_value: 0,
-                amount_color: null,
-                refs: useRef([])
-            },
-            '3': {
-                odd: 3,
-                stake: 'Column: 3',
-                value: '3',
-                amount_value: 0,
-                amount_color: null,
-                refs: useRef([])
-            }
-        },
-        even_odd: {
-            'even': {
-                odd: 2,
-                stake: 'Even/Odd: Even',
-                value: 'even',
-                amount_value: 0,
-                amount_color: null,
-                refs: useRef([])
-            },
-            'odd': {
-                odd: 2,
-                name: 'Even/Odd: Odd',
-                value: 'odd',
-                amount_value: 0,
-                amount_color: null,
-                refs: useRef([])
-            }
-        },
-        low_high: {
-            '1_18': {
-                odd: 2,
-                stake: 'Low/High 1-18',
-                value: '1_18',
-                amount_value: 0,
-                amount_color: null,
-                refs: useRef([])
-            },
-            '19_36': {
-                odd: 2,
-                stake: 'Low/High 19-36',
-                value: '19_36',
-                amount_value: 0,
-                amount_color: null,
-                refs: useRef([])
-            }
-        },
         chips: [
             {
-                stake: 'Number: 0',
+                stake: `${rouletteType.NUMBER}: 0`,
                 odd: 36,
                 value: 0,
                 name: 0,
                 type: null,
                 color: "green",
                 line: null,
-                range: [],
                 amount_value: 0,
                 amount_color: null
             },
             {
-                stake: 'Number: 1',
+                stake: `${rouletteType.NUMBER}: 1`,
                 odd: 36,
                 value: 1,
                 name: 1,
                 type: "odd",
                 color: "red",
                 line: 1,
-                range: [
-                    '1-12',
-                    '1-18'
-                ],
                 amount_value: 0,
                 amount_color: null
             },
             {
-                stake: 'Number: 2',
+                stake: `${rouletteType.NUMBER}: 2`,
                 odd: 36,
                 value: 2,
                 name: 2,
                 type: "even",
                 color: "black",
                 line: 2,
-                range: [
-                    '1-12',
-                    '1-18'
-                ],
                 amount_value: 0,
                 amount_color: null
             },
             {
-                stake: 'Number: 3',
+                stake: `${rouletteType.NUMBER}: 3`,
                 odd: 36,
                 value: 3,
                 name: 3,
                 type: "odd",
                 color: "red",
                 line: 3,
-                range: [
-                    '1-12',
-                    '1-18'
-                ],
                 amount_value: 0,
                 amount_color: null
             },
             {
-                stake: 'Number: 4',
+                stake: `${rouletteType.NUMBER}: 4`,
                 odd: 36,
                 value: 4,
                 name: 4,
                 type: "even",
                 color: "black",
                 line: 1,
-                range: [
-                    '1-12',
-                    '1-18'
-                ],
                 amount_value: 0,
                 amount_color: null
             },
             {
-                stake: 'Number: 5',
+                stake: `${rouletteType.NUMBER}: 5`,
                 odd: 36,
                 value: 5,
                 name: 5,
                 type: "odd",
                 color: "red",
                 line: 2,
-                range: [
-                    '1-12',
-                    '1-18'
-                ],
                 amount_value: 0,
                 amount_color: null
             },
             {
-                stake: 'Number: 6',
+                stake: `${rouletteType.NUMBER}: 6`,
                 odd: 36,
                 value: 6,
                 name: 6,
                 type: "even",
                 color: "black",
                 line: 3,
-                range: [
-                    '1-12',
-                    '1-18'
-                ],
                 amount_value: 0,
                 amount_color: null
             },
             {
-                stake: 'Number: 7',
+                stake: `${rouletteType.NUMBER}: 7`,
                 odd: 36,
                 value: 7,
                 name: 7,
                 type: "odd",
                 color: "red",
                 line: 1,
-                range: [
-                    '1-12',
-                    '1-18'
-                ],
                 amount_value: 0,
                 amount_color: null
             },
             {
-                stake: 'Number: 8',
+                stake: `${rouletteType.NUMBER}: 8`,
                 odd: 36,
                 value: 8,
                 name: 8,
                 type: "even",
                 color: "black",
                 line: 2,
-                range: [
-                    '1-12',
-                    '1-18'
-                ],
                 amount_value: 0,
                 amount_color: null
             },
             {
-                stake: 'Number: 9',
+                stake: `${rouletteType.NUMBER}: 9`,
                 odd: 36,
                 value: 9,
                 name: 9,
                 type: "odd",
                 color: "red",
                 line: 3,
-                range: [
-                    '1-12',
-                    '1-18'
-                ],
                 amount_value: 0,
                 amount_color: null
             },
             {
-                stake: 'Number: 10',
+                stake: `${rouletteType.NUMBER}: 10`,
                 odd: 36,
                 value: 10,
                 name: 10,
                 type: "even",
                 color: "black",
                 line: 1,
-                range: [
-                    '1-12',
-                    '1-18'
-                ],
                 amount_value: 0,
                 amount_color: null
             },
             {
-                stake: 'Number: 11',
+                stake: `${rouletteType.NUMBER}: 11`,
                 odd: 36,
                 value: 11,
                 name: 11,
                 type: "odd",
                 color: "black",
                 line: 2,
-                range: [
-                    '1-12',
-                    '1-18'
-                ],
                 amount_value: 0,
                 amount_color: null
             },
             {
-                stake: 'Number: 12',
+                stake: `${rouletteType.NUMBER}: 12`,
                 odd: 36,
                 value: 12,
                 name: 12,
                 type: "even",
                 color: "red",
                 line: 3,
-                range: [
-                    '1-12',
-                    '1-18'
-                ],
                 amount_value: 0,
                 amount_color: null
             },
             {
-                stake: 'Number: 13',
+                stake: `${rouletteType.NUMBER}: 13`,
                 odd: 36,
                 value: 13,
                 name: 13,
                 type: "odd",
                 color: "black",
                 line: 1,
-                range: [
-                    '13-24',
-                    '1-18'
-                ],
                 amount_value: 0,
                 amount_color: null
             },
             {
-                stake: 'Number: 14',
+                stake: `${rouletteType.NUMBER}: 14`,
                 odd: 36,
                 value: 14,
                 name: 14,
                 type: "even",
                 color: "red",
                 line: 2,
-                range: [
-                    '13-24',
-                    '1-18'
-                ],
                 amount_value: 0,
                 amount_color: null
             },
             {
-                stake: 'Number: 15',
+                stake: `${rouletteType.NUMBER}: 15`,
                 odd: 36,
                 value: 15,
                 name: 15,
                 type: "odd",
                 color: "black",
                 line: 3,
-                range: [
-                    '13-24',
-                    '1-18'
-                ],
                 amount_value: 0,
                 amount_color: null
             },
             {
-                stake: 'Number: 16',
+                stake: `${rouletteType.NUMBER}: 16`,
                 odd: 36,
                 value: 16,
                 name: 16,
                 type: "even",
                 color: "red",
                 line: 1,
-                range: [
-                    '13-24',
-                    '1-18'
-                ],
                 amount_value: 0,
                 amount_color: null
             },
             {
-                stake: 'Number: 17',
+                stake: `${rouletteType.NUMBER}: 17`,
                 odd: 36,
                 value: 17,
                 name: 17,
                 type: "odd",
                 color: "black",
                 line: 2,
-                range: [
-                    '13-24',
-                    '1-18'
-                ],
                 amount_value: 0,
                 amount_color: null
             },
             {
-                stake: 'Number: 18',
+                stake: `${rouletteType.NUMBER}: 18`,
                 odd: 36,
                 value: 18,
                 name: 18,
                 type: "even",
                 color: "red",
                 line: 3,
-                range: [
-                    '13-24',
-                    '1-18'
-                ],
                 amount_value: 0,
                 amount_color: null
             },
             {
-                stake: 'Number: 19',
+                stake: `${rouletteType.NUMBER}: 19`,
                 odd: 36,
                 value: 19,
                 name: 19,
                 type: "odd",
                 color: "red",
                 line: 1,
-                range: [
-                    '13-24',
-                    '19-36'
-                ],
                 amount_value: 0,
                 amount_color: null
             },
             {
-                stake: 'Number: 20',
+                stake: `${rouletteType.NUMBER}: 20`,
                 odd: 36,
                 value: 20,
                 name: 20,
                 type: "even",
                 color: "black",
                 line: 2,
-                range: [
-                    '13-24',
-                    '19-36'
-                ],
                 amount_value: 0,
                 amount_color: null
             },
             {
-                stake: 'Number: 21',
+                stake: `${rouletteType.NUMBER}: 21`,
                 odd: 36,
                 value: 21,
                 name: 21,
                 type: "odd",
                 color: "red",
                 line: 3,
-                range: [
-                    '13-24',
-                    '19-36'
-                ],
                 amount_value: 0,
                 amount_color: null
             },
             {
-                stake: 'Number: 22',
+                stake: `${rouletteType.NUMBER}: 22`,
                 odd: 36,
                 value: 22,
                 name: 22,
                 type: "even",
                 color: "black",
                 line: 1,
-                range: [
-                    '13-24',
-                    '19-36'
-                ],
                 amount_value: 0,
                 amount_color: null
             },
             {
-                stake: 'Number: 23',
+                stake: `${rouletteType.NUMBER}: 23`,
                 odd: 36,
                 value: 23,
                 name: 23,
                 type: "odd",
                 color: "red",
                 line: 2,
-                range: [
-                    '13-24',
-                    '19-36'
-                ],
                 amount_value: 0,
                 amount_color: null
             },
             {
-                stake: 'Number: 24',
+                stake: `${rouletteType.NUMBER}: 24`,
                 odd: 36,
                 value: 24,
                 name: 24,
                 type: "even",
                 color: "black",
                 line: 3,
-                range: [
-                    '25-36',
-                    '19-36'
-                ],
                 amount_value: 0,
                 amount_color: null
             },
             {
-                stake: 'Number: 25',
+                stake: `${rouletteType.NUMBER}: 25`,
                 odd: 36,
                 value: 25,
                 name: 25,
                 type: "odd",
                 color: "red",
                 line: 1,
-                range: [
-                    '25-36',
-                    '19-36'
-                ],
                 amount_value: 0,
                 amount_color: null
             },
             {
-                stake: 'Number: 26',
+                stake: `${rouletteType.NUMBER}: 26`,
                 odd: 36,
                 value: 26,
                 name: 26,
                 type: "even",
                 color: "black",
                 line: 2,
-                range: [
-                    '25-36',
-                    '19-36'
-                ],
                 amount_value: 0,
                 amount_color: null
             },
             {
-                stake: 'Number: 27',
+                stake: `${rouletteType.NUMBER}: 27`,
                 odd: 36,
                 value: 27,
                 name: 27,
                 type: "odd",
                 color: "red",
                 line: 3,
-                range: [
-                    '25-36',
-                    '19-36'
-                ],
                 amount_value: 0,
                 amount_color: null
             },
             {
-                stake: 'Number: 28',
+                stake: `${rouletteType.NUMBER}: 28`,
                 odd: 36,
                 value: 28,
                 name: 28,
                 type: "even",
                 color: "black",
                 line: 1,
-                range: [
-                    '25-36',
-                    '19-36'
-                ],
                 amount_value: 0,
                 amount_color: null
             },
             {
-                stake: 'Number: 29',
+                stake: `${rouletteType.NUMBER}: 29`,
                 odd: 36,
                 value: 29,
                 name: 29,
                 type: "odd",
                 color: "black",
                 line: 2,
-                range: [
-                    '25-36',
-                    '19-36'
-                ],
                 amount_value: 0,
                 amount_color: null
             },
             {
-                stake: 'Number: 30',
+                stake: `${rouletteType.NUMBER}: 30`,
                 odd: 36,
                 value: 30,
                 name: 30,
                 type: "even",
                 color: "red",
                 line: 3,
-                range: [
-                    '25-36',
-                    '19-36'
-                ],
                 amount_value: 0,
                 amount_color: null
             },
             {
-                stake: 'Number: 31',
+                stake: `${rouletteType.NUMBER}: 31`,
                 odd: 36,
                 value: 31,
                 name: 31,
                 type: "odd",
                 color: "black",
                 line: 1,
-                range: [
-                    '25-36',
-                    '19-36'
-                ],
                 amount_value: 0,
                 amount_color: null
             },
             {
-                stake: 'Number: 32',
+                stake: `${rouletteType.NUMBER}: 32`,
                 odd: 36,
                 value: 32,
                 name: 32,
                 type: "even",
                 color: "red",
                 line: 2,
-                range: [
-                    '25-36',
-                    '19-36'
-                ],
                 amount_value: 0,
                 amount_color: null
             },
             {
-                stake: 'Number: 33',
+                stake: `${rouletteType.NUMBER}: 33`,
                 odd: 36,
                 value: 33,
                 name: 33,
                 type: "odd",
                 color: "black",
                 line: 3,
-                range: [
-                    '25-36',
-                    '19-36'
-                ],
                 amount_value: 0,
                 amount_color: null
             },
             {
-                stake: 'Number: 34',
+                stake: `${rouletteType.NUMBER}: 34`,
                 odd: 36,
                 value: 34,
                 name: 34,
                 type: "even",
                 color: "red",
                 line: 1,
-                range: [
-                    '25-36',
-                    '19-36'
-                ],
                 amount_value: 0,
                 amount_color: null
             },
             {
-                stake: 'Number: 35',
+                stake: `${rouletteType.NUMBER}: 35`,
                 odd: 36,
                 value: 35,
                 name: 35,
                 type: "odd",
                 color: "black",
                 line: 2,
-                range: [
-                    '25-36',
-                    '19-36'
-                ],
                 amount_value: 0,
                 amount_color: null
             },
             {
-                stake: 'Number: 36',
+                stake: `${rouletteType.NUMBER}: 36`,
                 odd: 36,
                 value: 36,
                 name: 36,
                 type: "even",
                 color: "red",
                 line: 3,
-                range: [
-                    '25-36',
-                    '19-36'
-                ],
                 amount_value: 0,
                 amount_color: null
             }
+        ],
+        s_color: [
+            {
+                odd: 2,
+                stake: 'Color: Red',
+                name: 'red',
+                amount_value: 0,
+                amount_color: null
+            },
+            {
+                odd: 2,
+                stake: 'Color: Black',
+                name: 'black',
+                amount_value: 0,
+                amount_color: null
+            }
+        ],
+        s_line: [
+            {
+                odd: 3,
+                stake: 'Column: 1',
+                name: 1,
+                amount_value: 0,
+                amount_color: null,
+            },
+            {
+                odd: 3,
+                stake: 'Column: 2',
+                name: 2,
+                amount_value: 0,
+                amount_color: null
+            },
+            {
+                odd: 3,
+                stake: 'Column: 3',
+                name: 3,
+                amount_value: 0,
+                amount_color: null
+            }
+        ],
+        s_even_odd: [
+            {
+                odd: 2,
+                stake: 'Even/Odd: Even',
+                name: 'Even',
+                amount_value: 0,
+                amount_color: null
+            },
+            {
+                odd: 2,
+                stake: 'Even/Odd: Odd',
+                name: 'Odd',
+                amount_value: 0,
+                amount_color: null
+            }
+        ],
+        s_low_high: [
+            {
+                odd: 2,
+                stake: 'Low/High: 1-18',
+                name: '1-18',
+                amount_value: 0,
+                amount_color: null
+            },
+            {
+                odd: 2,
+                stake: 'Low/High: 19-36',
+                name: '19-36',
+                amount_value: 0,
+                amount_color: null
+            }
+        ],
+        s_dozen: [
+            {
+                odd: 3,
+                stake: 'Dozen: 1-12',
+                name: '1-12',
+                amount_value: 0,
+                amount_color: null
+            },
+            {
+                odd: 3,
+                stake: 'Dozen: 13-24',
+                name: '13-24',
+                amount_value: 0,
+                amount_color: null
+            },
+            {
+                odd: 3,
+                stake: 'Dozen: 25-36',
+                name: '25-36',
+                amount_value: 0,
+                amount_color: null
+            }
+        ],
+        h_zero: [
+            {
+                stake: `${rouletteType.SPLIT}: 0, 3`,
+                odd: 18,
+                amount_value: 0,
+                amount_color: null
+            },
+            {
+                stake: `${rouletteType.TRIO}: 0, 2, 3`,
+                odd: 12,
+                amount_value: 0,
+                amount_color: null
+            },
+            {
+                stake: `${rouletteType.SPLIT}: 0, 2`,
+                odd: 18,
+                amount_value: 0,
+                amount_color: null
+            },
+            {
+                stake: `${rouletteType.TRIO}: 0, 1, 2`,
+                odd: 12,
+                amount_value: 0,
+                amount_color: null
+            },
+            {
+                stake: `${rouletteType.SPLIT}: 0, 1`,
+                odd: 18,
+                amount_value: 0,
+                amount_color: null
+            },
+            {
+                stake: `${rouletteType.BASKET}: 0, 1, 2, 3`,
+                odd: 9,
+                amount_value: 0,
+                amount_color: null
+            }
+        ],
+        h_chips: [
+            [
+                {
+                    stake: `${rouletteType.SPLIT}: 3, 6`,
+                    odd: 18,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.SPLIT}: 6, 9`,
+                    odd: 18,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.SPLIT}: 9, 12`,
+                    odd: 18,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.SPLIT}: 12, 15`,
+                    odd: 18,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.SPLIT}: 15, 18`,
+                    odd: 18,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.SPLIT}: 18, 21`,
+                    odd: 18,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.SPLIT}: 21, 24`,
+                    odd: 18,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.SPLIT}: 24, 27`,
+                    odd: 18,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.SPLIT}: 27, 30`,
+                    odd: 18,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.SPLIT}: 30, 33`,
+                    odd: 18,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.SPLIT}: 33, 36`,
+                    odd: 18,
+                    amount_value: 0,
+                    amount_color: null
+                }
+            ],
+            [
+                {
+                    stake: `${rouletteType.SPLIT}: 2, 3`,
+                    odd: 18,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.CORNER}: 2, 3, 5, 6`,
+                    odd: 9,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.SPLIT}: 5, 6`,
+                    odd: 18,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.CORNER}: 5, 6, 8, 9`,
+                    odd: 9,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.SPLIT}: 8, 9`,
+                    odd: 18,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.CORNER}: 8, 9, 11, 12`,
+                    odd: 9,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.SPLIT}: 11, 12`,
+                    odd: 18,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.CORNER}: 11, 12, 14, 15`,
+                    odd: 9,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.SPLIT}: 14, 15`,
+                    odd: 18,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.CORNER}: 14, 15, 17, 18`,
+                    odd: 9,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.SPLIT}: 17, 18`,
+                    odd: 18,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.CORNER}: 17, 18, 20, 21`,
+                    odd: 9,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.SPLIT}: 20, 21`,
+                    odd: 18,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.CORNER}: 20, 21, 23, 24`,
+                    odd: 9,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.SPLIT}: 23, 24`,
+                    odd: 18,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.CORNER}: 23, 24, 26, 27`,
+                    odd: 9,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.SPLIT}: 26, 27`,
+                    odd: 18,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.CORNER}: 26, 27, 29, 30`,
+                    odd: 9,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.SPLIT}: 29, 30`,
+                    odd: 18,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.CORNER}: 29, 30, 32, 33`,
+                    odd: 9,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.SPLIT}: 32, 33`,
+                    odd: 18,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.CORNER}: 32, 33, 35, 36`,
+                    odd: 9,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.SPLIT}: 35, 36`,
+                    odd: 18,
+                    amount_value: 0,
+                    amount_color: null
+                }
+            ],
+            [
+                {
+                    stake: `${rouletteType.SPLIT}: 2, 5`,
+                    odd: 18,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.SPLIT}: 5, 8`,
+                    odd: 18,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.SPLIT}: 8, 11`,
+                    odd: 18,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.SPLIT}: 11, 14`,
+                    odd: 18,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.SPLIT}: 14, 17`,
+                    odd: 18,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.SPLIT}: 17, 20`,
+                    odd: 18,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.SPLIT}: 20, 23`,
+                    odd: 18,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.SPLIT}: 23, 26`,
+                    odd: 18,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.SPLIT}: 26, 29`,
+                    odd: 18,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.SPLIT}: 29, 32`,
+                    odd: 18,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.SPLIT}: 32, 35`,
+                    odd: 18,
+                    amount_value: 0,
+                    amount_color: null
+                }
+            ],
+            [
+                {
+                    stake: `${rouletteType.SPLIT}: 1, 2`,
+                    odd: 18,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.CORNER}: 1, 2, 4, 5`,
+                    odd: 9,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.SPLIT}: 4, 5`,
+                    odd: 18,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.CORNER}: 4, 5, 7, 8`,
+                    odd: 9,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.SPLIT}: 7, 8`,
+                    odd: 18,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.CORNER}: 7, 8, 10, 11`,
+                    odd: 9,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.SPLIT}: 10, 11`,
+                    odd: 18,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.CORNER}: 10, 11, 13, 14`,
+                    odd: 9,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.SPLIT}: 13, 14`,
+                    odd: 18,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.CORNER}: 13, 14, 16, 17`,
+                    odd: 9,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.SPLIT}: 16, 17`,
+                    odd: 18,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.CORNER}: 16, 17, 19, 20`,
+                    odd: 9,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.SPLIT}: 19, 20`,
+                    odd: 18,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.CORNER}: 19, 20, 22, 23`,
+                    odd: 9,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.SPLIT}: 22, 23`,
+                    odd: 18,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.CORNER}: 22, 23, 25, 26`,
+                    odd: 9,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.SPLIT}: 25, 26`,
+                    odd: 18,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.CORNER}: 25, 26, 28, 29`,
+                    odd: 9,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.SPLIT}: 28, 29`,
+                    odd: 18,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.CORNER}: 28, 29, 31, 32`,
+                    odd: 9,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.SPLIT}: 31, 32`,
+                    odd: 18,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.CORNER}: 31, 32, 34, 35`,
+                    odd: 9,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.SPLIT}: 34, 35`,
+                    odd: 18,
+                    amount_value: 0,
+                    amount_color: null
+                }
+            ],
+            [
+                {
+                    stake: `${rouletteType.SPLIT}: 1, 4`,
+                    odd: 18,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.SPLIT}: 4, 7`,
+                    odd: 18,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.SPLIT}: 7, 10`,
+                    odd: 18,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.SPLIT}: 10, 13`,
+                    odd: 18,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.SPLIT}: 13, 16`,
+                    odd: 18,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.SPLIT}: 16, 19`,
+                    odd: 18,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.SPLIT}: 19, 22`,
+                    odd: 18,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.SPLIT}: 22, 25`,
+                    odd: 18,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.SPLIT}: 25, 28`,
+                    odd: 18,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.SPLIT}: 28, 31`,
+                    odd: 18,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.SPLIT}: 31, 34`,
+                    odd: 18,
+                    amount_value: 0,
+                    amount_color: null
+                }
+            ],
+            [
+                {
+                    stake: `${rouletteType.STREET}: 1, 2, 3`,
+                    odd: 12,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.SIX_LINE}: 1, 2, 3, 4, 5, 6`,
+                    odd: 6,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.STREET}: 4, 5, 6`,
+                    odd: 12,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.SIX_LINE}: 4, 5, 6, 7, 8, 9`,
+                    odd: 6,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.STREET}: 7, 8, 9`,
+                    odd: 12,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.SIX_LINE}: 7, 8, 9, 10, 11, 12`,
+                    odd: 6,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.STREET}: 10, 11, 12`,
+                    odd: 12,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.SIX_LINE}: 10, 11, 12, 13, 14, 15`,
+                    odd: 6,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.STREET}: 13, 14, 15`,
+                    odd: 12,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.SIX_LINE}: 13, 14, 15, 16, 17, 18`,
+                    odd: 6,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.STREET}: 16, 17, 18`,
+                    odd: 12,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.SIX_LINE}: 16, 17, 18, 19, 20, 21`,
+                    odd: 6,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.STREET}: 19, 20, 21`,
+                    odd: 12,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.SIX_LINE}: 19, 20, 21, 22, 23, 24`,
+                    odd: 6,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.STREET}: 22, 23, 24`,
+                    odd: 12,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.SIX_LINE}: 22, 23, 24, 25, 26, 27`,
+                    odd: 6,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.STREET}: 25, 26, 27`,
+                    odd: 12,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.SIX_LINE}: 25, 26, 27, 28, 29, 30`,
+                    odd: 6,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.STREET}: 28, 29, 30`,
+                    odd: 12,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.SIX_LINE}: 28, 29, 30, 31, 32, 33`,
+                    odd: 6,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.STREET}: 31, 32, 33`,
+                    odd: 12,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.SIX_LINE}: 31, 32, 33, 34, 35, 36`,
+                    odd: 6,
+                    amount_value: 0,
+                    amount_color: null
+                },
+                {
+                    stake: `${rouletteType.STREET}: 34, 35, 36`,
+                    odd: 12,
+                    amount_value: 0,
+                    amount_color: null
+                }
+            ]
         ]
     })
 
@@ -717,23 +1288,7 @@ const TableChips = ({random}) => {
     }, [random])
 
     const setRefs = (date, i) => {
-        data.color[date.color].refs.current[data.color[date.color].refs.current.length] = i
-        data.line[date.line].refs.current[data.line[date.line].refs.current.length] = i
-        data.even_odd[date.type].refs.current[data.even_odd[date.type].refs.current.length] = i
-
-        if (date.name <= 12) {
-            data.dozen['1_12'].refs.current[data.dozen['1_12'].refs.current.length] = i
-        } else if (date.name > 12 && date.name < 25) {
-            data.dozen['13_24'].refs.current[data.dozen['13_24'].refs.current.length] = i
-        } else {
-            data.dozen['25_36'].refs.current[data.dozen['25_36'].refs.current.length] = i
-        }
-
-        if (date.name <= 18) {
-            data.low_high['1_18'].refs.current[data.low_high['1_18'].refs.current.length] = i
-        } else {
-            data.low_high['19_36'].refs.current[data.low_high['19_36'].refs.current.length] = i
-        }
+        numbers.current[date.value] = i
     }
 
     const currentStakeColor = (value) => {
@@ -750,11 +1305,45 @@ const TableChips = ({random}) => {
         return previous.color;
     }
 
-    const buttonAmountSet = (name, type) => {
+    const modifyAmount = (json, operation) => {
+        if (Array.isArray(json)) {
+            for (let i = 0; i < json.length; i++) {
+                modifyAmount(json[i], operation);
+            }
+        } else if (typeof json === 'object' && json !== null) {
+            for (let key in json) {
+                if (key === 'amount_value') {
+                    if (operation === 1) {
+                        json[key] *= 2;
+                    }
+                    else if (operation === 0) {
+                        json[key] = 0;
+                    }
+                }
+                else if(key === 'amount_color') {
+                    json[key] = currentStakeColor(json['amount_value'])
+                }
+                else {
+                    modifyAmount(json[key], operation);
+                }
+            }
+        }
+    }
+
+    const buttonAmountSet = (id, type) => {
         let a = Object.assign({}, data);
 
-        a[type][name].amount_value = a[type][name].amount_value + buttonStepGet().amount
-        a[type][name].amount_color = currentStakeColor(a[type][name].amount_value)
+        a[type][id].amount_value = a[type][id].amount_value + buttonStepGet().amount
+        a[type][id].amount_color = currentStakeColor(a[type][id].amount_value)
+
+        setData(a)
+    }
+
+    const buttonAmountHiddenSet = (id_c, id_i, type) => {
+        let a = Object.assign({}, data);
+
+        a[type][id_c][id_i].amount_value = a[type][id_c][id_i].amount_value + buttonStepGet().amount
+        a[type][id_c][id_i].amount_color = currentStakeColor(a[type][id_c][id_i].amount_value)
 
         setData(a)
     }
@@ -771,31 +1360,9 @@ const TableChips = ({random}) => {
         return steps.find(el => el.active === true)
     }
 
-    const closeChips = () => {
+    const actionsChips = (type) => {
         let a = Object.assign({}, data);
-
-        Object.values(a).map(c => {
-            Object.values(c).map(i => {
-                i.amount_value = 0
-                i.amount_color = null
-            })
-
-        })
-
-        setData(a)
-    }
-
-    const doubleChips = () => {
-        let a = Object.assign({}, data);
-
-        Object.values(a).map(c => {
-            Object.values(c).map(i => {
-                i.amount_value = i.amount_value * 2
-                i.amount_color = currentStakeColor(i.amount_value)
-            })
-
-        })
-
+        modifyAmount(Object.values(a), type)
         setData(a)
     }
 
@@ -824,25 +1391,25 @@ const TableChips = ({random}) => {
                     <div />
                     <div className={style.dozens}>
                         {
-                            Object.values(data.dozen).map((el, idx) =>
+                            data.s_dozen.map((el, idx) =>
                                 <button
                                     key={idx}
                                     className={style.button}
                                     onMouseEnter = {() => {
-                                        onHoverRefs(el.refs.current, 0)
+                                        onHoverChips(el, 0, numbers, 'range')
                                     }}
                                     onMouseLeave = {() => {
-                                        onHoverRefs(el.refs.current, 1)
+                                        onHoverChips(el, 1, numbers, 'range')
                                     }}
                                     onClick={() => {
-                                        buttonAmountSet(el.value, 'dozen')
+                                        buttonAmountSet(idx, 's_dozen')
                                     }}
                                 >
                                     <Amount
                                         data={el}
                                         step={buttonStepGet()}
                                     />
-                                    {el.value.replace('_', '-')}
+                                    {el.name}
                                 </button>
                             )
                         }
@@ -851,11 +1418,72 @@ const TableChips = ({random}) => {
                 </div>
 
                 <div className={style.middle}>
+                    <div className={style['hidden-zero']}>
+                        {
+                            data.h_zero.map((el, idx) =>
+                                <button
+                                    key={idx}
+                                    className={style.button}
+                                    onClick={() => {
+                                        buttonAmountSet(idx, 'h_zero')
+                                    }}
+                                    onMouseEnter = {() => {
+                                        onHoverChips(el, 0, numbers, 'counts')
+                                    }}
+                                    onMouseLeave = {() => {
+                                        onHoverChips(el, 1, numbers, 'counts')
+                                    }}
+                                >
+                                    <Amount
+                                        data={el}
+                                        step={buttonStepGet()}
+                                    />
+                                </button>
+                            )
+                        }
+                    </div>
+                    <div className={style['hidden-chips']}>
+                        {
+                            data.h_chips.map((el_a, idx_a) =>
+                                <div
+                                    key={idx_a}
+                                    className={style['h-row']}
+                                >
+                                    {
+                                        el_a.map((el, idx) =>
+                                            <button
+                                                key={idx}
+                                                className={style.button}
+                                                onClick={() => {
+                                                    buttonAmountHiddenSet(idx_a, idx,'h_chips')
+                                                }}
+                                                onMouseEnter = {() => {
+                                                    onHoverChips(el, 0, numbers, 'counts')
+                                                }}
+                                                onMouseLeave = {() => {
+                                                    onHoverChips(el, 1, numbers, 'counts')
+                                                }}
+                                            >
+                                                <Amount
+                                                    data={el}
+                                                    step={buttonStepGet()}
+                                                />
+                                            </button>
+                                        )
+                                    }
+                                </div>
+                            )
+                        }
+                    </div>
+
                     <div className={style.zero}>
                         <button
                             className={style.button}
                             onClick={() => {
                                 buttonAmountSet(data.chips[0].name, 'chips')
+                            }}
+                            ref={(i) => {
+                                numbers.current[data.chips[0].value] = i
                             }}
                         >
                             <Amount
@@ -883,6 +1511,7 @@ const TableChips = ({random}) => {
                                     onClick={() => {
                                         buttonAmountSet(el.value, 'chips')
                                     }}
+                                    data-number={el.name}
                                 >
                                     <Amount
                                         data={el}
@@ -895,18 +1524,18 @@ const TableChips = ({random}) => {
                     </div>
                     <div className={style.rows}>
                         {
-                            Object.values(data.line).map((el, idx) =>
+                            data.s_line.map((el, idx) =>
                                 <button
                                     key={idx}
                                     className={style.button}
                                     onMouseEnter = {() => {
-                                        onHoverRefs(el.refs.current, 0)
+                                        onHoverChips(el, 0, numbers, 'line')
                                     }}
                                     onMouseLeave = {() => {
-                                        onHoverRefs(el.refs.current, 1)
+                                        onHoverChips(el, 1, numbers, 'line')
                                     }}
                                     onClick={() => {
-                                        buttonAmountSet(el.value, 'line')
+                                        buttonAmountSet(idx, 's_line')
                                     }}
                                 >
                                     <Amount
@@ -914,40 +1543,11 @@ const TableChips = ({random}) => {
                                         step={buttonStepGet()}
                                     />
                                     <p>2 to 1</p>
-                                    <p>{el.value}</p>
+                                    <p>{el.name}</p>
                                 </button>
                             )
                         }
                     </div>
-                    {/*<div className={style.coordinate}>*/}
-                    {/*    {*/}
-                    {/*        Array.from({length: r}, (el_r, idx_r) =>*/}
-                    {/*            <div*/}
-                    {/*                key={idx_r}*/}
-                    {/*                className={*/}
-                    {/*                    classNames(*/}
-                    {/*                        style.row,*/}
-                    {/*                        style[`row-${idx_r + 1}`]*/}
-                    {/*                    )*/}
-                    {/*                }*/}
-                    {/*            >*/}
-                    {/*                {*/}
-                    {/*                    Array.from({length: r_b}, (el_r_b, idx_r_b) =>*/}
-                    {/*                        <button*/}
-                    {/*                            key={idx_r_b}*/}
-                    {/*                            className={*/}
-                    {/*                                classNames(*/}
-                    {/*                                    style.button,*/}
-                    {/*                                    style[`button-${idx_r_b + 1}`]*/}
-                    {/*                                )*/}
-                    {/*                            }*/}
-                    {/*                        />*/}
-                    {/*                    )*/}
-                    {/*                }*/}
-                    {/*            </div>*/}
-                    {/*        )*/}
-                    {/*    }*/}
-                    {/*</div>*/}
                 </div>
 
                 <div className={style.bottom}>
@@ -956,53 +1556,53 @@ const TableChips = ({random}) => {
                         <button
                             className={style.button}
                             onMouseEnter = {() => {
-                                onHoverRefs(data.low_high['1_18'].refs.current, 0)
+                                onHoverChips(data.s_low_high[0], 0, numbers, 'range')
                             }}
                             onMouseLeave = {() => {
-                                onHoverRefs(data.low_high['1_18'].refs.current, 1)
+                                onHoverChips(data.s_low_high[0], 1, numbers, 'range')
                             }}
                             onClick={() => {
-                                buttonAmountSet('1_18', 'low_high')
+                                buttonAmountSet(0, 's_low_high')
                             }}
                         >
                             <Amount
-                                data={data.low_high['1_18']}
+                                data={data.s_low_high[0]}
                                 step={buttonStepGet()}
                             />
-                            {data.low_high['1_18'].value.replace('_', ' to ')}
+                            {data.s_low_high[0].name}
                         </button>
                         <button
                             className={style.button}
                             onMouseEnter = {() => {
-                                onHoverRefs(data.even_odd.even.refs.current, 0)
+                                onHoverChips(data.s_even_odd[0], 0, numbers, 'even')
                             }}
                             onMouseLeave = {() => {
-                                onHoverRefs(data.even_odd.even.refs.current, 1)
+                                onHoverChips(data.s_even_odd[0], 1, numbers, 'even')
                             }}
                             onClick={() => {
-                                buttonAmountSet('even', 'even_odd')
+                                buttonAmountSet(0, 's_even_odd')
                             }}
                         >
                             <Amount
-                                data={data.even_odd['even']}
+                                data={data.s_even_odd[0]}
                                 step={buttonStepGet()}
                             />
-                            {data.even_odd.even.value}
+                            {data.s_even_odd[0].name}
                         </button>
 
                         {
-                            Object.values(data.color).map((el, idx) =>
+                            data.s_color.map((el, idx) =>
                                 <button
                                     key={idx}
                                     className={style.button}
                                     onMouseEnter = {() => {
-                                        onHoverRefs(el.refs.current, 0)
+                                        onHoverChips(el, 0, numbers, 'color')
                                     }}
                                     onMouseLeave = {() => {
-                                        onHoverRefs(el.refs.current, 1)
+                                        onHoverChips(el, 1, numbers, 'color')
                                     }}
                                     onClick={() => {
-                                        buttonAmountSet(el.value, 'color')
+                                        buttonAmountSet(idx, 's_color')
                                     }}
                                 >
                                     <Amount
@@ -1013,7 +1613,7 @@ const TableChips = ({random}) => {
                                         className={
                                             classNames(
                                                 style.diamond,
-                                                style[el.value]
+                                                style[el.name]
                                             )
                                         }
                                     >
@@ -1026,38 +1626,38 @@ const TableChips = ({random}) => {
                         <button
                             className={style.button}
                             onMouseEnter = {() => {
-                                onHoverRefs(data.even_odd.odd.refs.current, 0)
+                                onHoverChips(data.s_even_odd[1], 0, numbers, 'odd')
                             }}
                             onMouseLeave = {() => {
-                                onHoverRefs(data.even_odd.odd.refs.current, 1)
+                                onHoverChips(data.s_even_odd[1], 1, numbers, 'odd')
                             }}
                             onClick={() => {
-                                buttonAmountSet('odd', 'even_odd')
+                                buttonAmountSet(1, 's_even_odd')
                             }}
                         >
                             <Amount
-                                data={data.even_odd['odd']}
+                                data={data.s_even_odd[1]}
                                 step={buttonStepGet()}
                             />
-                            {data.even_odd.odd.value}
+                            {data.s_even_odd[1].name}
                         </button>
                         <button
                             className={style.button}
                             onMouseEnter = {() => {
-                                onHoverRefs(data.low_high['19_36'].refs.current, 0)
+                                onHoverChips(data.s_low_high[1], 0, numbers, 'range')
                             }}
                             onMouseLeave = {() => {
-                                onHoverRefs(data.low_high['19_36'].refs.current, 1)
+                                onHoverChips(data.s_low_high[1], 1, numbers, 'range')
                             }}
                             onClick={() => {
-                                buttonAmountSet('19_36', 'low_high')
+                                buttonAmountSet(1, 's_low_high')
                             }}
                         >
                             <Amount
-                                data={data.low_high['19_36']}
+                                data={data.s_low_high[1]}
                                 step={buttonStepGet()}
                             />
-                            {data.low_high['19_36'].value.replace('_', ' to ')}
+                            {data.s_low_high[1].name}
                         </button>
                     </div>
                     <div />
@@ -1093,7 +1693,7 @@ const TableChips = ({random}) => {
                         size={'lg'}
                         text={'2x'}
                         action={() => {
-                            doubleChips()
+                            actionsChips(1)
                         }}
                     />
                     <Button
@@ -1101,7 +1701,7 @@ const TableChips = ({random}) => {
                         size={'lg'}
                         icon={'close'}
                         action={() => {
-                            closeChips()
+                            actionsChips(0)
                         }}
                     />
                 </div>
