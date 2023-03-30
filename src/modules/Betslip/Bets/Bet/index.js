@@ -3,6 +3,8 @@ import {useDispatch, useSelector} from "react-redux";
 
 import classNames from "classnames";
 
+import {gameType} from "constant/config"
+
 import {getIcon} from "helpers/getIcon";
 import {useOutsideClick} from "hooks/useOutsideClick";
 
@@ -101,7 +103,8 @@ const Bet = ({data, betslip, type, setInit, setDisabled}) => {
             className={
                 classNames(
                     style.block,
-                    type === 0 ? style.lg : style.sm
+                    type === 0 ? style.lg : style.sm,
+                    style[data.type]
                 )
             }
             ref={blockRef}
@@ -112,19 +115,26 @@ const Bet = ({data, betslip, type, setInit, setDisabled}) => {
                         <Icon id={getIcon(data.type)} />
                     </div>
                 </div>
-                <div>
-                    <div className={style.meta}>
-                        {data.pos}
-                        .
-                        {data.teams.home.name}
-                        -
-                        {data.teams.away.name}
+                {
+                    data.type === gameType.FOOTBALL_LEAGUE &&
+                    <div>
+                        <div className={style.meta}>
+                            {data.pos}
+                            .
+                            {data.teams.home.name}
+                            -
+                            {data.teams.away.name}
+                        </div>
                     </div>
-                </div>
+                }
                 <div className={style.market}>
-                    {data.market.replaceAll('_', ' ')}
-                    :
-                    {data.c || data.a}
+                    {
+                        data.type === gameType.FOOTBALL_LEAGUE
+                        ?
+                            `${data.market.replaceAll('_', ' ')}:${data.c || data.a}`
+                        :
+                            data.market
+                    }
                 </div>
                 <div className={style.odd}>{data.b}</div>
                 {

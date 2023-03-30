@@ -190,23 +190,31 @@ const Betslip = () => {
     }
 
     const checkType = () => {
+
         if (betslip.length > 1) {
-            if (disabled) {
+            // if (disabled) {
                 let e = betslip[0].mid
+                let t = betslip[0].type
 
                 betslip.map((el) => {
-                    if (e !== el.mid) {
-                        setDisabled(false)
-                        setType(1)
-                    }
-                    else {
+                    if (t !== el.type) {
                         setDisabled(true)
                         setType(0)
+                    }
+                    else {
+                        if (e !== el.mid) {
+                            setDisabled(false)
+                            setType(1)
+                        }
+                        else {
+                            setDisabled(true)
+                            setType(0)
+                        }
                     }
 
                     return null
                 });
-            }
+            // }
         }
         else {
             setType(0)
@@ -254,14 +262,14 @@ const Betslip = () => {
         }
     }, [betslip, type])
 
-    useEffect(() => {
-        if (type === 0) {
-            if (stake.length) {
-                updateBetslip(stake[0].stake)
-            }
-        }
-
-    }, [stake])
+    // useEffect(() => {
+    //     if (type === 0) {
+    //         if (stake.length) {
+    //             updateBetslip(stake[0].stake)
+    //         }
+    //     }
+    //
+    // }, [stake])
 
     return (
         <div className={style.block}>
@@ -299,10 +307,10 @@ const Betslip = () => {
                                 setType={setType}
                                 disabled={disabled}
                             />
-                            <Stakes
-                                stake={stake}
-                                setInit={setInit}
-                            />
+                            {/*<Stakes*/}
+                            {/*    stake={stake}*/}
+                            {/*    setInit={setInit}*/}
+                            {/*/>*/}
                         </>
                     :
                         <div className={style.list}>

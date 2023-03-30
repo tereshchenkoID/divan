@@ -7,7 +7,6 @@ export const gameType = {
     ROULETTE: "ROULETTE",
 }
 
-
 export const matchStatus = {
     ANNOUNCEMENT: "ANNOUNCEMENT",
     PROGRESS: "PROGRESS",
@@ -53,11 +52,11 @@ export const printMode = {
 }
 
 export const rouletteType = {
-    NUMBER: "NUMBER",       // 1
-    SPLIT: "SPLIT",         // 2
-    TRIO: "TRIO",           // 3
-    STREET: "STREET",       // 3
-    CORNER: "CORNER",       // 4
-    BASKET: "BASKET",       // 4
-    SIX_LINE: "SIX LINE"    // 6
+    NUMBER: "NUMBER",
+    SPLIT: "SPLIT",
+    TRIO: "TRIO",
+    STREET: "STREET",
+    CORNER: "CORNER",
+    BASKET: "BASKET",
+    SIX_LINE: "SIX LINE"
 }

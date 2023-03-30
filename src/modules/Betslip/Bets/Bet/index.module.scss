@@ -3,17 +3,27 @@
 .block {
   @include make-spacer('px', 1);
 
-  &.lg {
+  &.FOOTBALL_LEAGUE {
 
-    .bet {
-      grid-template-columns: rem(20px) rem(85px) 1fr rem(50px) rem(58px) rem(25px);
+    &.lg {
+
+      .bet {
+        grid-template-columns: rem(20px) rem(85px) 1fr rem(50px) rem(58px) rem(25px);
+      }
+    }
+
+    &.sm {
+
+      .bet {
+        grid-template-columns: rem(20px) rem(85px) 1fr rem(50px) rem(25px);
+      }
     }
   }
 
-  &.sm {
+  &.ROULETTE {
 
     .bet {
-      grid-template-columns: rem(20px) rem(85px) 1fr rem(50px) rem(25px);
+      grid-template-columns: rem(20px) 1fr rem(50px) rem(58px) rem(25px);
     }
   }
 }

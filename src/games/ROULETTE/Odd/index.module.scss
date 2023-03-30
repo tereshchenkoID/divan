@@ -1,0 +1,14 @@
+@import "scss/config";
+
+.block {
+  @include flex(center, center);
+  @include size(100%);
+
+  position: relative;
+  z-index: 1;
+  //border: 1px solid red;
+}
+
+.diamond {
+  @include size(rem(75px), rem(34px));
+}

@@ -49,8 +49,8 @@
   top: rem(20px);
   left: rem(32px);
   bottom: rem(-17px);
-  width: rem(50px);
-  z-index: 1;
+  width: rem(45px);
+  z-index: 2;
 
   .button {
     flex: 1;
@@ -71,15 +71,20 @@
   top: rem(20px);
   left: rem(75px);
   right: rem(75px);
-  bottom: rem(-20px);
-  z-index: 1;
+  bottom: rem(-18px);
+  z-index: 2;
+
+  .button {
+    //background-color: grey;
+    position: relative;
+  }
 }
 
 .h-row {
-  height: rem(30px);
   display: grid;
   justify-content: space-between;
   align-items: center;
+  height: rem(30px);
 
   .button {
     @include size(100%);
@@ -93,8 +98,24 @@
   }
 
   &:nth-child(odd) {
-    grid-template-columns: repeat(11, rem(30px));
-    padding: 0 rem(37px);
+    grid-template-columns: repeat(34, rem(30px));
+    grid-gap: rem(5px);
+    padding: 0 rem(2px);
+
+    .button {
+      position: relative;
+
+      &:nth-child(odd) {
+        @include flex(center, center);
+        @include size(rem(60px));
+
+        transform: translate(rem(-15px), rem(-15px));
+      }
+
+      &:nth-child(even) {
+        margin-top: rem(-30px);
+      }
+    }
   }
 
   &:nth-child(even) {
@@ -118,9 +139,9 @@
 .extra {
   @include flex;
   @include size(100%);
-  @include make-spacer('px', 1);
 
-  gap: rem(5px);
+  padding: 0 rem(7px) 0 rem(3px);
+  gap: rem(6px);
 }
 
 .dozens {
@@ -141,7 +162,7 @@
   @include flex($direction: column-reverse);
   @include size(100%);
 
-  padding: rem(7px) 0;
+  padding: rem(5px) 0;
   gap: rem(8px);
 
   .button {
@@ -154,7 +175,7 @@
   @include flex;
   @include size(100%);
 
-  padding: rem(7px) 0;
+  padding: rem(6px) 0 rem(5px);
 
   .button {
     flex: 1;
@@ -187,6 +208,7 @@
   @include make-spacer('p', 1);
 
   gap: rem(5px);
+  z-index: 0;
 
   .button {
     @include size(rem(65px), rem(67px));
@@ -195,6 +217,7 @@
     box-shadow: 0 rem(2px) rem(2px) rgba(255,255,255,0.14);
     border: rem(2px) solid var(--color-black);
     font-size: rem(28px);
+    color: var(--color-white);
 
     &::before {
       position: absolute;
@@ -224,21 +247,21 @@
   }
 }
 
-.diamond {
-  @include size(rem(75px), rem(34px));
-}
-
 .button {
   @include flex(center, center);
 
   position: relative;
   overflow: hidden;
+  cursor: pointer;
   border-radius: rem(9px);
-  text-align: center;
-  text-transform: uppercase;
-  font-size: rem(24px);
-  font-weight: var(--typography-bold);
-  color: var(--color-white);
+
+  button {
+    text-align: center;
+    text-transform: uppercase;
+    font-size: rem(24px);
+    font-weight: var(--typography-bold);
+    color: var(--color-white);
+  }
 
   &::after {
     @include absolute-filled;
