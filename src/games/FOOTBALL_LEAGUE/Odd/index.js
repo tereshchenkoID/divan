@@ -10,6 +10,7 @@ import style from './index.module.scss';
 const Odd = ({data, label = false}) => {
     const dispatch = useDispatch()
     const {betslip} = useSelector((state) => state.betslip)
+    const {settings} = useSelector((state) => state.settings)
 
     const handleClick = (data) => {
         const a = betslip.slice(0);
@@ -35,7 +36,7 @@ const Odd = ({data, label = false}) => {
                 market: data.market || "OVER_UNDER",
                 c: data.c,
                 type: data.type,
-                stake: 0,
+                stake: settings.betslip.single.default.toFixed(2),
                 teams: {
                     home: data.home,
                     away: data.away

@@ -5,6 +5,7 @@ export const hostnames = {
 export const gameType = {
     FOOTBALL_LEAGUE: "FOOTBALL_LEAGUE",
     ROULETTE: "ROULETTE",
+    COLOR_COLOR: "COLOR_COLOR"
 }
 
 export const matchStatus = {
@@ -58,5 +59,26 @@ export const rouletteType = {
     STREET: "STREET",
     CORNER: "CORNER",
     BASKET: "BASKET",
-    SIX_LINE: "SIX LINE"
+    SIX_LINE: "SIX_LINE",
+    COLOR: "COLOR",
+    COLUMN: "COLUMN",
+    EVEN_ODD: "EVEN_ODD",
+    LOW_HIGH: "LOW_HIGH",
+    DOZEN: "DOZEN",
+}
+
+export const rouletteColor = [
+    'violet',
+    'blue',
+    'green',
+    'red',
+    'black',
+    'orange'
+]
+
+export const colorType = {
+    COLOR: "COLOR",
+    MATCHED: "MATCHED",
+    ANACONDA: "ANACONDA",
+    BET_ZERO: "BET ZERO"
 }

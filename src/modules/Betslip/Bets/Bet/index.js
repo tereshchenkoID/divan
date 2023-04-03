@@ -66,7 +66,6 @@ const Bet = ({data, betslip, type, setInit, setDisabled}) => {
 
             dispatch(deleteBetslip(a))
             setInit(true)
-            // setLoad(true)
         }
     }
 
@@ -83,7 +82,7 @@ const Bet = ({data, betslip, type, setInit, setDisabled}) => {
                 v = a.join('.')
             }
             else {
-                v = f.stake + parseInt(val, 10)
+                v = parseInt(f.stake, 10) + parseInt(val, 10)
             }
         }
         else {
@@ -93,7 +92,6 @@ const Bet = ({data, betslip, type, setInit, setDisabled}) => {
         f.stake = v
         dispatch(deleteBetslip(a))
         setInit(true)
-        // setLoad(true)
     }
 
     useOutsideClick(blockRef, buttonRef, setEdit, data)
@@ -129,11 +127,13 @@ const Bet = ({data, betslip, type, setInit, setDisabled}) => {
                 }
                 <div className={style.market}>
                     {
-                        data.type === gameType.FOOTBALL_LEAGUE
-                        ?
-                            `${data.market.replaceAll('_', ' ')}:${data.c || data.a}`
-                        :
-                            data.market
+                        data.type === gameType.FOOTBALL_LEAGUE && `${data.market.replaceAll('_', ' ')}:${data.c || data.a}`
+                    }
+                    {
+                        data.type === gameType.ROULETTE && (data.print || data.market).replace('_', '/')
+                    }
+                    {
+                        data.type === gameType.COLOR_COLOR && data.print.replace('_', '/')
                     }
                 </div>
                 <div className={style.odd}>{data.b}</div>

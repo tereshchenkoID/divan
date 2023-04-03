@@ -1,18 +1,17 @@
 import {useEffect, useRef, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 
-import classNames from "classnames";
+import {gameType, rouletteType, rouletteColor} from "constant/config";
 
+import classNames from "classnames";
 import {deleteBetslip} from "store/actions/betslipAction";
 
-import {gameType, rouletteType} from "constant/config";
+import {setStake} from "store/actions/stakeAction";
 
 import Button from "components/Button";
 import Odd from "games/ROULETTE/Odd";
 
 import style from './index.module.scss';
-
-const COLORS = ['violet', 'blue', 'green', 'red', 'black', 'orange']
 
 const setStepsValue = (data) => {
     const a = []
@@ -22,7 +21,7 @@ const setStepsValue = (data) => {
         a.push({
             id: idx,
             amount: el,
-            color: COLORS[idx],
+            color: rouletteColor[idx],
             active: idx === 0
         })
     )
@@ -112,7 +111,7 @@ const TableChips = ({random}) => {
     const [steps, setSteps] = useState([])
     const numbers = useRef([])
 
-    const [data, setData] = useState({
+    const data= {
         chips: [
             {
                 stake: `${rouletteType.NUMBER}: 0`,
@@ -451,70 +450,82 @@ const TableChips = ({random}) => {
         s_color: [
             {
                 odd: 2,
-                stake: 'Color: Red',
+                stake: `${rouletteType.COLOR}: RED`,
+                print: `${rouletteType.COLOR}: RED`,
                 name: 'red'
             },
             {
                 odd: 2,
-                stake: 'Color: Black',
+                stake: `${rouletteType.COLOR}: BLACK`,
+                print: `${rouletteType.COLOR}: BLACK`,
                 name: 'black'
             }
         ],
         s_line: [
             {
                 odd: 3,
-                stake: 'Column: 1',
+                stake: `${rouletteType.COLUMN}: 1`,
+                print: `${rouletteType.COLUMN}: 1`,
                 name: 1,
             },
             {
                 odd: 3,
-                stake: 'Column: 2',
+                stake: `${rouletteType.COLUMN}: 2`,
+                print: `${rouletteType.COLUMN}: 2`,
                 name: 2
             },
             {
                 odd: 3,
-                stake: 'Column: 3',
+                stake: `${rouletteType.COLUMN}: 3`,
+                print: `${rouletteType.COLUMN}: 3`,
                 name: 3
             }
         ],
         s_even_odd: [
             {
                 odd: 2,
-                stake: 'Even/Odd: Even',
+                stake: `${rouletteType.EVEN_ODD}: EVEN`,
+                print: `${rouletteType.EVEN_ODD}: EVEN`,
                 name: 'Even'
             },
             {
                 odd: 2,
-                stake: 'Even/Odd: Odd',
+                stake: `${rouletteType.EVEN_ODD}: ODD`,
+                print: `${rouletteType.EVEN_ODD}: ODD`,
                 name: 'Odd'
             }
         ],
         s_low_high: [
             {
                 odd: 2,
-                stake: 'Low/High: 1-18',
+                stake: `${rouletteType.LOW_HIGH}: LOW`,
+                print: `${rouletteType.LOW_HIGH}: 1-18`,
                 name: '1-18'
             },
             {
                 odd: 2,
-                stake: 'Low/High: 19-36',
+                stake: `${rouletteType.LOW_HIGH}: HIGH`,
+                print: `${rouletteType.LOW_HIGH}: 1-18`,
                 name: '19-36'
             }
         ],
         s_dozen: [
             {
                 odd: 3,
-                stake: 'Dozen: 1-12',
+                stake: `${rouletteType.DOZEN}: FIRST_DOZEN`,
+                print: `${rouletteType.DOZEN}: 1-12`,
                 name: '1-12'
             },
             {
                 odd: 3,
-                stake: 'Dozen: 13-24',
+                stake: `${rouletteType.DOZEN}: SECOND_DOZEN`,
+                print: `${rouletteType.DOZEN}: 13-24`,
                 name: '13-24'
             },
             {
                 odd: 3,
-                stake: 'Dozen: 25-36',
+                stake: `${rouletteType.DOZEN}: THIRD_DOZEN`,
+                print: `${rouletteType.DOZEN}: 25-36`,
                 name: '25-36'
             }
         ],
@@ -1110,7 +1121,7 @@ const TableChips = ({random}) => {
                 }
             ]
         ]
-    })
+    }
 
     useEffect(() => {
         setSteps(setStepsValue(settings.betslip.steps))
@@ -1144,7 +1155,7 @@ const TableChips = ({random}) => {
         for (let i = 0; i < a.length; i++) {
 
             if (a[i].type === gameType.ROULETTE) {
-                a[i].stake *= 2
+                a[i].stake =  (a[i].stake * 2).toFixed(2)
             }
         }
 
@@ -1161,17 +1172,23 @@ const TableChips = ({random}) => {
                 id: data.chips[random[i]].stake,
                 b: data.chips[random[i]].odd,
                 market: data.chips[random[i]].stake,
-                stake: parseInt(buttonStepGet().amount, 10),
+                print: data.print,
+                m_old: data.chips[random[i]].stake.split(":")[0],             // Remove after
+                o_old: data.chips[random[i]].stake.split(":")[1].slice(1),    // Remove after
+                stake: buttonStepGet().amount.toFixed(2),
                 type: "ROULETTE"
             })
         }
 
         dispatch(deleteBetslip(r))
+
+        console.log("Add")
     }
 
     const clearBets = () => {
         const r = betslip.filter(el => el.type !== gameType.ROULETTE)
         dispatch(deleteBetslip(r))
+        dispatch(setStake([]))
     }
 
     return (
@@ -1321,7 +1338,7 @@ const TableChips = ({random}) => {
                 <div className={style.bottom}>
                     <div />
                     <div className={style.extra}>
-                        <button
+                        <div
                             className={style.button}
                             onMouseEnter = {() => {
                                 onHoverChips(data.s_low_high[0], 0, numbers, 'range')
@@ -1335,8 +1352,8 @@ const TableChips = ({random}) => {
                                 step={buttonStepGet()}
                                 steps={steps}
                             />
-                        </button>
-                        <button
+                        </div>
+                        <div
                             className={style.button}
                             onMouseEnter = {() => {
                                 onHoverChips(data.s_even_odd[0], 0, numbers, 'even')
@@ -1350,8 +1367,7 @@ const TableChips = ({random}) => {
                                 step={buttonStepGet()}
                                 steps={steps}
                             />
-                        </button>
-
+                        </div>
                         {
                             data.s_color.map((el, idx) =>
                                 <button
@@ -1372,8 +1388,7 @@ const TableChips = ({random}) => {
                                 </button>
                             )
                         }
-
-                        <button
+                        <div
                             className={style.button}
                             onMouseEnter = {() => {
                                 onHoverChips(data.s_even_odd[1], 0, numbers, 'odd')
@@ -1387,8 +1402,8 @@ const TableChips = ({random}) => {
                                 step={buttonStepGet()}
                                 steps={steps}
                             />
-                        </button>
-                        <button
+                        </div>
+                        <div
                             className={style.button}
                             onMouseEnter = {() => {
                                 onHoverChips(data.s_low_high[1], 0, numbers, 'range')
@@ -1402,7 +1417,7 @@ const TableChips = ({random}) => {
                                 step={buttonStepGet()}
                                 steps={steps}
                             />
-                        </button>
+                        </div>
                     </div>
                     <div />
                 </div>

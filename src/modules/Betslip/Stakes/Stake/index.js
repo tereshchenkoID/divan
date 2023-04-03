@@ -10,9 +10,13 @@ import CalculatorModal from "modules/CalculatorModal";
 import Icon from "components/Icon";
 import Button from "components/Button";
 
+import {oddsType} from "constant/config";
+
+import {deleteBetslip} from "store/actions/betslipAction";
+
 import style from './index.module.scss';
 
-const Stake = ({data, setInit}) => {
+const Stake = ({data}) => {
     const dispatch = useDispatch()
     const {betslip} = useSelector((state) => state.betslip)
     const {settings} = useSelector((state) => state.settings)
@@ -20,6 +24,7 @@ const Stake = ({data, setInit}) => {
     const [edit, setEdit] = useState(false)
     const [calculate, setCalculate] = useState(false)
     const [value, setValue] = useState(data.stake)
+    const [init, setInit] = useState(false)
 
     const buttonRef = useRef(null)
     const blockRef = useRef(null)
@@ -27,11 +32,13 @@ const Stake = ({data, setInit}) => {
     useOutsideClick(blockRef, buttonRef, setEdit, data)
 
     const updateBetslip = (stake) => {
+        console.log("Update Stake", stake)
+
         for(let i = 0; i < betslip.length; i++) {
-            betslip[i].stake = (stake / betslip.length).toFixed(2)
+            betslip[i].stake = settings.betting.type === oddsType.PER_BET ? parseFloat(stake).toFixed(2) : parseFloat(stake / betslip.length).toFixed(2)
         }
 
-        setInit(false)
+        dispatch(deleteBetslip(betslip))
     }
 
     const changeProps = (a, val) => {
@@ -70,8 +77,9 @@ const Stake = ({data, setInit}) => {
             }
 
             changeProps(a, r)
-            updateBetslip(r)
             dispatch(setStake(a))
+            data.type === 0 && updateBetslip(r)
+            setInit(true)
         }
     }
 
@@ -82,7 +90,7 @@ const Stake = ({data, setInit}) => {
 
         if (val) {
             if (f.stake.toString().indexOf('.') !== -1) {
-                const a = f.stake.split('.')
+                const a = f.stake.toString().split('.')
                 a[0] = parseInt(a[0]) + val
                 a[1] = a[1] === '' ? 0 : a[1]
                 r = a.join('.')
@@ -96,12 +104,12 @@ const Stake = ({data, setInit}) => {
         }
 
         changeProps(a, r)
-        updateBetslip(r)
         dispatch(setStake(a))
+        data.type === 0 && updateBetslip(r)
     }
 
     useEffect(() => {
-        updateStake(value)
+        init && updateStake(value)
     }, [value])
 
     return (

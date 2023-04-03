@@ -15,6 +15,7 @@ import Button from "components/Button";
 import Password from "./Password";
 
 import style from './index.module.scss';
+import {setSettings} from "../../store/actions/settingsAction";
 
 const SettingsModal = ({action}) => {
     const dispatch = useDispatch()
@@ -33,12 +34,18 @@ const SettingsModal = ({action}) => {
             dispatch(deleteBetslip([]))
         }
 
+        console.log(idx)
+
         postData('/config', JSON.stringify({
-                idx: ref.current.value
+                [idx]: ref.current.value
             }))
             .then((json) => {
                 if (json.code === 'OK') {
                     dispatch(setNotification('Saved'))
+
+                    // dispatch(setSettings()).then((json) => {
+                    //     console.log(json)
+                    // })
                 }
                  else {
                     dispatch(setNotification(json.error_message || 'Something wrong'))

@@ -15,7 +15,7 @@
   grid-template-columns: 1fr rem(95px);
   align-items: center;
   position: absolute;
-  top: rem(80px);
+  top: rem(50px);
   width: rem(250px);
 }
 
@@ -35,7 +35,7 @@
 
 .banners {
   position: absolute;
-  left: rem(390px);
+  left: rem(335px);
 }
 
 .tab {
@@ -70,37 +70,55 @@
   display: block;
 }
 
-.label {
-  @include make-spacer('mt', 4);
+.header {
+  @include make-spacer('my', 2);
 
-  padding-left: rem(450px);
-  color: var(--color-white);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: rem(40px);
+  padding-left: rem(270px);
+}
+
+.label {
+  @include make-spacer('mb', 2);
+  @include flex($align-items: center);
+
+  gap: rem(15px);
   text-align: left;
+  color: var(--color-orange);
+  font-size: rem(19px);
+
+  &::before,
+  &::after {
+    @include size(100%, rem(1px));
+
+    background-color: var(--color-orange);
+    content: '';
+  }
 }
 
 .sort {
   @include make-spacer('mb', 2);
   @include flex($align-items: center);
-
-  padding-left: rem(270px);
-  min-height: rem(77px);
 }
 
 .market {
-  @include flex($align-items: center);
-  @include make-spacer('mr', 1);
-  @include make-spacer('px', 5);
+  @include flex(center, center);
+  @include make-spacer('mr', half);
+  @include size(rem(43px));
 
   position: relative;
-  background-color: #0e0e0e;
-  background: linear-gradient(360deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.1) 100%);
-  border-radius: rem(10px);
-  border: 3px solid var(--color-black);
-  height: rem(55px);
-  color: var(--color-green-900);
+
+  filter: drop-shadow(0 0 0.5px rgba(0, 0, 0, 0.56));
+  box-shadow: inset 0 3px 3.5px rgba(0, 0, 0, 0.18);
+  background-image: linear-gradient(0deg, #111111 0%, #294329 17%, #0b5707 51%, #0b5707 100%);
+  border: 0 solid var(--color-black);
+  border-radius: rem(4px);
+  color: var(--color-white);
   font-weight: var(--typography-bold);
-  font-size: rem(22px);
+  font-size: rem(17px);
   text-transform: uppercase;
+  text-align: center;
 
   &::before {
     position: absolute;
@@ -117,9 +135,13 @@
     @include make-spacer('mr', 0);
   }
 
+  &.disabled {
+    pointer-events: none;
+    background-image: linear-gradient(0deg, #111111 0%, #3f3f3f 17%, #6d6d6d 51%, #6d6d6d 100%);
+  }
+
   &.active {
-    background-color: #dc5366;
-    color: var(--color-white);
+    background-image: linear-gradient(0deg, #294329 0%, #00a900 52%, #00a900 100%);
   }
 }
 

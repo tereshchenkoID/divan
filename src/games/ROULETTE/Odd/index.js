@@ -24,7 +24,7 @@ const Odd = ({data, step, steps}) => {
         })
 
         if (find) {
-            find.stake = parseInt(find.stake, 10) + parseInt(step.amount, 10)
+            find.stake = (parseFloat(find.stake) + parseFloat(step.amount)).toFixed(2)
             dispatch(deleteBetslip(a))
         }
         else {
@@ -33,14 +33,17 @@ const Odd = ({data, step, steps}) => {
                 id: date.stake,
                 b: date.odd,
                 market: date.stake,
-                stake: parseInt(step.amount, 10),
+                print: date.print,
+                m_old: date.stake.split(":")[0],            // Remove after
+                o_old: date.stake.split(":")[1].slice(1),    // Remove after
+                stake: step.amount.toFixed(2),
                 type: "ROULETTE"
             }))
         }
     }
 
     return (
-        <button
+        <div
             className={style.block}
             onClick={() => {
                 addBetslip(data)
@@ -66,7 +69,7 @@ const Odd = ({data, step, steps}) => {
                     :
                         data.name
             }
-        </button>
+        </div>
     );
 }
 

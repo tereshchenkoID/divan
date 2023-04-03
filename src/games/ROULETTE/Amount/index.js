@@ -4,6 +4,16 @@ import classNames from "classnames";
 
 import style from './index.module.scss';
 
+const getFixed = (data) => {
+    let a = data.split('.')
+    if (parseInt(a[1], 10) === 0) {
+        return 0
+    }
+    else {
+        return 2
+    }
+}
+
 const Amount = ({data, step, steps}) => {
     const [toggle, setToggle] = useState(false)
 
@@ -23,7 +33,7 @@ const Amount = ({data, step, steps}) => {
             previous = steps[i].color;
         }
 
-        return previous.color;
+        return previous || steps[0].color;
     }
 
     useEffect(() => {
@@ -39,7 +49,8 @@ const Amount = ({data, step, steps}) => {
     return (
         <div className={style.block}>
             {
-                data.stake > 0 &&
+                steps.length &&
+                (data.stake || data.stake === 0) &&
                 <div
                     className={
                         classNames(
@@ -49,10 +60,10 @@ const Amount = ({data, step, steps}) => {
                     }
                 >
                     <img
-                        src={`/img/ROULETTE/chips/${currentStakeColor(data.stake) || 'red'}.png`}
+                        src={`/img/ROULETTE/chips/${(data.stake > 0 ? currentStakeColor(data.stake) : 'violet') || 'red'}.png`}
                         alt={'Chips'}
                     />
-                    <p>{data.stake}</p>
+                    <p>{parseFloat(data.stake).toFixed(getFixed(data.stake))}</p>
                     <div
                         className={
                             classNames(

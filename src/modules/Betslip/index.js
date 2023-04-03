@@ -1,10 +1,17 @@
-import {useEffect, useState, useRef} from "react";
+import {useEffect, useRef, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import { useReactToPrint } from 'react-to-print';
+import {useReactToPrint} from 'react-to-print';
 
-import {printMode, oddsType} from "constant/config";
+import {gameType, oddsType, printMode} from "constant/config";
 
-import {getMinMaxOdd, getBetMaxSingle, getTotalStakeSystem, getTotalStakeSingle, getSystemCombination, getSystemBetMinMaxSystem} from 'hooks/useStake'
+import {
+    getBetMaxSingle,
+    getMinMaxOdd,
+    getSystemBetMinMaxSystem,
+    getSystemCombination,
+    getTotalStakeSingle,
+    getTotalStakeSystem
+} from 'hooks/useStake'
 
 import {deleteBetslip} from "store/actions/betslipAction";
 import {setStake} from "store/actions/stakeAction";
@@ -89,6 +96,8 @@ const Betslip = () => {
             const min = stake[0].type === 1 ? settings.betslip.system.min : settings.betslip.single.min
             const max = stake[0].type === 1 ? settings.betslip.system.max : settings.betslip.single.max
 
+            console.log(a)
+
 
             postData('/placebet', JSON.stringify(a))
                 .then((json) => {
@@ -144,7 +153,7 @@ const Betslip = () => {
             const min = getSystemBetMinMaxSystem(s, 0)
             const max = getSystemBetMinMaxSystem(s, 1)
             const maxWin = getSystemBetMinMaxSystem(s, 2)
-            const st = 0
+            const st = settings.betslip.system.default
 
             r.push({
                 type: 1,
@@ -163,17 +172,46 @@ const Betslip = () => {
         return r
     }
 
+    const checkGames = () => {
+        if(betslip.length) {
+            const t = betslip[0].type
+            return betslip.find(el => {
+                return el.type !== t
+            })
+        }
+        else {
+            return null
+        }
+    }
+
     const singleHandler = () => {
         const minOdd = getMinMaxOdd(betslip, 0)
         const maxOdd = getMinMaxOdd(betslip, 1)
         const maxWin = getBetMaxSingle(betslip)
         let s
 
-        if (init) {
-            s = settings.betslip.single.default
+        const f = checkGames()
+
+        if (f) {
+            s = getTotalStakeSingle(betslip)
         }
         else {
-            s = (stake.length && stake[0].stake) || settings.betslip.single.default
+            if (!init) {
+
+                if (betslip[0].type === gameType.FOOTBALL_LEAGUE) {
+                    s = settings.betting.type === oddsType.PER_BET ? settings.betslip.single.default: settings.betslip.single.default / betslip.length
+                }
+                else {
+                    s = getTotalStakeSingle(betslip)
+                }
+
+                console.log(s)
+            }
+            else {
+                s = getTotalStakeSingle(betslip)
+
+                console.log(s)
+            }
         }
 
         return [{
@@ -190,55 +228,55 @@ const Betslip = () => {
     }
 
     const checkType = () => {
-
         if (betslip.length > 1) {
-            // if (disabled) {
+            const f = betslip.find(el => { return el.type !== gameType.FOOTBALL_LEAGUE })
+            if (f) {
+                setDisabled(true)
+                setType(0)
+            }
+            else {
                 let e = betslip[0].mid
-                let t = betslip[0].type
+                const c = betslip.find(el => { return el.mid !== e })
 
-                betslip.map((el) => {
-                    if (t !== el.type) {
-                        setDisabled(true)
-                        setType(0)
-                    }
-                    else {
-                        if (e !== el.mid) {
-                            setDisabled(false)
-                            setType(1)
-                        }
-                        else {
-                            setDisabled(true)
-                            setType(0)
-                        }
-                    }
+                if (!c) {
+                    setDisabled(true)
+                    setType(0)
+                }
+                else {
+                    setDisabled(false)
+                    // setType(1)
+                }
+            }
 
-                    return null
-                });
+            // if (disabled) {
+            //
+            //     let e = betslip[0].mid
+            //     // let t = betslip[0].type
+            //
+            //     betslip.map((el) => {
+            //         // if (t !== el.type) {
+            //         //     setDisabled(true)
+            //         //     setType(0)
+            //         // }
+            //         // else {
+            //             if (e !== el.mid) {
+            //                 setDisabled(false)
+            //                 setType(1)
+            //             }
+            //             else {
+            //                 setDisabled(true)
+            //                 setType(0)
+            //             }
+            //         // }
+            //
+            //         return null
+            //     });
             // }
         }
         else {
             setType(0)
             setDisabled(true)
         }
-    }
-
-    const updateBetslip = (a) => {
-        if (!init) {
-            for(let i = 0; i < betslip.length; i++) {
-                betslip[i].stake = settings.betting.type === oddsType.PER_BET ?  (a / betslip.length).toFixed(2) : a
-            }
-        }
-        else {
-            for(let i = 0; i < betslip.length; i++) {
-                if (betslip[i].stake === 0) {
-                    betslip[i].stake = a
-                }
-            }
-
-            stake[0].stake = getTotalStakeSingle(betslip)
-        }
-
-        dispatch(deleteBetslip(betslip))
     }
 
     const a = useReactToPrint({
@@ -262,14 +300,14 @@ const Betslip = () => {
         }
     }, [betslip, type])
 
-    // useEffect(() => {
-    //     if (type === 0) {
-    //         if (stake.length) {
-    //             updateBetslip(stake[0].stake)
-    //         }
-    //     }
-    //
-    // }, [stake])
+    useEffect(() => {
+        // console.log(betslip, stake)
+
+        if (betslip.length === 0 && stake.length === 0) {
+            setDisabled(true)
+            setInit(false)
+        }
+    }, [betslip])
 
     return (
         <div className={style.block}>
@@ -307,10 +345,7 @@ const Betslip = () => {
                                 setType={setType}
                                 disabled={disabled}
                             />
-                            {/*<Stakes*/}
-                            {/*    stake={stake}*/}
-                            {/*    setInit={setInit}*/}
-                            {/*/>*/}
+                            <Stakes stake={stake} />
                         </>
                     :
                         <div className={style.list}>
@@ -343,6 +378,7 @@ const Betslip = () => {
                             dispatch(deleteBetslip([]))
                             dispatch(setTicket(0))
                             setDisabled(true)
+                            setInit(false)
                         }}
                     />
                 </div>

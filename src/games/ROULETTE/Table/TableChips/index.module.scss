@@ -167,7 +167,7 @@
 
   .button {
     flex-direction: column;
-    font-size: rem(12px);
+    font-size: rem(24px);
   }
 }
 
@@ -313,6 +313,8 @@
     @include size(rem(94px));
 
     font-size: rem(36px);
+    transform: rotateZ(360deg);
+    transition: var(--default-transition);
   }
 
   img {

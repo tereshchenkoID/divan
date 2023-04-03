@@ -47,14 +47,14 @@ const Update = ({find, active, setActive, setWeek, setFind}) => {
                                         if (rt === '0') {
                                             // console.log("END RESULTS")
 
-                                            dispatch(setData(game.id)).then((json) => {
+                                            dispatch(setData(game)).then((json) => {
                                                 // console.log("RELOAD 1")
                                                 resetNextWeek(json)
                                             })
                                             clearInterval(c)
                                         }
                                         else {
-                                            console.log(rt)
+                                            // console.log(rt)
                                         }
                                     }, 1000)
                                 })
@@ -62,7 +62,7 @@ const Update = ({find, active, setActive, setWeek, setFind}) => {
                                 clearInterval(b)
                             }
                             else {
-                                console.log(pt)
+                                // console.log(pt)
                             }
                         },1000)
                     })
@@ -70,7 +70,7 @@ const Update = ({find, active, setActive, setWeek, setFind}) => {
                     clearInterval(a)
                 }
                 else {
-                    console.log(at)
+                    // console.log(at)
                 }
             }, 1000)
         }
@@ -85,21 +85,21 @@ const Update = ({find, active, setActive, setWeek, setFind}) => {
                             const rt = resultTimer(json.event.nextUpdate, delta)
 
                             if (rt === '0') {
-                                dispatch(setData(game.id)).then((json) => {
+                                dispatch(setData(game)).then((json) => {
                                     // console.log("RELOAD 2")
                                     resetNextWeek(json)
                                 })
                                 clearInterval(b)
                             }
                             else {
-                                console.log(rt)
+                                // console.log(rt)
                             }
                         },1000)
                     })
                     clearInterval(a)
                 }
                 else {
-                    console.log(pt)
+                    // console.log(pt)
                 }
             },1000)
         }
@@ -108,14 +108,14 @@ const Update = ({find, active, setActive, setWeek, setFind}) => {
                 const rt = resultTimer(find.nextUpdate, delta)
 
                 if (rt === '0') {
-                    dispatch(setData(game.id)).then((json) => {
+                    dispatch(setData(game)).then((json) => {
                         // console.log("RELOAD 3")
                         resetNextWeek(json)
                     })
                     clearInterval(a)
                 }
                 else {
-                    console.log(rt)
+                    // console.log(rt)
                 }
             }, 1000)
         }

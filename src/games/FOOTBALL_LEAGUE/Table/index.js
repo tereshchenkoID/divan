@@ -60,7 +60,7 @@ const Table = () => {
             setLoading(true)
             resetActiveElements()
 
-            dispatch(setData(game.id)).then((json) => {
+            dispatch(setData(game)).then((json) => {
                 if (json.events.length > 0) {
                     const f = json.events[0]
 
@@ -92,7 +92,7 @@ const Table = () => {
         }
 
         if (live === 4) {
-            dispatch(setData(game.id)).then((json) => {
+            dispatch(setData(game)).then((json) => {
                 setWeek(json.events[0].league.week)
                 setFind(json.events[0].league.week)
                 setActive(0)
