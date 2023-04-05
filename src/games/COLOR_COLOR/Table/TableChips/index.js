@@ -3,47 +3,20 @@ import {useEffect, useState} from "react";
 
 import classNames from "classnames";
 
-import {colorType, gameType} from "constant/config";
-
 import {deleteBetslip} from "store/actions/betslipAction";
+
+import Numbers from "games/COLOR_COLOR/Table/Numbers";
+import Colors from "games/COLOR_COLOR/Table/Colors";
+import Anaconda from "./Anaconda";
+import Zero from "./Zero";
+import Matched from "./Matched";
 
 import style from './index.module.scss';
 
-const getNumbers = () => {
-    const a = 49
-    const s = []
-
-    for (let i = 1; i <= a; i++) {
-        if(i === a) {
-            s.push({
-                id: i,
-                color: "draw"
-            })
-        }
-        else if (i % 3 === 1) {
-            s.push({
-                id: i,
-                color: "red"
-            })
-        }
-        else if (i % 3 === 2) {
-            s.push({
-                id: i,
-                color: "yellow"
-            })
-        }
-        else {
-            s.push({
-                id: i,
-                color: "blue"
-            })
-        }
-    }
-
-    return s
-}
-
 const TableChips = ({random}) => {
+    const dispatch = useDispatch()
+
+    const {betslip} = useSelector((state) => state.betslip)
     const [data, setData] = useState({
         "event": {
             "d": {
@@ -178,227 +151,44 @@ const TableChips = ({random}) => {
             }
         }
     })
-
-    const dispatch = useDispatch()
-    const {betslip} = useSelector((state) => state.betslip)
-    const [selected, setSelected] = useState([])
+    const [colors, setColors] = useState([])
+    const [numbers, setNumbers] = useState([])
     const [disabled, setDisabled] = useState(true)
 
     useEffect(() => {
-        selected.length > 0 && setDisabled(false)
-    }, [selected])
+        (colors.length > 0) && setDisabled(false)
 
-    const addSingleStake = (el, outcome, color = '') => {
-        // console.log(el, outcome)
-
-        setSelected([...selected, {
-            id: null,
-            start: null,
-            b: el.b,
-            m_old: el.a,
-            o_old: outcome,
-            market: el.a,
-            print: `${outcome}: ${el.a} ${color}`,
-            stake: 100,
-            type: gameType.COLOR_COLOR
-        }]);
-    }
+        console.log(colors, numbers)
+    }, [colors, numbers])
 
     const addStake = () => {
         const a = betslip.slice(0)
-        const r = a.concat(selected);
+        const r = a.concat(colors);
         dispatch(deleteBetslip(r))
         setDisabled(true)
-        setSelected([])
+        setColors([])
     }
 
     return (
         <div className={style.block}>
             <div className={style.wrapper}>
-                <div className={style.numbers}>
-                    {
-                        getNumbers().map((el, idx) =>
-                            <div
-                                key={idx}
-                                className={style.cell}
-                            >
-                                <button
-                                    className={
-                                        classNames(
-                                            style.button,
-                                            style.bet
-                                        )
-                                    }
-
-                                    onClick={() => {
-                                        addSingleStake(el, colorType.COLOR)
-                                    }}
-                                >
-                                    <div
-                                        className={
-                                            classNames(
-                                                style.color,
-                                                style[el.color]
-                                            )
-                                        }
-                                    >
-                                        {el.id}
-                                    </div>
-                                </button>
-                            </div>
-                        )
-                    }
-                    <div className={style.cell}>
-                        <button
-                            className={style.button}
-                        >
-                            RESET NUMBERS
-                        </button>
-                    </div>
-                </div>
+                <Numbers
+                    data={data}
+                    numbers={numbers}
+                    setNumbers={setNumbers}
+                    random={random}
+                />
 
                 <div className={style.labels}>
                     <div className={style.label}>Winning color</div>
                     <div className={style.label}>Number of colors</div>
                 </div>
-                <div className={style.colors}>
-                    <div>
-                        {
-                            data.event.d.b.map((el, idx) =>
-                                <div
-                                    key={idx}
-                                    className={style.cell}
-                                >
-                                    <button
-                                        className={
-                                            classNames(
-                                                style.button,
-                                                style.bet
-                                            )
-                                        }
-                                        onClick={() => {
-                                            addSingleStake(el, colorType.COLOR)
-                                        }}
-                                    >
-                                        <div
-                                            className={
-                                                classNames(
-                                                    style.color,
-                                                    style.lg,
-                                                    style[el.a.toLowerCase()]
-                                                )
-                                            }
-                                        />
-                                    </button>
-                                </div>
-                            )
-                        }
-                    </div>
-                    <div>
-                        <div>
-                            {
-                                data.event.e.b.map((el, idx) =>
-                                    <div
-                                        key={idx}
-                                        className={style.cell}
-                                    >
-                                        <button
-                                            className={
-                                                classNames(
-                                                    style.button,
-                                                    style.bet
-                                                )
-                                            }
 
-                                            onClick={() => {
-                                                addSingleStake(el, colorType.COLOR, 'BLUE')
-                                            }}
-                                        >
-                                            <div
-                                                className={
-                                                    classNames(
-                                                        style.color,
-                                                        style.blue
-                                                    )
-                                                }
-                                            >
-                                                {el.a}
-                                            </div>
-                                        </button>
-                                    </div>
-                                )
-                            }
-                        </div>
-                        <div>
-                            {
-                                data.event.f.b.map((el, idx) =>
-                                    <div
-                                        key={idx}
-                                        className={style.cell}
-                                    >
-                                        <button
-                                            className={
-                                                classNames(
-                                                    style.button,
-                                                    style.bet
-                                                )
-                                            }
-
-                                            onClick={() => {
-                                                addSingleStake(el, colorType.COLOR, 'RED')
-                                            }}
-                                        >
-                                            <div
-                                                className={
-                                                    classNames(
-                                                        style.color,
-                                                        style.red
-                                                    )
-                                                }
-                                            >
-                                                {el.a}
-                                            </div>
-                                        </button>
-                                    </div>
-                                )
-                            }
-                        </div>
-                        <div>
-                            {
-                                data.event.g.b.map((el, idx) =>
-                                    <div
-                                        key={idx}
-                                        className={style.cell}
-                                    >
-                                        <button
-                                            className={
-                                                classNames(
-                                                    style.button,
-                                                    style.bet
-                                                )
-                                            }
-
-                                            onClick={() => {
-                                                addSingleStake(el, colorType.COLOR, 'YELLOW')
-                                            }}
-                                        >
-                                            <div
-                                                className={
-                                                    classNames(
-                                                        style.color,
-                                                        style.yellow
-                                                    )
-                                                }
-                                            >
-                                                {el.a}
-                                            </div>
-                                        </button>
-                                    </div>
-                                )
-                            }
-                        </div>
-                    </div>
-                </div>
+                <Colors
+                    data={data}
+                    colors={colors}
+                    setColors={setColors}
+                />
             </div>
 
             <div className={style.wrapper}>
@@ -418,69 +208,9 @@ const TableChips = ({random}) => {
                     </button>
                 </div>
 
-                <div>
-                    <div className={style.content}>
-                        <div className={style.label}>MATCHED NUMBERS</div>
-                    </div>
-                    <div className={style.panel}>
-                        <div className={style.subtitle}>QUANTITY OF MATCHED NUMBERS</div>
-                        <div className={style.quantity}>
-                            <button
-                                className={style.button}
-                            >
-                                1
-                            </button>
-                            <button
-                                className={style.button}
-                            >
-                                2
-                            </button>
-                            <button
-                                className={style.button}
-                            >
-                                3
-                            </button>
-                            <button
-                                className={style.button}
-                            >
-                                4
-                            </button>
-                            <button
-                                className={style.button}
-                            >
-                                5
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <div>
-                    <div className={style.content}>
-                        <div className={style.label}>ANACONDA</div>
-                    </div>
-                    <div className={style.panel}>
-                        <div className={style.subtitle}>З TO 6 NUMBERS WILL BE MATCHED</div>
-                        <button
-                            className={style.button}
-                        >
-                            ANACONDA
-                        </button>
-                    </div>
-                </div>
-
-                <div>
-                    <div className={style.content}>
-                        <div className={style.label}>BET ZERO</div>
-                    </div>
-                    <div className={style.panel}>
-                        <div className={style.subtitle}>SELECTED NUMBERS WON T BE MATCHED</div>
-                        <button
-                            className={style.button}
-                        >
-                            BET ZERO
-                        </button>
-                    </div>
-                </div>
+                <Matched numbers={numbers} />
+                <Anaconda numbers={numbers} />
+                <Zero numbers={numbers} />
             </div>
         </div>
     );

@@ -22,7 +22,7 @@ const Table = () => {
         let array = [];
 
         while (array.length < length) {
-            let randomNumber = Math.floor(Math.random() * 36);
+            let randomNumber = Math.floor(Math.random() * 49);
             if (!array.includes(randomNumber)) {
                 array.push(randomNumber);
             }
