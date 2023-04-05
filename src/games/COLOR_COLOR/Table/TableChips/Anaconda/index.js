@@ -2,9 +2,11 @@ import {useEffect, useState} from "react";
 
 import classNames from "classnames";
 
+import {colorType} from "constant/config";
+
 import style from '../index.module.scss';
 
-const Anaconda = ({numbers}) => {
+const Anaconda = ({numbers, type, setType}) => {
     const [disabled, setDisabled] = useState(true)
 
     useEffect(() => {
@@ -13,6 +15,7 @@ const Anaconda = ({numbers}) => {
         }
         else {
             setDisabled(true)
+            setType('')
         }
     }, [numbers])
 
@@ -27,9 +30,13 @@ const Anaconda = ({numbers}) => {
                     className={
                         classNames(
                             style.button,
-                            disabled && style.disabled
+                            disabled && style.disabled,
+                            type === colorType.ANACONDA && style.active
                         )
                     }
+                    onClick={() => {
+                        setType(type === colorType.ANACONDA ? '' : colorType.ANACONDA)
+                    }}
                 >
                     ANACONDA
                 </button>

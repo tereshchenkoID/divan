@@ -3,8 +3,9 @@ import {useEffect, useState} from "react";
 import classNames from "classnames";
 
 import style from '../index.module.scss';
+import {colorType} from "../../../../../constant/config";
 
-const Matched = ({numbers}) => {
+const Matched = ({numbers, type, setType}) => {
     const [quantity, setQuantity] = useState([
         {
             id: 1,
@@ -35,8 +36,6 @@ const Matched = ({numbers}) => {
             a[i].disabled = !numbers[i];
         }
 
-        console.log(a)
-
         setQuantity(a)
     }
 
@@ -59,6 +58,24 @@ const Matched = ({numbers}) => {
         }
     }, [numbers])
 
+    const addMatches = (id) => {
+        const f = type.indexOf(id) !== -1
+
+        if(type !== colorType.ANACONDA && type !== colorType.BET_ZERO) {
+            if (f) {
+                const s = type.slice(0)
+                s.splice(type.indexOf(id), 1)
+                setType(s)
+            }
+            else {
+                setType([...type, id])
+            }
+        }
+        else {
+            setType([id])
+        }
+    }
+
     return (
         <div>
             <div className={style.content}>
@@ -74,9 +91,13 @@ const Matched = ({numbers}) => {
                                 className={
                                     classNames(
                                         style.button,
-                                        el.disabled && style.disabled
+                                        el.disabled && style.disabled,
+                                        type.indexOf(el.id) !== -1 && style.active
                                     )
                                 }
+                                onClick={() => {
+                                    addMatches(el.id)
+                                }}
                             >
                                 {el.id}
                             </button>

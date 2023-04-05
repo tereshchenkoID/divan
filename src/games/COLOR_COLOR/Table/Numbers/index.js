@@ -40,7 +40,7 @@ const getNumbers = () => {
     return s
 }
 
-const Numbers = ({data, numbers, setNumbers, random}) => {
+const Numbers = ({data, numbers, setNumbers, random, setType}) => {
     const odds = getNumbers()
     const [disabled, setDisabled] = useState(false)
 
@@ -89,6 +89,7 @@ const Numbers = ({data, numbers, setNumbers, random}) => {
                     }
                     onClick={() => {
                         setNumbers([])
+                        setType('')
                     }}
                 >
                     RESET NUMBERS

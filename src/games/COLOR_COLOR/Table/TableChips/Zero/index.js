@@ -2,9 +2,11 @@ import {useEffect, useState} from "react";
 
 import classNames from "classnames";
 
+import {colorType} from "constant/config";
+
 import style from '../index.module.scss';
 
-const Zero = ({numbers}) => {
+const Zero = ({numbers, type, setType}) => {
     const [disabled, setDisabled] = useState(true)
 
     useEffect(() => {
@@ -27,9 +29,13 @@ const Zero = ({numbers}) => {
                     className={
                         classNames(
                             style.button,
-                            disabled && style.disabled
+                            disabled && style.disabled,
+                            type === colorType.BET_ZERO && style.active
                         )
                     }
+                    onClick={() => {
+                        setType(type === colorType.BET_ZERO ? '' : colorType.BET_ZERO)
+                    }}
                 >
                     BET ZERO
                 </button>
