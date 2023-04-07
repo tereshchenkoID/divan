@@ -6,8 +6,8 @@ import {gameType} from "constant/config";
 import {setSettings} from "store/actions/settingsAction";
 
 import FOOTBALL_LEAGUE from "games/FOOTBALL_LEAGUE";
-import ROULETTE from "games/ROULETTE";
 import COLOR_COLOR from "games/COLOR_COLOR";
+import ROULETTE from "games/ROULETTE";
 import KENO from "games/KENO";
 
 import Loader from "components/Loader";
@@ -59,6 +59,15 @@ const Home = () => {
                     <Loader />
                  :
                     <>
+                        {
+                            game &&
+                            <div className={style.decor}>
+                                <img
+                                    src={`/img/decor/${game.type}.jpeg`}
+                                    alt="Decor"
+                                />
+                            </div>
+                        }
                         <Nav />
                         <div className={style.content}>
                             <div className={style.column}>

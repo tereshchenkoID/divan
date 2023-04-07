@@ -15,9 +15,28 @@
   column-gap: rem(10px);
   flex-grow: 1;
   overflow: hidden;
+  z-index: 1;
 }
 
 .column {
   height: 100%;
   overflow: hidden;
+}
+
+.decor {
+  @include absolute-filled;
+
+  background-size: cover;
+  background-position: 50% 50%;
+
+  img {
+    object-fit: cover;
+  }
+
+  &::before {
+    @include absolute-filled;
+
+    background-color: rgba(0, 0, 0, 0.7);
+    content: '';
+  }
 }
