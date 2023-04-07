@@ -1,50 +1,9 @@
 @import "scss/config";
 
 .block {
-  @include flex(center, center);
-  @include size(100%);
-
-  position: relative;
-  border: 0 solid var(--color-black);
-  min-height: rem(42px);
-  color: var(--color-white);
-  font-weight: var(--typography-bold);
-  font-size: rem(17px);
-  text-transform: uppercase;
-  text-align: center;
-  transition: var(--default-transition);
-
-  &:hover {
-    background-image: linear-gradient(0deg, #294329 0%, #00a900 52%, #00a900 100%);
-  }
-
-  &.active {
-    background: linear-gradient(360deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.1) 100%);
-    background-color: var(--color-red);
-  }
+  @include odd;
 }
 
 .color {
-  @include flex(center, center);
-  @include size(rem(45px));
-
-  position: relative;
-  border-radius: 50%;
-  background-color: #bf1e2e;
-  font-size: rem(26px);
-  letter-spacing: -1px;
-  text-transform: uppercase;
-  color: var(--color-white);
-  font-weight: var(--typography-bold);
-  text-align: center;
-  filter: drop-shadow(0px -2px 0px rgba(0,0,0,0.3));
-
-  &::before {
-    @include size(rem(35px));
-    @include absolute-center-top(0);
-
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 100%);
-    border-radius: inherit;
-    content: '';
-  }
+  @include circle;
 }

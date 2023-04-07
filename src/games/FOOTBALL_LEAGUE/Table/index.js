@@ -14,11 +14,11 @@ import JackPot from "modules/JackPot";
 import Loader from "components/Loader";
 import Icon from "components/Icon";
 
-import Odd from "games/FOOTBALL_LEAGUE/Odd";
 import Timer from "games/FOOTBALL_LEAGUE/Timer";
 import Live from "games/FOOTBALL_LEAGUE/Live";
 import Update from "games/FOOTBALL_LEAGUE/Update";
 
+import Odd from "./Odd";
 import Subtitle from "./Subtitle";
 import Modal from "./Modal";
 
@@ -349,14 +349,13 @@ const Table = () => {
                                                                                         className={style.row}
                                                                                     >
                                                                                         <div className={style.cell}>
-                                                                                            {el_m.pos}
+                                                                                            <div className={style.position}>{el_m.pos}</div>
                                                                                         </div>
                                                                                         <div className={style.cell}>
                                                                                             <div
                                                                                                 className={
                                                                                                     classNames(
                                                                                                         style.meta,
-                                                                                                        style.sm,
                                                                                                         toggle.toggle && style.disabled,
                                                                                                         (toggle.id === idx_m && toggle.toggle ) && style.active
                                                                                                     )

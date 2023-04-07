@@ -2,7 +2,6 @@
 
 .block {
   position: relative;
-  //overflow: hidden;
   min-height: rem(690px);
   height: 100%;
   text-transform: uppercase;
@@ -11,12 +10,7 @@
 }
 
 .info {
-  display: grid;
-  grid-template-columns: 1fr rem(95px);
-  align-items: center;
-  position: absolute;
-  top: rem(80px);
-  width: rem(250px);
+  @include info;
 }
 
 .body {
@@ -34,8 +28,7 @@
 }
 
 .banners {
-  position: absolute;
-  left: rem(390px);
+  @include banners;
 }
 
 .tab {
@@ -43,84 +36,36 @@
 }
 
 .link {
-  @include flex(center, center);
-  @include size(rem(90px), rem(35px));
-  @include make-spacer('mr', 1);
-
-  border-radius: rem(8px);
-  border: 1px solid #17591b;
-  background: linear-gradient(360deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.1) 100%);
-  background-color: var(--color-green);
-  opacity: 0.5;
-  color: var(--color-white);
-  text-transform: uppercase;
-  font-size: rem(13px);
-
-  &:last-child {
-    @include make-spacer('mr', 0);
-  }
-
-  &:hover,
-  &.active {
-    opacity: 1;
-  }
+  @include link;
 }
 
 .table {
   display: block;
 }
 
-.label {
-  @include make-spacer('mt', 4);
+.header {
+  @include make-spacer('my', 2);
 
-  padding-left: rem(450px);
-  color: var(--color-white);
-  text-align: left;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: rem(40px);
+  padding-left: rem(270px);
+}
+
+.label {
+  @include label;
+  @include make-spacer('mb', 2);
 }
 
 .sort {
   @include make-spacer('mb', 2);
   @include flex($align-items: center);
-
-  padding-left: rem(270px);
-  min-height: rem(77px);
 }
 
 .market {
-  @include flex($align-items: center);
-  @include make-spacer('mr', 1);
-  @include make-spacer('px', 5);
-
-  position: relative;
-  background-color: #0e0e0e;
-  background: linear-gradient(360deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.1) 100%);
-  border-radius: rem(10px);
-  border: 3px solid var(--color-black);
-  height: rem(55px);
-  color: var(--color-green-900);
-  font-weight: var(--typography-bold);
-  font-size: rem(22px);
-  text-transform: uppercase;
-
-  &::before {
-    position: absolute;
-    top: rem(1px);
-    right: rem(1px);
-    left: rem(1px);
-    height: rem(12px);
-    border-radius: rem(5px);
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.08) 100%);
-    content: '';
-  }
-
-  &:last-child {
-    @include make-spacer('mr', 0);
-  }
-
-  &.active {
-    background-color: #dc5366;
-    color: var(--color-white);
-  }
+  @include button;
+  @include make-spacer('mr', half);
+  @include size(rem(43px));
 }
 
 .wrapper {

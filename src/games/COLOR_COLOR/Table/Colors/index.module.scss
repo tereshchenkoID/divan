@@ -3,7 +3,7 @@
 .block {
   display: grid;
   grid-template-columns: rem(216px) 1fr;
-  border-top: 1px solid #a7a7a7;
+  border-top: 1px solid var(--color-border);
   height: rem(170px);
 
   > div {
@@ -45,6 +45,6 @@
   @include flex(center, center);
 
   background-color: #333233;
-  border-right: 1px solid #a7a7a7;
-  border-bottom: 1px solid #a7a7a7;
+  border-right: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
 }

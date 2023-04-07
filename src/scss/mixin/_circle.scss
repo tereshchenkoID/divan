@@ -1,0 +1,47 @@
+@mixin circle {
+  @include flex(center, center);
+  @include size(rem(45px));
+
+  position: relative;
+  border-radius: 50%;
+  font-size: rem(26px);
+  letter-spacing: -1px;
+  text-transform: uppercase;
+  color: var(--color-white);
+  font-weight: var(--typography-bold);
+  text-align: center;
+  filter: drop-shadow(0px -2px 0px rgba(0,0,0,0.3));
+
+  &::before {
+    @include size(rem(35px));
+    @include absolute-center-top(0);
+
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 100%);
+    border-radius: inherit;
+    content: '';
+  }
+
+  &.red {
+    background-color: #bf1e2e;
+  }
+
+  &.blue {
+    background-color: #0362b3;
+  }
+
+  &.yellow {
+    background-color: #c08301;
+  }
+
+  &.draw {
+    background-color: #101010;
+  }
+
+  &.lg {
+    @include size(rem(67px));
+
+    &::before {
+      @include size(rem(55px));
+    }
+  }
+}

@@ -1,6 +1,6 @@
 import {useDispatch, useSelector} from "react-redux";
 
-import Amount from "games/ROULETTE/Amount";
+import Amount from "games/ROULETTE/Table/Amount";
 
 import style from './index.module.scss';
 

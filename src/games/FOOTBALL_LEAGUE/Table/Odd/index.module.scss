@@ -1,0 +1,57 @@
+@import "scss/config";
+
+.block {
+  @include odd;
+  @include flex($direction: column);
+
+  .label,
+  .odd {
+    @include make-spacer('p', half);
+  }
+
+  .label {
+    width: 100%;
+    font-size: rem(16px);
+  }
+
+  .odd {
+    font-size: rem(21px);
+    transition: var(--default-transition);
+  }
+
+  &.sm {
+    border: 1px solid transparent;
+
+    .label {
+      font-size: rem(14px);
+    }
+
+    .odd {
+      font-size: rem(18px);
+      width: 100%;
+    }
+
+    &:hover,
+    &.active {
+      background: none;
+    }
+
+
+    &:hover {
+      border-color: var(--color-green-800);
+
+      .odd {
+        background-image: linear-gradient(0deg, #294329 0%, #00a900 52%, #00a900 100%);
+      }
+    }
+
+    &.active {
+      border-color: var(--color-red);
+
+      .odd {
+        background: linear-gradient(360deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.1) 100%);
+        background-color: var(--color-red);
+      }
+    }
+  }
+}

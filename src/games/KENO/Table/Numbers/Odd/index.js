@@ -28,7 +28,8 @@ const Odd = ({data, date, action}) => {
             <span
                 className={
                     classNames(
-                        style.color
+                        style.color,
+                        style.red
                     )
                 }
             >

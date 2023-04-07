@@ -285,7 +285,9 @@ const Item = ({data, timer}) => {
                 )
             }
         >
-            <div className={style.cell}>{data.pos}</div>
+            <div className={style.cell}>
+                <div className={style.position}>{data.pos}</div>
+            </div>
             <div className={style.cell}>
                 <div
                     className={style.meta}

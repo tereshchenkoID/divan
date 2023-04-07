@@ -9,7 +9,7 @@ import {deleteBetslip} from "store/actions/betslipAction";
 import {setStake} from "store/actions/stakeAction";
 
 import Button from "components/Button";
-import Odd from "games/ROULETTE/Odd";
+import Odd from "games/ROULETTE/Table/Odd";
 
 import style from './index.module.scss';
 

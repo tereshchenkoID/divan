@@ -1,0 +1,17 @@
+@mixin label {
+  @include flex($align-items: center);
+
+  gap: rem(15px);
+  text-align: center;
+  color: var(--color-orange);
+  font-size: rem(19px);
+  white-space: nowrap;
+
+  &::before,
+  &::after {
+    @include size(100%, rem(1px));
+
+    background-color: var(--color-orange);
+    content: '';
+  }
+}

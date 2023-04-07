@@ -80,21 +80,25 @@ const Table = () => {
                             </div>
                             <div className={style.body}>
                                 <div className={style.table}>
-                                    <div className={style.label}>RANDOM</div>
-                                    <div className={style.sort}>
-                                        {
-                                            SORT.map((el, idx) =>
-                                                <button
-                                                    key={idx}
-                                                    className={ style.market}
-                                                    onClick={() => {
-                                                        generateRandomArray(el)
-                                                    }}
-                                                >
-                                                    {el}
-                                                </button>
-                                            )
-                                        }
+                                    <div className={style.header}>
+                                        <div className={style.label}>RANDOM</div>
+                                        <div />
+                                        <div className={style.sort}>
+                                            {
+                                                SORT.map((el, idx) =>
+                                                    <button
+                                                        key={idx}
+                                                        className={ style.market}
+                                                        onClick={() => {
+                                                            generateRandomArray(el)
+                                                        }}
+                                                    >
+                                                        {el}
+                                                    </button>
+                                                )
+                                            }
+                                        </div>
+                                        <div />
                                     </div>
                                     <div className={style.wrapper}>
                                         <TableChips random={random}/>

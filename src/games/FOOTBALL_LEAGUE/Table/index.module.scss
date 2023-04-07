@@ -2,7 +2,6 @@
 
 .block {
   position: relative;
-  //overflow: hidden;
   min-height: rem(690px);
   height: 100%;
   text-transform: uppercase;
@@ -11,12 +10,7 @@
 }
 
 .info {
-  display: grid;
-  grid-template-columns: 1fr rem(95px);
-  align-items: center;
-  position: absolute;
-  top: rem(48px);
-  width: rem(250px);
+  @include info;
 }
 
 .body {
@@ -34,8 +28,7 @@
 }
 
 .banners {
-  position: absolute;
-  left: rem(390px);
+  @include banners;
 }
 
 .tab {
@@ -43,27 +36,7 @@
 }
 
 .link {
-  @include flex(center, center);
-  @include size(rem(90px), rem(35px));
-  @include make-spacer('mr', 1);
-
-  border-radius: rem(8px);
-  border: 1px solid #17591b;
-  background: linear-gradient(360deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.1) 100%);
-  background-color: var(--color-green);
-  opacity: 0.5;
-  color: var(--color-white);
-  text-transform: uppercase;
-  font-size: rem(13px);
-
-  &:last-child {
-    @include make-spacer('mr', 0);
-  }
-
-  &:hover,
-  &.active {
-    opacity: 1;
-  }
+  @include link;
 }
 
 .table {
@@ -84,39 +57,15 @@
 }
 
 .market {
-  @include flex($align-items: center);
+  @include button;
   @include make-spacer('mr', 1);
-  @include make-spacer('px', 5);
+  @include make-spacer('px', 2);
 
-  position: relative;
-  background-color: #0e0e0e;
-  background: linear-gradient(360deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.1) 100%);
-  border-radius: rem(10px);
-  border: 3px solid var(--color-black);
-  height: rem(55px);
-  color: var(--color-green-900);
-  font-weight: var(--typography-bold);
-  font-size: rem(12px);
-  text-transform: uppercase;
-
-  &::before {
-    position: absolute;
-    top: rem(1px);
-    right: rem(1px);
-    left: rem(1px);
-    height: rem(12px);
-    border-radius: rem(5px);
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.08) 100%);
-    content: '';
-  }
+  width: auto;
+  font-size: rem(14px);
 
   &:last-child {
     @include make-spacer('mr', 0);
-  }
-
-  &.active {
-    background-color: #dc5366;
-    color: var(--color-white);
   }
 }
 
@@ -145,13 +94,12 @@
 }
 
 .wrapper {
+  @include wrapper;
+
   position: relative;
-  border: 2px solid var(--color-orange);
-  border-radius: rem(10px);
-  overflow: hidden;
 
   .row {
-    border-top: 1px solid #a7a7a7;
+    border-top: 1px solid var(--color-border);
     height: rem(53px);
     text-align: center;
 
@@ -168,29 +116,26 @@
     }
   }
 
+  .cell {
+    height: 100%;
+  }
+
   .column {
     position: relative;
-
-    &::after {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      right: rem(-3px);
-      width: rem(1px);
-      background-color: rgba(255, 255, 255, 0.2);
-      content: '';
-    }
+    border-right: 1px solid var(--color-border);
 
     &:last-child {
-
-      &::after {
-        display: none;
-      }
+      border-right: 0;
     }
   }
 
   .odds {
-    gap: rem(5px);
+    height: 100%;
+    gap: rem(1px);
+  }
+
+  .odd {
+    height: 100%;
   }
 }
 
@@ -204,7 +149,6 @@
   &.head {
     padding-left: rem(2px);
     padding-right: rem(2px);
-    margin-bottom: rem(3px);
     height: rem(37px);
 
     .cell,
@@ -215,9 +159,9 @@
 
     .column {
       height: 100%;
-      border-top: 1px solid var(--color-white);
-      border-right: 1px solid var(--color-white);
-      border-bottom: 1px solid #577859;
+      border-top: 1px solid var(--color-border);
+      border-right: 1px solid var(--color-border);
+      border-bottom: 1px solid transparent;
 
       &:last-child {
         border-right: 0;
@@ -226,23 +170,22 @@
   }
 }
 
+.position {
+  @include flex(center, center);
+  @include size(100%);
+
+  text-align: center;
+}
+
 .meta {
   display: grid;
+  grid-template-columns: rem(40px) 1fr rem(20px) 1fr rem(40px) rem(35px);
   align-items: center;
+  cursor: pointer;
   text-align: center;
   font-size: rem(15px);
   color: var(--color-white);
-
-  &.sm {
-    cursor: pointer;
-    grid-template-columns: rem(40px) 1fr rem(20px) 1fr rem(40px) rem(35px);
-    font-size: rem(15px);
-  }
-
-  &.lg {
-    grid-template-columns: rem(40px) 1fr rem(20px) 1fr rem(40px);
-    font-size: rem(20px);
-  }
+  height: 100%;
 
   &.disabled {
     opacity: 0.3;
@@ -278,7 +221,7 @@
 
   position: relative;
   flex: 1;
-  gap: rem(7px);
+  gap: rem(1px);
 }
 
 .odd,
@@ -314,11 +257,7 @@
 
 .button {
   @include make-spacer('mx', auto);
+  @include make-spacer('mt', half);
 
-  margin-top: rem(5px);
   max-width: rem(110px);
-
-  button {
-    font-size: rem(12px);
-  }
 }

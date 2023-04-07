@@ -1,16 +1,12 @@
 @import "scss/config";
 
 .block {
+  @include wrapper;
   @include flex(center, center, column);
-
   @include make-spacer('px', 2);
-  @include make-spacer('py', 4);
+  @include make-spacer('py', 6);
 
-  position: relative;
-  border: 2px solid var(--color-orange);
-  border-radius: rem(9px);
-  overflow: hidden;
-  background-color: #1b1b1b;
+  background-color: #262726;
   width: 100%;
 }
 
@@ -75,7 +71,6 @@
   z-index: 2;
 
   .button {
-    //background-color: grey;
     position: relative;
   }
 }
@@ -130,7 +125,7 @@
 
   .button {
     flex: 1;
-    background-color: #1b1b1b;
+    background-color: #333233;
     border: rem(2px) solid var(--color-white);
   }
 }
@@ -235,7 +230,7 @@
     }
 
     &.red {
-      background-image: linear-gradient(0deg, #111111 0%, #9f0021 17%, #d5233c 52%, #d5233c 100%);
+      background-image: linear-gradient(0deg, #111111 0%, #9f0021 17%, #c91e37 52%, #c91e37 100%);
     }
 
     &.hover {

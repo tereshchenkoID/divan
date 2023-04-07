@@ -14,11 +14,12 @@
 }
 
 .button {
+  @include link;
+  @include size(auto, rem(48px));
   @include make-spacer('px', 4);
   @include make-spacer('py', 2);
 
-  background-color: var(--color-green);
-  border-radius: rem(5px);
-  color: var(--color-white);
-  text-transform: uppercase;
+  min-width: rem(150px);
+  white-space: nowrap;
+  font-size: rem(16px);
 }
