@@ -58,14 +58,19 @@
 }
 
 .sort {
-  @include make-spacer('mb', 2);
   @include flex($align-items: center);
+
+  margin-bottom: rem(8px);
 }
 
 .market {
   @include button;
   @include make-spacer('mr', half);
   @include size(rem(43px));
+
+  &:last-child {
+    @include make-spacer('mr', 0);
+  }
 }
 
 .wrapper {
