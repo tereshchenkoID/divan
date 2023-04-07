@@ -12,7 +12,7 @@ import TableChips from "./TableChips";
 import style from "./index.module.scss";
 
 const Table = () => {
-    const SORT = [5, 6, 7, 8, 9, 10, 15, 20]
+    const SORT = [1, 2, 3, 4, 5, 6, 7, 8]
     const dispatch = useDispatch()
     const {game} = useSelector((state) => state.game)
     const [loading, setLoading] = useState(true)
@@ -22,7 +22,7 @@ const Table = () => {
         let array = [];
 
         while (array.length < length) {
-            let randomNumber = Math.floor(Math.random() * 49);
+            let randomNumber = Math.floor(Math.random() * 80);
             if (!array.includes(randomNumber)) {
                 array.push(randomNumber);
             }

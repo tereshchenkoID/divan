@@ -11,7 +11,8 @@ const Odd = ({
    color,
    size = null,
    date,
-   action
+   action,
+   market
 }) => {
     const [active, setActive] = useState(false)
 
@@ -21,7 +22,7 @@ const Odd = ({
 
     const addSingleStake = (el, o = '') => {
         const f = date.find(i => {
-            return i.print === `${colorType.COLOR}: ${el.a} ${o}`
+            return i.print === `${colorType.COLOR}: ${el.a}`
         })
 
         if (f) {
@@ -30,15 +31,10 @@ const Odd = ({
         }
         else {
             action([...date, {
-                id: null,
-                start: null,
                 b: el.b || 0,
-                m_old: el.a,
-                o_old: o,
-                market: el.a,
-                print: `${colorType.COLOR}: ${el.a} ${o}`,
-                stake: 100,
-                type: gameType.COLOR_COLOR
+                outcome: el.a,
+                color: o,
+                market: market
             }])
         }
 

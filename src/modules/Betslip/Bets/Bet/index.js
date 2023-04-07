@@ -135,6 +135,9 @@ const Bet = ({data, betslip, type, setInit, setDisabled}) => {
                     {
                         data.type === gameType.COLOR_COLOR && data.print.replace('_', '/')
                     }
+                    {
+                        data.type === gameType.KENO && data.print
+                    }
                 </div>
                 <div className={style.odd}>{data.b}</div>
                 {

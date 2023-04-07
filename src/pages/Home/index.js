@@ -8,6 +8,7 @@ import {setSettings} from "store/actions/settingsAction";
 import FOOTBALL_LEAGUE from "games/FOOTBALL_LEAGUE";
 import ROULETTE from "games/ROULETTE";
 import COLOR_COLOR from "games/COLOR_COLOR";
+import KENO from "games/KENO";
 
 import Loader from "components/Loader";
 import Nav from "components/Nav";
@@ -26,6 +27,8 @@ const setGame = (id) => {
             return <ROULETTE />
         case gameType.COLOR_COLOR:
             return <COLOR_COLOR />
+        case gameType.KENO:
+            return <KENO />
         default:
             return <FOOTBALL_LEAGUE />
     }

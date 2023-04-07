@@ -1,11 +1,15 @@
+import {gameType} from "constant/config";
+
 export const getIcon = (data) => {
     switch (data) {
-        case "FOOTBALL_LEAGUE":
+        case gameType.FOOTBALL_LEAGUE:
             return 'icon-1';
-        case "ROULETTE":
+        case gameType.ROULETTE:
             return 'icon-2';
-        case "COLOR_COLOR":
+        case gameType.COLOR_COLOR:
             return 'icon-3';
+        case gameType.KENO:
+            return 'icon-4';
         default:
             return 'icon-1'
     }

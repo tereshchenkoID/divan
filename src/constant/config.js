@@ -5,7 +5,8 @@ export const hostnames = {
 export const gameType = {
     FOOTBALL_LEAGUE: "FOOTBALL_LEAGUE",
     ROULETTE: "ROULETTE",
-    COLOR_COLOR: "COLOR_COLOR"
+    COLOR_COLOR: "COLOR_COLOR",
+    KENO: "KENO"
 }
 
 export const matchStatus = {

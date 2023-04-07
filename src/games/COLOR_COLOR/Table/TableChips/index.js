@@ -1,6 +1,8 @@
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
 
+import {colorType, gameType} from "constant/config";
+
 import classNames from "classnames";
 
 import {deleteBetslip} from "store/actions/betslipAction";
@@ -373,23 +375,146 @@ const TableChips = ({random}) => {
         else {
             setDisabled(true)
         }
-
-        console.log(colors, numbers, type)
     }, [colors, numbers, type])
+
+    const getValue = (data, key) => {
+        const r = []
+        data.map(el => {
+            r.push(el[key])
+            return true
+        })
+        return r.join(', ')
+    }
+
+    const defaultProps = () => {
+        return {
+            id: null,
+            start: null,
+            stake: 100,
+            type: gameType.COLOR_COLOR
+        }
+    }
+
+    const ANACONDA = () => {
+        const o = getValue(numbers, 'id')
+        const f = data.event.b.b.find(el => el.a === `${numbers.length}_6`)
+
+        return f
+            ?
+                {
+                    ...defaultProps(),
+                    b: f.b || 0,
+                    m_old: data.event.b.a,
+                    o_old: o,
+                    market: data.event.a.a,
+                    print: `${colorType.ANACONDA}: ${o}`
+                }
+            :
+                null
+    }
+
+    const MATCHED = () => {
+        const r = []
+        type.map(el => {
+            const o = getValue(numbers, 'id')
+            r.push({
+                ...defaultProps(),
+                b: data.event.a.b[el - 1].b || 0,
+                m_old: data.event.a.a,
+                o_old: o,
+                market: data.event.a.a,
+                print: `${colorType.MATCHED}: (${data.event.a.b[el - 1].a}) ${o}`
+            })
+
+            return true
+        })
+
+        return r
+    }
+
+    const BET_ZERO = () => {
+        const r = []
+        const f = data.event.c.b.find(el => parseInt(el.a, 10) === numbers.length)
+
+        if (f) {
+            const o = getValue(numbers, 'id')
+            r.push({
+                ...defaultProps(),
+                b: f.b || 0,
+                m_old: data.event.c.a,
+                o_old: o,
+                market: data.event.c.a,
+                print: `${colorType.BET_ZERO}: ${o}`
+            })
+        }
+        return r
+    }
+
+    const COLOR = () => {
+        const r = []
+        colors.map(el => {
+            r.push({
+                ...defaultProps(),
+                b: el.b,
+                m_old: el.market,
+                o_old: el.outcome,
+                market: el.market,
+                print: `${colorType.COLOR}: ${el.outcome} ${el.color.toUpperCase()}`
+            })
+
+            return true
+        })
+
+        return r
+    }
+
+    const findExists = (data, betslip) => {
+        const r = []
+
+        data.map(el => {
+            const d = betslip.find(f => f.print === el.print)
+            if (!d) {
+                r.push(el)
+            }
+
+            return true
+        })
+
+        return r
+    }
 
     const addStake = () => {
         const a = betslip.slice(0)
-        const r = a.concat(colors);
-        dispatch(deleteBetslip(r))
+        let r = []
+
+        if (type !== '') {
+
+            if (typeof type !== 'string') {
+                r = r.concat(MATCHED())
+            }
+            else if(type === colorType.BET_ZERO) {
+                r = r.concat(BET_ZERO())
+            }
+            else if(type === colorType.ANACONDA) {
+                r = r.concat(ANACONDA())
+            }
+        }
+
+        if (colors.length > 0){
+            r = r.concat(COLOR())
+        }
+
+        dispatch(deleteBetslip(a.concat(betslip.length > 0 ? findExists(r, betslip) : r)))
         setDisabled(true)
         setColors([])
+        setNumbers([])
+        setType('')
     }
 
     return (
         <div className={style.block}>
             <div className={style.wrapper}>
                 <Numbers
-                    data={data}
                     numbers={numbers}
                     setNumbers={setNumbers}
                     random={random}

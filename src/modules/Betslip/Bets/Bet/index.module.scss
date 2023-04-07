@@ -21,7 +21,8 @@
   }
 
   &.COLOR_COLOR,
-  &.ROULETTE {
+  &.ROULETTE,
+  &.KENO {
 
     .bet {
       grid-template-columns: rem(20px) 1fr rem(50px) rem(58px) rem(25px);

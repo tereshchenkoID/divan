@@ -54,7 +54,8 @@ const Numbers = ({data, numbers, setNumbers, random, setType}) => {
                 })
             }
         }
-        setNumbers(s)
+
+        setNumbers(s.sort((a, b) => a.id - b.id))
     }, [random])
 
     useEffect(() => {

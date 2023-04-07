@@ -15,13 +15,17 @@ const Odd = ({data, color, date, action}) => {
 
         if (f) {
             const index = date.indexOf(f)
-            action([...date.slice(0, index), ...date.slice(index + 1)])
+            const s = [...date.slice(0, index), ...date.slice(index + 1)]
+            s.sort((a, b) => a.id - b.id)
+            action(s)
         }
         else {
-            action([...date, {
+            const s = [...date, {
                 id: data.id,
                 color: data.color
-            }])
+            }]
+            s.sort((a, b) => a.id - b.id)
+            action(s)
         }
     }
 

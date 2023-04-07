@@ -19,6 +19,7 @@ const Colors = ({data, colors, setColors}) => {
                                 size={'lg'}
                                 date={colors}
                                 action={setColors}
+                                market={data.event.d.a}
                             />
                         </div>
                     )
@@ -37,6 +38,7 @@ const Colors = ({data, colors, setColors}) => {
                                     color={'blue'}
                                     date={colors}
                                     action={setColors}
+                                    market={data.event.e.a}
                                 />
                             </div>
                         )
@@ -54,6 +56,7 @@ const Colors = ({data, colors, setColors}) => {
                                     color={'red'}
                                     date={colors}
                                     action={setColors}
+                                    market={data.event.f.a}
                                 />
                             </div>
                         )
@@ -71,6 +74,7 @@ const Colors = ({data, colors, setColors}) => {
                                     color={'yellow'}
                                     date={colors}
                                     action={setColors}
+                                    market={data.event.g.a}
                                 />
                             </div>
                         )
