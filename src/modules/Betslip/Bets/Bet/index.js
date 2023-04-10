@@ -138,6 +138,9 @@ const Bet = ({data, betslip, type, setInit, setDisabled}) => {
                     {
                         data.type === gameType.KENO && data.print
                     }
+                    {
+                        data.type === gameType.DOGS_6 && data.print
+                    }
                 </div>
                 <div className={style.odd}>{data.b}</div>
                 {

@@ -442,12 +442,7 @@ const Table = () => {
                                                                                     )
                                                                                 }
                                                                                 >
-                                                                                    <div>
-                                                                                        <Subtitle
-                                                                                            data={el_e.league.matches[toggle.id].odds[0].groups[6].name}
-                                                                                            size={'md'}
-                                                                                        />
-                                                                                    </div>
+                                                                                    <div className={style.subtitle}>{el_e.league.matches[toggle.id].odds[0].groups[6].name}</div>
                                                                                     <div className={style.goals}>
                                                                                         {
                                                                                             el_e.league.matches[toggle.id].odds[0].groups[6].markets[0].outcomes.map((el, idx) =>
@@ -484,10 +479,7 @@ const Table = () => {
                                                                                                     key={idx}
                                                                                                     className={style.outcomes}
                                                                                                 >
-                                                                                                    <Subtitle
-                                                                                                        data={el.headers[0]}
-                                                                                                        size={'md'}
-                                                                                                    />
+                                                                                                    <div className={style.subtitle}>{el.headers[0]}</div>
                                                                                                     <div className={style.list}>
                                                                                                         {
                                                                                                             filterColumn(el.outcomes).map((el, idx) =>

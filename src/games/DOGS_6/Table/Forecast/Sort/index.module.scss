@@ -1,0 +1,8 @@
+@import "scss/config";
+
+.block {
+  @include button;
+  @include size(100%);
+
+  background: none;
+}

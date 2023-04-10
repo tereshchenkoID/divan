@@ -1,0 +1,76 @@
+@import "scss/config";
+
+.block {
+  border: 1px solid red;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  color: var(--color-white);
+}
+
+.column {
+
+  .cell {
+
+    &:nth-child(odd) {
+      background-color: #333233;
+    }
+
+    &:nth-child(even) {
+      background-color: #262726;
+    }
+  }
+}
+
+.cell {
+  @include flex(center, center, column);
+
+  border-right: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+  height: rem(70px);
+
+  &.sm {
+    height: auto;
+  }
+}
+
+.number {
+  @include flex(center, center);
+  @include size(rem(25px));
+
+  border-radius: rem(3px);
+  background-color: var(--color-black);
+
+  &.lg {
+    @include size(rem(45px));
+
+    font-size: rem(24px);
+  }
+
+  &.red {
+    background-color: red;
+  }
+
+  &.blue {
+    background-color: blue;
+  }
+
+  &.white {
+    background-color: white;
+    color: var(--color-black);
+  }
+
+  &.black {
+    background-color: black;
+  }
+
+  &.orange {
+    background-color: orange;
+  }
+
+  &.mixed {
+    background-color: blueviolet;
+  }
+}

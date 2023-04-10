@@ -1,0 +1,55 @@
+@import "scss/config";
+
+.block {
+  @include button;
+  @include flex(center, center, column);
+  @include size(100%);
+
+  background: none;
+}
+
+.numbers {
+  @include make-spacer('mb', 1);
+  @include flex(center, center);
+
+  gap: rem(5px);
+}
+
+.number {
+  @include flex(center, center);
+  @include size(rem(25px));
+
+  border-radius: rem(3px);
+  background-color: var(--color-black);
+
+  &.lg {
+    @include size(rem(45px));
+
+    font-size: rem(24px);
+  }
+
+  &.red {
+    background-color: red;
+  }
+
+  &.blue {
+    background-color: blue;
+  }
+
+  &.white {
+    background-color: white;
+    color: var(--color-black);
+  }
+
+  &.black {
+    background-color: black;
+  }
+
+  &.orange {
+    background-color: orange;
+  }
+
+  &.mixed {
+    background-color: blueviolet;
+  }
+}

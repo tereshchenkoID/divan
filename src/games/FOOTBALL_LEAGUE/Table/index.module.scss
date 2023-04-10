@@ -188,7 +188,7 @@
   height: 100%;
 
   &.disabled {
-    opacity: 0.3;
+    opacity: 0.1;
   }
 
   &.active {
@@ -243,7 +243,10 @@
 }
 
 .goals {
+  @include make-spacer('mb', 2);
   @include flex(space-between);
+
+  gap: rem(5px);
 }
 
 .outcomes,
@@ -253,11 +256,17 @@
 
 .list {
   @include flex;
+
+  gap: rem(5px);
 }
 
 .button {
   @include make-spacer('mx', auto);
-  @include make-spacer('mt', half);
+  @include make-spacer('mt', 1);
 
   max-width: rem(110px);
+}
+
+.subtitle {
+  @include label;
 }

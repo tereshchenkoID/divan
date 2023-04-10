@@ -6,7 +6,8 @@ export const gameType = {
     FOOTBALL_LEAGUE: "FOOTBALL_LEAGUE",
     ROULETTE: "ROULETTE",
     COLOR_COLOR: "COLOR_COLOR",
-    KENO: "KENO"
+    KENO: "KENO",
+    DOGS_6: "DOGS_6"
 }
 
 export const matchStatus = {
@@ -82,4 +83,24 @@ export const colorType = {
     MATCHED: "MATCHED",
     ANACONDA: "ANACONDA",
     BET_ZERO: "BET ZERO"
+}
+
+export const dogsColor = [
+    'red',
+    'blue',
+    'white',
+    'black',
+    'orange',
+    'mixed'
+]
+
+export const dogsType = {
+    FORECAST_2: "FC",
+    FORECAST_3: "TRI",
+    QUINELLA: "QNL",
+    WINNER: "WIN",
+    PLACE_12: "PLACE",
+    SHOW: "SHOW",
+    OVER_UNDER: "OU",
+    ODD_EVEN: "EO"
 }

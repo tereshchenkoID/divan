@@ -9,6 +9,7 @@ import FOOTBALL_LEAGUE from "games/FOOTBALL_LEAGUE";
 import COLOR_COLOR from "games/COLOR_COLOR";
 import ROULETTE from "games/ROULETTE";
 import KENO from "games/KENO";
+import DOGS_6 from "games/DOGS_6";
 
 import Loader from "components/Loader";
 import Nav from "components/Nav";
@@ -29,6 +30,8 @@ const setGame = (id) => {
             return <COLOR_COLOR />
         case gameType.KENO:
             return <KENO />
+        case gameType.DOGS_6:
+            return <DOGS_6 />
         default:
             return <FOOTBALL_LEAGUE />
     }
