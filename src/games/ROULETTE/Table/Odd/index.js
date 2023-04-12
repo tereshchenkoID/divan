@@ -1,11 +1,13 @@
 import {useDispatch, useSelector} from "react-redux";
 
-import Amount from "games/ROULETTE/Table/Amount";
+import {gameType} from "constant/config";
+
+import Amount from "../Amount";
 
 import style from './index.module.scss';
 
 import {deleteBetslip, setBetslip} from "store/actions/betslipAction";
-import {gameType} from "../../../../constant/config";
+
 
 const Odd = ({data, step, steps}) => {
     const dispatch = useDispatch()

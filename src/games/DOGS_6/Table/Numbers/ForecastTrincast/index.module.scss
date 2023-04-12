@@ -1,0 +1,17 @@
+@import "scss/config";
+
+.table {
+  @include wrapper;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  color: var(--color-white);
+}
+
+.cell {
+  @include flex(center, center, column);
+
+  border-right: 1px solid var(--color-border);
+}

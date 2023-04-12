@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 
 import classNames from "classnames";
 
-import {colorType, gameType} from "constant/config";
+import {colorType} from "constant/config";
 
 import style from './index.module.scss';
 

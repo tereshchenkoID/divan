@@ -1,4 +1,5 @@
 import Odd from "../Odd";
+import ForecastTrincast from "./ForecastTrincast";
 
 import style from './index.module.scss';
 
@@ -8,7 +9,8 @@ const Numbers = ({data}) => {
         <div className={style.block}>
             <div className={style.panel}>
                 <div className={style.label}>Winner</div>
-                <div className={style.row}>
+                <div className={style.table}>
+                    <div className={style.row}>
                     {
                         data.event.g.e.a.b.map((el, idx) =>
                             <div
@@ -24,11 +26,13 @@ const Numbers = ({data}) => {
                         )
                     }
                 </div>
+                </div>
             </div>
 
             <div className={style.panel}>
                 <div className={style.label}>Place</div>
-                <div className={style.row}>
+                <div className={style.table}>
+                    <div className={style.row}>
                     {
                         data.event.g.e.b.b.map((el, idx) =>
                             <div
@@ -44,26 +48,34 @@ const Numbers = ({data}) => {
                         )
                     }
                 </div>
+                </div>
             </div>
 
             <div className={style.panel}>
                 <div className={style.label}>Show</div>
-                <div className={style.row}>
-                    {
-                        data.event.g.e.c.b.map((el, idx) =>
-                            <div
-                                key={idx}
-                                className={style.cell}
-                            >
-                                <Odd
-                                    market={data.event.g.e.c.a}
-                                    data={el}
-                                    view={'horizontal'}
-                                />
-                            </div>
-                        )
-                    }
+                <div className={style.table}>
+                    <div className={style.row}>
+                        {
+                            data.event.g.e.c.b.map((el, idx) =>
+                                <div
+                                    key={idx}
+                                    className={style.cell}
+                                >
+                                    <Odd
+                                        market={data.event.g.e.c.a}
+                                        data={el}
+                                        view={'horizontal'}
+                                    />
+                                </div>
+                            )
+                        }
+                    </div>
                 </div>
+            </div>
+
+            <div className={style.panel}>
+                <div className={style.label}>Forecast/Trincast</div>
+                <ForecastTrincast data={data} />
             </div>
         </div>
     );

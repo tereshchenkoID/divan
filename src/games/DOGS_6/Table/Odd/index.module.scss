@@ -2,8 +2,8 @@
 
 .block {
   @include button;
-  @include flex(center, center);
   @include size(100%);
+  @include make-spacer('pl', 4);
 
   background: none;
 
@@ -16,15 +16,16 @@
   }
 
   &.horizontal {
+    justify-content: flex-start;
     flex-direction: row;
     gap: rem(5px);
   }
 }
 
 .numbers {
-  @include flex(center, center);
+  @include flex($align-items: center);
 
-  gap: rem(5px);
+  gap: rem(10px);
 }
 
 .number {

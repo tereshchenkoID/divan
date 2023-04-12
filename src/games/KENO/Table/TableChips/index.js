@@ -8,7 +8,7 @@ import classNames from "classnames";
 import {deleteBetslip} from "store/actions/betslipAction";
 import {setNotification} from "store/actions/notificationAction";
 
-import Numbers from "games/KENO/Table/Numbers";
+import Numbers from "../Numbers";
 
 import style from './index.module.scss';
 

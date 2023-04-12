@@ -7,8 +7,8 @@ import classNames from "classnames";
 
 import {deleteBetslip} from "store/actions/betslipAction";
 
-import Numbers from "games/COLOR_COLOR/Table/Numbers";
-import Colors from "games/COLOR_COLOR/Table/Colors";
+import Numbers from "../Numbers";
+import Colors from "../Colors";
 import Anaconda from "./Anaconda";
 import Zero from "./Zero";
 import Matched from "./Matched";

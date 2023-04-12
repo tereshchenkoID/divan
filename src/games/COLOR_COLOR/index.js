@@ -1,10 +1,10 @@
 import Table from './Table'
 
-const ROULETTE = () => {
+const COLOR_COLOR = () => {
 
     return (
         <Table />
     );
 }
 
-export default ROULETTE;
+export default COLOR_COLOR;
