@@ -1,12 +1,6 @@
-import {useDispatch, useSelector} from "react-redux";
-import {useEffect, useState} from "react";
-
-import {gameType} from "constant/config";
+import {useState} from "react";
 
 import classNames from "classnames";
-
-import {deleteBetslip} from "store/actions/betslipAction";
-import {setNotification} from "store/actions/notificationAction";
 
 import Numbers from "games/DOGS_6/Table/Numbers";
 import Forecast from "games/DOGS_6/Table/Forecast";
@@ -15,10 +9,22 @@ import Trincast from "games/DOGS_6/Table/Trincast";
 
 import style from './index.module.scss';
 
-const TableChips = () => {
-    const dispatch = useDispatch()
+const getType = (type, data) => {
+    switch (type) {
+        case 0:
+            return <Numbers data={data}/>
+        case 1:
+            return <Forecast data={data}/>
+        case 2:
+            return <Quinella data={data}/>
+        case 3:
+            return <Trincast data={data}/>
+        default:
+            return <Numbers data={data}/>
+    }
+}
 
-    const {betslip} = useSelector((state) => state.betslip)
+const TableChips = () => {
     const [data, setData] = useState({
         "event": {
             "b": "DOGS_6",
@@ -151,6 +157,11 @@ const TableChips = () => {
                             },
                             {
                                 "a": "2",
+                                "b": 3.57,
+                                "d": "+257"
+                            },
+                            {
+                                "a": "3",
                                 "b": 3.57,
                                 "d": "+257"
                             },
@@ -1045,76 +1056,34 @@ const TableChips = () => {
             }
         }
     })
-    const [active, setActive] = useState(2)
+    const [active, setActive] = useState(0)
+    const TYPES  = ['Main', 'Forecast', 'Quinella', 'Trincast']
 
     return (
         <div className={style.block}>
             <div className={style.header}>
-                <button
-                    className={
-                        classNames(
-                            style.button,
-                            active === 1 && style.active
-                        )
-                    }
-                    onClick={() => {
-                      setActive(1)
-                    }}
-                >
-                    Main
-                </button>
-                <button
-                    className={
-                        classNames(
-                            style.button,
-                            active === 2 && style.active
-                        )
-                    }
-                    onClick={() => {
-                        setActive(2)
-                    }}
-                >
-                    Forecast
-                </button>
-                <button
-                    className={
-                        classNames(
-                            style.button,
-                            active === 3 && style.active
-                        )
-                    }
-                    onClick={() => {
-                        setActive(3)
-                    }}
-                >
-                    Quinella
-                </button>
-                <button
-                    className={
-                        classNames(
-                            style.button,
-                            active === 4 && style.active
-                        )
-                    }
-                    onClick={() => {
-                        setActive(4)
-                    }}
-                >
-                    Trincast
-                </button>
+                {
+                    TYPES.map((el, idx) =>
+                        <button
+                            key={idx}
+                            className={
+                                classNames(
+                                    style.button,
+                                    active === idx && style.active
+                                )
+                            }
+                            onClick={() => {
+                                setActive(idx)
+                            }}
+                        >
+                            {el}
+                        </button>
+                    )
+                }
             </div>
             <div className={style.wrapper}>
                 {
-                    active === 1 && <Numbers data={data}/>
-                }
-                {
-                    active === 2 && <Forecast data={data}/>
-                }
-                {
-                    active === 3 && <Quinella data={data}/>
-                }
-                {
-                    active === 4 && <Trincast data={data}/>
+                    getType(active, data)
                 }
             </div>
         </div>

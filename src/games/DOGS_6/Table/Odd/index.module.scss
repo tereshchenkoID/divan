@@ -2,14 +2,26 @@
 
 .block {
   @include button;
-  @include flex(center, center, column);
+  @include flex(center, center);
   @include size(100%);
 
   background: none;
+
+  &.vertical {
+    flex-direction: column;
+
+    .numbers {
+      @include make-spacer('mb', 1);
+    }
+  }
+
+  &.horizontal {
+    flex-direction: row;
+    gap: rem(5px);
+  }
 }
 
 .numbers {
-  @include make-spacer('mb', 1);
   @include flex(center, center);
 
   gap: rem(5px);

@@ -1,11 +1,11 @@
-import {useEffect, useState} from "react";
+import {useState} from "react";
 
 import {dogsColor} from "constant/config";
 
 import classNames from "classnames";
 
-import Sort from "./Sort";
-import Odd from "./Odd";
+import Sort from "../Sort";
+import Odd from "../Odd";
 
 import style from './index.module.scss';
 
@@ -36,10 +36,6 @@ const sortBy = (data, match) => {
 const Forecast = ({data}) => {
     const NUMBER = 6
     const [sort, setSort] = useState([])
-
-    useEffect(() => {
-        console.log(sort)
-    }, [sort])
 
     return (
         <div className={style.block}>
@@ -122,6 +118,7 @@ const Forecast = ({data}) => {
                                         <Odd
                                             market={data.event.g.e.g.a}
                                             data={el_i}
+                                            view={'vertical'}
                                         />
                                     </div>
                                 )
@@ -140,6 +137,7 @@ const Forecast = ({data}) => {
                                 <Odd
                                     market={data.event.g.e.g.a}
                                     data={el}
+                                    view={'vertical'}
                                 />
                             </div>
                     )

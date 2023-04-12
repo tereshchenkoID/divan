@@ -28,7 +28,9 @@ const Sort = ({date, data, action, id}) => {
                     addSort()
                 }}
            >
-                {date === 1 ? '1st' : '2nd'}
+                {date === 1 && '1st'}
+                {date === 2 && '2nd'}
+                {date === 3 && '3rd'}
            </button>
 }
 
