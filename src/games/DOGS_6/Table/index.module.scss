@@ -39,7 +39,7 @@
 }
 
 .table {
-  @include make-spacer('mt', 8);
+  @include make-spacer('mt', 6);
 
   display: block;
 }

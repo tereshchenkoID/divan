@@ -1,11 +1,10 @@
 import {useState} from "react";
 
-import {dogsColor} from "constant/config";
-
 import classNames from "classnames";
 
 import Sort from "../Sort";
 import Odd from "../Odd";
+import Number from "../Number";
 
 import style from './index.module.scss';
 
@@ -46,17 +45,11 @@ const Forecast = ({data}) => {
                             key={idx}
                             className={style.cell}
                         >
-                            <div
-                                className={
-                                    classNames(
-                                        style.number,
-                                        style.lg,
-                                        style[dogsColor[idx]]
-                                    )
-                                }
-                            >
-                                {idx + 1}
-                            </div>
+                            <Number
+                                color={idx}
+                                data={idx + 1}
+                                size={'lg'}
+                            />
                         </div>
                     )
                 }

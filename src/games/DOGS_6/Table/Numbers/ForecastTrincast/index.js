@@ -1,8 +1,14 @@
 import Odd from "../../Odd";
 
 import style from './index.module.scss';
+import {useState} from "react";
 
 const ForecastTrincast = ({data}) => {
+    const [select, setSelect] = useState([])
+
+    const addStake = () => {
+
+    }
 
     return (
         <div className={style.block}>
@@ -14,12 +20,16 @@ const ForecastTrincast = ({data}) => {
                             <div
                                 key={idx}
                                 className={style.cell}
+                                onClick={() => {
+                                    addStake(el)
+                                }}
                             >
-                                <Odd
-                                    market={data.event.g.e.a.a}
-                                    data={el}
-                                    view={'horizontal'}
-                                />
+                                {el.b}
+                                {/*<Odd*/}
+                                {/*    market={data.event.g.e.a.a}*/}
+                                {/*    data={el}*/}
+                                {/*    view={'horizontal'}*/}
+                                {/*/>*/}
                             </div>
                         )
                     }
@@ -32,11 +42,12 @@ const ForecastTrincast = ({data}) => {
                                 key={idx}
                                 className={style.cell}
                             >
-                                <Odd
-                                    market={data.event.g.e.c.a}
-                                    data={el}
-                                    view={'horizontal'}
-                                />
+                                {el.b}
+                                {/*<Odd*/}
+                                {/*    market={data.event.g.e.c.a}*/}
+                                {/*    data={el}*/}
+                                {/*    view={'horizontal'}*/}
+                                {/*/>*/}
                             </div>
                         )
                     }
@@ -49,11 +60,12 @@ const ForecastTrincast = ({data}) => {
                                 key={idx}
                                 className={style.cell}
                             >
-                                <Odd
-                                    market={data.event.g.e.c.a}
-                                    data={el}
-                                    view={'horizontal'}
-                                />
+                                {el.b}
+                                {/*<Odd*/}
+                                {/*    market={data.event.g.e.c.a}*/}
+                                {/*    data={el}*/}
+                                {/*    view={'horizontal'}*/}
+                                {/*/>*/}
                             </div>
                         )
                     }

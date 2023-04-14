@@ -8,6 +8,7 @@ import Sort from "../Sort";
 import Odd from "../Odd";
 
 import style from './index.module.scss';
+import Number from "../Number";
 
 const groupByFirstValue = (arr) => {
     let result = [];
@@ -46,17 +47,11 @@ const Trincast = ({data}) => {
                             key={idx}
                             className={style.cell}
                         >
-                            <div
-                                className={
-                                    classNames(
-                                        style.number,
-                                        style.lg,
-                                        style[dogsColor[idx]]
-                                    )
-                                }
-                            >
-                                {idx + 1}
-                            </div>
+                            <Number
+                                color={idx}
+                                data={idx + 1}
+                                size={'lg'}
+                            />
                         </div>
                     )
                 }

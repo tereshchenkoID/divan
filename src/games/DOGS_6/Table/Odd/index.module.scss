@@ -1,11 +1,8 @@
 @import "scss/config";
 
 .block {
-  @include button;
+  @include odd;
   @include size(100%);
-  @include make-spacer('pl', 4);
-
-  background: none;
 
   &.vertical {
     flex-direction: column;
@@ -16,6 +13,8 @@
   }
 
   &.horizontal {
+    @include make-spacer('pl', 4);
+
     justify-content: flex-start;
     flex-direction: row;
     gap: rem(5px);
@@ -25,44 +24,5 @@
 .numbers {
   @include flex($align-items: center);
 
-  gap: rem(10px);
-}
-
-.number {
-  @include flex(center, center);
-  @include size(rem(25px));
-
-  border-radius: rem(3px);
-  background-color: var(--color-black);
-
-  &.lg {
-    @include size(rem(45px));
-
-    font-size: rem(24px);
-  }
-
-  &.red {
-    background-color: red;
-  }
-
-  &.blue {
-    background-color: blue;
-  }
-
-  &.white {
-    background-color: white;
-    color: var(--color-black);
-  }
-
-  &.black {
-    background-color: black;
-  }
-
-  &.orange {
-    background-color: orange;
-  }
-
-  &.mixed {
-    background-color: blueviolet;
-  }
+  gap: rem(5px);
 }

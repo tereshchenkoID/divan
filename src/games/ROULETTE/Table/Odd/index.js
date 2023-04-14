@@ -8,7 +8,6 @@ import style from './index.module.scss';
 
 import {deleteBetslip, setBetslip} from "store/actions/betslipAction";
 
-
 const Odd = ({data, step, steps}) => {
     const dispatch = useDispatch()
     const {betslip} = useSelector((state) => state.betslip)
@@ -33,11 +32,11 @@ const Odd = ({data, step, steps}) => {
         else {
             dispatch(setBetslip({
                 start: null,
-                id: null,
+                id: date.stake,
                 b: date.odd,
                 market: date.stake,
                 print: date.print,
-                m_old: date.stake.split(":")[0],            // Remove after
+                m_old: date.stake.split(":")[0],             // Remove after
                 o_old: date.stake.split(":")[1].slice(1),    // Remove after
                 stake: step.amount.toFixed(2),
                 type: gameType.ROULETTE

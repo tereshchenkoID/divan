@@ -2,9 +2,11 @@ import {useDispatch, useSelector} from "react-redux";
 
 import classNames from "classnames";
 
-import {dogsColor, dogsType, gameType} from "constant/config";
+import {dogsType, gameType} from "constant/config";
 
 import {deleteBetslip, setBetslip} from "store/actions/betslipAction";
+
+import Number from "../Number";
 
 import style from './index.module.scss';
 
@@ -56,17 +58,11 @@ const Odd = ({market, data, view}) => {
                 <div className={style.numbers}>
                     {
                         data.a.split(',').map((el, idx) =>
-                            <div
+                            <Number
                                 key={idx}
-                                className={
-                                    classNames(
-                                        style.number,
-                                        style[dogsColor[el - 1]]
-                                    )
-                                }
-                            >
-                                {el}
-                            </div>
+                                color={el - 1}
+                                data={el}
+                            />
                         )
                     }
                 </div>
