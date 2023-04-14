@@ -1,6 +1,6 @@
 import Odd from "../Odd";
+import Races from "./Races";
 import ForecastTrincast from "./ForecastTrincast";
-import Races from "../Races";
 
 import style from './index.module.scss';
 

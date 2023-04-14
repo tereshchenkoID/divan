@@ -15,6 +15,39 @@ import Matched from "./Matched";
 
 import style from './index.module.scss';
 
+const getValue = (data, key) => {
+    const r = []
+    data.map(el => {
+        r.push(el[key])
+        return true
+    })
+    return r.join(', ')
+}
+
+const defaultProps = () => {
+    return {
+        id: null,
+        start: null,
+        stake: 100,
+        type: gameType.COLOR_COLOR
+    }
+}
+
+const findExists = (data, betslip) => {
+    const r = []
+
+    data.map(el => {
+        const d = betslip.find(f => f.print === el.print)
+        if (!d) {
+            r.push(el)
+        }
+
+        return true
+    })
+
+    return r
+}
+
 const TableChips = ({random}) => {
     const dispatch = useDispatch()
 
@@ -377,24 +410,6 @@ const TableChips = ({random}) => {
         }
     }, [colors, numbers, type])
 
-    const getValue = (data, key) => {
-        const r = []
-        data.map(el => {
-            r.push(el[key])
-            return true
-        })
-        return r.join(', ')
-    }
-
-    const defaultProps = () => {
-        return {
-            id: null,
-            start: null,
-            stake: 100,
-            type: gameType.COLOR_COLOR
-        }
-    }
-
     const ANACONDA = () => {
         const o = getValue(numbers, 'id')
         const f = data.event.b.b.find(el => el.a === `${numbers.length}_6`)
@@ -461,21 +476,6 @@ const TableChips = ({random}) => {
                 market: el.market,
                 print: `${colorType.COLOR}: ${el.outcome} ${el.color.toUpperCase()}`
             })
-
-            return true
-        })
-
-        return r
-    }
-
-    const findExists = (data, betslip) => {
-        const r = []
-
-        data.map(el => {
-            const d = betslip.find(f => f.print === el.print)
-            if (!d) {
-                r.push(el)
-            }
 
             return true
         })

@@ -8,25 +8,22 @@ import style from './index.module.scss';
 
 import {deleteBetslip, setBetslip} from "store/actions/betslipAction";
 
+const findBet = (data, id) => {
+    return data.find(el => {
+        return el.id === id
+    })
+}
+
 const Odd = ({data, step, steps}) => {
     const dispatch = useDispatch()
     const {betslip} = useSelector((state) => state.betslip)
 
-    const findBet = (id) => {
-        return betslip.find(el => {
-            return el.id === id
-        })
-    }
-
     const addBetslip = (date) => {
         const a = betslip.slice(0);
+        const f = findBet(betslip, data.stake)
 
-        const find = a.find(el => {
-            return el.id === data.stake
-        })
-
-        if (find) {
-            find.stake = (parseFloat(find.stake) + parseFloat(step.amount)).toFixed(2)
+        if (f) {
+            f.stake = (parseFloat(f.stake) + parseFloat(step.amount)).toFixed(2)
             dispatch(deleteBetslip(a))
         }
         else {
@@ -52,9 +49,9 @@ const Odd = ({data, step, steps}) => {
             }}
         >
             {
-                (betslip.length > 0 && findBet(data.stake)) &&
+                (betslip.length > 0 && findBet(betslip, data.stake)) &&
                 <Amount
-                    data={findBet(data.stake)}
+                    data={findBet(betslip, data.stake)}
                     step={step}
                     steps={steps}
                 />

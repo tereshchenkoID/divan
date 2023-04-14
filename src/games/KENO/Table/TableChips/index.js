@@ -14,7 +14,6 @@ import style from './index.module.scss';
 
 const TableChips = ({random}) => {
     const dispatch = useDispatch()
-
     const {betslip} = useSelector((state) => state.betslip)
     const [data, setData] = useState({
         "event": {

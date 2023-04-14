@@ -1,4 +1,48 @@
 {
   "interface": {
+    "live": "live UA",
+    "results": "results UA",
+    "week": "week UA",
+    "skip_next_game": "skip next game"
+  },
+  "games": {
+    "FOOTBALL_LEAGUE": {
+    },
+    "ROULETTE": {
+      "random": "random UA"
+    },
+    "COLOR_COLOR": {
+      "random": "random UA",
+      "repeat": "repeat UA",
+      "reset_numbers": "reset numbers UA",
+      "place_bets": "place bets UA",
+      "winning_colors": "winning colors UA",
+      "number_of_colors": "number of colors UA",
+      "matched_numbers": "MATCHED NUMBERS UA",
+      "anaconda": "ANACONDA UA",
+      "bet_zero": "BET ZERO UA",
+      "numbers_description": "QUANTITY OF MATCHED NUMBERS UA",
+      "anaconda_description": "З TO 6 NUMBERS WILL BE MATCHED UA",
+      "bet_zero_description": "SELECTED NUMBERS WON T BE MATCHED UA"
+    },
+    "KENO": {
+      "random": "random UA",
+      "repeat": "repeat UA",
+      "reset_numbers": "reset numbers UA",
+      "place_bets": "place bets UA"
+    },
+    "DOGS_6": {
+      "winner": "winner UA",
+      "place": "place UA",
+      "show": "show UA",
+      "main": "main UA",
+      "forecast": "forecast UA",
+      "trincast": "trincast UA",
+      "quinella": "quinella UA",
+      "system_double": "system double UA",
+      "system_triple": "system triple UA",
+      "extra bets": "extra bets UA",
+      "place_bets": "place bets UA"
+    }
   }
 }

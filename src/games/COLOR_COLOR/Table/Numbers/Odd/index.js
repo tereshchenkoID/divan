@@ -1,5 +1,7 @@
 import classNames from "classnames";
 
+import Number from "../../Number";
+
 import style from './index.module.scss';
 
 const check = (data, id) => {
@@ -41,16 +43,10 @@ const Odd = ({data, color, date, action}) => {
                 addMatched()
             }}
         >
-            <span
-                className={
-                    classNames(
-                        style.color,
-                        style[color]
-                    )
-                }
-            >
-                {data.id}
-            </span>
+            <Number
+                data={data}
+                color={color}
+            />
         </button>
     );
 }

@@ -16,7 +16,7 @@ const findBet = (data, id) => {
     })
 }
 
-const Odd = ({market, data, view}) => {
+const Odd = ({market, data, view, text}) => {
     const dispatch = useDispatch()
     const {betslip} = useSelector((state) => state.betslip)
     const p = `${dogsType[market]}: ${data.a}`
@@ -55,17 +55,26 @@ const Odd = ({market, data, view}) => {
                     addStake()
                 }}
            >
-                <div className={style.numbers}>
-                    {
-                        data.a.split(',').map((el, idx) =>
-                            <Number
-                                key={idx}
-                                color={el - 1}
-                                data={el}
-                            />
-                        )
-                    }
-                </div>
+                {
+                    view &&
+                    <div className={style.numbers}>
+                        {
+                            data.a.split(',').map((el, idx) =>
+                                <Number
+                                    key={idx}
+                                    color={el - 1}
+                                    data={el}
+                                />
+                            )
+                        }
+                    </div>
+                }
+                {
+                    text &&
+                    <div className={style.market}>
+                        {text}
+                    </div>
+                }
                 <div>{data.b}</div>
            </button>
 }

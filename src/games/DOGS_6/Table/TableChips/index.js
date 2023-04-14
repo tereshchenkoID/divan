@@ -2,7 +2,7 @@ import {useState} from "react";
 
 import classNames from "classnames";
 
-import Numbers from "../Numbers";
+import Main from "../Main";
 import Forecast from "../Forecast";
 import Quinella from "../Quinella";
 import Trincast from "../Trincast";
@@ -12,7 +12,7 @@ import style from './index.module.scss';
 const getType = (type, data) => {
     switch (type) {
         case 0:
-            return <Numbers data={data}/>
+            return <Main data={data}/>
         case 1:
             return <Forecast data={data}/>
         case 2:
@@ -20,7 +20,7 @@ const getType = (type, data) => {
         case 3:
             return <Trincast data={data}/>
         default:
-            return <Numbers data={data}/>
+            return <Main data={data}/>
     }
 }
 

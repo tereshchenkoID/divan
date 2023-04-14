@@ -7,7 +7,7 @@ import classNames from "classnames";
 
 import {dogsType, gameType} from "constant/config";
 
-import Number from "../../Number";
+import Number from "../../../Number";
 
 import style from './index.module.scss';
 
@@ -15,14 +15,11 @@ const generateBets = (numbers) => {
     const bets = [];
     for (let i = 0; i < numbers.length; i++) {
         for (let j = 0; j < numbers.length; j++) {
-            for (let k = 0; k < numbers.length; k++) {
-                if (i !== j && i !== k && j !== k) {
-                    bets.push(`${numbers[i]},${numbers[j]},${numbers[k]}`);
-                }
+            if (i !== j) {
+                bets.push(`${numbers[i]},${numbers[j]}`);
             }
         }
     }
-
     return bets;
 }
 
@@ -46,21 +43,19 @@ const findBet = (data, id) => {
     })
 }
 
-const Triple = ({data}) => {
+const Double = ({data}) => {
     const dispatch = useDispatch()
     const {betslip} = useSelector((state) => state.betslip)
     const [select, setSelect] = useState([])
-
-    console.log(data.event.g.e.h)
 
     const placeBets = () => {
         const r = []
         const f = generateBets(select)
         const b = betslip.slice(0)
 
-        data.event.g.e.h.b.map(el => {
+        data.event.g.e.g.b.map(el => {
             if(f.indexOf(el.a) !== -1) {
-                const m = data.event.g.e.h.a
+                const m = data.event.g.e.g.a
                 const p = `${dogsType[m]}: ${el.a}`
                 const f = findBet(b, p)
 
@@ -120,7 +115,7 @@ const Triple = ({data}) => {
                 className={
                     classNames(
                         style.button,
-                        select.length < 3 && style.disabled
+                        select.length < 2 && style.disabled
                     )
                 }
                 onClick={() => {
@@ -133,4 +128,4 @@ const Triple = ({data}) => {
     );
 }
 
-export default Triple;
+export default Double;

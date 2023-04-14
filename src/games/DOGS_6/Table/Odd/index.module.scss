@@ -21,6 +21,10 @@
   }
 }
 
+.market {
+  @include make-spacer('mr', 2);
+}
+
 .numbers {
   @include flex($align-items: center);
 

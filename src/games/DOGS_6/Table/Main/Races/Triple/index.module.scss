@@ -15,8 +15,6 @@
 }
 
 .cell {
-  @include make-spacer('p', half);
-
   border-right: 1px solid var(--color-border);
   background-color: #333233;
 }

@@ -1,14 +1,12 @@
 import {useState} from "react";
 
-import {dogsColor} from "constant/config";
-
 import classNames from "classnames";
 
 import Sort from "../Sort";
 import Odd from "../Odd";
+import Number from "../Number";
 
 import style from './index.module.scss';
-import Number from "../Number";
 
 const groupByFirstValue = (arr) => {
     let result = [];

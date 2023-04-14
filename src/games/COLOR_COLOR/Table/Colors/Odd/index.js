@@ -5,6 +5,7 @@ import classNames from "classnames";
 import {colorType} from "constant/config";
 
 import style from './index.module.scss';
+import Number from "../../Number";
 
 const Odd = ({
    data,
@@ -53,19 +54,11 @@ const Odd = ({
                 addSingleStake(data, color)
             }}
         >
-            <span
-                className={
-                    classNames(
-                        style.color,
-                        style[size],
-                        style[color]
-                    )
-                }
-            >
-                {
-                    !size && (data.id || data.a)
-                }
-            </span>
+            <Number
+                data={data}
+                color={color}
+                size={size}
+            />
         </button>
     );
 }
