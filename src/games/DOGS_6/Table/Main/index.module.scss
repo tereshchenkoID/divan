@@ -1,7 +1,8 @@
 @import "scss/config";
 
 .block {
-  @include make-spacer('p', 4);
+  @include make-spacer('px', 4);
+  @include make-spacer('py', 3);
 }
 
 .panel {

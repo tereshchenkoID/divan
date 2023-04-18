@@ -1,12 +1,21 @@
 import {useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+
+import {dogsType, gameType} from "constant/config";
+
+import {deleteBetslip, setBetslip} from "store/actions/betslipAction";
 
 import classNames from "classnames";
-
-import Odd from "../../Odd";
 
 import Number from "../../Number";
 
 import style from './index.module.scss';
+
+const findBet = (data, id) => {
+    return data.find(el => {
+        return el.print === id
+    })
+}
 
 const findBets = (data, id) => {
     const r = data.filter(el => {
@@ -25,23 +34,70 @@ const findBets = (data, id) => {
 }
 
 const ForecastTrincast = ({data}) => {
-    const [selectForecast, setForecastSelect] = useState([])
-    const [selectTrincast, setTrincastSelect] = useState([])
+    const dispatch = useDispatch()
+    const {betslip} = useSelector((state) => state.betslip)
+    const [selectForecast, setForecastSelect] = useState()
+    const [selectTrincast, setTrincastSelect] = useState()
     const [forecast, setForecast] = useState([])
     const [trincast, setTrincast] = useState([])
 
     const addForecastStake = (el) => {
-        setForecastSelect([el])
+        setForecastSelect(el)
 
         setTrincast([])
         setTrincastSelect([])
         setForecast(findBets(data.event.g.e.g.b, el.a))
     }
 
-    const addTrincastStake = (el) => {
-        setTrincastSelect([el])
 
+    const addStake = (market, el, step) => {
+        const a = betslip.slice(0)
+        const p = `${dogsType[market]}: ${el.a}`
+
+        if (step === 2) {
+            if (!findBet(a, p)) {
+                dispatch(setBetslip({
+                    start: null,
+                    id: null,
+                    b: el.b,
+                    market: market,
+                    print: `${dogsType[market]}: ${el.a}`,
+                    m_old: market,    // Remove after
+                    o_old: el.a,      // Remove after
+                    stake: 100,
+                    type: gameType.DOGS_6
+                }))
+            }
+        }
+
+        if (step === 3) {
+            const f = a.find(e => {
+                return e.type === gameType.DOGS_6 && el.a.indexOf(e.print.split(': ')[1]) !== -1
+            })
+
+            f.b = el.b
+            f.market = el.market
+            f.print = `${dogsType[market]}: ${el.a}`
+            f.m_old = el.market
+            f.o_old = el.a
+
+            dispatch(deleteBetslip(a))
+
+            setForecast([])
+            setForecastSelect([])
+            setTrincast([])
+            setTrincastSelect([])
+        }
+    }
+
+    const addTrincastStake = (el) => {
+        addStake(data.event.g.e.h.a, el, 2)
+        setTrincastSelect(el)
         setTrincast(findBets(data.event.g.e.h.b, el.a))
+    }
+
+    const addFullStake = (el) => {
+        addStake(data.event.g.e.h.a, el, 3)
     }
 
     return (
@@ -53,7 +109,12 @@ const ForecastTrincast = ({data}) => {
                         data.event.g.e.a.b.map((el, idx) =>
                             <div
                                 key={idx}
-                                className={style.cell}
+                                className={
+                                    classNames(
+                                        style.cell,
+                                        (selectForecast && selectForecast.a) === el.a && style.active
+                                    )
+                                }
                                 onClick={() => {
                                     addForecastStake(el)
                                 }}
@@ -76,7 +137,12 @@ const ForecastTrincast = ({data}) => {
                                 ?
                                     <div
                                         key={idx}
-                                        className={style.cell}
+                                        className={
+                                            classNames(
+                                                style.cell,
+                                                (selectTrincast && selectTrincast.a) === el.a && style.active
+                                            )
+                                        }
                                         onClick={() => {
                                             addTrincastStake(el)
                                         }}
@@ -117,6 +183,9 @@ const ForecastTrincast = ({data}) => {
                                     <div
                                         key={idx}
                                         className={style.cell}
+                                        onClick={() => {
+                                            addFullStake(el)
+                                        }}
                                     >
                                         <Number
                                             key={idx}

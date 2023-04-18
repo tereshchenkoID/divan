@@ -2,7 +2,7 @@
 
 .block {
   position: relative;
-  height: rem(690px);
+  height: rem(692px);
   text-transform: uppercase;
   text-align: center;
   font-weight: var(--typography-bold);
@@ -39,7 +39,7 @@
 }
 
 .table {
-  @include make-spacer('mt', 6);
+  @include make-spacer('mt', 7);
 
   display: block;
 }
