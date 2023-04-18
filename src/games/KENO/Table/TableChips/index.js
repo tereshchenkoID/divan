@@ -12,7 +12,7 @@ import Numbers from "../Numbers";
 
 import style from './index.module.scss';
 
-const TableChips = ({random}) => {
+const TableChips = ({random, t}) => {
     const dispatch = useDispatch()
     const {betslip} = useSelector((state) => state.betslip)
     const [data, setData] = useState({
@@ -235,7 +235,7 @@ const TableChips = ({random}) => {
                         setNumbers([])
                     }}
                 >
-                    RESET NUMBERS
+                    {t('games.KENO.reset_numbers')}
                 </button>
                 <button
                     className={
@@ -248,7 +248,7 @@ const TableChips = ({random}) => {
                         addStake()
                     }}
                 >
-                    PLACE BETS
+                    {t('games.KENO.place_bets')}
                 </button>
             </div>
             <div className={style.wrapper}>

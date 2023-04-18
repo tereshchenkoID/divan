@@ -48,9 +48,8 @@ const findExists = (data, betslip) => {
     return r
 }
 
-const TableChips = ({random}) => {
+const TableChips = ({random, t}) => {
     const dispatch = useDispatch()
-
     const {betslip} = useSelector((state) => state.betslip)
     const [data, setData] = useState({
         "event": {
@@ -522,8 +521,8 @@ const TableChips = ({random}) => {
                 />
 
                 <div className={style.labels}>
-                    <div className={style.label}>Winning color</div>
-                    <div className={style.label}>Number of colors</div>
+                    <div className={style.label}>{t('games.COLOR_COLOR.winning_colors')}</div>
+                    <div className={style.label}>{t('games.COLOR_COLOR.number_of_colors')}</div>
                 </div>
 
                 <Colors
@@ -546,7 +545,7 @@ const TableChips = ({random}) => {
                             addStake()
                         }}
                     >
-                        PLACE BETS
+                        {t('games.COLOR_COLOR.place_bets')}
                     </button>
                 </div>
 
@@ -554,16 +553,19 @@ const TableChips = ({random}) => {
                     numbers={numbers}
                     type={type}
                     setType={setType}
+                    t={t}
                 />
                 <Anaconda
                     numbers={numbers}
                     type={type}
                     setType={setType}
+                    t={t}
                 />
                 <Zero
                     numbers={numbers}
                     type={type}
                     setType={setType}
+                    t={t}
                 />
             </div>
         </div>

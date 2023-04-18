@@ -6,7 +6,7 @@ import {colorType} from "constant/config";
 
 import style from '../index.module.scss';
 
-const Anaconda = ({numbers, type, setType}) => {
+const Anaconda = ({numbers, type, setType, t}) => {
     const [disabled, setDisabled] = useState(true)
 
     useEffect(() => {
@@ -25,7 +25,7 @@ const Anaconda = ({numbers, type, setType}) => {
                 <div className={style.label}>ANACONDA</div>
             </div>
             <div className={style.panel}>
-                <div className={style.subtitle}>З TO 6 NUMBERS WILL BE MATCHED</div>
+                <div className={style.subtitle}>{t('games.COLOR_COLOR.anaconda_description')}</div>
                 <button
                     className={
                         classNames(

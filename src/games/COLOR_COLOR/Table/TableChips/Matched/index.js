@@ -1,11 +1,12 @@
 import {useEffect, useState} from "react";
 
+import {colorType} from "constant/config";
+
 import classNames from "classnames";
 
 import style from '../index.module.scss';
-import {colorType} from "../../../../../constant/config";
 
-const Matched = ({numbers, type, setType}) => {
+const Matched = ({numbers, type, setType, t}) => {
     const [quantity, setQuantity] = useState([
         {
             id: 1,
@@ -82,7 +83,7 @@ const Matched = ({numbers, type, setType}) => {
                 <div className={style.label}>MATCHED NUMBERS</div>
             </div>
             <div className={style.panel}>
-                <div className={style.subtitle}>QUANTITY OF MATCHED NUMBERS</div>
+                <div className={style.subtitle}>{t('games.COLOR_COLOR.numbers_description')}</div>
                 <div className={style.quantity}>
                     {
                         quantity.map((el, idx) =>

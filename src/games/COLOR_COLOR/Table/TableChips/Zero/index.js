@@ -6,7 +6,7 @@ import {colorType} from "constant/config";
 
 import style from '../index.module.scss';
 
-const Zero = ({numbers, type, setType}) => {
+const Zero = ({numbers, type, setType, t}) => {
     const [disabled, setDisabled] = useState(true)
 
     useEffect(() => {
@@ -24,7 +24,7 @@ const Zero = ({numbers, type, setType}) => {
                 <div className={style.label}>BET ZERO</div>
             </div>
             <div className={style.panel}>
-                <div className={style.subtitle}>SELECTED NUMBERS WON T BE MATCHED</div>
+                <div className={style.subtitle}>{t('games.COLOR_COLOR.bet_zero_description')}</div>
                 <button
                     className={
                         classNames(

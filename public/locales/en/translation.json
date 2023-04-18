@@ -1,4 +1,48 @@
 {
   "interface": {
+    "live": "live",
+    "results": "results",
+    "week": "week",
+    "skip_next_game": "skip next game"
+  },
+  "games": {
+    "FOOTBALL_LEAGUE": {
+    },
+    "ROULETTE": {
+      "random": "random"
+    },
+    "COLOR_COLOR": {
+      "random": "random",
+      "repeat": "repeat",
+      "reset_numbers": "reset numbers",
+      "place_bets": "place bets",
+      "winning_colors": "winning colors",
+      "number_of_colors": "number of colors",
+      "matched_numbers": "MATCHED NUMBERS",
+      "anaconda": "ANACONDA",
+      "bet_zero": "BET ZERO",
+      "numbers_description": "QUANTITY OF MATCHED NUMBERS",
+      "anaconda_description": "З TO 6 NUMBERS WILL BE MATCHED",
+      "bet_zero_description": "SELECTED NUMBERS WON T BE MATCHED"
+    },
+    "KENO": {
+      "random": "random",
+      "repeat": "repeat",
+      "reset_numbers": "reset numbers",
+      "place_bets": "place bets"
+    },
+    "DOGS_6": {
+      "winner": "winner",
+      "place": "place",
+      "show": "show",
+      "main": "main",
+      "forecast": "forecast",
+      "trincast": "trincast",
+      "quinella": "quinella",
+      "system_double": "system double",
+      "system_triple": "system triple",
+      "extra bets": "extra bets",
+      "place_bets": "place bets"
+    }
   }
 }

@@ -37,3 +37,7 @@
     width: rem(38px);
   }
 }
+
+.language {
+  @include make-spacer('mx', 1);
+}

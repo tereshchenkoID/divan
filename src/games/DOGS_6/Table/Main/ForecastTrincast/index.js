@@ -23,8 +23,14 @@ const findBets = (data, id) => {
     })
 
     if (id.length > 1) {
-        r.splice(id[0] - 1, 0, {})
-        r.splice(id[2] - 1, 0, {})
+        if (id[0] < id[2]) {
+            r.splice(id[0] - 1, 0, {})
+            r.splice(id[2] - 1, 0, {})
+        }
+        else {
+            r.splice(id[2] - 1, 0, {})
+            r.splice(id[0] - 1, 0, {})
+        }
     }
     else {
         r.splice(id - 1, 0, {})
@@ -40,14 +46,6 @@ const ForecastTrincast = ({data}) => {
     const [selectTrincast, setTrincastSelect] = useState()
     const [forecast, setForecast] = useState([])
     const [trincast, setTrincast] = useState([])
-
-    const addForecastStake = (el) => {
-        setForecastSelect(el)
-
-        setTrincast([])
-        setTrincastSelect([])
-        setForecast(findBets(data.event.g.e.g.b, el.a))
-    }
 
 
     const addStake = (market, el, step) => {
@@ -88,6 +86,14 @@ const ForecastTrincast = ({data}) => {
             setTrincast([])
             setTrincastSelect([])
         }
+    }
+
+    const addForecastStake = (el) => {
+        setForecastSelect(el)
+
+        setTrincast([])
+        setTrincastSelect([])
+        setForecast(findBets(data.event.g.e.g.b, el.a))
     }
 
     const addTrincastStake = (el) => {

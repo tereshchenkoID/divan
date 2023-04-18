@@ -1,5 +1,6 @@
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
+import {useTranslation} from "react-i18next";
 
 import classNames from "classnames";
 
@@ -12,6 +13,7 @@ import TableChips from "./TableChips";
 import style from "./index.module.scss";
 
 const Table = () => {
+    const { t } = useTranslation()
     const SORT = [1, 2, 3, 5, 7, 10]
     const dispatch = useDispatch()
     const {game} = useSelector((state) => state.game)
@@ -81,7 +83,7 @@ const Table = () => {
                             <div className={style.body}>
                                 <div className={style.table}>
                                     <div className={style.header}>
-                                        <div className={style.label}>RANDOM</div>
+                                        <div className={style.label}>{t('games.ROULETTE.random')}</div>
                                         <div />
                                         <div className={style.sort}>
                                             {
