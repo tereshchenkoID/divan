@@ -20,10 +20,12 @@ const ResultTimer = ({end, delta}) => {
     const [timer, setTimer] = useState('')
 
     useEffect(() => {
-        // console.log("Results")
+        let r = getDifferent(end, delta)
+        setTimer(r)
+    }, [end, delta]);
 
+    useEffect(() => {
         const a = setInterval(() => {
-            // console.log('Results', delta)
             let r = getDifferent(end, delta)
             setTimer(r)
             if (r === '0') {

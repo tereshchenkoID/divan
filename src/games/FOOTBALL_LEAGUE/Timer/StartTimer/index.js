@@ -21,6 +21,10 @@ const StartTimer = ({start, delta}) => {
     const [timer, setTimer] = useState('')
 
     useEffect(() => {
+        setTimer(getDifferent(start, delta))
+    }, [start, delta])
+
+    useEffect(() => {
         const a = setInterval(() => {
             let r = getDifferent(start, delta)
             setTimer(r)

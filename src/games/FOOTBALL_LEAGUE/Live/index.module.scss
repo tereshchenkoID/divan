@@ -1,6 +1,9 @@
 @import "scss/config";
 
 .block {
+  @include size(100%);
+
+  padding-top: rem(80px);
   position: relative;
 }
 

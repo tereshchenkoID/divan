@@ -25,10 +25,13 @@ const MatchTimer = ({start, end, delta}) => {
     const [timer, setTimer] = useState('')
 
     useEffect(() => {
-        // console.log('Match')
+        let r = getDifferent(start, end, delta)
+        dispatch(setLiveTimer(r))
+        setTimer(`${r}'`)
+    }, [start, delta])
 
+    useEffect(() => {
         const a = setInterval(() => {
-            // console.log('Match', delta)
             let r = getDifferent(start, end, delta)
             dispatch(setLiveTimer(r))
             setTimer(`${r}'`)
