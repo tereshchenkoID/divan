@@ -4,14 +4,14 @@
   @include size(100%);
 
   display: grid;
-  grid-template-columns: 80px 1fr;
+  grid-template-columns: 60px 1fr;
   background: linear-gradient(360deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 100%);
   background-color: var(--color-black);
   border-radius: rem(3px);
   padding: 2px;
   overflow: hidden;
   color: var(--color-white);
-  font-size: rem(12px);
+  font-size: rem(10px);
   line-height: 1;
 
   &.bronse {
@@ -54,8 +54,8 @@
   background: linear-gradient(360deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 100%);
   padding-bottom: rem(2px);
   border-radius: inherit;
-  min-width: rem(130px);
-  font-size: rem(22px);
+  min-width: rem(110px);
+  font-size: rem(18px);
 }
 
 .symbol {

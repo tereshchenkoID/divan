@@ -1,5 +1,6 @@
 import {useEffect, useState} from "react";
 import {useSelector} from "react-redux";
+import {useTranslation} from "react-i18next";
 
 import Button from "components/Button";
 
@@ -7,6 +8,7 @@ import style from './index.module.scss';
 
 const CalculatorModal = ({data, action, toggle}) => {
     const [date, setDate] = useState(data)
+    const { t } = useTranslation()
     const {settings} = useSelector((state) => state.settings)
 
     const set = (n) => {
@@ -250,7 +252,7 @@ const CalculatorModal = ({data, action, toggle}) => {
                             <Button
                                 type={'red'}
                                 size={'lg'}
-                                text={'Close'}
+                                text={t('interface.close')}
                                 action={() => {
                                     toggle(false)
                                 }}
@@ -260,7 +262,7 @@ const CalculatorModal = ({data, action, toggle}) => {
                             <Button
                                 type={'green'}
                                 size={'lg'}
-                                text={'Accept'}
+                                text={t('interface.accept')}
                                 action={() => {
                                     action(parseFloat(date))
                                     toggle(false)

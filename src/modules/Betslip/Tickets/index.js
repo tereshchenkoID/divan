@@ -1,5 +1,6 @@
 import {useEffect, useState} from "react";
 import {useSelector} from "react-redux";
+import {useTranslation} from "react-i18next";
 
 import {getData} from "helpers/api";
 
@@ -10,6 +11,7 @@ import Ticket from "./Ticket";
 import style from './index.module.scss';
 
 const Tickets = () => {
+    const { t } = useTranslation()
     const [data, setData] = useState({})
     const [loading, setLoading] = useState(true)
     const {settings} = useSelector((state) => state.settings)
@@ -25,9 +27,9 @@ const Tickets = () => {
         <div className={style.block}>
             <div className={style.row}>
                 <div></div>
-                <div>Ticker №</div>
-                <div>Stake</div>
-                <div>Payout</div>
+                <div>{t('interface.ticket')} №</div>
+                <div>{t('interface.stake')}</div>
+                <div>{t('interface.payout')}</div>
             </div>
             {
                 loading
@@ -53,7 +55,7 @@ const Tickets = () => {
                         :
                             <div className={style.empty}>
                                 <Alert
-                                    text={'Tickets empty'}
+                                    text={t('interface.tickets_empty')}
                                     type={'default'}
                                 />
                             </div>

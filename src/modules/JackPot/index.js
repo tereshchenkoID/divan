@@ -63,6 +63,7 @@ const JackPot = () => {
                 !loading &&
                 <>
                     {
+                        data &&
                         data.jackpots.map((el, idx) =>
                             <div
                                 key={idx}

@@ -1,5 +1,6 @@
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
+import {useTranslation} from "react-i18next";
 
 import classNames from "classnames";
 
@@ -16,6 +17,7 @@ import Button from "components/Button";
 import style from './index.module.scss';
 
 const TicketModal = ({id, action}) => {
+    const { t } = useTranslation()
     const dispatch = useDispatch()
     const {settings} = useSelector((state) => state.settings)
 
@@ -73,7 +75,7 @@ const TicketModal = ({id, action}) => {
             <div className={style.overflow}>
                 <div className={style.content}>
                     <div className={style.header}>
-                        <p>Ticket details</p>
+                        <p>{t('interface.ticket_details')}</p>
                         <div
                             className={
                                 classNames(
@@ -96,7 +98,7 @@ const TicketModal = ({id, action}) => {
                         {
                             step === 0 &&
                             <>
-                                <div className={style.title}>Enter you ticket number</div>
+                                <div className={style.title}>{t('interface.ticket_enter')}</div>
                                 <form
                                     className={style.form}
                                     onSubmit={handleSubmit}
@@ -163,7 +165,7 @@ const TicketModal = ({id, action}) => {
 
                                                 </div>
                                                 <div className={style.wrapper}>
-                                                    <div className={style.title}>Details</div>
+                                                    <div className={style.title}>{t('interface.details')}</div>
                                                     <div
                                                         className={
                                                             classNames(
@@ -174,31 +176,31 @@ const TicketModal = ({id, action}) => {
                                                         }
                                                     >
                                                         <div className={style.row}>
-                                                            <div className={style.cell}>Ticket Number</div>
+                                                            <div className={style.cell}>{t('interface.ticket_number')}</div>
                                                             <div className={style.cell}>{data.stake.id}</div>
-                                                            <div className={style.cell}>Total stake</div>
+                                                            <div className={style.cell}>{t('interface.total_stake')}</div>
                                                             <div className={style.cell}>{settings.account.symbol} {data.stake.amount}</div>
                                                         </div>
                                                         <div className={style.row}>
-                                                            <div className={style.cell}>Book time</div>
+                                                            <div className={style.cell}>{t('interface.book_time')}</div>
                                                             <div className={style.cell}>{getDateTime(data.stake.placed, 1)}</div>
-                                                            <div className={style.cell}>Jackpot</div>
+                                                            <div className={style.cell}>{t('interface.jackpot')}</div>
                                                             <div className={style.cell}></div>
                                                         </div>
                                                         <div className={style.row}>
-                                                            <div className={style.cell}>Selections</div>
+                                                            <div className={style.cell}>{t('interface.selections')}</div>
                                                             <div className={style.cell}>{data.stake.bets.length}</div>
-                                                            <div className={style.cell}>Total payout</div>
+                                                            <div className={style.cell}>{t('interface.total_payout')}</div>
                                                             <div className={style.cell}>{data.stake.payout && `${settings.account.symbol} ${data.stake.payout}`}</div>
                                                         </div>
                                                         <div className={style.row}>
-                                                            <div className={style.cell}>Ticket type</div>
-                                                            <div className={style.cell}>{data.stake.group.length ? 'System': 'Single' }</div>
-                                                            <div className={style.cell}>Winning tax</div>
+                                                            <div className={style.cell}>{t('interface.ticket_type')}</div>
+                                                            <div className={style.cell}>{data.stake.group.length ? t('interface.system') : t('interface.single') }</div>
+                                                            <div className={style.cell}>{t('interface.winning_tax')}</div>
                                                             <div className={style.cell}>{data.stake.tax}</div>
                                                         </div>
                                                         <div className={style.row}>
-                                                            <div className={style.cell}>Status</div>
+                                                            <div className={style.cell}>{t('interface.status')}</div>
                                                             <div className={style.cell}>
                                                                 <div
                                                                     className={
@@ -210,7 +212,7 @@ const TicketModal = ({id, action}) => {
                                                                 />
                                                                 {data.stake.status}
                                                             </div>
-                                                            <div className={style.cell}>Net payout</div>
+                                                            <div className={style.cell}>{t('interface.net_payout')}</div>
                                                             <div className={style.cell}>{data.stake.payout && `${settings.account.symbol} ${data.stake.payout}`}</div>
                                                         </div>
                                                     </div>
@@ -218,7 +220,7 @@ const TicketModal = ({id, action}) => {
                                                 {
                                                     type === 1 &&
                                                     <div className={style.wrapper}>
-                                                        <div className={style.title}>System details</div>
+                                                        <div className={style.title}>{t('interface.system_details')}</div>
                                                         <div
                                                             className={
                                                                 classNames(
@@ -236,13 +238,13 @@ const TicketModal = ({id, action}) => {
                                                                     )
                                                                 }
                                                             >
-                                                                <div className={style.cell}>GR</div>
-                                                                <div className={style.cell}>Combi</div>
-                                                                <div className={style.cell}>Stake</div>
-                                                                <div className={style.cell}>Pot. MIN Win</div>
-                                                                <div className={style.cell}>Pot. MAX Win</div>
-                                                                <div className={style.cell}>Win</div>
-                                                                <div className={style.cell}>Bonus</div>
+                                                                <div className={style.cell}>{t('interface.gr')}</div>
+                                                                <div className={style.cell}>{t('interface.combi')}</div>
+                                                                <div className={style.cell}>{t('interface.stake')}</div>
+                                                                <div className={style.cell}>{t('interface.pot')}. {t('interface.min')} {t('interface.win')}</div>
+                                                                <div className={style.cell}>{t('interface.pot')}. {t('interface.max')} {t('interface.win')}</div>
+                                                                <div className={style.cell}>{t('interface.win')}</div>
+                                                                <div className={style.cell}>{t('interface.bonus')}</div>
                                                             </div>
                                                             {
                                                                 data.stake.group.map((el, idx) =>
@@ -266,13 +268,13 @@ const TicketModal = ({id, action}) => {
                                                     </div>
                                                 }
                                                 <div className={style.wrapper}>
-                                                    <div className={style.title}>Bet list</div>
+                                                    <div className={style.title}>{t('interface.bet_list')}</div>
                                                     <div
                                                         className={
                                                             classNames(
                                                                 style.table,
                                                                 style.center,
-                                                                style[type === 0 ? 'single' : 'system']
+                                                                style[type === 0 ? t('interface.single') : t('interface.system')]
                                                             )
                                                         }
                                                     >
@@ -284,21 +286,21 @@ const TicketModal = ({id, action}) => {
                                                                 )
                                                             }
                                                         >
-                                                            <div className={style.cell}>Time</div>
-                                                            <div className={style.cell}>Selection</div>
-                                                            <div className={style.cell}>Event result</div>
-                                                            <div className={style.cell}>Outcome</div>
-                                                            <div className={style.cell}>Max odds</div>
+                                                            <div className={style.cell}>{t('interface.time')}</div>
+                                                            <div className={style.cell}>{t('interface.selection')}</div>
+                                                            <div className={style.cell}>{t('interface.event_result')}</div>
+                                                            <div className={style.cell}>{t('interface.outcome')}</div>
+                                                            <div className={style.cell}>{t('interface.max')} {t('interface.odds')}</div>
                                                             {
                                                                 type === 0
                                                                     ?
                                                                     <>
-                                                                        <div className={style.cell}>Stake</div>
-                                                                        <div className={style.cell}>Win</div>
+                                                                        <div className={style.cell}>{t('interface.stake')}</div>
+                                                                        <div className={style.cell}>{t('interface.win')}</div>
                                                                     </>
                                                                     :
                                                                     <>
-                                                                        <div className={style.cell}>Win odds</div>
+                                                                        <div className={style.cell}>{t('interface.win')} {t('interface.odds')}</div>
                                                                     </>
                                                             }
                                                         </div>

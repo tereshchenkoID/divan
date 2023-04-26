@@ -1,5 +1,6 @@
 import {useRef, useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
+import {useTranslation} from "react-i18next";
 
 import {useOutsideClick} from "hooks/useOutsideClick";
 import {getBetMaxSingle, getMinMaxOdd } from 'hooks/useStake'
@@ -18,6 +19,7 @@ import style from './index.module.scss';
 
 const Stake = ({data}) => {
     const dispatch = useDispatch()
+    const { t } = useTranslation()
     const {betslip} = useSelector((state) => state.betslip)
     const {settings} = useSelector((state) => state.settings)
     const {stake} = useSelector((state) => state.stake)
@@ -172,7 +174,7 @@ const Stake = ({data}) => {
                         <Button
                             type={'green'}
                             size={'sm'}
-                            text={'Clear'}
+                            text={t('interface.clear')}
                             action={() => {
                                 changeStake(null)
                             }}

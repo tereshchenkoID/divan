@@ -1,7 +1,7 @@
 @import "scss/config";
 
 .block {
-  @include size(rem(730px), rem(55px));
+  @include size(rem(700px), rem(55px));
 
   transform: translateY(rem(11px));
 }

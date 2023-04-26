@@ -1,5 +1,6 @@
 import {useRef, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
+import {useTranslation} from "react-i18next";
 
 import classNames from "classnames";
 
@@ -23,6 +24,7 @@ const findBet = (data, id) => {
 }
 
 const Bet = ({data, betslip, type, setInit, setDisabled}) => {
+    const { t } = useTranslation()
     const dispatch = useDispatch()
     const {settings} = useSelector((state) => state.settings)
     const [edit, setEdit] = useState(false)
@@ -198,7 +200,7 @@ const Bet = ({data, betslip, type, setInit, setDisabled}) => {
                         <Button
                             type={'green'}
                             size={'sm'}
-                            text={'Clear'}
+                            text={t('interface.clear')}
                             action={() => {
                                 changeBet(null)
                             }}

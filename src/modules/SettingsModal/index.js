@@ -1,6 +1,7 @@
 import {useEffect, useRef, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {useReactToPrint} from "react-to-print";
+import {useTranslation} from "react-i18next";
 
 import {printMode, oddsType} from "constant/config";
 
@@ -15,9 +16,9 @@ import Button from "components/Button";
 import Password from "./Password";
 
 import style from './index.module.scss';
-import {setSettings} from "../../store/actions/settingsAction";
 
 const SettingsModal = ({action}) => {
+    const { t } = useTranslation()
     const dispatch = useDispatch()
     const {settings} = useSelector((state) => state.settings)
     const [response, setResponse] = useState(null)
@@ -34,18 +35,12 @@ const SettingsModal = ({action}) => {
             dispatch(deleteBetslip([]))
         }
 
-        console.log(idx)
-
         postData('/config', JSON.stringify({
                 [idx]: ref.current.value
             }))
             .then((json) => {
                 if (json.code === 'OK') {
                     dispatch(setNotification('Saved'))
-
-                    // dispatch(setSettings()).then((json) => {
-                    //     console.log(json)
-                    // })
                 }
                  else {
                     dispatch(setNotification(json.error_message || 'Something wrong'))
@@ -88,7 +83,7 @@ const SettingsModal = ({action}) => {
             }
             <div className={style.wrapper}>
                 <div className={style.header}>
-                    <p>General settings</p>
+                    <p>{t('interface.general_settings')}</p>
                     <div
                         className={
                             classNames(
@@ -118,17 +113,17 @@ const SettingsModal = ({action}) => {
                             }
                         >
                             <div className={style.row}>
-                                <div className={style.cell}>Username</div>
+                                <div className={style.cell}>{t('interface.username')}</div>
                                 <div className={style.cell}>{settings.username}</div>
                                 <div className={style.cell} />
                             </div>
                             <div className={style.row}>
-                                <div className={style.cell}>Language</div>
+                                <div className={style.cell}>{t('interface.language')}</div>
                                 <div className={style.cell}>En</div>
                                 <div className={style.cell} />
                             </div>
                             <div className={style.row}>
-                                <div className={style.cell}>Password</div>
+                                <div className={style.cell}>{t('interface.password')}</div>
                                 <div className={style.cell}>
                                     <button
                                         className={style.toggle}
@@ -136,7 +131,7 @@ const SettingsModal = ({action}) => {
                                             setShowPassword(!showPassword)
                                         }}
                                     >
-                                        Change password
+                                        {t('interface.change_password')}
                                     </button>
                                 </div>
                                 <div className={style.cell} />
@@ -149,19 +144,19 @@ const SettingsModal = ({action}) => {
                     </div>
                     <div className={style.container}>
                         <div className={style.title}>
-                            <span>Settings</span>
+                            <span>{t('interface.settings')}</span>
                         </div>
                         <div className={style.table}>
                             <div className={style.row}>
-                                <div className={style.cell}>Printing mode</div>
+                                <div className={style.cell}>{t('interface.printing_mode')}</div>
                                 <div className={style.cell}>
                                     <select
                                         className={style.select}
                                         ref={printingRef}
                                     >
-                                        <option value={printMode.POS}>Pos not installed</option>
-                                        <option value={printMode.WEB_PRINT}>Web print</option>
-                                        <option value={printMode.DISABLED}>Disabled</option>
+                                        <option value={printMode.POS}>{t('interface.pos_not_installed')}</option>
+                                        <option value={printMode.WEB_PRINT}>{t('interface.web_print')}</option>
+                                        <option value={printMode.DISABLED}>{t('interface.disabled')}</option>
                                     </select>
                                 </div>
                                 <div className={style.cell}>
@@ -185,14 +180,14 @@ const SettingsModal = ({action}) => {
                                 </div>
                             </div>
                             <div className={style.row}>
-                                <div className={style.cell}>Stake Mode</div>
+                                <div className={style.cell}>{t('interface.stake_mode')}</div>
                                 <div className={style.cell}>
                                     <select
                                         className={style.select}
                                         ref={stakeRef}
                                     >
-                                        <option value={oddsType.PER_BET}>Per bet</option>
-                                        <option value={oddsType.PER_GROUP}>Per group</option>
+                                        <option value={oddsType.PER_BET}>{t('interface.per_bet')}</option>
+                                        <option value={oddsType.PER_GROUP}>{t('interface.per_group')}</option>
                                     </select>
                                 </div>
                                 <div className={style.cell}>
@@ -216,7 +211,7 @@ const SettingsModal = ({action}) => {
                                 </div>
                             </div>
                             <div className={style.row}>
-                                <div className={style.cell}>Reprint ticket</div>
+                                <div className={style.cell}>{t('interface.reprint_ticket')}</div>
                                 <div className={style.cell}>
                                     <input
                                         type={"number"}

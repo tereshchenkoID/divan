@@ -1,11 +1,13 @@
 import React from "react";
 import {useSelector} from "react-redux";
+import {useTranslation} from "react-i18next";
 
 import {getDateTime} from "helpers/getDateTime";
 
 import style from './index.module.scss';
 
 export const TicketPrint = React.forwardRef((data, ref) => {
+    const { t } = useTranslation()
     const {settings} = useSelector((state) => state.settings)
 
     return (
@@ -25,22 +27,22 @@ export const TicketPrint = React.forwardRef((data, ref) => {
                 <div>
                     <ul className={style.info}>
                         <li>
-                            <div>Shop:</div>
+                            <div>{t('interface.shop')}:</div>
                             <div>{data.data.stake.username}</div>
                         </li>
                         <li>
-                            <div>Bet:</div>
+                            <div>{t('interface.bet')}:</div>
                             <div>{getDateTime(data.data.stake.placed, 2)}</div>
                         </li>
                         <li>
-                            <div>Time:</div>
+                            <div>{t('interface.time')}:</div>
                             <div>{getDateTime(data.data.stake.placed, 0)}</div>
                         </li>
                     </ul>
                 </div>
             </div>
             <div className={style.body}>
-                <div className={style.title}>Ticket #{data.data.stake.id}</div>
+                <div className={style.title}>{t('interface.ticket')} #{data.data.stake.id}</div>
                 <div className={style.code}>{data.data.stake.id}</div>
                 {
                     data.data.stake.group &&
@@ -51,11 +53,11 @@ export const TicketPrint = React.forwardRef((data, ref) => {
                         >
                             <ul className={style.info}>
                                 <li>
-                                    <div>GR: {el.group}</div>
+                                    <div>{t('interface.gr')}: {el.group}</div>
                                     <div>{el.group} x {settings.account.symbol} {parseFloat(el.unit).toFixed(2)} = {settings.account.symbol} {el.combi * el.unit}</div>
                                 </li>
                                 <li>
-                                    <div>Min/Max win:</div>
+                                    <div>{t('interface.min')}/{t('interface.max')} {t('interface.win')}:</div>
                                     <div>{settings.account.symbol} {el.minwin.toFixed(2)} / {settings.account.symbol} {el.maxwin.toFixed(2)}</div>
                                 </li>
                             </ul>
@@ -90,11 +92,11 @@ export const TicketPrint = React.forwardRef((data, ref) => {
             <div className={style.footer}>
                 <ul className={style.info}>
                     <li>
-                        <div>Total stake: </div>
+                        <div>{t('interface.total_stake')}: </div>
                         <div>{settings.account.symbol} {data.data.stake.amount}</div>
                     </li>
                     <li>
-                        <div>Min/Max win: </div>
+                        <div>{t('interface.min')}/{t('interface.max')} {t('interface.win')}: </div>
                         <div>{settings.account.symbol} {data.data.stake.minwin ? data.data.stake.minwin.toFixed(2) : 0} / {settings.account.symbol} {data.data.stake.maxwin ? data.data.stake.maxwin.toFixed(2) : 0}</div>
                     </li>
                 </ul>

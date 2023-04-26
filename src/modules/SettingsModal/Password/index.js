@@ -1,5 +1,6 @@
 import {useState} from "react";
 import {useDispatch} from "react-redux";
+import {useTranslation} from "react-i18next";
 
 import {postData} from "helpers/api";
 
@@ -10,6 +11,7 @@ import Button from "components/Button";
 import style from './index.module.scss';
 
 const Password = ({action}) => {
+    const { t } = useTranslation()
     const dispatch = useDispatch()
     const [oldPassword, setOldPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
@@ -50,7 +52,7 @@ const Password = ({action}) => {
         <div className={style.block}>
             <div className={style.row}>
                 <div>
-                    <p>Old password</p>
+                    <p>{t('interface.old_password')}</p>
                 </div>
                 <div>
                     <input
@@ -64,7 +66,7 @@ const Password = ({action}) => {
             </div>
             <div className={style.row}>
                 <div>
-                    <p>New password</p>
+                    <p>{t('interface.new_password')}</p>
                 </div>
                 <div>
                     <input
@@ -81,13 +83,13 @@ const Password = ({action}) => {
                             setType(type === 'password' ? 'text' : 'password')
                         }}
                     >
-                        {type === 'password' ? 'Show' : 'Hide'} password
+                        {type === 'password' ? t('interface.show') : t('interface.hide')} {t('interface.password')}
                     </button>
                 </div>
             </div>
             <div className={style.row}>
                 <div>
-                    <p>Confirm new password</p>
+                    <p>{t('interface.confirm_password')}</p>
                 </div>
                 <div>
                     <input
@@ -104,7 +106,7 @@ const Password = ({action}) => {
                             generatePassword()
                         }}
                     >
-                        Generate password
+                        {t('interface.generate_password')}
                     </button>
                 </div>
             </div>

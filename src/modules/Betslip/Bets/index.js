@@ -1,3 +1,5 @@
+import {useTranslation} from "react-i18next";
+
 import classNames from "classnames";
 
 import Bet from "./Bet";
@@ -11,6 +13,8 @@ const Bets = ({
     setInit,
     setDisabled
 }) => {
+    const { t } = useTranslation()
+
     return (
         <div className={style.block}>
             <div
@@ -21,11 +25,11 @@ const Bets = ({
                     )
                 }
             >
-                <div>Selection</div>
-                <div>Odds</div>
+                <div>{t('interface.selection')}</div>
+                <div>{t('interface.odds')}</div>
                 {
                     type === 0 &&
-                    <div>Stake</div>
+                    <div>{t('interface.stake')}</div>
                 }
             </div>
             {

@@ -12,14 +12,22 @@
 
   gap: rem(5px);
   font-size: rem(13px);
+  max-width: rem(130px);
 }
 
 .icon {
-  @include size(rem(25px));
+  @include size(rem(20px));
 
   color: var(--color-black);
+  flex-shrink: 0;
 
   path {
     stroke: var(--color-black);
   }
+}
+
+.text {
+  @include ellipsis;
+
+  white-space: nowrap;
 }

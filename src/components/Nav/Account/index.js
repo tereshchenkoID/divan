@@ -36,13 +36,13 @@ const Account = () => {
                         <div className={style.icon}>
                             <Icon id={'user'} />
                         </div>
-                        <div>{balance.username || 'user'}</div>
+                        <div className={style.text}>{balance.username || 'user'}</div>
                     </div>
                     <div className={style.cell}>
                         <div className={style.icon}>
                             <Icon id={'money'} />
                         </div>
-                        <div>{balance.account.symbol || '$'} {britishNumberFormatter.format(balance.account.balance)}</div>
+                        <div className={style.text}>{balance.account.symbol || '$'} {britishNumberFormatter.format(balance.account.balance)}</div>
                     </div>
                 </>
             }

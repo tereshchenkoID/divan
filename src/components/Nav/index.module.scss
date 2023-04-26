@@ -15,11 +15,12 @@
 }
 
 .setting {
-  @include make-spacer('mr', 4);
+  @include make-spacer('mr', 2);
   @include make-spacer('ml', auto);
   @include flex($align-items: center);
 
   gap: rem(10px);
+  transform: translateY(rem(5px));
   font-weight: var(--typography-bold);
   font-size: rem(13px);
 }
@@ -27,7 +28,7 @@
 .options {
   @include flex($align-items: center);
 
-  gap: rem(17px);
+  gap: rem(10px);
 }
 
 .option {
@@ -39,5 +40,6 @@
 }
 
 .language {
+  @include flex($direction: column);
   @include make-spacer('mx', 1);
 }

@@ -1,6 +1,7 @@
 import {useEffect, useRef, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {useReactToPrint} from 'react-to-print';
+import {useTranslation} from "react-i18next";
 
 import {gameType, oddsType, printMode} from "constant/config";
 
@@ -33,6 +34,7 @@ import {TicketPrint} from 'modules/TicketPrint';
 import style from './index.module.scss';
 
 const Betslip = () => {
+    const { t } = useTranslation()
     const dispatch = useDispatch()
     const {betslip} = useSelector((state) => state.betslip)
     const {stake} = useSelector((state) => state.stake)
@@ -244,34 +246,8 @@ const Betslip = () => {
                 }
                 else {
                     setDisabled(false)
-                    // setType(1)
                 }
             }
-
-            // if (disabled) {
-            //
-            //     let e = betslip[0].mid
-            //     // let t = betslip[0].type
-            //
-            //     betslip.map((el) => {
-            //         // if (t !== el.type) {
-            //         //     setDisabled(true)
-            //         //     setType(0)
-            //         // }
-            //         // else {
-            //             if (e !== el.mid) {
-            //                 setDisabled(false)
-            //                 setType(1)
-            //             }
-            //             else {
-            //                 setDisabled(true)
-            //                 setType(0)
-            //             }
-            //         // }
-            //
-            //         return null
-            //     });
-            // }
         }
         else {
             setType(0)
@@ -301,8 +277,6 @@ const Betslip = () => {
     }, [betslip, type])
 
     useEffect(() => {
-        // console.log(betslip, stake)
-
         if (betslip.length === 0 && stake.length === 0) {
             setDisabled(true)
             setInit(false)
@@ -356,7 +330,7 @@ const Betslip = () => {
             {
                 (ticket.toggle === 0 && betslip.length) &&
                 <div className={style.stake}>
-                    <div>Total Stake</div>
+                    <div>{t('interface.total_stake')}</div>
                     {
                         type === 0 &&
                         <div>{balance.account.symbol} {getTotalStakeSingle(betslip).toFixed(2)}</div>

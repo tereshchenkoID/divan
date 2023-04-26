@@ -1,3 +1,5 @@
+import {useTranslation} from "react-i18next";
+
 import classNames from "classnames";
 
 import style from './index.module.scss';
@@ -7,6 +9,8 @@ const Types = ({
     setType,
     disabled
 }) => {
+    const { t } = useTranslation()
+
     return (
         <div className={style.block}>
             <button
@@ -21,7 +25,7 @@ const Types = ({
                 }}
                 aria-label={'Single'}
             >
-                Single
+                {t('interface.single')}
             </button>
             <button
                 className={
@@ -36,7 +40,7 @@ const Types = ({
                 }}
                 aria-label={'System'}
             >
-                System
+                {t('interface.system')}
             </button>
         </div>
     );
