@@ -62,7 +62,8 @@
     "show": "Show UA",
     "hide": "Hide UA",
     "general_settings": "General settings UA",
-    "jackpot": "Jackpot UA"
+    "jackpot": "Jackpot UA",
+    "skip_next_game": "Skip Next game UA"
   },
   "games": {
     "FOOTBALL_LEAGUE": {

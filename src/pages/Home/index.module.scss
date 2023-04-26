@@ -19,8 +19,22 @@
 }
 
 .column {
-  height: 100%;
   overflow: hidden;
+  height: 100%;
+}
+
+.table {
+  position: relative;
+  min-height: rem(690px);
+  height: 100%;
+  text-transform: uppercase;
+  text-align: center;
+  font-weight: var(--typography-bold);
+}
+
+.banners {
+  position: absolute;
+  left: rem(395px);
 }
 
 .decor {

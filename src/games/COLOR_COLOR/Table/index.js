@@ -7,7 +7,6 @@ import classNames from "classnames";
 import {setData} from "store/actions/dataAction";
 
 import Loader from "components/Loader";
-import JackPot from "modules/JackPot";
 import TableChips from "./TableChips";
 
 import style from "./index.module.scss";
@@ -57,9 +56,6 @@ const Table = () => {
                         />
                     :
                         <>
-                            <div className={style.banners}>
-                                <JackPot />
-                            </div>
                             <div className={style.tab}>
                                 <button
                                     className={

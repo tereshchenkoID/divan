@@ -1,6 +1,10 @@
+import {useTranslation} from "react-i18next";
+
 import style from './index.module.scss';
 
 const Modal = ({action}) => {
+    const { t } = useTranslation()
+
     return (
         <div className={style.block}>
             <button
@@ -9,7 +13,7 @@ const Modal = ({action}) => {
                     action()
                 }}
             >
-                Skip Next game
+                {t('interface.skip_next_game')}
             </button>
         </div>
     );

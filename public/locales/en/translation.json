@@ -62,7 +62,8 @@
     "show": "Show",
     "hide": "Hide",
     "general_settings": "General settings",
-    "jackpot": "Jackpot"
+    "jackpot": "Jackpot",
+    "skip_next_game": "Skip Next game"
   },
   "games": {
     "FOOTBALL_LEAGUE": {

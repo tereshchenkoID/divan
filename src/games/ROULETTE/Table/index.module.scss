@@ -1,12 +1,7 @@
 @import "scss/config";
 
 .block {
-  position: relative;
-  min-height: rem(690px);
-  height: 100%;
-  text-transform: uppercase;
-  text-align: center;
-  font-weight: var(--typography-bold);
+  @include size(100%);
 }
 
 .info {
@@ -25,10 +20,6 @@
   img {
     @include size(100%);
   }
-}
-
-.banners {
-  @include banners;
 }
 
 .tab {

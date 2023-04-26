@@ -14,8 +14,6 @@ import Notification from "modules/Notification";
 import style from './index.module.scss';
 
 const Login = () => {
-    //cashier131
-    //qwe123
     const dispatch = useDispatch()
     const {notification} = useSelector((state) => state.notification)
     const [login, setLogin] = useState('')

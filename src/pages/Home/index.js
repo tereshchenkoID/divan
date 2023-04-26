@@ -10,17 +10,15 @@ import COLOR_COLOR from "games/COLOR_COLOR";
 import ROULETTE from "games/ROULETTE";
 import KENO from "games/KENO";
 import DOGS_6 from "games/DOGS_6";
-
 import Loader from "components/Loader";
 import Nav from "components/Nav";
-
 import Betslip from "modules/Betslip";
 import Notification from "modules/Notification";
 
 import style from './index.module.scss';
+import JackPot from "../../modules/JackPot";
 
 const setGame = (id) => {
-
     switch (id) {
         case gameType.FOOTBALL_LEAGUE:
             return <FOOTBALL_LEAGUE />
@@ -74,10 +72,16 @@ const Home = () => {
                         <Nav />
                         <div className={style.content}>
                             <div className={style.column}>
-                                {
-                                    game &&
-                                    setGame(game.type)
-                                }
+                                <div className={style.banners}>
+                                    <JackPot />
+                                </div>
+
+                                <div className={style.table}>
+                                    {
+                                        game &&
+                                        setGame(game.type)
+                                    }
+                                </div>
                             </div>
                             <div className={style.column}>
                                 <Betslip />
