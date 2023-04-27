@@ -1,4 +1,16 @@
 {
+  "notification": {
+    "old_password_invalid": "Old password invalid UA",
+    "type_old_password": "Type old password UA",
+    "password_dont_match": "Password don`t match UA",
+    "password_changed": "Password changed UA",
+    "saved": "Saved UA",
+    "something_wrong": "Something wrong UA",
+    "ticket_not_found": "Ticket not found UA",
+    "please_pick_up_bet": "Please pick up a bet to start UA",
+    "stake_already_exists": "Stake already exists UA",
+    "stake_lower_upper": "Stake per bet is lower than minimum ${symbol} ${min} or upper than maximum ${symbol} ${max} UA"
+  },
   "interface": {
     "live": "live UA",
     "results": "results UA",

@@ -217,7 +217,7 @@ const TableChips = ({random, t}) => {
             setNumbers([])
         }
         else {
-            dispatch(setNotification('Stake already exists'))
+            dispatch(setNotification(t('notification.stake_already_exists')))
         }
     }
 

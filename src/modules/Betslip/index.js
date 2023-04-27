@@ -113,15 +113,16 @@ const Betslip = () => {
                         dispatch(setStake([]))
                     }
                     else {
-                        dispatch(setNotification(`
-                            Stake per bet is lower than minimum ${settings.account.symbol} ${min} 
-                            or upper than maximum ${settings.account.symbol} ${max}`
+                        dispatch(setNotification(t('notification.stake_lower_upper')
+                            .replaceAll('${symbol}', settings.account.symbol)
+                            .replace('${min}', min)
+                            .replace('${max}', max)
                         ))
                     }
                 })
         }
         else {
-            dispatch(setNotification('Please pick up a bet to start'))
+            dispatch(setNotification(t('notification.please_pick_up_bet')))
         }
     }
 
@@ -133,7 +134,7 @@ const Betslip = () => {
                 }
             }
             else {
-                dispatch(setNotification(json.data.error_message || 'Ticket not found'))
+                dispatch(setNotification(t('notification.ticket_not_found')))
             }
         })
     }

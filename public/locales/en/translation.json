@@ -1,4 +1,16 @@
 {
+  "notification": {
+    "old_password_invalid": "Old password invalid",
+    "type_old_password": "Type old password",
+    "password_dont_match": "Password don`t match",
+    "password_changed": "Password changed",
+    "saved": "Saved",
+    "something_wrong": "Something wrong",
+    "ticket_not_found": "Ticket not found",
+    "please_pick_up_bet": "Please pick up a bet to start",
+    "stake_already_exists": "Stake already exists",
+    "stake_lower_upper": "Stake per bet is lower than minimum ${symbol} ${min} or upper than maximum ${symbol} ${max}"
+  },
   "interface": {
     "live": "live",
     "results": "results",

@@ -35,7 +35,7 @@ const TicketModal = ({id, action}) => {
                 setData(json)
             }
             else {
-                dispatch(setNotification(json.data.error_message || 'Ticket not found'))
+                dispatch(setNotification(t('notification.ticket_not_found')))
             }
         })
     }
@@ -51,7 +51,7 @@ const TicketModal = ({id, action}) => {
                 setType(json.stake.group.length > 0 ? 1 : 0)
             }
             else {
-                dispatch(setNotification(json.data.error_message || 'Ticket not found'))
+                dispatch(setNotification(t('notification.ticket_not_found')))
             }
         })
     }

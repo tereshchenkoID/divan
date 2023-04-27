@@ -2,6 +2,7 @@ import {useEffect, useRef, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {useReactToPrint} from "react-to-print";
 import {useTranslation} from "react-i18next";
+import i18n from 'i18next'
 
 import {printMode, oddsType} from "constant/config";
 
@@ -40,10 +41,10 @@ const SettingsModal = ({action}) => {
             }))
             .then((json) => {
                 if (json.code === 'OK') {
-                    dispatch(setNotification('Saved'))
+                    dispatch(setNotification(t('notification.saved')))
                 }
                  else {
-                    dispatch(setNotification(json.error_message || 'Something wrong'))
+                    dispatch(setNotification(t('notification.something_wrong')))
                 }
             })
     }
@@ -57,7 +58,7 @@ const SettingsModal = ({action}) => {
                 }
             }
             else {
-                dispatch(setNotification(json.data.error_message || 'Ticket not found'))
+                dispatch(setNotification(t('notification.ticket_not_found')))
             }
         })
     }
@@ -119,7 +120,7 @@ const SettingsModal = ({action}) => {
                             </div>
                             <div className={style.row}>
                                 <div className={style.cell}>{t('interface.language')}</div>
-                                <div className={style.cell}>En</div>
+                                <div className={style.cell}>{i18n.language}</div>
                                 <div className={style.cell} />
                             </div>
                             <div className={style.row}>

@@ -126,26 +126,6 @@ const Table = () => {
                                             >
                                                 3x
                                             </button>
-                                            <button
-                                                className={
-                                                    classNames(
-                                                        style.market,
-                                                        style.disabled
-                                                    )
-                                                }
-                                            >
-                                                4x
-                                            </button>
-                                            <button
-                                                className={
-                                                    classNames(
-                                                        style.market,
-                                                        style.disabled
-                                                    )
-                                                }
-                                            >
-                                                5x
-                                            </button>
                                         </div>
                                     </div>
                                     <div className={style.wrapper}>

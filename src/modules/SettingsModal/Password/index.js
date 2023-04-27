@@ -33,18 +33,18 @@ const Password = ({action}) => {
                 }))
                 .then((json) => {
                     if (json.hasOwnProperty('data')) {
-                        dispatch(setNotification(json.data.error_message || 'Old password invalid'))
+                        dispatch(setNotification(t('notification.old_password_invalid')))
                     }
                     else {
-                        dispatch(setNotification('Password changed'))
+                        dispatch(setNotification(t('notification.password_changed')))
                     }
                 })
         }
         else if(oldPassword.length < 4) {
-            dispatch(setNotification('Type old password'))
+            dispatch(setNotification(t('notification.type_old_password')))
         }
         else {
-            dispatch(setNotification('Password don`t match'))
+            dispatch(setNotification(t('notification.password_dont_match')))
         }
     }
 

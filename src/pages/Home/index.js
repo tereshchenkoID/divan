@@ -1,5 +1,6 @@
 import {useState, useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
+import i18n from 'i18next'
 
 import {gameType} from "constant/config";
 
@@ -14,9 +15,9 @@ import Loader from "components/Loader";
 import Nav from "components/Nav";
 import Betslip from "modules/Betslip";
 import Notification from "modules/Notification";
+import JackPot from "modules/JackPot";
 
 import style from './index.module.scss';
-import JackPot from "../../modules/JackPot";
 
 const setGame = (id) => {
     switch (id) {
@@ -47,6 +48,7 @@ const Home = () => {
                 sessionStorage.clear()
             }
             else {
+                i18n.changeLanguage(json.account.language || 'en');
                 setLoading(false)
             }
         })
