@@ -2,10 +2,9 @@ import {useEffect, useState} from "react";
 
 import classNames from "classnames";
 
-import {colorType} from "constant/config";
+import Number from "../../Number";
 
 import style from './index.module.scss';
-import Number from "../../Number";
 
 const Odd = ({
    data,
@@ -23,7 +22,7 @@ const Odd = ({
 
     const addSingleStake = (el, o = '') => {
         const f = date.find(i => {
-            return i.print === `${colorType.COLOR}: ${el.a}`
+            return i.id === el.id
         })
 
         if (f) {
@@ -32,6 +31,7 @@ const Odd = ({
         }
         else {
             action([...date, {
+                id: el.id,
                 b: el.b || 0,
                 outcome: el.a,
                 color: o,

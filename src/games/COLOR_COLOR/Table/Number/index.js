@@ -14,7 +14,7 @@ const Number = ({data, color, size}) => {
                 )
             }
         >
-            {!size && (data.id || data.a)}
+            {!size && (data.a || data.id)}
         </span>
     );
 }

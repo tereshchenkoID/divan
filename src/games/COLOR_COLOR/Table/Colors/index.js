@@ -8,7 +8,7 @@ const Colors = ({data, colors, setColors}) => {
         <div className={style.block}>
             <div>
                 {
-                    data.event.d.b.map((el, idx) =>
+                    data.round.odds.markets[3].outcomes.map((el, idx) =>
                         <div
                             key={idx}
                             className={style.cell}
@@ -19,7 +19,7 @@ const Colors = ({data, colors, setColors}) => {
                                 size={'lg'}
                                 date={colors}
                                 action={setColors}
-                                market={data.event.d.a}
+                                market={data.round.odds.markets[3].name}
                             />
                         </div>
                     )
@@ -28,7 +28,7 @@ const Colors = ({data, colors, setColors}) => {
             <div>
                 <div>
                     {
-                        data.event.e.b.map((el, idx) =>
+                        data.round.odds.markets[4].outcomes.map((el, idx) =>
                             <div
                                 key={idx}
                                 className={style.cell}
@@ -38,7 +38,7 @@ const Colors = ({data, colors, setColors}) => {
                                     color={'blue'}
                                     date={colors}
                                     action={setColors}
-                                    market={data.event.e.a}
+                                    market={data.round.odds.markets[4].name}
                                 />
                             </div>
                         )
@@ -46,7 +46,7 @@ const Colors = ({data, colors, setColors}) => {
                 </div>
                 <div>
                     {
-                        data.event.f.b.map((el, idx) =>
+                        data.round.odds.markets[5].outcomes.map((el, idx) =>
                             <div
                                 key={idx}
                                 className={style.cell}
@@ -56,7 +56,7 @@ const Colors = ({data, colors, setColors}) => {
                                     color={'red'}
                                     date={colors}
                                     action={setColors}
-                                    market={data.event.f.a}
+                                    market={data.round.odds.markets[5].name}
                                 />
                             </div>
                         )
@@ -64,7 +64,7 @@ const Colors = ({data, colors, setColors}) => {
                 </div>
                 <div>
                     {
-                        data.event.g.b.map((el, idx) =>
+                        data.round.odds.markets[6].outcomes.map((el, idx) =>
                             <div
                                 key={idx}
                                 className={style.cell}
@@ -74,7 +74,7 @@ const Colors = ({data, colors, setColors}) => {
                                     color={'yellow'}
                                     date={colors}
                                     action={setColors}
-                                    market={data.event.g.a}
+                                    market={data.round.odds.markets[6].name}
                                 />
                             </div>
                         )

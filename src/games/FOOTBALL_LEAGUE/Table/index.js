@@ -230,7 +230,8 @@ const Table = () => {
                                         <div className={style.info}>
                                             <div className={style.league}>
                                                 <img
-                                                    src={`https://view.divan.bet/engine/shop/resource/${data.events[active].league.img}`}
+                                                    // src={`https://view.divan.bet/engine/shop/resource/${data.events[active].league.img}`}
+                                                    src={`https://view.divan.bet/engine/shop/resource/${game.logo}`}
                                                     alt={data.events[active].league.name}
                                                 />
                                             </div>

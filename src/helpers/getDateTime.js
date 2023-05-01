@@ -16,4 +16,7 @@ export const getDateTime = (data, type) => {
     else if(type === 2) {
         return `${date}/${month}/${year}`
     }
+    if (type === 3) {
+        return `${hours}:${minutes}`
+    }
 }

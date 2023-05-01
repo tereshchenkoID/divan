@@ -5,6 +5,7 @@ import {useTranslation} from "react-i18next";
 import classNames from "classnames";
 
 import {setData} from "store/actions/dataAction";
+import {getDateTime} from "helpers/getDateTime";
 
 import Loader from "components/Loader";
 import TableChips from "./TableChips";
@@ -13,9 +14,12 @@ import style from "./index.module.scss";
 
 const Table = () => {
     const { t } = useTranslation()
-    const SORT = [5, 6, 7, 8, 9, 10, 15, 20]
+    const SORT = [5, 6, 7, 8, 9, 10]
     const dispatch = useDispatch()
+    const {data} = useSelector((state) => state.data)
     const {game} = useSelector((state) => state.game)
+    const [active, setActive] = useState(0)
+    const [repeat, setRepeat] = useState(1)
     const [loading, setLoading] = useState(true)
     const [random, setRandom] = useState([])
 
@@ -37,7 +41,7 @@ const Table = () => {
 
             dispatch(setData(game)).then((json) => {
                 if (json.events.length > 0) {
-                    const f = json.events[0]
+                    setActive(json.events[0])
                 }
 
                 setLoading(false)
@@ -57,20 +61,29 @@ const Table = () => {
                     :
                         <>
                             <div className={style.tab}>
-                                <button
-                                    className={
-                                        classNames(
-                                            style.link
-                                        )
-                                    }
-                                 >
-                                    16:44
-                                </button>
+                                {
+                                    data.events.map((el, idx) =>
+                                        <button
+                                            key={idx}
+                                            className={
+                                                classNames(
+                                                    style.link,
+                                                    el.id === active.id && style.active
+                                                )
+                                            }
+                                            onClick={() => {
+                                                setActive(el)
+                                            }}
+                                        >
+                                            {getDateTime(el.start, 3)}
+                                        </button>
+                                    )
+                                }
                             </div>
                             <div className={style.info}>
                                 <div className={style.league}>
                                     <img
-                                        src={`/img/ROULETTE/logo.png`}
+                                        src={`https://view.divan.bet/engine/shop/resource/${game.logo}`}
                                         alt={'Roulette'}
                                     />
                                 </div>
@@ -96,41 +109,30 @@ const Table = () => {
                                             }
                                         </div>
                                         <div className={style.sort}>
-                                            <button
-                                                className={
-                                                    classNames(
-                                                        style.market,
-                                                        style.active
-                                                    )
-                                                }
-                                            >
-                                                1x
-                                            </button>
-                                            <button
-                                                className={
-                                                    classNames(
-                                                        style.market,
-                                                        style.active
-                                                    )
-                                                }
-                                            >
-                                                2x
-                                            </button>
-                                            <button
-                                                className={
-                                                    classNames(
-                                                        style.market,
-                                                        style.disabled
-                                                    )
-                                                }
-                                            >
-                                                3x
-                                            </button>
+                                            {
+                                                data.events.map((el, idx) =>
+                                                    <button
+                                                        key={idx}
+                                                        className={
+                                                            classNames(
+                                                                style.market,
+                                                                idx + 1 === repeat && style.active
+                                                            )
+                                                        }
+                                                        onClick={() => {
+                                                            setRepeat(idx + 1)
+                                                        }}
+                                                    >
+                                                        {idx + 1}x
+                                                    </button>
+                                                )
+                                            }
                                         </div>
                                     </div>
                                     <div className={style.wrapper}>
                                         <TableChips
                                             random={random}
+                                            data={active}
                                             t={t}
                                         />
                                     </div>
