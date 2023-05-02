@@ -1,0 +1,23 @@
+@import "scss/config";
+
+.block {
+  @include flex(center, center, column);
+  @include size(rem(95px));
+
+  border-radius: 50%;
+  filter: drop-shadow(0 0 0.5px rgba(0, 0, 0, 0.56));
+  box-shadow: inset 0 3px 3.5px rgba(0, 0, 0, 0.18);
+  background-image: linear-gradient(0deg, #294329 0%, #00a900 52%, #00a900 100%);
+  text-align: center;
+  color: var(--color-white);
+}
+
+.top {
+  font-size: rem(24px);
+  font-weight: var(--typography-bold);
+}
+
+.bottom {
+  min-height: rem(25px);
+  font-size: rem(14px);
+}
