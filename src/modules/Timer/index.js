@@ -12,7 +12,7 @@ import ResultTimer from "./ResultTimer";
 
 import style from './index.module.scss';
 
-const Timer = ({data}) => {
+const Timer = ({data, type}) => {
     const dispatch = useDispatch()
     const {live} = useSelector((state) => state.live)
     const {update} = useSelector((state) => state.update)
@@ -56,6 +56,7 @@ const Timer = ({data}) => {
                                 start={update.event.start}
                                 end={update.event.nextUpdate}
                                 delta={delta}
+                                type={type}
                             />
                         }
                         {

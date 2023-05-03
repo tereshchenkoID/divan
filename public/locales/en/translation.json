@@ -9,7 +9,8 @@
     "ticket_not_found": "Ticket not found",
     "please_pick_up_bet": "Please pick up a bet to start",
     "stake_already_exists": "Stake already exists",
-    "stake_lower_upper": "Stake per bet is lower than minimum ${symbol} ${min} or upper than maximum ${symbol} ${max}"
+    "stake_lower_upper": "Stake per bet is lower than minimum ${symbol} ${min} or upper than maximum ${symbol} ${max}",
+    "events_not_found": "Events not found"
   },
   "interface": {
     "live": "live",

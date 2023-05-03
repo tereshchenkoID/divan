@@ -1,5 +1,6 @@
 import {useState, useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
+import {useTranslation} from "react-i18next";
 
 import classNames from "classnames";
 
@@ -10,6 +11,7 @@ import {setModal} from "store/actions/modalAction";
 import {matchStatus} from "constant/config";
 
 import Alert from "modules/Alert";
+import SkipModal from "modules/SkipModal";
 import Loader from "components/Loader";
 import Icon from "components/Icon";
 
@@ -19,7 +21,6 @@ import Update from "games/FOOTBALL_LEAGUE/Update";
 
 import Odd from "./Odd";
 import Subtitle from "./Subtitle";
-import Modal from "./Modal";
 
 import style from './index.module.scss';
 
@@ -37,6 +38,7 @@ const conditionStatus = (data) => {
 }
 
 const Table = () => {
+    const { t } = useTranslation()
     const dispatch = useDispatch()
     const {game} = useSelector((state) => state.game)
     const {data} = useSelector((state) => state.data)
@@ -184,7 +186,7 @@ const Table = () => {
                                 <>
                                     {
                                         modal === 1 &&
-                                        <Modal action={handleNext} />
+                                        <SkipModal action={handleNext} />
                                     }
                                     {
                                         (live === 0 || live === 1) &&
@@ -230,7 +232,6 @@ const Table = () => {
                                         <div className={style.info}>
                                             <div className={style.league}>
                                                 <img
-                                                    // src={`https://view.divan.bet/engine/shop/resource/${data.events[active].league.img}`}
                                                     src={`https://view.divan.bet/engine/shop/resource/${game.logo}`}
                                                     alt={data.events[active].league.name}
                                                 />
@@ -537,7 +538,7 @@ const Table = () => {
                                 </>
                             :
                                 <Alert
-                                    text={'Events not found'}
+                                    text={t('notification.events_not_found')}
                                     type={'default'}
                                 />
             }

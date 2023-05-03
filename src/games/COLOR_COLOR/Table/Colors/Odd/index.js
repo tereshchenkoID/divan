@@ -22,7 +22,7 @@ const Odd = ({
 
     const addSingleStake = (el, o = '') => {
         const f = date.find(i => {
-            return i.id === el.id
+            return (i.id === el.id)
         })
 
         if (f) {

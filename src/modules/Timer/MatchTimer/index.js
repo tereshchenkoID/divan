@@ -1,12 +1,13 @@
 import {useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
 
+import {gameType} from "constant/config";
+
 import {setLive} from "store/actions/liveAction";
 import {setLiveTimer} from "store/actions/liveTimerAction";
 
-const MAX = 90
-
-const getDifferent = (start, end, delta) => {
+const getDifferentPeriod = (start, end, delta) => {
+    const MAX = 90
     const c = new Date().getTime() + delta
 
     let r = 0,
@@ -20,19 +21,40 @@ const getDifferent = (start, end, delta) => {
     return result
 }
 
-const MatchTimer = ({start, end, delta}) => {
+const getDifferentGame = (end, delta) => {
+    const c = new Date().getTime() + delta
+    let r = 0, result = '0'
+
+    if (end > c) {
+        r = new Date(end - c)
+        result = `${('0' + r.getMinutes()).slice(-2)}:${('0' + r.getSeconds()).slice(-2)}`
+    }
+
+    return result
+}
+
+const checkType = (start, end, delta, type) => {
+    if (type === gameType.FOOTBALL_LEAGUE) {
+        return getDifferentPeriod(start, end, delta)
+    }
+    else {
+        return getDifferentGame(end, delta)
+    }
+}
+
+const MatchTimer = ({start, end, delta, type}) => {
     const dispatch = useDispatch()
     const [timer, setTimer] = useState('')
 
     useEffect(() => {
-        let r = getDifferent(start, end, delta)
+        let r = checkType(start, end, delta, type)
         dispatch(setLiveTimer(r))
         setTimer(`${r}'`)
     }, [start, delta])
 
     useEffect(() => {
         const a = setInterval(() => {
-            let r = getDifferent(start, end, delta)
+            let r = checkType(start, end, delta, type)
             dispatch(setLiveTimer(r))
             setTimer(`${r}'`)
 

@@ -42,8 +42,8 @@ const ResultTimer = ({end, delta}) => {
 
     return (
         <>
-            <div>{timer}</div>
             <div>Results</div>
+            <div>{timer}</div>
         </>
     );
 }

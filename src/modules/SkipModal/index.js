@@ -2,7 +2,7 @@ import {useTranslation} from "react-i18next";
 
 import style from './index.module.scss';
 
-const Modal = ({action}) => {
+const SkipModal = ({action}) => {
     const { t } = useTranslation()
 
     return (
@@ -19,4 +19,4 @@ const Modal = ({action}) => {
     );
 }
 
-export default Modal;
+export default SkipModal;

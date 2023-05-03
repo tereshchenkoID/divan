@@ -24,8 +24,9 @@ const getValue = (data, key) => {
     return r.join(', ')
 }
 
-const defaultProps = (id, start) => {
+const defaultProps = (id, start, roundId) => {
     return {
+        roundId: roundId,
         id: id,
         start: start,
         stake: 100,
@@ -37,7 +38,7 @@ const findExists = (data, betslip) => {
     const r = []
 
     data.map(el => {
-        const d = betslip.find(f => f.print === el.print)
+        const d = betslip.find(f => f.print === el.print && f.roundId === el.roundId)
         if (!d) {
             r.push(el)
         }
@@ -75,7 +76,7 @@ const TableChips = ({random, t, data}) => {
         return f
             ?
                 {
-                    ...defaultProps(f.id, data.start),
+                    ...defaultProps(f.id, data.start, data.id),
                     b: f.b || 0,
                     m_old: data.round.odds.markets[1].name,
                     o_old: o,
@@ -92,7 +93,7 @@ const TableChips = ({random, t, data}) => {
             const o = getValue(numbers, 'id')
 
             r.push({
-                ...defaultProps(data.round.odds.markets[0].outcomes[el - 1].id, data.start),
+                ...defaultProps(data.round.odds.markets[0].outcomes[el - 1].id, data.start, data.id),
                 b: data.round.odds.markets[0].outcomes[el - 1].b || 0,
                 m_old: data.round.odds.markets[0].name,
                 o_old: o,
@@ -114,7 +115,7 @@ const TableChips = ({random, t, data}) => {
             const o = getValue(numbers, 'id')
 
             r.push({
-                ...defaultProps(f.id, data.start),
+                ...defaultProps(f.id, data.start, data.id),
                 b: f.b || 0,
                 m_old: data.round.odds.markets[2].name,
                 o_old: o,
@@ -130,7 +131,7 @@ const TableChips = ({random, t, data}) => {
 
         colors.map(el => {
             r.push({
-                ...defaultProps(el.id, data.start),
+                ...defaultProps(el.id, data.start, data.id),
                 b: el.b,
                 m_old: el.market,
                 o_old: el.outcome,
