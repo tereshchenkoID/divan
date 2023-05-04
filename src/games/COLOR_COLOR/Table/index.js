@@ -66,6 +66,8 @@ const Table = () => {
         setActive(data.events[1])
         dispatch(setModal(0))
         dispatch(setLive(1))
+        setRepeat(1)
+        setRandom([])
     }
 
     const checkStatus = (el) => {
@@ -154,6 +156,8 @@ const Table = () => {
                                                         checkStatus(el)
                                                         setActive(el)
                                                         resetActive()
+
+                                                        console.log(live)
                                                     }}
                                                 >
                                                     {getDateTime(el.start, 3)}
@@ -203,6 +207,7 @@ const Table = () => {
                                                                     className={
                                                                         classNames(
                                                                             style.market,
+                                                                            (find && idx === data.events.length - 1) && style.disabled,
                                                                             idx + 1 === repeat && style.active
                                                                         )
                                                                     }
@@ -223,6 +228,8 @@ const Table = () => {
                                                 live === 1
                                                 ?
                                                     <TableChips
+                                                        events={data.events}
+                                                        repeat={repeat}
                                                         random={random}
                                                         data={active}
                                                         t={t}

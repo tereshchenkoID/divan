@@ -24,8 +24,6 @@ const UpdateData = ({find, active, setActive, setFind}) => {
         setFind(null)
     }
 
-    console.log(active)
-
     useEffect(() => {
         let a, b, c
         if (find.status === matchStatus.ANNOUNCEMENT) {

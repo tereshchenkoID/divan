@@ -60,6 +60,9 @@
 
 .market {
   @include ellipsis;
+  @include flex($align-items: center, $wrap: wrap);
+
+  gap: rem(5px);
 }
 
 .odd {
@@ -121,4 +124,14 @@
       text-align: right;
     }
   }
+}
+
+.circles {
+  @include flex($align-items: center, $wrap: wrap);
+
+  gap: rem(5px);
+}
+
+.circle {
+  @include circle;
 }

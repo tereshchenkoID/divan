@@ -128,20 +128,43 @@ const Bet = ({data, betslip, type, setInit, setDisabled}) => {
                     </div>
                 }
                 <div className={style.market}>
+                    <span>
+                        {
+                            data.type === gameType.FOOTBALL_LEAGUE && `${data.market.replaceAll('_', ' ')}:${data.c || data.a}`
+                        }
+                        {
+                            data.type === gameType.ROULETTE && (data.print || data.market).replace('_', '/')
+                        }
+                        {
+                            data.type === gameType.COLOR_COLOR && data.print.replace('_', '/')
+                        }
+                        {
+                            data.type === gameType.KENO && data.print
+                        }
+                        {
+                            data.type === gameType.DOGS_6 && data.print
+                        }
+                    </span>
                     {
-                        data.type === gameType.FOOTBALL_LEAGUE && `${data.market.replaceAll('_', ' ')}:${data.c || data.a}`
-                    }
-                    {
-                        data.type === gameType.ROULETTE && (data.print || data.market).replace('_', '/')
-                    }
-                    {
-                        data.type === gameType.COLOR_COLOR && data.print.replace('_', '/')
-                    }
-                    {
-                        data.type === gameType.KENO && data.print
-                    }
-                    {
-                        data.type === gameType.DOGS_6 && data.print
+                        data.circles &&
+                        <div className={style.circles}>
+                            {
+                                data.circles.map((el, idx) =>
+                                    <div
+                                        key={idx}
+                                        className={
+                                            classNames(
+                                                style.circle,
+                                                style.sm,
+                                                style[el.color.toLowerCase()]
+                                            )
+                                        }
+                                    >
+                                        {el.id.toString().length < 3 && el.id}
+                                    </div>
+                                )
+                            }
+                        </div>
                     }
                 </div>
                 <div className={style.odd}>{data.b}</div>

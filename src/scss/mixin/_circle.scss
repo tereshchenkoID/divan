@@ -37,6 +37,17 @@
     background-color: #101010;
   }
 
+  &.sm {
+    @include size(rem(20px));
+
+    font-size: rem(11px);
+    letter-spacing: 0;
+
+    &::before {
+      @include size(rem(15px));
+    }
+  }
+
   &.lg {
     @include size(rem(67px));
 

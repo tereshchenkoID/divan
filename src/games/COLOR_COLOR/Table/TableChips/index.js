@@ -49,7 +49,7 @@ const findExists = (data, betslip) => {
     return r
 }
 
-const TableChips = ({random, t, data}) => {
+const TableChips = ({events, repeat, random, t, data}) => {
     const dispatch = useDispatch()
     const {betslip} = useSelector((state) => state.betslip)
     const [colors, setColors] = useState([])
@@ -70,37 +70,52 @@ const TableChips = ({random, t, data}) => {
     }, [colors, numbers, type])
 
     const ANACONDA = () => {
-        const o = getValue(numbers, 'id')
-        const f = data.round.odds.markets[1].outcomes.find(el => el.a === `${numbers.length}_6`)
+        const r = []
 
-        return f
-            ?
-                {
-                    ...defaultProps(f.id, data.start, data.id),
-                    b: f.b || 0,
-                    m_old: data.round.odds.markets[1].name,
-                    o_old: o,
-                    market: data.round.odds.markets[1].name,
-                    print: `${data.round.odds.markets[1].printname}: ${o}`
+        events.map((round, idx) => {
+            if (idx < repeat) {
+                const o = getValue(numbers, 'id')
+                const f = round.round.odds.markets[1].outcomes.find(el => el.a === `${numbers.length}_6`)
+
+                if (f) {
+                    r.push({
+                        ...defaultProps(f.id, round.start, round.id),
+                        b: f.b || 0,
+                        m_old: round.round.odds.markets[1].name,
+                        o_old: o,
+                        circles: numbers,
+                        market: round.round.odds.markets[1].name,
+                        print: round.round.odds.markets[1].printname
+                    })
                 }
-            :
-                null
+            }
+            return true
+        })
+
+        return r
     }
 
     const MATCHED = () => {
         const r = []
-        type.map(el => {
-            const o = getValue(numbers, 'id')
 
-            r.push({
-                ...defaultProps(data.round.odds.markets[0].outcomes[el - 1].id, data.start, data.id),
-                b: data.round.odds.markets[0].outcomes[el - 1].b || 0,
-                m_old: data.round.odds.markets[0].name,
-                o_old: o,
-                market: data.round.odds.markets[0].name,
-                print: `${data.round.odds.markets[0].printname}: (${data.round.odds.markets[0].outcomes[el - 1].a}) ${o}`
-            })
+        events.map((round, idx) => {
+            if (idx < repeat) {
+                type.map(el => {
+                    const o = getValue(numbers, 'id')
 
+                    r.push({
+                        ...defaultProps(round.round.odds.markets[0].outcomes[el - 1].id, round.start, round.id),
+                        b: round.round.odds.markets[0].outcomes[el - 1].b || 0,
+                        m_old: round.round.odds.markets[0].name,
+                        o_old: o,
+                        circles: numbers,
+                        market: round.round.odds.markets[0].name,
+                        print: `${round.round.odds.markets[0].printname}: (${round.round.odds.markets[0].outcomes[el - 1].a})`
+                    })
+
+                    return true
+                })
+            }
             return true
         })
 
@@ -109,35 +124,57 @@ const TableChips = ({random, t, data}) => {
 
     const BET_ZERO = () => {
         const r = []
-        const f = data.round.odds.markets[2].outcomes.find(el => parseInt(el.a, 10) === numbers.length)
 
-        if (f) {
-            const o = getValue(numbers, 'id')
+        events.map((round, idx) => {
+            if (idx < repeat) {
+                const f = round.round.odds.markets[2].outcomes.find(el => parseInt(el.a, 10) === numbers.length)
 
-            r.push({
-                ...defaultProps(f.id, data.start, data.id),
-                b: f.b || 0,
-                m_old: data.round.odds.markets[2].name,
-                o_old: o,
-                market: data.round.odds.markets[2].name,
-                print: `${data.round.odds.markets[2].printname}: ${o}`
-            })
-        }
+                if (f) {
+                    const o = getValue(numbers, 'id')
+
+                    r.push({
+                        ...defaultProps(f.id, round.start, round.id),
+                        b: f.b || 0,
+                        m_old: round.round.odds.markets[2].name,
+                        o_old: o,
+                        circles: numbers,
+                        market: round.round.odds.markets[2].name,
+                        print: round.round.odds.markets[2].printname
+                    })
+                }
+            }
+
+            return true
+        })
+
         return r
     }
 
     const COLOR = () => {
         const r = []
 
-        colors.map(el => {
-            r.push({
-                ...defaultProps(el.id, data.start, data.id),
-                b: el.b,
-                m_old: el.market,
-                o_old: el.outcome,
-                market: el.market,
-                print: `${colorType.COLOR}: ${el.outcome} ${el.color.toUpperCase()}`
-            })
+        events.map((round, idx) => {
+            if (idx < repeat) {
+                colors.map(el => {
+
+                    r.push({
+                        ...defaultProps(el.id, round.start, round.id),
+                        b: el.b,
+                        m_old: el.market,
+                        o_old: el.outcome,
+                        market: el.market,
+                        circles: [
+                            {
+                                id: el.outcome,
+                                color: el.color
+                            }
+                        ],
+                        print: colorType.COLOR
+                    })
+
+                    return true
+                })
+            }
 
             return true
         })
@@ -171,8 +208,6 @@ const TableChips = ({random, t, data}) => {
         setColors([])
         setNumbers([])
         setType('')
-
-        console.log(betslip)
     }
 
     return (
