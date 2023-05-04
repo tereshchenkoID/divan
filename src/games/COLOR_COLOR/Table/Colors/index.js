@@ -20,6 +20,7 @@ const Colors = ({data, colors, setColors}) => {
                                 date={colors}
                                 action={setColors}
                                 market={data.round.odds.markets[3].name}
+                                print={data.round.odds.markets[3].printname}
                             />
                         </div>
                     )
@@ -39,6 +40,7 @@ const Colors = ({data, colors, setColors}) => {
                                     date={colors}
                                     action={setColors}
                                     market={data.round.odds.markets[4].name}
+                                    print={data.round.odds.markets[4].printname}
                                 />
                             </div>
                         )
@@ -57,6 +59,7 @@ const Colors = ({data, colors, setColors}) => {
                                     date={colors}
                                     action={setColors}
                                     market={data.round.odds.markets[5].name}
+                                    print={data.round.odds.markets[5].printname}
                                 />
                             </div>
                         )
@@ -75,6 +78,7 @@ const Colors = ({data, colors, setColors}) => {
                                     date={colors}
                                     action={setColors}
                                     market={data.round.odds.markets[6].name}
+                                    print={data.round.odds.markets[6].printname}
                                 />
                             </div>
                         )

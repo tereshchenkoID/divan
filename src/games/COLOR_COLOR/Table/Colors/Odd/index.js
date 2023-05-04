@@ -12,7 +12,8 @@ const Odd = ({
    size = null,
    date,
    action,
-   market
+   market,
+   print
 }) => {
     const [active, setActive] = useState(false)
 
@@ -35,7 +36,8 @@ const Odd = ({
                 b: el.b || 0,
                 outcome: el.a,
                 color: o,
-                market: market
+                market,
+                print
             }])
         }
 

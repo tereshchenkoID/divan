@@ -12,16 +12,17 @@ import progressTimer from "./progressTimer";
 
 import {setLive} from "store/actions/liveAction";
 
-const UpdateData = ({find, active, setActive, setFind}) => {
+const UpdateData = ({find, active, setActive, setFind, setRepeat}) => {
     const dispatch = useDispatch()
     const {delta} = useSelector((state) => state.delta)
     const {game} = useSelector((state) => state.game)
 
     const resetNext = (json) => {
-        setFind(json.events[0])
-        setActive(json.events[0])
-        dispatch(setLive(1))
+        // setFind(json.events[0])
         setFind(null)
+        dispatch(setLive(1))
+        setActive(json.events[0])
+        setRepeat(1)
     }
 
     useEffect(() => {
@@ -51,7 +52,9 @@ const UpdateData = ({find, active, setActive, setFind}) => {
                                         if (rt === '0') {
 
                                             dispatch(setData(game)).then((json) => {
-                                                resetNext(json)
+                                                setTimeout(() => {
+                                                    resetNext(json)
+                                                }, 1000)
                                             })
                                             clearInterval(c)
                                         }
@@ -83,7 +86,9 @@ const UpdateData = ({find, active, setActive, setFind}) => {
 
                             if (rt === '0') {
                                 dispatch(setData(game)).then((json) => {
-                                    resetNext(json)
+                                    setTimeout(() => {
+                                        resetNext(json)
+                                    }, 1000)
                                 })
                                 clearInterval(b)
                             }
@@ -101,7 +106,9 @@ const UpdateData = ({find, active, setActive, setFind}) => {
 
                 if (rt === '0') {
                     dispatch(setData(game)).then((json) => {
-                        resetNext(json)
+                        setTimeout(() => {
+                            resetNext(json)
+                        }, 1000)
                     })
                     clearInterval(a)
                 }

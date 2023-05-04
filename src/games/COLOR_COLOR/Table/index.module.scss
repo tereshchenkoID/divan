@@ -33,8 +33,7 @@
 
 .live {
   @include size(100%);
-
-  border: 1px solid red;
+  @include wrapper;
 }
 
 .league {

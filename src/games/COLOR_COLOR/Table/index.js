@@ -33,11 +33,16 @@ const conditionStatus = (status) => {
     }
 }
 
+const checkData = (start, delta) => {
+    return start > (new Date().getTime() + delta)
+}
+
 const Table = () => {
     const { t } = useTranslation()
     const SORT = [5, 6, 7, 8, 9, 10]
     const dispatch = useDispatch()
     const {data} = useSelector((state) => state.data)
+    const {delta} = useSelector((state) => state.delta)
     const {game} = useSelector((state) => state.game)
     const {modal} = useSelector((state) => state.modal)
     const {live} = useSelector((state) => state.live)
@@ -84,9 +89,8 @@ const Table = () => {
 
             dispatch(setData(game)).then((json) => {
                 if (json.events.length > 0) {
-                    const f = json.events[0]
 
-                    if (f.status === matchStatus.PROGRESS || f.status === matchStatus.RESULTS) {
+                    if (json.events[0].status !== matchStatus.ANNOUNCEMENT) {
                         setActive(json.events[1])
                         setFind(json.events[0])
                     }
@@ -94,7 +98,7 @@ const Table = () => {
                         setActive(json.events[0])
                     }
 
-                    dispatch(setLive(1))
+                    // dispatch(setLive(1))
                     setLoading(false)
                 }
                 else {
@@ -114,6 +118,7 @@ const Table = () => {
             dispatch(setData(game)).then((json) => {
                 setActive(json.events[0])
                 dispatch(setLive(1))
+                setFind(null)
             })
         }
     }, [live]);
@@ -133,12 +138,13 @@ const Table = () => {
                                         <SkipModal action={handleNext} />
                                     }
                                     {
-                                        (find && find.id !== active.id) &&
+                                        (find && find.id !== active.id && (live === 0 || live === 1)) &&
                                         <UpdateData
                                             find={find}
                                             active={active}
                                             setActive={setActive}
                                             setFind={setFind}
+                                            setRepeat={setRepeat}
                                         />
                                     }
                                     <div className={style.tab}>
@@ -156,8 +162,7 @@ const Table = () => {
                                                         checkStatus(el)
                                                         setActive(el)
                                                         resetActive()
-
-                                                        console.log(live)
+                                                        setFind(data.events[0])
                                                     }}
                                                 >
                                                     {getDateTime(el.start, 3)}
@@ -180,7 +185,7 @@ const Table = () => {
                                     <div className={style.body}>
                                         <div className={style.header}>
                                             {
-                                                live === 1 &&
+                                                checkData(active.start, delta) &&
                                                 <>
                                                     <div className={style.label}>{t('games.COLOR_COLOR.random')}</div>
                                                     <div className={style.label}>{t('games.COLOR_COLOR.repeat')}</div>
@@ -225,14 +230,13 @@ const Table = () => {
                                         </div>
                                         <div className={style.wrapper}>
                                             {
-                                                live === 1
+                                                checkData(active.start, delta)
                                                 ?
                                                     <TableChips
                                                         events={data.events}
                                                         repeat={repeat}
                                                         random={random}
                                                         data={active}
-                                                        t={t}
                                                     />
                                                 :
                                                     <div className={style.live}>

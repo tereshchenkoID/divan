@@ -51,6 +51,8 @@ const Betslip = () => {
 
     const [response, setResponse] = useState(null)
 
+    // console.log(betslip)
+
     const sendStake = () => {
         if (stake.length) {
             let type = 0
@@ -97,9 +99,6 @@ const Betslip = () => {
 
             const min = stake[0].type === 1 ? settings.betslip.system.min : settings.betslip.single.min
             const max = stake[0].type === 1 ? settings.betslip.system.max : settings.betslip.single.max
-
-            console.log(a)
-
 
             postData('/placebet', JSON.stringify(a))
                 .then((json) => {
@@ -208,12 +207,12 @@ const Betslip = () => {
                     s = getTotalStakeSingle(betslip)
                 }
 
-                console.log(s)
+                // console.log(s)
             }
             else {
                 s = getTotalStakeSingle(betslip)
 
-                console.log(s)
+                // console.log(s)
             }
         }
 

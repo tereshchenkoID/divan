@@ -1,4 +1,5 @@
 import {useDispatch, useSelector} from "react-redux";
+import {useTranslation} from "react-i18next";
 import {useEffect, useState} from "react";
 
 import {colorType, gameType} from "constant/config";
@@ -17,10 +18,12 @@ import style from './index.module.scss';
 
 const getValue = (data, key) => {
     const r = []
+
     data.map(el => {
         r.push(el[key])
         return true
     })
+
     return r.join(', ')
 }
 
@@ -38,7 +41,8 @@ const findExists = (data, betslip) => {
     const r = []
 
     data.map(el => {
-        const d = betslip.find(f => f.print === el.print && f.roundId === el.roundId)
+        const d = betslip.find(f => `${f.market} ${f.o_old}` === `${el.market} ${el.o_old}` && f.roundId === el.roundId)
+
         if (!d) {
             r.push(el)
         }
@@ -49,13 +53,20 @@ const findExists = (data, betslip) => {
     return r
 }
 
-const TableChips = ({events, repeat, random, t, data}) => {
+const checkData = (start, delta) => {
+    return start > (new Date().getTime() + delta)
+}
+
+const TableChips = ({events, repeat, random, data}) => {
+    const { t } = useTranslation()
     const dispatch = useDispatch()
     const {betslip} = useSelector((state) => state.betslip)
+    const {delta} = useSelector((state) => state.delta)
     const [colors, setColors] = useState([])
     const [numbers, setNumbers] = useState([])
     const [disabled, setDisabled] = useState(true)
     const [type, setType] = useState('')
+    const [event, setEvent] = useState(repeat === 1 ? [data] : events)
 
     useEffect(() => {
         if(colors.length > 0) {
@@ -69,11 +80,20 @@ const TableChips = ({events, repeat, random, t, data}) => {
         }
     }, [colors, numbers, type])
 
+    useEffect(() => {
+        setEvent(repeat === 1 ? [data] : events)
+    }, [repeat, data])
+
+    useEffect(() => {
+        setColors([])
+        setNumbers([])
+    }, [data])
+
     const ANACONDA = () => {
         const r = []
 
-        events.map((round, idx) => {
-            if (idx < repeat) {
+        event.map((round, idx) => {
+            if (idx <= repeat && checkData(round.start, delta)) {
                 const o = getValue(numbers, 'id')
                 const f = round.round.odds.markets[1].outcomes.find(el => el.a === `${numbers.length}_6`)
 
@@ -98,8 +118,8 @@ const TableChips = ({events, repeat, random, t, data}) => {
     const MATCHED = () => {
         const r = []
 
-        events.map((round, idx) => {
-            if (idx < repeat) {
+        event.map((round, idx) => {
+            if (idx <= repeat && checkData(round.start, delta)) {
                 type.map(el => {
                     const o = getValue(numbers, 'id')
 
@@ -125,8 +145,8 @@ const TableChips = ({events, repeat, random, t, data}) => {
     const BET_ZERO = () => {
         const r = []
 
-        events.map((round, idx) => {
-            if (idx < repeat) {
+        event.map((round, idx) => {
+            if (idx <= repeat && checkData(round.start, delta)) {
                 const f = round.round.odds.markets[2].outcomes.find(el => parseInt(el.a, 10) === numbers.length)
 
                 if (f) {
@@ -153,8 +173,8 @@ const TableChips = ({events, repeat, random, t, data}) => {
     const COLOR = () => {
         const r = []
 
-        events.map((round, idx) => {
-            if (idx < repeat) {
+        event.map((round, idx) => {
+            if (idx <= repeat && checkData(round.start, delta)) {
                 colors.map(el => {
 
                     r.push({
@@ -169,7 +189,7 @@ const TableChips = ({events, repeat, random, t, data}) => {
                                 color: el.color
                             }
                         ],
-                        print: colorType.COLOR
+                        print: el.print
                     })
 
                     return true
