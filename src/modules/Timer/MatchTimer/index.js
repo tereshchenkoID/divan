@@ -48,14 +48,14 @@ const MatchTimer = ({start, end, delta, type}) => {
 
     useEffect(() => {
         let r = checkType(start, end, delta, type)
-        dispatch(setLiveTimer(r))
+        type === gameType.FOOTBALL_LEAGUE && dispatch(setLiveTimer(r))
         setTimer(`${r}'`)
     }, [start, delta])
 
     useEffect(() => {
         const a = setInterval(() => {
             let r = checkType(start, end, delta, type)
-            dispatch(setLiveTimer(r))
+            type === gameType.FOOTBALL_LEAGUE && dispatch(setLiveTimer(r))
             setTimer(`${r}'`)
 
             if (r === '0') {

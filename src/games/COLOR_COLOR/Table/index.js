@@ -9,7 +9,11 @@ import classNames from "classnames";
 import {setData} from "store/actions/dataAction";
 import {setLive} from "store/actions/liveAction";
 import {setModal} from "store/actions/modalAction";
+
 import {getDateTime} from "helpers/getDateTime";
+import {conditionStatus} from "helpers/conditionStatus";
+import {checkTime} from "helpers/checkTime";
+import {checkData} from "helpers/checkData"
 
 import Loader from "components/Loader";
 import Timer from "modules/Timer";
@@ -20,23 +24,6 @@ import TableChips from "./TableChips";
 
 import style from "./index.module.scss";
 
-const conditionStatus = (status) => {
-    switch (status) {
-        case matchStatus.ANNOUNCEMENT:
-            return 1
-        case matchStatus.PROGRESS:
-            return 2
-        case matchStatus.RESULTS:
-            return 3
-        default:
-            return 1;
-    }
-}
-
-const checkData = (start, delta) => {
-    return start > (new Date().getTime() + delta)
-}
-
 const Table = () => {
     const { t } = useTranslation()
     const SORT = [5, 6, 7, 8, 9, 10]
@@ -46,6 +33,7 @@ const Table = () => {
     const {game} = useSelector((state) => state.game)
     const {modal} = useSelector((state) => state.modal)
     const {live} = useSelector((state) => state.live)
+    const {update} = useSelector((state) => state.update)
 
     const [find, setFind] = useState(null)
     const [active, setActive] = useState(0)
@@ -76,12 +64,40 @@ const Table = () => {
     }
 
     const checkStatus = (el) => {
-        dispatch(setLive(conditionStatus(el.status)))
+        if (!checkData(update) && update.event.id === el.id) {
+            dispatch(setLive(conditionStatus(update.event.status)))
+        }
+        else {
+            dispatch(setLive(conditionStatus(el.status)))
+        }
     }
 
     const resetActive = () => {
         setRepeat(1)
         setRandom([])
+
+        if (data.events[0].status !== matchStatus.ANNOUNCEMENT) {
+            setFind(data.events[0])
+        }
+    }
+
+    const updateGame = () => {
+        let a
+
+        dispatch(setData(game)).then((json) => {
+            if (json.events[0].status === matchStatus.ANNOUNCEMENT) {
+                setFind(null)
+                setActive(json.events[0])
+                dispatch(setLive(1))
+
+                clearInterval(a)
+                return true
+            }
+        })
+
+        a = setTimeout(() => {
+            updateGame()
+        }, 2000)
     }
 
     useEffect(() => {
@@ -98,7 +114,6 @@ const Table = () => {
                         setActive(json.events[0])
                     }
 
-                    // dispatch(setLive(1))
                     setLoading(false)
                 }
                 else {
@@ -115,11 +130,7 @@ const Table = () => {
         }
 
         if (live === 4) {
-            dispatch(setData(game)).then((json) => {
-                setActive(json.events[0])
-                dispatch(setLive(1))
-                setFind(null)
-            })
+            updateGame()
         }
     }, [live]);
 
@@ -138,9 +149,9 @@ const Table = () => {
                                         <SkipModal action={handleNext} />
                                     }
                                     {
-                                        (find && find.id !== active.id && (live === 0 || live === 1)) &&
+                                        ((live === 0 || live === 1) && active.id !== data.events[0].id) &&
                                         <UpdateData
-                                            find={find}
+                                            find={find || data.events[0]}
                                             active={active}
                                             setActive={setActive}
                                             setFind={setFind}
@@ -162,10 +173,11 @@ const Table = () => {
                                                         checkStatus(el)
                                                         setActive(el)
                                                         resetActive()
-                                                        setFind(data.events[0])
+                                                        // setFind(data.events[0])
                                                     }}
                                                 >
                                                     {getDateTime(el.start, 3)}
+                                                    <div>{el.id}</div>
                                                 </button>
                                             )
                                         }
@@ -185,7 +197,7 @@ const Table = () => {
                                     <div className={style.body}>
                                         <div className={style.header}>
                                             {
-                                                checkData(active.start, delta) &&
+                                                checkTime(active.start, delta) &&
                                                 <>
                                                     <div className={style.label}>{t('games.COLOR_COLOR.random')}</div>
                                                     <div className={style.label}>{t('games.COLOR_COLOR.repeat')}</div>
@@ -230,7 +242,7 @@ const Table = () => {
                                         </div>
                                         <div className={style.wrapper}>
                                             {
-                                                checkData(active.start, delta)
+                                                checkTime(active.start, delta)
                                                 ?
                                                     <TableChips
                                                         events={data.events}

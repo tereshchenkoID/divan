@@ -7,6 +7,7 @@ import {colorType, gameType} from "constant/config";
 import classNames from "classnames";
 
 import {deleteBetslip} from "store/actions/betslipAction";
+import {checkTime} from "helpers/checkTime";
 
 import Numbers from "../Numbers";
 import Colors from "../Colors";
@@ -53,15 +54,13 @@ const findExists = (data, betslip) => {
     return r
 }
 
-const checkData = (start, delta) => {
-    return start > (new Date().getTime() + delta)
-}
-
 const TableChips = ({events, repeat, random, data}) => {
     const { t } = useTranslation()
     const dispatch = useDispatch()
+
     const {betslip} = useSelector((state) => state.betslip)
     const {delta} = useSelector((state) => state.delta)
+
     const [colors, setColors] = useState([])
     const [numbers, setNumbers] = useState([])
     const [disabled, setDisabled] = useState(true)
@@ -93,7 +92,7 @@ const TableChips = ({events, repeat, random, data}) => {
         const r = []
 
         event.map((round, idx) => {
-            if (idx <= repeat && checkData(round.start, delta)) {
+            if (idx <= repeat && checkTime(round.start, delta)) {
                 const o = getValue(numbers, 'id')
                 const f = round.round.odds.markets[1].outcomes.find(el => el.a === `${numbers.length}_6`)
 
@@ -119,7 +118,7 @@ const TableChips = ({events, repeat, random, data}) => {
         const r = []
 
         event.map((round, idx) => {
-            if (idx <= repeat && checkData(round.start, delta)) {
+            if (idx <= repeat && checkTime(round.start, delta)) {
                 type.map(el => {
                     const o = getValue(numbers, 'id')
 
@@ -146,7 +145,7 @@ const TableChips = ({events, repeat, random, data}) => {
         const r = []
 
         event.map((round, idx) => {
-            if (idx <= repeat && checkData(round.start, delta)) {
+            if (idx <= repeat && checkTime(round.start, delta)) {
                 const f = round.round.odds.markets[2].outcomes.find(el => parseInt(el.a, 10) === numbers.length)
 
                 if (f) {
@@ -174,7 +173,7 @@ const TableChips = ({events, repeat, random, data}) => {
         const r = []
 
         event.map((round, idx) => {
-            if (idx <= repeat && checkData(round.start, delta)) {
+            if (idx <= repeat && checkTime(round.start, delta)) {
                 colors.map(el => {
 
                     r.push({

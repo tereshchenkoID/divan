@@ -4,11 +4,13 @@ import {useTranslation} from "react-i18next";
 
 import classNames from "classnames";
 
+import {matchStatus} from "constant/config";
+
 import {setLive} from "store/actions/liveAction";
 import {setData} from "store/actions/dataAction";
 import {setModal} from "store/actions/modalAction";
 
-import {matchStatus} from "constant/config";
+import {conditionStatus} from "helpers/conditionStatus";
 
 import Alert from "modules/Alert";
 import SkipModal from "modules/SkipModal";
@@ -23,19 +25,6 @@ import Odd from "./Odd";
 import Subtitle from "./Subtitle";
 
 import style from './index.module.scss';
-
-const conditionStatus = (data) => {
-    switch (data.status) {
-        case matchStatus.ANNOUNCEMENT:
-            return 1
-        case matchStatus.PROGRESS:
-            return 2
-        case matchStatus.RESULTS:
-            return 3
-        default:
-            return 1;
-    }
-}
 
 const Table = () => {
     const { t } = useTranslation()
