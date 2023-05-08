@@ -1,5 +1,6 @@
 import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
+import {useTranslation} from "react-i18next";
 
 import {setUpdate} from "store/actions/updateAction";
 
@@ -14,6 +15,7 @@ import style from './index.module.scss';
 
 const Timer = ({data, type}) => {
     const dispatch = useDispatch()
+    const { t } = useTranslation()
     const {live} = useSelector((state) => state.live)
     const {update} = useSelector((state) => state.update)
     const {delta} = useSelector((state) => state.delta)
@@ -42,7 +44,7 @@ const Timer = ({data, type}) => {
                             />
                         }
                         {
-                            live === 2 && 'Live'
+                            live === 2 && t('interface.live')
                         }
                     </div>
                     <div className={style.bottom}>
@@ -66,6 +68,10 @@ const Timer = ({data, type}) => {
                                 end={update.event.nextUpdate}
                                 delta={delta}
                             />
+                        }
+                        {
+                            live === 4 &&
+                            <div>{t('interface.results')}</div>
                         }
                     </div>
                 </>

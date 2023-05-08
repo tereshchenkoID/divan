@@ -45,7 +45,7 @@ const StartTimer = ({start, delta}) => {
         }
     }, [start, delta]);
 
-    return timer;
+    return <div>{timer}</div>
 }
 
 export default StartTimer;

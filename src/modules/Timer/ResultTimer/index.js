@@ -2,6 +2,7 @@ import {useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
 
 import {setLive} from "store/actions/liveAction";
+import {useTranslation} from "react-i18next";
 
 const getDifferent = (data, delta) => {
     const c = new Date().getTime() + delta
@@ -16,6 +17,7 @@ const getDifferent = (data, delta) => {
 }
 
 const ResultTimer = ({end, delta}) => {
+    const { t } = useTranslation()
     const dispatch = useDispatch()
     const [timer, setTimer] = useState('')
 
@@ -42,7 +44,7 @@ const ResultTimer = ({end, delta}) => {
 
     return (
         <>
-            <div>Results</div>
+            <div>{t('interface.results')}</div>
             <div>{timer}</div>
         </>
     );

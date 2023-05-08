@@ -38,8 +38,8 @@ const Table = () => {
     const [find, setFind] = useState(null)
     const [active, setActive] = useState(0)
     const [repeat, setRepeat] = useState(1)
-    const [loading, setLoading] = useState(true)
     const [random, setRandom] = useState([])
+    const [loading, setLoading] = useState(true)
 
     const generateRandomArray = (length) => {
         let array = [];
@@ -173,11 +173,9 @@ const Table = () => {
                                                         checkStatus(el)
                                                         setActive(el)
                                                         resetActive()
-                                                        // setFind(data.events[0])
                                                     }}
                                                 >
                                                     {getDateTime(el.start, 3)}
-                                                    <div>{el.id}</div>
                                                 </button>
                                             )
                                         }

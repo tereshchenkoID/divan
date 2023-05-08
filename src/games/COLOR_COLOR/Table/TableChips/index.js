@@ -12,8 +12,8 @@ import {checkTime} from "helpers/checkTime";
 import Numbers from "../Numbers";
 import Colors from "../Colors";
 import Anaconda from "./Anaconda";
-import Zero from "./Zero";
 import Matched from "./Matched";
+import Zero from "./Zero";
 
 import style from './index.module.scss';
 

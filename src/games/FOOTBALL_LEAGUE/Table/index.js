@@ -166,9 +166,7 @@ const Table = () => {
             {
                 loading
                     ?
-                        <Loader
-                            type={'block'}
-                        />
+                        <Loader type={'block'} />
                     :
                         data.events.length > 0
                             ?

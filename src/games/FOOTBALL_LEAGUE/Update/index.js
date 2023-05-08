@@ -30,47 +30,40 @@ const Update = ({find, active, setActive, setWeek, setFind}) => {
             a = setInterval(() => {
                 const at = announcementTimer(find.start, delta)
 
+                console.log(at)
+
                 if (at === '0') {
-                    // console.log("END ANNOUNCEMENT")
 
                     dispatch(setUpdate(find.id)).then((json) => {
                         b = setInterval(() => {
                             const pt = progressTimer(json.event.nextUpdate, delta)
 
+                            console.log(pt)
+
                             if (pt === '0') {
-                                // console.log("END PROGRESS")
 
                                 dispatch(setUpdate(find.id)).then((json) => {
                                     c = setInterval(() => {
                                         const rt = resultTimer(json.event.nextUpdate, delta)
 
+                                        console.log(rt)
+
                                         if (rt === '0') {
-                                            // console.log("END RESULTS")
 
                                             dispatch(setData(game)).then((json) => {
-                                                // console.log("RELOAD 1")
                                                 resetNextWeek(json)
                                             })
                                             clearInterval(c)
-                                        }
-                                        else {
-                                            // console.log(rt)
                                         }
                                     }, 1000)
                                 })
 
                                 clearInterval(b)
                             }
-                            else {
-                                // console.log(pt)
-                            }
                         },1000)
                     })
 
                     clearInterval(a)
-                }
-                else {
-                    // console.log(at)
                 }
             }, 1000)
         }
@@ -78,28 +71,25 @@ const Update = ({find, active, setActive, setWeek, setFind}) => {
             a = setInterval(() => {
                 const pt = progressTimer(find.nextUpdate, delta)
 
+                console.log(pt)
+
                 if (pt === '0') {
                     dispatch(setUpdate(find.id)).then((json) => {
 
                         b = setInterval(() => {
                             const rt = resultTimer(json.event.nextUpdate, delta)
 
+                            console.log(rt)
+
                             if (rt === '0') {
                                 dispatch(setData(game)).then((json) => {
-                                    // console.log("RELOAD 2")
                                     resetNextWeek(json)
                                 })
                                 clearInterval(b)
                             }
-                            else {
-                                // console.log(rt)
-                            }
                         },1000)
                     })
                     clearInterval(a)
-                }
-                else {
-                    // console.log(pt)
                 }
             },1000)
         }
@@ -107,15 +97,13 @@ const Update = ({find, active, setActive, setWeek, setFind}) => {
             a = setInterval(() => {
                 const rt = resultTimer(find.nextUpdate, delta)
 
+                console.log(rt)
+
                 if (rt === '0') {
                     dispatch(setData(game)).then((json) => {
-                        // console.log("RELOAD 3")
                         resetNextWeek(json)
                     })
                     clearInterval(a)
-                }
-                else {
-                    // console.log(rt)
                 }
             }, 1000)
         }

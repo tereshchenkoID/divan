@@ -3,6 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 
 import {setUpdate} from "store/actions/updateAction";
 import {setData} from "store/actions/dataAction";
+import {setLive} from "store/actions/liveAction";
 
 import {matchStatus} from "constant/config";
 
@@ -10,19 +11,29 @@ import announcementTimer from './announcementTimer'
 import resultTimer from "./resultsTimer";
 import progressTimer from "./progressTimer";
 
-import {setLive} from "store/actions/liveAction";
-
 const UpdateData = ({find, active, setActive, setFind, setRepeat}) => {
     const dispatch = useDispatch()
     const {delta} = useSelector((state) => state.delta)
     const {game} = useSelector((state) => state.game)
 
-    const resetNext = (json) => {
-        // setFind(json.events[0])
-        setFind(null)
-        dispatch(setLive(1))
-        setActive(json.events[0])
-        setRepeat(1)
+    const updateGame = () => {
+        let a
+
+        dispatch(setData(game)).then((json) => {
+            if (json.events[0].status === matchStatus.ANNOUNCEMENT) {
+                setFind(null)
+                dispatch(setLive(1))
+                setActive(json.events[0])
+                setRepeat(1)
+
+                clearInterval(a)
+                return true
+            }
+        })
+
+        a = setTimeout(() => {
+            updateGame()
+        }, 2000)
     }
 
     useEffect(() => {
@@ -50,12 +61,7 @@ const UpdateData = ({find, active, setActive, setFind, setRepeat}) => {
                                         console.log(rt)
 
                                         if (rt === '0') {
-
-                                            dispatch(setData(game)).then((json) => {
-                                                setTimeout(() => {
-                                                    resetNext(json)
-                                                }, 1000)
-                                            })
+                                            updateGame()
                                             clearInterval(c)
                                         }
                                     }, 1000)
@@ -85,11 +91,7 @@ const UpdateData = ({find, active, setActive, setFind, setRepeat}) => {
                             console.log(rt)
 
                             if (rt === '0') {
-                                dispatch(setData(game)).then((json) => {
-                                    setTimeout(() => {
-                                        resetNext(json)
-                                    }, 1000)
-                                })
+                                updateGame()
                                 clearInterval(b)
                             }
                         },1000)
@@ -106,9 +108,7 @@ const UpdateData = ({find, active, setActive, setFind, setRepeat}) => {
 
                 if (rt === '0') {
                     dispatch(setData(game)).then((json) => {
-                        setTimeout(() => {
-                            resetNext(json)
-                        }, 1000)
+                        updateGame()
                     })
                     clearInterval(a)
                 }

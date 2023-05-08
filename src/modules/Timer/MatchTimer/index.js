@@ -71,7 +71,7 @@ const MatchTimer = ({start, end, delta, type}) => {
         }
     }, [start, delta]);
 
-    return timer
+    return <div>{timer}</div>
 }
 
 export default MatchTimer;
