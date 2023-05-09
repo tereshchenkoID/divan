@@ -9,6 +9,7 @@ import classNames from "classnames";
 import {setData} from "store/actions/dataAction";
 import {setLive} from "store/actions/liveAction";
 import {setModal} from "store/actions/modalAction";
+import {setUpdate} from "store/actions/updateAction";
 
 import {getDateTime} from "helpers/getDateTime";
 import {conditionStatus} from "helpers/conditionStatus";
@@ -105,7 +106,6 @@ const Table = () => {
 
             dispatch(setData(game)).then((json) => {
                 if (json.events.length > 0) {
-
                     if (json.events[0].status !== matchStatus.ANNOUNCEMENT) {
                         setActive(json.events[1])
                         setFind(json.events[0])
@@ -133,6 +133,14 @@ const Table = () => {
             updateGame()
         }
     }, [live]);
+
+    useEffect(() => {
+
+        return () => {
+            dispatch(setUpdate(null))
+            dispatch(setLive(1))
+        }
+    }, [])
 
     return (
         <div className={style.block}>
@@ -249,9 +257,7 @@ const Table = () => {
                                                         data={active}
                                                     />
                                                 :
-                                                    <div className={style.live}>
-                                                        live
-                                                    </div>
+                                                    <div className={style.live} />
                                             }
                                         </div>
                                     </div>

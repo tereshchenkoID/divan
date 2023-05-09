@@ -38,13 +38,13 @@ const MARKETS = [
 ]
 
 const Live = () => {
-    const [loading, setLoading] = useState(true)
     const {update} = useSelector((state) => state.update)
     const {liveTimer} = useSelector((state) => state.liveTimer)
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         !checkData(update) && setLoading(false)
-    }, [liveTimer]);
+    }, [update]);
 
     return (
         <div className={style.block}>
@@ -72,6 +72,7 @@ const Live = () => {
                         ?
                             <Loader type={'block'}/>
                         :
+                            update.event &&
                             update.event.league.matches.map((el, idx) =>
                                 <Item
                                     key={idx}

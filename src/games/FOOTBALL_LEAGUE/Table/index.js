@@ -4,22 +4,23 @@ import {useTranslation} from "react-i18next";
 
 import classNames from "classnames";
 
-import {matchStatus} from "constant/config";
+import {gameType, matchStatus} from "constant/config";
 
 import {setLive} from "store/actions/liveAction";
 import {setData} from "store/actions/dataAction";
 import {setModal} from "store/actions/modalAction";
+import {checkData} from "helpers/checkData"
 
 import {conditionStatus} from "helpers/conditionStatus";
+import {setUpdate} from "store/actions/updateAction";
 
 import Alert from "modules/Alert";
+import Timer from "modules/Timer";
+import UpdateData from "modules/UpdateData";
 import SkipModal from "modules/SkipModal";
 import Loader from "components/Loader";
 import Icon from "components/Icon";
-
-import Timer from "games/FOOTBALL_LEAGUE/Timer";
-import Live from "games/FOOTBALL_LEAGUE/Live";
-import Update from "games/FOOTBALL_LEAGUE/Update";
+import Live from "../Live";
 
 import Odd from "./Odd";
 import Subtitle from "./Subtitle";
@@ -33,81 +34,19 @@ const Table = () => {
     const {data} = useSelector((state) => state.data)
     const {live} = useSelector((state) => state.live)
     const {modal} = useSelector((state) => state.modal)
+    const {update} = useSelector((state) => state.update)
 
     const [loading, setLoading] = useState(true)
-    const [preloader, setPreloader] = useState(false)
     const [active, setActive] = useState(0)
-    const [week, setWeek] = useState(0)
+
+    const [find, setFind] = useState(null)
     const [group, setGroup] = useState(0)
     const [toggle, setToggle] = useState({
         id: null,
         toggle: false
     })
-    const [find, setFind] = useState(null)
 
-    useEffect(() => {
-        if (game !== null) {
-            setLoading(true)
-            resetActiveElements()
-
-            dispatch(setData(game)).then((json) => {
-                if (json.events.length > 0) {
-                    const f = json.events[0]
-
-                    setFind(f)
-
-                    if (f.status === matchStatus.PROGRESS || f.status === matchStatus.RESULTS) {
-                        setWeek(json.events[1].league.week)
-                        setActive(1)
-                    }
-                    else {
-                        setWeek(json.events[0].league.week)
-                        setActive(0)
-                    }
-
-                    dispatch(setLive(1))
-                    setLoading(false)
-                }
-                else {
-                    setLoading(false)
-                }
-            })
-        }
-
-    }, [game]);
-
-    useEffect(() => {
-        if (modal === 1) {
-            handleNext()
-        }
-
-        if (live === 4) {
-            dispatch(setData(game)).then((json) => {
-                setWeek(json.events[0].league.week)
-                setFind(json.events[0].league.week)
-                setActive(0)
-                setLoading(false)
-                dispatch(setLive(1))
-            })
-        }
-
-    }, [live]);
-
-    const checkStatus = (id) => {
-        const f = data.events.find(el => {
-            return el.id === id
-        })
-
-        dispatch(setLive(conditionStatus(f)))
-        setFind(data.events[0])
-
-        // dispatch(setUpdate(id)).then((json) => {
-        //     dispatch(setLive(conditionStatus(json.event)))
-        //     setFind(data.events[0])
-        // })
-    }
-
-    const resetActiveElements = () => {
+    const resetActive = () => {
         setGroup(0)
         setToggle({
             id: null,
@@ -115,15 +54,22 @@ const Table = () => {
         })
     }
 
-    const handleNext = () => {
-        const w = data.events[1].league.week
+    const checkStatus = (el) => {
+        if (!checkData(update) && update.event.id === el.id) {
+            dispatch(setLive(conditionStatus(update.event.status)))
+        }
+        else {
+            dispatch(setLive(conditionStatus(el.status)))
+        }
+    }
 
+    const handleNext = () => {
+        resetActive()
         setFind(data.events[0])
-        setActive(1)
-        setWeek(w)
-        resetActiveElements()
+        setActive(data.events[1])
         dispatch(setModal(0))
         dispatch(setLive(1))
+        dispatch(setData(game))
     }
 
     const handleToggle = (id) => {
@@ -139,7 +85,6 @@ const Table = () => {
         }]
         let count = 0
 
-        // eslint-disable-next-line array-callback-return
         data.map(el => {
             const a = el.a.split('-')
             const sum = parseInt(a[0], 10) + parseInt(a[1], 10)
@@ -156,10 +101,76 @@ const Table = () => {
                 })
                 count = 0
             }
+
+            return true
         })
 
         return result
     }
+
+    const updateGame = () => {
+        let a
+
+        dispatch(setData(game)).then((json) => {
+            if (json.events[0].status === matchStatus.ANNOUNCEMENT) {
+                setFind(null)
+                setActive(json.events[0])
+                dispatch(setLive(1))
+
+                clearInterval(a)
+                return true
+            }
+        })
+
+        a = setTimeout(() => {
+            updateGame()
+        }, 2000)
+    }
+
+    useEffect(() => {
+        if (game !== null) {
+            setLoading(true)
+
+            dispatch(setData(game)).then((json) => {
+                if (json.events.length > 0) {
+
+                    if (json.events[0].status !== matchStatus.ANNOUNCEMENT) {
+                        setActive(json.events[1])
+                        setFind(json.events[0])
+                        checkStatus(json.events[1])
+                    }
+                    else {
+                        setActive(json.events[0])
+                        checkStatus(json.events[0])
+                    }
+
+                    setLoading(false)
+                }
+                else {
+                    setLoading(false)
+                }
+            })
+        }
+
+    }, [game]);
+
+    useEffect(() => {
+        if (modal === 1) {
+            handleNext()
+        }
+
+        if (live === 4) {
+            updateGame()
+        }
+    }, [live]);
+
+    useEffect(() => {
+
+        return () => {
+            dispatch(setUpdate(null))
+            dispatch(setLive(1))
+        }
+    }, [])
 
     return (
         <div className={style.block}>
@@ -176,14 +187,13 @@ const Table = () => {
                                         <SkipModal action={handleNext} />
                                     }
                                     {
-                                        (live === 0 || live === 1) &&
-                                        active !== 0 &&
-                                        <Update
-                                            find={find}
+                                        ((live === 0 || live === 1) && active.id !== data.events[0].id) &&
+                                        <UpdateData
+                                            find={find || data.events[0]}
                                             active={active}
                                             setActive={setActive}
-                                            setWeek={setWeek}
                                             setFind={setFind}
+                                            setRepeat={null}
                                         />
                                     }
                                     <div className={style.tab}>
@@ -194,19 +204,13 @@ const Table = () => {
                                                     className={
                                                         classNames(
                                                             style.link,
-                                                            week === el.league.week && style.active
+                                                            active.id === el.id && style.active
                                                         )
                                                     }
                                                     onClick={() => {
-                                                        // setPreloader(true)
-                                                        checkStatus(el.id)
-                                                        resetActiveElements()
-                                                        setActive(idx)
-                                                        setWeek(el.league.week)
-
-                                                        // setTimeout(() => {
-                                                        //     setPreloader(false)
-                                                        // }, 1000)
+                                                        checkStatus(el)
+                                                        setActive(el)
+                                                        resetActive()
                                                     }}
                                                 >
                                                     Week {el.league.week}
@@ -214,313 +218,297 @@ const Table = () => {
                                             )
                                         }
                                     </div>
-                                    {
-                                        data.events[active] &&
-                                        <div className={style.info}>
-                                            <div className={style.league}>
-                                                <img
-                                                    src={`https://view.divan.bet/engine/shop/resource/${game.logo}`}
-                                                    alt={data.events[active].league.name}
-                                                />
-                                            </div>
-                                            <Timer data={data.events[active]} />
+                                    <div className={style.info}>
+                                        <div className={style.league}>
+                                            <img
+                                                src={`https://view.divan.bet/engine/shop/resource/${game.logo}`}
+                                                alt={active.league.name}
+                                            />
                                         </div>
-                                    }
-                                        <div className={style.body}>
-                                        {
-                                            preloader
-                                                ?
-                                                    <Loader type={'block'}/>
-                                                :
-                                                    <>
-                                                        {
-                                                            live === 1
-                                                                ?
-                                                                    data.events.map((el_e, idx_e) =>
-                                                                        <div
-                                                                            key={idx_e}
+                                        <Timer
+                                            data={active}
+                                            type={gameType.FOOTBALL_LEAGUE}
+                                        />
+                                    </div>
+                                    <div className={style.body}>
+                                        <>
+                                            {
+                                                live === 1
+                                                    ?
+                                                        <>
+                                                            <div className={style.sort}>
+                                                                {
+                                                                    live === 1 &&
+                                                                    active.league.matches[0].odds[0].groups.map((el, idx) =>
+                                                                        (
+                                                                            el.name !== 'Score' &&
+                                                                            el.name !== 'Total Goals'
+                                                                        ) &&
+                                                                        <button
+                                                                            key={idx}
                                                                             className={
                                                                                 classNames(
-                                                                                    style.table,
-                                                                                    week === el_e.league.week && style.active
+                                                                                    style.market,
+                                                                                    group === idx && style.active
                                                                                 )
                                                                             }
+                                                                            onClick={() => {
+                                                                                setGroup(idx)
+                                                                                setToggle({
+                                                                                    id: null,
+                                                                                    toggle: false
+                                                                                })
+                                                                            }}
                                                                         >
-                                                                            <div className={style.sort}>
+                                                                            {el.name}
+                                                                        </button>
+                                                                    )
+                                                                }
+                                                            </div>
+                                                            {
+                                                                live === 1 &&
+                                                                <>
+                                                                    <div
+                                                                        className={
+                                                                            classNames(
+                                                                                style.head,
+                                                                                style.row
+                                                                            )
+                                                                        }
+                                                                    >
+                                                                        <div className={style.cell} />
+                                                                        <div className={style.cell} />
+                                                                        <div className={style.cell}>
+                                                                            <div
+                                                                                className={
+                                                                                    classNames(
+                                                                                        style.odds,
+                                                                                        (toggle.id !== null && toggle.toggle) && style.hide
+                                                                                    )
+                                                                                }
+                                                                            >
                                                                                 {
-                                                                                    live === 1 &&
-                                                                                    el_e.league.matches[0].odds[0].groups.map((el, idx) =>
-                                                                                        (
-                                                                                            el.name !== 'Score' &&
-                                                                                            el.name !== 'Total Goals'
-                                                                                        ) &&
-                                                                                        <button
+                                                                                    Object.values(active.league.matches[0].odds[0].groups[group].markets).map((el, idx) =>
+                                                                                        <div
                                                                                             key={idx}
-                                                                                            className={
-                                                                                                classNames(
-                                                                                                    style.market,
-                                                                                                    group === idx && style.active
+                                                                                            className={style.column}
+                                                                                        >
+                                                                                            {
+                                                                                                el.name &&
+                                                                                                <div className={style.legend}>
+                                                                                                    <Subtitle
+                                                                                                        data={el.name.replaceAll('_', ' ')}
+                                                                                                        size={'sm'}
+                                                                                                    />
+                                                                                                </div>
+                                                                                            }
+                                                                                            {
+                                                                                                el.headers.map((el, idx) =>
+                                                                                                    <div
+                                                                                                        key={idx}
+                                                                                                        className={style.label}
+                                                                                                    >
+                                                                                                        {el}
+                                                                                                    </div>
                                                                                                 )
                                                                                             }
-                                                                                            onClick={() => {
-                                                                                                setGroup(idx)
-                                                                                                setToggle({
-                                                                                                    id: null,
-                                                                                                    toggle: false
-                                                                                                })
-                                                                                            }}
-                                                                                        >
-                                                                                            {el.name}
-                                                                                        </button>
+                                                                                        </div>
                                                                                     )
                                                                                 }
                                                                             </div>
-                                                                            {
-                                                                                live === 1 &&
-                                                                                <>
-                                                                                    <div
-                                                                                        className={
-                                                                                            classNames(
-                                                                                                style.head,
-                                                                                                style.row
-                                                                                            )
-                                                                                        }
-                                                                                    >
-                                                                                        <div className={style.cell} />
-                                                                                        <div className={style.cell} />
-                                                                                        <div className={style.cell}>
-                                                                                            <div
-                                                                                                className={
-                                                                                                    classNames(
-                                                                                                        style.odds,
-                                                                                                        (toggle.id !== null && toggle.toggle) && style.hide
-                                                                                                    )
-                                                                                                }
-                                                                                            >
-                                                                                                {
-                                                                                                    Object.values(el_e.league.matches[0].odds[0].groups[group].markets).map((el, idx) =>
-                                                                                                        <div
-                                                                                                            key={idx}
-                                                                                                            className={style.column}
-                                                                                                        >
-                                                                                                            {
-                                                                                                                el.name &&
-                                                                                                                <div className={style.legend}>
-                                                                                                                    <Subtitle
-                                                                                                                        data={el.name.replaceAll('_', ' ')}
-                                                                                                                        size={'sm'}
-                                                                                                                    />
-                                                                                                                </div>
-                                                                                                            }
-                                                                                                            {
-                                                                                                                el.headers.map((el, idx) =>
-                                                                                                                    <div
-                                                                                                                        key={idx}
-                                                                                                                        className={style.label}
-                                                                                                                    >
-                                                                                                                        {el}
-                                                                                                                    </div>
-                                                                                                                )
-                                                                                                            }
-                                                                                                        </div>
-                                                                                                    )
-                                                                                                }
+                                                                        </div>
+                                                                    </div>
+                                                                    <div className={style.wrapper}>
+                                                                        {
+                                                                            active.league.matches.map((el_m, idx_m) =>
+                                                                                <div
+                                                                                    key={idx_m}
+                                                                                    className={style.row}
+                                                                                >
+                                                                                    <div className={style.cell}>
+                                                                                        <div className={style.position}>{el_m.pos}</div>
+                                                                                    </div>
+                                                                                    <div className={style.cell}>
+                                                                                        <div
+                                                                                            className={
+                                                                                                classNames(
+                                                                                                    style.meta,
+                                                                                                    toggle.toggle && style.disabled,
+                                                                                                    (toggle.id === idx_m && toggle.toggle ) && style.active
+                                                                                                )
+                                                                                            }
+                                                                                            onClick={() => {
+                                                                                                handleToggle(idx_m)
+                                                                                            }}
+                                                                                        >
+                                                                                            <div>
+                                                                                                <div className={style.logo}>
+                                                                                                    <img
+                                                                                                        src={`https://view.divan.bet/engine/shop/resource/${el_m.teams.home.img}`}
+                                                                                                        alt={el_m.teams.home.name}
+                                                                                                    />
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div>{el_m.teams.home.name}</div>
+                                                                                            <div>vs</div>
+                                                                                            <div>{el_m.teams.away.name}</div>
+                                                                                            <div>
+                                                                                                <div className={style.logo}>
+                                                                                                    <img
+                                                                                                        src={`https://view.divan.bet/engine/shop/resource/${el_m.teams.away.img}`}
+                                                                                                        alt={el_m.teams.away.name}
+                                                                                                    />
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div>
+                                                                                                <button
+                                                                                                    className={style.toggle}
+                                                                                                    aria-label={"Toggle"}
+                                                                                                >
+                                                                                                    <Icon id={'arrow-right'} />
+                                                                                                </button>
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
-                                                                                    <div className={style.wrapper}>
-                                                                                        {
-                                                                                            el_e.league.matches.map((el_m, idx_m) =>
-                                                                                                <div
-                                                                                                    key={idx_m}
-                                                                                                    className={style.row}
-                                                                                                >
-                                                                                                    <div className={style.cell}>
-                                                                                                        <div className={style.position}>{el_m.pos}</div>
-                                                                                                    </div>
-                                                                                                    <div className={style.cell}>
-                                                                                                        <div
-                                                                                                            className={
-                                                                                                                classNames(
-                                                                                                                    style.meta,
-                                                                                                                    toggle.toggle && style.disabled,
-                                                                                                                    (toggle.id === idx_m && toggle.toggle ) && style.active
-                                                                                                                )
-                                                                                                            }
-                                                                                                            onClick={() => {
-                                                                                                                handleToggle(idx_m)
-                                                                                                            }}
-                                                                                                        >
-                                                                                                            <div>
-                                                                                                                <div className={style.logo}>
-                                                                                                                    <img
-                                                                                                                        src={`https://view.divan.bet/engine/shop/resource/${el_m.teams.home.img}`}
-                                                                                                                        alt={el_m.teams.home.name}
-                                                                                                                    />
-                                                                                                                </div>
-                                                                                                            </div>
-                                                                                                            <div>{el_m.teams.home.name}</div>
-                                                                                                            <div>vs</div>
-                                                                                                            <div>{el_m.teams.away.name}</div>
-                                                                                                            <div>
-                                                                                                                <div className={style.logo}>
-                                                                                                                    <img
-                                                                                                                        src={`https://view.divan.bet/engine/shop/resource/${el_m.teams.away.img}`}
-                                                                                                                        alt={el_m.teams.away.name}
-                                                                                                                    />
-                                                                                                                </div>
-                                                                                                            </div>
-                                                                                                            <div>
-                                                                                                                <button
-                                                                                                                    className={style.toggle}
-                                                                                                                    aria-label={"Toggle"}
+                                                                                    <div className={style.cell}>
+                                                                                        <div className={style.odds}>
+                                                                                            {
+                                                                                                Object.values(el_m.odds[0].groups[group].markets).map((el_o, idx_o)  =>
+                                                                                                    <div
+                                                                                                        key={idx_o}
+                                                                                                        className={style.column}
+                                                                                                    >
+                                                                                                        {
+                                                                                                            el_o.outcomes.map((el, idx) =>
+                                                                                                                <div
+                                                                                                                    key={idx}
+                                                                                                                    className={style.odd}
                                                                                                                 >
-                                                                                                                    <Icon id={'arrow-right'} />
-                                                                                                                </button>
-                                                                                                            </div>
-                                                                                                        </div>
-                                                                                                    </div>
-                                                                                                    <div className={style.cell}>
-                                                                                                        <div className={style.odds}>
-                                                                                                            {
-                                                                                                                Object.values(el_m.odds[0].groups[group].markets).map((el_o, idx_o)  =>
-                                                                                                                    <div
-                                                                                                                        key={idx_o}
-                                                                                                                        className={style.column}
-                                                                                                                    >
-                                                                                                                        {
-                                                                                                                            el_o.outcomes.map((el, idx) =>
-                                                                                                                                <div
-                                                                                                                                    key={idx}
-                                                                                                                                    className={style.odd}
-                                                                                                                                >
-                                                                                                                                    <Odd
-                                                                                                                                        data={{
-                                                                                                                                            ...el,
-                                                                                                                                            ...el_m.teams,
-                                                                                                                                            pos: el_m.pos,
-                                                                                                                                            market: el_o.printname,
-                                                                                                                                            c: el.c,
-                                                                                                                                            sid: el_e.id,
-                                                                                                                                            mid: el_m.id,
-                                                                                                                                            start: el_e.start,
-                                                                                                                                            type: el_e.type,
-                                                                                                                                            m_old: el_o.name,
-                                                                                                                                            o_old: el.a
-                                                                                                                                        }}
-                                                                                                                                    />
-                                                                                                                                </div>
-                                                                                                                            )
-                                                                                                                        }
-                                                                                                                    </div>
-                                                                                                                )
-                                                                                                            }
-                                                                                                        </div>
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                            )
-                                                                                        }
-                                                                                        {
-                                                                                            (toggle.id !== null && toggle.toggle) &&
-                                                                                            <div className={
-                                                                                                classNames(
-                                                                                                    style.dropdown,
-                                                                                                    toggle.toggle && style.active
-                                                                                                )
-                                                                                            }
-                                                                                            >
-                                                                                                <div className={style.subtitle}>{el_e.league.matches[toggle.id].odds[0].groups[6].name}</div>
-                                                                                                <div className={style.goals}>
-                                                                                                    {
-                                                                                                        el_e.league.matches[toggle.id].odds[0].groups[6].markets[0].outcomes.map((el, idx) =>
-                                                                                                            <div
-                                                                                                                key={idx}
-                                                                                                                className={style.outcome}
-                                                                                                            >
-                                                                                                                <div className={style.button}>
                                                                                                                     <Odd
                                                                                                                         data={{
                                                                                                                             ...el,
-                                                                                                                            ...el_e.league.matches[toggle.id].teams,
-                                                                                                                            pos: el_e.league.matches[toggle.id].pos,
-                                                                                                                            market: el_e.league.matches[toggle.id].odds[0].groups[6].markets[0].printname,
-                                                                                                                            c: el.a,
-                                                                                                                            sid: el_e.id,
-                                                                                                                            mid: el_e.league.matches[toggle.id].id,
-                                                                                                                            start: el_e.start,
-                                                                                                                            type: el_e.type,
-                                                                                                                            m_old: el_e.league.matches[toggle.id].odds[0].groups[6].markets[0].name,
+                                                                                                                            ...el_m.teams,
+                                                                                                                            pos: el_m.pos,
+                                                                                                                            market: el_o.printname,
+                                                                                                                            c: el.c,
+                                                                                                                            sid: active.id,
+                                                                                                                            mid: el_m.id,
+                                                                                                                            start: active.start,
+                                                                                                                            type: active.type,
+                                                                                                                            m_old: el_o.name,
                                                                                                                             o_old: el.a
                                                                                                                         }}
-                                                                                                                        label={el.a}
                                                                                                                     />
                                                                                                                 </div>
-                                                                                                            </div>
-                                                                                                        )
-                                                                                                    }
+                                                                                                            )
+                                                                                                        }
+                                                                                                    </div>
+                                                                                                )
+                                                                                            }
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            )
+                                                                        }
+                                                                        {
+                                                                            (toggle.id !== null && toggle.toggle) &&
+                                                                            <div className={
+                                                                                classNames(
+                                                                                    style.dropdown,
+                                                                                    toggle.toggle && style.active
+                                                                                )
+                                                                            }
+                                                                            >
+                                                                                <div className={style.subtitle}>{active.league.matches[toggle.id].odds[0].groups[6].name}</div>
+                                                                                <div className={style.goals}>
+                                                                                    {
+                                                                                        active.league.matches[toggle.id].odds[0].groups[6].markets[0].outcomes.map((el, idx) =>
+                                                                                            <div
+                                                                                                key={idx}
+                                                                                                className={style.outcome}
+                                                                                            >
+                                                                                                <div className={style.button}>
+                                                                                                    <Odd
+                                                                                                        data={{
+                                                                                                            ...el,
+                                                                                                            ...active.league.matches[toggle.id].teams,
+                                                                                                            pos: active.league.matches[toggle.id].pos,
+                                                                                                            market: active.league.matches[toggle.id].odds[0].groups[6].markets[0].printname,
+                                                                                                            c: el.a,
+                                                                                                            sid: active.id,
+                                                                                                            mid: active.league.matches[toggle.id].id,
+                                                                                                            start: active.start,
+                                                                                                            type: active.type,
+                                                                                                            m_old: active.league.matches[toggle.id].odds[0].groups[6].markets[0].name,
+                                                                                                            o_old: el.a
+                                                                                                        }}
+                                                                                                        label={el.a}
+                                                                                                    />
                                                                                                 </div>
-                                                                                                <div className={style.goals}>
+                                                                                            </div>
+                                                                                        )
+                                                                                    }
+                                                                                </div>
+                                                                                <div className={style.goals}>
+                                                                                    {
+                                                                                        active.league.matches[toggle.id].odds[0].groups[7].markets.map((el, idx) =>
+                                                                                            <div
+                                                                                                key={idx}
+                                                                                                className={style.outcomes}
+                                                                                            >
+                                                                                                <div className={style.subtitle}>{el.headers[0]}</div>
+                                                                                                <div className={style.list}>
                                                                                                     {
-                                                                                                        el_e.league.matches[toggle.id].odds[0].groups[7].markets.map((el, idx) =>
+                                                                                                        filterColumn(el.outcomes).map((el, idx) =>
                                                                                                             <div
                                                                                                                 key={idx}
                                                                                                                 className={style.outcomes}
                                                                                                             >
-                                                                                                                <div className={style.subtitle}>{el.headers[0]}</div>
-                                                                                                                <div className={style.list}>
-                                                                                                                    {
-                                                                                                                        filterColumn(el.outcomes).map((el, idx) =>
-                                                                                                                            <div
-                                                                                                                                key={idx}
-                                                                                                                                className={style.outcomes}
-                                                                                                                            >
-                                                                                                                                {
-                                                                                                                                    el.data.map((el, idx) =>
-                                                                                                                                        <div
-                                                                                                                                            key={idx}
-                                                                                                                                            className={style.outcome}
-                                                                                                                                        >
-                                                                                                                                            <div className={style.button}>
-                                                                                                                                                <Odd
-                                                                                                                                                    data={{
-                                                                                                                                                        ...el,
-                                                                                                                                                        ...el_e.league.matches[toggle.id].teams,
-                                                                                                                                                        pos: el_e.league.matches[toggle.id].pos,
-                                                                                                                                                        market: el_e.league.matches[toggle.id].odds[0].groups[7].markets[0].printname,
-                                                                                                                                                        c: el.a,
-                                                                                                                                                        sid: el_e.id,
-                                                                                                                                                        mid: el_e.league.matches[toggle.id].id,
-                                                                                                                                                        start: el_e.start,
-                                                                                                                                                        type: el_e.type,
-                                                                                                                                                        m_old: el_e.league.matches[toggle.id].odds[0].groups[7].markets[0].name,
-                                                                                                                                                        o_old: el.a
-                                                                                                                                                    }}
-                                                                                                                                                    label={el.a}
-                                                                                                                                                />
-                                                                                                                                            </div>
-                                                                                                                                        </div>
-                                                                                                                                    )
-                                                                                                                                }
+                                                                                                                {
+                                                                                                                    el.data.map((el, idx) =>
+                                                                                                                        <div
+                                                                                                                            key={idx}
+                                                                                                                            className={style.outcome}
+                                                                                                                        >
+                                                                                                                            <div className={style.button}>
+                                                                                                                                <Odd
+                                                                                                                                    data={{
+                                                                                                                                        ...el,
+                                                                                                                                        ...active.league.matches[toggle.id].teams,
+                                                                                                                                        pos: active.league.matches[toggle.id].pos,
+                                                                                                                                        market: active.league.matches[toggle.id].odds[0].groups[7].markets[0].printname,
+                                                                                                                                        c: el.a,
+                                                                                                                                        sid: active.id,
+                                                                                                                                        mid: active.league.matches[toggle.id].id,
+                                                                                                                                        start: active.start,
+                                                                                                                                        type: active.type,
+                                                                                                                                        m_old: active.league.matches[toggle.id].odds[0].groups[7].markets[0].name,
+                                                                                                                                        o_old: el.a
+                                                                                                                                    }}
+                                                                                                                                    label={el.a}
+                                                                                                                                />
                                                                                                                             </div>
-                                                                                                                        )
-                                                                                                                    }
-                                                                                                                </div>
+                                                                                                                        </div>
+                                                                                                                    )
+                                                                                                                }
                                                                                                             </div>
                                                                                                         )
                                                                                                     }
                                                                                                 </div>
                                                                                             </div>
-                                                                                        }
-                                                                                    </div>
-                                                                                </>
-                                                                            }
-                                                                        </div>
-                                                                    )
-                                                                :
-                                                                    <Live />
-                                                        }
-                                                    </>
-                                        }
+                                                                                        )
+                                                                                    }
+                                                                                </div>
+                                                                            </div>
+                                                                        }
+                                                                    </div>
+                                                                </>
+                                                            }
+                                                        </>
+                                                    :
+                                                        <Live />
+                                            }
+                                        </>
                                     </div>
                                 </>
                             :

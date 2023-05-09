@@ -6,7 +6,7 @@ const setUpdate = (id) => async dispatch => {
     const { get } = useRequest('feed');
 
     try {
-        const data = await get(`/EVENT/${id}`)
+        const data = id ? await get(`/EVENT/${id}`): {}
         dispatch({
             type: types.SET_UPDATE,
             payload: data,

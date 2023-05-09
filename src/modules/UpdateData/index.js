@@ -24,7 +24,7 @@ const UpdateData = ({find, active, setActive, setFind, setRepeat}) => {
                 setFind(null)
                 dispatch(setLive(1))
                 setActive(json.events[0])
-                setRepeat(1)
+                setRepeat && setRepeat(1)
 
                 clearInterval(a)
                 return true

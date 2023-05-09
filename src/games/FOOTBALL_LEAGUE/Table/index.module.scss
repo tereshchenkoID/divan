@@ -30,14 +30,6 @@
   @include link;
 }
 
-.table {
-  display: none;
-
-  &.active {
-    display: block;
-  }
-}
-
 .sort {
   @include make-spacer('py', 2);
   @include make-spacer('mb', 1);
