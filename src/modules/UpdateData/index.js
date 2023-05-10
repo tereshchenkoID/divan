@@ -20,6 +20,7 @@ const UpdateData = ({find, active, setActive, setFind, setRepeat}) => {
         let a
 
         dispatch(setData(game)).then((json) => {
+            console.log(json.events[0].status)
             if (json.events[0].status === matchStatus.ANNOUNCEMENT) {
                 setFind(null)
                 dispatch(setLive(1))
@@ -33,7 +34,7 @@ const UpdateData = ({find, active, setActive, setFind, setRepeat}) => {
 
         a = setTimeout(() => {
             updateGame()
-        }, 2000)
+        }, 4000)
     }
 
     useEffect(() => {

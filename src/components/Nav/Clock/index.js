@@ -1,66 +1,30 @@
-import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
+import {useSelector} from "react-redux";
 
-import {deleteBetslip} from "store/actions/betslipAction";
+import convertTime from "helpers/convertTime";
 
 import Icon from "components/Icon";
+import ClearResults from "./ClearResults";
 
 import style from './index.module.scss';
 
-const getTime = (data, delta) => {
-    const current = data ? new Date(data).getTime() : new Date().getTime() + delta, date = new Date(current)
-    return ('0' + date.getHours()).slice(-2) + ':' + ('0' + date.getMinutes()).slice(-2) + ':' + ('0' + date.getSeconds()).slice(-2);
-}
-
-const deleteBets = (data, now) => {
-    const a = []
-
-    for(let i = 0; i < data.length; i++) {
-        if(getTime(data[i].start) !== now) {
-            a.push(data[i])
-        }
-    }
-
-    return a
-}
-
-const clearActiveBets = (data, now) => {
-    const f = data.find(el => {
-        return getTime(el.start) === now
-    })
-
-    return f ? deleteBets(data, now) : null
-}
-
-
 const Clock = () => {
-    const dispatch = useDispatch()
     const {delta} = useSelector((state) => state.delta)
-    const {betslip} = useSelector((state) => state.betslip)
-    const [date, setDate] = useState('00:00:00')
+    const [date, setDate] = useState(new Date().getTime())
 
     useEffect(() => {
         setInterval(() => {
-            setDate(getTime(null, delta))
+            setDate(new Date().getTime())
         },1000)
-
-    }, [betslip]);
-
-    useEffect(() => {
-        if(betslip.length > 0) {
-            const a = clearActiveBets(betslip, date)
-            if (a) {
-                dispatch(deleteBetslip(a))
-            }
-        }
-    }, [betslip, date])
+    }, []);
 
     return (
         <div className={style.block}>
             <div className={style.icon}>
                 <Icon id={'clock'} />
             </div>
-            <div>{date}</div>
+            <div>{convertTime(date, delta)}</div>
+            <ClearResults date={date + 5500} />
         </div>
     );
 }

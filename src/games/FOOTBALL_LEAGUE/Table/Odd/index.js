@@ -28,7 +28,7 @@ const Odd = ({data, label = false}) => {
                 o_old: data.o_old,  // Remove after
                 sid: data.sid,
                 mid: data.mid,
-                start: data.start - 5000,  // - 5s
+                start: data.start,
                 id: data.id,
                 a: data.a,
                 b: data.b || 1.00,

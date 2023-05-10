@@ -166,6 +166,7 @@ const Bet = ({data, betslip, type, setInit, setDisabled}) => {
                             }
                         </div>
                     }
+                    <div>{data.roundId}</div>
                 </div>
                 <div className={style.odd}>{data.b}</div>
                 {

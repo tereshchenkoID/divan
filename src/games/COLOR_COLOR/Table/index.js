@@ -9,7 +9,6 @@ import classNames from "classnames";
 import {setData} from "store/actions/dataAction";
 import {setLive} from "store/actions/liveAction";
 import {setModal} from "store/actions/modalAction";
-import {setUpdate} from "store/actions/updateAction";
 
 import {getDateTime} from "helpers/getDateTime";
 import {conditionStatus} from "helpers/conditionStatus";
@@ -86,6 +85,7 @@ const Table = () => {
         let a
 
         dispatch(setData(game)).then((json) => {
+            console.log(json.events[0].status)
             if (json.events[0].status === matchStatus.ANNOUNCEMENT) {
                 setFind(null)
                 setActive(json.events[0])
@@ -98,7 +98,7 @@ const Table = () => {
 
         a = setTimeout(() => {
             updateGame()
-        }, 2000)
+        }, 4000)
     }
 
     useEffect(() => {
@@ -106,6 +106,8 @@ const Table = () => {
 
             dispatch(setData(game)).then((json) => {
                 if (json.events.length > 0) {
+                    console.log(json.events[0].status)
+
                     if (json.events[0].status !== matchStatus.ANNOUNCEMENT) {
                         setActive(json.events[1])
                         setFind(json.events[0])
@@ -134,14 +136,6 @@ const Table = () => {
         }
     }, [live]);
 
-    useEffect(() => {
-
-        return () => {
-            dispatch(setUpdate(null))
-            dispatch(setLive(1))
-        }
-    }, [])
-
     return (
         <div className={style.block}>
             {
@@ -157,7 +151,7 @@ const Table = () => {
                                         <SkipModal action={handleNext} />
                                     }
                                     {
-                                        ((live === 0 || live === 1) && active.id !== data.events[0].id) &&
+                                        (live < 2 && active.id !== data.events[0].id) &&
                                         <UpdateData
                                             find={find || data.events[0]}
                                             active={active}
@@ -184,6 +178,7 @@ const Table = () => {
                                                     }}
                                                 >
                                                     {getDateTime(el.start, 3)}
+                                                    <span>{el.id}</span>
                                                 </button>
                                             )
                                         }

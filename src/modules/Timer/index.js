@@ -3,6 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {useTranslation} from "react-i18next";
 
 import {setUpdate} from "store/actions/updateAction";
+import {setLive} from "store/actions/liveAction";
 
 import convertTime from "helpers/convertTime";
 import checkData from "helpers/checkData";
@@ -28,6 +29,14 @@ const Timer = ({data, type}) => {
             dispatch(setUpdate(data.id))
         }
     }, [live]);
+
+
+    useEffect(() => {
+        return () => {
+            dispatch(setUpdate(null))
+            dispatch(setLive(1))
+        }
+    }, [])
 
     return (
         <div className={style.block}>

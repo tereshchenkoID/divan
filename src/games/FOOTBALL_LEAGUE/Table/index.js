@@ -12,7 +12,6 @@ import {setModal} from "store/actions/modalAction";
 import {checkData} from "helpers/checkData"
 
 import {conditionStatus} from "helpers/conditionStatus";
-import {setUpdate} from "store/actions/updateAction";
 
 import Alert from "modules/Alert";
 import Timer from "modules/Timer";
@@ -163,14 +162,6 @@ const Table = () => {
             updateGame()
         }
     }, [live]);
-
-    useEffect(() => {
-
-        return () => {
-            dispatch(setUpdate(null))
-            dispatch(setLive(1))
-        }
-    }, [])
 
     return (
         <div className={style.block}>
