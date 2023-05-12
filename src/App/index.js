@@ -40,12 +40,12 @@ const App = () => {
             className={
                 classNames(
                     style.root,
-                    // style.fixed
+                    style.fixed
                 )
             }
-            // style={{
-            //     transform: `scale(${windowSize.x}, ${windowSize.y})`
-            // }}
+            style={{
+                transform: `scale(${windowSize.x}, ${windowSize.y})`
+            }}
         >
             <main className={style.main}>
                 {

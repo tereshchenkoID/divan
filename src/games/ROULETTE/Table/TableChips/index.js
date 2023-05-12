@@ -1149,12 +1149,12 @@ const TableChips = ({random, active}) => {
         return steps.find(el => el.active === true)
     }
 
-    const doubleChips = () => {
+    const doubleChips = (id) => {
         const a = betslip.slice(0)
 
         for (let i = 0; i < a.length; i++) {
 
-            if (a[i].type === gameType.ROULETTE) {
+            if (a[i].type === gameType.ROULETTE && a[i].roundId === id) {
                 a[i].stake =  (a[i].stake * 2).toFixed(2)
             }
         }
@@ -1184,8 +1184,8 @@ const TableChips = ({random, active}) => {
         dispatch(deleteBetslip(r))
     }
 
-    const clearBets = () => {
-        const r = betslip.filter(el => el.type !== gameType.ROULETTE)
+    const clearBets = (id) => {
+        const r = betslip.filter(el => el.roundId !== id)
         dispatch(deleteBetslip(r))
         dispatch(setStake([]))
     }
@@ -1465,7 +1465,7 @@ const TableChips = ({random, active}) => {
                         size={'lg'}
                         text={'2x'}
                         action={() => {
-                            doubleChips()
+                            doubleChips(active.id)
                         }}
                     />
                     <Button
@@ -1473,7 +1473,7 @@ const TableChips = ({random, active}) => {
                         size={'lg'}
                         icon={'close'}
                         action={() => {
-                            clearBets()
+                            clearBets(active.id)
                         }}
                     />
                 </div>
