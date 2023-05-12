@@ -133,7 +133,7 @@ const Bet = ({data, betslip, type, setInit, setDisabled}) => {
                             data.type === gameType.FOOTBALL_LEAGUE && `${data.market.replaceAll('_', ' ')}:${data.c || data.a}`
                         }
                         {
-                            data.type === gameType.ROULETTE && (data.print || data.market).replace('_', '/')
+                            data.type === gameType.ROULETTE && (data.print || data.market).replace('_', ' ')
                         }
                         {
                             data.type === gameType.COLOR_COLOR && data.print.replace('_', '/')

@@ -8,19 +8,20 @@ import style from './index.module.scss';
 
 import {deleteBetslip, setBetslip} from "store/actions/betslipAction";
 
-const findBet = (data, id) => {
+const findBet = (data, id, outcome) => {
     return data.find(el => {
-        return el.id === id
+        return (el.roundId === id && el.market === outcome)
     })
 }
 
-const Odd = ({data, step, steps}) => {
+const Odd = ({data, step, steps, active}) => {
     const dispatch = useDispatch()
     const {betslip} = useSelector((state) => state.betslip)
+    const outcome = data.stake
 
     const addBetslip = (date) => {
         const a = betslip.slice(0);
-        const f = findBet(betslip, data.stake)
+        const f = findBet(betslip, active.id, outcome)
 
         if (f) {
             f.stake = (parseFloat(f.stake) + parseFloat(step.amount)).toFixed(2)
@@ -28,16 +29,42 @@ const Odd = ({data, step, steps}) => {
         }
         else {
             dispatch(setBetslip({
-                id: date.stake,
-                start: new Date().getTime() + 30000,
+                roundId: active.id,
+                start: active.start,
+                id: null,
                 b: date.odd,
                 market: date.stake,
-                print: date.print,
+                print: date.print || date.stake,
                 m_old: date.stake.split(":")[0],
                 o_old: date.stake.split(":")[1].slice(1),
                 stake: step.amount.toFixed(2),
-                type: gameType.ROULETTE
+                type: gameType.ROULETTE,
+                // circles: [
+                //     {
+                //         id: el.outcome,
+                //         color: el.color
+                //     }
+                // ],
             }))
+
+            console.log({
+                roundId: active.id,
+                start: active.start,
+                id: null,
+                b: date.odd,
+                market: date.stake,
+                print: date.stake,
+                m_old: date.stake.split(":")[0],
+                o_old: outcome,
+                stake: step.amount.toFixed(2),
+                type: gameType.ROULETTE,
+                // circles: [
+                //     {
+                //         id: el.outcome,
+                //         color: el.color
+                //     }
+                // ],
+            })
         }
     }
 
@@ -49,9 +76,9 @@ const Odd = ({data, step, steps}) => {
             }}
         >
             {
-                (betslip.length > 0 && findBet(betslip, data.stake)) &&
+                (betslip.length > 0 && findBet(betslip, active.id, outcome)) &&
                 <Amount
-                    data={findBet(betslip, data.stake)}
+                    data={findBet(betslip, active.id, outcome)}
                     step={step}
                     steps={steps}
                 />

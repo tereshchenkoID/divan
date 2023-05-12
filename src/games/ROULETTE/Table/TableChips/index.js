@@ -103,7 +103,7 @@ const onHoverChips = (el, type, data, value) => {
     }
 }
 
-const TableChips = ({random}) => {
+const TableChips = ({random, active}) => {
     const dispatch = useDispatch()
     const {settings} = useSelector((state) => state.settings)
     const {betslip} = useSelector((state) => state.betslip)
@@ -1168,11 +1168,12 @@ const TableChips = ({random}) => {
 
         for (let i = 0; i < random.length; i++) {
             r.push({
-                start: null,
-                id: data.chips[random[i]].stake,
+                start: active.start,
+                roundId: active.id,
+                id: null,
                 b: data.chips[random[i]].odd,
                 market: data.chips[random[i]].stake,
-                print: data.print,
+                print: data.chips[random[i]].stake,
                 m_old: data.chips[random[i]].stake.split(":")[0],
                 o_old: data.chips[random[i]].stake.split(":")[1].slice(1),
                 stake: buttonStepGet().amount.toFixed(2),
@@ -1211,6 +1212,7 @@ const TableChips = ({random}) => {
                                         data={el}
                                         step={buttonStepGet()}
                                         steps={steps}
+                                        active={active}
                                     />
                                 </div>
                             )
@@ -1237,6 +1239,7 @@ const TableChips = ({random}) => {
                                         data={el}
                                         step={buttonStepGet()}
                                         steps={steps}
+                                        active={active}
                                     />
                                 </div>
                             )
@@ -1265,6 +1268,7 @@ const TableChips = ({random}) => {
                                                     data={el}
                                                     step={buttonStepGet()}
                                                     steps={steps}
+                                                    active={active}
                                                 />
                                             </div>
                                         )
@@ -1285,6 +1289,7 @@ const TableChips = ({random}) => {
                                 data={data.chips[0]}
                                 step={buttonStepGet()}
                                 steps={steps}
+                                active={active}
                             />
                         </div>
                     </div>
@@ -1326,6 +1331,7 @@ const TableChips = ({random}) => {
                                         data={el}
                                         step={buttonStepGet()}
                                         steps={steps}
+                                        active={active}
                                     />
                                 </div>
                             )
@@ -1349,6 +1355,7 @@ const TableChips = ({random}) => {
                                 data={data.s_low_high[0]}
                                 step={buttonStepGet()}
                                 steps={steps}
+                                active={active}
                             />
                         </div>
                         <div
@@ -1364,6 +1371,7 @@ const TableChips = ({random}) => {
                                 data={data.s_even_odd[0]}
                                 step={buttonStepGet()}
                                 steps={steps}
+                                active={active}
                             />
                         </div>
                         {
@@ -1382,6 +1390,7 @@ const TableChips = ({random}) => {
                                         data={el}
                                         step={buttonStepGet()}
                                         steps={steps}
+                                        active={active}
                                     />
                                 </button>
                             )
@@ -1399,6 +1408,7 @@ const TableChips = ({random}) => {
                                 data={data.s_even_odd[1]}
                                 step={buttonStepGet()}
                                 steps={steps}
+                                active={active}
                             />
                         </div>
                         <div
@@ -1414,6 +1424,7 @@ const TableChips = ({random}) => {
                                 data={data.s_low_high[1]}
                                 step={buttonStepGet()}
                                 steps={steps}
+                                active={active}
                             />
                         </div>
                     </div>
