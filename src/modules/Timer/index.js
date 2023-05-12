@@ -30,7 +30,6 @@ const Timer = ({data, type}) => {
         }
     }, [live]);
 
-
     useEffect(() => {
         return () => {
             dispatch(setUpdate(null))

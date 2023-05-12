@@ -48,10 +48,7 @@ const Betslip = () => {
     const [disabled, setDisabled] = useState(true)
     const [type, setType] = useState(0)
     const [checkTicket, setCheckTicket] = useState(false)
-
     const [response, setResponse] = useState(null)
-
-    // console.log(betslip)
 
     const sendStake = () => {
         if (stake.length) {
@@ -206,13 +203,9 @@ const Betslip = () => {
                 else {
                     s = getTotalStakeSingle(betslip)
                 }
-
-                // console.log(s)
             }
             else {
                 s = getTotalStakeSingle(betslip)
-
-                // console.log(s)
             }
         }
 

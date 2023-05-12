@@ -1,5 +1,5 @@
-import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
+import {useDispatch, useSelector} from "react-redux";
 
 import {deleteBetslip} from "store/actions/betslipAction";
 
@@ -22,7 +22,6 @@ const clearActiveBets = (data, now) => {
 
     return f ? deleteBets(data, now) : null
 }
-
 
 const ClearResults = ({date}) => {
     const dispatch = useDispatch()

@@ -1173,16 +1173,14 @@ const TableChips = ({random}) => {
                 b: data.chips[random[i]].odd,
                 market: data.chips[random[i]].stake,
                 print: data.print,
-                m_old: data.chips[random[i]].stake.split(":")[0],             // Remove after
-                o_old: data.chips[random[i]].stake.split(":")[1].slice(1),    // Remove after
+                m_old: data.chips[random[i]].stake.split(":")[0],
+                o_old: data.chips[random[i]].stake.split(":")[1].slice(1),
                 stake: buttonStepGet().amount.toFixed(2),
-                type: "ROULETTE"
+                type: gameType.ROULETTE
             })
         }
 
         dispatch(deleteBetslip(r))
-
-        console.log("Add")
     }
 
     const clearBets = () => {

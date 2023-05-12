@@ -30,8 +30,8 @@ const Odd = ({market, data, view, text}) => {
         }
         else {
             dispatch(setBetslip({
-                start: null,
                 id: null,
+                start: new Date().getTime() + 30000,
                 b: data.b,
                 market: market,
                 print: `${dogsType[market]}: ${data.a}`,

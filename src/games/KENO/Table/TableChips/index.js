@@ -202,7 +202,7 @@ const TableChips = ({random, t}) => {
         if (!d) {
             let r = {
                 id: null,
-                start: null,
+                start: new Date().getTime() + 30000,
                 b: s.b || 0,
                 m_old: data.event.h.b.a.a,
                 o_old: numbers.join(', '),

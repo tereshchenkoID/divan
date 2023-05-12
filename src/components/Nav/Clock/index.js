@@ -24,7 +24,7 @@ const Clock = () => {
                 <Icon id={'clock'} />
             </div>
             <div>{convertTime(date, delta)}</div>
-            <ClearResults date={date + 5500} />
+            <ClearResults date={date + 6000} />
         </div>
     );
 }

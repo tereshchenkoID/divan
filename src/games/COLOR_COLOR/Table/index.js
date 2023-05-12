@@ -178,7 +178,6 @@ const Table = () => {
                                                     }}
                                                 >
                                                     {getDateTime(el.start, 3)}
-                                                    <span>{el.id}</span>
                                                 </button>
                                             )
                                         }

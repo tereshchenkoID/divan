@@ -1,4 +1,5 @@
 import {useEffect, useState} from "react";
+import {useTranslation} from "react-i18next";
 
 import classNames from "classnames";
 
@@ -41,6 +42,7 @@ const getNumbers = () => {
 }
 
 const Numbers = ({numbers, setNumbers, random, setType}) => {
+    const { t } = useTranslation()
     const odds = getNumbers()
     const [disabled, setDisabled] = useState(false)
 
@@ -93,7 +95,7 @@ const Numbers = ({numbers, setNumbers, random, setType}) => {
                         setType('')
                     }}
                 >
-                    RESET NUMBERS
+                    {t('games.COLOR_COLOR.reset_numbers')}
                 </button>
             </div>
         </div>
