@@ -183,7 +183,7 @@ const Table = () => {
                                         <div className={style.league}>
                                             <img
                                                 src={`https://view.divan.bet/engine/shop/resource/${game.logo}`}
-                                                alt={'Color'}
+                                                alt={'Roulette'}
                                             />
                                         </div>
                                         <Timer
