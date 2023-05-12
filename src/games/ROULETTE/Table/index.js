@@ -6,6 +6,7 @@ import classNames from "classnames";
 
 import {setData} from "store/actions/dataAction";
 import {setLive} from "store/actions/liveAction";
+import {setModal} from "store/actions/modalAction";
 
 import {getDateTime} from "helpers/getDateTime";
 import {conditionStatus} from "helpers/conditionStatus";
@@ -21,7 +22,7 @@ import SkipModal from "modules/SkipModal";
 import UpdateData from "modules/UpdateData";
 
 import style from "./index.module.scss";
-import {setModal} from "../../../store/actions/modalAction";
+import Alert from "../../../modules/Alert";
 
 const Table = () => {
     const { t } = useTranslation()
@@ -77,6 +78,25 @@ const Table = () => {
         }
     }
 
+    const updateGame = () => {
+        let a
+
+        dispatch(setData(game)).then((json) => {
+            if (json.events[0].status === matchStatus.ANNOUNCEMENT) {
+                setFind(null)
+                setActive(json.events[0])
+                dispatch(setLive(1))
+
+                clearInterval(a)
+                return true
+            }
+        })
+
+        a = setTimeout(() => {
+            updateGame()
+        }, 4000)
+    }
+
     useEffect(() => {
         if (game !== null) {
             dispatch(setData(game)).then((json) => {
@@ -101,6 +121,16 @@ const Table = () => {
 
     }, [game]);
 
+    useEffect(() => {
+        if (modal === 1) {
+            handleNext()
+        }
+
+        if (live === 4) {
+            updateGame()
+        }
+    }, [live]);
+
     return (
         <div className={style.block}>
             {
@@ -110,90 +140,102 @@ const Table = () => {
                             type={'block'}
                         />
                     :
-                        <>
-                            {
-                                modal === 1 &&
-                                <SkipModal action={handleNext} />
-                            }
-                            {
-                                (live < 2 && active.id !== data.events[0].id) &&
-                                <UpdateData
-                                    find={find || data.events[0]}
-                                    active={active}
-                                    setActive={setActive}
-                                    setFind={setFind}
-                                    setRepeat={null}
-                                />
-                            }
-                            <div className={style.tab}>
-                                {
-                                    data.events.map((el, idx) =>
-                                        <button
-                                            key={idx}
-                                            className={
-                                                classNames(
-                                                    style.link,
-                                                    el.id === active.id && style.active
-                                                )
-                                            }
-                                            onClick={() => {
-                                                checkStatus(el)
-                                                setActive(el)
-                                                resetActive()
-                                            }}
-                                        >
-                                            {getDateTime(el.start, 3)}
-                                        </button>
-                                    )
-                                }
-                            </div>
-                            <div className={style.info}>
-                                <div className={style.league}>
-                                    <img
-                                        src={`https://view.divan.bet/engine/shop/resource/${game.logo}`}
-                                        alt={'Color'}
-                                    />
-                                </div>
-                                <Timer
-                                    data={active}
-                                    type={gameType.ROULETTE}
-                                />
-                            </div>
-                            <div className={style.body}>
-                                <div className={style.header}>
-                                    <div className={style.label}>{t('games.ROULETTE.random')}</div>
-                                    <div />
-                                    <div className={style.sort}>
+                        data.events.length > 0
+                            ?
+                                <>
+                                    {
+                                        modal === 1 &&
+                                        <SkipModal action={handleNext} />
+                                    }
+                                    {
+                                        (live < 2 && active.id !== data.events[0].id) &&
+                                        <UpdateData
+                                            find={find || data.events[0]}
+                                            active={active}
+                                            setActive={setActive}
+                                            setFind={setFind}
+                                            setRepeat={null}
+                                        />
+                                    }
+                                    <div className={style.tab}>
                                         {
-                                            SORT.map((el, idx) =>
+                                            data.events.map((el, idx) =>
                                                 <button
                                                     key={idx}
-                                                    className={ style.market}
+                                                    className={
+                                                        classNames(
+                                                            style.link,
+                                                            el.id === active.id && style.active
+                                                        )
+                                                    }
                                                     onClick={() => {
-                                                        generateRandomArray(el)
+                                                        checkStatus(el)
+                                                        setActive(el)
+                                                        resetActive()
                                                     }}
                                                 >
-                                                    {el}
+                                                    {getDateTime(el.start, 3)}
                                                 </button>
                                             )
                                         }
                                     </div>
-                                    <div />
-                                </div>
-                                <div className={style.wrapper}>
-                                    {
-                                        checkTime(active.start, delta)
-                                            ?
-                                                <TableChips
-                                                    random={random}
-                                                    active={active}
-                                                />
-                                            :
-                                                <div className={style.live} />
-                                    }
-                                </div>
-                            </div>
-                        </>
+                                    <div className={style.info}>
+                                        <div className={style.league}>
+                                            <img
+                                                src={`https://view.divan.bet/engine/shop/resource/${game.logo}`}
+                                                alt={'Color'}
+                                            />
+                                        </div>
+                                        <Timer
+                                            data={active}
+                                            type={gameType.ROULETTE}
+                                        />
+                                    </div>
+                                    <div className={style.body}>
+                                        <div className={style.header}>
+                                            {
+                                                checkTime(active.start, delta) &&
+                                                <>
+                                                    <div className={style.label}>{t('games.ROULETTE.random')}</div>
+                                                    <div />
+                                                    <div className={style.sort}>
+                                                        {
+                                                            SORT.map((el, idx) =>
+                                                                <button
+                                                                    key={idx}
+                                                                    className={ style.market}
+                                                                    onClick={() => {
+                                                                        generateRandomArray(el)
+                                                                    }}
+                                                                >
+                                                                    {el}
+                                                                </button>
+                                                            )
+                                                        }
+                                                    </div>
+                                                    <div />
+                                                </>
+                                            }
+                                        </div>
+                                        <div className={style.wrapper}>
+                                            {
+                                                checkTime(active.start, delta)
+                                                    ?
+                                                        <TableChips
+                                                            random={random}
+                                                            active={active}
+                                                        />
+                                                    :
+                                                        <div className={style.live} />
+                                            }
+                                        </div>
+                                    </div>
+                                </>
+                            :
+                                <Alert
+                                    text={t('notification.events_not_found')}
+                                    type={'default'}
+                                />
             }
         </div>
     );

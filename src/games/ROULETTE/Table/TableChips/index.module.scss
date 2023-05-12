@@ -3,9 +3,8 @@
 .block {
   @include wrapper;
   @include flex(center, center, column);
-  @include make-spacer('px', 2);
-  @include make-spacer('py', 6);
 
+  padding: rem(28px) rem(16px);
   background-color: #262726;
   width: 100%;
 }

@@ -85,7 +85,6 @@ const Table = () => {
         let a
 
         dispatch(setData(game)).then((json) => {
-            console.log(json.events[0].status)
             if (json.events[0].status === matchStatus.ANNOUNCEMENT) {
                 setFind(null)
                 setActive(json.events[0])
