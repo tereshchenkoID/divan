@@ -20,9 +20,9 @@ import TableChips from "./TableChips";
 import Timer from "modules/Timer";
 import SkipModal from "modules/SkipModal";
 import UpdateData from "modules/UpdateData";
+import Alert from "modules/Alert";
 
 import style from "./index.module.scss";
-import Alert from "../../../modules/Alert";
 
 const Table = () => {
     const { t } = useTranslation()
