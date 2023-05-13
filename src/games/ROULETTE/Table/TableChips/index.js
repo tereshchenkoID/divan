@@ -154,7 +154,7 @@ const TableChips = ({random, active}) => {
 
     const addRandomChips = () => {
         const a = betslip.slice(0)
-        const r = a.filter(el => el.type !== gameType.ROULETTE)
+        const r = a.filter(el => el.roundId !== active.id)
 
         for (let i = 0; i < random.length; i++) {
             r.push({
