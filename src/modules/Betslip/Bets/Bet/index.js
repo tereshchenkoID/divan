@@ -156,11 +156,12 @@ const Bet = ({data, betslip, type, setInit, setDisabled}) => {
                                             classNames(
                                                 style.circle,
                                                 style.sm,
-                                                style[el.color.toLowerCase()]
+                                                style[el.color ? el.color.toLowerCase() : 'draw']
                                             )
                                         }
                                     >
-                                        {el.id.toString().length < 3 && el.id}
+                                        {data.type === gameType.COLOR_COLOR && el.id.toString().length < 3 && el.id}
+                                        {data.type === gameType.KENO && el}
                                     </div>
                                 )
                             }

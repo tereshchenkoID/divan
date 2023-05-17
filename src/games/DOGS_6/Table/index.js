@@ -2,12 +2,11 @@ import {useState} from "react";
 
 import classNames from "classnames";
 
-
 import Loader from "components/Loader";
-import JackPot from "modules/JackPot";
 import TableChips from "./TableChips";
 
 import style from "./index.module.scss";
+
 
 const Table = () => {
     const [loading, setLoading] = useState(false)

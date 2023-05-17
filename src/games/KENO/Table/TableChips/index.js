@@ -1,181 +1,44 @@
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
+import {useTranslation} from "react-i18next";
 
 import {gameType} from "constant/config";
 
 import classNames from "classnames";
 
 import {deleteBetslip} from "store/actions/betslipAction";
-import {setNotification} from "store/actions/notificationAction";
+
+import {checkTime} from "helpers/checkTime";
 
 import Numbers from "../Numbers";
 
 import style from './index.module.scss';
 
-const TableChips = ({random, t}) => {
+const findExists = (data, betslip) => {
+    const r = []
+
+    data.map(el => {
+        const d = betslip.find(f => `${f.market} ${f.o_old}` === `${el.market} ${el.o_old}` && f.roundId === el.roundId)
+
+        if (!d) {
+            r.push(el)
+        }
+
+        return true
+    })
+
+    return r
+}
+
+const TableChips = ({events, repeat, random, data}) => {
+    const { t } = useTranslation()
     const dispatch = useDispatch()
     const {betslip} = useSelector((state) => state.betslip)
-    const [data, setData] = useState({
-        "event": {
-            "b": "KENO",
-            "h": {
-                "a": "KENO",
-                "b": {
-                    "a": {
-                        "a": "CARD",
-                        "b": [
-                            {
-                                "a": "1_1",
-                                "b": 3
-                            },
-                            {
-                                "a": "2_2",
-                                "b": 8
-                            },
-                            {
-                                "a": "2_1",
-                                "b": 1
-                            },
-                            {
-                                "a": "3_2",
-                                "b": 3
-                            },
-                            {
-                                "a": "3_3",
-                                "b": 30
-                            },
-                            {
-                                "a": "3_1",
-                                "b": 0
-                            },
-                            {
-                                "a": "4_3",
-                                "b": 8
-                            },
-                            {
-                                "a": "4_4",
-                                "b": 80
-                            },
-                            {
-                                "a": "4_2",
-                                "b": 1
-                            },
-                            {
-                                "a": "4_1",
-                                "b": 0
-                            },
-                            {
-                                "a": "5_5",
-                                "b": 150
-                            },
-                            {
-                                "a": "5_3",
-                                "b": 3
-                            },
-                            {
-                                "a": "5_2",
-                                "b": 1
-                            },
-                            {
-                                "a": "5_4",
-                                "b": 15
-                            },
-                            {
-                                "a": "5_1",
-                                "b": 0
-                            },
-                            {
-                                "a": "6_4",
-                                "b": 11
-                            },
-                            {
-                                "a": "6_6",
-                                "b": 600
-                            },
-                            {
-                                "a": "6_5",
-                                "b": 50
-                            },
-                            {
-                                "a": "6_3",
-                                "b": 2
-                            },
-                            {
-                                "a": "6_2",
-                                "b": 0
-                            },
-                            {
-                                "a": "6_1",
-                                "b": 0
-                            },
-                            {
-                                "a": "7_5",
-                                "b": 10
-                            },
-                            {
-                                "a": "7_6",
-                                "b": 25
-                            },
-                            {
-                                "a": "7_4",
-                                "b": 4
-                            },
-                            {
-                                "a": "7_7",
-                                "b": 800
-                            },
-                            {
-                                "a": "7_3",
-                                "b": 3
-                            },
-                            {
-                                "a": "7_2",
-                                "b": 0
-                            },
-                            {
-                                "a": "7_1",
-                                "b": 0
-                            },
-                            {
-                                "a": "8_7",
-                                "b": 200
-                            },
-                            {
-                                "a": "8_8",
-                                "b": 3000
-                            },
-                            {
-                                "a": "8_6",
-                                "b": 50
-                            },
-                            {
-                                "a": "8_4",
-                                "b": 4
-                            },
-                            {
-                                "a": "8_5",
-                                "b": 16
-                            },
-                            {
-                                "a": "8_3",
-                                "b": 0
-                            },
-                            {
-                                "a": "8_2",
-                                "b": 0
-                            },
-                            {
-                                "a": "8_1",
-                                "b": 0
-                            }
-                        ]
-                    }
-                }
-            }
-        }
-    })
+    const {delta} = useSelector((state) => state.delta)
+
     const [disabled, setDisabled] = useState(true)
     const [numbers, setNumbers] = useState([])
+    const [event, setEvent] = useState(repeat === 1 ? [data] : events)
 
     useEffect(() => {
 
@@ -192,33 +55,44 @@ const TableChips = ({random, t}) => {
         setNumbers(random.sort((a, b) => a - b))
     }, [random])
 
+    useEffect(() => {
+        setEvent(repeat === 1 ? [data] : events)
+    }, [repeat, data])
+
+    const MATCHED = () => {
+        let r = []
+
+        event.map((round, idx) => {
+            if (idx <= repeat && checkTime(round.start, delta)) {
+                const f = round.round.odds.markets[0].outcomes.filter(el => el.a.indexOf(`${numbers.length}_`) !== -1)
+                const s = f.sort((a, b) => b.b - a.b)[0];
+
+                r.push({
+                    id: s.id,
+                    roundId: round.id,
+                    start: round.start,
+                    b: s.b || 0,
+                    m_old: round.round.odds.markets[0].name,
+                    o_old: numbers.join(', '),
+                    market: round.round.odds.markets[0].name,
+                    circles: numbers,
+                    print: round.round.odds.markets[0].printname,
+                    stake: 100,
+                    type: gameType.KENO
+                })
+            }
+        })
+
+        return r
+    }
+
     const addStake = () => {
         const a = betslip.slice(0)
-        const f = data.event.h.b.a.b.filter(el => el.a.indexOf(`${numbers.length}_`) !== -1 )
-        const s = f.sort((a, b) => b.b - a.b)[0];
+        let r = MATCHED()
 
-        const d = betslip.find(el => el.print === numbers.join(', '))
-
-        if (!d) {
-            let r = {
-                id: null,
-                start: new Date().getTime() + 30000,
-                b: s.b || 0,
-                m_old: data.event.h.b.a.a,
-                o_old: numbers.join(', '),
-                market: data.event.h.b.a.a,
-                print: numbers.join(', '),
-                stake: 100,
-                type: gameType.KENO
-            }
-
-            dispatch(deleteBetslip(a.concat(r)))
-            setDisabled(true)
-            setNumbers([])
-        }
-        else {
-            dispatch(setNotification(t('notification.stake_already_exists')))
-        }
+        dispatch(deleteBetslip(a.concat(betslip.length > 0 ? findExists(r, betslip) : r)))
+        setDisabled(true)
+        setNumbers([])
     }
 
     return (

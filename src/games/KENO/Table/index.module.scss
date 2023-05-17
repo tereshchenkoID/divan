@@ -1,6 +1,7 @@
 @import "scss/config";
 
 .block {
+  @include flex($direction: column);
   @include size(100%);
 }
 
@@ -9,9 +10,30 @@
 }
 
 .body {
+  @include flex($direction: column);
+
   position: relative;
-  min-height: rem(645px);
-  height: 100%;
+  flex-grow: 1;
+}
+
+.header {
+  @include make-spacer('my', 2);
+
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: rem(40px);
+  padding-left: rem(270px);
+  flex-shrink: 0;
+  min-height: rem(92px);
+}
+
+.wrapper {
+  flex-grow: 1;
+}
+
+.live {
+  @include size(100%);
+  @include wrapper;
 }
 
 .league {
@@ -28,19 +50,8 @@
 
 .link {
   @include link;
-}
 
-.table {
-  display: block;
-}
-
-.header {
-  @include make-spacer('my', 2);
-
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  column-gap: rem(40px);
-  padding-left: rem(270px);
+  flex-direction: column;
 }
 
 .label {
@@ -61,8 +72,4 @@
   &:last-child {
     @include make-spacer('mr', 0);
   }
-}
-
-.wrapper {
-  @include flex(center, center);
 }
