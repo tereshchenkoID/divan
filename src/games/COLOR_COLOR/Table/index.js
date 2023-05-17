@@ -247,6 +247,7 @@ const Table = () => {
                                                         repeat={repeat}
                                                         random={random}
                                                         data={active}
+                                                        setRepeat={setRepeat}
                                                     />
                                                 :
                                                     <div className={style.live} />

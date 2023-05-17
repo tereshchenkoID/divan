@@ -54,7 +54,7 @@ const findExists = (data, betslip) => {
     return r
 }
 
-const TableChips = ({events, repeat, random, data}) => {
+const TableChips = ({events, repeat, random, data, setRepeat}) => {
     const { t } = useTranslation()
     const dispatch = useDispatch()
 
@@ -227,6 +227,7 @@ const TableChips = ({events, repeat, random, data}) => {
         setColors([])
         setNumbers([])
         setType('')
+        setRepeat(1)
     }
 
     return (

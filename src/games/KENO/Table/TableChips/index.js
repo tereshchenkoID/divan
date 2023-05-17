@@ -30,7 +30,7 @@ const findExists = (data, betslip) => {
     return r
 }
 
-const TableChips = ({events, repeat, random, data}) => {
+const TableChips = ({events, repeat, random, data, setRepeat}) => {
     const { t } = useTranslation()
     const dispatch = useDispatch()
     const {betslip} = useSelector((state) => state.betslip)
@@ -93,6 +93,7 @@ const TableChips = ({events, repeat, random, data}) => {
         dispatch(deleteBetslip(a.concat(betslip.length > 0 ? findExists(r, betslip) : r)))
         setDisabled(true)
         setNumbers([])
+        setRepeat(1)
     }
 
     return (

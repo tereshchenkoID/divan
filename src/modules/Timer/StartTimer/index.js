@@ -35,7 +35,7 @@ const StartTimer = ({start, delta}) => {
                 clearInterval(a)
             }
 
-            if (diff < 6) {
+            if (diff < 6 && diff > 1) {
                 dispatch(setModal(1))
             }
         },1000)
