@@ -58,7 +58,7 @@ const Odd = ({market, start, data, view, text}) => {
            >
                 {
                     view &&
-                    <div className={style.numbers}>
+                    <span className={style.numbers}>
                         {
                             data.a.split(',').map((el, idx) =>
                                 <Number
@@ -68,15 +68,15 @@ const Odd = ({market, start, data, view, text}) => {
                                 />
                             )
                         }
-                    </div>
+                    </span>
                 }
                 {
                     text &&
-                    <div className={style.market}>
+                    <span className={style.market}>
                         {text}
-                    </div>
+                    </span>
                 }
-                <div>{data.b}</div>
+                <span>{data.b}</span>
            </button>
 }
 

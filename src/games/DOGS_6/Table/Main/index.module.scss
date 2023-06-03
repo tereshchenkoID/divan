@@ -2,7 +2,8 @@
 
 .block {
   @include make-spacer('px', 4);
-  @include make-spacer('py', 3);
+  @include make-spacer('pt', 3);
+  @include make-spacer('pb', 2);
 }
 
 .panel {

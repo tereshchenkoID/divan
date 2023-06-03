@@ -40,7 +40,7 @@
   @include size(rem(135px), rem(70px));
 
   img {
-    @include size(100%);
+    width: auto;
   }
 }
 
