@@ -40,7 +40,7 @@ const Trincast = ({data}) => {
         <div className={style.block}>
             <div className={style.row}>
                 {
-                    data.event.g.c.a.map((el, idx) =>
+                    data.race.odds.markets[0].outcomes.map((el, idx) =>
                         <div
                             key={idx}
                             className={style.cell}
@@ -117,7 +117,7 @@ const Trincast = ({data}) => {
             <div className={style.row}>
                 {
                     (sort.length === 0 || sort.length === NUMBER * 3) &&
-                    groupByFirstValue(data.event.g.e.h.b).map((el_c, idx_c) =>
+                    groupByFirstValue(data.race.odds.markets[7].outcomes).map((el_c, idx_c) =>
                         <div
                             key={idx_c}
                             className={style.column}
@@ -129,7 +129,8 @@ const Trincast = ({data}) => {
                                         className={style.cell}
                                     >
                                         <Odd
-                                            market={data.event.g.e.h.a}
+                                            market={data.race.odds.markets[7].printname}
+                                            start={data.start}
                                             data={el_i}
                                             view={'vertical'}
                                         />
@@ -141,14 +142,15 @@ const Trincast = ({data}) => {
                 }
                 {
                     (sort.length > 0 && sort.length !== NUMBER * 3) &&
-                    data.event.g.e.h.b.map((el, idx) =>
+                    data.race.odds.markets[7].outcomes.map((el, idx) =>
                         sortBy(el, sort) &&
                         <div
                             key={idx}
                             className={style.cell}
                         >
                             <Odd
-                                market={data.event.g.e.h.a}
+                                market={data.race.odds.markets[7].printname}
+                                start={data.start}
                                 data={el}
                                 view={'vertical'}
                             />

@@ -13,13 +13,14 @@ const Numbers = ({data}) => {
                 <div className={style.table}>
                     <div className={style.row}>
                         {
-                            data.event.g.e.a.b.map((el, idx) =>
+                            data.race.odds.markets[0].outcomes.map((el, idx) =>
                                 <div
                                     key={idx}
                                     className={style.cell}
                                 >
                                     <Odd
-                                        market={data.event.g.e.a.a}
+                                        market={data.race.odds.markets[0].printname}
+                                        start={data.start}
                                         data={el}
                                         view={'horizontal'}
                                     />
@@ -35,13 +36,14 @@ const Numbers = ({data}) => {
                 <div className={style.table}>
                     <div className={style.row}>
                         {
-                            data.event.g.e.b.b.map((el, idx) =>
+                            data.race.odds.markets[1].outcomes.map((el, idx) =>
                                 <div
                                     key={idx}
                                     className={style.cell}
                                 >
                                     <Odd
-                                        market={data.event.g.e.b.a}
+                                        market={data.race.odds.markets[1].printname}
+                                        start={data.start}
                                         data={el}
                                         view={'horizontal'}
                                     />
@@ -57,13 +59,14 @@ const Numbers = ({data}) => {
                 <div className={style.table}>
                     <div className={style.row}>
                         {
-                            data.event.g.e.c.b.map((el, idx) =>
+                            data.race.odds.markets[2].outcomes.map((el, idx) =>
                                 <div
                                     key={idx}
                                     className={style.cell}
                                 >
                                     <Odd
-                                        market={data.event.g.e.c.a}
+                                        market={data.race.odds.markets[2].printname}
+                                        start={data.start}
                                         data={el}
                                         view={'horizontal'}
                                     />

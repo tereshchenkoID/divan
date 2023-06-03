@@ -40,7 +40,7 @@ const Forecast = ({data}) => {
         <div className={style.block}>
             <div className={style.row}>
                 {
-                    data.event.g.c.a.map((el, idx) =>
+                    data.race.odds.markets[0].outcomes.map((el, idx) =>
                         <div
                             key={idx}
                             className={style.cell}
@@ -97,7 +97,7 @@ const Forecast = ({data}) => {
             <div className={style.row}>
                 {
                     (sort.length === 0 || sort.length === NUMBER * 2) &&
-                    groupByFirstValue(data.event.g.e.g.b).map((el_c, idx_c) =>
+                    groupByFirstValue(data.race.odds.markets[6].outcomes).map((el_c, idx_c) =>
                         <div
                             key={idx_c}
                             className={style.column}
@@ -109,7 +109,8 @@ const Forecast = ({data}) => {
                                         className={style.cell}
                                     >
                                         <Odd
-                                            market={data.event.g.e.g.a}
+                                            market={data.race.odds.markets[6].printname}
+                                            start={data.start}
                                             data={el_i}
                                             view={'vertical'}
                                         />
@@ -121,14 +122,15 @@ const Forecast = ({data}) => {
                 }
                 {
                     (sort.length > 0 && sort.length !== NUMBER * 2) &&
-                    data.event.g.e.g.b.map((el, idx) =>
+                    data.race.odds.markets[6].outcomes.map((el, idx) =>
                         sortBy(el, sort) &&
                             <div
                                 key={idx}
                                 className={style.cell}
                             >
                                 <Odd
-                                    market={data.event.g.e.g.a}
+                                    market={data.race.odds.markets[6].printname}
+                                    start={data.start}
                                     data={el}
                                     view={'vertical'}
                                 />

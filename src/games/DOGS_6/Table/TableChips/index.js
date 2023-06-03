@@ -1,7 +1,3 @@
-import {useState} from "react";
-
-import classNames from "classnames";
-
 import Main from "../Main";
 import Forecast from "../Forecast";
 import Quinella from "../Quinella";
@@ -24,37 +20,13 @@ const getType = (type, data) => {
     }
 }
 
-const TableChips = ({data}) => {
-    const [active, setActive] = useState(0)
-    const TYPES  = ['Main', 'Forecast', 'Quinella', 'Trincast']
+const TableChips = ({type, events, data}) => {
 
     return (
         <div className={style.block}>
-            <div className={style.header}>
-                {
-                    TYPES.map((el, idx) =>
-                        <button
-                            key={idx}
-                            className={
-                                classNames(
-                                    style.button,
-                                    active === idx && style.active
-                                )
-                            }
-                            onClick={() => {
-                                setActive(idx)
-                            }}
-                        >
-                            {el}
-                        </button>
-                    )
-                }
-            </div>
-            <div className={style.wrapper}>
-                {
-                    getType(active, data)
-                }
-            </div>
+            {
+                getType(type, data)
+            }
         </div>
     );
 }

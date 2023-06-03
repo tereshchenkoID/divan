@@ -2,8 +2,9 @@ import {useDispatch, useSelector} from "react-redux";
 
 import classNames from "classnames";
 
-import {dogsType, gameType} from "constant/config";
+import {gameType} from "constant/config";
 
+import {generateCircles} from "helpers/generateCircles";
 import {deleteBetslip, setBetslip} from "store/actions/betslipAction";
 
 import Number from "../Number";
@@ -12,32 +13,32 @@ import style from './index.module.scss';
 
 const findBet = (data, id) => {
     return data.find(el => {
-        return el.print === id
+        return el.id === id
     })
 }
 
-const Odd = ({market, data, view, text}) => {
+const Odd = ({market, start, data, view, text}) => {
     const dispatch = useDispatch()
     const {betslip} = useSelector((state) => state.betslip)
-    const p = `${dogsType[market]}: ${data.a}`
 
     const addStake = () => {
         const a = betslip.slice(0);
 
-        if (findBet(a, p)) {
-            a.splice(a.indexOf(findBet(a, p)), 1)
+        if (findBet(a, data.id)) {
+            a.splice(a.indexOf(findBet(a, data.id)), 1)
             dispatch(deleteBetslip(a))
         }
         else {
             dispatch(setBetslip({
-                id: null,
-                start: new Date().getTime() + 30000,
+                id: data.id,
+                start: start,
                 b: data.b,
                 market: market,
-                print: `${dogsType[market]}: ${data.a}`,
-                m_old: market,    // Remove after
-                o_old: data.a,    // Remove after
+                print: text ? `${market}: ${data.a}` : market,
+                m_old: market,
+                o_old: data.a,
                 stake: 100,
+                circles: text ? [] : generateCircles(data.a),
                 type: gameType.DOGS_6
             }))
         }
@@ -48,7 +49,7 @@ const Odd = ({market, data, view, text}) => {
                     classNames(
                         style.block,
                         style[view],
-                        findBet(betslip, p) && style.active
+                        findBet(betslip, data.id) && style.active
                     )
                 }
                 onClick={() => {

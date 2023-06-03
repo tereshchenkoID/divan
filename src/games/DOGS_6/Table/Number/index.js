@@ -4,7 +4,7 @@ import {dogsColor} from "constant/config";
 
 import style from './index.module.scss';
 
-const Number = ({color, data, size = 'sm'}) => {
+const Number = ({color, data, size = 'md'}) => {
 
     return <span
                 className={

@@ -1,6 +1,7 @@
 @import "scss/config";
 
 .block {
+  @include flex($direction: column);
   @include size(100%);
 }
 
@@ -9,9 +10,28 @@
 }
 
 .body {
+  @include flex($direction: column);
+
   position: relative;
-  min-height: rem(600px);
-  height: 100%;
+  flex-grow: 1;
+}
+
+.header {
+  @include flex($align-items: center);
+  @include make-spacer('my', 2);
+
+  padding-left: rem(270px);
+  flex-shrink: 0;
+  min-height: rem(92px);
+}
+
+.wrapper {
+  flex-grow: 1;
+}
+
+.live {
+  @include size(100%);
+  @include wrapper;
 }
 
 .league {
@@ -28,14 +48,24 @@
 
 .link {
   @include link;
+
+  flex-direction: column;
 }
 
-.table {
-  @include make-spacer('mt', 7);
+.market {
+  @include button;
+  @include size(auto, rem(42px));
+  @include make-spacer('px', 2);
+  @include make-spacer('mr', half);
 
-  display: block;
-}
+  width: auto;
+  font-size: rem(14px);
 
-.wrapper {
-  @include flex(center, center);
+  &:last-child {
+    @include make-spacer('mr', 0);
+  }
+
+  &.disabled {
+    pointer-events: auto;
+  }
 }

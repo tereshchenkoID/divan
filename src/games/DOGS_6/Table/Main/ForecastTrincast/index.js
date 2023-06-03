@@ -1,8 +1,9 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 
-import {dogsType, gameType} from "constant/config";
+import {gameType} from "constant/config";
 
+import {generateCircles} from "helpers/generateCircles";
 import {deleteBetslip, setBetslip} from "store/actions/betslipAction";
 
 import classNames from "classnames";
@@ -11,9 +12,9 @@ import Number from "../../Number";
 
 import style from './index.module.scss';
 
-const findBet = (data, id) => {
+const findBet = (data, id, start) => {
     return data.find(el => {
-        return el.print === id
+        return el.id === id && el.start === start
     })
 }
 
@@ -39,71 +40,107 @@ const findBets = (data, id) => {
     return r
 }
 
+const defaultValue = (start, el, market) => {
+
+    return {
+        start: start,
+        id: el.id,
+        b: el.b,
+        market: market,
+        print: market,
+        m_old: market,
+        o_old: el.a,
+        stake: 100,
+        circles: generateCircles(el.a),
+        type: gameType.DOGS_6
+    }
+}
+
 const ForecastTrincast = ({data}) => {
     const dispatch = useDispatch()
     const {betslip} = useSelector((state) => state.betslip)
-    const [selectForecast, setForecastSelect] = useState()
-    const [selectTrincast, setTrincastSelect] = useState()
+    const [selectForecast, setForecastSelect] = useState(null)
+    const [selectTrincast, setTrincastSelect] = useState(null)
     const [forecast, setForecast] = useState([])
     const [trincast, setTrincast] = useState([])
 
+    const resetActive = () => {
+        setForecast([])
+        setForecastSelect(null)
+        setTrincast([])
+        setTrincastSelect(null)
+    }
+
+    useEffect(() => {
+        resetActive()
+    }, [data]);
 
     const addStake = (market, el, step) => {
         const a = betslip.slice(0)
-        const p = `${dogsType[market]}: ${el.a}`
 
         if (step === 2) {
-            if (!findBet(a, p)) {
-                dispatch(setBetslip({
-                    start: null,
-                    id: null,
-                    b: el.b,
-                    market: market,
-                    print: `${dogsType[market]}: ${el.a}`,
-                    m_old: market,    // Remove after
-                    o_old: el.a,      // Remove after
-                    stake: 100,
-                    type: gameType.DOGS_6
-                }))
+            if (!findBet(a, el.id, data.start)) {
+                dispatch(setBetslip(defaultValue(data.start, el, market)))
             }
         }
 
         if (step === 3) {
             const f = a.find(e => {
-                return e.type === gameType.DOGS_6 && el.a.indexOf(e.print.split(': ')[1]) !== -1
+                return e.type === gameType.DOGS_6 && el.a.indexOf(e.print.split(': ')[1]) !== -1 && e.start === data.start
             })
 
-            f.b = el.b
-            f.market = el.market
-            f.print = `${dogsType[market]}: ${el.a}`
-            f.m_old = el.market
-            f.o_old = el.a
+            if (f) {
+                f.id = el.id
+                f.b = el.b
+                f.market = market
+                f.print = market
+                f.m_old = market
+                f.o_old = el.a
+                f.circles = generateCircles(el.a)
 
-            dispatch(deleteBetslip(a))
+                dispatch(deleteBetslip(a))
+            }
+            else {
+                dispatch(setBetslip(defaultValue(data.start, el, market)))
+            }
 
-            setForecast([])
-            setForecastSelect([])
-            setTrincast([])
-            setTrincastSelect([])
+            resetActive()
         }
     }
 
     const addForecastStake = (el) => {
-        setForecastSelect(el)
-
-        setTrincast([])
-        setTrincastSelect([])
-        setForecast(findBets(data.event.g.e.g.b, el.a))
+        if (selectForecast && el.id === selectForecast.id) {
+            resetActive()
+        }
+        else {
+            setForecastSelect(el)
+            setForecast(findBets(data.race.odds.markets[6].outcomes, el.a))
+            setTrincast([])
+            setTrincastSelect(null)
+        }
     }
 
     const addTrincastStake = (el) => {
-        addStake(data.event.g.e.h.a, el, 2)
-        setTrincastSelect(el)
-        setTrincast(findBets(data.event.g.e.h.b, el.a))
+        if (selectTrincast && el.id === selectTrincast.id) {
+            const a = betslip.slice(0)
+            const f = findBet(a, el.id, data.start)
+
+            if (f) {
+                a.splice(a.indexOf(f), 1)
+                dispatch(deleteBetslip(a))
+                setTrincastSelect(null)
+                setTrincast([])
+            }
+        }
+        else {
+            setTrincastSelect(el)
+            setTrincast(findBets(data.race.odds.markets[7].outcomes, el.a))
+            addStake(data.race.odds.markets[6].printname, el, 2)
+        }
     }
 
     const addFullStake = (el) => {
-        addStake(data.event.g.e.h.a, el, 3)
+        addStake(data.race.odds.markets[7].printname, el, 3)
     }
 
     return (
@@ -112,7 +149,7 @@ const ForecastTrincast = ({data}) => {
                 <div className={style.row}>
                     <div className={style.cell}>1</div>
                     {
-                        data.event.g.e.a.b.map((el, idx) =>
+                        data.race.odds.markets[0].outcomes.map((el, idx) =>
                             <div
                                 key={idx}
                                 className={
@@ -176,7 +213,6 @@ const ForecastTrincast = ({data}) => {
                                             data={idx + 1}
                                         />
                                     </div>
-
                         )
                     }
                 </div>

@@ -2,9 +2,9 @@ import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 
-import {gameType} from "constant/config";
-
 import classNames from "classnames";
+
+import {gameType} from "constant/config";
 
 import {deleteBetslip} from "store/actions/betslipAction";
 

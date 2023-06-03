@@ -2,10 +2,11 @@ import {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 
 import {deleteBetslip} from "store/actions/betslipAction";
+import {generateCircles} from "helpers/generateCircles";
 
 import classNames from "classnames";
 
-import {dogsType, gameType} from "constant/config";
+import {gameType} from "constant/config";
 
 import Number from "../../../Number";
 
@@ -39,7 +40,7 @@ const addStake = (id, select, setSelect) => {
 
 const findBet = (data, id) => {
     return data.find(el => {
-        return el.print === id
+        return el.id === id
     })
 }
 
@@ -53,22 +54,23 @@ const Double = ({data}) => {
         const f = generateBets(select)
         const b = betslip.slice(0)
 
-        data.event.g.e.g.b.map(el => {
+        data.race.odds.markets[6].outcomes.map(el => {
             if(f.indexOf(el.a) !== -1) {
-                const m = data.event.g.e.g.a
-                const p = `${dogsType[m]}: ${el.a}`
-                const f = findBet(b, p)
+                const m = data.race.odds.markets[6].printname
+                const p = `${m}: ${el.a}`
+                const f = findBet(b, el.id)
 
                 if (!f) {
                     r.push({
-                        start: null,
-                        id: null,
+                        start: data.start,
+                        id: el.id,
                         b: el.b,
                         market: m,
                         print: p,
-                        m_old: m,                     // Remove after
-                        o_old: el.a,                  // Remove after
+                        m_old: m,
+                        o_old: el.a,
                         stake: 100,
+                        circles: generateCircles(el.a),
                         type: gameType.DOGS_6
                     })
                 }
@@ -85,7 +87,7 @@ const Double = ({data}) => {
         <div className={style.block}>
             <div className={style.row}>
                 {
-                    data.event.g.e.c.b.map((el, idx) =>
+                    data.race.odds.markets[0].outcomes.map((el, idx) =>
                         <div
                             key={idx}
                             className={style.cell}

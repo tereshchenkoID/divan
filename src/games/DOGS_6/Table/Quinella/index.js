@@ -8,13 +8,14 @@ const Quinella = ({data}) => {
         <div className={style.block}>
             <div className={style.row}>
                 {
-                    data.event.g.e.d.b.map((el, idx) =>
+                    data.race.odds.markets[3].outcomes.map((el, idx) =>
                         <div
                             key={idx}
                             className={style.cell}
                         >
                             <Odd
-                                market={data.event.g.e.d.a}
+                                market={data.race.odds.markets[3].printname}
+                                start={data.start}
                                 data={el}
                                 view={'vertical'}
                             />

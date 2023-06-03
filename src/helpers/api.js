@@ -1,6 +1,5 @@
 import {useRequest} from "hooks/useRequest";
 
-
 export const getData = async (url) => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const { get } = useRequest();
@@ -11,7 +10,6 @@ export const getData = async (url) => {
         console.log(e)
     }
 }
-
 
 export const postData = async (url, data) => {
     // eslint-disable-next-line react-hooks/rules-of-hooks

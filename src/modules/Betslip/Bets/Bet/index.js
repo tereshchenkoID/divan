@@ -139,10 +139,7 @@ const Bet = ({data, betslip, type, setInit, setDisabled}) => {
                             data.type === gameType.COLOR_COLOR && data.print.replace('_', '/')
                         }
                         {
-                            data.type === gameType.KENO && data.print
-                        }
-                        {
-                            data.type === gameType.DOGS_6 && data.print
+                            (data.type === gameType.KENO || data.type === gameType.DOGS_6) && data.print
                         }
                     </span>
                     {
@@ -154,7 +151,7 @@ const Bet = ({data, betslip, type, setInit, setDisabled}) => {
                                         key={idx}
                                         className={
                                             classNames(
-                                                style.circle,
+                                                style[data.type === gameType.DOGS_6 ? 'number' : 'circle'],
                                                 style.sm,
                                                 style[el.color ? el.color.toLowerCase() : 'draw']
                                             )
@@ -162,6 +159,7 @@ const Bet = ({data, betslip, type, setInit, setDisabled}) => {
                                     >
                                         {data.type === gameType.COLOR_COLOR && el.id.toString().length < 3 && el.id}
                                         {data.type === gameType.KENO && el}
+                                        {data.type === gameType.DOGS_6 && el.id}
                                     </div>
                                 )
                             }

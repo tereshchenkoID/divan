@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 import classNames from "classnames";
 
@@ -23,6 +23,10 @@ const getType = (type, data) => {
 const Races = ({data}) => {
     const [active, setActive] = useState(0)
     const TYPES  = ['System double', 'System Triple', 'Extra Bets']
+
+    useEffect(() => {
+        setActive(0)
+    }, [data]);
 
     return (
         <div className={style.block}>

@@ -212,7 +212,7 @@ const Table = () => {
                                     <div className={style.info}>
                                         <div className={style.league}>
                                             <img
-                                                src={`https://view.divan.bet/engine/shop/resource/${game.logo}`}
+                                                src={`/img/icon/${game.id}.png`}
                                                 alt={active.league.name}
                                             />
                                         </div>

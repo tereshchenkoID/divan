@@ -7,13 +7,14 @@ const Extra = ({data}) => {
     return (
         <div className={style.block}>
             {
-                data.event.g.e.e.b.map((el, idx) =>
+                data.race.odds.markets[4].outcomes.map((el, idx) =>
                     <div
                         key={idx}
                         className={style.cell}
                     >
                         <Odd
-                            market={data.event.g.e.e.a}
+                            start={data.start}
+                            market={data.race.odds.markets[4].printname}
                             text={el.a}
                             data={el}
                         />
@@ -21,13 +22,14 @@ const Extra = ({data}) => {
                 )
             }
             {
-                data.event.g.e.f.b.map((el, idx) =>
+                data.race.odds.markets[5].outcomes.map((el, idx) =>
                     <div
                         key={idx}
                         className={style.cell}
                     >
                         <Odd
-                            market={data.event.g.e.f.a}
+                            start={data.start}
+                            market={data.race.odds.markets[5].printname}
                             text={el.a}
                             data={el}
                         />

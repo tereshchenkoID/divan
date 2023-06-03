@@ -59,6 +59,7 @@ const Table = () => {
         setActive(data.events[1])
         dispatch(setModal(0))
         dispatch(setLive(1))
+        dispatch(setData(game))
         setRepeat(1)
         setRandom([])
     }
@@ -183,7 +184,7 @@ const Table = () => {
                                     <div className={style.info}>
                                         <div className={style.league}>
                                             <img
-                                                src={`https://view.divan.bet/engine/shop/resource/${game.logo}`}
+                                                src={`/img/icon/${game.id}.svg`}
                                                 alt={'Color'}
                                             />
                                         </div>
