@@ -112,6 +112,8 @@ const Stake = ({data}) => {
 
     useEffect(() => {
         init && updateStake(value)
+
+        // updateStake(value)
     }, [value])
 
     return (

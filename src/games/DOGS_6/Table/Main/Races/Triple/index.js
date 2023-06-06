@@ -1,5 +1,6 @@
 import {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
+import {useTranslation} from "react-i18next";
 
 import {generateCircles} from "helpers/generateCircles";
 import {deleteBetslip} from "store/actions/betslipAction";
@@ -48,6 +49,7 @@ const findBet = (data, id) => {
 }
 
 const Triple = ({data}) => {
+    const { t } = useTranslation()
     const dispatch = useDispatch()
     const {betslip} = useSelector((state) => state.betslip)
     const [select, setSelect] = useState([])
@@ -127,7 +129,7 @@ const Triple = ({data}) => {
                   placeBets()
                 }}
             >
-                Place bets
+                {t('games.DOGS_6.place_bets')}
             </button>
         </div>
     );

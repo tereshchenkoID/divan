@@ -31,6 +31,7 @@ const Account = () => {
         <div className={style.block}>
             {
                 !loading &&
+                balance &&
                 <>
                     <div className={style.cell}>
                         <div className={style.icon}>

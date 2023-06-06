@@ -20,7 +20,6 @@ const UpdateData = ({find, active, setActive, setFind, setRepeat}) => {
         let a
 
         dispatch(setData(game)).then((json) => {
-            console.log(json.events[0].status)
             if (json.events[0].status === matchStatus.ANNOUNCEMENT) {
                 setFind(null)
                 dispatch(setLive(1))
@@ -43,7 +42,7 @@ const UpdateData = ({find, active, setActive, setFind, setRepeat}) => {
             a = setInterval(() => {
                 const at = announcementTimer(find.start, delta)
 
-                console.log(at)
+                // console.log(at)
 
                 if (at === '0') {
 
@@ -51,7 +50,7 @@ const UpdateData = ({find, active, setActive, setFind, setRepeat}) => {
                         b = setInterval(() => {
                             const pt = progressTimer(json.event.nextUpdate, delta)
 
-                            console.log(pt)
+                            // console.log(pt)
 
                             if (pt === '0') {
 
@@ -59,7 +58,7 @@ const UpdateData = ({find, active, setActive, setFind, setRepeat}) => {
                                     c = setInterval(() => {
                                         const rt = resultTimer(json.event.nextUpdate, delta)
 
-                                        console.log(rt)
+                                        // console.log(rt)
 
                                         if (rt === '0') {
                                             updateGame()
@@ -81,7 +80,7 @@ const UpdateData = ({find, active, setActive, setFind, setRepeat}) => {
             a = setInterval(() => {
                 const pt = progressTimer(find.nextUpdate, delta)
 
-                console.log(pt)
+                // console.log(pt)
 
                 if (pt === '0') {
                     dispatch(setUpdate(find.id)).then((json) => {
@@ -89,7 +88,7 @@ const UpdateData = ({find, active, setActive, setFind, setRepeat}) => {
                         b = setInterval(() => {
                             const rt = resultTimer(json.event.nextUpdate, delta)
 
-                            console.log(rt)
+                            // console.log(rt)
 
                             if (rt === '0') {
                                 updateGame()
@@ -105,7 +104,7 @@ const UpdateData = ({find, active, setActive, setFind, setRepeat}) => {
             a = setInterval(() => {
                 const rt = resultTimer(find.nextUpdate, delta)
 
-                console.log(rt)
+                // console.log(rt)
 
                 if (rt === '0') {
                     dispatch(setData(game)).then((json) => {

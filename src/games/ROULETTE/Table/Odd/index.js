@@ -38,33 +38,8 @@ const Odd = ({data, step, steps, active}) => {
                 m_old: date.stake.split(":")[0],
                 o_old: date.stake.split(":")[1].slice(1),
                 stake: step.amount.toFixed(2),
-                type: gameType.ROULETTE,
-                // circles: [
-                //     {
-                //         id: el.outcome,
-                //         color: el.color
-                //     }
-                // ],
+                type: gameType.ROULETTE
             }))
-
-            console.log({
-                roundId: active.id,
-                start: active.start,
-                id: null,
-                b: date.odd,
-                market: date.stake,
-                print: date.stake,
-                m_old: date.stake.split(":")[0],
-                o_old: outcome,
-                stake: step.amount.toFixed(2),
-                type: gameType.ROULETTE,
-                // circles: [
-                //     {
-                //         id: el.outcome,
-                //         color: el.color
-                //     }
-                // ],
-            })
         }
     }
 
