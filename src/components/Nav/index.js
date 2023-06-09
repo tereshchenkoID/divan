@@ -1,6 +1,6 @@
 import {useDispatch, useSelector} from "react-redux";
 import {useState} from "react";
-import {useTranslation} from "react-i18next";
+// import {useTranslation} from "react-i18next";
 
 import {setAuth} from "store/actions/authAction";
 import {setTicket} from "store/actions/ticketAction";
@@ -16,7 +16,7 @@ import style from './index.module.scss';
 
 const Nav = () => {
     const dispatch = useDispatch()
-    const { i18n } = useTranslation()
+    // const { i18n } = useTranslation()
     const {ticket} = useSelector((state) => state.ticket)
     const [sm, setSm] = useState(false) // Settings Modal
     const [rm, setRm] = useState(false) // Reports Modal
@@ -33,24 +33,24 @@ const Nav = () => {
                 <div className={style.cell}>
                     <Clock />
                 </div>
-                <div className={style.cell}>
-                    <button
-                        className={style.language}
-                        onClick={() => {
-                            i18n.changeLanguage('ukr');
-                        }}
-                    >
-                        UA
-                    </button>
-                    <button
-                        className={style.language}
-                        onClick={() => {
-                            i18n.changeLanguage('en');
-                        }}
-                    >
-                        EN
-                    </button>
-                </div>
+                {/*<div className={style.cell}>*/}
+                {/*    <button*/}
+                {/*        className={style.language}*/}
+                {/*        onClick={() => {*/}
+                {/*            i18n.changeLanguage('ukr');*/}
+                {/*        }}*/}
+                {/*    >*/}
+                {/*        UA*/}
+                {/*    </button>*/}
+                {/*    <button*/}
+                {/*        className={style.language}*/}
+                {/*        onClick={() => {*/}
+                {/*            i18n.changeLanguage('en');*/}
+                {/*        }}*/}
+                {/*    >*/}
+                {/*        EN*/}
+                {/*    </button>*/}
+                {/*</div>*/}
             </div>
             <div className={style.options}>
                 <div className={style.option}>

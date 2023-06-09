@@ -39,6 +39,7 @@ const Bets = ({
                         className={style.item}
                     >
                         <Bet
+                            id={idx}
                             data={el}
                             betslip={betslip}
                             stake={stake}

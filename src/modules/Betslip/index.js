@@ -135,11 +135,22 @@ const Betslip = () => {
         })
     }
 
+    const checkGames = () => {
+        if(betslip.length) {
+            const t = betslip[0].type
+            return betslip.find(el => {
+                return el.type !== t
+            })
+        }
+        else {
+            return null
+        }
+    }
+
     const systemHandler = () => {
         const r = []
         const b = getSystemCombination(betslip)
 
-        // eslint-disable-next-line array-callback-return
         b.countList.map(el => {
             const s = []
 
@@ -166,21 +177,10 @@ const Betslip = () => {
                 stake: st
             })
 
+            return true
         })
 
         return r
-    }
-
-    const checkGames = () => {
-        if(betslip.length) {
-            const t = betslip[0].type
-            return betslip.find(el => {
-                return el.type !== t
-            })
-        }
-        else {
-            return null
-        }
     }
 
     const singleHandler = () => {
@@ -198,7 +198,7 @@ const Betslip = () => {
             if (!init) {
 
                 if (betslip[0].type === gameType.FOOTBALL_LEAGUE) {
-                    s = settings.betting.type === oddsType.PER_BET ? settings.betslip.single.default: settings.betslip.single.default / betslip.length
+                    s = settings.betting.type === oddsType.PER_BET ? settings.betslip.single.default : settings.betslip.single.default / betslip.length
                 }
                 else {
                     s = getTotalStakeSingle(betslip)

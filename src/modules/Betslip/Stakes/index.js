@@ -4,10 +4,7 @@ import Stake from "./Stake";
 
 import style from './index.module.scss';
 
-const Stakes = ({
-    stake,
-    setInit,
-}) => {
+const Stakes = ({ stake }) => {
     const { t } = useTranslation()
 
     return (
@@ -33,11 +30,7 @@ const Stakes = ({
                             key={idx}
                             className={style.item}
                         >
-                            <Stake
-                                key={idx}
-                                data={el}
-                                setInit={setInit}
-                            />
+                            <Stake data={el} />
                         </div>
                     )
                 }

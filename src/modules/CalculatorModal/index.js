@@ -43,7 +43,7 @@ const CalculatorModal = ({data, action, toggle}) => {
 
     const handleClickStake = (n) => {
         if (date.toString().indexOf('.') !== -1) {
-            const a = date.split('.')
+            const a = date.toString().split('.')
             a[0] = parseInt(a[0]) + n
             a[1] = a[1] === '' ? 0 : a[1]
             const r = a.join('.')

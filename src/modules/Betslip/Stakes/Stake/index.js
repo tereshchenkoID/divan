@@ -34,8 +34,6 @@ const Stake = ({data}) => {
     useOutsideClick(blockRef, buttonRef, setEdit, data)
 
     const updateBetslip = (stake) => {
-        console.log("Update Stake", stake)
-
         for(let i = 0; i < betslip.length; i++) {
             betslip[i].stake = settings.betting.type === oddsType.PER_BET ? parseFloat(stake).toFixed(2) : parseFloat(stake / betslip.length).toFixed(2)
         }
@@ -112,9 +110,11 @@ const Stake = ({data}) => {
 
     useEffect(() => {
         init && updateStake(value)
-
-        // updateStake(value)
     }, [value])
+
+    useEffect(() => {
+        calculate && updateStake(value)
+    }, [calculate])
 
     return (
         <div

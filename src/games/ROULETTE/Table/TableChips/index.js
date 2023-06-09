@@ -155,6 +155,7 @@ const TableChips = ({random, active}) => {
     const addRandomChips = () => {
         const a = betslip.slice(0)
         const r = a.filter(el => el.roundId !== active.id)
+        const s = buttonStepGet().amount.toFixed(2)
 
         for (let i = 0; i < random.length; i++) {
             r.push({
@@ -166,7 +167,7 @@ const TableChips = ({random, active}) => {
                 print: data.chips[random[i]].stake,
                 m_old: data.chips[random[i]].stake.split(":")[0],
                 o_old: data.chips[random[i]].stake.split(":")[1].slice(1),
-                stake: buttonStepGet().amount.toFixed(2),
+                stake: s,
                 type: gameType.ROULETTE
             })
         }

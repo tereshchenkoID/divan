@@ -2,14 +2,14 @@ import {Suspense, useEffect, useState} from "react";
 import {useSelector} from "react-redux";
 import {Routes, Route} from "react-router-dom";
 
+import classNames from "classnames";
+
 import {router} from "router";
 
 import Login from "pages/Login";
-
 import Loader from "components/Loader";
 
 import style from './index.module.scss';
-import classNames from "classnames";
 
 const App = () => {
     const {auth} = useSelector((state) => state.auth)
@@ -21,7 +21,6 @@ const App = () => {
         x: window.innerWidth / WINDOW_SIZE.w,
         y: window.innerHeight / WINDOW_SIZE.h
     });
-
 
     const handleResize = () => {
         setWindowSize({

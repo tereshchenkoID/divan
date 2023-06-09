@@ -17,13 +17,7 @@ import Button from "components/Button";
 
 import style from './index.module.scss';
 
-const findBet = (data, id) => {
-    return data.find(el => {
-        return el.id === id
-    })
-}
-
-const Bet = ({data, betslip, type, setInit, setDisabled}) => {
+const Bet = ({id, data, betslip, type, setInit, setDisabled}) => {
     const { t } = useTranslation()
     const dispatch = useDispatch()
     const {settings} = useSelector((state) => state.settings)
@@ -34,8 +28,7 @@ const Bet = ({data, betslip, type, setInit, setDisabled}) => {
 
     const removeBet = () => {
         const a = betslip.slice(0);
-
-        a.splice(a.indexOf(findBet(a, data.id)), 1)
+        a.splice(id, 1)
 
         if (betslip.length === 1) {
             setInit(false)
@@ -49,7 +42,6 @@ const Bet = ({data, betslip, type, setInit, setDisabled}) => {
         let r
         const regex = /[^0-9.]|(?<=\..*)\./g
         const a = betslip.slice(0);
-        const f = findBet(a, data.id)
 
         if (!regex.test(val)) {
             r = val
@@ -64,7 +56,7 @@ const Bet = ({data, betslip, type, setInit, setDisabled}) => {
                 r = 0
             }
 
-            f.stake = r
+            a[id].stake = r
 
             dispatch(deleteBetslip(a))
             setInit(true)
@@ -73,7 +65,7 @@ const Bet = ({data, betslip, type, setInit, setDisabled}) => {
 
     const changeBet = (val) => {
         const a = betslip.slice(0)
-        const f = (data.type === 0) ? a[0] : findBet(a, data.id)
+        const f = (data.type === 0) ? a[0] : a[id]
         let v
 
         if (val) {

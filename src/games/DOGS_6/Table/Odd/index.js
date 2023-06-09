@@ -76,7 +76,7 @@ const Odd = ({market, start, data, view, text}) => {
                         {text}
                     </span>
                 }
-                <span>{data.b}</span>
+                <span>{data.b.toFixed(1)}</span>
            </button>
 }
 

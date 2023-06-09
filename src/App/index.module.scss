@@ -10,9 +10,7 @@
   font-weight: var(--typography-regular);
   min-height: rem(768px);
   min-width: rem(1366px);
-  //height: 100vh;
   overflow: hidden;
-
 
   &.fixed {
     @include size(rem(1366px), rem(768px));
