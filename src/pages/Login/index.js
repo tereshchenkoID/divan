@@ -1,10 +1,14 @@
-import {useState} from "react";
+import {useRef, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
+import classNames from "classnames";
 
 import {hostnames} from "constant/config"
 
-import {postData} from "helpers/api";
+import Keyboard from "react-simple-keyboard";
 
+import 'simple-keyboard/build/css/index.css'
+
+import {postData} from "helpers/api";
 import {setNotification} from "store/actions/notificationAction";
 import {setAuth} from "store/actions/authAction";
 
@@ -16,18 +20,50 @@ import style from './index.module.scss';
 const Login = () => {
     const dispatch = useDispatch()
     const {notification} = useSelector((state) => state.notification)
-    const [login, setLogin] = useState('')
-    const [password, setPassword] = useState('')
     const [type, setType] = useState('password')
+    const [show, setShow] = useState(false)
+    const [inputs, setInputs] = useState({});
+    const [layoutName, setLayoutName] = useState("default");
+    const [inputName, setInputName] = useState("default");
+    const keyboard = useRef();
+
+    const onChangeAll = inputs => {
+        setInputs({ ...inputs });
+    };
+
+    const handleShift = () => {
+        const newLayoutName = layoutName === "default" ? "shift" : "default";
+        setLayoutName(newLayoutName);
+    };
+
+    const onKeyPress = button => {
+        if (button === "{shift}" || button === "{lock}") handleShift()
+        if (button === "{enter}") handleSubmit()
+    };
+
+    const onChangeInput = event => {
+        const inputVal = event.target.value;
+
+        setInputs({
+            ...inputs,
+            [inputName]: inputVal
+        });
+
+        keyboard.current.setInput(inputVal);
+    };
+
+    const getInputValue = inputName => {
+        return inputs[inputName] || "";
+    };
 
     const handleSubmit = async (event) => {
-        event.preventDefault();
+        event && event.preventDefault();
 
         postData(
             `${hostnames.PROD}/account/login`,
                 JSON.stringify({
-                    login,
-                    password
+                    login: inputs.login,
+                    password: inputs.password
                 })
             )
             .then((json) => {
@@ -58,28 +94,30 @@ const Login = () => {
                 </div>
                 <div className={style.row}>
                     <input
+                        id={"login"}
+                        value={getInputValue("login")}
+                        onChange={onChangeInput}
+                        onFocus={() => {
+                            !show && setShow(true)
+                            setInputName("login")
+                        }}
                         type={"text"}
                         className={style.field}
                         placeholder={'Username'}
-                        onChange={(e) => {
-                            setLogin(e.target.value || '')
-                        }}
-                        defaultValue={login}
-                        autoComplete={'true'}
-                        autoSave={'true'}
                     />
                 </div>
                 <div className={style.row}>
                     <input
+                        id={"password"}
+                        value={getInputValue("password")}
+                        onChange={onChangeInput}
+                        onFocus={() => {
+                            !show && setShow(true)
+                            setInputName("password")
+                        }}
                         type={type}
                         className={style.field}
                         placeholder={'Password'}
-                        onChange={(e) => {
-                            setPassword(e.target.value || '')
-                        }}
-                        defaultValue={password}
-                        autoComplete={'true'}
-                        autoSave={'true'}
                     />
                 </div>
                 <div className={style.row}>
@@ -94,6 +132,20 @@ const Login = () => {
                     </button>
                 </div>
                 <div className={style.row}>
+                    {
+                        show &&
+                        <div className={style.button}>
+                            <Button
+                                type={'green'}
+                                size={'md'}
+                                text={'Keyboard hide'}
+                                props={'button'}
+                                action={() => {
+                                    setShow(false)
+                                }}
+                            />
+                        </div>
+                    }
                     <div className={style.button}>
                         <Button
                             type={'green'}
@@ -104,6 +156,23 @@ const Login = () => {
                     </div>
                 </div>
             </form>
+            <div
+                className={
+                    classNames(
+                        style.keyboard,
+                        show && style.show
+                    )
+                }
+            >
+                <Keyboard
+                    keyboardRef={r => (keyboard.current = r)}
+                    theme={"hg-theme-default custom"}
+                    inputName={inputName}
+                    layoutName={layoutName}
+                    onChangeAll={onChangeAll}
+                    onKeyPress={onKeyPress}
+                />
+            </div>
         </div>
     );
 }

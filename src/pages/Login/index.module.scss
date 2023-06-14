@@ -1,7 +1,7 @@
 @import "scss/config";
 
 .block {
-  @include flex(center, center);
+  @include flex(center, center, column);
 
   position: fixed;
   top: 0;
@@ -10,6 +10,7 @@
   left: 0;
   z-index: 12;
   background-color: var(--color-green-100);
+  gap: rem(20px);
 }
 
 .wrapper {
@@ -26,10 +27,23 @@
 }
 
 .row {
+  @include flex(space-between, center);
   @include make-spacer('mb', 4);
+
+  gap: rem(20px);
 
   &:last-child {
     @include make-spacer('mb', 0);
+  }
+}
+
+.button {
+  @include flex(flex-end);
+
+  flex: 1;
+
+  button {
+    @include size(100%, rem(45px)!important);
   }
 }
 
@@ -51,18 +65,68 @@
   }
 }
 
-.button {
-  @include flex(flex-end);
-
-  button {
-    @include size(rem(200px), rem(45px)!important);
-  }
-}
-
 .toggle {
   @include make-spacer('ml', auto);
   @include make-spacer('mr', 0);
 
   display: block;
   color: var(--color-white);
+}
+
+.keyboard {
+  @include transition(all);
+
+  opacity: 0;
+  width: 80%;
+  max-height: 0;
+  overflow: hidden;
+  visibility: hidden;
+
+  &.show {
+    opacity: 1;
+    max-height: rem(500px);
+    visibility: visible;
+  }
+}
+
+:global {
+
+  .simple-keyboard {
+
+    &.custom {
+      @include make-spacer(p, 4);
+
+      background-color: rgba(0, 0, 0, 0.2);
+      border: rem(3px) solid var(--color-orange);
+
+      .hg-button {
+        @include flex(center, center);
+
+        position: relative;
+        border-width: rem(1px);
+        border-style: solid;
+        background-color: #323232;
+        background: linear-gradient(360deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.1) 100%);
+        border-color: #000;
+        height: rem(50px);
+        color: var(--color-white);
+
+        &::before {
+          position: absolute;
+          top: rem(1px);
+          right: rem(1px);
+          left: rem(1px);
+          height: rem(12px);
+          border-radius: rem(inherit);
+          background: linear-gradient(180deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.1) 100%);
+          content: '';
+        }
+
+        &:active {
+          background-color: #0b5a07;
+          border-color: #15490a;
+        }
+      }
+    }
+  }
 }
