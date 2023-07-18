@@ -13,6 +13,7 @@
 }
 
 .wrapper {
+  @include flex($direction: column);
   @include make-spacer('mx', auto);
   @include size(100%);
 
@@ -29,30 +30,19 @@
   @include make-spacer('pr', 1);
   @include size(100%, rem(40px));
 
+  flex-shrink: 0;
   background-color: var(--color-orange-900);
-  text-transform: uppercase;
   font-weight: var(--typography-bold);
   font-size: rem(14px);
+  text-transform: uppercase;
   color: var(--color-white);
 }
 
 .body {
   @include make-spacer('p', 4);
-}
 
-.container {
-  @include make-spacer('mb', 4);
-
-  color: var(--color-white);
-
-  &:last-child {
-    @include make-spacer('mb', 0);
-  }
-}
-
-.title {
-  @include flex(space-between, center);
-  @include make-spacer('mb', 4);
+  flex-grow: 1;
+  overflow: hidden;
 }
 
 .button {
@@ -66,7 +56,10 @@
 }
 
 .tab {
-  border: 1px solid var(--color-border);
+  @include flex($direction: column);
+  @include size(100%);
+
+  border: rem(1px) solid var(--color-border);
   border-radius: rem(5px);
   overflow: hidden;
   color: var(--color-white);
@@ -75,8 +68,9 @@
 .head {
   @include flex;
 
+  flex-shrink: 0;
+  border-bottom: rem(1px) solid var(--color-border);
   height: rem(50px);
-  border-bottom: 1px solid var(--color-border);
 }
 
 .link {
@@ -95,6 +89,8 @@
 
 .content {
   @include make-spacer('p', 4);
+  @include scroll;
 
+  flex-grow: 1;
   background-color: #323232;
 }

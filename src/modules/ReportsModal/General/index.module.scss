@@ -1,0 +1,66 @@
+@import "scss/config";
+
+.block {
+  color: var(--color-white);
+}
+
+.header,
+.body {
+  @include make-spacer('p', 4);
+
+  border: rem(1px) solid var(--color-border);
+  border-radius: rem(5px);
+}
+
+.header {
+  @include make-spacer('mb', 4);
+  @include flex;
+
+  gap: rem(20px);
+}
+
+.left,
+.right {
+  display: grid;
+  flex: 1;
+  gap: rem(5px);
+}
+
+.left {
+  grid-template-columns: repeat(4, 1fr);
+  //grid-template-rows: rem(45px);
+}
+
+.right {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.table {
+  max-width: 50%;
+}
+
+.button {
+  @include size(100%, rem(45px));
+
+  &.active {
+
+    button {
+      background: linear-gradient(360deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.1) 100%);
+      background-color: var(--color-red);
+    }
+  }
+}
+
+.field {
+  @include make-spacer('px', 2);
+  @include size(100%, rem(45px));
+
+  background-color: var(--color-black);
+  border-radius: rem(5px);
+  border: rem(2px) solid var(--color-orange);
+  color: var(--color-white);
+
+  &:focus {
+    outline: 0;
+  }
+}

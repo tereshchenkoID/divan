@@ -49,6 +49,13 @@
     height: rem(64px);
   }
 
+  &.wide {
+    @include make-spacer('p', 2);
+
+    border-radius: rem(5px);
+    height: 100%;
+  }
+
   &.grey {
     background-color: #323232;
     border-color: #000;
