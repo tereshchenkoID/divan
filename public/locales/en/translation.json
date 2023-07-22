@@ -4,6 +4,7 @@
     "type_old_password": "Type old password",
     "password_dont_match": "Password don`t match",
     "password_changed": "Password changed",
+    "password_is_blank": "Password is blank",
     "saved": "Saved",
     "something_wrong": "Something wrong",
     "ticket_not_found": "Ticket not found",

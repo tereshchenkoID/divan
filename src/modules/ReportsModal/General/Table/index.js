@@ -1,14 +1,12 @@
 import {useSelector} from "react-redux";
 
-import style from './index.module.scss';
+import {convertFixed} from "helpers/convertFixed";
 
-const convertFixed = (data) => {
-    return parseFloat(data).toFixed(2)
-}
+import style from './index.module.scss';
 
 const Table = ({data}) => {
     const {balance} = useSelector((state) => state.balance)
-    const currency = balance.account.symbol || '$'
+    const currency = data.Symbol || balance.account.symbol
 
     return (
         <div className={style.block}>

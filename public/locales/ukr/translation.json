@@ -4,6 +4,7 @@
     "type_old_password": "Type old password UA",
     "password_dont_match": "Password don`t match UA",
     "password_changed": "Password changed UA",
+    "password_is_blank": "Password is blank UA",
     "saved": "Saved UA",
     "something_wrong": "Something wrong UA",
     "ticket_not_found": "Ticket not found UA",

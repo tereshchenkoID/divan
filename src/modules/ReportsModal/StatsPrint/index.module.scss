@@ -1,0 +1,41 @@
+@import "scss/config";
+
+$color: #000;
+
+.block {
+  @include make-spacer('p', 4);
+
+  max-width: 450px;
+  color: $color;
+  font-size: rem(14px);
+}
+
+.title {
+  @include make-spacer('mb', 2);
+
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.info {
+  width: 100%;
+
+  li {
+    @include make-spacer('mb', 2);
+
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    align-items: center;
+
+    &:last-child {
+      @include make-spacer('mb', 0);
+    }
+
+    > div {
+
+      &:nth-child(2) {
+        text-align: right;
+      }
+    }
+  }
+}

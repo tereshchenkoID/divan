@@ -1,7 +1,7 @@
 @import "scss/config";
 
 .block {
-  border: 1px solid var(--color-border);
+  border: rem(1px) solid var(--color-border);
   border-radius: rem(5px);
   overflow: hidden;
 }
@@ -10,18 +10,18 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   align-items: center;
-  border-top: 1px solid var(--color-border);
+  border-top: rem(1px) solid var(--color-border);
   height: rem(50px);
 
   &:first-child {
     border-top: 0;
   }
 
-  &:nth-child(1) {
+  &:nth-child(odd) {
     background-color: #272727;
   }
 
-  &:nth-child(2) {
+  &:nth-child(even) {
     background-color: lighten(#272727, 10%);
   }
 }

@@ -32,19 +32,18 @@
   @include make-spacer('p', 4);
 }
 
+.options,
 .form,
-.table {
+.stats {
   max-width: rem(500px);
 }
 
-.table {
+.options,
+.stats {
 
   .button {
 
     button {
-      @include make-spacer('mr', 0);
-      @include make-spacer('ml', auto);
-
       display: block;
       width: rem(150px);
     }
@@ -80,4 +79,8 @@
   &:focus {
     outline: 0;
   }
+}
+
+.print {
+  display: none;
 }

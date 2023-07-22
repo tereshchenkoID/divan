@@ -109,18 +109,18 @@ const setDate = (type, start) => {
 // Last week 10.07.2023 00:00:00 - 16.07.2023 23.59.59
 // Last month 01.06.2023 00:00:00 - 30.06.2023 23.59.59
 
-const Settlement = () => {
-    const SORT = [
-        'Current Hour',
-        'Today',
-        'This Week',
-        'This Month',
-        'Last Hour',
-        'Yesterday',
-        'Last Week',
-        'Last Month',
-    ]
+const SORT = [
+    'Current Hour',
+    'Today',
+    'This Week',
+    'This Month',
+    'Last Hour',
+    'Yesterday',
+    'Last Week',
+    'Last Month',
+]
 
+const Settlement = () => {
     const [disabled, setDisabled] = useState(true)
     const [loading, setLoading] = useState(true)
     const [data, setData] = useState({})
