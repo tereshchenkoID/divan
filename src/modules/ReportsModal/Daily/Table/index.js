@@ -16,15 +16,15 @@ const findMinMax = (data, field) => {
     return Math.max(...values);
 }
 
+const scaleX = (data, max) => {
+    return data / max * 100
+}
+
 const Table = ({data}) => {
     const {balance} = useSelector((state) => state.balance)
     const currency = data.Symbol || balance.account.symbol
     const maxTickets = findMinMax(data.data, 'Tickets')
     const maxProfit = findMinMax(data.data, 'Profit')
-
-    const scaleX = (data, max) => {
-        return data / max * 100
-    }
 
     return (
         <div className={style.block}>
