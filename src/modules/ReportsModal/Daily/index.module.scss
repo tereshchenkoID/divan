@@ -27,16 +27,12 @@
 }
 
 .left {
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   grid-template-rows: rem(45px);
 }
 
 .right {
   grid-template-columns: repeat(2, 1fr);
-}
-
-.table {
-  max-width: 50%;
 }
 
 .button {

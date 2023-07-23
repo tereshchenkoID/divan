@@ -5,6 +5,7 @@ import classNames from "classnames";
 import Button from "components/Button";
 import Settlement from "./Settlement";
 import General from "./General";
+import Daily from "./Daily";
 
 import style from './index.module.scss';
 
@@ -84,7 +85,7 @@ const ReportsModal = ({action}) => {
                             }
                             {
                                 active === 1 &&
-                                <div>1</div>
+                                <Daily />
                             }
                             {
                                 active === 2 &&

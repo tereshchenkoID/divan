@@ -23,14 +23,7 @@ const getFrom = (type) => {
     const today = new Date();
     let result
 
-    if(type === 0) {
-        today.setHours(today.getHours(), 0, 0, 0);
-        result = today
-    }
-    else if(type === 1) {
-        result = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-    }
-    else if (type === 2) {
+     if (type === 0) {
         const startOfWeek = new Date(today);
         const dayOfWeek = today.getDay();
         const diff = today.getDate() - dayOfWeek + (dayOfWeek === 0 ? -6 : 1);
@@ -39,33 +32,23 @@ const getFrom = (type) => {
 
         result = startOfWeek
     }
-    else if(type === 3) {
+    else if(type === 1) {
         result = new Date(today.getFullYear(), today.getMonth(), 1);
     }
-    else if(type === 4) {
-        result = today.setHours(today.getHours() - 1, 0, 0, 0);
-    }
-    else if(type === 5) {
-        today.setDate(today.getDate() - 1);
-        today.setHours(0, 0, 0, 0);
-        result = today
-    }
-    else if(type === 6) {
+    else if(type === 2) {
+         const firstDayOfWeek = new Date(today);
+         const dayOfWeek = today.getDay();
+         const diff = today.getDate() - dayOfWeek - 13;
+         firstDayOfWeek.setDate(diff);
+         firstDayOfWeek.setHours(0, 0, 0, 0);
+
         // const lastWeekStart = new Date(today);
         // lastWeekStart.setDate(today.getDate() - 7 - today.getDay() + 1);
         // lastWeekStart.setHours(0, 0, 0, 0);
-        //
-        // result = lastWeekStart
-
-        const firstDayOfWeek = new Date(today);
-        const dayOfWeek = today.getDay();
-        const diff = today.getDate() - dayOfWeek - 13;
-        firstDayOfWeek.setDate(diff);
-        firstDayOfWeek.setHours(0, 0, 0, 0);
 
         result = firstDayOfWeek
     }
-    else if(type === 7) {
+    else if(type === 3) {
         result = new Date(today.getFullYear(), today.getMonth() - 1, 1, 0, 0, 0);
     }
 
@@ -76,18 +59,10 @@ const getTo = (type) => {
     const today = new Date();
     let result
 
-    if (type === 0 || type === 1 || type === 2 || type === 3) {
+    if (type === 0 || type === 1) {
         result = today
     }
-    else if(type === 4) {
-        result = today.setHours(today.getHours(), 0, 0, 0);
-    }
-    else if(type === 5) {
-        today.setDate(today.getDate() - 1);
-        today.setHours(23, 59, 59, 999);
-        result = today
-    }
-    else if(type === 6) {
+    else if(type === 2) {
         // const lastWeekEnd = new Date(today);
         // lastWeekEnd.setDate(today.getDate() - today.getDay());
         // lastWeekEnd.setHours(23, 59, 59, 999);
@@ -101,7 +76,7 @@ const getTo = (type) => {
 
         result = firstDayOfWeek
     }
-    else if(type === 7) {
+    else if(type === 3) {
         const last = new Date(today.getFullYear(), today.getMonth(), 0);
         last.setHours(23, 59, 59, 999);
         result = last
@@ -116,27 +91,23 @@ const setDate = (type, start) => {
     return formatDate(new Date(result))
 }
 
-
-// 13.47 19.07
-// This week 17.07.2023 00:00 - current
-// Current Hour 13.00 - current
-// Last Hours 12.00 - 13.00
-// Yesterday - 18.07.2023 00:00:00 - 18.07.2023 23.59.59
-// Last week 10.07.2023 00:00:00 - 16.07.2023 23.59.59
-// Last month 01.06.2023 00:00:00 - 30.06.2023 23.59.59
+const getTimezone = () => {
+    try {
+        return Intl.DateTimeFormat().resolvedOptions().timeZone;
+    } catch (error) {
+        console.error('Error getting timezone:', error);
+        return 'Europe/London';
+    }
+}
 
 const SORT = [
-    'Current Hour',
-    'Today',
     'This Week',
     'This Month',
-    'Last Hour',
-    'Yesterday',
     'Last Week',
     'Last Month',
 ]
 
-const Settlement = () => {
+const Daily = () => {
     const [disabled, setDisabled] = useState(true)
     const [loading, setLoading] = useState(true)
     const [data, setData] = useState({})
@@ -149,12 +120,15 @@ const Settlement = () => {
     const handleSubmit = (from = null, to = null) => {
         const f = from ? new Date(from).getTime() : new Date(time[0]).getTime()
         const t = to ? new Date(to).getTime() : new Date(time[1]).getTime()
-        getData(`/generalOverview/${f}/${t}`).then((json) => {
+
+        getData(`/dailySums/${f}/${t}?timezoneId=${getTimezone()}`).then((json) => {
             setData(json)
 
             if (json) {
                 setLoading(false)
                 setDisabled(false)
+
+                console.log(json)
             }
         })
     }
@@ -245,9 +219,7 @@ const Settlement = () => {
             {
                 (!loading && data)
                     ?
-                        <div className={style.table}>
-                            <Table data={data} />
-                        </div>
+                        <Table data={data} />
                     :
                         <div className={style.title}>Generated financial report here</div>
             }
@@ -255,4 +227,4 @@ const Settlement = () => {
     );
 }
 
-export default Settlement;
+export default Daily;

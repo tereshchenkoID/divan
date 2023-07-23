@@ -1,0 +1,56 @@
+@import "scss/config";
+
+.block {
+  border: rem(1px) solid var(--color-border);
+  border-radius: rem(5px);
+  overflow: hidden;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: center;
+  border-top: rem(1px) solid var(--color-border);
+  background-color: lighten(#272727, 10%);
+  height: rem(50px);
+
+  &:first-child,
+  &:last-child {
+    background-color: #272727;
+  }
+
+  &:first-child {
+    border-top: 0;
+  }
+}
+
+.cell {
+  @include flex(center, center);
+  @include make-spacer('px', 2);
+  @include size(100%);
+
+  position: relative;
+
+  &:nth-child(2),
+  &:nth-child(3) {
+    justify-content: flex-end;
+  }
+
+  span {
+    position: relative;
+    z-index: 1;
+  }
+}
+
+.scale {
+  @include size(100%);
+  @include absolute-filled;
+
+  &.down {
+    background: linear-gradient(to right, #f00, transparent);
+  }
+
+  &.up {
+    background: linear-gradient(to right, #157b15, transparent);
+  }
+}

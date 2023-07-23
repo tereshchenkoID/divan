@@ -11,9 +11,9 @@ import {setNotification} from "store/actions/notificationAction";
 
 import {getData} from "helpers/api";
 
-import {StatsPrint} from "modules/ReportsModal/StatsPrint";
 import Button from "components/Button";
 import Table from "./Table";
+import {StatsPrint} from "./StatsPrint";
 
 import style from './index.module.scss';
 
