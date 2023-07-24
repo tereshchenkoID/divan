@@ -44,13 +44,40 @@
 
 .scale {
   @include size(100%);
-  @include absolute-filled;
+
+  position: absolute;
+  top: 0;
+  bottom: 0;
+
+  div {
+    height: 100%;
+  }
+
+  &.default {
+    left: 0;
+    right: 0;
+
+    div {
+      background-color: rgba(#0362b3, 0.5);
+    }
+  }
 
   &.down {
-    background: linear-gradient(to right, #f00, transparent);
+    left: 0;
+
+    div {
+      @include make-spacer(mr, 0);
+      @include make-spacer(ml, auto);
+
+      background-color: rgba(#f00, 0.5);
+    }
   }
 
   &.up {
-    background: linear-gradient(to right, #157b15, transparent);
+    right: 0;
+
+    div {
+      background-color: rgba(#157b15, 0.5);
+    }
   }
 }

@@ -51,19 +51,11 @@ const getFrom = (type) => {
         result = today
     }
     else if(type === 6) {
-        // const lastWeekStart = new Date(today);
-        // lastWeekStart.setDate(today.getDate() - 7 - today.getDay() + 1);
-        // lastWeekStart.setHours(0, 0, 0, 0);
-        //
-        // result = lastWeekStart
+        const lastWeekStart = new Date(today);
+        lastWeekStart.setDate(today.getDate() - 7 - today.getDay() + 1);
+        lastWeekStart.setHours(0, 0, 0, 0);
 
-        const firstDayOfWeek = new Date(today);
-        const dayOfWeek = today.getDay();
-        const diff = today.getDate() - dayOfWeek - 13;
-        firstDayOfWeek.setDate(diff);
-        firstDayOfWeek.setHours(0, 0, 0, 0);
-
-        result = firstDayOfWeek
+        result = lastWeekStart
     }
     else if(type === 7) {
         result = new Date(today.getFullYear(), today.getMonth() - 1, 1, 0, 0, 0);
@@ -88,18 +80,10 @@ const getTo = (type) => {
         result = today
     }
     else if(type === 6) {
-        // const lastWeekEnd = new Date(today);
-        // lastWeekEnd.setDate(today.getDate() - today.getDay());
-        // lastWeekEnd.setHours(23, 59, 59, 999);
-        // result = lastWeekEnd
-
-        const firstDayOfWeek = new Date(today);
-        const dayOfWeek = today.getDay();
-        const diff = today.getDate() - dayOfWeek - 7;
-        firstDayOfWeek.setDate(diff);
-        firstDayOfWeek.setHours(23, 59, 59, 999);
-
-        result = firstDayOfWeek
+        const lastWeekEnd = new Date(today);
+        lastWeekEnd.setDate(today.getDate() - today.getDay());
+        lastWeekEnd.setHours(23, 59, 59, 999);
+        result = lastWeekEnd
     }
     else if(type === 7) {
         const last = new Date(today.getFullYear(), today.getMonth(), 0);

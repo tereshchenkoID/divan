@@ -12,6 +12,8 @@ export const getIcon = (data) => {
             return 'icon-4';
         case gameType.DOGS_6:
             return 'icon-5';
+        case gameType.HORSES_8:
+            return 'icon-6';
         default:
             return 'icon-1'
     }

@@ -7,7 +7,8 @@ export const gameType = {
     ROULETTE: "ROULETTE",
     COLOR_COLOR: "COLOR_COLOR",
     KENO: "KENO",
-    DOGS_6: "DOGS_6"
+    DOGS_6: "DOGS_6",
+    HORSES_8: "Horses_8"
 }
 
 export const matchStatus = {
