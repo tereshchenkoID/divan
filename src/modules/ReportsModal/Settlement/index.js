@@ -12,20 +12,21 @@ import {setNotification} from "store/actions/notificationAction";
 import {getData} from "helpers/api";
 
 import Button from "components/Button";
+import Loader from "components/Loader";
 import Table from "./Table";
 import {StatsPrint} from "./StatsPrint";
 
 import style from './index.module.scss';
 
 const Settlement = () => {
-    const dispatch = useDispatch()
     const { t } = useTranslation()
+    const dispatch = useDispatch()
 
-    const [loading, setLoading] = useState(true)
-    const [data, setData] = useState({})
+    const [loading, setLoading] = useState(false)
+    const [data, setData] = useState(null)
     const [preview, setPreview] = useState(false)
     const [active, setActive] = useState('staff')
-    const [password, setPassword] = useState('qwe123')
+    const [password, setPassword] = useState('')
     const componentRef = useRef();
 
     const a = useReactToPrint({
@@ -41,10 +42,24 @@ const Settlement = () => {
 
         const type = active === 'master' ? `${active}/${MD5(password).toString()}` : active
         getData(`/settlement/${type}`).then((json) => {
-            setData(json)
 
-            if (json) {
-                setLoading(false)
+            setData(null)
+            setLoading(true)
+
+            if (active === 'master') {
+                if(json.data) {
+                    dispatch(setNotification(t('notification.password_dont_match')))
+                }
+                else {
+                    setData(json)
+                    setLoading(false)
+                }
+            }
+            else {
+                if(json) {
+                    setData(json)
+                    setLoading(false)
+                }
             }
         })
     }
@@ -59,8 +74,8 @@ const Settlement = () => {
     }
 
     const toggle = (id) => {
-        setData({})
-        setLoading(true)
+        setData(null)
+        setLoading(null)
         setPreview(false)
         setActive(id)
     }
@@ -80,7 +95,7 @@ const Settlement = () => {
                             toggle('staff')
                         }}
                     >
-                        Staff
+                        {t('interface.staff')}
                     </button>
                     <button
                         className={
@@ -93,13 +108,19 @@ const Settlement = () => {
                             toggle('master')
                         }}
                     >
-                        Master
+                        {t('interface.master')}
                     </button>
                 </div>
                 <div className={style.body}>
                     <div className={style.stats}>
                         {
-                            !loading &&
+                            loading &&
+                            <Loader
+                                type={'block'}
+                                background={'transparent'}
+                            />
+                        }
+                        {
                             data &&
                             <>
                                 <div className={style.print}>
@@ -119,7 +140,7 @@ const Settlement = () => {
                                 <Button
                                     type={'green'}
                                     size={'md'}
-                                    text={preview ? 'Settlement' : 'Preview'}
+                                    text={preview ? t('interface.settlement') : t('interface.preview')}
                                     props={'button'}
                                     action={() => {
                                         preview ? handlePrint() : handleSubmit()
@@ -132,7 +153,7 @@ const Settlement = () => {
                             active === 'master' &&
                             <>
                                 {
-                                    (loading && data)
+                                    !data
                                         ?
                                             <form
                                                 className={style.form}
@@ -141,7 +162,7 @@ const Settlement = () => {
                                                 <input
                                                     type={'password'}
                                                     className={style.field}
-                                                    placeholder={'Password'}
+                                                    placeholder={t('interface.password')}
                                                     onChange={(e) => {
                                                         setPassword(e.target.value || '')
                                                     }}
@@ -151,7 +172,7 @@ const Settlement = () => {
                                                     <Button
                                                         type={'green'}
                                                         size={'md'}
-                                                        text={'Login'}
+                                                        text={t('interface.login')}
                                                         props={'submit'}
                                                     />
                                                 </div>
@@ -161,7 +182,7 @@ const Settlement = () => {
                                                 <Button
                                                     type={'green'}
                                                     size={'md'}
-                                                    text={'Settlement'}
+                                                    text={t('interface.settlement')}
                                                     props={'button'}
                                                     action={() => {
                                                         handlePrint()

@@ -4,7 +4,7 @@ import Icon from "components/Icon";
 
 import style from './index.module.scss';
 
-const Loader = ({
+const Button = ({
     type,
     size,
     icon,
@@ -39,4 +39,4 @@ const Loader = ({
     );
 }
 
-export default Loader;
+export default Button;

@@ -1,23 +1,16 @@
 import {useState} from "react";
+import {useTranslation} from "react-i18next";
 
 import classNames from "classnames";
 
 import {getData} from "helpers/api";
+import {getDateTime} from "helpers/getDateTime";
 
 import Button from "components/Button";
+import Loader from "components/Loader";
 import Table from "./Table";
 
 import style from './index.module.scss';
-
-const formatDate = (date) => {
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    const hours = String(date.getHours()).padStart(2, '0');
-    const minutes = String(date.getMinutes()).padStart(2, '0');
-
-    return `${year}-${month}-${day}T${hours}:${minutes}`;
-};
 
 const getFrom = (type) => {
     const today = new Date();
@@ -97,7 +90,8 @@ const getTo = (type) => {
 const setDate = (type, start) => {
     let result = start === 0 ? getFrom(type) : getTo(type)
 
-    return formatDate(new Date(result))
+
+    return getDateTime(new Date(result), 4)
 }
 
 
@@ -109,36 +103,42 @@ const setDate = (type, start) => {
 // Last week 10.07.2023 00:00:00 - 16.07.2023 23.59.59
 // Last month 01.06.2023 00:00:00 - 30.06.2023 23.59.59
 
-const SORT = [
-    'Current Hour',
-    'Today',
-    'This Week',
-    'This Month',
-    'Last Hour',
-    'Yesterday',
-    'Last Week',
-    'Last Month',
-]
-
 const Settlement = () => {
+    const { t } = useTranslation()
+    const SORT = [
+        t('interface.current_hour'),
+        t('interface.today'),
+        t('interface.this_week'),
+        t('interface.this_month'),
+        t('interface.last_hour'),
+        t('interface.yesterday'),
+        t('interface.last_week'),
+        t('interface.last_month'),
+    ]
+
     const [disabled, setDisabled] = useState(true)
-    const [loading, setLoading] = useState(true)
-    const [data, setData] = useState({})
+    const [loading, setLoading] = useState(null)
+    const [data, setData] = useState(null)
     const [label, setLabel] = useState()
     const [time, setTime] = useState([
-        formatDate(new Date()),
-        formatDate(new Date()),
+        getDateTime(new Date(), 4),
+        getDateTime(new Date(), 4),
     ])
 
     const handleSubmit = (from = null, to = null) => {
         const f = from ? new Date(from).getTime() : new Date(time[0]).getTime()
         const t = to ? new Date(to).getTime() : new Date(time[1]).getTime()
+
+        setData(null)
+        setLoading(true)
+
         getData(`/generalOverview/${f}/${t}`).then((json) => {
             setData(json)
 
             if (json) {
                 setLoading(false)
                 setDisabled(false)
+                setData(json)
             }
         })
     }
@@ -217,7 +217,7 @@ const Settlement = () => {
                         <Button
                             type={'green'}
                             size={'wide'}
-                            text={'Generate'}
+                            text={t('interface.generate')}
                             props={'button'}
                             action={() => {
                                 handleSubmit()
@@ -226,15 +226,25 @@ const Settlement = () => {
                     </div>
                 </div>
             </div>
-            {
-                (!loading && data)
-                    ?
-                        <div className={style.table}>
-                            <Table data={data} />
-                        </div>
-                    :
-                        <div className={style.title}>Generated financial report here</div>
-            }
+            <div className={style.wrapper}>
+                {
+                    loading &&
+                    <Loader
+                        type={'block'}
+                        background={'transparent'}
+                    />
+                }
+                {
+                    data &&
+                    <div className={style.table}>
+                        <Table data={data} />
+                    </div>
+                }
+                {
+                    (!data && !loading) &&
+                    <div className={style.title}>{t('notification.generated_financial_report_here')}</div>
+                }
+            </div>
         </div>
     );
 }

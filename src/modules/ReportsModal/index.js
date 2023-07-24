@@ -1,4 +1,5 @@
 import {useState} from "react";
+import {useTranslation} from "react-i18next";
 
 import classNames from "classnames";
 
@@ -10,6 +11,7 @@ import Daily from "./Daily";
 import style from './index.module.scss';
 
 const ReportsModal = ({action}) => {
+    const { t } = useTranslation()
     const [active, setActive] = useState(0)
 
     return (
@@ -49,7 +51,7 @@ const ReportsModal = ({action}) => {
                                     setActive(0)
                                 }}
                             >
-                                General overview
+                                {t('interface.general_overview')}
                             </button>
                             <button
                                 className={
@@ -62,7 +64,7 @@ const ReportsModal = ({action}) => {
                                     setActive(1)
                                 }}
                             >
-                                Dail sums
+                                {t('interface.dail_sums')}
                             </button>
                             <button
                                 className={
@@ -75,7 +77,7 @@ const ReportsModal = ({action}) => {
                                     setActive(2)
                                 }}
                             >
-                                Settlement
+                                {t('interface.settlement')}
                             </button>
                         </div>
                         <div className={style.content}>

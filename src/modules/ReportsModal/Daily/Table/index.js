@@ -6,6 +6,7 @@ import {getDateTime} from "helpers/getDateTime";
 import classNames from "classnames";
 
 import style from './index.module.scss';
+import {useTranslation} from "react-i18next";
 
 const sumField = (data, field) => {
     if (data.data)
@@ -89,6 +90,8 @@ const Table = ({data}) => {
     //     ]
     // }
 
+    const { t } = useTranslation()
+
     const {balance} = useSelector((state) => state.balance)
     const currency = data.Symbol || balance.account.symbol
     const tickets = findMinMax(data, 'Tickets')
@@ -97,9 +100,9 @@ const Table = ({data}) => {
     return (
         <div className={style.block}>
             <div className={style.row}>
-                <div className={style.cell}>Date</div>
-                <div className={style.cell}>Tickets count</div>
-                <div className={style.cell}>Profit</div>
+                <div className={style.cell}>{t('interface.date')}</div>
+                <div className={style.cell}>{t('interface.tickets_count')}</div>
+                <div className={style.cell}>{t('interface.profit')}</div>
             </div>
             {
                 data.data &&
@@ -155,7 +158,7 @@ const Table = ({data}) => {
             }
             <div className={style.row}>
                 <div className={style.cell}>
-                    <strong>Total</strong>
+                    <strong>{t('interface.total')}</strong>
                 </div>
                 <div className={style.cell}>
                     <strong>{sumField(data, 'Tickets')}</strong>

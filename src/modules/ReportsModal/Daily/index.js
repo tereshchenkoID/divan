@@ -1,23 +1,17 @@
 import {useState} from "react";
+import {useTranslation} from "react-i18next";
 
 import classNames from "classnames";
 
 import {getData} from "helpers/api";
+import {getTimezone} from "helpers/getTimezone";
+import {getDateTime} from "helpers/getDateTime";
 
 import Button from "components/Button";
+import Loader from "components/Loader";
 import Table from "./Table";
 
 import style from './index.module.scss';
-
-const formatDate = (date) => {
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    const hours = String(date.getHours()).padStart(2, '0');
-    const minutes = String(date.getMinutes()).padStart(2, '0');
-
-    return `${year}-${month}-${day}T${hours}:${minutes}`;
-};
 
 const getFrom = (type) => {
     const today = new Date();
@@ -74,45 +68,41 @@ const getTo = (type) => {
 const setDate = (type, start) => {
     let result = start === 0 ? getFrom(type) : getTo(type)
 
-    return formatDate(new Date(result))
+    return getDateTime(new Date(result), 4)
 }
-
-const getTimezone = () => {
-    try {
-        return Intl.DateTimeFormat().resolvedOptions().timeZone;
-    } catch (error) {
-        console.error('Error getting timezone:', error);
-        return 'Europe/London';
-    }
-}
-
-const SORT = [
-    'This Week',
-    'This Month',
-    'Last Week',
-    'Last Month',
-]
 
 const Daily = () => {
+    const { t } = useTranslation()
+
+    const SORT = [
+        t('interface.this_week'),
+        t('interface.this_month'),
+        t('interface.last_week'),
+        t('interface.last_month'),
+    ]
+
     const [disabled, setDisabled] = useState(true)
-    const [loading, setLoading] = useState(true)
-    const [data, setData] = useState({})
+    const [loading, setLoading] = useState(null)
+    const [data, setData] = useState(null)
     const [label, setLabel] = useState()
     const [time, setTime] = useState([
-        formatDate(new Date()),
-        formatDate(new Date()),
+        getDateTime(new Date(), 4),
+        getDateTime(new Date(), 4),
     ])
 
     const handleSubmit = (from = null, to = null) => {
         const f = from ? new Date(from).getTime() : new Date(time[0]).getTime()
         const t = to ? new Date(to).getTime() : new Date(time[1]).getTime()
 
+        setData(null)
+        setLoading(true)
+
         getData(`/dailySums/${f}/${t}?timezoneId=${getTimezone()}`).then((json) => {
-            setData(json)
 
             if (json) {
                 setLoading(false)
                 setDisabled(false)
+                setData(json)
             }
         })
     }
@@ -191,7 +181,7 @@ const Daily = () => {
                         <Button
                             type={'green'}
                             size={'wide'}
-                            text={'Generate'}
+                            text={t('interface.generate')}
                             props={'button'}
                             action={() => {
                                 handleSubmit()
@@ -200,13 +190,23 @@ const Daily = () => {
                     </div>
                 </div>
             </div>
-            {
-                (!loading && data)
-                    ?
-                        <Table data={data} />
-                    :
-                        <div className={style.title}>Generated financial report here</div>
-            }
+            <div className={style.table}>
+                {
+                    loading &&
+                    <Loader
+                        type={'block'}
+                        background={'transparent'}
+                    />
+                }
+                {
+                    data &&
+                    <Table data={data} />
+                }
+                {
+                    (!data && !loading) &&
+                    <div className={style.title}>{t('notification.generated_financial_report_here')}</div>
+                }
+            </div>
         </div>
     );
 }
