@@ -22,12 +22,15 @@ $color: #000;
 }
 
 .code {
+  @include flex(center, center);
   @include make-spacer('mx', auto);
   @include make-spacer('mb', 4);
 
   text-align: center;
-  font-size: rem(40px);
+  font-size: rem(20px);
   font-family: var(--font-family-code);
+  height: rem(100px);
+  color: $color;
 }
 
 .header {
