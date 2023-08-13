@@ -1,4 +1,4 @@
-import {dogsColor} from "../constant/config";
+import {horseColor} from "../constant/config";
 
 export const generateCircles = (data) => {
     const circles = []
@@ -6,7 +6,7 @@ export const generateCircles = (data) => {
     data.split(',').map(el => {
         circles.push({
             id: el,
-            color: dogsColor[el - 1]
+            color: horseColor[el - 1]
         })
 
         return true

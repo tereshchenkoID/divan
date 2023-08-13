@@ -90,6 +90,8 @@ const Bet = ({id, data, betslip, type, setInit, setDisabled}) => {
 
     useOutsideClick(blockRef, buttonRef, setEdit, data)
 
+    console.log(data)
+
     return (
         <div
             className={
@@ -131,7 +133,7 @@ const Bet = ({id, data, betslip, type, setInit, setDisabled}) => {
                             data.type === gameType.COLOR_COLOR && data.print.replace('_', '/')
                         }
                         {
-                            (data.type === gameType.KENO || data.type === gameType.DOGS_6) && data.print
+                            (data.type === gameType.KENO || data.type === gameType.DOGS_6 || data.type === gameType.HORSES_8_VR) && data.print
                         }
                     </span>
                     {
@@ -143,7 +145,7 @@ const Bet = ({id, data, betslip, type, setInit, setDisabled}) => {
                                         key={idx}
                                         className={
                                             classNames(
-                                                style[data.type === gameType.DOGS_6 ? 'number' : 'circle'],
+                                                style[(data.type === gameType.DOGS_6 || data.type === gameType.HORSES_8_VR) ? 'number' : 'circle'],
                                                 style.sm,
                                                 style[el.color ? el.color.toLowerCase() : 'draw']
                                             )
@@ -152,6 +154,7 @@ const Bet = ({id, data, betslip, type, setInit, setDisabled}) => {
                                         {data.type === gameType.COLOR_COLOR && el.id.toString().length < 3 && el.id}
                                         {data.type === gameType.KENO && el}
                                         {data.type === gameType.DOGS_6 && el.id}
+                                        {data.type === gameType.HORSES_8_VR && el.id}
                                     </div>
                                 )
                             }

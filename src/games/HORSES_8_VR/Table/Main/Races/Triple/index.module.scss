@@ -1,0 +1,30 @@
+@import "scss/config";
+
+.block {
+  display: grid;
+  grid-template-columns: 1fr 150px;
+  column-gap: rem(10px);
+}
+
+.row {
+  @include wrapper;
+
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  color: var(--color-white);
+}
+
+.cell {
+  border-right: 1px solid var(--color-border);
+  background-color: #333233;
+}
+
+.button {
+  @include button;
+}
+
+.odd {
+  @include odd;
+
+  background: none;
+}

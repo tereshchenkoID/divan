@@ -1,0 +1,18 @@
+@import "scss/config";
+
+.block {
+  @include wrapper;
+  @include flex;
+
+  color: var(--color-white);
+}
+
+.cell {
+  flex: 1;
+  border-right: 1px solid var(--color-border);
+  background-color: #333233;
+
+  &:last-child {
+    border-right: 0;
+  }
+}

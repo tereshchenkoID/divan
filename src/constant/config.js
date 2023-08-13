@@ -8,7 +8,7 @@ export const gameType = {
     COLOR_COLOR: "COLOR_COLOR",
     KENO: "KENO",
     DOGS_6: "DOGS_6",
-    HORSES_8: "Horses_8"
+    HORSES_8_VR: "HORSES_8_VR"
 }
 
 export const matchStatus = {
@@ -92,16 +92,16 @@ export const dogsColor = [
     'white',
     'black',
     'orange',
-    'mixed'
+    'mixed',
 ]
 
-export const dogsType = {
-    FORECAST_2: "FC",
-    FORECAST_3: "TRI",
-    QUINELLA: "QNL",
-    WINNER: "WIN",
-    PLACE_12: "PLACE",
-    SHOW: "SHOW",
-    OVER_UNDER: "OU",
-    ODD_EVEN: "EO"
-}
+export const horseColor = [
+    'red',
+    'white',
+    'blue',
+    'yellow',
+    'green',
+    'black',
+    'orange',
+    'violet',
+]

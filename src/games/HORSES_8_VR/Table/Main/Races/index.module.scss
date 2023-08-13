@@ -1,0 +1,22 @@
+@import "scss/config";
+
+.header {
+  @include flex(center, center);
+
+  gap: rem(10px);
+}
+
+.body {
+  @include make-spacer('pt', 2);
+}
+
+.button {
+  @include button;
+  @include make-spacer('px', 4);
+
+  width: auto;
+
+  &.disabled {
+    pointer-events: auto;
+  }
+}

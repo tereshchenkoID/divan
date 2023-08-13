@@ -23,7 +23,8 @@
   &.COLOR_COLOR,
   &.ROULETTE,
   &.KENO,
-  &.DOGS_6 {
+  &.DOGS_6,
+  &.HORSES_8_VR {
 
     .bet {
       grid-template-columns: rem(20px) 1fr rem(50px) rem(58px) rem(25px);

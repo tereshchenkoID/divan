@@ -11,6 +11,7 @@ import COLOR_COLOR from "games/COLOR_COLOR";
 import ROULETTE from "games/ROULETTE";
 import KENO from "games/KENO";
 import DOGS_6 from "games/DOGS_6";
+import HORSES_8_VR from "games/HORSES_8_VR"
 import Loader from "components/Loader";
 import Nav from "components/Nav";
 import Betslip from "modules/Betslip";
@@ -31,6 +32,8 @@ const setGame = (id) => {
             return <KENO />
         case gameType.DOGS_6:
             return <DOGS_6 />
+        case gameType.HORSES_8_VR:
+            return <HORSES_8_VR />
         default:
             return <FOOTBALL_LEAGUE />
     }

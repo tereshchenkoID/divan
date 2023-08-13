@@ -1,0 +1,6 @@
+@import "scss/config";
+
+.block {
+  @include wrapper;
+  @include size(100%);
+}
