@@ -23,8 +23,8 @@ const Login = () => {
     const [type, setType] = useState('password')
     const [show, setShow] = useState(false)
     const [inputs, setInputs] = useState({
-        'login': 'cashier131',
-        'password': '1qaz2wsx'
+        // 'login': 'cashier131',
+        // 'password': '1qaz2wsx'
     });
     const [layoutName, setLayoutName] = useState("default");
     const [inputName, setInputName] = useState("default");

@@ -106,8 +106,6 @@ const ForecastTrincast = ({data}) => {
 
             resetActive()
         }
-
-        console.log(betslip)
     }
 
     const addForecastStake = (el) => {
@@ -127,8 +125,6 @@ const ForecastTrincast = ({data}) => {
             const a = betslip.slice(0)
             const f = findBet(a, el.id, data.start)
 
-            console.log(1)
-
             if (f) {
                 a.splice(a.indexOf(f), 1)
                 dispatch(deleteBetslip(a))
@@ -137,7 +133,6 @@ const ForecastTrincast = ({data}) => {
             }
         }
         else {
-            console.log(2)
             setTrincastSelect(el)
             setTrincast(findBets(data.race.odds.markets[7].outcomes, el.a))
             addStake(data.race.odds.markets[6].printname, el, 2)

@@ -73,7 +73,7 @@ const Double = ({data}) => {
                         o_old: el.a,
                         stake: 100,
                         circles: generateCircles(el.a),
-                        type: gameType.DOGS_6
+                        type: gameType.HORSES_8_VR
                     })
                 }
             }
@@ -126,7 +126,7 @@ const Double = ({data}) => {
                   placeBets()
                 }}
             >
-                {t('games.DOGS_6.place_bets')}
+                {t('games.HORSES_8_VR.place_bets')}
             </button>
         </div>
     );

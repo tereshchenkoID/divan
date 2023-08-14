@@ -167,12 +167,12 @@ const Table = () => {
                                     <div className={style.league}>
                                         <img
                                             src={`/img/icon/${game.id}.svg`}
-                                            alt={'Dogs'}
+                                            alt={'Horses'}
                                         />
                                     </div>
                                     <Timer
                                         data={active}
-                                        type={gameType.COLOR_COLOR}
+                                        type={gameType.HORSES_8_VR}
                                     />
                                 </div>
                                 <div className={style.body}>

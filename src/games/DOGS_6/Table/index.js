@@ -172,7 +172,7 @@ const Table = () => {
                                     </div>
                                     <Timer
                                         data={active}
-                                        type={gameType.COLOR_COLOR}
+                                        type={gameType.DOGS_6}
                                     />
                                 </div>
                                 <div className={style.body}>
