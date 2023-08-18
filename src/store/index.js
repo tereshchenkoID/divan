@@ -15,6 +15,7 @@ import ticketReducer from "./reducers/ticketReducer";
 import balanceReducer from "./reducers/balanceReducer";
 import notificationReducer from './reducers/notificationReducer'
 import authReducer from "./reducers/authReducer";
+import socketReducer from "./reducers/socketReducer";
 
 const allReducer = combineReducers({
     auth: authReducer,
@@ -30,7 +31,8 @@ const allReducer = combineReducers({
     stake: stakeReducer,
     ticket: ticketReducer,
     balance: balanceReducer,
-    notification: notificationReducer
+    notification: notificationReducer,
+    socket: socketReducer,
 });
 
 const composeEnhancers = process.env.NODE_ENV !== 'production' && typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : compose;

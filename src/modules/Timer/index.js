@@ -21,6 +21,12 @@ const Timer = ({data, type}) => {
     const {update} = useSelector((state) => state.update)
     const {delta} = useSelector((state) => state.delta)
 
+    // const { receivedMessage } = useSelector((state) => state.socket);
+
+    // useEffect(() => {
+    //     console.log(receivedMessage)
+    // }, [receivedMessage])
+
     useEffect(() => {
     }, [delta]);
 

@@ -4,17 +4,7 @@ import {useDispatch} from "react-redux";
 import {setLive} from "store/actions/liveAction";
 import {setModal} from "store/actions/modalAction";
 
-const getDifferent = (data, delta) => {
-    const c = new Date().getTime() + delta
-    let r = 0, result = '0'
-
-    if (data > c) {
-        r = new Date(data - c)
-        result = `${('0' + r.getMinutes()).slice(-2)}:${('0' + r.getSeconds()).slice(-2)}`
-    }
-
-    return result
-}
+import {getDifferent} from "helpers/getDifferent";
 
 const StartTimer = ({start, delta}) => {
     const dispatch = useDispatch()

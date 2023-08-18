@@ -2,6 +2,8 @@ import {Suspense, useEffect, useState} from "react";
 import {useSelector} from "react-redux";
 import {Routes, Route} from "react-router-dom";
 
+import useSocket from "hooks/useSocket";
+
 import classNames from "classnames";
 
 import {router} from "router";
@@ -13,6 +15,23 @@ import style from './index.module.scss';
 
 const App = () => {
     const {auth} = useSelector((state) => state.auth)
+    const {socket} = useSelector((state) => state.socket);
+    const { connectSocket, receiveMessage, disconnectSocket } = useSocket()
+    const [init, setInit] = useState(false)
+
+    useEffect(() => {
+        if(!init) {
+            if (socket) {
+                receiveMessage()
+                disconnectSocket()
+            }
+            else {
+                connectSocket()
+                setInit(true)
+            }
+        }
+    }, [socket])
+
     const WINDOW_SIZE = {
         w: 1366,
         h: 768
