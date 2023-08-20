@@ -1,19 +1,19 @@
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {useState, useEffect} from "react";
-
-import {sendMessage} from "store/actions/socketAction";
+import useSocket from "hooks/useSocket";
 
 import checkCmd from "helpers/checkCmd";
+import checkData from "helpers/checkData";
 import {getData} from "helpers/api";
 import {getDifferent} from "helpers/getDifferent";
-import checkData from "helpers/checkData";
 
 import Banner from "./Banner";
 
 import style from './index.module.scss';
 
 const JackPot = () => {
-    const dispatch = useDispatch()
+    const { sendMessage, checkSocket } = useSocket()
+
     const [data, setData] = useState({})
     const [loading, setLoading] = useState(true)
     const [timer, setTimer] = useState('')
@@ -23,8 +23,8 @@ const JackPot = () => {
 
     useEffect(() => {
 
-        if (socket && socket.readyState === WebSocket.OPEN) {
-            dispatch(sendMessage({cmd:`account/${sessionStorage.getItem('authToken')}/jackpots`}))
+        if (checkSocket(socket)) {
+            sendMessage({cmd:`account/${sessionStorage.getItem('authToken')}/jackpots`})
         }
         else {
             getData(`/jackpots`).then((json) => {
@@ -44,14 +44,14 @@ const JackPot = () => {
     }, [receivedMessage])
 
     useEffect(() => {
-        if (socket && socket.readyState === WebSocket.OPEN) {
+        if (checkSocket(socket)) {
             const a = setInterval(() => {
                 let r = getDifferent(data.nextUpdate, delta)
                 setTimer(r)
 
                 if (r === '0') {
                     clearInterval(a)
-                    dispatch(sendMessage({cmd: `account/${sessionStorage.getItem('authToken')}/jackpots`}))
+                    sendMessage({cmd: `account/${sessionStorage.getItem('authToken')}/jackpots`})
                 }
             }, 1000)
 
@@ -64,7 +64,7 @@ const JackPot = () => {
             const a = setInterval(() => {
                 let r = getDifferent(data.nextUpdate, delta)
                 setTimer(r)
-                
+
                 if (r === '0') {
                     clearInterval(a)
                     getData(`/jackpots`).then((json) => {

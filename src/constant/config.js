@@ -1,13 +1,18 @@
 export const hostnames = {
     PROD: "https://api.qool90.bet",
-    WSS_PROD: "wss://socket.qool90.bet"
+    WSS_PROD: "wss://socket.qool90.bets"
+}
+
+export const time = {
+    UPDATE: 30000
 }
 
 export const messages = {
     settings: 'account/[]/settings',
     balance: 'account/[]/balance',
     jackpots: 'account/[]/jackpots',
-    feed: 'feed/[]/'
+    feed: 'feed/[]/',
+    event: 'feed/[]/EVENT/'
 }
 
 export const gameType = {
@@ -22,7 +27,8 @@ export const gameType = {
 export const matchStatus = {
     ANNOUNCEMENT: "ANNOUNCEMENT",
     PROGRESS: "PROGRESS",
-    RESULTS: "RESULTS"
+    RESULTS: "RESULTS",
+    COMPLETE: "COMPLETE"
 }
 
 export const matchMarkets = {

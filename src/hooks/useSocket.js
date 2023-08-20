@@ -25,6 +25,10 @@ const useSocket = () => {
         }
     };
 
+    const checkSocket = (data) => {
+        return data && data.readyState === WebSocket.OPEN
+    }
+
     const waitForConnection = (socket) => {
         return new Promise((resolve) => {
             if (socket.readyState === WebSocket.OPEN) {
@@ -47,7 +51,8 @@ const useSocket = () => {
         sendMessage: handleSendMessage,
         receiveMessage: handleReceiveMessage,
         disconnectSocket: handleDisconnectSocket,
-        waitForConnection
+        waitForConnection,
+        checkSocket,
     };
 };
 

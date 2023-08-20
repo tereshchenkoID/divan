@@ -1,5 +1,7 @@
 import {useState, useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
+import {useNavigate} from "react-router-dom";
+
 import i18n from 'i18next'
 
 import useSocket from 'hooks/useSocket';
@@ -45,8 +47,9 @@ const setGame = (id) => {
 }
 
 const Home = () => {
-    const { sendMessage } = useSocket()
+    const { sendMessage, checkSocket } = useSocket()
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const [loading, setLoading] = useState(true)
     const {notification} = useSelector((state) => state.notification)
     const {game} = useSelector((state) => state.game)
@@ -55,7 +58,7 @@ const Home = () => {
     useEffect(() => {
         // console.log(socket)
 
-        if (socket && socket.readyState === WebSocket.OPEN) {
+        if (checkSocket(socket)) {
             sendMessage({cmd:`account/${sessionStorage.getItem('authToken')}/settings`})
         }
         else {
@@ -72,10 +75,16 @@ const Home = () => {
     }, [socket]);
 
     useEffect(() => {
-        if (receivedMessage !== '' && checkCmd('settings', receivedMessage.cmd) && receivedMessage.hasOwnProperty('username')) {
-            dispatch(setSettings(receivedMessage))
-            i18n.changeLanguage(receivedMessage.language || 'en');
-            setLoading(false)
+        if (receivedMessage !== '' && checkCmd('settings', receivedMessage.cmd)) {
+            if (receivedMessage.hasOwnProperty('code')) {
+                sessionStorage.clear()
+                navigate(0)
+            }
+            else {
+                dispatch(setSettings(receivedMessage))
+                i18n.changeLanguage(receivedMessage.account.language || 'en');
+                setLoading(false)
+            }
         }
     }, [receivedMessage])
 
@@ -87,23 +96,23 @@ const Home = () => {
                     <Loader />
                  :
                     <>
-                        {/*{*/}
-                        {/*    game &&*/}
-                        {/*    <div className={style.decor}>*/}
-                        {/*        <img*/}
-                        {/*            src={`/img/decor/${game.type}.jpeg`}*/}
-                        {/*            alt="Decor"*/}
-                        {/*        />*/}
-                        {/*    </div>*/}
-                        {/*}*/}
+                        {
+                            game &&
+                            <div className={style.decor}>
+                                <img
+                                    src={`/img/decor/${game.type}.jpeg`}
+                                    alt="Decor"
+                                />
+                            </div>
+                        }
                         <Nav />
-                        <button
-                            onClick={() => {
-                                socket.close()
-                            }}
-                        >
-                            Disconnect
-                        </button>
+                        {/*<button*/}
+                        {/*    onClick={() => {*/}
+                        {/*        socket.close()*/}
+                        {/*    }}*/}
+                        {/*>*/}
+                        {/*    Disconnect*/}
+                        {/*</button>*/}
                         <div className={style.content}>
                             <div className={style.column}>
                                 <div className={style.banners}>

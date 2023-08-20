@@ -1,10 +1,12 @@
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
+import useSocket from "hooks/useSocket";
+
+import {time} from 'constant/config'
 
 import checkCmd from "helpers/checkCmd";
 
 import {setBalance} from "store/actions/balanceAction";
-import {sendMessage} from "store/actions/socketAction";
 
 import Icon from "components/Icon";
 
@@ -12,20 +14,21 @@ import style from './index.module.scss';
 
 const Account = () => {
     const dispatch = useDispatch()
+    const { sendMessage, checkSocket } = useSocket()
 
     const [loading, setLoading] = useState(true)
     const {balance} = useSelector((state) => state.balance)
-    const britishNumberFormatter = new Intl.NumberFormat('en',{ minimumFractionDigits: 2 });
-
     const {socket, receivedMessage} = useSelector((state) => state.socket);
 
+    const britishNumberFormatter = new Intl.NumberFormat('en',{ minimumFractionDigits: 2 });
+
     useEffect(() => {
-        if (socket && socket.readyState === WebSocket.OPEN) {
-            dispatch(sendMessage({cmd:`account/${sessionStorage.getItem('authToken')}/balance`}))
+        if (checkSocket(socket)) {
+            sendMessage({cmd:`account/${sessionStorage.getItem('authToken')}/balance`})
 
             const a = setInterval(() => {
-                dispatch(sendMessage({cmd:`account/${sessionStorage.getItem('authToken')}/balance`}))
-            }, 30000)
+                sendMessage({cmd:`account/${sessionStorage.getItem('authToken')}/balance`})
+            }, time.UPDATE)
 
             return () => {
                 clearInterval(a);
@@ -38,7 +41,7 @@ const Account = () => {
 
             const a = setInterval(() => {
                 dispatch(setBalance())
-            }, 30000)
+            }, time.UPDATE)
 
             return () => {
                 clearInterval(a);

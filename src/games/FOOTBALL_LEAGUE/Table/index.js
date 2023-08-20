@@ -4,14 +4,17 @@ import {useTranslation} from "react-i18next";
 
 import classNames from "classnames";
 
+import useSocket from "hooks/useSocket";
+
 import {gameType, matchStatus} from "constant/config";
 
 import {setLive} from "store/actions/liveAction";
 import {setData} from "store/actions/dataAction";
 import {setModal} from "store/actions/modalAction";
-import {checkData} from "helpers/checkData"
 
+import {checkData} from "helpers/checkData"
 import {conditionStatus} from "helpers/conditionStatus";
+import checkCmd from "helpers/checkCmd";
 
 import Alert from "modules/Alert";
 import Timer from "modules/Timer";
@@ -26,30 +29,69 @@ import Subtitle from "./Subtitle";
 
 import style from './index.module.scss';
 
+
+const filterColumn = (data) => {
+    const result = [{
+        data: []
+    }]
+    let count = 0
+
+    data.map(el => {
+        const a = el.a.split('-')
+        const sum = parseInt(a[0], 10) + parseInt(a[1], 10)
+
+        if (sum >= count) {
+            result[result.length - 1].data.push(el)
+            count = sum
+        }
+        else {
+            result.push({
+                data: [
+                    el
+                ]
+            })
+            count = 0
+        }
+
+        return true
+    })
+
+    return result
+}
+
 const Table = () => {
     const { t } = useTranslation()
     const dispatch = useDispatch()
+    const { sendMessage, checkSocket } = useSocket()
+
     const {game} = useSelector((state) => state.game)
     const {data} = useSelector((state) => state.data)
     const {live} = useSelector((state) => state.live)
     const {modal} = useSelector((state) => state.modal)
-    const {update} = useSelector((state) => state.update)
 
+    const {update} = useSelector((state) => state.update)
     const [loading, setLoading] = useState(true)
     const [active, setActive] = useState(0)
-
     const [find, setFind] = useState(null)
     const [group, setGroup] = useState(0)
     const [toggle, setToggle] = useState({
         id: null,
         toggle: false
     })
+    const {socket, receivedMessage} = useSelector((state) => state.socket);
 
     const resetActive = () => {
         setGroup(0)
         setToggle({
             id: null,
             toggle: false
+        })
+    }
+
+    const handleToggle = (id) => {
+        setToggle({
+            id: id,
+            toggle: id === toggle.id ? !toggle.toggle : true
         })
     }
 
@@ -68,90 +110,115 @@ const Table = () => {
         setActive(data.events[1])
         dispatch(setModal(0))
         dispatch(setLive(1))
-        dispatch(setData(game))
-    }
+        // dispatch(setData(game))
 
-    const handleToggle = (id) => {
-        setToggle({
-            id: id,
-            toggle: id === toggle.id ? !toggle.toggle : true
-        })
-    }
-
-    const filterColumn = (data) => {
-        const result = [{
-            data: []
-        }]
-        let count = 0
-
-        data.map(el => {
-            const a = el.a.split('-')
-            const sum = parseInt(a[0], 10) + parseInt(a[1], 10)
-
-            if (sum >= count) {
-                result[result.length - 1].data.push(el)
-                count = sum
-            }
-            else {
-                result.push({
-                    data: [
-                        el
-                    ]
-                })
-                count = 0
-            }
-
-            return true
-        })
-
-        return result
+        if (checkSocket(socket)) {
+            sendMessage({cmd:`feed/${sessionStorage.getItem('authToken')}/${game.type}/${game.id}`})
+        }
+        else {
+            dispatch(setData(game))
+        }
     }
 
     const updateGame = () => {
         let a
 
-        dispatch(setData(game)).then((json) => {
-            if (json.events[0].status === matchStatus.ANNOUNCEMENT) {
-                setFind(null)
-                setActive(json.events[0])
-                dispatch(setLive(1))
+        if (checkSocket(socket)) {
+            sendMessage({cmd:`feed/${sessionStorage.getItem('authToken')}/${game.type}/${game.id}`})
 
-                clearInterval(a)
-                return true
-            }
-        })
+            clearInterval(a)
+        }
+        else {
+            dispatch(setData(game)).then((json) => {
+                if (json.events[0].status === matchStatus.ANNOUNCEMENT) {
+                    setFind(null)
+                    setActive(json.events[0])
+                    dispatch(setLive(1))
 
-        a = setTimeout(() => {
-            updateGame()
-        }, 2000)
+                    // clearInterval(a)
+                    // return true
+                }
+            })
+        }
+
+        // dispatch(setData(game)).then((json) => {
+        //     if (json.events[0].status === matchStatus.ANNOUNCEMENT) {
+        //         setFind(null)
+        //         setActive(json.events[0])
+        //         dispatch(setLive(1))
+        //
+        //         clearInterval(a)
+        //         return true
+        //     }
+        // })
+
+
+        // a = setTimeout(() => {
+        //     updateGame()
+        // }, 2000)
     }
 
     useEffect(() => {
         if (game !== null) {
             setLoading(true)
 
-            dispatch(setData(game)).then((json) => {
-                if (json.events.length > 0) {
+            if (checkSocket(socket)) {
+                sendMessage({cmd:`feed/${sessionStorage.getItem('authToken')}/${game.type}/${game.id}`})
+            }
+            else {
+                dispatch(setData(game)).then((json) => {
+                    if (json.events.length > 0) {
 
-                    if (json.events[0].status !== matchStatus.ANNOUNCEMENT) {
-                        setActive(json.events[1])
-                        setFind(json.events[0])
-                        checkStatus(json.events[1])
+                        if (json.events[0].status !== matchStatus.ANNOUNCEMENT) {
+                            setActive(json.events[1])
+                            setFind(json.events[0])
+                            checkStatus(json.events[1])
+                        }
+                        else {
+                            setActive(json.events[0])
+                            checkStatus(json.events[0])
+                        }
+
+                        setLoading(false)
                     }
                     else {
-                        setActive(json.events[0])
-                        checkStatus(json.events[0])
+                        setLoading(false)
                     }
-
-                    setLoading(false)
-                }
-                else {
-                    setLoading(false)
-                }
-            })
+                })
+            }
         }
 
     }, [game]);
+
+    useEffect(() => {
+        if (receivedMessage !== '' && checkCmd('feed', receivedMessage.cmd)) {
+
+            if (receivedMessage.events) {
+                dispatch(setData(game, receivedMessage))
+
+                if(receivedMessage.events[0].status === matchStatus.ANNOUNCEMENT) {
+                    setFind(null)
+                    setActive(receivedMessage.events[0])
+                    dispatch(setLive(1))
+                }
+                else if (receivedMessage.events[0].status !== matchStatus.ANNOUNCEMENT) {
+                    setActive(receivedMessage.events[1])
+                    setFind(receivedMessage.events[0])
+                    checkStatus(receivedMessage.events[1])
+                }
+                else {
+                    setActive(receivedMessage.events[0])
+                    checkStatus(receivedMessage.events[0])
+                }
+
+                setLoading(false)
+            }
+
+            // else {
+            //     setLoading(false)
+            // }
+        }
+    }, [receivedMessage])
 
     useEffect(() => {
         if (modal === 1) {
@@ -184,7 +251,6 @@ const Table = () => {
                                             active={active}
                                             setActive={setActive}
                                             setFind={setFind}
-                                            setRepeat={null}
                                         />
                                     }
                                     <div className={style.tab}>

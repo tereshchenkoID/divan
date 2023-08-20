@@ -1,12 +1,14 @@
 import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {useTranslation} from "react-i18next";
+import useSocket from "hooks/useSocket";
 
 import {setUpdate} from "store/actions/updateAction";
 import {setLive} from "store/actions/liveAction";
 
 import convertTime from "helpers/convertTime";
 import checkData from "helpers/checkData";
+import checkCmd from "helpers/checkCmd";
 
 import MatchTimer from "./MatchTimer";
 import StartTimer from "./StartTimer";
@@ -17,28 +19,39 @@ import style from './index.module.scss';
 const Timer = ({data, type}) => {
     const dispatch = useDispatch()
     const { t } = useTranslation()
+    const { sendMessage, checkSocket } = useSocket()
     const {live} = useSelector((state) => state.live)
     const {update} = useSelector((state) => state.update)
     const {delta} = useSelector((state) => state.delta)
-
-    // const { receivedMessage } = useSelector((state) => state.socket);
-
-    // useEffect(() => {
-    //     console.log(receivedMessage)
-    // }, [receivedMessage])
+    const {socket, receivedMessage} = useSelector((state) => state.socket);
 
     useEffect(() => {
     }, [delta]);
 
     useEffect(() => {
         if (live === 2 || live === 3) {
-            dispatch(setUpdate(data.id))
+            // dispatch(setUpdate(data.id))
+
+            if (checkSocket(socket)) {
+                sendMessage({cmd:`feed/${sessionStorage.getItem('authToken')}/EVENT/${data.id}`})
+            }
+            else {
+                dispatch(setUpdate(data.id, null))
+            }
         }
     }, [live]);
 
     useEffect(() => {
+        if (receivedMessage !== '' && checkCmd('event', receivedMessage.cmd)) {
+            dispatch(setUpdate(null, receivedMessage))
+        }
+    }, [receivedMessage])
+
+    useEffect(() => {
         return () => {
-            dispatch(setUpdate(null))
+            // dispatch(setUpdate(null))
+
+            dispatch(setUpdate(null, null))
             dispatch(setLive(1))
         }
     }, [])
