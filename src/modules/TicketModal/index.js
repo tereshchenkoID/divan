@@ -63,9 +63,9 @@ const TicketModal = ({id, action}) => {
                     setType(json.stake.group.length > 0 ? 1 : 0)
                     setLoading(false)
                 }
-                else {
-                    dispatch(setNotification(t('notification.ticket_not_found')))
-                }
+                // else {
+                //     dispatch(setNotification(t('notification.ticket_not_found')))
+                // }
             })
         }
     }

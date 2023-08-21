@@ -13,6 +13,8 @@ export const messages = {
     jackpots: 'account/[]/jackpots',
     history: 'account/[]/history',
     details: 'account/[]/details/',
+    config: 'account/[]/config',
+    password: 'account/[]/password',
     feed: 'feed/[]/',
     event: 'feed/[]/EVENT/'
 }
