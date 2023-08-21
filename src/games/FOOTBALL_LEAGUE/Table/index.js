@@ -227,7 +227,6 @@ const Table = () => {
                                         active.id !== data.events[0].id &&
                                         <UpdateData
                                             find={find || data.events[0]}
-                                            active={active}
                                             setActive={setActive}
                                             setFind={setFind}
                                         />

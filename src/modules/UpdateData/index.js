@@ -11,7 +11,7 @@ import {setLive} from "store/actions/liveAction";
 import checkCmd from "helpers/checkCmd";
 import {getDifferent} from "helpers/getDifferent";
 
-const UpdateData = ({find, active, setActive, setFind}) => {
+const UpdateData = ({find, setActive, setFind}) => {
     const dispatch = useDispatch()
     const { sendMessage, checkSocket } = useSocket()
 
@@ -72,7 +72,7 @@ const UpdateData = ({find, active, setActive, setFind}) => {
             a.current = setInterval(() => {
                 const t = getDifferent(receivedMessage.event.nextUpdate, delta)
 
-                // console.log(t)
+                console.log(t)
 
                 if (t === '0') {
                     if (receivedMessage.event.status === matchStatus.COMPLETE || receivedMessage.event.status === matchStatus.RESULTS) {
