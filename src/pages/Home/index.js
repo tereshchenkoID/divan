@@ -56,8 +56,6 @@ const Home = () => {
     const {socket, receivedMessage} = useSelector((state) => state.socket);
 
     useEffect(() => {
-        // console.log(socket)
-
         if (checkSocket(socket)) {
             sendMessage({cmd:`account/${sessionStorage.getItem('authToken')}/settings`})
         }

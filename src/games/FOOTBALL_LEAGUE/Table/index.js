@@ -109,7 +109,6 @@ const Table = () => {
         setActive(data.events[1])
         dispatch(setModal(0))
         dispatch(setLive(1))
-        // dispatch(setData(game))
 
         if (checkSocket(socket)) {
             sendMessage({cmd:`feed/${sessionStorage.getItem('authToken')}/${game.type}/${game.id}`})
@@ -133,28 +132,9 @@ const Table = () => {
                     setFind(null)
                     setActive(json.events[0])
                     dispatch(setLive(1))
-
-                    // clearInterval(a)
-                    // return true
                 }
             })
         }
-
-        // dispatch(setData(game)).then((json) => {
-        //     if (json.events[0].status === matchStatus.ANNOUNCEMENT) {
-        //         setFind(null)
-        //         setActive(json.events[0])
-        //         dispatch(setLive(1))
-        //
-        //         clearInterval(a)
-        //         return true
-        //     }
-        // })
-
-
-        // a = setTimeout(() => {
-        //     updateGame()
-        // }, 2000)
     }
 
     useEffect(() => {
