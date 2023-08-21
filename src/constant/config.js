@@ -18,6 +18,8 @@ export const messages = {
     general_overview: 'account/[]/generalOverview',
     daily_sums: 'account/[]/dailySums',
     settlement: 'account/[]/settlement',
+    reprint: 'account/[]/reprint',
+    placebet: 'account/[]/placebet',
     feed: 'feed/[]/',
     event: 'feed/[]/EVENT/',
 }

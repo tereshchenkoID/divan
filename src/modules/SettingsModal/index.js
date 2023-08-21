@@ -42,7 +42,7 @@ const SettingsModal = ({action}) => {
         }
 
         if (checkSocket(socket)) {
-            sendMessage({cmd:`account/${sessionStorage.getItem('authToken')}/config`, [idx]: ref.current.value})
+            sendMessage({cmd:`account/${sessionStorage.getItem('authToken')}/config`, payload: {[idx]: ref.current.value}})
         }
         else {
             postData('/config', JSON.stringify({
