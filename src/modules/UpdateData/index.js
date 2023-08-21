@@ -1,4 +1,4 @@
-import {useEffect} from "react";
+import {useEffect, useRef} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import useSocket from "hooks/useSocket";
 
@@ -11,14 +11,14 @@ import {setLive} from "store/actions/liveAction";
 import checkCmd from "helpers/checkCmd";
 import {getDifferent} from "helpers/getDifferent";
 
-const UpdateData = ({find, active, setActive, setFind}) => {
+const UpdateData = ({find, setActive, setFind}) => {
     const dispatch = useDispatch()
     const { sendMessage, checkSocket } = useSocket()
 
     const {delta} = useSelector((state) => state.delta)
     const {game} = useSelector((state) => state.game)
     const {socket, receivedMessage} = useSelector((state) => state.socket)
-    let a
+    let a = useRef()
 
     useEffect(() => {
         if (checkSocket(socket)) {
@@ -29,44 +29,48 @@ const UpdateData = ({find, active, setActive, setFind}) => {
         }
 
         return () => {
-            clearInterval(a);
+            clearInterval(a.current);
         }
     }, [])
 
     useEffect(() => {
+        clearInterval(a.current);
 
-        a = setInterval(() => {
-            const t = getDifferent(find.nextUpdate, delta)
-            console.log(t)
+        return () => {
+            clearInterval(a.current);
+        }
+    }, [find])
 
-            if (t === '0') {
-                if (find.status === matchStatus.COMPLETE || find.status === matchStatus.RESULTS) {
-                    dispatch(setData(game, null)).then((json) => {
-                        setFind(null)
-                        dispatch(setLive(1))
-                        setActive(json.events[0])
-                    })
+    useEffect(() => {
+        if (!checkSocket(socket)) {
+            a.current = setInterval(() => {
+                const t = getDifferent(find.nextUpdate, delta)
+
+                if (t === '0') {
+                    if (find.status === matchStatus.COMPLETE || find.status === matchStatus.RESULTS) {
+                        dispatch(setData(game, null)).then((json) => {
+                            setFind(null)
+                            dispatch(setLive(1))
+                            setActive(json.events[0])
+                        })
+                    } else {
+                        dispatch(setUpdate(find.id)).then((json) => {
+                            setFind(json.event)
+                        })
+                    }
+
+                    clearInterval(a.current)
                 }
-                else {
-                    dispatch(setUpdate(find.id)).then((json) => {
-                        console.log(json)
-                        setFind(json.event)
-                    })
-                }
-
-                clearInterval(a)
-            }
-        },1000)
-
+            }, 1000)
+        }
     }, [find])
 
     useEffect(() => {
         if (receivedMessage !== '' && checkCmd('event', receivedMessage.cmd)) {
             dispatch(setUpdate(null, receivedMessage))
 
-            a = setInterval(() => {
+            a.current = setInterval(() => {
                 const t = getDifferent(receivedMessage.event.nextUpdate, delta)
-                console.log(t)
 
                 if (t === '0') {
                     if (receivedMessage.event.status === matchStatus.COMPLETE || receivedMessage.event.status === matchStatus.RESULTS) {
@@ -76,7 +80,7 @@ const UpdateData = ({find, active, setActive, setFind}) => {
                         sendMessage({cmd:`feed/${sessionStorage.getItem('authToken')}/EVENT/${find.id}`})
                     }
 
-                    clearInterval(a)
+                    clearInterval(a.current)
                 }
             }, 1000)
         }
