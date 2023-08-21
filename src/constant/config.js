@@ -11,6 +11,8 @@ export const messages = {
     settings: 'account/[]/settings',
     balance: 'account/[]/balance',
     jackpots: 'account/[]/jackpots',
+    history: 'account/[]/history',
+    details: 'account/[]/details/',
     feed: 'feed/[]/',
     event: 'feed/[]/EVENT/'
 }

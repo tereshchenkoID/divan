@@ -11,7 +11,7 @@ import {setLive} from "store/actions/liveAction";
 import checkCmd from "helpers/checkCmd";
 import {getDifferent} from "helpers/getDifferent";
 
-const UpdateData = ({find, setActive, setFind}) => {
+const UpdateData = ({find, active, setActive, setFind}) => {
     const dispatch = useDispatch()
     const { sendMessage, checkSocket } = useSocket()
 
@@ -31,15 +31,7 @@ const UpdateData = ({find, setActive, setFind}) => {
         return () => {
             clearInterval(a.current);
         }
-    }, [])
-
-    useEffect(() => {
-        clearInterval(a.current);
-
-        return () => {
-            clearInterval(a.current);
-        }
-    }, [find])
+    }, [socket])
 
     useEffect(() => {
         if (!checkSocket(socket)) {
@@ -53,7 +45,8 @@ const UpdateData = ({find, setActive, setFind}) => {
                             dispatch(setLive(1))
                             setActive(json.events[0])
                         })
-                    } else {
+                    }
+                    else {
                         dispatch(setUpdate(find.id)).then((json) => {
                             setFind(json.event)
                         })
@@ -63,20 +56,31 @@ const UpdateData = ({find, setActive, setFind}) => {
                 }
             }, 1000)
         }
+
+        return () => {
+            clearInterval(a.current);
+        }
     }, [find])
 
     useEffect(() => {
+
         if (receivedMessage !== '' && checkCmd('event', receivedMessage.cmd)) {
+            clearInterval(a.current)
+
             dispatch(setUpdate(null, receivedMessage))
 
             a.current = setInterval(() => {
                 const t = getDifferent(receivedMessage.event.nextUpdate, delta)
 
+                // console.log(t)
+
                 if (t === '0') {
                     if (receivedMessage.event.status === matchStatus.COMPLETE || receivedMessage.event.status === matchStatus.RESULTS) {
+                        console.log("EVENT")
                         sendMessage({cmd:`feed/${sessionStorage.getItem('authToken')}/${game.type}/${game.id}`})
                     }
                     else {
+                        console.log("FEED")
                         sendMessage({cmd:`feed/${sessionStorage.getItem('authToken')}/EVENT/${find.id}`})
                     }
 

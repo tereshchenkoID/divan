@@ -245,9 +245,10 @@ const Table = () => {
                                         <SkipModal action={handleNext} />
                                     }
                                     {
-                                        ((live === 0 || live === 1) && active.id !== data.events[0].id) &&
+                                        active.id !== data.events[0].id &&
                                         <UpdateData
                                             find={find || data.events[0]}
+                                            active={active}
                                             setActive={setActive}
                                             setFind={setFind}
                                         />

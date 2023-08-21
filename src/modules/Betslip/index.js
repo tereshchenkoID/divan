@@ -290,13 +290,13 @@ const Betslip = () => {
             {
                 checkTicket &&
                 <TicketModal
-                    id={0}
+                    id={false}
                     action={setCheckTicket}
                 />
             }
             <div className={style.body}>
             {
-                ticket.toggle === 0
+                ticket === 0
                     ?
                         betslip.length > 0 &&
                         <>

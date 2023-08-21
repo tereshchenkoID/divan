@@ -39,7 +39,7 @@ const Nav = () => {
                         size={'md'}
                         icon={'file-check'}
                         action={() => {
-                            dispatch(setTicket(ticket.toggle === 0 ? 1 : 0))
+                            dispatch(setTicket(ticket === 0 ? 1 : 0))
                         }}
                     />
                 </div>
