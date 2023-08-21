@@ -29,7 +29,6 @@ import Subtitle from "./Subtitle";
 
 import style from './index.module.scss';
 
-
 const filterColumn = (data) => {
     const result = [{
         data: []

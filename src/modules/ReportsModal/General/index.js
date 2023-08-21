@@ -1,10 +1,13 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import {useSelector} from "react-redux";
 import {useTranslation} from "react-i18next";
+import useSocket from "hooks/useSocket";
 
 import classNames from "classnames";
 
 import {getData} from "helpers/api";
 import {getDateTime} from "helpers/getDateTime";
+import checkCmd from "helpers/checkCmd";
 
 import Button from "components/Button";
 import Loader from "components/Loader";
@@ -90,21 +93,14 @@ const getTo = (type) => {
 const setDate = (type, start) => {
     let result = start === 0 ? getFrom(type) : getTo(type)
 
-
     return getDateTime(new Date(result), 4)
 }
 
-
-// 13.47 19.07
-// This week 17.07.2023 00:00 - current
-// Current Hour 13.00 - current
-// Last Hours 12.00 - 13.00
-// Yesterday - 18.07.2023 00:00:00 - 18.07.2023 23.59.59
-// Last week 10.07.2023 00:00:00 - 16.07.2023 23.59.59
-// Last month 01.06.2023 00:00:00 - 30.06.2023 23.59.59
-
 const Settlement = () => {
     const { t } = useTranslation()
+    const { sendMessage, checkSocket } = useSocket()
+    const {socket, receivedMessage} = useSelector((state) => state.socket);
+
     const SORT = [
         t('interface.current_hour'),
         t('interface.today'),
@@ -132,16 +128,27 @@ const Settlement = () => {
         setData(null)
         setLoading(true)
 
-        getData(`/generalOverview/${f}/${t}`).then((json) => {
-            setData(json)
-
-            if (json) {
-                setLoading(false)
-                setDisabled(false)
-                setData(json)
-            }
-        })
+        if (checkSocket(socket)) {
+            sendMessage({cmd:`account/${sessionStorage.getItem('authToken')}/generalOverview/${f}/${t}`})
+        }
+        else {
+            getData(`/generalOverview/${f}/${t}`).then((json) => {
+                if (json) {
+                    setLoading(false)
+                    setDisabled(false)
+                    setData(json)
+                }
+            })
+        }
     }
+
+    useEffect(() => {
+        if (receivedMessage !== '' && checkCmd('general_overview', receivedMessage.cmd)) {
+            setLoading(false)
+            setDisabled(false)
+            setData(receivedMessage)
+        }
+    }, [receivedMessage])
 
     const handleChange = (event, type) => {
         setDisabled(false)

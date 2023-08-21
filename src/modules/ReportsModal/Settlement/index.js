@@ -1,7 +1,8 @@
-import {useRef, useState} from "react";
-import {useDispatch} from "react-redux";
+import {useEffect, useRef, useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
 import {useTranslation} from "react-i18next";
 import {useReactToPrint} from "react-to-print";
+import useSocket from "hooks/useSocket";
 
 import { MD5 } from 'crypto-js';
 
@@ -9,6 +10,7 @@ import classNames from "classnames";
 
 import {setNotification} from "store/actions/notificationAction";
 
+import checkCmd from "helpers/checkCmd";
 import {getData} from "helpers/api";
 
 import Button from "components/Button";
@@ -21,6 +23,8 @@ import style from './index.module.scss';
 const Settlement = () => {
     const { t } = useTranslation()
     const dispatch = useDispatch()
+    const { sendMessage, checkSocket } = useSocket()
+    const {socket, receivedMessage} = useSelector((state) => state.socket)
 
     const [loading, setLoading] = useState(false)
     const [data, setData] = useState(null)
@@ -41,28 +45,56 @@ const Settlement = () => {
         }
 
         const type = active === 'master' ? `${active}/${MD5(password).toString()}` : active
-        getData(`/settlement/${type}`).then((json) => {
 
+        if (checkSocket(socket)) {
+            sendMessage({cmd:`account/${sessionStorage.getItem('authToken')}/settlement/${type}`})
+        }
+        else {
+            getData(`/settlement/${type}`).then((json) => {
+                setData(null)
+                setLoading(true)
+
+                if (active === 'master') {
+                    if (json.code) {
+                        dispatch(setNotification(t('notification.password_dont_match')))
+                    }
+                    else {
+                        setData(json)
+                        setLoading(false)
+                    }
+                }
+                else {
+                    if (json) {
+                        setData(json)
+                        setLoading(false)
+                    }
+                }
+            })
+        }
+    }
+
+    useEffect(() => {
+        if (receivedMessage !== '' && checkCmd('settlement', receivedMessage.cmd)) {
             setData(null)
             setLoading(true)
 
             if (active === 'master') {
-                if(json.data) {
+                if (receivedMessage.code) {
                     dispatch(setNotification(t('notification.password_dont_match')))
                 }
                 else {
-                    setData(json)
+                    setData(receivedMessage)
                     setLoading(false)
                 }
             }
             else {
-                if(json) {
-                    setData(json)
+                if (receivedMessage) {
+                    setData(receivedMessage)
                     setLoading(false)
                 }
             }
-        })
-    }
+        }
+    }, [receivedMessage])
 
     const handleForm = (e) => {
         e.preventDefault()

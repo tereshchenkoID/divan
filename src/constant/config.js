@@ -15,8 +15,11 @@ export const messages = {
     details: 'account/[]/details/',
     config: 'account/[]/config',
     password: 'account/[]/password',
+    general_overview: 'account/[]/generalOverview',
+    daily_sums: 'account/[]/dailySums',
+    settlement: 'account/[]/settlement',
     feed: 'feed/[]/',
-    event: 'feed/[]/EVENT/'
+    event: 'feed/[]/EVENT/',
 }
 
 export const gameType = {
