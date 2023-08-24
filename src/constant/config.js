@@ -20,6 +20,8 @@ export const messages = {
     settlement: 'account/[]/settlement',
     reprint: 'account/[]/reprint',
     placebet: 'account/[]/placebet',
+    payout: 'account/[]/payout',
+    cancel: 'account/[]/cancel',
     feed: 'feed/[]/',
     event: 'feed/[]/EVENT/',
 }

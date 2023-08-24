@@ -1,5 +1,4 @@
 import { types } from "store/actionTypes";
-import {hostnames} from "constant/config";
 
 const initialState = {
     socket: null,
@@ -10,13 +9,12 @@ const initialState = {
 const socketReducer = (state = initialState, action) => {
     switch (action.type) {
         case types.CONNECT_SOCKET:
-            const socket = new WebSocket(hostnames.WSS_PROD)
             console.log("%cSOCKET_CONNECT", 'color: #157b15')
 
             return {
                 ...state,
-                socket,
-                isConnected: socket.readyState,
+                socket: action.payload,
+                isConnected: action.payload.readyState,
             };
 
         case types.SEND_MESSAGE:

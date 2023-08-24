@@ -1,7 +1,8 @@
 import { types } from "store/actionTypes";
 
-export const connectSocket = () => ({
-    type: types.CONNECT_SOCKET
+export const connectSocket = (message) => ({
+    type: types.CONNECT_SOCKET,
+    payload: message
 });
 
 export const sendMessage = (message) => ({

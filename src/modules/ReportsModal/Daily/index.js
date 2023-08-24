@@ -76,8 +76,8 @@ const setDate = (type, start) => {
 
 const Daily = () => {
     const { t } = useTranslation()
-    const { sendMessage, checkSocket } = useSocket()
-    const {socket, receivedMessage} = useSelector((state) => state.socket)
+    const { sendMessage } = useSocket()
+    const {isConnected, receivedMessage} = useSelector((state) => state.socket)
 
     const SORT = [
         t('interface.this_week'),
@@ -102,7 +102,7 @@ const Daily = () => {
         setData(null)
         setLoading(true)
 
-        if (checkSocket(socket)) {
+        if (isConnected) {
             sendMessage({cmd:`account/${sessionStorage.getItem('authToken')}/dailySums/${f}/${t}?timezoneId=${getTimezone()}`})
         }
         else {

@@ -23,8 +23,8 @@ import style from './index.module.scss';
 const Settlement = () => {
     const { t } = useTranslation()
     const dispatch = useDispatch()
-    const { sendMessage, checkSocket } = useSocket()
-    const {socket, receivedMessage} = useSelector((state) => state.socket)
+    const { sendMessage } = useSocket()
+    const {isConnected, receivedMessage} = useSelector((state) => state.socket)
 
     const [loading, setLoading] = useState(false)
     const [data, setData] = useState(null)
@@ -46,7 +46,7 @@ const Settlement = () => {
 
         const type = active === 'master' ? `${active}/${MD5(password).toString()}` : active
 
-        if (checkSocket(socket)) {
+        if (isConnected) {
             sendMessage({cmd:`account/${sessionStorage.getItem('authToken')}/settlement/${type}`})
         }
         else {

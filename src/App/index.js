@@ -15,22 +15,28 @@ import style from './index.module.scss';
 
 const App = () => {
     const {auth} = useSelector((state) => state.auth)
-    const {socket} = useSelector((state) => state.socket);
-    const { connectSocket, receiveMessage, disconnectSocket } = useSocket()
+    const {socket, isConnected} = useSelector((state) => state.socket);
+    const { connectSocket } = useSocket()
     const [init, setInit] = useState(false)
 
     useEffect(() => {
-        if(!init) {
-            if (socket) {
-                receiveMessage()
-                disconnectSocket()
-            }
-            else {
-                connectSocket()
-                setInit(true)
+        connectSocket()
+        setInit(true)
+    }, [])
+
+    useEffect(() => {
+        if(init) {
+            if (!socket) {
+                const intervalId = setInterval(() => {
+                    connectSocket()
+                }, 2000);
+
+                return () => {
+                    clearInterval(intervalId);
+                };
             }
         }
-    }, [socket])
+    }, [isConnected])
 
     const WINDOW_SIZE = {
         w: 1366,

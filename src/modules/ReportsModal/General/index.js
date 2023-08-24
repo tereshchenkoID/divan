@@ -98,8 +98,8 @@ const setDate = (type, start) => {
 
 const Settlement = () => {
     const { t } = useTranslation()
-    const { sendMessage, checkSocket } = useSocket()
-    const {socket, receivedMessage} = useSelector((state) => state.socket);
+    const { sendMessage } = useSocket()
+    const {isConnected, receivedMessage} = useSelector((state) => state.socket);
 
     const SORT = [
         t('interface.current_hour'),
@@ -128,7 +128,7 @@ const Settlement = () => {
         setData(null)
         setLoading(true)
 
-        if (checkSocket(socket)) {
+        if (isConnected) {
             sendMessage({cmd:`account/${sessionStorage.getItem('authToken')}/generalOverview/${f}/${t}`})
         }
         else {

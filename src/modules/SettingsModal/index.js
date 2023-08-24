@@ -23,8 +23,8 @@ import style from './index.module.scss';
 const SettingsModal = ({action}) => {
     const { t } = useTranslation()
     const dispatch = useDispatch()
-    const { sendMessage, checkSocket } = useSocket()
-    const {socket, receivedMessage} = useSelector((state) => state.socket)
+    const { sendMessage } = useSocket()
+    const {socket, isConnected, receivedMessage} = useSelector((state) => state.socket)
 
     const {settings} = useSelector((state) => state.settings)
     const [response, setResponse] = useState(null)
@@ -41,7 +41,7 @@ const SettingsModal = ({action}) => {
             dispatch(deleteBetslip([]))
         }
 
-        if (checkSocket(socket)) {
+        if (isConnected) {
             sendMessage({cmd:`account/${sessionStorage.getItem('authToken')}/config`, payload: {[idx]: ref.current.value}})
         }
         else {
@@ -60,7 +60,7 @@ const SettingsModal = ({action}) => {
     }
 
     const print = (ref) => {
-        if (checkSocket(socket)) {
+        if (isConnected) {
             sendMessage({cmd:`account/${sessionStorage.getItem('authToken')}/details/${ref.current.value}`})
         }
         else {

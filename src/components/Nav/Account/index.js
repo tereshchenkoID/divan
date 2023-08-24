@@ -14,16 +14,15 @@ import style from './index.module.scss';
 
 const Account = () => {
     const dispatch = useDispatch()
-    const { sendMessage, checkSocket } = useSocket()
+    const { sendMessage } = useSocket()
 
     const [loading, setLoading] = useState(true)
     const {balance} = useSelector((state) => state.balance)
-    const {socket, receivedMessage} = useSelector((state) => state.socket);
-
+    const {isConnected, receivedMessage} = useSelector((state) => state.socket);
     const britishNumberFormatter = new Intl.NumberFormat('en',{ minimumFractionDigits: 2 });
 
     useEffect(() => {
-        if (checkSocket(socket)) {
+        if (isConnected) {
             sendMessage({cmd:`account/${sessionStorage.getItem('authToken')}/balance`})
 
             const a = setInterval(() => {
@@ -31,7 +30,7 @@ const Account = () => {
             }, time.UPDATE)
 
             return () => {
-                clearInterval(a);
+                clearInterval(a)
             }
         }
         else {
@@ -44,10 +43,10 @@ const Account = () => {
             }, time.UPDATE)
 
             return () => {
-                clearInterval(a);
+                clearInterval(a)
             }
         }
-    }, [socket]);
+    }, [isConnected]);
 
     useEffect(() => {
         if (receivedMessage !== '' && checkCmd('balance', receivedMessage.cmd)) {

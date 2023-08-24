@@ -12,18 +12,18 @@ import Banner from "./Banner";
 import style from './index.module.scss';
 
 const JackPot = () => {
-    const { sendMessage, checkSocket } = useSocket()
+    const { sendMessage } = useSocket()
 
     const [data, setData] = useState({})
     const [loading, setLoading] = useState(true)
     const [timer, setTimer] = useState('')
 
     const {delta} = useSelector((state) => state.delta)
-    const {socket, receivedMessage} = useSelector((state) => state.socket);
+    const {socket, isConnected, receivedMessage} = useSelector((state) => state.socket);
 
     useEffect(() => {
 
-        if (checkSocket(socket)) {
+        if (isConnected) {
             sendMessage({cmd:`account/${sessionStorage.getItem('authToken')}/jackpots`})
         }
         else {
@@ -34,7 +34,7 @@ const JackPot = () => {
                 }
             })
         }
-    }, [socket]);
+    }, [isConnected]);
 
     useEffect(() => {
         if (receivedMessage !== '' && checkCmd('jackpots', receivedMessage.cmd)) {
@@ -44,7 +44,7 @@ const JackPot = () => {
     }, [receivedMessage])
 
     useEffect(() => {
-        if (checkSocket(socket)) {
+        if (isConnected) {
             const a = setInterval(() => {
                 let r = getDifferent(data.nextUpdate, delta)
                 setTimer(r)

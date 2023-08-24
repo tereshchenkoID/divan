@@ -15,8 +15,8 @@ import style from './index.module.scss';
 const Password = ({action}) => {
     const { t } = useTranslation()
     const dispatch = useDispatch()
-    const { sendMessage, checkSocket } = useSocket()
-    const {socket, receivedMessage} = useSelector((state) => state.socket)
+    const { sendMessage } = useSocket()
+    const {isConnected, receivedMessage} = useSelector((state) => state.socket)
     const [oldPassword, setOldPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -31,7 +31,7 @@ const Password = ({action}) => {
 
     const checkNewPassword = () => {
         if (newPassword === confirmPassword && oldPassword.length > 4) {
-            if (checkSocket(socket)) {
+            if (isConnected) {
                 sendMessage({cmd:`account/${sessionStorage.getItem('authToken')}/password`, password: oldPassword, old_password: newPassword})
             }
             else {

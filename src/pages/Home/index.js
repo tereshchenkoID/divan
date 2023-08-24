@@ -47,19 +47,21 @@ const setGame = (id) => {
 }
 
 const Home = () => {
-    const { sendMessage, checkSocket } = useSocket()
+    const { sendMessage } = useSocket()
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const [loading, setLoading] = useState(true)
     const {notification} = useSelector((state) => state.notification)
     const {game} = useSelector((state) => state.game)
-    const {socket, receivedMessage} = useSelector((state) => state.socket);
+    const {socket, isConnected, receivedMessage} = useSelector((state) => state.socket);
 
     useEffect(() => {
-        if (checkSocket(socket)) {
+        if (isConnected) {
+            // alert("Work")
             sendMessage({cmd:`account/${sessionStorage.getItem('authToken')}/settings`})
         }
         else {
+            // alert("Not Work")
             dispatch(setSettings()).then((json) => {
                 if (json.hasOwnProperty('data')) {
                     sessionStorage.clear()
@@ -70,7 +72,7 @@ const Home = () => {
                 }
             })
         }
-    }, [socket]);
+    }, [isConnected]);
 
     useEffect(() => {
         if (receivedMessage !== '' && checkCmd('settings', receivedMessage.cmd)) {
@@ -94,23 +96,23 @@ const Home = () => {
                     <Loader />
                  :
                     <>
-                        {
-                            game &&
-                            <div className={style.decor}>
-                                <img
-                                    src={`/img/decor/${game.type}.jpeg`}
-                                    alt="Decor"
-                                />
-                            </div>
-                        }
+                        {/*{*/}
+                        {/*    game &&*/}
+                        {/*    <div className={style.decor}>*/}
+                        {/*        <img*/}
+                        {/*            src={`/img/decor/${game.type}.jpeg`}*/}
+                        {/*            alt="Decor"*/}
+                        {/*        />*/}
+                        {/*    </div>*/}
+                        {/*}*/}
                         <Nav />
-                        {/*<button*/}
-                        {/*    onClick={() => {*/}
-                        {/*        socket.close()*/}
-                        {/*    }}*/}
-                        {/*>*/}
-                        {/*    Disconnect*/}
-                        {/*</button>*/}
+                        <button
+                            onClick={() => {
+                                socket.close()
+                            }}
+                        >
+                            Disconnect
+                        </button>
                         <div className={style.content}>
                             <div className={style.column}>
                                 <div className={style.banners}>

@@ -19,20 +19,18 @@ import style from './index.module.scss';
 const Timer = ({data, type}) => {
     const dispatch = useDispatch()
     const { t } = useTranslation()
-    const { sendMessage, checkSocket } = useSocket()
+    const { sendMessage } = useSocket()
     const {live} = useSelector((state) => state.live)
     const {update} = useSelector((state) => state.update)
     const {delta} = useSelector((state) => state.delta)
-    const {socket, receivedMessage} = useSelector((state) => state.socket);
+    const {isConnected, receivedMessage} = useSelector((state) => state.socket);
 
     useEffect(() => {
     }, [delta]);
 
     useEffect(() => {
         if (live === 2 || live === 3) {
-            // dispatch(setUpdate(data.id))
-
-            if (checkSocket(socket)) {
+            if (isConnected) {
                 sendMessage({cmd:`feed/${sessionStorage.getItem('authToken')}/EVENT/${data.id}`})
             }
             else {
@@ -49,8 +47,6 @@ const Timer = ({data, type}) => {
 
     useEffect(() => {
         return () => {
-            // dispatch(setUpdate(null))
-
             dispatch(setUpdate(null, null))
             dispatch(setLive(1))
         }

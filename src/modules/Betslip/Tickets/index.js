@@ -14,14 +14,14 @@ import style from './index.module.scss';
 
 const Tickets = () => {
     const { t } = useTranslation()
-    const { sendMessage, checkSocket } = useSocket()
+    const { sendMessage } = useSocket()
     const [data, setData] = useState({})
     const [loading, setLoading] = useState(true)
     const {settings} = useSelector((state) => state.settings)
-    const {socket, receivedMessage} = useSelector((state) => state.socket)
+    const {isConnected, receivedMessage} = useSelector((state) => state.socket)
 
     useEffect(() => {
-        if (checkSocket(socket)) {
+        if (isConnected) {
             sendMessage({cmd:`account/${sessionStorage.getItem('authToken')}/history`})
         }
         else {
@@ -30,7 +30,7 @@ const Tickets = () => {
                 setLoading(false)
             })
         }
-    }, [socket]);
+    }, [isConnected]);
 
     useEffect(() => {
         if (receivedMessage !== '' && checkCmd('history', receivedMessage.cmd)) {

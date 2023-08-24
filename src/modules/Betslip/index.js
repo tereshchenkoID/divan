@@ -37,9 +37,9 @@ import style from './index.module.scss';
 
 const Betslip = () => {
     const { t } = useTranslation()
-    const { sendMessage, checkSocket } = useSocket()
+    const { sendMessage } = useSocket()
     const dispatch = useDispatch()
-    const {socket, receivedMessage} = useSelector((state) => state.socket);
+    const {isConnected, receivedMessage} = useSelector((state) => state.socket);
     const {betslip} = useSelector((state) => state.betslip)
     const {stake} = useSelector((state) => state.stake)
     const {ticket} = useSelector((state) => state.ticket)
@@ -104,7 +104,7 @@ const Betslip = () => {
             setMin(stake[0].type === 1 ? settings.betslip.system.min : settings.betslip.single.min)
             setMax(stake[0].type === 1 ? settings.betslip.system.max : settings.betslip.single.max)
 
-            if (checkSocket(socket)) {
+            if (isConnected) {
                 sendMessage({cmd:`account/${sessionStorage.getItem('authToken')}/placebet`, payload: a})
                 sendMessage({cmd:`account/${sessionStorage.getItem('authToken')}/balance`})
             }
@@ -136,7 +136,7 @@ const Betslip = () => {
     }
 
     const repeatPrint = () => {
-        if (checkSocket(socket)) {
+        if (isConnected) {
             sendMessage({cmd:`account/${sessionStorage.getItem('authToken')}/reprint`})
         }
         else {

@@ -72,7 +72,6 @@ const Live = () => {
                         ?
                             <Loader type={'block'}/>
                         :
-                            update.event &&
                             update.event.league.matches.map((el, idx) =>
                                 <Item
                                     key={idx}

@@ -61,23 +61,23 @@ const filterColumn = (data) => {
 const Table = () => {
     const { t } = useTranslation()
     const dispatch = useDispatch()
-    const { sendMessage, checkSocket } = useSocket()
+    const { sendMessage } = useSocket()
 
     const {game} = useSelector((state) => state.game)
     const {data} = useSelector((state) => state.data)
     const {live} = useSelector((state) => state.live)
     const {modal} = useSelector((state) => state.modal)
-
     const {update} = useSelector((state) => state.update)
+    const {socket, isConnected, receivedMessage} = useSelector((state) => state.socket);
+
     const [loading, setLoading] = useState(true)
-    const [active, setActive] = useState(0)
     const [find, setFind] = useState(null)
+    const [active, setActive] = useState(0)
     const [group, setGroup] = useState(0)
     const [toggle, setToggle] = useState({
         id: null,
         toggle: false
     })
-    const {socket, receivedMessage} = useSelector((state) => state.socket);
 
     const resetActive = () => {
         setGroup(0)
@@ -110,7 +110,7 @@ const Table = () => {
         dispatch(setModal(0))
         dispatch(setLive(1))
 
-        if (checkSocket(socket)) {
+        if (isConnected) {
             sendMessage({cmd:`feed/${sessionStorage.getItem('authToken')}/${game.type}/${game.id}`})
         }
         else {
@@ -121,7 +121,7 @@ const Table = () => {
     const updateGame = () => {
         let a
 
-        if (checkSocket(socket)) {
+        if (isConnected) {
             sendMessage({cmd:`feed/${sessionStorage.getItem('authToken')}/${game.type}/${game.id}`})
 
             clearInterval(a)
@@ -141,33 +141,34 @@ const Table = () => {
         if (game !== null) {
             setLoading(true)
 
-            if (checkSocket(socket)) {
+            if (isConnected) {
                 sendMessage({cmd:`feed/${sessionStorage.getItem('authToken')}/${game.type}/${game.id}`})
             }
             else {
                 dispatch(setData(game)).then((json) => {
                     if (json.events.length > 0) {
 
-                        if (json.events[0].status !== matchStatus.ANNOUNCEMENT) {
-                            setActive(json.events[1])
-                            setFind(json.events[0])
-                            checkStatus(json.events[1])
+                        if (json.events[0].status === matchStatus.ANNOUNCEMENT) {
+                            setFind(null)
+                            setActive(json.events[0])
+                            dispatch(setLive(1))
                         }
                         else {
-                            setActive(json.events[0])
-                            checkStatus(json.events[0])
+                            setFind(json.events[0])
+                            setActive(json.events[1])
+                            checkStatus(json.events[1])
                         }
 
                         setLoading(false)
                     }
-                    else {
-                        setLoading(false)
-                    }
+                    // else {
+                    //     setLoading(false)
+                    // }
                 })
             }
         }
 
-    }, [game]);
+    }, [game, isConnected]);
 
     useEffect(() => {
         if (receivedMessage !== '' && checkCmd('feed', receivedMessage.cmd)) {
@@ -180,29 +181,21 @@ const Table = () => {
                     setActive(receivedMessage.events[0])
                     dispatch(setLive(1))
                 }
-                else if (receivedMessage.events[0].status !== matchStatus.ANNOUNCEMENT) {
-                    setActive(receivedMessage.events[1])
-                    setFind(receivedMessage.events[0])
-                    checkStatus(receivedMessage.events[1])
-                }
                 else {
-                    setActive(receivedMessage.events[0])
-                    checkStatus(receivedMessage.events[0])
+                    setFind(receivedMessage.events[0])
+                    setActive(receivedMessage.events[1])
+                    checkStatus(receivedMessage.events[1])
                 }
 
                 setLoading(false)
             }
-
-            // else {
-            //     setLoading(false)
-            // }
         }
     }, [receivedMessage])
 
     useEffect(() => {
-        if (modal === 1) {
-            handleNext()
-        }
+        // if (modal === 1) {
+        //     handleNext()
+        // }
 
         if (live === 4) {
             updateGame()

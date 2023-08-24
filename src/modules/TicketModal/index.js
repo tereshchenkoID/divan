@@ -22,10 +22,10 @@ import style from './index.module.scss';
 const TicketModal = ({id, action}) => {
     const { t } = useTranslation()
     const dispatch = useDispatch()
-    const { sendMessage, checkSocket } = useSocket()
+    const { sendMessage } = useSocket()
 
     const {settings} = useSelector((state) => state.settings)
-    const {socket, receivedMessage} = useSelector((state) => state.socket)
+    const {isConnected, receivedMessage} = useSelector((state) => state.socket)
 
     const [data, setData] = useState({})
     const [find, setFind] = useState(id || 0)
@@ -34,7 +34,7 @@ const TicketModal = ({id, action}) => {
     const [type, setType] = useState(0)
 
     const sendAction = (action) => {
-        if (checkSocket(socket)) {
+        if (isConnected) {
             sendMessage({cmd:`account/${sessionStorage.getItem('authToken')}/${action}/${find}`})
         }
         else {
@@ -52,7 +52,7 @@ const TicketModal = ({id, action}) => {
     const handleSubmit = (event) => {
         event && event.preventDefault();
 
-        if (checkSocket(socket)) {
+        if (isConnected) {
             sendMessage({cmd:`account/${sessionStorage.getItem('authToken')}/details/${find}`})
         }
         else {
@@ -82,18 +82,30 @@ const TicketModal = ({id, action}) => {
     }, []);
 
     useEffect(() => {
-        if (receivedMessage !== '' && checkCmd('details', receivedMessage.cmd)) {
-            if (receivedMessage.hasOwnProperty('stake')) {
+        if (receivedMessage !== '') {
 
-                if (receivedMessage.stake.id === find) {
-                    setData(receivedMessage)
-                    setStep(1)
-                    setType(receivedMessage.stake.group.length > 0 ? 1 : 0)
-                    setLoading(false)
+            if (checkCmd('details', receivedMessage.cmd)) {
+                if (receivedMessage.hasOwnProperty('stake')) {
+
+                    if (receivedMessage.stake.id === find) {
+                        setData(receivedMessage)
+                        setStep(1)
+                        setType(receivedMessage.stake.group.length > 0 ? 1 : 0)
+                        setLoading(false)
+                    }
                 }
+                // else {
+                //     dispatch(setNotification(t('notification.ticket_not_found')))
+                // }
             }
-            else {
-                dispatch(setNotification(t('notification.ticket_not_found')))
+
+            if (checkCmd('payout', receivedMessage.cmd) || checkCmd('cancel', receivedMessage.cmd)) {
+                if (receivedMessage.hasOwnProperty('stake')) {
+                    setData(receivedMessage)
+                }
+                // else {
+                //     dispatch(setNotification(t('notification.ticket_not_found')))
+                // }
             }
         }
     }, [receivedMessage])
