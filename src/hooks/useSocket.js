@@ -22,7 +22,6 @@ const useSocket = () => {
         });
 
         newSocket.addEventListener('error', (error) => {
-            console.error('Socket error:', error);
             dispatch(disconnectSocket());
         });
     };

@@ -15,26 +15,23 @@ import style from './index.module.scss';
 
 const App = () => {
     const {auth} = useSelector((state) => state.auth)
-    const {socket, isConnected} = useSelector((state) => state.socket);
+    const {isConnected} = useSelector((state) => state.socket);
     const { connectSocket } = useSocket()
-    const [init, setInit] = useState(false)
 
     useEffect(() => {
         connectSocket()
-        setInit(true)
     }, [])
 
     useEffect(() => {
-        if(init) {
-            if (!socket) {
-                const intervalId = setInterval(() => {
-                    connectSocket()
-                }, 2000);
+        if (!isConnected) {
+            const intervalId = setInterval(() => {
+                console.log("%cSOCKET_RECONNECT", 'color: #157b15')
+                connectSocket()
+            }, 2 * 60 * 1000);
 
-                return () => {
-                    clearInterval(intervalId);
-                };
-            }
+            return () => {
+                clearInterval(intervalId);
+            };
         }
     }, [isConnected])
 

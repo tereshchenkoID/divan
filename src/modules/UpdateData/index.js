@@ -42,7 +42,7 @@ const UpdateData = ({find, setActive, setFind}) => {
     // }, [socket])
 
     useEffect(() => {
-        if (!isConnected) {
+        if (isConnected) {
             a.current = setInterval(() => {
                 const t = getDifferent(find.nextUpdate, delta)
 

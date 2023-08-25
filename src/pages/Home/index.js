@@ -53,15 +53,13 @@ const Home = () => {
     const [loading, setLoading] = useState(true)
     const {notification} = useSelector((state) => state.notification)
     const {game} = useSelector((state) => state.game)
-    const {socket, isConnected, receivedMessage} = useSelector((state) => state.socket);
+    const {isConnected, receivedMessage} = useSelector((state) => state.socket);
 
     useEffect(() => {
         if (isConnected) {
-            // alert("Work")
             sendMessage({cmd:`account/${sessionStorage.getItem('authToken')}/settings`})
         }
         else {
-            // alert("Not Work")
             dispatch(setSettings()).then((json) => {
                 if (json.hasOwnProperty('data')) {
                     sessionStorage.clear()
@@ -96,23 +94,16 @@ const Home = () => {
                     <Loader />
                  :
                     <>
-                        {/*{*/}
-                        {/*    game &&*/}
-                        {/*    <div className={style.decor}>*/}
-                        {/*        <img*/}
-                        {/*            src={`/img/decor/${game.type}.jpeg`}*/}
-                        {/*            alt="Decor"*/}
-                        {/*        />*/}
-                        {/*    </div>*/}
-                        {/*}*/}
+                        {
+                            game &&
+                            <div className={style.decor}>
+                                <img
+                                    src={`/img/decor/${game.type}.jpeg`}
+                                    alt="Decor"
+                                />
+                            </div>
+                        }
                         <Nav />
-                        <button
-                            onClick={() => {
-                                socket.close()
-                            }}
-                        >
-                            Disconnect
-                        </button>
                         <div className={style.content}>
                             <div className={style.column}>
                                 <div className={style.banners}>

@@ -1,6 +1,6 @@
 export const hostnames = {
     PROD: "https://api.qool90.bet",
-    WSS_PROD: "wss://socket.qool90.bet"
+    WSS_PROD: "wss://socket.qool90.bets"
 }
 
 export const time = {
