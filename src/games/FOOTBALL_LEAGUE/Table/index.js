@@ -129,15 +129,16 @@ const Table = () => {
                 dispatch(setData(game)).then((json) => {
                     if (json.events.length > 0) {
 
-                        if (json.events[0].status === matchStatus.ANNOUNCEMENT) {
-                            setFind(null)
-                            setActive(json.events[0])
-                            dispatch(setLive(1))
-                        }
-                        else {
+                        if (json.events[0].status !== matchStatus.ANNOUNCEMENT) {
                             setFind(json.events[0])
                             setActive(json.events[1])
                             checkStatus(json.events[1])
+
+                        }
+                        else {
+                            setFind(null)
+                            setActive(json.events[0])
+                            dispatch(setLive(1))
                         }
 
                         setLoading(false)
@@ -148,27 +149,26 @@ const Table = () => {
                 })
             }
         }
-
     }, [game]);
 
     useEffect(() => {
         if (receivedMessage !== '' && checkCmd('feed', receivedMessage.cmd)) {
 
-            if (receivedMessage.events) {
-                dispatch(setData(game, receivedMessage))
+            if (receivedMessage.events && receivedMessage.events[0].type === game.type) {
+                dispatch(setData(game, receivedMessage)).then(() => {
+                    if (receivedMessage.events[0].status !== matchStatus.ANNOUNCEMENT) {
+                        setFind(receivedMessage.events[0])
+                        setActive(receivedMessage.events[1])
+                        checkStatus(receivedMessage.events[1])
+                    }
+                    else {
+                        setFind(null)
+                        setActive(receivedMessage.events[0])
+                        dispatch(setLive(1))
+                    }
 
-                if(receivedMessage.events[0].status !== matchStatus.ANNOUNCEMENT) {
-                    setFind(receivedMessage.events[0])
-                    setActive(receivedMessage.events[1])
-                    checkStatus(receivedMessage.events[1])
-                }
-                else {
-                    setFind(null)
-                    setActive(receivedMessage.events[0])
-                    dispatch(setLive(1))
-                }
-
-                setLoading(false)
+                    setLoading(false)
+                })
             }
         }
     }, [receivedMessage])
@@ -179,7 +179,6 @@ const Table = () => {
         }
 
         if (live === 4) {
-
             if (isConnected) {
                 sendMessage({cmd:`feed/${sessionStorage.getItem('authToken')}/${game.type}/${game.id}`})
             }
@@ -202,6 +201,7 @@ const Table = () => {
                     ?
                         <Loader type={'block'} />
                     :
+                        data &&
                         data.events.length > 0
                             ?
                                 <>

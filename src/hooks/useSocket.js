@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { connectSocket, sendMessage, receiveMessage, disconnectSocket } from 'store/actions/socketAction';
-import {hostnames} from "../constant/config";
+
+import {hostnames} from "constant/config";
 
 const useSocket = () => {
     const dispatch = useDispatch();
