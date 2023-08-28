@@ -1,13 +1,19 @@
 import {useEffect, useState} from "react";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+
+import useSocket from "hooks/useSocket";
 
 import {setLive} from "store/actions/liveAction";
 import {setModal} from "store/actions/modalAction";
+import {setData} from "store/actions/dataAction";
 
 import {getDifferent} from "helpers/getDifferent";
 
 const StartTimer = ({start, delta}) => {
+    const { sendMessage } = useSocket()
     const dispatch = useDispatch()
+    const {game} = useSelector((state) => state.game)
+    const {isConnected} = useSelector((state) => state.socket);
     const [timer, setTimer] = useState('')
 
     useEffect(() => {
@@ -22,6 +28,13 @@ const StartTimer = ({start, delta}) => {
 
             if (r === '0') {
                 dispatch(setLive(2))
+
+                if (isConnected) {
+                    sendMessage({cmd:`feed/${sessionStorage.getItem('authToken')}/${game.type}/${game.id}`})
+                }
+                else {
+                    dispatch(setData(game))
+                }
                 clearInterval(a)
             }
 

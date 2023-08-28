@@ -49,14 +49,14 @@ const Table = () => {
         setFind(data.events[0])
         setActive(data.events[1])
         dispatch(setModal(0))
-        dispatch(setLive(1))
-
-        if (isConnected) {
-            sendMessage({cmd:`feed/${sessionStorage.getItem('authToken')}/${game.type}/${game.id}`})
-        }
-        else {
-            dispatch(setData(game))
-        }
+        // dispatch(setLive(1))
+        //
+        // if (isConnected) {
+        //     sendMessage({cmd:`feed/${sessionStorage.getItem('authToken')}/${game.type}/${game.id}`})
+        // }
+        // else {
+        //     dispatch(setData(game))
+        // }
     }
 
     const checkStatus = (el) => {
@@ -106,7 +106,7 @@ const Table = () => {
     useEffect(() => {
         if (receivedMessage !== '' && checkCmd('feed', receivedMessage.cmd)) {
 
-            if (receivedMessage.events && receivedMessage.events[0].type === game.type) {
+            if (receivedMessage.events && receivedMessage.events[0].type === game.type && modal !== 2) {
                 dispatch(setData(game, receivedMessage)).then(() => {
                     if (receivedMessage.events[0].status !== matchStatus.ANNOUNCEMENT) {
                         setActive(receivedMessage.events[1])

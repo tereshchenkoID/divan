@@ -29,7 +29,6 @@ const Timer = ({data, type}) => {
     }, [delta]);
 
     useEffect(() => {
-
         if (live === 2 || live === 3) {
             if (isConnected) {
                 sendMessage({cmd:`feed/${sessionStorage.getItem('authToken')}/EVENT/${data.id}`})
