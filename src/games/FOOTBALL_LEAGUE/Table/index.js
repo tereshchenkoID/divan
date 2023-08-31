@@ -12,9 +12,9 @@ import {setLive} from "store/actions/liveAction";
 import {setData} from "store/actions/dataAction";
 import {setModal} from "store/actions/modalAction";
 
-import {checkData} from "helpers/checkData"
+import {checkData} from "helpers/checkData";
 import {conditionStatus} from "helpers/conditionStatus";
-import checkCmd from "helpers/checkCmd";
+import {checkCmd} from "helpers/checkCmd";
 
 import Alert from "modules/Alert";
 import Timer from "modules/Timer";
@@ -108,14 +108,6 @@ const Table = () => {
         setFind(data.events[0])
         setActive(data.events[1])
         dispatch(setModal(0))
-        // dispatch(setLive(1))
-
-        // if (isConnected) {
-        //     sendMessage({cmd:`feed/${sessionStorage.getItem('authToken')}/${game.type}/${game.id}`})
-        // }
-        // else {
-        //     dispatch(setData(game))
-        // }
     }
 
     useEffect(() => {

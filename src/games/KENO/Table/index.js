@@ -14,8 +14,8 @@ import {setData} from "store/actions/dataAction";
 import {getDateTime} from "helpers/getDateTime";
 import {conditionStatus} from "helpers/conditionStatus";
 import {checkTime} from "helpers/checkTime";
-import {checkData} from "helpers/checkData"
-import checkCmd from "helpers/checkCmd";
+import {checkData} from "helpers/checkData";
+import {checkCmd} from "helpers/checkCmd";
 
 import TableChips from "./TableChips";
 import Loader from "components/Loader";
@@ -65,14 +65,6 @@ const Table = () => {
         setRepeat(1)
         setRandom([])
         dispatch(setModal(0))
-        // dispatch(setLive(1))
-        //
-        // if (isConnected) {
-        //     sendMessage({cmd:`feed/${sessionStorage.getItem('authToken')}/${game.type}/${game.id}`})
-        // }
-        // else {
-        //     dispatch(setData(game))
-        // }
     }
 
     const checkStatus = (el) => {

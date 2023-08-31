@@ -1,4 +1,4 @@
-import {horseColor} from "../constant/config";
+import {horseColor} from "constant/config";
 
 export const generateCircles = (data) => {
     const circles = []

@@ -4,7 +4,7 @@ import useSocket from "hooks/useSocket";
 
 import {time} from 'constant/config'
 
-import checkCmd from "helpers/checkCmd";
+import {checkCmd} from "helpers/checkCmd";
 
 import {setBalance} from "store/actions/balanceAction";
 

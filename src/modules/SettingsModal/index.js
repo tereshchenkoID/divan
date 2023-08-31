@@ -9,7 +9,7 @@ import {printMode, oddsType} from "constant/config";
 
 import classNames from "classnames";
 
-import checkCmd from "helpers/checkCmd";
+import {checkCmd} from "helpers/checkCmd";
 import {getData, postData} from "helpers/api";
 import {deleteBetslip} from "store/actions/betslipAction";
 import {setNotification} from "store/actions/notificationAction";

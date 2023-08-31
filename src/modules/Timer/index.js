@@ -6,9 +6,9 @@ import useSocket from "hooks/useSocket";
 import {setUpdate} from "store/actions/updateAction";
 import {setLive} from "store/actions/liveAction";
 
-import convertTime from "helpers/convertTime";
-import checkData from "helpers/checkData";
-import checkCmd from "helpers/checkCmd";
+import {convertTime} from "helpers/convertTime";
+import {checkData} from "helpers/checkData";
+import {checkCmd} from "helpers/checkCmd";
 
 import MatchTimer from "./MatchTimer";
 import StartTimer from "./StartTimer";

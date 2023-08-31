@@ -4,7 +4,7 @@ import {useTranslation} from "react-i18next";
 import useSocket from "hooks/useSocket";
 
 import {postData} from "helpers/api";
-import checkCmd from "helpers/checkCmd";
+import {checkCmd} from "helpers/checkCmd";
 
 import {setNotification} from "store/actions/notificationAction";
 

@@ -7,7 +7,7 @@ import classNames from "classnames";
 
 import {getData} from "helpers/api";
 import {getDateTime} from "helpers/getDateTime";
-import checkCmd from "helpers/checkCmd";
+import {checkCmd} from "helpers/checkCmd";
 
 import Button from "components/Button";
 import Loader from "components/Loader";

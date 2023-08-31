@@ -2,8 +2,8 @@ import {useSelector} from "react-redux";
 import {useState, useEffect} from "react";
 import useSocket from "hooks/useSocket";
 
-import checkCmd from "helpers/checkCmd";
-import checkData from "helpers/checkData";
+import {checkCmd} from "helpers/checkCmd";
+import {checkData} from "helpers/checkData";
 import {getData} from "helpers/api";
 import {getDifferent} from "helpers/getDifferent";
 

@@ -10,7 +10,7 @@ import classNames from "classnames";
 
 import {setNotification} from "store/actions/notificationAction";
 
-import checkCmd from "helpers/checkCmd";
+import {checkCmd} from "helpers/checkCmd";
 import {getData} from "helpers/api";
 
 import Button from "components/Button";

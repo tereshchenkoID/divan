@@ -6,7 +6,7 @@ import classNames from "classnames";
 
 import useSocket from "hooks/useSocket";
 
-import checkCmd from "helpers/checkCmd";
+import {checkCmd} from "helpers/checkCmd";
 import {getIcon} from "helpers/getIcon";
 import {getData} from "helpers/api";
 import {getDateTime} from "helpers/getDateTime";

@@ -8,7 +8,7 @@ import useSocket from 'hooks/useSocket';
 
 import {gameType} from "constant/config";
 
-import checkCmd from "helpers/checkCmd";
+import {checkCmd} from "helpers/checkCmd";
 
 import {setSettings} from "store/actions/settingsAction";
 

@@ -4,7 +4,7 @@ import {useTranslation} from "react-i18next";
 import useSocket from "hooks/useSocket";
 
 import {getData} from "helpers/api";
-import checkCmd from "helpers/checkCmd";
+import {checkCmd} from "helpers/checkCmd";
 
 import Loader from "components/Loader";
 import Alert from "modules/Alert";

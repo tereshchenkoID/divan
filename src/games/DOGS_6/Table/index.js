@@ -10,8 +10,8 @@ import {gameType, matchStatus} from "constant/config";
 import {getDateTime} from "helpers/getDateTime";
 import {conditionStatus} from "helpers/conditionStatus";
 import {checkTime} from "helpers/checkTime";
-import {checkData} from "helpers/checkData"
-import checkCmd from "helpers/checkCmd";
+import {checkData} from "helpers/checkData";
+import {checkCmd} from "helpers/checkCmd";
 
 import {setModal} from "store/actions/modalAction";
 import {setLive} from "store/actions/liveAction";
@@ -49,14 +49,6 @@ const Table = () => {
         setFind(data.events[0])
         setActive(data.events[1])
         dispatch(setModal(0))
-        // dispatch(setLive(1))
-        //
-        // if (isConnected) {
-        //     sendMessage({cmd:`feed/${sessionStorage.getItem('authToken')}/${game.type}/${game.id}`})
-        // }
-        // else {
-        //     dispatch(setData(game))
-        // }
     }
 
     const checkStatus = (el) => {

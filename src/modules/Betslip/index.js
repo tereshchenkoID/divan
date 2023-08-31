@@ -21,7 +21,7 @@ import {setTicket} from "store/actions/ticketAction";
 import {setBalance} from "store/actions/balanceAction";
 import {setNotification} from "store/actions/notificationAction";
 
-import checkCmd from "helpers/checkCmd";
+import {checkCmd} from "helpers/checkCmd";
 import {getData, postData} from "helpers/api";
 
 import TicketModal from "modules/TicketModal";

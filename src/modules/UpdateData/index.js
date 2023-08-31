@@ -8,7 +8,7 @@ import {setUpdate} from "store/actions/updateAction";
 import {setData} from "store/actions/dataAction";
 import {setLive} from "store/actions/liveAction";
 
-import checkCmd from "helpers/checkCmd";
+import {checkCmd} from "helpers/checkCmd";
 import {getDifferent} from "helpers/getDifferent";
 
 const UpdateData = ({find, setActive, setFind}) => {
