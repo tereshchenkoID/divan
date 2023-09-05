@@ -1,8 +1,14 @@
 import {useState, useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
+import {useNavigate} from "react-router-dom";
+
 import i18n from 'i18next'
 
+import useSocket from 'hooks/useSocket';
+
 import {gameType} from "constant/config";
+
+import {checkCmd} from "helpers/checkCmd";
 
 import {setSettings} from "store/actions/settingsAction";
 
@@ -12,6 +18,7 @@ import ROULETTE from "games/ROULETTE";
 import KENO from "games/KENO";
 import DOGS_6 from "games/DOGS_6";
 import HORSES_8_VR from "games/HORSES_8_VR"
+
 import Loader from "components/Loader";
 import Nav from "components/Nav";
 import Betslip from "modules/Betslip";
@@ -40,22 +47,44 @@ const setGame = (id) => {
 }
 
 const Home = () => {
+    const { sendMessage } = useSocket()
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const [loading, setLoading] = useState(true)
     const {notification} = useSelector((state) => state.notification)
     const {game} = useSelector((state) => state.game)
+    const {isConnected, receivedMessage} = useSelector((state) => state.socket);
 
     useEffect(() => {
-        dispatch(setSettings()).then((json) => {
-            if (json.hasOwnProperty('data')) {
+        if (isConnected) {
+            sendMessage({cmd:`account/${sessionStorage.getItem('authToken')}/settings`})
+        }
+        else {
+            dispatch(setSettings()).then((json) => {
+                if (json.hasOwnProperty('data')) {
+                    sessionStorage.clear()
+                }
+                else {
+                    i18n.changeLanguage(json.account.language || 'en');
+                    setLoading(false)
+                }
+            })
+        }
+    }, [isConnected]);
+
+    useEffect(() => {
+        if (receivedMessage !== '' && checkCmd('settings', receivedMessage.cmd)) {
+            if (receivedMessage.hasOwnProperty('code')) {
                 sessionStorage.clear()
+                navigate(0)
             }
             else {
-                i18n.changeLanguage(json.account.language || 'en');
+                dispatch(setSettings(receivedMessage))
+                i18n.changeLanguage(receivedMessage.account.language || 'en');
                 setLoading(false)
             }
-        })
-    }, []);
+        }
+    }, [receivedMessage])
 
     return (
         <div className={style.block}>

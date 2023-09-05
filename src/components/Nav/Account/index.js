@@ -1,5 +1,10 @@
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
+import useSocket from "hooks/useSocket";
+
+import {time} from 'constant/config'
+
+import {checkCmd} from "helpers/checkCmd";
 
 import {setBalance} from "store/actions/balanceAction";
 
@@ -9,23 +14,47 @@ import style from './index.module.scss';
 
 const Account = () => {
     const dispatch = useDispatch()
+    const { sendMessage } = useSocket()
+
     const [loading, setLoading] = useState(true)
     const {balance} = useSelector((state) => state.balance)
+    const {isConnected, receivedMessage} = useSelector((state) => state.socket);
     const britishNumberFormatter = new Intl.NumberFormat('en',{ minimumFractionDigits: 2 });
 
     useEffect(() => {
-        dispatch(setBalance()).then(() => {
-            setLoading(false)
-        })
+        if (isConnected) {
+            sendMessage({cmd:`account/${sessionStorage.getItem('authToken')}/balance`})
 
-        const a = setInterval(() => {
-            dispatch(setBalance())
-        },30000)
+            const a = setInterval(() => {
+                sendMessage({cmd:`account/${sessionStorage.getItem('authToken')}/balance`})
+            }, time.UPDATE)
 
-        return () => {
-            clearInterval(a);
+            return () => {
+                clearInterval(a)
+            }
         }
-    }, []);
+        else {
+            dispatch(setBalance()).then(() => {
+                setLoading(false)
+            })
+
+            const a = setInterval(() => {
+                dispatch(setBalance())
+            }, time.UPDATE)
+
+            return () => {
+                clearInterval(a)
+            }
+        }
+    }, [isConnected]);
+
+    useEffect(() => {
+        if (receivedMessage !== '' && checkCmd('balance', receivedMessage.cmd)) {
+            dispatch(setBalance(receivedMessage))
+            setLoading(false)
+        }
+    }, [receivedMessage])
+
 
     return (
         <div className={style.block}>

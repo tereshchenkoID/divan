@@ -1,8 +1,10 @@
 import {useEffect, useState} from "react";
 import {useSelector} from "react-redux";
 import {useTranslation} from "react-i18next";
+import useSocket from "hooks/useSocket";
 
 import {getData} from "helpers/api";
+import {checkCmd} from "helpers/checkCmd";
 
 import Loader from "components/Loader";
 import Alert from "modules/Alert";
@@ -12,16 +14,30 @@ import style from './index.module.scss';
 
 const Tickets = () => {
     const { t } = useTranslation()
+    const { sendMessage } = useSocket()
     const [data, setData] = useState({})
     const [loading, setLoading] = useState(true)
     const {settings} = useSelector((state) => state.settings)
+    const {isConnected, receivedMessage} = useSelector((state) => state.socket)
 
     useEffect(() => {
-        getData(`/history`).then((json) => {
-            setData(json)
+        if (isConnected) {
+            sendMessage({cmd:`account/${sessionStorage.getItem('authToken')}/history`})
+        }
+        else {
+            getData(`/history`).then((json) => {
+                setData(json)
+                setLoading(false)
+            })
+        }
+    }, [isConnected]);
+
+    useEffect(() => {
+        if (receivedMessage !== '' && checkCmd('history', receivedMessage.cmd)) {
+            setData(receivedMessage)
             setLoading(false)
-        })
-    }, []);
+        }
+    }, [receivedMessage])
 
     return (
         <div className={style.block}>

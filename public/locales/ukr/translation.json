@@ -15,6 +15,8 @@
     "generated_financial_report_here": "Generated financial report here UA"
   },
   "interface": {
+    "ticket_number": "Ticket number UA",
+    "book_time": "Book time UA",
     "live": "live UA",
     "results": "results UA",
     "week": "week UA",

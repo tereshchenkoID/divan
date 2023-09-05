@@ -6,6 +6,8 @@ import {gameType} from "constant/config";
 import {setLive} from "store/actions/liveAction";
 import {setLiveTimer} from "store/actions/liveTimerAction";
 
+import {getDifferent} from "helpers/getDifferent";
+
 const getDifferentPeriod = (start, end, delta) => {
     const MAX = 90
     const c = new Date().getTime() + delta
@@ -21,24 +23,12 @@ const getDifferentPeriod = (start, end, delta) => {
     return result
 }
 
-const getDifferentGame = (end, delta) => {
-    const c = new Date().getTime() + delta
-    let r = 0, result = '0'
-
-    if (end > c) {
-        r = new Date(end - c)
-        result = `${('0' + r.getMinutes()).slice(-2)}:${('0' + r.getSeconds()).slice(-2)}`
-    }
-
-    return result
-}
-
 const checkType = (start, end, delta, type) => {
     if (type === gameType.FOOTBALL_LEAGUE) {
         return getDifferentPeriod(start, end, delta)
     }
     else {
-        return getDifferentGame(end, delta)
+        return getDifferent(end, delta)
     }
 }
 

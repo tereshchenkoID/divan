@@ -1,8 +1,10 @@
-import {useState} from "react";
-import {useDispatch} from "react-redux";
+import {useEffect, useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
 import {useTranslation} from "react-i18next";
+import useSocket from "hooks/useSocket";
 
 import {postData} from "helpers/api";
+import {checkCmd} from "helpers/checkCmd";
 
 import {setNotification} from "store/actions/notificationAction";
 
@@ -13,6 +15,8 @@ import style from './index.module.scss';
 const Password = ({action}) => {
     const { t } = useTranslation()
     const dispatch = useDispatch()
+    const { sendMessage } = useSocket()
+    const {isConnected, receivedMessage} = useSelector((state) => state.socket)
     const [oldPassword, setOldPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -27,18 +31,23 @@ const Password = ({action}) => {
 
     const checkNewPassword = () => {
         if (newPassword === confirmPassword && oldPassword.length > 4) {
-            postData('/password', JSON.stringify({
-                    password: oldPassword,
-                    old_password: newPassword
-                }))
-                .then((json) => {
-                    if (json.hasOwnProperty('data')) {
-                        dispatch(setNotification(t('notification.old_password_invalid')))
-                    }
-                    else {
-                        dispatch(setNotification(t('notification.password_changed')))
-                    }
-                })
+            if (isConnected) {
+                sendMessage({cmd:`account/${sessionStorage.getItem('authToken')}/password`, password: oldPassword, old_password: newPassword})
+            }
+            else {
+                postData('/password', JSON.stringify({
+                        password: oldPassword,
+                        old_password: newPassword
+                    }))
+                    .then((json) => {
+                        if (json.hasOwnProperty('data')) {
+                            dispatch(setNotification(t('notification.old_password_invalid')))
+                        }
+                        else {
+                            dispatch(setNotification(t('notification.password_changed')))
+                        }
+                    })
+            }
         }
         else if(oldPassword.length < 4) {
             dispatch(setNotification(t('notification.type_old_password')))
@@ -47,6 +56,18 @@ const Password = ({action}) => {
             dispatch(setNotification(t('notification.password_dont_match')))
         }
     }
+
+    useEffect(() => {
+        if (receivedMessage !== '' && checkCmd('password', receivedMessage.cmd)) {
+            if (receivedMessage.hasOwnProperty('code')) {
+                dispatch(setNotification(t('notification.old_password_invalid')))
+            }
+            else {
+                dispatch(setNotification(t('notification.password_changed')))
+            }
+        }
+
+    }, [receivedMessage])
 
     return (
         <div className={style.block}>

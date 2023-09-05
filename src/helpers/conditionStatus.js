@@ -1,4 +1,4 @@
-import {matchStatus} from "../constant/config";
+import {matchStatus} from "constant/config";
 
 export const conditionStatus = (status) => {
     switch (status) {

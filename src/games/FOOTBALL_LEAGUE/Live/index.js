@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import {useSelector} from "react-redux";
 
-import checkData from "helpers/checkData";
+import {checkData} from "helpers/checkData";
 
 import {matchMarkets} from "constant/config";
 
@@ -72,7 +72,6 @@ const Live = () => {
                         ?
                             <Loader type={'block'}/>
                         :
-                            update.event &&
                             update.event.league.matches.map((el, idx) =>
                                 <Item
                                     key={idx}

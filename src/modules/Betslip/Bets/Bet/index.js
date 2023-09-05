@@ -90,8 +90,6 @@ const Bet = ({id, data, betslip, type, setInit, setDisabled}) => {
 
     useOutsideClick(blockRef, buttonRef, setEdit, data)
 
-    console.log(data)
-
     return (
         <div
             className={

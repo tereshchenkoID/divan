@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import {useSelector} from "react-redux";
 
-import convertTime from "helpers/convertTime";
+import {convertTime} from "helpers/convertTime";
 
 import Icon from "components/Icon";
 import ClearResults from "./ClearResults";

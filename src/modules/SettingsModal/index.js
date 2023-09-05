@@ -2,12 +2,14 @@ import {useEffect, useRef, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {useReactToPrint} from "react-to-print";
 import {useTranslation} from "react-i18next";
+import useSocket from "hooks/useSocket";
 import i18n from 'i18next'
 
 import {printMode, oddsType} from "constant/config";
 
 import classNames from "classnames";
 
+import {checkCmd} from "helpers/checkCmd";
 import {getData, postData} from "helpers/api";
 import {deleteBetslip} from "store/actions/betslipAction";
 import {setNotification} from "store/actions/notificationAction";
@@ -21,6 +23,9 @@ import style from './index.module.scss';
 const SettingsModal = ({action}) => {
     const { t } = useTranslation()
     const dispatch = useDispatch()
+    const { sendMessage } = useSocket()
+    const {socket, isConnected, receivedMessage} = useSelector((state) => state.socket)
+
     const {settings} = useSelector((state) => state.settings)
     const [response, setResponse] = useState(null)
     const [showPassword, setShowPassword] = useState(false)
@@ -36,32 +41,64 @@ const SettingsModal = ({action}) => {
             dispatch(deleteBetslip([]))
         }
 
-        postData('/config', JSON.stringify({
+        if (isConnected) {
+            sendMessage({cmd:`account/${sessionStorage.getItem('authToken')}/config`, payload: {[idx]: ref.current.value}})
+        }
+        else {
+            postData('/config', JSON.stringify({
                 [idx]: ref.current.value
             }))
             .then((json) => {
                 if (json.code === 'OK') {
                     dispatch(setNotification(t('notification.saved')))
                 }
-                 else {
+                else {
                     dispatch(setNotification(t('notification.something_wrong')))
                 }
             })
+        }
     }
 
     const print = (ref) => {
-
-        getData(`/details/${ref.current.value}`).then((json) => {
-            if (json.hasOwnProperty('stake')) {
-                if (settings.print.mode === printMode.WEB_PRINT && settings.print.payout) {
-                    setResponse(json)
+        if (isConnected) {
+            sendMessage({cmd:`account/${sessionStorage.getItem('authToken')}/details/${ref.current.value}`})
+        }
+        else {
+            getData(`/details/${ref.current.value}`).then((json) => {
+                if (json.hasOwnProperty('stake')) {
+                    if (settings.print.mode === printMode.WEB_PRINT && settings.print.payout) {
+                        setResponse(json)
+                    }
                 }
-            }
-            else {
+                // else {
+                //     dispatch(setNotification(t('notification.ticket_not_found')))
+                // }
+            })
+        }
+    }
+
+    useEffect(() => {
+        if (receivedMessage !== '' && checkCmd('details', receivedMessage.cmd)) {
+            if (receivedMessage.hasOwnProperty('stake')) {
+                if (receivedMessage.stake.id === printRef.current.value) {
+                    if (settings.print.mode === printMode.WEB_PRINT && settings.print.payout) {
+                        setResponse(receivedMessage)
+                    }
+                }
+            } else {
                 dispatch(setNotification(t('notification.ticket_not_found')))
             }
-        })
-    }
+        }
+        else if(receivedMessage !== '' && checkCmd('config', receivedMessage.cmd)) {
+            if (receivedMessage.code === 'OK') {
+                dispatch(setNotification(t('notification.saved')))
+            }
+            else {
+                dispatch(setNotification(t('notification.something_wrong')))
+            }
+        }
+
+    }, [receivedMessage])
 
     const a = useReactToPrint({
         content: () => componentRef.current,

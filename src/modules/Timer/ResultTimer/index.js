@@ -1,20 +1,10 @@
 import {useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
-
-import {setLive} from "store/actions/liveAction";
 import {useTranslation} from "react-i18next";
 
-const getDifferent = (data, delta) => {
-    const c = new Date().getTime() + delta
-    let r = 0, result = '0'
+import {setLive} from "store/actions/liveAction";
 
-    if (data > c) {
-        r = new Date(data - c)
-        result = `${('0' + r.getMinutes()).slice(-2)}:${('0' + r.getSeconds()).slice(-2)}`
-    }
-
-    return result
-}
+import {getDifferent} from "helpers/getDifferent";
 
 const ResultTimer = ({end, delta}) => {
     const { t } = useTranslation()

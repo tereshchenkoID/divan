@@ -1,5 +1,29 @@
 export const hostnames = {
-    PROD: "https://api.qool90.bet"
+    PROD: "https://api.qool90.bet",
+    WSS_PROD: "wss://socket.qool90.bet"
+}
+
+export const time = {
+    UPDATE: 30000
+}
+
+export const messages = {
+    settings: 'account/[]/settings',
+    balance: 'account/[]/balance',
+    jackpots: 'account/[]/jackpots',
+    history: 'account/[]/history',
+    details: 'account/[]/details/',
+    config: 'account/[]/config',
+    password: 'account/[]/password',
+    general_overview: 'account/[]/generalOverview',
+    daily_sums: 'account/[]/dailySums',
+    settlement: 'account/[]/settlement',
+    reprint: 'account/[]/reprint',
+    placebet: 'account/[]/placebet',
+    payout: 'account/[]/payout',
+    cancel: 'account/[]/cancel',
+    feed: 'feed/[]/',
+    event: 'feed/[]/EVENT/',
 }
 
 export const gameType = {
@@ -14,7 +38,8 @@ export const gameType = {
 export const matchStatus = {
     ANNOUNCEMENT: "ANNOUNCEMENT",
     PROGRESS: "PROGRESS",
-    RESULTS: "RESULTS"
+    RESULTS: "RESULTS",
+    COMPLETE: "COMPLETE"
 }
 
 export const matchMarkets = {
@@ -37,11 +62,6 @@ export const matchOutcomes = {
     '1X': "1X",
     'X2': "X2",
     '12': "12",
-}
-
-export const oddsValue = {
-    DECIMAL: "DECIMAL",
-    AMERICAN: "AMERICAN"
 }
 
 export const oddsType = {

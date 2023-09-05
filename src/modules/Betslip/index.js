@@ -2,6 +2,7 @@ import {useEffect, useRef, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {useReactToPrint} from 'react-to-print';
 import {useTranslation} from "react-i18next";
+import useSocket from "hooks/useSocket";
 
 import {gameType, oddsType, printMode} from "constant/config";
 
@@ -18,9 +19,10 @@ import {deleteBetslip} from "store/actions/betslipAction";
 import {setStake} from "store/actions/stakeAction";
 import {setTicket} from "store/actions/ticketAction";
 import {setBalance} from "store/actions/balanceAction";
-import {getData, postData} from "helpers/api";
-
 import {setNotification} from "store/actions/notificationAction";
+
+import {checkCmd} from "helpers/checkCmd";
+import {getData, postData} from "helpers/api";
 
 import TicketModal from "modules/TicketModal";
 import Button from "components/Button";
@@ -35,7 +37,9 @@ import style from './index.module.scss';
 
 const Betslip = () => {
     const { t } = useTranslation()
+    const { sendMessage } = useSocket()
     const dispatch = useDispatch()
+    const {isConnected, receivedMessage} = useSelector((state) => state.socket);
     const {betslip} = useSelector((state) => state.betslip)
     const {stake} = useSelector((state) => state.stake)
     const {ticket} = useSelector((state) => state.ticket)
@@ -49,6 +53,9 @@ const Betslip = () => {
     const [type, setType] = useState(0)
     const [checkTicket, setCheckTicket] = useState(false)
     const [response, setResponse] = useState(null)
+
+    const [min, setMin] = useState(0)
+    const [max, setMax] = useState(0)
 
     const sendStake = () => {
         if (stake.length) {
@@ -94,28 +101,34 @@ const Betslip = () => {
                 }
             }
 
-            const min = stake[0].type === 1 ? settings.betslip.system.min : settings.betslip.single.min
-            const max = stake[0].type === 1 ? settings.betslip.system.max : settings.betslip.single.max
+            setMin(stake[0].type === 1 ? settings.betslip.system.min : settings.betslip.single.min)
+            setMax(stake[0].type === 1 ? settings.betslip.system.max : settings.betslip.single.max)
 
-            postData('/placebet', JSON.stringify(a))
-                .then((json) => {
-                    if (!json.data) {
-                        if (settings.print.mode === printMode.WEB_PRINT && settings.print.payout) {
-                            setResponse(json)
+            if (isConnected) {
+                sendMessage({cmd:`account/${sessionStorage.getItem('authToken')}/placebet`, payload: a})
+                sendMessage({cmd:`account/${sessionStorage.getItem('authToken')}/balance`})
+            }
+            else {
+                postData('/placebet', JSON.stringify(a))
+                    .then((json) => {
+                        if (!json.data) {
+                            if (settings.print.mode === printMode.WEB_PRINT && settings.print.payout) {
+                                setResponse(json)
+                            }
+
+                            dispatch(setBalance())
+                            dispatch(deleteBetslip([]))
+                            dispatch(setStake([]))
                         }
-
-                        dispatch(setBalance())
-                        dispatch(deleteBetslip([]))
-                        dispatch(setStake([]))
-                    }
-                    else {
-                        dispatch(setNotification(t('notification.stake_lower_upper')
-                            .replaceAll('${symbol}', settings.account.symbol)
-                            .replace('${min}', min)
-                            .replace('${max}', max)
-                        ))
-                    }
-                })
+                        else {
+                            dispatch(setNotification(t('notification.stake_lower_upper')
+                                .replaceAll('${symbol}', settings.account.symbol)
+                                .replace('${min}', min)
+                                .replace('${max}', max)
+                            ))
+                        }
+                    })
+            }
         }
         else {
             dispatch(setNotification(t('notification.please_pick_up_bet')))
@@ -123,17 +136,53 @@ const Betslip = () => {
     }
 
     const repeatPrint = () => {
-        getData(`/reprint`).then((json) => {
-            if (json.hasOwnProperty('stake')) {
+        if (isConnected) {
+            sendMessage({cmd:`account/${sessionStorage.getItem('authToken')}/reprint`})
+        }
+        else {
+            getData(`/reprint`).then((json) => {
+                if (json.hasOwnProperty('stake')) {
+                    if (settings.print.mode === printMode.WEB_PRINT && settings.print.payout) {
+                        setResponse(json)
+                    }
+                }
+                else {
+                    dispatch(setNotification(t('notification.ticket_not_found')))
+                }
+            })
+        }
+    }
+
+    useEffect(() => {
+        if (receivedMessage !== '' && checkCmd('reprint', receivedMessage.cmd)) {
+            if (receivedMessage.hasOwnProperty('stake')) {
                 if (settings.print.mode === printMode.WEB_PRINT && settings.print.payout) {
-                    setResponse(json)
+                    setResponse(receivedMessage)
                 }
             }
             else {
                 dispatch(setNotification(t('notification.ticket_not_found')))
             }
-        })
-    }
+        }
+        else if (receivedMessage !== '' && checkCmd('placebet', receivedMessage.cmd)) {
+            if (!receivedMessage.data) {
+                if (settings.print.mode === printMode.WEB_PRINT && settings.print.payout) {
+                    setResponse(receivedMessage)
+                }
+
+                // dispatch(setBalance())
+                dispatch(deleteBetslip([]))
+                dispatch(setStake([]))
+            }
+            else {
+                dispatch(setNotification(t('notification.stake_lower_upper')
+                    .replaceAll('${symbol}', settings.account.symbol)
+                    .replace('${min}', min)
+                    .replace('${max}', max)
+                ))
+            }
+        }
+    }, [receivedMessage])
 
     const checkGames = () => {
         if(betslip.length) {
@@ -290,13 +339,13 @@ const Betslip = () => {
             {
                 checkTicket &&
                 <TicketModal
-                    id={0}
+                    id={false}
                     action={setCheckTicket}
                 />
             }
             <div className={style.body}>
             {
-                ticket.toggle === 0
+                ticket === 0
                     ?
                         betslip.length > 0 &&
                         <>

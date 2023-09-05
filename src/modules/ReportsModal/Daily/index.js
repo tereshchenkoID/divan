@@ -1,11 +1,14 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import {useSelector} from "react-redux";
 import {useTranslation} from "react-i18next";
+import useSocket from "hooks/useSocket";
 
 import classNames from "classnames";
 
 import {getData} from "helpers/api";
 import {getTimezone} from "helpers/getTimezone";
 import {getDateTime} from "helpers/getDateTime";
+import {checkCmd} from "helpers/checkCmd";
 
 import Button from "components/Button";
 import Loader from "components/Loader";
@@ -73,6 +76,8 @@ const setDate = (type, start) => {
 
 const Daily = () => {
     const { t } = useTranslation()
+    const { sendMessage } = useSocket()
+    const {isConnected, receivedMessage} = useSelector((state) => state.socket)
 
     const SORT = [
         t('interface.this_week'),
@@ -97,15 +102,27 @@ const Daily = () => {
         setData(null)
         setLoading(true)
 
-        getData(`/dailySums/${f}/${t}?timezoneId=${getTimezone()}`).then((json) => {
-
-            if (json) {
-                setLoading(false)
-                setDisabled(false)
-                setData(json)
-            }
-        })
+        if (isConnected) {
+            sendMessage({cmd:`account/${sessionStorage.getItem('authToken')}/dailySums/${f}/${t}?timezoneId=${getTimezone()}`})
+        }
+        else {
+            getData(`/dailySums/${f}/${t}?timezoneId=${getTimezone()}`).then((json) => {
+                if (json) {
+                    setLoading(false)
+                    setDisabled(false)
+                    setData(json)
+                }
+            })
+        }
     }
+
+    useEffect(() => {
+        if (receivedMessage !== '' && checkCmd('daily_sums', receivedMessage.cmd)) {
+            setLoading(false)
+            setDisabled(false)
+            setData(receivedMessage)
+        }
+    }, [receivedMessage])
 
     const handleChange = (event, type) => {
         setDisabled(false)

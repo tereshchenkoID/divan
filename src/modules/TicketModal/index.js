@@ -4,6 +4,9 @@ import {useTranslation} from "react-i18next";
 
 import classNames from "classnames";
 
+import useSocket from "hooks/useSocket";
+
+import {checkCmd} from "helpers/checkCmd";
 import {getIcon} from "helpers/getIcon";
 import {getData} from "helpers/api";
 import {getDateTime} from "helpers/getDateTime";
@@ -19,56 +22,93 @@ import style from './index.module.scss';
 const TicketModal = ({id, action}) => {
     const { t } = useTranslation()
     const dispatch = useDispatch()
-    const {settings} = useSelector((state) => state.settings)
+    const { sendMessage } = useSocket()
 
-    const [init, setInit] = useState(false)
+    const {settings} = useSelector((state) => state.settings)
+    const {isConnected, receivedMessage} = useSelector((state) => state.socket)
+
     const [data, setData] = useState({})
     const [find, setFind] = useState(id || 0)
     const [step, setStep] = useState(id ? 1 : 0)
-
     const [loading, setLoading] = useState(true)
     const [type, setType] = useState(0)
 
     const sendAction = (action) => {
-        getData(`/${action}/${find}`).then((json) => {
-            if (json.hasOwnProperty('stake')) {
-                setData(json)
-            }
-            else {
-                dispatch(setNotification(t('notification.ticket_not_found')))
-            }
-        })
+        if (isConnected) {
+            sendMessage({cmd:`account/${sessionStorage.getItem('authToken')}/${action}/${find}`})
+        }
+        else {
+            getData(`/${action}/${find}`).then((json) => {
+                if (json.hasOwnProperty('stake')) {
+                    setData(json)
+                }
+                else {
+                    dispatch(setNotification(t('notification.ticket_not_found')))
+                }
+            })
+        }
     }
 
     const handleSubmit = (event) => {
         event && event.preventDefault();
 
-        getData(`/details/${find}`).then((json) => {
-            if (json.hasOwnProperty('stake')) {
-                setData(json)
-                setStep(1)
-                setLoading(false)
-                setType(json.stake.group.length > 0 ? 1 : 0)
-            }
-            else {
-                dispatch(setNotification(t('notification.ticket_not_found')))
-            }
-        })
+        if (isConnected) {
+            sendMessage({cmd:`account/${sessionStorage.getItem('authToken')}/details/${find}`})
+        }
+        else {
+            getData(`/details/${find}`).then((json) => {
+                if (json.hasOwnProperty('stake')) {
+                    setData(json)
+                    setStep(1)
+                    setType(json.stake.group.length > 0 ? 1 : 0)
+                    setLoading(false)
+                }
+                else {
+                    dispatch(setNotification(t('notification.ticket_not_found')))
+                }
+            })
+        }
     }
 
     useEffect(() => {
-        if(step === 1 && !init) {
-            setInit(true)
-
+        if(step === 1) {
             handleSubmit()
         }
 
         return () => {
             setStep(0)
-            setData({})
-            setInit(false)
+            setLoading(true)
         }
     }, []);
+
+    useEffect(() => {
+        if (receivedMessage !== '') {
+
+            if (checkCmd('details', receivedMessage.cmd)) {
+                if (receivedMessage.hasOwnProperty('stake')) {
+
+                    if (receivedMessage.stake.id === find) {
+                        setData(receivedMessage)
+                        setStep(1)
+                        setType(receivedMessage.stake.group.length > 0 ? 1 : 0)
+                        setLoading(false)
+                    }
+                }
+                // else {
+                //     dispatch(setNotification(t('notification.ticket_not_found')))
+                // }
+            }
+
+            if (checkCmd('payout', receivedMessage.cmd) || checkCmd('cancel', receivedMessage.cmd)) {
+                if (receivedMessage.hasOwnProperty('stake')) {
+                    setData(receivedMessage)
+                }
+                // else {
+                //     dispatch(setNotification(t('notification.ticket_not_found')))
+                // }
+            }
+        }
+    }, [receivedMessage])
 
     return (
         <div className={style.block}>
@@ -274,7 +314,7 @@ const TicketModal = ({id, action}) => {
                                                             classNames(
                                                                 style.table,
                                                                 style.center,
-                                                                style[type === 0 ? t('interface.single') : t('interface.system')]
+                                                                style[type === 0 ? 'single' : 'system']
                                                             )
                                                         }
                                                     >

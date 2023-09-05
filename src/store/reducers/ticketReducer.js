@@ -1,10 +1,7 @@
 import { types } from "store/actionTypes";
 
 const initialState = {
-    ticket: {
-        data: [],
-        toggle: 0
-    }
+    ticket: 0
 };
 
 const ticketReducer = (state = initialState, action) => {

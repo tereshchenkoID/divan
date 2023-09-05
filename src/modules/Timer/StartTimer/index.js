@@ -1,23 +1,19 @@
 import {useEffect, useState} from "react";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+
+import useSocket from "hooks/useSocket";
 
 import {setLive} from "store/actions/liveAction";
 import {setModal} from "store/actions/modalAction";
+import {setData} from "store/actions/dataAction";
 
-const getDifferent = (data, delta) => {
-    const c = new Date().getTime() + delta
-    let r = 0, result = '0'
-
-    if (data > c) {
-        r = new Date(data - c)
-        result = `${('0' + r.getMinutes()).slice(-2)}:${('0' + r.getSeconds()).slice(-2)}`
-    }
-
-    return result
-}
+import {getDifferent} from "helpers/getDifferent";
 
 const StartTimer = ({start, delta}) => {
+    const { sendMessage } = useSocket()
     const dispatch = useDispatch()
+    const {game} = useSelector((state) => state.game)
+    const {isConnected} = useSelector((state) => state.socket);
     const [timer, setTimer] = useState('')
 
     useEffect(() => {
@@ -32,6 +28,13 @@ const StartTimer = ({start, delta}) => {
 
             if (r === '0') {
                 dispatch(setLive(2))
+
+                if (isConnected) {
+                    sendMessage({cmd:`feed/${sessionStorage.getItem('authToken')}/${game.type}/${game.id}`})
+                }
+                else {
+                    dispatch(setData(game))
+                }
                 clearInterval(a)
             }
 

@@ -10,8 +10,6 @@ export const TicketPrint = React.forwardRef((data, ref) => {
     const { t } = useTranslation()
     const {settings} = useSelector((state) => state.settings)
 
-    console.log(data.data)
-
     return (
         <div
             className={style.block}
