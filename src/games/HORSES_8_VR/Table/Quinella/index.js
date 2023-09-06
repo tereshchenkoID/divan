@@ -18,6 +18,7 @@ const Quinella = ({data}) => {
                                 start={data.start}
                                 data={el}
                                 view={'vertical'}
+                                roundId={data.race.id}
                             />
                         </div>
                     )

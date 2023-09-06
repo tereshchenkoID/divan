@@ -40,11 +40,12 @@ const findBets = (data, id) => {
     return r
 }
 
-const defaultValue = (start, el, market) => {
+const defaultValue = (start, el, market, roundId) => {
 
     return {
-        start: start,
         id: el.id,
+        roundId: roundId,
+        start: start,
         b: el.b,
         market: market,
         print: market,
@@ -91,6 +92,7 @@ const ForecastTrincast = ({data}) => {
 
             if (f) {
                 f.id = el.id
+                f.roundId = data.race.id
                 f.b = el.b
                 f.market = market
                 f.print = market

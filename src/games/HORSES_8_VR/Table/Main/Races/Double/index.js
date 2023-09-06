@@ -64,8 +64,9 @@ const Double = ({data}) => {
 
                 if (!f) {
                     r.push({
-                        start: data.start,
                         id: el.id,
+                        roundId: data.race.roundId,
+                        start: data.start,
                         b: el.b,
                         market: m,
                         print: p,

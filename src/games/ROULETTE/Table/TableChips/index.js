@@ -144,7 +144,7 @@ const TableChips = ({random, active}) => {
 
         for (let i = 0; i < a.length; i++) {
 
-            if (a[i].roundId === id) {
+            if (a[i].id === id) {
                 a[i].stake =  (a[i].stake * 2).toFixed(2)
             }
         }
@@ -154,14 +154,14 @@ const TableChips = ({random, active}) => {
 
     const addRandomChips = () => {
         const a = betslip.slice(0)
-        const r = a.filter(el => el.roundId !== active.id)
+        const r = a.filter(el => el.id !== active.id)
         const s = buttonStepGet().amount.toFixed(2)
 
         for (let i = 0; i < random.length; i++) {
             r.push({
                 start: active.start,
-                roundId: active.id,
-                id: null,
+                roundId: active.round.id,
+                id: active.id,
                 b: data.chips[random[i]].odd,
                 market: data.chips[random[i]].stake,
                 print: data.chips[random[i]].stake,
@@ -176,7 +176,7 @@ const TableChips = ({random, active}) => {
     }
 
     const clearBets = (id) => {
-        const r = betslip.filter(el => el.roundId !== id)
+        const r = betslip.filter(el => el.id !== id)
         dispatch(deleteBetslip(r))
         dispatch(setStake([]))
     }

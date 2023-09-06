@@ -17,6 +17,7 @@ const Extra = ({data}) => {
                             market={data.race.odds.markets[4].printname}
                             text={el.a}
                             data={el}
+                            roundId={data.race.id}
                         />
                     </div>
                 )
@@ -32,6 +33,7 @@ const Extra = ({data}) => {
                             market={data.race.odds.markets[5].printname}
                             text={el.a}
                             data={el}
+                            roundId={data.race.id}
                         />
                     </div>
                 )

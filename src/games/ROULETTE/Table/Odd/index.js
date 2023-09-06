@@ -10,7 +10,7 @@ import {deleteBetslip, setBetslip} from "store/actions/betslipAction";
 
 const findBet = (data, id, outcome) => {
     return data.find(el => {
-        return (el.roundId === id && el.market === outcome)
+        return (el.id === id && el.market === outcome)
     })
 }
 
@@ -29,9 +29,9 @@ const Odd = ({data, step, steps, active}) => {
         }
         else {
             dispatch(setBetslip({
-                roundId: active.id,
+                roundId: active.round.id,
                 start: active.start,
-                id: null,
+                id: active.id,
                 b: date.odd,
                 market: date.stake,
                 print: date.print || date.stake,

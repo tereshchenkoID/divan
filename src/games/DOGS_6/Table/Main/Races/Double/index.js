@@ -51,6 +51,9 @@ const Double = ({data}) => {
     const {betslip} = useSelector((state) => state.betslip)
     const [select, setSelect] = useState([])
 
+    console.log( data.race.id)
+
+
     const placeBets = () => {
         const r = []
         const f = generateBets(select)
@@ -64,8 +67,9 @@ const Double = ({data}) => {
 
                 if (!f) {
                     r.push({
-                        start: data.start,
                         id: el.id,
+                        roundId: data.race.id,
+                        start: data.start,
                         b: el.b,
                         market: m,
                         print: p,

@@ -67,8 +67,9 @@ const Triple = ({data}) => {
 
                 if (!f) {
                     r.push({
-                        start: data.start,
                         id: el.id,
+                        roundId: data.race.id,
+                        start: data.start,
                         b: el.b,
                         market: m,
                         print: p,

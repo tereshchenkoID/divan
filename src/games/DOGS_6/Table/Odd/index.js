@@ -17,7 +17,7 @@ const findBet = (data, id) => {
     })
 }
 
-const Odd = ({market, start, data, view, text}) => {
+const Odd = ({market, start, data, view, text, roundId}) => {
     const dispatch = useDispatch()
     const {betslip} = useSelector((state) => state.betslip)
 
@@ -31,6 +31,7 @@ const Odd = ({market, start, data, view, text}) => {
         else {
             dispatch(setBetslip({
                 id: data.id,
+                roundId: roundId,
                 start: start,
                 b: data.b,
                 market: market,
@@ -44,40 +45,42 @@ const Odd = ({market, start, data, view, text}) => {
         }
     }
 
-    return <button
-                className={
-                    classNames(
-                        style.block,
-                        style[view],
-                        findBet(betslip, data.id) && style.active
-                    )
-                }
-                onClick={() => {
-                    addStake()
-                }}
-           >
-                {
-                    view &&
-                    <span className={style.numbers}>
-                        {
-                            data.a.split(',').map((el, idx) =>
-                                <Number
-                                    key={idx}
-                                    color={el - 1}
-                                    data={el}
-                                />
-                            )
-                        }
-                    </span>
-                }
-                {
-                    text &&
-                    <span className={style.market}>
-                        {text}
-                    </span>
-                }
-                <span>{data.b.toFixed(1)}</span>
-           </button>
+    return (
+        <button
+            className={
+                classNames(
+                    style.block,
+                    style[view],
+                    findBet(betslip, data.id) && style.active
+                )
+            }
+            onClick={() => {
+                addStake()
+            }}
+        >
+            {
+                view &&
+                <span className={style.numbers}>
+                    {
+                        data.a.split(',').map((el, idx) =>
+                            <Number
+                                key={idx}
+                                color={el - 1}
+                                data={el}
+                            />
+                        )
+                    }
+                </span>
+            }
+            {
+                text &&
+                <span className={style.market}>
+                    {text}
+                </span>
+            }
+            <span>{data.b.toFixed(1)}</span>
+        </button>
+    )
 }
 
 export default Odd;

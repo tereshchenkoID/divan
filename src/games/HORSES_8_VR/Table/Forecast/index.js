@@ -113,6 +113,7 @@ const Forecast = ({data}) => {
                                             start={data.start}
                                             data={el_i}
                                             view={'vertical'}
+                                            roundId={data.race.id}
                                         />
                                     </div>
                                 )
@@ -133,6 +134,7 @@ const Forecast = ({data}) => {
                                     start={data.start}
                                     data={el}
                                     view={'vertical'}
+                                    roundId={data.race.id}
                                 />
                             </div>
                     )

@@ -17,7 +17,7 @@ const findBet = (data, id) => {
     })
 }
 
-const Odd = ({market, start, data, view, text}) => {
+const Odd = ({market, start, data, view, text, roundId}) => {
     const dispatch = useDispatch()
     const {betslip} = useSelector((state) => state.betslip)
 
@@ -31,6 +31,7 @@ const Odd = ({market, start, data, view, text}) => {
         else {
             dispatch(setBetslip({
                 id: data.id,
+                roundId: roundId,
                 start: start,
                 b: data.b,
                 market: market,

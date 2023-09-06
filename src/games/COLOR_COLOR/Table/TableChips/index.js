@@ -98,7 +98,7 @@ const TableChips = ({events, repeat, random, data, setRepeat}) => {
 
                 if (f) {
                     r.push({
-                        ...defaultProps(f.id, round.start, round.id),
+                        ...defaultProps(f.id, round.start, round.round.id),
                         b: f.b || 0,
                         m_old: round.round.odds.markets[1].name,
                         o_old: o,
@@ -123,7 +123,7 @@ const TableChips = ({events, repeat, random, data, setRepeat}) => {
                     const o = getValue(numbers, 'id')
 
                     r.push({
-                        ...defaultProps(round.round.odds.markets[0].outcomes[el - 1].id, round.start, round.id),
+                        ...defaultProps(round.round.odds.markets[0].outcomes[el - 1].id, round.start, round.round.id),
                         b: round.round.odds.markets[0].outcomes[el - 1].b || 0,
                         m_old: round.round.odds.markets[0].name,
                         o_old: o,
@@ -152,7 +152,7 @@ const TableChips = ({events, repeat, random, data, setRepeat}) => {
                     const o = getValue(numbers, 'id')
 
                     r.push({
-                        ...defaultProps(f.id, round.start, round.id),
+                        ...defaultProps(f.id, round.start, round.round.id),
                         b: f.b || 0,
                         m_old: round.round.odds.markets[2].name,
                         o_old: o,
@@ -177,7 +177,7 @@ const TableChips = ({events, repeat, random, data, setRepeat}) => {
                 colors.map(el => {
 
                     r.push({
-                        ...defaultProps(el.id, round.start, round.id),
+                        ...defaultProps(el.id, round.start, el.round.id),
                         b: el.b,
                         m_old: el.market,
                         o_old: el.outcome,

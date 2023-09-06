@@ -69,7 +69,7 @@ const TableChips = ({events, repeat, random, data, setRepeat}) => {
 
                 r.push({
                     id: s.id,
-                    roundId: round.id,
+                    roundId: round.round.id,
                     start: round.start,
                     b: s.b || 0,
                     m_old: round.round.odds.markets[0].name,

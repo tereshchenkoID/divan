@@ -57,6 +57,8 @@ const Betslip = () => {
     const [min, setMin] = useState(0)
     const [max, setMax] = useState(0)
 
+    // console.log(betslip)
+
     const sendStake = () => {
         if (stake.length) {
             let type = 0
@@ -70,6 +72,7 @@ const Betslip = () => {
             }
 
             for (let i = 0; i < stake.length; i++) {
+
                 if (stake[i].stake !== 0) {
                     let s = {}
                     s.b = stake[i].gr
@@ -87,7 +90,7 @@ const Betslip = () => {
                 if (betslip[i].stake !== 0) {
                     let s = {
                         a: betslip[i].type,
-                        b: betslip[i].mid,
+                        b: betslip[i].mid || betslip[i].roundId,
                         c: betslip[i].b,
                         e: betslip[i].m_old,   // Change after
                         f: betslip[i].o_old    // Change after

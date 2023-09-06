@@ -40,11 +40,12 @@ const findBets = (data, id) => {
     return r
 }
 
-const defaultValue = (start, el, market) => {
+const defaultValue = (start, el, market, roundId) => {
 
     return {
-        start: start,
         id: el.id,
+        roundId: roundId,
+        start: start,
         b: el.b,
         market: market,
         print: market,
@@ -80,7 +81,7 @@ const ForecastTrincast = ({data}) => {
 
         if (step === 2) {
             if (!findBet(a, el.id, data.start)) {
-                dispatch(setBetslip(defaultValue(data.start, el, market)))
+                dispatch(setBetslip(defaultValue(data.start, el, market, data.race.id)))
             }
         }
 
@@ -92,6 +93,7 @@ const ForecastTrincast = ({data}) => {
             if (f) {
                 f.id = el.id
                 f.b = el.b
+                f.roundId = data.race.id
                 f.market = market
                 f.print = market
                 f.m_old = market

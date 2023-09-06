@@ -23,6 +23,7 @@ const Numbers = ({data}) => {
                                         start={data.start}
                                         data={el}
                                         view={'horizontal'}
+                                        roundId={data.race.id}
                                     />
                                 </div>
                             )
@@ -46,6 +47,7 @@ const Numbers = ({data}) => {
                                         start={data.start}
                                         data={el}
                                         view={'horizontal'}
+                                        roundId={data.race.id}
                                     />
                                 </div>
                             )
@@ -69,6 +71,7 @@ const Numbers = ({data}) => {
                                         start={data.start}
                                         data={el}
                                         view={'horizontal'}
+                                        roundId={data.race.id}
                                     />
                                 </div>
                             )
