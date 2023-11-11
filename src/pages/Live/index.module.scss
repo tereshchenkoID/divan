@@ -1,0 +1,56 @@
+@import "scss/config";
+
+.block {
+  @include flex($direction: column);
+
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+}
+
+.content {
+  @include make-spacer(p, 2);
+
+  display: grid;
+  grid-template-columns: 1fr rem(357px);
+  column-gap: rem(10px);
+  flex-grow: 1;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.column {
+  overflow: hidden;
+  height: 100%;
+}
+
+.table {
+  position: relative;
+  height: 100%;
+}
+
+.banners {
+  position: absolute;
+  right: rem(378px)
+}
+
+.ticker {
+  @include flex($align-items: center);
+
+  position: relative;
+  height: rem(58px);
+  border-top: rem(2px) solid var(--color-yellow);
+  border-bottom: rem(2px) solid var(--color-yellow);
+  background: linear-gradient(360deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 100%);
+  background-color: #ffd76d;
+  overflow: hidden;
+}
+
+.winner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 1;
+  width: rem(350px);
+}

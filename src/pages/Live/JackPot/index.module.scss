@@ -1,0 +1,28 @@
+@import "scss/config";
+
+.block {
+  @include size(100%);
+}
+
+:global {
+  @import "scss/plugin/slider";
+
+  .slick-slider {
+    @include size(100%);
+  }
+
+  .slick-list,
+  .slick-slide {
+    @include size(100%);
+
+    overflow: hidden;
+
+    & > div {
+      height: 100%;
+    }
+  }
+
+  .slick-track {
+    height: 100%;
+  }
+}

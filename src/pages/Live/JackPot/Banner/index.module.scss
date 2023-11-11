@@ -1,0 +1,101 @@
+@import "scss/config";
+
+.block {
+  @include size(100%, rem(53px));
+
+  display: grid;
+  grid-template-columns: minmax(rem(100px), 1fr) 1.5fr;
+  background: linear-gradient(360deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 100%);
+  background-color: var(--color-black);
+  border-radius: rem(3px);
+  padding: 2px;
+  overflow: hidden;
+  color: var(--color-white);
+  font-size: rem(10px);
+  line-height: 1;
+
+  &.bronze {
+    background-color: #6E6929;
+
+    .right {
+      background-color: #D2B76F;
+    }
+  }
+
+  &.silver {
+    background-color: #697267;
+
+    .right {
+      background-color: #A8ACA8;
+    }
+  }
+
+  &.gold {
+    background-color: #7A5F05;
+
+    .right {
+      background-color: #BF8609;
+    }
+  }
+}
+
+.left,
+.right {
+  @include make-spacer(px, 2);
+  @include flex(center, center, column);
+
+  gap: rem(5px);
+  height: 100%;
+}
+
+.right {
+  border-radius: rem(2px);
+  overflow: hidden;
+  background: linear-gradient(360deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 100%);
+}
+
+.amount {
+  @include flex(null, center);
+  @include make-spacer(px, 1);
+
+  border-radius: inherit;
+  font-size: rem(18px);
+  font-weight: var(--typography-bold);
+}
+
+.symbol {
+  @include make-spacer(ml, 'half');
+
+  font-size: rem(10px);
+  transform: translateY(3px);
+}
+
+.ticket {
+  font-size: rem(18px);
+  font-weight: var(--typography-bold);
+}
+
+.slider {
+  @include size(100%, auto);
+
+  text-align: center;
+}
+
+:global {
+  @import "scss/plugin/slider";
+
+  .slick-slider {
+    @include size(100%);
+  }
+
+  .slick-list,
+  .slick-slide {
+    @include size(100%);
+
+    overflow: hidden;
+  }
+
+  .slick-track {
+    height: 100%;
+  }
+}

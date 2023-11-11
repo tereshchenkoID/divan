@@ -7,6 +7,6 @@ export const getDifferent = (data, delta) => {
         r = new Date(data - c)
         result = `${('0' + r.getMinutes()).slice(-2)}:${('0' + r.getSeconds()).slice(-2)}`
     }
-
+    
     return result
 }

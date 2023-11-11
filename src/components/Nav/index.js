@@ -1,5 +1,6 @@
 import {useDispatch, useSelector} from "react-redux";
 import {useState} from "react";
+import {Link} from "react-router-dom";
 
 import {setAuth} from "store/actions/authAction";
 import {setTicket} from "store/actions/ticketAction";
@@ -64,11 +65,17 @@ const Nav = () => {
                     />
                 </div>
                 <div className={style.option}>
-                    <Button
-                        type={'grey'}
-                        size={'md'}
-                        icon={'tv'}
-                    />
+                    <Link
+                        to={'/viewer'}
+                        target={'_blank'}
+                        rel="noreferrer"
+                    >
+                        <Button
+                            type={'grey'}
+                            size={'md'}
+                            icon={'tv'}
+                        />
+                    </Link>
                 </div>
                 <div className={style.option}>
                     <Button

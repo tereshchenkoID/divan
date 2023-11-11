@@ -1,0 +1,43 @@
+@import "scss/config";
+
+.block {
+  @include flex(center, center, column);
+
+  position: relative;
+  height: 100%;
+}
+
+.content {
+  @include flex(center, center, null, wrap);
+  @include wrapper;
+  @include make-spacer('px', 2);
+  @include make-spacer('py', 2);
+
+  gap: rem(15px);
+  max-width: rem(700px);
+  width: 100%;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.button {
+  @include flex(space-between, center, column);
+  @include size(rem(90px), rem(75px));
+  @include make-spacer(py, 2);
+
+  border-radius: rem(10px);
+  background: linear-gradient(360deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 100%);
+  font-size: rem(12px);
+  font-weight: var(--typography-bold);
+  text-transform: uppercase;
+  text-shadow: none;
+  color: var(--color-white);
+
+  &:hover {
+    background-color: var(--color-orange-900);
+  }
+}
+
+.icon {
+  @include size(rem(25px));
+}

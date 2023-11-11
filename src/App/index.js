@@ -70,7 +70,7 @@ const App = () => {
         >
             <main className={style.main}>
                 {
-                    auth
+                    auth || sessionStorage.getItem('authToken')
                         ?
                             <Suspense fallback={<Loader />}>
                                 <Routes>

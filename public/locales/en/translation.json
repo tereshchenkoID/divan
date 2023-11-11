@@ -15,6 +15,7 @@
     "generated_financial_report_here": "Generated financial report here"
   },
   "interface": {
+    "half": "half",
     "ticket_number": "Ticket number",
     "book_time": "Book time",
     "live": "live",

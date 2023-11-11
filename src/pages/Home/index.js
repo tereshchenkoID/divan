@@ -53,7 +53,7 @@ const Home = () => {
     const [loading, setLoading] = useState(true)
     const {notification} = useSelector((state) => state.notification)
     const {game} = useSelector((state) => state.game)
-    const {isConnected, receivedMessage} = useSelector((state) => state.socket);
+    const {isConnected, receivedMessage} = useSelector((state) => state.socket)
 
     useEffect(() => {
         if (isConnected) {

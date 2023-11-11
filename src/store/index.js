@@ -17,6 +17,11 @@ import notificationReducer from './reducers/notificationReducer'
 import authReducer from "./reducers/authReducer";
 import socketReducer from "./reducers/socketReducer";
 
+/* LIVE REDUCERS */
+import progressReducer from "./LIVE/reducers/progressReducer";
+import tvReducer from "./LIVE/reducers/tvReducer"
+import historyReducer from "./LIVE/reducers/historyReducer";
+
 const allReducer = combineReducers({
     auth: authReducer,
     data: dataReducer,
@@ -33,6 +38,11 @@ const allReducer = combineReducers({
     balance: balanceReducer,
     notification: notificationReducer,
     socket: socketReducer,
+    
+    /* LIVE REDUCERS */
+    progress: progressReducer,
+    history: historyReducer,
+    tv: tvReducer,
 });
 
 const composeEnhancers = process.env.NODE_ENV !== 'production' && typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : compose;

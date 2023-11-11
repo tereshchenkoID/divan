@@ -1,0 +1,79 @@
+@import "scss/config";
+
+.block {
+  @include flex(center, center, column);
+
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  border: rem(3px) solid var(--color-orange-900);
+  border-radius: rem(9px);
+  z-index: 15;
+  background-color: rgba(#09230a, 0.95);
+  text-transform: uppercase;
+  text-align: center;
+  font-weight: var(--typography-bold);
+  color: var(--color-white);
+}
+
+.id,
+.timer,
+.title,
+.subtitle {
+  position: relative;
+  z-index: 1;
+}
+
+.id {
+  @include flex(center, center);
+  @include size(rem(190px), rem(60px));
+  @include absolute-center-bottom(rem(-10px));
+
+  padding-top: rem(5px);
+  padding-bottom: rem(9px);
+  border-radius: rem(30px) rem(30px) 0 0;
+  background: linear-gradient(360deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 100%);
+  background-color: var(--color-orange-900);
+  color: var(--color-black);
+  font-size: rem(19px);
+  font-weight: var(--typography-bold);
+  text-transform: uppercase;
+  text-shadow: none;
+}
+
+.decor {
+  @include absolute-filled;
+
+  img {
+    object-fit: cover;
+  }
+}
+
+.timer {
+  @include flex(center, center);
+  @include make-spacer(mt, 3);
+  @include make-spacer(mb, 5);
+  @include size(rem(365px));
+
+  border-radius: 50%;
+  font-size: rem(179px);
+
+  img {
+    @include absolute-filled;
+  }
+
+  span {
+    position: relative;
+  }
+}
+
+.title {
+  font-size: rem(42px);
+  color: var(--color-orange);
+}
+
+.subtitle {
+  font-size: rem(62px);
+}

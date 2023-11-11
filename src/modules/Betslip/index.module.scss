@@ -51,3 +51,25 @@
 .print {
   display: none;
 }
+
+.empty {
+  @include flex(center, center, column);
+  @include make-spacer(p, 2);
+
+  height: 100%;
+  text-align: center;
+  color: var(--color-white);
+
+  img {
+    @include size(rem(200px), rem(80px));
+  }
+
+  p {
+    font-size: rem(20px);
+  }
+}
+
+.icon {
+  @include size(rem(50px));
+  @include make-spacer(my, 2);
+}

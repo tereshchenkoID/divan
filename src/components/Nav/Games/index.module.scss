@@ -31,7 +31,7 @@
 }
 
 :global {
-  @import "slider";
+  @import "scss/plugin/slider";
 
   .slick-slider {
     @include size(100%);

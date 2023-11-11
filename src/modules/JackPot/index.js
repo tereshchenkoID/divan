@@ -43,42 +43,42 @@ const JackPot = () => {
         }
     }, [receivedMessage])
 
-    useEffect(() => {
-        if (isConnected) {
-            const a = setInterval(() => {
-                let r = getDifferent(data.nextUpdate, delta)
-                setTimer(r)
-
-                if (r === '0') {
-                    clearInterval(a)
-                    sendMessage({cmd: `account/${sessionStorage.getItem('authToken')}/jackpots`})
-                }
-            }, 1000)
-
-            return () => {
-                setTimer('')
-                clearInterval(a);
-            }
-        }
-        else {
-            const a = setInterval(() => {
-                let r = getDifferent(data.nextUpdate, delta)
-                setTimer(r)
-
-                if (r === '0') {
-                    clearInterval(a)
-                    getData(`/jackpots`).then((json) => {
-                        setData(json)
-                    })
-                }
-            },1000)
-
-            return () => {
-                setTimer('')
-                clearInterval(a);
-            }
-        }
-    }, [socket, data])
+    // useEffect(() => {
+    //     if (isConnected) {
+    //         const a = setInterval(() => {
+    //             let r = getDifferent(data.nextUpdate, delta)
+    //             setTimer(r)
+    //
+    //             if (r === '0') {
+    //                 clearInterval(a)
+    //                 sendMessage({cmd: `account/${sessionStorage.getItem('authToken')}/jackpots`})
+    //             }
+    //         }, 1000)
+    //
+    //         return () => {
+    //             setTimer('')
+    //             clearInterval(a);
+    //         }
+    //     }
+    //     else {
+    //         const a = setInterval(() => {
+    //             let r = getDifferent(data.nextUpdate, delta)
+    //             setTimer(r)
+    //
+    //             if (r === '0') {
+    //                 clearInterval(a)
+    //                 getData(`/jackpots`).then((json) => {
+    //                     setData(json)
+    //                 })
+    //             }
+    //         },1000)
+    //
+    //         return () => {
+    //             setTimer('')
+    //             clearInterval(a);
+    //         }
+    //     }
+    // }, [socket, data])
 
     return (
         <div className={style.block}>

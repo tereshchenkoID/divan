@@ -26,6 +26,7 @@ import {getData, postData} from "helpers/api";
 
 import TicketModal from "modules/TicketModal";
 import Button from "components/Button";
+import Icon from "components/Icon";
 
 import Tickets from "./Tickets";
 import Stakes from "./Stakes";
@@ -34,6 +35,7 @@ import Types from "./Types";
 import {TicketPrint} from 'modules/TicketPrint';
 
 import style from './index.module.scss';
+
 
 const Betslip = () => {
     const { t } = useTranslation()
@@ -350,22 +352,35 @@ const Betslip = () => {
             {
                 ticket === 0
                     ?
-                        betslip.length > 0 &&
-                        <>
-                            <Bets
-                                betslip={betslip}
-                                stake={stake}
-                                type={type}
-                                setInit={setInit}
-                                setDisabled={setDisabled}
-                            />
-                            <Types
-                                type={type}
-                                setType={setType}
-                                disabled={disabled}
-                            />
-                            <Stakes stake={stake} />
-                        </>
+                        betslip.length > 0
+                            ?
+                                <>
+                                    <Bets
+                                        betslip={betslip}
+                                        stake={stake}
+                                        type={type}
+                                        setInit={setInit}
+                                        setDisabled={setDisabled}
+                                    />
+                                    <Types
+                                        type={type}
+                                        setType={setType}
+                                        disabled={disabled}
+                                    />
+                                    <Stakes stake={stake} />
+                                </>
+                            :
+                                <div className={style.empty}>
+                                    <img
+                                        src="https://virtual.avasta.pro/engine/shop/resource/13.png"
+                                        alt=""
+                                        loading="lazy"
+                                    />
+                                    <div className={style.icon}>
+                                        <Icon id={'add'} />
+                                    </div>
+                                    <p>Please pick up a bet to start</p>
+                                </div>
                     :
                         <div className={style.list}>
                             <Tickets />

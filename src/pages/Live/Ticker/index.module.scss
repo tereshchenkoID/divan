@@ -1,0 +1,71 @@
+@import "scss/config";
+
+.block {
+  width: 100%;
+}
+
+.wrapper {
+  @include flex($align-items: center);
+
+  gap: rem(16px);
+}
+
+.item {
+  @include make-spacer(px, 2);
+
+  display: grid;
+  grid-template-columns: rem(30px) 1fr rem(40px) rem(40px) rem(40px) 1fr;
+  align-items: center;
+  border: rem(3px) solid var(--color-orange-900);
+  border-radius: rem(9px);
+  overflow: hidden;
+  flex-shrink: 0;
+  height: 100%;
+  text-align: center;
+  font-size: rem(15px);
+  color: var(--color-white);
+
+  &:nth-child(even) {
+    background-color: #323232;
+  }
+
+  &:nth-child(odd) {
+    background-color: #272727;
+  }
+}
+
+.id {
+  text-align: left;
+}
+
+.logo {
+  @include make-spacer('p', 1);
+  @include size(rem(40px));
+
+  img {
+    object-fit: contain;
+  }
+}
+
+.scoreboard {
+  display: grid;
+  grid-template-columns: 1fr rem(8px) 1fr;
+  align-items: center;
+}
+
+.score {
+  font-size: rem(16px);
+
+  &.win {
+    font-weight: var(--typography-bold);
+    color: var(--color-red);
+  }
+}
+
+.info {
+  display: grid;
+  grid-template-columns: 1fr rem(15px) 1fr;
+  align-items: center;
+  text-align: center;
+  color: var(--color-white);
+}
