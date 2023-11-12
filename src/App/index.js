@@ -65,7 +65,6 @@ const App = () => {
             dispatch(setAuth(token))
         }
         
-        console.log(token)
         return token ? searchParams.get('authToken') : null
     }
 

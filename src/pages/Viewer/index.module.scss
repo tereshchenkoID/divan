@@ -5,19 +5,28 @@
 
   position: relative;
   height: 100%;
+  font-weight: var(--typography-bold);
+  color: var(--color-white);
 }
 
 .content {
-  @include flex(center, center, null, wrap);
   @include wrapper;
-  @include make-spacer('px', 2);
-  @include make-spacer('py', 2);
+  @include make-spacer(p, 4);
 
-  gap: rem(15px);
   max-width: rem(700px);
   width: 100%;
   overflow: hidden;
   z-index: 1;
+}
+
+.wrapper {
+  @include make-spacer(mt, 2);
+
+  display: grid;
+  grid-template-columns: repeat(4, rem(100px));
+  justify-content: center;
+  align-items: center;
+  gap: rem(15px);
 }
 
 .button {
@@ -28,10 +37,8 @@
   border-radius: rem(10px);
   background: linear-gradient(360deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 100%);
   font-size: rem(12px);
-  font-weight: var(--typography-bold);
-  text-transform: uppercase;
-  text-shadow: none;
   color: var(--color-white);
+  text-transform: uppercase;
 
   &:hover {
     background-color: var(--color-orange-900);
@@ -40,4 +47,35 @@
 
 .icon {
   @include size(rem(25px));
+}
+
+.checkbox {
+  @include flex(null, center);
+
+  color: var(--color-white);
+
+  span {
+    @include make-spacer(mr, 2);
+    @include size(rem(20px));
+
+    position: relative;
+    border-radius: rem(3px);
+    border: rem(1px) solid var(--color-white);
+    overflow: hidden;
+  }
+
+  &.active {
+
+    span {
+
+      &::after {
+        @include absolute-center;
+        @include size(rem(10px));
+
+        border-radius: rem(1px);
+        background-color: var(--color-green);
+        content: '';
+      }
+    }
+  }
 }

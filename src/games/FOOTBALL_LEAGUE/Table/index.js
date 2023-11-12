@@ -226,7 +226,7 @@ const Table = () => {
                                                         resetActive()
                                                     }}
                                                 >
-                                                    Week {el.league.week}
+                                                    {t('interface.week')} {el.league.week}
                                                 </button>
                                             )
                                         }

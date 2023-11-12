@@ -12,7 +12,8 @@
     "stake_already_exists": "Stake already exists",
     "stake_lower_upper": "Stake per bet is lower than minimum ${symbol} ${min} or upper than maximum ${symbol} ${max}",
     "events_not_found": "Events not found",
-    "generated_financial_report_here": "Generated financial report here"
+    "generated_financial_report_here": "Generated financial report here",
+    "open_in_new_window": "Open in new window"
   },
   "interface": {
     "half": "half",
