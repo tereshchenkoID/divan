@@ -3,6 +3,7 @@
 .block {
   @include flex($direction: column);
 
+  position: relative;
   border: rem(3px) solid var(--color-orange-900);
   border-radius: rem(9px);
   overflow: hidden;

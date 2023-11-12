@@ -35,3 +35,11 @@
   grid-template-columns: 1fr rem(40px) rem(20px) rem(40px) 1fr;
   align-items: center;
 }
+
+.score {
+
+  &.win {
+    font-weight: var(--typography-bold);
+    color: var(--color-green-900);
+  }
+}

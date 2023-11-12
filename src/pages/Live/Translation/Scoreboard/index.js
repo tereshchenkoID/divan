@@ -1,6 +1,8 @@
 import {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 
+import classNames from "classnames";
+
 import style from './index.module.scss'
 
 const Scoreboard = ({data, timer, setVideo}) => {
@@ -13,7 +15,9 @@ const Scoreboard = ({data, timer, setVideo}) => {
         const i = timer > DELAY ? Math.ceil(Number(timer) / DELAY) - 1 : 0
         const f = scenes[i]
         
-        setScore([f.home, f.away])
+        if (f.update === timer) {
+            setScore([f.home, f.away])
+        }
         setVideo(f.video)
     }
     
@@ -40,9 +44,27 @@ const Scoreboard = ({data, timer, setVideo}) => {
                 <div className={style.cell}>
                     <div className={style.scoreboard}>
                         <div>{data.teams.home.name}</div>
-                        <div>{score[0]}</div>
+                        <div
+                            className={
+                                classNames(
+                                    style.score,
+                                    score[0] > score[1] && style.win,
+                                )
+                            }
+                        >
+                            {score[0]}
+                        </div>
                         <div>-</div>
-                        <div>{score[1]}</div>
+                        <div
+                            className={
+                                classNames(
+                                    style.score,
+                                    score[1] > score[0] && style.win,
+                                )
+                            }
+                        >
+                            {score[1]}
+                        </div>
                         <div>{data.teams.away.name}</div>
                     </div>
                 </div>

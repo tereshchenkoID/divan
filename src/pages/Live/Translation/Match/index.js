@@ -1,16 +1,27 @@
 import {useEffect, useState} from "react";
 
+import classNames from "classnames";
+
 import style from './index.module.scss'
 
 const Match = ({index, data, timer}) => {
     const [score, setScore] = useState([0, 0])
+    const [active, setActive] = useState(false)
     
-    const initScene = (scenes, timer = 80) => {
+    const initScene = (scenes, timer) => {
         const TIME = 90
         const DELAY = Math.ceil(TIME / scenes.length)
         const i = timer > DELAY ? Math.ceil(Number(timer) / DELAY) - 1 : 0
         const f = scenes[i]
-        setScore([f.home, f.away])
+        
+        if (f.update === timer) {
+            setActive(true)
+            setScore([f.home, f.away])
+            
+            setTimeout(() => {
+                setActive(false)
+            }, 1000)
+        }
     }
     
     useEffect(() => {
@@ -18,7 +29,13 @@ const Match = ({index, data, timer}) => {
     },[timer])
     
     return (
-        <div className={style.block}>
+        <div className={
+            classNames(
+                style.block,
+                active && style.active
+            )
+        }
+        >
             <div className={style.cell}>{index + 1}.</div>
             <div className={style.cell}>
                 <div className={style.logo}>
@@ -30,9 +47,31 @@ const Match = ({index, data, timer}) => {
                 </div>
             </div>
             <div className={style.cell}>{data.teams.home.name}</div>
-            <div className={style.cell}>{score[0]}</div>
+            <div className={style.cell}>
+                <div
+                    className={
+                        classNames(
+                            style.score,
+                            score[0] > score[1] && style.win,
+                        )
+                    }
+                >
+                    {score[0]}
+                </div>
+            </div>
             <div className={style.cell}>-</div>
-            <div className={style.cell}>{score[1]}</div>
+            <div className={style.cell}>
+                <div
+                    className={
+                        classNames(
+                            style.score,
+                            score[1] > score[0] && style.win,
+                        )
+                    }
+                >
+                    {score[1]}
+                </div>
+            </div>
             <div className={style.cell}>{data.teams.away.name}</div>
             <div className={style.cell}>
                 <div className={style.logo}>

@@ -24,6 +24,7 @@ const Live = () => {
     const {progress} = useSelector((state) => state.progress)
     const {modal} = useSelector((state) => state.modal)
     const {liveTimer} = useSelector((state) => state.liveTimer)
+    const {settings} = useSelector((state) => state.settings)
     const [loading, setLoading] = useState(true)
     
     useEffect(() => {
@@ -71,7 +72,7 @@ const Live = () => {
                             </div>
                         </div>
                         {
-                            (progress === 2 && liveTimer !== 0) && <Translation />
+                            (settings.account.mode === "1" && progress === 2 && liveTimer !== 0) && <Translation />
                         }
                     </>
             }

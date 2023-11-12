@@ -21,6 +21,10 @@
   &:first-child {
     border-top: 0;
   }
+
+  &.active {
+    background-image: linear-gradient(0deg, #294329 0%, #00a900 52%, #00a900 100%);
+  }
 }
 
 .cell {
@@ -33,5 +37,13 @@
 
   img {
     object-fit: contain;
+  }
+}
+
+.score {
+
+  &.win {
+    font-weight: var(--typography-bold);
+    color: var(--color-green-900);
   }
 }
