@@ -66,7 +66,7 @@ const Nav = () => {
                 </div>
                 <div className={style.option}>
                     <Link
-                        to={'/viewer'}
+                        to={`/viewer?authToken=${sessionStorage.getItem('authToken')}`}
                         target={'_blank'}
                         rel="noreferrer"
                     >

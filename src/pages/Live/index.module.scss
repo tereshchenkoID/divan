@@ -1,11 +1,22 @@
 @import "scss/config";
 
 .block {
-  @include flex($direction: column);
-
   position: relative;
   overflow: hidden;
   height: 100%;
+}
+
+.wrapper {
+  @include flex($direction: column);
+  @include size(100%);
+
+  position: relative;
+  overflow: hidden;
+}
+
+.ticker,
+.content {
+  pointer-events: none;
 }
 
 .content {

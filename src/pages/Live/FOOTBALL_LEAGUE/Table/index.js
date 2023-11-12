@@ -13,8 +13,8 @@ import {setTv} from "store/LIVE/actions/tvAction";
 
 import Alert from "modules/Alert";
 import Loader from "components/Loader";
-import Timer from "../Timer";
-import Live from "../Live";
+import Timer from "pages/Live/Timer";
+import Live from "pages/Live/Live";
 
 import style from './index.module.scss';
 

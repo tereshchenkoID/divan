@@ -1,8 +1,11 @@
 import {Suspense, useEffect, useState} from "react";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {Routes, Route} from "react-router-dom";
+import { useLocation } from 'react-router-dom';
 
 import useSocket from "hooks/useSocket";
+
+import {setAuth} from "store/actions/authAction";
 
 import classNames from "classnames";
 
@@ -14,10 +17,12 @@ import Loader from "components/Loader";
 import style from './index.module.scss';
 
 const App = () => {
+    const dispatch = useDispatch()
     const {auth} = useSelector((state) => state.auth)
-    const {isConnected} = useSelector((state) => state.socket);
+    const {isConnected} = useSelector((state) => state.socket)
+    const location = useLocation()
     const { connectSocket } = useSocket()
-
+    
     useEffect(() => {
         connectSocket()
     }, [])
@@ -50,10 +55,23 @@ const App = () => {
             y: window.innerHeight / WINDOW_SIZE.h
         });
     }
+    
+    const getAuth = () => {
+        const searchParams = new URLSearchParams(location.search)
+        const token = searchParams.get('authToken')
+        
+        if (token) {
+            sessionStorage.setItem("authToken", token)
+            dispatch(setAuth(token))
+        }
+        
+        console.log(token)
+        return token ? searchParams.get('authToken') : null
+    }
 
     useEffect(() => {
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
+        window.addEventListener('resize', handleResize)
+        return () => window.removeEventListener('resize', handleResize)
     }, [])
 
     return (
@@ -70,7 +88,7 @@ const App = () => {
         >
             <main className={style.main}>
                 {
-                    auth || sessionStorage.getItem('authToken')
+                    auth || sessionStorage.getItem('authToken') || getAuth()
                         ?
                             <Suspense fallback={<Loader />}>
                                 <Routes>

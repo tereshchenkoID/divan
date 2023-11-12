@@ -68,9 +68,10 @@ const Viewer = () => {
                             settings.games.map((el, idx) =>
                                 <div key={idx}>
                                     <Link
-                                        to={'/live'}
+                                        to={`/live?authToken=${sessionStorage.getItem('authToken')}`}
                                         className={style.button}
                                         aria-label={el.name}
+                                        target={'_blank'}
                                         onClick={() => {
                                             dispatch(setGame(el))
                                             localStorage.setItem('game', JSON.stringify(el))
