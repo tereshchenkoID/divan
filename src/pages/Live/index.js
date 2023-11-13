@@ -97,8 +97,7 @@ const Live = () => {
                             }
                         </div>
                         {
-                            active &&
-                            <Games />
+                            active && <Games action={setActive}/>
                         }
                     </>
             }

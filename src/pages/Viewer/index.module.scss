@@ -23,7 +23,7 @@
   @include make-spacer(mt, 2);
 
   display: grid;
-  grid-template-columns: repeat(4, rem(100px));
+  grid-template-columns: repeat(4, rem(90px));
   justify-content: center;
   align-items: center;
   gap: rem(15px);

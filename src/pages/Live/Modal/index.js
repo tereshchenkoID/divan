@@ -1,5 +1,6 @@
 import {useEffect, useState} from "react";
 import {useSelector} from "react-redux";
+import {useTranslation} from "react-i18next";
 
 import style from './index.module.scss';
 
@@ -34,8 +35,8 @@ const useCountdown = (onDone, initialSeconds) => {
 };
 
 const Modal = () => {
+    const { t } = useTranslation()
     const {tv} =  useSelector((state) => state.tv)
-    
     const { seconds } = useCountdown(() => {}, 3);
     
     return (
@@ -46,7 +47,7 @@ const Modal = () => {
                     alt="Decor"
                 />
             </div>
-            <div className={style.title}>Bets close in</div>
+            <div className={style.title}>{t('notification.bets_close_in')}</div>
             <div className={style.timer}>
                 <img
                     src={`/img/decor/LIVE/TIMER/circle.png`}
@@ -54,7 +55,7 @@ const Modal = () => {
                 />
                 <span>{seconds}</span>
             </div>
-            <div className={style.subtitle}>Place your bets</div>
+            <div className={style.subtitle}>{t('notification.place_your_bets')}</div>
             <div className={style.id}>#{tv.event.id}</div>
         </div>
     );

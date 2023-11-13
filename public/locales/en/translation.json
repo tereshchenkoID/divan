@@ -13,7 +13,9 @@
     "stake_lower_upper": "Stake per bet is lower than minimum ${symbol} ${min} or upper than maximum ${symbol} ${max}",
     "events_not_found": "Events not found",
     "generated_financial_report_here": "Generated financial report here",
-    "open_in_new_window": "Open in new window"
+    "open_in_new_window": "Open in new window",
+    "place_your_bets": "Place your bets",
+    "bets_close_in": "Bets close in"
   },
   "interface": {
     "half": "half",

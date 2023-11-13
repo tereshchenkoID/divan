@@ -9,20 +9,25 @@
   bottom: 0;
   left: 0;
   z-index: 15;
-  background-color: rgba(#09230a, 0.95);
   height: 100%;
 }
 
-.content {
-  @include flex(center, center, null, wrap);
-  @include wrapper;
-  @include make-spacer('px', 2);
-  @include make-spacer('py', 2);
+.shadow {
+  @include absolute-filled;
 
+  background-color: rgba(#09230a, 0.95);
+}
+
+.content {
+  @include make-spacer(p, 4);
+  @include wrapper;
+
+  display: grid;
+  grid-template-columns: repeat(4, rem(90px));
+  justify-content: center;
+  align-items: center;
   gap: rem(15px);
-  max-width: rem(700px);
-  width: 100%;
-  overflow: hidden;
+  position: relative;
   z-index: 1;
 }
 
