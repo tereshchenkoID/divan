@@ -1,0 +1,19 @@
+@import "scss/config";
+
+.block {
+  @include absolute-filled;
+
+  background-size: cover;
+  background-position: 50% 50%;
+
+  img {
+    object-fit: cover;
+  }
+
+  &::before {
+    @include absolute-filled;
+
+    background-color: rgba(0, 0, 0, 0.7);
+    content: '';
+  }
+}

@@ -9,6 +9,7 @@ import {setGame} from "store/actions/gameAction";
 
 import Loader from "components/Loader";
 import JackPot from "modules/JackPot";
+import Decor from "modules/Decor";
 
 import FOOTBALL_LEAGUE from "./FOOTBALL_LEAGUE/Table";
 
@@ -26,7 +27,7 @@ const getGame = (id) => {
         case gameType.FOOTBALL_LEAGUE:
             return <FOOTBALL_LEAGUE />
         default:
-            return <FOOTBALL_LEAGUE />
+            return <div>{id}</div>
     }
 }
 
@@ -61,6 +62,7 @@ const Live = () => {
                     <Loader />
                  :
                     <>
+                        <Decor type={game.type} />
                         <div
                             className={style.wrapper}
                             onClick={() => {

@@ -24,6 +24,7 @@ import Nav from "components/Nav";
 import Betslip from "modules/Betslip";
 import Notification from "modules/Notification";
 import JackPot from "modules/JackPot";
+import Decor from "modules/Decor";
 
 import style from './index.module.scss';
 
@@ -95,13 +96,7 @@ const Home = () => {
                  :
                     <>
                         {
-                            game &&
-                            <div className={style.decor}>
-                                <img
-                                    src={`/img/decor/${game.type}.jpeg`}
-                                    alt="Decor"
-                                />
-                            </div>
+                            game && <Decor type={game.type} />
                         }
                         <Nav />
                         <div className={style.content}>
