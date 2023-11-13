@@ -34,7 +34,7 @@ const useCountdown = (onDone, initialSeconds) => {
     return { seconds, reset };
 };
 
-const Modal = () => {
+const Countdown = () => {
     const { t } = useTranslation()
     const {tv} =  useSelector((state) => state.tv)
     const { seconds } = useCountdown(() => {}, 3);
@@ -61,4 +61,4 @@ const Modal = () => {
     );
 }
 
-export default Modal;
+export default Countdown;

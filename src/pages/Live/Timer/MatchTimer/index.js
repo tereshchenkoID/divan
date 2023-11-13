@@ -40,7 +40,7 @@ const MatchTimer = ({start, end, delta, type}) => {
     useEffect(() => {
         let r = checkType(start, end, delta, type)
         type === gameType.FOOTBALL_LEAGUE && dispatch(setLiveTimer(r))
-        setTimer(`${r}'`)
+        setTimer(r)
     }, [start, delta])
 
     useEffect(() => {
@@ -53,7 +53,6 @@ const MatchTimer = ({start, end, delta, type}) => {
                     dispatch(setLiveTimer(0))
                     
                     if (json.event.status === matchStatus.RESULTS) {
-                        // console.log("Match 1")
                         dispatch(setProgress(3))
                         dispatch(setLiveTimer(0))
                         clearInterval(a)
@@ -62,7 +61,7 @@ const MatchTimer = ({start, end, delta, type}) => {
             }
             else {
                 type === gameType.FOOTBALL_LEAGUE && dispatch(setLiveTimer(r))
-                setTimer(`${r}'`)
+                setTimer(r)
             }
         },1000)
 
@@ -72,7 +71,7 @@ const MatchTimer = ({start, end, delta, type}) => {
         }
     }, [start, delta]);
 
-    return <div>{timer === '0' ? '90' : timer}</div>
+    return <div>{timer === '0' ? '90' : timer}'</div>
 }
 
 export default MatchTimer;

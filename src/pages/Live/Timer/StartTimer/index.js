@@ -33,7 +33,6 @@ const StartTimer = ({start, delta, type}) => {
                     console.log(json.event.status)
 
                     if (json.event.status === matchStatus.PROGRESS) {
-                        // console.log("Start 1")
                         dispatch(setProgress(2))
                         dispatch(setModal(0))
                         clearInterval(a)

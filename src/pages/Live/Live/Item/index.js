@@ -172,7 +172,6 @@ const goalsMarket = (data) => {
 
 const Item = ({data, timer}) => {
     const {progress} = useSelector((state) => state.progress)
-
     const [init, setInit] = useState(true)
     const [active, setActive] = useState(false)
     const [score, setScore] = useState([0, 0])
@@ -218,7 +217,7 @@ const Item = ({data, timer}) => {
     const updateScene = (scenes, timer) => {
         // eslint-disable-next-line array-callback-return
         scenes.map(el => {
-            if (el.update === parseInt(timer, 10)) {
+            if (el.update === Number(timer)) {
                 filterOdds(el, markets)
 
                 filterMarket([el.home, el.away])
@@ -253,11 +252,11 @@ const Item = ({data, timer}) => {
                 setScore([data.results[0].home, data.results[0].away])
                 filterMarket([data.results[0].home, data.results[0].away])
                 setInit(false)
+                setActive(false)
             }
 
             if (progress === 2 && timer !== '0') {
                 initScene(data.scenes, timer)
-                setInit(false)
             }
         }
 
@@ -289,9 +288,7 @@ const Item = ({data, timer}) => {
                 <div className={style.position}>{data.pos}</div>
             </div>
             <div className={style.cell}>
-                <div
-                    className={style.meta}
-                >
+                <div className={style.meta}>
                     <div>
                         <div className={style.logo}>
                             <img
@@ -329,10 +326,11 @@ const Item = ({data, timer}) => {
                             {
                                 el.a
                                     ?
-                                        <div className={
-                                            classNames(
+                                        <div
+                                            className={
+                                                classNames(
                                                     style.odd,
-                                                    el.active && style.active
+                                                    (progress === 2 && el.active) && style.active
                                                 )
                                             }
                                         >
@@ -341,14 +339,14 @@ const Item = ({data, timer}) => {
                                         </div>
                                     :
                                         <div className={style.odds}>
-                                        {
+                                            {
                                                 el.map((el_d, idx_d) =>
                                                     <div
                                                         key={idx_d}
                                                         className={
                                                             classNames(
                                                                 style.odd,
-                                                                el.active && style.active
+                                                                (progress === 2 && el.active) && style.active
                                                             )
                                                         }
                                                     >

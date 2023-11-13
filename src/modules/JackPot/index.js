@@ -10,8 +10,9 @@ import {getDifferent} from "helpers/getDifferent";
 import Banner from "./Banner";
 
 import style from './index.module.scss';
+import classNames from "classnames";
 
-const JackPot = () => {
+const JackPot = ({size = 'default'}) => {
     const { sendMessage } = useSocket()
 
     const [data, setData] = useState({})
@@ -22,7 +23,6 @@ const JackPot = () => {
     const {socket, isConnected, receivedMessage} = useSelector((state) => state.socket);
 
     useEffect(() => {
-
         if (isConnected) {
             sendMessage({cmd:`account/${sessionStorage.getItem('authToken')}/jackpots`})
         }
@@ -43,45 +43,52 @@ const JackPot = () => {
         }
     }, [receivedMessage])
 
-    // useEffect(() => {
-    //     if (isConnected) {
-    //         const a = setInterval(() => {
-    //             let r = getDifferent(data.nextUpdate, delta)
-    //             setTimer(r)
-    //
-    //             if (r === '0') {
-    //                 clearInterval(a)
-    //                 sendMessage({cmd: `account/${sessionStorage.getItem('authToken')}/jackpots`})
-    //             }
-    //         }, 1000)
-    //
-    //         return () => {
-    //             setTimer('')
-    //             clearInterval(a);
-    //         }
-    //     }
-    //     else {
-    //         const a = setInterval(() => {
-    //             let r = getDifferent(data.nextUpdate, delta)
-    //             setTimer(r)
-    //
-    //             if (r === '0') {
-    //                 clearInterval(a)
-    //                 getData(`/jackpots`).then((json) => {
-    //                     setData(json)
-    //                 })
-    //             }
-    //         },1000)
-    //
-    //         return () => {
-    //             setTimer('')
-    //             clearInterval(a);
-    //         }
-    //     }
-    // }, [socket, data])
+    useEffect(() => {
+        if (isConnected) {
+            const a = setInterval(() => {
+                let r = getDifferent(data.nextUpdate, delta)
+                setTimer(r)
+
+                if (r === '0') {
+                    clearInterval(a)
+                    sendMessage({cmd: `account/${sessionStorage.getItem('authToken')}/jackpots`})
+                }
+            }, 1000)
+
+            return () => {
+                setTimer('')
+                clearInterval(a);
+            }
+        }
+        else {
+            const a = setInterval(() => {
+                let r = getDifferent(data.nextUpdate, delta)
+                setTimer(r)
+
+                if (r === '0') {
+                    clearInterval(a)
+                    getData(`/jackpots`).then((json) => {
+                        setData(json)
+                    })
+                }
+            },1000)
+
+            return () => {
+                setTimer('')
+                clearInterval(a);
+            }
+        }
+    }, [socket, data])
 
     return (
-        <div className={style.block}>
+        <div
+            className={
+                classNames(
+                    style.block,
+                    style[size],
+                )
+            }
+        >
             {
                 !loading &&
                 <>

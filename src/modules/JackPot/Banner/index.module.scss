@@ -4,11 +4,11 @@
   @include size(100%);
 
   display: grid;
-  grid-template-columns: 60px 1fr;
+  grid-template-columns: minmax(rem(60px), rem(90px)) 1fr;
   background: linear-gradient(360deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 100%);
   background-color: var(--color-black);
   border-radius: rem(3px);
-  padding: 2px;
+  padding: rem(2px);
   overflow: hidden;
   color: var(--color-white);
   font-size: rem(10px);
@@ -51,10 +51,12 @@
 }
 
 .right {
+  @include make-spacer(px, 1);
+
   background: linear-gradient(360deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 100%);
   padding-bottom: rem(2px);
   border-radius: inherit;
-  min-width: rem(110px);
+  min-width: rem(100px);
   font-size: rem(18px);
   font-weight: var(--typography-bold);
 }

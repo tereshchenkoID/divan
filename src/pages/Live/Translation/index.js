@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useRef, useState} from "react";
 import {useSelector} from "react-redux";
 
 import Scoreboard from "./Scoreboard";
@@ -12,6 +12,7 @@ const Translation = () => {
     const {progress} = useSelector((state) => state.progress)
     const {liveTimer} = useSelector((state) => state.liveTimer)
     const [video, setVideo] = useState()
+    const videoRef = useRef(null)
     
     if (progress === 2 && !tv && !tv.event)
         return false
@@ -25,6 +26,7 @@ const Translation = () => {
                     src={video}
                     muted
                     autoPlay
+                    ref={videoRef}
                 />
             }
             <div>
@@ -33,6 +35,7 @@ const Translation = () => {
                         data={tv.event.league.matches[0]}
                         timer={liveTimer}
                         setVideo={setVideo}
+                        videoRef={videoRef}
                     />
                     <Timer timer={liveTimer} />
                 </div>

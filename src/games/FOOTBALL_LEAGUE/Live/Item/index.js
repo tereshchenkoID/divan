@@ -329,10 +329,11 @@ const Item = ({data, timer}) => {
                             {
                                 el.a
                                     ?
-                                        <div className={
-                                            classNames(
+                                        <div
+                                            className={
+                                                classNames(
                                                     style.odd,
-                                                    el.active && style.active
+                                                    (live === 2 && el.active) && style.active
                                                 )
                                             }
                                         >
@@ -348,7 +349,7 @@ const Item = ({data, timer}) => {
                                                         className={
                                                             classNames(
                                                                 style.odd,
-                                                                el.active && style.active
+                                                                (live === 2 && el.active) && style.active
                                                             )
                                                         }
                                                     >

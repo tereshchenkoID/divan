@@ -30,7 +30,6 @@ const ResultTimer = ({end, delta, type}) => {
                     console.log(json.event.status)
 
                     if (json.event.status === matchStatus.ANNOUNCEMENT) {
-                        // console.log("Result 1")
                         dispatch(setProgress(1))
                         dispatch(setHistory(`${type}/${game.id}`))
                         clearInterval(a)

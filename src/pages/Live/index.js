@@ -11,14 +11,15 @@ import Loader from "components/Loader";
 import JackPot from "modules/JackPot";
 import Decor from "modules/Decor";
 
-import FOOTBALL_LEAGUE from "./FOOTBALL_LEAGUE/Table";
+import FOOTBALL_LEAGUE from "./FOOTBALL_LEAGUE";
 
 import JackPotWinner from "./JackPot";
 import Translation from "./Translation";
 import History from "./History";
 import Ticker from "./Ticker";
-import Modal from "./Modal";
 import Games from "./Games";
+import Countdown from "./Modal/Countdown";
+import Jackpot from "./Modal/Jackpot";
 
 import style from './index.module.scss';
 
@@ -78,7 +79,7 @@ const Live = () => {
                             <div className={style.content}>
                                 <div className={style.column}>
                                     <div className={style.banners}>
-                                        <JackPot />
+                                        <JackPot size={'lg'}/>
                                     </div>
                                     
                                     <div className={style.table}>
@@ -86,8 +87,10 @@ const Live = () => {
                                             getGame(game.type)
                                         }
                                         {
-                                            modal === 1 && <Modal />
+                                            modal === 1 && <Countdown />
                                         }
+                                        
+                                        {/*<Jackpot />*/}
                                     </div>
                                 </div>
                                 <div className={style.column}>

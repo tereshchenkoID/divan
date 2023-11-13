@@ -5,7 +5,7 @@ import classNames from "classnames";
 
 import style from './index.module.scss'
 
-const Scoreboard = ({data, timer, setVideo}) => {
+const Scoreboard = ({data, timer, setVideo, videoRef}) => {
     const { t } = useTranslation()
     const [score, setScore] = useState([0, 0])
     
@@ -26,7 +26,12 @@ const Scoreboard = ({data, timer, setVideo}) => {
             initScene(data.scenes, timer)
         }
         
+        // console.log(timer)
+        
         if (timer === 90) {
+            // if (videoRef.current) {
+            //     videoRef.current.pause()
+            // }
             setVideo(null)
         }
     },[timer])

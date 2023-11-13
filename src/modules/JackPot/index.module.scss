@@ -5,6 +5,13 @@
 
   gap: rem(3px);
   height: rem(35px);
+
+  &.lg {
+
+    .banner {
+      min-width: rem(120px);
+    }
+  }
 }
 
 .banner {
