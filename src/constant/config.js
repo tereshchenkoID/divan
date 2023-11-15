@@ -39,7 +39,7 @@ export const matchStatus = {
     ANNOUNCEMENT: "ANNOUNCEMENT",
     PROGRESS: "PROGRESS",
     RESULTS: "RESULTS",
-    COMPLETE: "COMPLETE"
+    COMPLETED: "COMPLETED"
 }
 
 export const matchMarkets = {

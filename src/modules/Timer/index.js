@@ -20,6 +20,7 @@ const Timer = ({data, type}) => {
     const dispatch = useDispatch()
     const { t } = useTranslation()
     const { sendMessage } = useSocket()
+    const {game} = useSelector((state) => state.game)
     const {live} = useSelector((state) => state.live)
     const {update} = useSelector((state) => state.update)
     const {delta} = useSelector((state) => state.delta)
@@ -29,6 +30,8 @@ const Timer = ({data, type}) => {
     }, [delta]);
 
     useEffect(() => {
+        console.log(data)
+
         if (live === 2 || live === 3) {
             if (isConnected) {
                 sendMessage({cmd:`feed/${sessionStorage.getItem('authToken')}/EVENT/${data.id}`})
@@ -51,54 +54,52 @@ const Timer = ({data, type}) => {
             dispatch(setLive(1))
         }
     }, [])
+    
+    if (!live) {
+        return false
+    }
 
     return (
         <div className={style.block}>
-            {
-                live &&
-                data.start &&
-                <>
-                    <div className={style.top}>
-                        {
-                            live === 1 &&
-                            <StartTimer
-                                start={data.start}
-                                delta={delta}
-                            />
-                        }
-                        {
-                            live === 2 && t('interface.live')
-                        }
-                    </div>
-                    <div className={style.bottom}>
-                        {
-                            live === 1 && <div>{convertTime(data.start, delta)}</div>
-                        }
-                        {
-                            live === 2 &&
-                            !checkData(update) &&
-                            <MatchTimer
-                                start={update.event.start}
-                                end={update.event.nextUpdate}
-                                delta={delta}
-                                type={type}
-                            />
-                        }
-                        {
-                            live === 3 &&
-                            !checkData(update) &&
-                            <ResultTimer
-                                end={update.event.nextUpdate}
-                                delta={delta}
-                            />
-                        }
-                        {
-                            live === 4 &&
-                            <div>{t('interface.results')}</div>
-                        }
-                    </div>
-                </>
-            }
+            <div className={style.top}>
+                {
+                    live === 1 &&
+                    <StartTimer
+                        data={data}
+                        delta={delta}
+                    />
+                }
+                {
+                    live === 2 &&
+                    t('interface.live')
+                }
+            </div>
+            <div className={style.bottom}>
+                {
+                    live === 1 &&
+                    <div>{convertTime(data.start, delta)}</div>
+                }
+                {
+                    (live === 2 && !checkData(update)) &&
+                    <MatchTimer
+                        data={update}
+                        delta={delta}
+                        type={type}
+                    />
+                }
+                {
+                    (live === 3 && !checkData(update)) &&
+                    <ResultTimer
+                        data={update}
+                        game={game}
+                        delta={delta}
+                    />
+                }
+                {
+                    live === 4 &&
+                    <div>{t('interface.results')}</div>
+                }
+            </div>
         </div>
     );
 }

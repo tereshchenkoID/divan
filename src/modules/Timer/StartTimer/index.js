@@ -1,3 +1,4 @@
+import {matchStatus} from "constant/config";
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 
@@ -5,40 +6,43 @@ import useSocket from "hooks/useSocket";
 
 import {setLive} from "store/actions/liveAction";
 import {setModal} from "store/actions/modalAction";
-import {setData} from "store/actions/dataAction";
 
 import {getDifferent} from "helpers/getDifferent";
+import {setUpdate} from "store/actions/updateAction";
 
-const StartTimer = ({start, delta}) => {
-    const { sendMessage } = useSocket()
+const StartTimer = ({data, delta}) => {
     const dispatch = useDispatch()
-    const {game} = useSelector((state) => state.game)
-    const {isConnected} = useSelector((state) => state.socket);
+    const { sendMessage } = useSocket()
+    const {isConnected} = useSelector((state) => state.socket)
     const [timer, setTimer] = useState('')
 
     useEffect(() => {
-        setTimer(getDifferent(start, delta))
-    }, [start, delta])
+        setTimer(getDifferent(data.start, delta))
+    }, [data.start, delta])
 
     useEffect(() => {
         const a = setInterval(() => {
-            let r = getDifferent(start, delta)
-            const diff = (start - (new Date().getTime() + delta)) / 1000
-            setTimer(r)
+            let r = getDifferent(data.start, delta)
+            const diff = (data.start - (new Date().getTime() + delta)) / 1000
 
             if (r === '0') {
-                dispatch(setLive(2))
-
                 if (isConnected) {
-                    sendMessage({cmd:`feed/${sessionStorage.getItem('authToken')}/${game.type}/${game.id}`})
+                    sendMessage({cmd:`feed/${sessionStorage.getItem('authToken')}/EVENT/${data.id}`})
                 }
                 else {
-                    dispatch(setData(game))
+                    dispatch(setUpdate(data.id, null)).then((json) => {
+                        if (json.event.status === matchStatus.PROGRESS) {
+                            dispatch(setLive(2))
+                            clearInterval(a)
+                        }
+                    })
                 }
-                clearInterval(a)
+            }
+            else {
+                setTimer(r)
             }
 
-            if (diff < 6 && diff > 1) {
+            if (diff < 6) {
                 dispatch(setModal(1))
             }
         },1000)
@@ -47,9 +51,9 @@ const StartTimer = ({start, delta}) => {
             setTimer('')
             clearInterval(a);
         }
-    }, [start, delta]);
+    }, [data.start, delta]);
 
-    return <div>{timer}</div>
+    return <div>{timer === '0' ? '00:00' : timer}</div>
 }
 
 export default StartTimer;

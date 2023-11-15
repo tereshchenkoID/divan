@@ -218,7 +218,7 @@ const Item = ({data, timer}) => {
     const updateScene = (scenes, timer) => {
         // eslint-disable-next-line array-callback-return
         scenes.map(el => {
-            if (el.update === parseInt(timer, 10)) {
+            if (el.update === Number(timer)) {
                 filterOdds(el, markets)
 
                 filterMarket([el.home, el.away])
@@ -237,7 +237,7 @@ const Item = ({data, timer}) => {
     const initScene = (scenes, timer) => {
         const TIME = 90
         const DELAY = Math.ceil(TIME / scenes.length)
-        const i = Math.ceil(parseInt(timer, 10) / DELAY) - 1
+        const i = Math.ceil(Number(timer) / DELAY) - 1
         const f = scenes[i]
 
         setScore([f.home, f.away])

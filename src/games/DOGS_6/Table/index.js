@@ -48,6 +48,7 @@ const Table = () => {
     const handleNext = () => {
         setFind(data.events[0])
         setActive(data.events[1])
+        dispatch(setLive(1))
         dispatch(setModal(0))
     }
 
@@ -123,18 +124,9 @@ const Table = () => {
         }
 
         if (live === 4) {
-            if (isConnected) {
-                sendMessage({cmd:`feed/${sessionStorage.getItem('authToken')}/${game.type}/${game.id}`})
-            }
-            else {
-                dispatch(setData(game)).then((json) => {
-                    if (json.events[0].status === matchStatus.ANNOUNCEMENT) {
-                        setFind(null)
-                        setActive(json.events[0])
-                        dispatch(setLive(1))
-                    }
-                })
-            }
+            setFind(null)
+            setActive(data.events[0])
+            dispatch(setLive(1))
         }
     }, [live]);
 
@@ -154,7 +146,7 @@ const Table = () => {
                                         <SkipModal action={handleNext} />
                                     }
                                     {
-                                        (live < 2 && active.id !== data.events[0].id) &&
+                                        active.id !== data.events[0].id &&
                                         <UpdateData
                                             find={find || data.events[0]}
                                             active={active}

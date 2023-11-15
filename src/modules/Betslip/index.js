@@ -379,7 +379,7 @@ const Betslip = () => {
                                     <div className={style.icon}>
                                         <Icon id={'add'} />
                                     </div>
-                                    <p>Please pick up a bet to start</p>
+                                    <p>{t('notification.please_pick_up_bet')}</p>
                                 </div>
                     :
                         <div className={style.list}>

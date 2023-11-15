@@ -1,28 +1,44 @@
+import {matchStatus} from "constant/config";
 import {useEffect, useState} from "react";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {useTranslation} from "react-i18next";
+
+import useSocket from "hooks/useSocket";
 
 import {setLive} from "store/actions/liveAction";
 
 import {getDifferent} from "helpers/getDifferent";
+import {setData} from "store/actions/dataAction";
 
-const ResultTimer = ({end, delta}) => {
+const ResultTimer = ({data, game, delta}) => {
     const { t } = useTranslation()
     const dispatch = useDispatch()
+    const { sendMessage } = useSocket()
+    const {isConnected} = useSelector((state) => state.socket)
     const [timer, setTimer] = useState('')
 
     useEffect(() => {
-        let r = getDifferent(end, delta)
+        let r = getDifferent(data.event.nextUpdate, delta)
         setTimer(r)
-    }, [end, delta]);
+    }, [data.event.nextUpdate, delta]);
 
     useEffect(() => {
         const a = setInterval(() => {
-            let r = getDifferent(end, delta)
+            let r = getDifferent(data.event.nextUpdate, delta)
             setTimer(r)
+            
             if (r === '0') {
-                dispatch(setLive(4))
-                clearInterval(a)
+                if (isConnected) {
+                    sendMessage({cmd:`feed/${sessionStorage.getItem('authToken')}/${game.type}/${game.id}`})
+                }
+                else {
+                    dispatch(setData(game)).then((json) => {
+                        if (json.events[0].status === matchStatus.ANNOUNCEMENT) {
+                            dispatch(setLive(4))
+                            clearInterval(a)
+                        }
+                    })
+                }
             }
         },1000)
 
@@ -30,12 +46,12 @@ const ResultTimer = ({end, delta}) => {
             setTimer('')
             clearInterval(a);
         }
-    }, [end, delta]);
+    }, [data.event.nextUpdate, delta]);
 
     return (
         <>
             <div>{t('interface.results')}</div>
-            <div>{timer}</div>
+            <div>{timer === '0' ? '00:00' : timer}</div>
         </>
     );
 }

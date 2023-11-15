@@ -49,7 +49,7 @@ const Table = () => {
             else if (json.event.status === matchStatus.RESULTS) {
                 dispatch(setProgress(3))
             }
-            else if (json.event.status === matchStatus.COMPLETE) {
+            else if (json.event.status === matchStatus.COMPLETED) {
                 dispatch(setProgress(4))
             }
             

@@ -1,10 +1,12 @@
+import {gameType, matchStatus} from "constant/config";
 import {useEffect, useState} from "react";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
-import {gameType} from "constant/config";
+import useSocket from "hooks/useSocket";
 
 import {setLive} from "store/actions/liveAction";
 import {setLiveTimer} from "store/actions/liveTimerAction";
+import {setUpdate} from "store/actions/updateAction";
 
 import {getDifferent} from "helpers/getDifferent";
 
@@ -32,25 +34,38 @@ const checkType = (start, end, delta, type) => {
     }
 }
 
-const MatchTimer = ({start, end, delta, type}) => {
+const MatchTimer = ({data, delta, type}) => {
     const dispatch = useDispatch()
+    const { sendMessage } = useSocket()
+    const {isConnected} = useSelector((state) => state.socket)
     const [timer, setTimer] = useState('')
 
     useEffect(() => {
-        let r = checkType(start, end, delta, type)
+        let r = checkType(data.event.start, data.event.nextUpdate, delta, type)
         type === gameType.FOOTBALL_LEAGUE && dispatch(setLiveTimer(r))
-        setTimer(`${r}'`)
-    }, [start, delta])
+        setTimer(r)
+    }, [data.event.start, delta])
 
     useEffect(() => {
         const a = setInterval(() => {
-            let r = checkType(start, end, delta, type)
-            type === gameType.FOOTBALL_LEAGUE && dispatch(setLiveTimer(r))
-            setTimer(`${r}'`)
+            let r = checkType(data.event.start, data.event.nextUpdate, delta, type)
 
             if (r === '0') {
-                dispatch(setLive(3))
-                clearInterval(a)
+                if (isConnected) {
+                    sendMessage({cmd:`feed/${sessionStorage.getItem('authToken')}/EVENT/${data.id}`})
+                }
+                else {
+                    dispatch(setUpdate(data.event.id, null)).then((json) => {
+                        if (json.event.status === matchStatus.COMPLETED || json.event.status === matchStatus.RESULTS) {
+                            dispatch(setLive(3))
+                            clearInterval(a)
+                        }
+                    })
+                }
+            }
+            else {
+                type === gameType.FOOTBALL_LEAGUE && dispatch(setLiveTimer(r))
+                setTimer(r)
             }
         },1000)
 
@@ -59,9 +74,9 @@ const MatchTimer = ({start, end, delta, type}) => {
             dispatch(setLiveTimer('0'))
             clearInterval(a);
         }
-    }, [start, delta]);
+    }, [data.event.start, delta]);
 
-    return <div>{timer}</div>
+    return <div>{timer === '0' ? '00:00' : `${timer}'`}</div>
 }
 
 export default MatchTimer;
