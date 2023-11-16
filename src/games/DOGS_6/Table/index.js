@@ -1,11 +1,10 @@
+import {gameType, matchStatus} from "constant/config";
 import {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import {useDispatch, useSelector} from "react-redux";
 import useSocket from "hooks/useSocket";
 
 import classNames from "classnames";
-
-import {gameType, matchStatus} from "constant/config";
 
 import {getDateTime} from "helpers/getDateTime";
 import {conditionStatus} from "helpers/conditionStatus";

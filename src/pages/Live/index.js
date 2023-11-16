@@ -15,7 +15,7 @@ import FOOTBALL_LEAGUE from "./FOOTBALL_LEAGUE";
 
 import JackPotWinner from "./JackPot";
 import Translation from "./Translation";
-import History from "./History";
+import History from "./FOOTBALL_LEAGUE/History";
 import Ticker from "./Ticker";
 import Games from "./Games";
 import Countdown from "./Modal/Countdown";

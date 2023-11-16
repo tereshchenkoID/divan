@@ -1,9 +1,8 @@
+import {gameType, matchStatus} from "constant/config";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import useSocket from "hooks/useSocket";
-
-import {gameType, matchStatus} from "constant/config";
 
 import classNames from "classnames";
 

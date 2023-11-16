@@ -7,7 +7,7 @@
 .wrapper {
   @include flex($align-items: center);
 
-  gap: rem(16px);
+  gap: rem(8px);
 }
 
 .item {

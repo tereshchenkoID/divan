@@ -13,8 +13,8 @@ import {setTv} from "store/LIVE/actions/tvAction";
 
 import Alert from "modules/Alert";
 import Loader from "components/Loader";
-import Timer from "pages/Live/Timer";
-import Live from "pages/Live/Live";
+import Timer from "../Timer";
+import Live from "./Live";
 
 import style from './index.module.scss';
 
@@ -34,9 +34,9 @@ const Table = () => {
     const { t } = useTranslation()
     const dispatch = useDispatch()
     const {tv} =  useSelector((state) => state.tv)
+    const {game} = useSelector((state) => state.game)
     const {progress} = useSelector((state) => state.progress)
     const [loading, setLoading] = useState(true)
-    const {game} = useSelector((state) => state.game)
 
     useEffect(() => {
         dispatch(setTv(`${game.type}/${game.id}`)).then((json) => {

@@ -1,3 +1,4 @@
+import {gameType, matchStatus} from "constant/config";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
@@ -14,8 +15,6 @@ import {conditionStatus} from "helpers/conditionStatus";
 import {checkTime} from "helpers/checkTime";
 import {checkData} from "helpers/checkData";
 import {checkCmd} from "helpers/checkCmd";
-
-import {gameType, matchStatus} from "constant/config";
 
 import TableChips from "./TableChips";
 import Loader from "components/Loader";

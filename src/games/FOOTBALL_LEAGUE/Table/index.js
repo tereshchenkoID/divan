@@ -2,10 +2,9 @@ import {gameType, matchStatus} from "constant/config";
 import {useState, useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {useTranslation} from "react-i18next";
+import useSocket from "hooks/useSocket";
 
 import classNames from "classnames";
-
-import useSocket from "hooks/useSocket";
 
 import {setLive} from "store/actions/liveAction";
 import {setData} from "store/actions/dataAction";

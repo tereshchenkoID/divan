@@ -43,7 +43,8 @@ const Timer = ({data, type}) => {
                     />
                 }
                 {
-                    progress === 2 && t('interface.live')
+                    progress === 2 &&
+                    t('interface.live')
                 }
             </div>
             <div className={style.bottom}>
