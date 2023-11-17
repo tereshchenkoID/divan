@@ -16,7 +16,7 @@
 
 .link {
   flex: 1;
-  background-color: #272727;
+  background-color: var(--color-mine-shaft);
   color: rgba(255, 255, 255, 0.5);
 
   &:hover {

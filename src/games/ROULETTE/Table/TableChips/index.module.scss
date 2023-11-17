@@ -5,7 +5,7 @@
   @include flex(center, center, column);
 
   padding: rem(28px) rem(16px);
-  background-color: #262726;
+  background-color: var(--color-heavy-metal);
   width: 100%;
 }
 
@@ -124,7 +124,7 @@
 
   .button {
     flex: 1;
-    background-color: #333233;
+    background-color: var(--color-thunder);
     border: rem(2px) solid var(--color-white);
   }
 }

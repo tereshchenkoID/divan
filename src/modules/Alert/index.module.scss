@@ -7,7 +7,7 @@
 
   &.default {
     position: relative;
-    background-color: #272727;
+    background-color: var(--color-mine-shaft);
     border: rem(2px) solid var(--color-orange);
     border-radius: rem(10px);
     overflow: hidden;

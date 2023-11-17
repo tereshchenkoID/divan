@@ -24,6 +24,8 @@
     "live": "live UA",
     "results": "results UA",
     "week": "week UA",
+    "event": "event UA",
+    "league": "league UA",
     "skip_next_game": "skip next game UA",
     "ticket": "Ticket UA",
     "system": "System UA",

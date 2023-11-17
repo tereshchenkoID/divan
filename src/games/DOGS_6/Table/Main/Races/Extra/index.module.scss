@@ -10,7 +10,7 @@
 .cell {
   flex: 1;
   border-right: 1px solid var(--color-border);
-  background-color: #333233;
+  background-color: var(--color-thunder);
 
   &:last-child {
     border-right: 0;

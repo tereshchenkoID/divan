@@ -26,11 +26,11 @@
   color: var(--color-white);
 
   &:nth-child(even) {
-    background-color: #323232;
+    background-color: var(--color-thunder);
   }
 
   &:nth-child(odd) {
-    background-color: #272727;
+    background-color: var(--color-mine-shaft);
   }
 }
 
@@ -67,5 +67,6 @@
   grid-template-columns: 1fr rem(15px) 1fr;
   align-items: center;
   text-align: center;
+  text-transform: capitalize;
   color: var(--color-white);
 }

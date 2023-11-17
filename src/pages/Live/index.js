@@ -12,13 +12,12 @@ import JackPot from "modules/JackPot";
 import Decor from "modules/Decor";
 
 import FOOTBALL_LEAGUE from "./FOOTBALL_LEAGUE";
+import DOGS_6 from "./DOGS_6";
 
 import JackPotWinner from "./JackPot";
 import Translation from "./Translation";
-import History from "./FOOTBALL_LEAGUE/History";
 import Ticker from "./Ticker";
 import Games from "./Games";
-import Countdown from "./Modal/Countdown";
 import Jackpot from "./Modal/Jackpot";
 
 import style from './index.module.scss';
@@ -27,6 +26,8 @@ const getGame = (id) => {
     switch (id) {
         case gameType.FOOTBALL_LEAGUE:
             return <FOOTBALL_LEAGUE />
+        case gameType.DOGS_6:
+            return <DOGS_6 />
         default:
             return <div>{id}</div>
     }
@@ -36,7 +37,6 @@ const Live = () => {
     const dispatch = useDispatch()
     const {game} = useSelector((state) => state.game)
     const {progress} = useSelector((state) => state.progress)
-    const {modal} = useSelector((state) => state.modal)
     const {liveTimer} = useSelector((state) => state.liveTimer)
     const {settings} = useSelector((state) => state.settings)
     const [loading, setLoading] = useState(true)
@@ -77,24 +77,16 @@ const Live = () => {
                                 <Ticker />
                             </div>
                             <div className={style.content}>
-                                <div className={style.column}>
-                                    <div className={style.banners}>
-                                        <JackPot size={'lg'}/>
-                                    </div>
-                                    
-                                    <div className={style.table}>
-                                        {
-                                            getGame(game.type)
-                                        }
-                                        {
-                                            modal === 1 && <Countdown />
-                                        }
-                                        
-                                        {/*<Jackpot />*/}
-                                    </div>
+                                <div className={style.banners}>
+                                    <JackPot size={'lg'}/>
                                 </div>
-                                <div className={style.column}>
-                                    <History />
+                                
+                                <div className={style.table}>
+                                    {
+                                        getGame(game.type)
+                                    }
+                                    
+                                    {/*<Jackpot />*/}
                                 </div>
                             </div>
                             {

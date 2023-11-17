@@ -22,18 +22,18 @@
 .content {
   @include make-spacer(p, 2);
 
-  display: grid;
-  grid-template-columns: 1fr rem(357px);
-  column-gap: rem(10px);
+  //display: grid;
+  //grid-template-columns: 1fr rem(357px);
+  //column-gap: rem(10px);
   flex-grow: 1;
   overflow: hidden;
   z-index: 1;
 }
 
-.column {
-  overflow: hidden;
-  height: 100%;
-}
+//.column {
+//  overflow: hidden;
+//  height: 100%;
+//}
 
 .table {
   position: relative;

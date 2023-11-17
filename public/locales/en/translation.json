@@ -24,6 +24,8 @@
     "live": "live",
     "results": "results",
     "week": "week",
+    "event": "event",
+    "league": "league",
     "skip_next_game": "skip next game",
     "ticket": "Ticket",
     "system": "System",

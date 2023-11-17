@@ -3,19 +3,25 @@
 .block {
   @include size(100%);
 
-  padding-top: rem(110px);
+  display: grid;
+  grid-template-columns: 1fr rem(357px);
+  column-gap: rem(10px);
   position: relative;
   overflow: hidden;
-  height: 100%;
   text-transform: uppercase;
   text-align: center;
   font-weight: var(--typography-bold);
   color: var(--color-white);
 }
 
-.odd,
-.label {
-  flex: 1;
+.content {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+
+  &:nth-child(1) {
+    padding-top: rem(110px);
+  }
 }
 
 .info {
@@ -42,181 +48,5 @@
 
   img {
     width: auto;
-  }
-}
-
-.left {
-
-  .results {
-    border-top: rem(3px) solid var(--color-orange-900);
-    border-left: rem(3px) solid var(--color-orange-900);
-    border-bottom: rem(3px) solid var(--color-orange-900);
-    border-radius: rem(9px) 0 0 rem(9px);
-  }
-}
-
-.right {
-
-  .results {
-    border-top: rem(3px) solid var(--color-orange-900);
-    border-right: rem(3px) solid var(--color-orange-900);
-    border-bottom: rem(3px) solid var(--color-orange-900);
-    border-radius: 0 rem(9px) rem(9px) 0;
-  }
-}
-
-.results {
-  overflow: hidden;
-  background-color: #1b1b1b;
-}
-
-.wrapper {
-  display: grid;
-  grid-template-columns: rem(270px) 1fr;
-  position: relative;
-}
-
-.left {
-  padding-top: rem(45px);
-
-  .row {
-    display: grid;
-    grid-template-columns: rem(35px) 1fr;
-    column-gap: rem(10px);
-    align-items: center;
-  }
-}
-
-.right {
-  overflow: hidden;
-
-  .row {
-    @include flex;
-  }
-}
-
-.slide {
-  padding-top: rem(8px);
-  overflow: hidden;
-}
-
-.head {
-  @include flex;
-
-  position: relative;
-  padding-right: rem(3px);
-  height: rem(37px);
-
-  .column {
-    border-top: rem(1px) solid var(--color-border);
-  }
-}
-
-.row {
-  border-top: rem(1px) solid var(--color-border);
-  height: rem(53px);
-  text-align: center;
-
-  &:nth-child(even) {
-    background-color: #323232;
-  }
-
-  &:nth-child(odd) {
-    background-color: #272727;
-  }
-
-  &:first-child {
-    border-top: 0;
-  }
-}
-
-.column {
-  height: 100%;
-  border-right: rem(1px) solid var(--color-border);
-
-  &:last-child {
-    border-right: 0;
-  }
-}
-
-.odd {
-  @include odd;
-  @include flex($direction: column);
-
-  &.sm {
-    font-size: rem(14px);
-  }
-}
-
-.position {
-  @include flex(center, center);
-  @include size(100%);
-
-  text-align: center;
-}
-
-.meta {
-  display: grid;
-  grid-template-columns: rem(40px) 1fr rem(20px) 1fr rem(40px);
-  align-items: center;
-  height: 100%;
-  text-align: center;
-  font-size: rem(15px);
-}
-
-.column {
-  @include flex(center, center);
-
-  position: relative;
-  flex: 1;
-}
-
-.legend {
-  @include absolute-center-top(rem(-8px));
-  @include make-spacer(px, 1);
-  @include make-spacer(py, half);
-
-  display: inline-block;
-  border-radius: rem(3px);
-  background-color: var(--color-green);
-  z-index: 1;
-  color: var(--color-orange);
-  white-space: nowrap;
-  line-height: 1;
-  font-size: rem(10px);
-}
-
-.logo {
-  @include make-spacer('p', 1);
-  @include size(rem(40px));
-
-  img {
-    object-fit: contain;
-  }
-}
-
-.states {
-  @include flex(center, center);
-
-  gap: rem(5px);
-}
-
-.state {
-  @include make-spacer(mt, 1);
-  @include size(rem(5px));
-
-  border-radius: 50%;
-  overflow: hidden;
-
-  &.w {
-    background: var(--color-green);
-  }
-
-  &.l {
-    background-color: var(--color-red);
-  }
-
-  &.d {
-    background: var(--color-orange-900);
   }
 }

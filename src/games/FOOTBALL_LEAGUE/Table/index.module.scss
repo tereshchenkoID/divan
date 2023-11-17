@@ -62,7 +62,7 @@
   bottom: 0;
   left: rem(270px);
   z-index: 10;
-  background-color: #272727;
+  background-color: var(--color-mine-shaft);
   color: var(--color-white);
 
   &.active {
@@ -87,11 +87,11 @@
     text-align: center;
 
     &:nth-child(even) {
-      background-color: #323232;
+      background-color: var(--color-thunder);
     }
 
     &:nth-child(odd) {
-      background-color: #272727;
+      background-color: var(--color-mine-shaft);
     }
 
     &:first-child {

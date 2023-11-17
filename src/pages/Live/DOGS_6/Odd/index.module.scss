@@ -1,0 +1,37 @@
+@import "scss/config";
+
+.block {
+  @include odd;
+  @include size(100%);
+
+  &.vertical {
+    flex-direction: column;
+
+    .numbers {
+      @include make-spacer(mb, 1);
+    }
+  }
+
+  &.horizontal {
+    @include make-spacer(pl, 4);
+
+    justify-content: flex-start;
+    flex-direction: row;
+    gap: rem(5px);
+  }
+
+  &.sm {
+    min-height: 100%;
+    font-size: rem(14px);
+  }
+}
+
+.market {
+  @include make-spacer(mr, 2);
+}
+
+.numbers {
+  @include flex($align-items: center);
+
+  gap: rem(5px);
+}

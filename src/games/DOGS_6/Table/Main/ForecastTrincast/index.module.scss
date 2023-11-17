@@ -21,7 +21,7 @@
   @include flex($align-items: center);
 
   border-right: 1px solid var(--color-border);
-  background-color: #333233;
+  background-color: var(--color-thunder);
   gap: rem(5px);
   cursor: pointer;
 
