@@ -1,8 +1,9 @@
 import Odd from "../Odd";
+import Label from "../Label";
 
 import style from './index.module.scss';
 
-const groupByFirstValue = (arr) => {
+const groupByFirstValue = (arr, from, to) => {
     let result = [];
     let temp = {};
     
@@ -15,20 +16,20 @@ const groupByFirstValue = (arr) => {
     }
     
     for (let key in temp) {
-        result.push(temp[key])
+        result.push(temp[key].slice(from, to))
     }
     
     return result
 }
 
-const Tricast = ({data}) => {
+const Tricast = ({data, from, to, index}) => {
     
     return (
         <>
-            <div className={style.label}>{data.race.odds.markets[7].printname}</div>
+            <Label text={`${data.race.odds.markets[7].printname} ${index}`} />
             <div className={style.row}>
                 {
-                    groupByFirstValue(data.race.odds.markets[7].outcomes).map((el_c, idx_c) =>
+                    groupByFirstValue(data.race.odds.markets[7].outcomes, from, to).map((el_c, idx_c) =>
                         <div
                             key={idx_c}
                             className={style.column}
@@ -42,7 +43,6 @@ const Tricast = ({data}) => {
                                         <Odd
                                             data={el_i}
                                             view={'horizontal'}
-                                            size={'sm'}
                                         />
                                     </div>
                                 )

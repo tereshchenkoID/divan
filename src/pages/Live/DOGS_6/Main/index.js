@@ -1,19 +1,23 @@
+import {useTranslation} from "react-i18next";
+
 import classNames from "classnames";
 
 import Number from "../Number";
+import Label from "../Label";
 
 import style from './index.module.scss';
 
 const Main = ({data}) => {
+    const { t } = useTranslation()
 
     return (
         <>
             <div className={style.row}>
-                <div className={style.label}>Name</div>
-                <div className={style.label}>Last 5</div>
-                <div className={style.label}>{data.race.odds.markets[0].printname}</div>
-                <div className={style.label}>{data.race.odds.markets[1].printname}</div>
-                <div className={style.label}>{data.race.odds.markets[2].printname}</div>
+                <Label text={t('interface.name')} />
+                <Label text={t('interface.last_5')} />
+                <Label text={data.race.odds.markets[0].printname} />
+                <Label text={data.race.odds.markets[1].printname} />
+                <Label text={data.race.odds.markets[2].printname} />
             </div>
             <div
                 className={
@@ -92,7 +96,7 @@ const Main = ({data}) => {
                 </div>
                 <div>
                     {
-                        data.race.odds.markets[0].outcomes.map((el, idx) =>
+                        data.race.odds.markets[2].outcomes.map((el, idx) =>
                             <div
                                 key={idx}
                                 className={

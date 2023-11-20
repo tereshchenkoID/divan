@@ -51,7 +51,8 @@ const Odd = ({market, start, data, view, text, roundId}) => {
                 classNames(
                     style.block,
                     style[view],
-                    findBet(betslip, data.id) && style.active
+                    findBet(betslip, data.id) && style.active,
+                    (!data.b || data.b === 1.00) && style.disabled
                 )
             }
             onClick={() => {

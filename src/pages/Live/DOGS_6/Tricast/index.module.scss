@@ -44,9 +44,3 @@
     background-color: var(--color-thunder);
   }
 }
-
-.label {
-  @include label;
-
-  height: rem(40px);
-}

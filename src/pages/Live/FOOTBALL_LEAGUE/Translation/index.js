@@ -24,7 +24,6 @@ const Translation = () => {
                 <video
                     className={style.video}
                     src={video}
-                    muted
                     autoPlay
                     ref={videoRef}
                 />

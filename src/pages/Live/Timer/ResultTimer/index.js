@@ -1,4 +1,4 @@
-import {matchStatus} from "constant/config";
+import {gameType, matchStatus} from "constant/config";
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {useTranslation} from "react-i18next";
@@ -31,7 +31,7 @@ const ResultTimer = ({end, delta, type}) => {
 
                     if (json.event.status === matchStatus.ANNOUNCEMENT) {
                         dispatch(setProgress(1))
-                        dispatch(setHistory(`${type}/${game.id}`))
+                        type === gameType.FOOTBALL_LEAGUE && dispatch(setHistory(`${type}/${game.id}`))
                         clearInterval(a)
                     }
                 })

@@ -1,0 +1,54 @@
+@import "scss/config";
+
+.block {
+  @include make-spacer(p, 2);
+  @include wrapper;
+  @include size(100%);
+
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  align-items: center;
+  gap: rem(20px);
+}
+
+.table {
+  @include make-spacer(mb, 2);
+  @include wrapper;
+
+  &:last-child {
+    @include make-spacer(mb, 0);
+  }
+}
+
+.row {
+  display: grid;
+  grid-template-columns: rem(50px) 1fr repeat(3, rem(100px));
+  background-color: var(--color-thunder);
+  color: var(--color-white);
+
+  &.alt {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.cell {
+  @include make-spacer(px, 2);
+  @include flex(center, center);
+
+  border-right: rem(1px) solid var(--color-border);
+  border-bottom: rem(1px) solid var(--color-border);
+  height: rem(40px);
+  gap: rem(5px);
+
+  &.left {
+    justify-content: flex-start;
+  }
+
+  &:nth-child(odd) {
+    background-color: var(--color-thunder);
+  }
+
+  &:nth-child(even) {
+    background-color: var(--color-heavy-metal);
+  }
+}

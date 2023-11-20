@@ -1,0 +1,30 @@
+@import "scss/config";
+
+.block {
+  @include make-spacer(p, 2);
+
+  display: grid;
+  grid-template-columns: 1fr rem(257px);
+  column-gap: rem(10px);
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 15;
+  background-color: var(--color-green-100);
+  flex-grow: 1;
+  overflow: hidden;
+  text-transform: uppercase;
+  text-align: center;
+  font-weight: var(--typography-bold);
+  color: var(--color-white);
+}
+
+.video {
+  @include size(100%);
+  @include absolute-filled;
+
+  display: block;
+  object-fit: cover;
+}

@@ -1,5 +1,4 @@
 import {hostnames} from "constant/config";
-import {useSelector} from "react-redux";
 import {useState, useEffect} from "react";
 
 import Slider from "react-slick";
@@ -24,12 +23,11 @@ const init = {
 
 const JackPotWinner = () => {
     const token = sessionStorage.getItem('authToken')
-    const {game} = useSelector((state) => state.game)
     const [data, setData] = useState({})
     const [loading, setLoading] = useState(true)
     
     useEffect(() => {
-        getData(`${hostnames.PROD}/viewer/jackpots/${token}/FOOTBALL_LEAGUE/${game.id}`).then((json) => {
+        getData(`${hostnames.PROD}/viewer/jackpots/${token}`).then((json) => {
             if (json.jackpots) {
                 setData(json)
                 setLoading(false)
@@ -39,7 +37,7 @@ const JackPotWinner = () => {
     
     useEffect(() => {
         const a = setInterval(() => {
-            getData(`${hostnames.PROD}/viewer/jackpots/${token}/FOOTBALL_LEAGUE/${game.id}`).then((json) => {
+            getData(`${hostnames.PROD}/viewer/jackpots/${token}`).then((json) => {
                 if (json.jackpots) {
                     setData(json)
                 }

@@ -28,10 +28,3 @@
     justify-content: center;
   }
 }
-
-.label {
-  @include label;
-  @include make-spacer(px, 2);
-
-  height: rem(40px);
-}

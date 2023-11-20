@@ -39,7 +39,8 @@ const MatchTimer = ({start, end, delta, type}) => {
     
     useEffect(() => {
         let r = checkType(start, end, delta, type)
-        type === gameType.FOOTBALL_LEAGUE && dispatch(setLiveTimer(r))
+        // type === gameType.FOOTBALL_LEAGUE && dispatch(setLiveTimer(r))
+        dispatch(setLiveTimer(r))
         setTimer(r)
     }, [start, delta])
 
@@ -60,7 +61,8 @@ const MatchTimer = ({start, end, delta, type}) => {
                 })
             }
             else {
-                type === gameType.FOOTBALL_LEAGUE && dispatch(setLiveTimer(r))
+                dispatch(setLiveTimer(r))
+                // type === gameType.FOOTBALL_LEAGUE && dispatch(setLiveTimer(r))
                 setTimer(r)
             }
         },1000)
@@ -71,7 +73,7 @@ const MatchTimer = ({start, end, delta, type}) => {
         }
     }, [start, delta]);
 
-    return <div>{timer === '0' ? '00:00' : `${timer}'`}</div>
+    return <div>{timer === '0' ? '00:00' : `${timer}${type === gameType.FOOTBALL_LEAGUE ? `'` : ''}`}</div>
 }
 
 export default MatchTimer;

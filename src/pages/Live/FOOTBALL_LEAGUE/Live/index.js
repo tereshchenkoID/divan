@@ -1,9 +1,6 @@
+import {matchMarkets} from "constant/config";
 import {useEffect, useState} from "react";
 import {useSelector} from "react-redux";
-
-import {checkData} from "helpers/checkData";
-
-import {matchMarkets} from "constant/config";
 
 import Loader from "components/Loader";
 import Item from "./Item";
@@ -37,50 +34,58 @@ const MARKETS = [
     }
 ]
 
-const Live = () => {
-    const {tv} = useSelector((state) => state.tv)
+const Live = ({data}) => {
     const {liveTimer} = useSelector((state) => state.liveTimer)
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-        !checkData(tv) && setLoading(false)
-    }, [tv]);
+        setTimeout(() => {
+            setLoading(false)
+        }, 500)
+    }, [data]);
 
     return (
         <div className={style.block}>
-            <div className={style.head}>
-                <div className={style.cell} />
-                <div className={style.cell} />
-                <div className={style.cell}>
-                    <div className={style.odds}>
-                        {
-                            MARKETS.map((el, idx) =>
-                                <div
-                                    key={idx}
-                                    className={style.column}
-                                >
-                                    <div className={style.label}>{el.name}</div>
+            {
+                loading
+                    ?
+                        <Loader
+                            type={'block'}
+                            background={'transparent'}
+                        />
+                    :
+                        <>
+                            <div className={style.head}>
+                                <div className={style.cell} />
+                                <div className={style.cell} />
+                                <div className={style.cell}>
+                                    <div className={style.odds}>
+                                        {
+                                            MARKETS.map((el, idx) =>
+                                                <div
+                                                    key={idx}
+                                                    className={style.column}
+                                                >
+                                                    <div>{el.name}</div>
+                                                </div>
+                                            )
+                                        }
+                                    </div>
                                 </div>
-                            )
-                        }
-                    </div>
-                </div>
-            </div>
-            <div className={style.wrapper}>
-                {
-                    loading
-                        ?
-                            <Loader type={'block'}/>
-                        :
-                            tv.event.league.matches.map((el, idx) =>
-                                <Item
-                                    key={idx}
-                                    data={el}
-                                    timer={liveTimer}
-                                />
-                            )
-                }
-            </div>
+                            </div>
+                            <div className={style.wrapper}>
+                                {
+                                    data.league.matches.map((el, idx) =>
+                                        <Item
+                                            key={idx}
+                                            data={el}
+                                            timer={liveTimer}
+                                        />
+                                    )
+                                }
+                            </div>
+                        </>
+            }
         </div>
     );
 }

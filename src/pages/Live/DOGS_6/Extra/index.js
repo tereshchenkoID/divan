@@ -1,13 +1,16 @@
-import style from './index.module.scss';
 import classNames from "classnames";
+
+import Label from "../Label";
+
+import style from './index.module.scss';
 
 const Extra = ({data}) => {
 
     return (
         <>
             <div className={style.row}>
-                <div className={style.label}>{data.race.odds.markets[4].printname}</div>
-                <div className={style.label}>{data.race.odds.markets[5].printname}</div>
+                <Label text={data.race.odds.markets[4].printname} />
+                <Label text={data.race.odds.markets[5].printname} />
             </div>
             <div
                 className={

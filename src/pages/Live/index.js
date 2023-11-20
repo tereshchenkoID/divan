@@ -15,12 +15,12 @@ import FOOTBALL_LEAGUE from "./FOOTBALL_LEAGUE";
 import DOGS_6 from "./DOGS_6";
 
 import JackPotWinner from "./JackPot";
-import Translation from "./Translation";
 import Ticker from "./Ticker";
 import Games from "./Games";
 import Jackpot from "./Modal/Jackpot";
 
 import style from './index.module.scss';
+import Countdown from "./Modal/Countdown";
 
 const getGame = (id) => {
     switch (id) {
@@ -36,9 +36,7 @@ const getGame = (id) => {
 const Live = () => {
     const dispatch = useDispatch()
     const {game} = useSelector((state) => state.game)
-    const {progress} = useSelector((state) => state.progress)
-    const {liveTimer} = useSelector((state) => state.liveTimer)
-    const {settings} = useSelector((state) => state.settings)
+    const {modal} = useSelector((state) => state.modal)
     const [loading, setLoading] = useState(true)
     const [active, setActive] = useState(false)
     
@@ -85,13 +83,12 @@ const Live = () => {
                                     {
                                         getGame(game.type)
                                     }
-                                    
-                                    {/*<Jackpot />*/}
                                 </div>
+                                {
+                                    modal === 1 && <Countdown />
+                                }
+                                {/*<Jackpot />*/}
                             </div>
-                            {
-                                (settings.account.mode === "1" && progress === 2 && liveTimer !== 0) && <Translation />
-                            }
                         </div>
                         {
                             active && <Games action={setActive}/>

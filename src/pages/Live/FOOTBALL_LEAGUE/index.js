@@ -7,12 +7,11 @@ import {setProgress} from "store/LIVE/actions/progressAction";
 import {setTv} from "store/LIVE/actions/tvAction";
 
 import Alert from "modules/Alert";
-import Loader from "components/Loader";
 import Timer from "../Timer";
-import Countdown from "../Modal/Countdown";
 import Live from "./Live";
 import History from "./History";
 import Table from "./Table";
+import Translation from "./Translation";
 
 import style from './index.module.scss';
 
@@ -22,7 +21,8 @@ const Page = () => {
     const {tv} =  useSelector((state) => state.tv)
     const {game} = useSelector((state) => state.game)
     const {progress} = useSelector((state) => state.progress)
-    const {modal} = useSelector((state) => state.modal)
+    const {liveTimer} = useSelector((state) => state.liveTimer)
+    const {settings} = useSelector((state) => state.settings)
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
@@ -43,62 +43,58 @@ const Page = () => {
             setLoading(false)
         })
     }, []);
+    
+    if (loading) {
+        return false
+    }
 
     return (
         <div className={style.block}>
-            {
-                loading
-                    ?
-                        <Loader type={'block'} />
-                    :
-                        <>
-                            <div className={style.content}>
+            <div className={style.column}>
+                {
+                    tv.event
+                        ?
+                            <>
                                 {
-                                    tv.event
-                                        ?
-                                            <>
-                                                <div className={style.info}>
-                                                    <div className={style.league}>
-                                                        <img
-                                                            src={`/img/icon/${tv.event.league.id}.png`}
-                                                            alt={tv.event.league.name}
-                                                        />
-                                                    </div>
-                                                    {
-                                                        progress !== 0 &&
-                                                        <Timer
-                                                            data={tv.event}
-                                                            type={gameType.FOOTBALL_LEAGUE}
-                                                        />
-                                                    }
-                                                </div>
-                                                <div className={style.weeks}>
-                                                    <button className={style.week}>{t('interface.league')} {tv.event.league.league_id}</button>
-                                                    <button className={style.week}>{t('interface.week')} {tv.event.league.week}</button>
-                                                </div>
-                                                {
-                                                    progress === 1
-                                                        ?
-                                                            <Table data={tv}/>
-                                                        :
-                                                            <Live />
-                                                }
-                                            </>
-                                        :
-                                            <Alert
-                                                text={t('notification.events_not_found')}
-                                                type={'default'}
-                                            />
+                                    (settings.account.mode === "1" && progress === 2 && liveTimer !== 0) && <Translation game={game}/>
                                 }
-                            </div>
-                            <div className={style.content}>
-                                <History />
-                            </div>
-                            {
-                                modal === 1 && <Countdown />
-                            }
-                        </>
-            }
+                                <div className={style.info}>
+                                    <div className={style.league}>
+                                        <img
+                                            src={`/img/icon/${tv.event.league.id}.png`}
+                                            alt={tv.event.league.name}
+                                        />
+                                    </div>
+                                    {
+                                        progress !== 0 &&
+                                        <Timer
+                                            data={tv.event}
+                                            type={gameType.FOOTBALL_LEAGUE}
+                                        />
+                                    }
+                                </div>
+                                <div className={style.weeks}>
+                                    <button className={style.week}>{t('interface.league')} {tv.event.league.league_id}</button>
+                                    <button className={style.week}>{t('interface.week')} {tv.event.league.week}</button>
+                                </div>
+                                {
+                                    progress === 1
+                                        ?
+                                            <Table data={tv.event}/>
+                                        :
+                                            <Live data={tv.event} />
+                                }
+                            </>
+                        :
+                            <Alert
+                                text={t('notification.events_not_found')}
+                                type={'default'}
+                            />
+                }
+            </div>
+            <div className={style.column}>
+                <History />
+            </div>
         </div>
     );
 }

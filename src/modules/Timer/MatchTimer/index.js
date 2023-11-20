@@ -76,7 +76,7 @@ const MatchTimer = ({data, delta, type}) => {
         }
     }, [data.event.start, delta]);
 
-    return <div>{timer === '0' ? '00:00' : `${timer}'`}</div>
+    return <div>{timer === '0' ? '00:00' : timer}</div>
 }
 
 export default MatchTimer;

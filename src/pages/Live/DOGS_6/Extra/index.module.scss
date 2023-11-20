@@ -21,10 +21,3 @@
   border-bottom: rem(1px) solid var(--color-border);
   height: rem(40px);
 }
-
-.label {
-  @include label;
-  @include make-spacer(px, 2);
-
-  height: rem(40px);
-}

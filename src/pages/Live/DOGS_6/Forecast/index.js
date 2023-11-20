@@ -1,4 +1,5 @@
 import Odd from "../Odd";
+import Label from "../Label";
 
 import style from './index.module.scss';
 
@@ -25,7 +26,7 @@ const Forecast = ({data}) => {
 
     return (
         <>
-            <div className={style.label}>{data.race.odds.markets[6].printname}</div>
+            <Label text={data.race.odds.markets[6].printname} />
             <div className={style.row}>
                 {
                     groupByFirstValue(data.race.odds.markets[6].outcomes).map((el_c, idx_c) =>

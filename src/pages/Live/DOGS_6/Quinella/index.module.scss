@@ -14,16 +14,9 @@
   background-color: var(--color-thunder);
   border-right: rem(1px) solid var(--color-border);
   border-bottom: rem(1px) solid var(--color-border);
-  height: rem(55px);
+  height: rem(56px);
 
   &:nth-child(even) {
     background-color: var(--color-heavy-metal);
   }
-}
-
-.label {
-  @include label;
-
-  height: rem(40px);
-  width: 100%;
 }

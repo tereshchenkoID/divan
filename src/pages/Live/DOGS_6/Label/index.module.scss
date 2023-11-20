@@ -1,0 +1,8 @@
+@import "scss/config";
+
+.block {
+  @include make-spacer(px, 2);
+  @include label;
+
+  height: rem(40px);
+}

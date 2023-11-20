@@ -18,6 +18,8 @@
     "bets_close_in": "Bets close in"
   },
   "interface": {
+    "name": "name",
+    "last_5": "last 5",
     "half": "half",
     "ticket_number": "Ticket number",
     "book_time": "Book time",

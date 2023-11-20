@@ -4,7 +4,7 @@ import Number from "../Number";
 
 import style from './index.module.scss';
 
-const Odd = ({data, view, text, size = 'md'}) => {
+const Odd = ({data, view, text}) => {
     
     return (
         <div
@@ -12,7 +12,7 @@ const Odd = ({data, view, text, size = 'md'}) => {
                 classNames(
                     style.block,
                     style[view],
-                    style[size],
+                    (!data.b || data.b === 1.00) && style.disabled
                 )
             }
         >
@@ -25,7 +25,6 @@ const Odd = ({data, view, text, size = 'md'}) => {
                                 key={idx}
                                 color={el - 1}
                                 data={el}
-                                size={size}
                             />
                         )
                     }

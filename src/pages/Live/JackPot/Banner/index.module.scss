@@ -80,22 +80,3 @@
 
   text-align: center;
 }
-
-:global {
-  @import "scss/plugin/slider";
-
-  .slick-slider {
-    @include size(100%);
-  }
-
-  .slick-list,
-  .slick-slide {
-    @include size(100%);
-
-    overflow: hidden;
-  }
-
-  .slick-track {
-    height: 100%;
-  }
-}

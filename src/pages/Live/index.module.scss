@@ -6,6 +6,11 @@
   height: 100%;
 }
 
+.ticker,
+.content {
+  pointer-events: none;
+}
+
 .wrapper {
   @include flex($direction: column);
   @include size(100%);
@@ -14,26 +19,13 @@
   overflow: hidden;
 }
 
-.ticker,
-.content {
-  pointer-events: none;
-}
-
 .content {
   @include make-spacer(p, 2);
 
-  //display: grid;
-  //grid-template-columns: 1fr rem(357px);
-  //column-gap: rem(10px);
   flex-grow: 1;
   overflow: hidden;
   z-index: 1;
 }
-
-//.column {
-//  overflow: hidden;
-//  height: 100%;
-//}
 
 .table {
   position: relative;
@@ -64,4 +56,27 @@
   bottom: 0;
   z-index: 1;
   width: rem(350px);
+}
+
+:global {
+  @import "scss/plugin/slider";
+
+  .slick-slider {
+    @include size(100%);
+  }
+
+  .slick-list,
+  .slick-slide {
+    @include size(100%);
+
+    overflow: hidden;
+
+    & > div {
+      height: 100%;
+    }
+  }
+
+  .slick-track {
+    height: 100%;
+  }
 }
