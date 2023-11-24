@@ -1,7 +1,5 @@
-import {useRef} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {Link} from "react-router-dom";
-import {useOutsideClick} from "hooks/useOutsideClick";
 
 import {setGame} from "store/actions/gameAction";
 

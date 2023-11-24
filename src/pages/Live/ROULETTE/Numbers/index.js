@@ -1,30 +1,32 @@
+import {numbers} from '../data'
+
 import Label from "../../modules/Label";
 import Odd from "../Odd";
 
 import style from './index.module.scss';
 
-const Quinella = ({data}) => {
-
+const Numbers = ({data}) => {
     return (
-        <>
-            <Label text={data.race.odds.markets[3].printname} />
+        <div>
+            <Label text={'Numbers'} />
             <div className={style.row}>
                 {
-                    data.race.odds.markets[3].outcomes.map((el, idx) =>
+                    data.statistics.numbers.map((el, idx) =>
                         <div
                             key={idx}
                             className={style.cell}
                         >
                             <Odd
-                                data={el}
-                                view={'horizontal'}
+                                type={numbers[el.num].color}
+                                number={el.num}
                             />
+                            <div>{el.count}</div>
                         </div>
                     )
                 }
             </div>
-        </>
+        </div>
     );
 }
 
-export default Quinella;
+export default Numbers;

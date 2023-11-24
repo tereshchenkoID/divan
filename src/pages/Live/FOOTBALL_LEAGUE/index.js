@@ -7,7 +7,7 @@ import {setProgress} from "store/LIVE/actions/progressAction";
 import {setTv} from "store/LIVE/actions/tvAction";
 
 import Alert from "modules/Alert";
-import Timer from "../Timer";
+import Timer from "../modules/Timer";
 import Live from "./Live";
 import History from "./History";
 import Table from "./Table";

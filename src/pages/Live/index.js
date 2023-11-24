@@ -13,14 +13,15 @@ import Decor from "modules/Decor";
 
 import FOOTBALL_LEAGUE from "./FOOTBALL_LEAGUE";
 import DOGS_6 from "./DOGS_6";
+import ROULETTE from "./ROULETTE";
 
-import JackPotWinner from "./JackPot";
+import JackPotWinner from "./modules/JackPot";
+import Games from "./modules/Games";
+import Countdown from "./modules/Modal/Countdown";
 import Ticker from "./Ticker";
-import Games from "./Games";
-import Jackpot from "./Modal/Jackpot";
+import Jackpot from "./modules/Modal/Jackpot";
 
 import style from './index.module.scss';
-import Countdown from "./Modal/Countdown";
 
 const getGame = (id) => {
     switch (id) {
@@ -28,6 +29,8 @@ const getGame = (id) => {
             return <FOOTBALL_LEAGUE />
         case gameType.DOGS_6:
             return <DOGS_6 />
+        case gameType.ROULETTE:
+            return <ROULETTE />
         default:
             return <div>{id}</div>
     }

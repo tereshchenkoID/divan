@@ -2,8 +2,8 @@ import {useTranslation} from "react-i18next";
 
 import classNames from "classnames";
 
+import Label from "../../modules/Label";
 import Number from "../Number";
-import Label from "../Label";
 
 import style from './index.module.scss';
 

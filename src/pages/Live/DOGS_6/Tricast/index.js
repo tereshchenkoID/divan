@@ -1,5 +1,5 @@
+import Label from "../../modules/Label";
 import Odd from "../Odd";
-import Label from "../Label";
 
 import style from './index.module.scss';
 

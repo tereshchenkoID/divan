@@ -18,8 +18,12 @@
     "bets_close_in": "Bets close in UA"
   },
   "interface": {
+    "history": "history UA",
+    "pay_table": "pay table UA",
     "name": "name UA",
+    "round": "round UA",
     "last_5": "last 5 UA",
+    "last_120_spins": "last 120 spins UA",
     "half": "half UA",
     "ticket_number": "Ticket number UA",
     "book_time": "Book time UA",
@@ -80,6 +84,8 @@
     "per_group": "Per group UA",
     "reprint_ticket": "Reprint ticket UA",
     "settings": "Settings UA",
+    "video": "Video UA",
+    "volume": "Volume UA",
     "new_password": "New password UA",
     "old_password": "Old password UA",
     "confirm_password": "Confirm new password UA",

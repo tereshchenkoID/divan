@@ -7,11 +7,11 @@ import {setProgress} from "store/LIVE/actions/progressAction";
 import {setTv} from "store/LIVE/actions/tvAction";
 
 import Alert from "modules/Alert";
+import Timer from "../modules/Timer";
 import Translation from "./Translation";
 import Results from "./Results";
 import Markets from "./Markets";
 import Live from "./Live";
-import Timer from "../Timer";
 
 import style from './index.module.scss';
 

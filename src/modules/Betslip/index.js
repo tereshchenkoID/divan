@@ -372,7 +372,7 @@ const Betslip = () => {
                             :
                                 <div className={style.empty}>
                                     <img
-                                        src="https://virtual.avasta.pro/engine/shop/resource/13.png"
+                                        src={settings.account.logo}
                                         alt=""
                                         loading="lazy"
                                     />

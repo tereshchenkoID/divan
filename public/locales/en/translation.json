@@ -18,8 +18,12 @@
     "bets_close_in": "Bets close in"
   },
   "interface": {
+    "history": "history",
+    "pay_table": "pay table",
     "name": "name",
+    "round": "round",
     "last_5": "last 5",
+    "last_120_spins": "last 120 spins",
     "half": "half",
     "ticket_number": "Ticket number",
     "book_time": "Book time",
@@ -80,6 +84,8 @@
     "per_group": "Per group",
     "reprint_ticket": "Reprint ticket",
     "settings": "Settings",
+    "video": "Video",
+    "volume": "Volume",
     "new_password": "New password",
     "old_password": "Old password",
     "confirm_password": "Confirm new password",
