@@ -17,19 +17,26 @@
 }
 
 .cell {
+  @include transition(all);
   @include flex(center, center);
 
   background-color: var(--color-thunder);
   border-right: rem(1px) solid var(--color-border);
   border-bottom: rem(1px) solid var(--color-border);
   gap: rem(10px);
+  opacity: 0.6;
+
+  button {
+    @include make-spacer(p, 1)
+  }
 
   &:nth-child(even) {
     background-color: var(--color-heavy-metal);
   }
 
-  button {
-    @include make-spacer(p, 1)
+  &.active {
+    opacity: 1;
+    background-image: linear-gradient(0deg, #294329 0%, #00a900 52%, #00a900 100%);
   }
 }
 

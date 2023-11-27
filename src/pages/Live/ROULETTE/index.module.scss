@@ -42,7 +42,16 @@
 }
 
 .wheel {
+  @include flex(center, center);
+
   flex: 1;
+  width: 100%;
+
+  iframe {
+    @include size(100%);
+
+    display: block;
+  }
 }
 
 .grid {

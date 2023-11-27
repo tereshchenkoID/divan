@@ -9,9 +9,9 @@ import {setTv} from "store/LIVE/actions/tvAction";
 import Alert from "modules/Alert";
 import Timer from "../modules/Timer";
 import Numbers from "./Numbers";
+import Translation from "./Translation";
 
 import style from './index.module.scss';
-import Translation from "./Translation";
 
 const Page = () => {
     const { t } = useTranslation()

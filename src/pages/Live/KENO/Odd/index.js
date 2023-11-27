@@ -2,17 +2,10 @@ import classNames from "classnames";
 
 import style from './index.module.scss';
 
-const Odd = ({data, active, size = 'md', transform = 0}) => {
+const Odd = ({data, size = 'md', transform = 0}) => {
     
     return (
-        <button
-            className={
-                classNames(
-                    style.block,
-                    active && style.active,
-                )
-            }
-        >
+        <button className={style.block}>
             <span
                 className={
                     classNames(

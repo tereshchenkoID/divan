@@ -12,7 +12,6 @@ import Label from "../modules/Label";
 import Pay from "./Pay";
 import Numbers from "./Numbers";
 import Colors from "./Colors";
-// import Wheels from "./Wheels";
 import History from "./History";
 import Dozens from "./Dozens";
 import Hot from "./Hot";
@@ -80,7 +79,7 @@ const Page = () => {
                     <Label text={t('interface.last_120_spins')} />
                 </div>
                 <div className={style.wheel}>
-                    {/*<Wheels data={tv.event} />*/}
+                    <iframe title={'Wheel'} src="https://api.qool90.bet/iframe/wheel/" frameborder="0" />
                 </div>
             </div>
             <div className={style.column}>

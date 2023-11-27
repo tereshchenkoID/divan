@@ -3,6 +3,7 @@ import {useEffect, useState} from "react";
 import Odd from "../Odd";
 
 import style from './index.module.scss';
+import classNames from "classnames";
 
 const Translation = () => {
     const [data, setData] = useState([
@@ -130,11 +131,15 @@ const Translation = () => {
                     data.map((el, idx) =>
                         <div
                             key={idx}
-                            className={style.cell}
+                            className={
+                                classNames(
+                                    style.cell,
+                                    el.active && style.active,
+                                )
+                            }
                         >
                             <Odd
                                 data={el.value}
-                                active={el.active}
                             />
                         </div>
                     )

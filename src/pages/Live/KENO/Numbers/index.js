@@ -1,4 +1,5 @@
 import React from "react";
+
 import Label from "../../modules/Label";
 
 import style from './index.module.scss';
