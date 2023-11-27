@@ -48,11 +48,32 @@
     }
   }
 
+  &.md {
+    @include size(rem(45px));
+
+    font-size: rem(26px);
+    letter-spacing: -1px;
+
+    &::before {
+      @include size(rem(35px));
+    }
+  }
+
   &.lg {
     @include size(rem(67px));
 
     &::before {
       @include size(rem(55px));
+    }
+  }
+
+  &.xxl {
+    @include size(102px);
+
+    font-size: rem(56px);
+
+    &::before {
+      @include size(rem(76px));
     }
   }
 }

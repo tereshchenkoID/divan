@@ -1,0 +1,9 @@
+@import "scss/config";
+
+.block {
+  @include odd;
+}
+
+.color {
+  @include circle;
+}

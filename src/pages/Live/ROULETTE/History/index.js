@@ -10,7 +10,6 @@ import Odd from "../Odd";
 
 import style from './index.module.scss';
 
-
 const History = ({data}) => {
     const { t } = useTranslation()
 

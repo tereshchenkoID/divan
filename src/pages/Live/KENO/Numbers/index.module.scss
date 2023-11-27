@@ -1,0 +1,24 @@
+@import "scss/config";
+
+.row {
+  @include wrapper;
+
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  color: var(--color-white);
+}
+
+.cell {
+  @include make-spacer(px, 1);
+  @include flex(center, center);
+
+  background-color: var(--color-thunder);
+  border-right: rem(1px) solid var(--color-border);
+  border-bottom: rem(1px) solid var(--color-border);
+  height: rem(41px);
+  gap: rem(10px);
+
+  &:nth-child(even) {
+    background-color: var(--color-heavy-metal);
+  }
+}

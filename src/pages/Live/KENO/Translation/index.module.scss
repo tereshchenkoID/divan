@@ -1,0 +1,74 @@
+@import "scss/config";
+
+.block {
+  @include size(100%);
+
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: rem(20px);
+}
+
+.row {
+  @include wrapper;
+
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  color: var(--color-white);
+}
+
+.cell {
+  @include flex(center, center);
+
+  background-color: var(--color-thunder);
+  border-right: rem(1px) solid var(--color-border);
+  border-bottom: rem(1px) solid var(--color-border);
+  gap: rem(10px);
+
+  &:nth-child(even) {
+    background-color: var(--color-heavy-metal);
+  }
+
+  button {
+    @include make-spacer(p, 1)
+  }
+}
+
+.grid {
+  @include size(100%);
+
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  column-gap: rem(20px);
+}
+
+.column {
+  @include flex($direction: column-reverse);
+
+  .odd {
+
+    &:last-child {
+      animation: 550ms ease-in-out 0s 1 normal forwards running bounce;
+    }
+  }
+}
+
+.odd {
+  height: rem(102px);
+}
+
+@keyframes bounce {
+  0% {
+    transform: translateY(-500px)
+  }
+  30% {
+    transform: translateY(0)
+  }
+  50% {
+    animation-timing-function: ease-out;
+    transform: translate3d(0, -30%, 0);
+  }
+  100% {
+    animation-timing-function: ease-in;
+    transform: translateZ(0);
+  }
+}

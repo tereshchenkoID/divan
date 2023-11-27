@@ -19,6 +19,7 @@ import JackPotWinner from "./modules/JackPot";
 import Games from "./modules/Games";
 import Countdown from "./modules/Modal/Countdown";
 import Ticker from "./Ticker";
+import KENO from "./KENO";
 import Jackpot from "./modules/Modal/Jackpot";
 
 import style from './index.module.scss';
@@ -31,6 +32,8 @@ const getGame = (id) => {
             return <DOGS_6 />
         case gameType.ROULETTE:
             return <ROULETTE />
+        case gameType.KENO:
+            return <KENO />
         default:
             return <div>{id}</div>
     }

@@ -1,0 +1,54 @@
+@import "scss/config";
+
+.block {
+  @include size(100%);
+
+  position: relative;
+  padding-top: rem(155px);
+  overflow: hidden;
+  text-transform: uppercase;
+  text-align: center;
+  font-weight: var(--typography-bold);
+  color: var(--color-white);
+}
+
+.info {
+  @include info;
+}
+
+.league {
+  @include size(rem(135px), rem(70px));
+
+  img {
+    width: auto;
+  }
+}
+
+.weeks {
+  @include flex($align-items: center);
+
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.week {
+  @include link;
+  @include make-spacer(px, 2);
+
+  width: auto;
+}
+
+.wrapper {
+  @include size(100%);
+  @include make-spacer(p, 2);
+  @include wrapper;
+}
+
+.grid {
+  @include size(100%);
+
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  column-gap: rem(50px);
+}
