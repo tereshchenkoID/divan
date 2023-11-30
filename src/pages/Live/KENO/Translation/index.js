@@ -1,12 +1,28 @@
 import {useEffect, useState} from "react";
+import {useSelector} from "react-redux";
 
+import classNames from "classnames";
+
+import {getDifferent} from "helpers/getDifferent";
+
+import Numbers from "../Numbers";
 import Odd from "../Odd";
 
 import style from './index.module.scss';
-import classNames from "classnames";
+import Loader from "../../../../components/Loader";
 
-const Translation = () => {
-    const [data, setData] = useState([
+
+const getDuration = (start, next, delta) => {
+    const c = new Date(start).getTime() + delta
+    const r = new Date(next - c)
+    return r.getMinutes() * 60 + r.getSeconds()
+}
+
+const Translation = ({data}) => {
+    const {delta} = useSelector((state) => state.delta)
+    const {progress} = useSelector((state) => state.progress)
+    
+    const [numbers, setNumbers] = useState([
         {value: 1, active: false},
         {value: 2, active: false},
         {value: 3, active: false},
@@ -88,15 +104,20 @@ const Translation = () => {
         {value: 79, active: false},
         {value: 80, active: false}
     ])
-    
-    const results = [1, 2, 8, 6, 12, 10, 78, 35, 22, 55, 23, 51, 40, 60, 39, 70, 7, 11, 13, 45]
     const [current, setCurrent] = useState(0);
     const [columns, setColumn] = useState([[], [], [], []])
+	const [delay, setDelay] = useState(0)
+	const [loading, setLoading] = useState(true)
+	const results = data.round.results
+	
+	// const [load, setLoad] = useState([])
+    // const [time, setTime] = useState(0)
+    // const [duration, setDuration] = useState(0)
     
     const setActive = (index) => {
-        const newData = [...data];
-        newData[index - 1] = { ...data[index - 1], active: true };
-        setData(newData);
+        const newData = [...numbers];
+        newData[index - 1] = { ...numbers[index - 1], active: true };
+        setNumbers(newData);
         
         const newColumns = [...columns]
         newColumns[results.indexOf(index) % 4].push({
@@ -105,6 +126,49 @@ const Translation = () => {
         })
         setColumn(newColumns)
     }
+    
+    const initActive = (init) => {
+		const newData = [...numbers];
+		init.forEach((el) => {
+            newData[el - 1].active = true
+        })
+		
+		setNumbers(newData)
+		
+        const newColumns = Array.from({ length: 4 }, (_, columnIndex) =>
+			init
+                .filter((_, index) => index % 4 === columnIndex)
+                .map((value) => ({
+                    value: value,
+                    transform: Math.floor(Math.random() * 120  - 60) })
+                )
+        );
+
+		setColumn(newColumns)
+        console.log(newColumns)
+    }
+    
+    useEffect(() => {
+        const timeDuration = getDuration(data.start, data.nextUpdate, delta)
+        const timeDelay = timeDuration / 20
+        const timeCurrent = getDifferent(data.nextUpdate, delta, 1)
+		const timeIndex = Math.round((timeDuration - timeCurrent) / timeDelay)
+        setDelay(timeDelay)
+		
+		// const a = {
+		// 	value: Math.floor((timeDuration - timeCurrent) / timeDelay),
+		// 	default: results,
+		// 	results: results.slice(0, Math.round((timeDuration - timeCurrent) / timeDelay)),
+		// 	time: timeCurrent,
+		// 	delay: timeDelay,
+		// 	duration: timeDuration
+		// }
+		
+		if (timeCurrent < timeDuration) {
+			setCurrent(timeIndex)
+			initActive(results.slice(0, timeIndex))
+		}
+    }, [])
     
     useEffect(() => {
         const intervalId = setInterval(() => {
@@ -116,57 +180,87 @@ const Translation = () => {
                 setCurrent((prevIndex) => prevIndex + 1)
                 setActive(results[Number(current)])
             }
-            
-        }, 3000);
+        }, delay * 1000)
 
         return () => {
             clearInterval(intervalId);
         }
     }, [current]);
+	
+	useEffect(() => {
+		setTimeout(() => {
+			setLoading(false)
+		}, 500)
+	}, [data])
     
     return (
         <div className={style.block}>
-            <div className={style.row}>
-                {
-                    data.map((el, idx) =>
-                        <div
-                            key={idx}
-                            className={
-                                classNames(
-                                    style.cell,
-                                    el.active && style.active,
-                                )
-                            }
-                        >
-                            <Odd
-                                data={el.value}
-                            />
-                        </div>
-                    )
-                }
-            </div>
-            
-            <div className={style.grid}>
-                {columns.map((c_el, c_idx) => (
-                    <div
-                        key={c_idx}
-                        className={style.column}
-                    >
-                        {c_el.map((el, idx) => (
-                            <div
-                                key={idx}
-                                className={style.odd}
-                            >
-                                <Odd
-                                    data={el.value}
-                                    size={'xxl'}
-                                    transform={el.transform}
-                                />
-                            </div>
-                        ))}
-                    </div>
-                ))}
-            </div>
+			{
+				loading
+					?
+						<Loader
+							type={'block'}
+							background={'transparent'}
+						/>
+					:
+						<>
+							<div className={style.row}>
+								{
+									numbers.map((el, idx) =>
+										<div
+											key={idx}
+											className={
+												classNames(
+													style.cell,
+													el.active && style.active,
+												)
+											}
+										>
+											<Odd data={el.value} />
+										</div>
+									)
+								}
+							</div>
+							{
+								progress === 2 &&
+								<div className={style.grid}>
+									{columns.map((c_el, c_idx) => (
+										<div
+											key={c_idx}
+											className={style.column}
+										>
+											{c_el.map((el, idx) => (
+												<div
+													key={idx}
+													className={style.odd}
+												>
+													<Odd
+														data={el.value}
+														size={'xxl'}
+														transform={el.transform}
+													/>
+												</div>
+											))}
+										</div>
+									))}
+								</div>
+							}
+							{
+								progress === 3 &&
+								<div className={style.grid}>
+									{
+										Array.from({ length: 8 }, (_, idx) =>
+											<Numbers
+												key={idx}
+												tip={8 - idx}
+												data={data}
+											/>
+										)
+									}
+								</div>
+							}
+						</>
+			}
         </div>
     );
 }

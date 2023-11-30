@@ -38,17 +38,3 @@
 
   width: auto;
 }
-
-.wrapper {
-  @include size(100%);
-  @include make-spacer(p, 2);
-  @include wrapper;
-}
-
-.grid {
-  @include size(100%);
-
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  column-gap: rem(50px);
-}

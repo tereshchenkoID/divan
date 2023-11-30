@@ -2,6 +2,8 @@ import {useSelector} from "react-redux";
 import {useState, useEffect} from "react";
 import useSocket from "hooks/useSocket";
 
+import classNames from "classnames";
+
 import {checkCmd} from "helpers/checkCmd";
 import {checkData} from "helpers/checkData";
 import {getData} from "helpers/api";
@@ -10,7 +12,6 @@ import {getDifferent} from "helpers/getDifferent";
 import Banner from "./Banner";
 
 import style from './index.module.scss';
-import classNames from "classnames";
 
 const JackPot = ({size = 'default'}) => {
     const { sendMessage } = useSocket()
