@@ -1,4 +1,4 @@
-import {hostnames} from "constant/config"
+import {gameType, hostnames} from "constant/config"
 import {useEffect, useState} from "react"
 import {useSelector} from "react-redux";
 import {useTranslation} from "react-i18next";
@@ -13,17 +13,18 @@ const Ticker = () => {
     const token = sessionStorage.getItem('authToken')
     const { t } = useTranslation()
     const {game} = useSelector((state) => state.game)
-    
     const [data, setData] = useState({})
     const [loading, setLoading] = useState(true)
     
     useEffect(() => {
-        getData(`${hostnames.PROD}/viewer/lastgame/${token}/FOOTBALL_LEAGUE/${game.id}`).then((json) => {
-            if (json.last) {
-                setData(json)
-                setLoading(false)
-            }
-        })
+		if (game.type === gameType.FOOTBALL_LEAGUE) {
+			getData(`${hostnames.PROD}/viewer/lastgame/${token}/FOOTBALL_LEAGUE/${game.id}`).then((json) => {
+				if (json.last) {
+					setData(json)
+					setLoading(false)
+				}
+			})
+		}
     }, [loading]);
     
     if (loading) {

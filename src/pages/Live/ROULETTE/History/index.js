@@ -1,7 +1,7 @@
 import React from "react";
 import {useTranslation} from "react-i18next";
 
-import {numbers} from "../data";
+import {odds} from "../data";
 
 import classNames from "classnames";
 
@@ -31,12 +31,11 @@ const History = ({data}) => {
                                     )
                                 }
                             >
-                                <Odd type={numbers[el.results].color} number={el.results}/>
+                                <Odd type={odds[el.results].color} number={el.results}/>
                             </div>
                         </React.Fragment>
                     )
                 }
-                
             </div>
         </div>
     );

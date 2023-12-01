@@ -1,4 +1,4 @@
-export const numbers= [
+export const odds= [
     {
         green: 0,
         color: "zero",

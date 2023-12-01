@@ -1,4 +1,4 @@
-import {numbers} from "../data";
+import {odds} from "../data";
 
 import Label from "../../modules/Label";
 import Odd from "../Odd";
@@ -18,7 +18,7 @@ const Hot = ({data}) => {
                             className={style.cell}
                         >
                             <Odd
-                                type={numbers[el.num].color}
+                                type={odds[el.num].color}
                                 number={el.num}
                             />
                         </div>
@@ -32,7 +32,7 @@ const Hot = ({data}) => {
                             className={style.cell}
                         >
                             <Odd
-                                type={numbers[el.num].color}
+                                type={odds[el.num].color}
                                 number={el.num}
                             />
                         </div>
