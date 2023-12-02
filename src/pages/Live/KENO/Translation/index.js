@@ -21,14 +21,15 @@ const getDuration = (start, next, delta) => {
 
 const Translation = ({data}) => {
     const {delta} = useSelector((state) => state.delta)
+	const {liveTimer} = useSelector((state) => state.liveTimer)
     const {progress} = useSelector((state) => state.progress)
 	
     const [numbers, setNumbers] = useState(odds)
     const [current, setCurrent] = useState(0);
     const [columns, setColumn] = useState([[], [], [], []])
-	const [delay, setDelay] = useState(0)
 	const [loading, setLoading] = useState(true)
 	const results = data.round.results
+	const scenes = data.round.scenes
 
     const setActive = (index) => {
         const newData = [...numbers];
@@ -65,43 +66,26 @@ const Translation = ({data}) => {
     
     useEffect(() => {
         const timeDuration = getDuration(data.start, data.nextUpdate, delta)
-        const timeDelay = timeDuration / 20
-        const timeCurrent = getDifferent(data.nextUpdate, delta, 1)
-		const timeIndex = Math.round((timeDuration - timeCurrent) / timeDelay)
-        setDelay(timeDelay)
+		const timeCurrent = getDifferent(data.nextUpdate, delta, 1)
+		const timeIndex = timeDuration - timeCurrent
 		
-		// const a = {
-		// 	value: Math.floor((timeDuration - timeCurrent) / timeDelay),
-		// 	default: results,
-		// 	results: results.slice(0, Math.round((timeDuration - timeCurrent) / timeDelay)),
-		// 	time: timeCurrent,
-		// 	delay: timeDelay,
-		// 	duration: timeDuration
-		// }
-		
-		if (timeCurrent < timeDuration) {
-			setCurrent(timeIndex)
-			initActive(results.slice(0, timeIndex))
+		if (current === 0) {
+			const init = scenes.filter(el => {
+				return el.update < timeIndex
+			})
+			
+			if (init.length !== 0) {
+				initActive(results.slice(0, init.length))
+				setCurrent(init.length)
+			}
 		}
-    }, [])
+		
+		if (current < scenes.length && timeIndex === scenes[current].update) {
+			setCurrent((prevIndex) => prevIndex + 1)
+			setActive(results[Number(current)])
+		}
+    }, [liveTimer])
     
-    useEffect(() => {
-        const intervalId = setInterval(() => {
-            if (current === results.length) {
-                clearInterval(intervalId)
-                return false
-            }
-            else {
-                setCurrent((prevIndex) => prevIndex + 1)
-                setActive(results[Number(current)])
-            }
-        }, delay * 1000)
-
-        return () => {
-            clearInterval(intervalId);
-        }
-    }, [current]);
-	
 	useEffect(() => {
 		setTimeout(() => {
 			setLoading(false)
