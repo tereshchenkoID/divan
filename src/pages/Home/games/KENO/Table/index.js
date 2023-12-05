@@ -6,9 +6,9 @@ import useSocket from "hooks/useSocket";
 
 import classNames from "classnames";
 
-import {setData} from "store/actions/dataAction";
-import {setLive} from "store/actions/liveAction";
 import {setModal} from "store/actions/modalAction";
+import {setLive} from "store/actions/liveAction";
+import {setData} from "store/actions/dataAction";
 
 import {getDateTime} from "helpers/getDateTime";
 import {conditionStatus} from "helpers/conditionStatus";
@@ -18,16 +18,16 @@ import {checkCmd} from "helpers/checkCmd";
 
 import TableChips from "./TableChips";
 import Loader from "components/Loader";
-import Timer from "modules/Timer";
-import Alert from "modules/Alert";
-import UpdateData from "modules/UpdateData";
-import SkipModal from "modules/SkipModal";
+import SkipModal from "pages/Home/modules/SkipModal";
+import UpdateData from "pages/Home/modules/UpdateData";
+import Alert from "pages/Home/modules/Alert";
+import Timer from "pages/Home/modules/Timer";
 
 import style from "./index.module.scss";
 
 const Table = () => {
     const { t } = useTranslation()
-    const SORT = [5, 6, 7, 8, 9, 10]
+    const SORT = [1, 2, 3, 4, 5, 6, 7, 8]
     const dispatch = useDispatch()
     const { sendMessage } = useSocket()
 
@@ -49,7 +49,7 @@ const Table = () => {
         let array = [];
 
         while (array.length < length) {
-            let randomNumber = Math.floor(Math.random() * 49);
+            let randomNumber = Math.floor(Math.random() * 80);
             if (!array.includes(randomNumber)) {
                 array.push(randomNumber);
             }
@@ -105,7 +105,8 @@ const Table = () => {
                         }
 
                         setLoading(false)
-                    } else {
+                    }
+                    else {
                         setLoading(false)
                     }
                 })
@@ -152,7 +153,9 @@ const Table = () => {
             {
                 loading
                     ?
-                        <Loader type={'block'} />
+                        <Loader
+                            type={'block'}
+                        />
                     :
                         data &&
                         data.events.length > 0
@@ -198,12 +201,12 @@ const Table = () => {
                                         <div className={style.league}>
                                             <img
                                                 src={`/img/icon/${game.id}.svg`}
-                                                alt={'Color'}
+                                                alt={'Keno'}
                                             />
                                         </div>
                                         <Timer
                                             data={active}
-                                            type={gameType.COLOR_COLOR}
+                                            type={gameType.KENO}
                                         />
                                     </div>
                                     <div className={style.body}>
@@ -211,8 +214,8 @@ const Table = () => {
                                             {
                                                 checkTime(active.start, delta) &&
                                                 <>
-                                                    <div className={style.label}>{t('games.COLOR_COLOR.random')}</div>
-                                                    <div className={style.label}>{t('games.COLOR_COLOR.repeat')}</div>
+                                                    <div className={style.label}>{t('games.KENO.random')}</div>
+                                                    <div className={style.label}>{t('games.KENO.repeat')}</div>
                                                     <div className={style.sort}>
                                                         {
                                                             SORT.map((el, idx) =>
@@ -255,16 +258,16 @@ const Table = () => {
                                         <div className={style.wrapper}>
                                             {
                                                 checkTime(active.start, delta)
-                                                ?
-                                                    <TableChips
-                                                        events={data.events}
-                                                        repeat={repeat}
-                                                        random={random}
-                                                        data={active}
-                                                        setRepeat={setRepeat}
-                                                    />
-                                                :
-                                                    <div className={style.live} />
+                                                    ?
+                                                        <TableChips
+                                                            events={data.events}
+                                                            repeat={repeat}
+                                                            random={random}
+                                                            data={active}
+                                                            setRepeat={setRepeat}
+                                                        />
+                                                    :
+                                                        <div className={style.live} />
                                             }
                                         </div>
                                     </div>

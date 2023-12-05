@@ -24,7 +24,7 @@ import {setNotification} from "store/actions/notificationAction";
 import {checkCmd} from "helpers/checkCmd";
 import {getData, postData} from "helpers/api";
 
-import TicketModal from "modules/TicketModal";
+import TicketModal from "pages/Home/modules/TicketModal";
 import Button from "components/Button";
 import Icon from "components/Icon";
 
@@ -32,7 +32,7 @@ import Tickets from "./Tickets";
 import Stakes from "./Stakes";
 import Bets from "./Bets";
 import Types from "./Types";
-import {TicketPrint} from 'modules/TicketPrint';
+import {TicketPrint} from 'pages/Home/modules/TicketPrint';
 
 import style from './index.module.scss';
 

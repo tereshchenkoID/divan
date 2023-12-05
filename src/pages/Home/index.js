@@ -12,19 +12,19 @@ import {checkCmd} from "helpers/checkCmd";
 
 import {setSettings} from "store/actions/settingsAction";
 
-import FOOTBALL_LEAGUE from "games/FOOTBALL_LEAGUE";
-import COLOR_COLOR from "games/COLOR_COLOR";
-import ROULETTE from "games/ROULETTE";
-import KENO from "games/KENO";
-import DOGS_6 from "games/DOGS_6";
-import HORSES_8_VR from "games/HORSES_8_VR"
+import FOOTBALL_LEAGUE from "pages/Home/games/FOOTBALL_LEAGUE";
+import COLOR_COLOR from "pages/Home/games/COLOR_COLOR";
+import ROULETTE from "pages/Home/games/ROULETTE";
+import KENO from "pages/Home/games/KENO";
+import DOGS_6 from "pages/Home/games/DOGS_6";
+import HORSES_8_VR from "pages/Home/games/HORSES_8_VR"
 
 import Loader from "components/Loader";
 import Nav from "components/Nav";
-import Betslip from "modules/Betslip";
-import Notification from "modules/Notification";
-import JackPot from "modules/JackPot";
-import Decor from "modules/Decor";
+import Betslip from "pages/Home/modules/Betslip";
+import Notification from "pages/Home/modules/Notification";
+import JackPot from "pages/Home/modules/JackPot";
+import Decor from "pages/Home/modules/Decor";
 
 import style from './index.module.scss';
 

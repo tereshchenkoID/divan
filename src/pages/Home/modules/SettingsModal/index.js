@@ -14,7 +14,7 @@ import {getData, postData} from "helpers/api";
 import {deleteBetslip} from "store/actions/betslipAction";
 import {setNotification} from "store/actions/notificationAction";
 
-import {TicketPrint} from "modules/TicketPrint";
+import {TicketPrint} from "pages/Home/modules/TicketPrint";
 import Button from "components/Button";
 import Checkbox from "components/Checkbox";
 import Password from "./Password";

@@ -3,7 +3,7 @@ import {useState} from "react";
 import classNames from "classnames";
 
 import Button from "components/Button";
-import TicketModal from "modules/TicketModal";
+import TicketModal from "pages/Home/modules/TicketModal";
 
 import style from './index.module.scss';
 

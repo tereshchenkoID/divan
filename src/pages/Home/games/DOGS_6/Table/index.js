@@ -1,14 +1,10 @@
 import {gameType, matchStatus} from "constant/config";
-import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
+import {useDispatch, useSelector} from "react-redux";
 import useSocket from "hooks/useSocket";
 
 import classNames from "classnames";
-
-import {setModal} from "store/actions/modalAction";
-import {setLive} from "store/actions/liveAction";
-import {setData} from "store/actions/dataAction";
 
 import {getDateTime} from "helpers/getDateTime";
 import {conditionStatus} from "helpers/conditionStatus";
@@ -16,18 +12,22 @@ import {checkTime} from "helpers/checkTime";
 import {checkData} from "helpers/checkData";
 import {checkCmd} from "helpers/checkCmd";
 
+import {setModal} from "store/actions/modalAction";
+import {setLive} from "store/actions/liveAction";
+import {setData} from "store/actions/dataAction";
+
 import TableChips from "./TableChips";
 import Loader from "components/Loader";
-import SkipModal from "modules/SkipModal";
-import UpdateData from "modules/UpdateData";
-import Alert from "modules/Alert";
-import Timer from "modules/Timer";
+import SkipModal from "pages/Home/modules/SkipModal";
+import UpdateData from "pages/Home/modules/UpdateData";
+import Timer from "pages/Home/modules/Timer";
+import Alert from "pages/Home/modules/Alert";
 
 import style from "./index.module.scss";
 
 const Table = () => {
     const { t } = useTranslation()
-    const SORT = [1, 2, 3, 4, 5, 6, 7, 8]
+    const TYPES  = ['Main', 'Forecast', 'Quinella', 'Trincast']
     const dispatch = useDispatch()
     const { sendMessage } = useSocket()
 
@@ -39,30 +39,14 @@ const Table = () => {
     const {update} = useSelector((state) => state.update)
     const {isConnected, receivedMessage} = useSelector((state) => state.socket);
 
+    const [type, setType] = useState(0)
     const [find, setFind] = useState(null)
     const [active, setActive] = useState(0)
-    const [repeat, setRepeat] = useState(1)
-    const [random, setRandom] = useState([])
     const [loading, setLoading] = useState(true)
-
-    const generateRandomArray = (length) => {
-        let array = [];
-
-        while (array.length < length) {
-            let randomNumber = Math.floor(Math.random() * 80);
-            if (!array.includes(randomNumber)) {
-                array.push(randomNumber);
-            }
-        }
-
-        setRandom(array);
-    }
 
     const handleNext = () => {
         setFind(data.events[0])
         setActive(data.events[1])
-        setRepeat(1)
-        setRandom([])
         dispatch(setLive(1))
         dispatch(setModal(0))
     }
@@ -77,9 +61,6 @@ const Table = () => {
     }
 
     const resetActive = () => {
-        setRepeat(1)
-        setRandom([])
-
         if (data.events[0].status !== matchStatus.ANNOUNCEMENT) {
             setFind(data.events[0])
         }
@@ -153,9 +134,7 @@ const Table = () => {
             {
                 loading
                     ?
-                        <Loader
-                            type={'block'}
-                        />
+                        <Loader type={'block'} />
                     :
                         data &&
                         data.events.length > 0
@@ -172,7 +151,6 @@ const Table = () => {
                                             active={active}
                                             setActive={setActive}
                                             setFind={setFind}
-                                            setRepeat={setRepeat}
                                         />
                                     }
                                     <div className={style.tab}>
@@ -189,6 +167,7 @@ const Table = () => {
                                                     onClick={() => {
                                                         checkStatus(el)
                                                         setActive(el)
+                                                        setType(0)
                                                         resetActive()
                                                     }}
                                                 >
@@ -201,58 +180,34 @@ const Table = () => {
                                         <div className={style.league}>
                                             <img
                                                 src={`/img/icon/${game.id}.svg`}
-                                                alt={'Keno'}
+                                                alt={'Dogs'}
                                             />
                                         </div>
                                         <Timer
                                             data={active}
-                                            type={gameType.KENO}
+                                            type={gameType.DOGS_6}
                                         />
                                     </div>
                                     <div className={style.body}>
                                         <div className={style.header}>
                                             {
                                                 checkTime(active.start, delta) &&
-                                                <>
-                                                    <div className={style.label}>{t('games.KENO.random')}</div>
-                                                    <div className={style.label}>{t('games.KENO.repeat')}</div>
-                                                    <div className={style.sort}>
-                                                        {
-                                                            SORT.map((el, idx) =>
-                                                                <button
-                                                                    key={idx}
-                                                                    className={ style.market}
-                                                                    onClick={() => {
-                                                                        generateRandomArray(el)
-                                                                    }}
-                                                                >
-                                                                    {el}
-                                                                </button>
+                                                TYPES.map((el, idx) =>
+                                                    <button
+                                                        key={idx}
+                                                        className={
+                                                            classNames(
+                                                                style.market,
+                                                                type === idx && style.active
                                                             )
                                                         }
-                                                    </div>
-                                                    <div className={style.sort}>
-                                                        {
-                                                            data.events.map((el, idx) =>
-                                                                <button
-                                                                    key={idx}
-                                                                    className={
-                                                                        classNames(
-                                                                            style.market,
-                                                                            (find && idx === data.events.length - 1) && style.disabled,
-                                                                            idx + 1 === repeat && style.active
-                                                                        )
-                                                                    }
-                                                                    onClick={() => {
-                                                                        setRepeat(idx + 1)
-                                                                    }}
-                                                                >
-                                                                    {idx + 1}x
-                                                                </button>
-                                                            )
-                                                        }
-                                                    </div>
-                                                </>
+                                                        onClick={() => {
+                                                            setType(idx)
+                                                        }}
+                                                    >
+                                                        {el}
+                                                    </button>
+                                                )
                                             }
                                         </div>
                                         <div className={style.wrapper}>
@@ -260,11 +215,9 @@ const Table = () => {
                                                 checkTime(active.start, delta)
                                                     ?
                                                         <TableChips
+                                                            type={type}
                                                             events={data.events}
-                                                            repeat={repeat}
-                                                            random={random}
                                                             data={active}
-                                                            setRepeat={setRepeat}
                                                         />
                                                     :
                                                         <div className={style.live} />

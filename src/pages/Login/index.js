@@ -13,7 +13,7 @@ import {setNotification} from "store/actions/notificationAction";
 import {setAuth} from "store/actions/authAction";
 
 import Button from "components/Button";
-import Notification from "modules/Notification";
+import Notification from "pages/Home/modules/Notification";
 
 import style from './index.module.scss';
 

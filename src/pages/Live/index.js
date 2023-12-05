@@ -8,8 +8,8 @@ import {setSettings} from "store/actions/settingsAction";
 import {setGame} from "store/actions/gameAction";
 
 import Loader from "components/Loader";
-import JackPot from "modules/JackPot";
-import Decor from "modules/Decor";
+import JackPot from "pages/Home/modules/JackPot";
+import Decor from "pages/Home/modules/Decor";
 
 import FOOTBALL_LEAGUE from "./games/FOOTBALL_LEAGUE";
 import COLOR_COLOR from "./games/COLOR_COLOR";

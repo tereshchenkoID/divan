@@ -5,8 +5,8 @@ import {Link} from "react-router-dom";
 import {setAuth} from "store/actions/authAction";
 import {setTicket} from "store/actions/ticketAction";
 
-import SettingsModal from "modules/SettingsModal";
-import ReportsModal from "modules/ReportsModal";
+import SettingsModal from "pages/Home/modules/SettingsModal";
+import ReportsModal from "pages/Home/modules/ReportsModal";
 import Button from "components/Button";
 import Clock from "./Clock";
 import Games from "./Games";

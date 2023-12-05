@@ -7,7 +7,7 @@ import {getBetMaxSingle, getMinMaxOdd } from 'hooks/useStake'
 
 import {setStake} from "store/actions/stakeAction";
 
-import CalculatorModal from "modules/CalculatorModal";
+import CalculatorModal from "pages/Home/modules/CalculatorModal";
 import Icon from "components/Icon";
 import Button from "components/Button";
 

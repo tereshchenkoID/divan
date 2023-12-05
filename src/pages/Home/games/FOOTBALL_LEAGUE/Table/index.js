@@ -14,10 +14,10 @@ import {checkData} from "helpers/checkData";
 import {conditionStatus} from "helpers/conditionStatus";
 import {checkCmd} from "helpers/checkCmd";
 
-import Alert from "modules/Alert";
-import Timer from "modules/Timer";
-import UpdateData from "modules/UpdateData";
-import SkipModal from "modules/SkipModal";
+import Alert from "pages/Home/modules/Alert";
+import Timer from "pages/Home/modules/Timer";
+import UpdateData from "pages/Home/modules/UpdateData";
+import SkipModal from "pages/Home/modules/SkipModal";
 import Loader from "components/Loader";
 import Icon from "components/Icon";
 import Live from "../Live";

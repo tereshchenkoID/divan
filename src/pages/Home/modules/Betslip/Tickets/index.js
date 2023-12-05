@@ -7,7 +7,7 @@ import {getData} from "helpers/api";
 import {checkCmd} from "helpers/checkCmd";
 
 import Loader from "components/Loader";
-import Alert from "modules/Alert";
+import Alert from "pages/Home/modules/Alert";
 import Ticket from "./Ticket";
 
 import style from './index.module.scss';
