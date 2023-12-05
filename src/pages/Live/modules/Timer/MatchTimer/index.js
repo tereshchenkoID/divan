@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 
 import {setTv} from "store/LIVE/actions/tvAction";
 import {setProgress} from "store/LIVE/actions/progressAction";
-import {setLiveTimer} from "store/actions/liveTimerAction";
+import {setLiveTimer} from "store/HOME/actions/liveTimerAction";
 
 import {getDifferent} from "helpers/getDifferent";
 

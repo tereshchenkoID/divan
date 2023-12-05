@@ -5,7 +5,7 @@ import {useTranslation} from "react-i18next";
 import {useOutsideClick} from "hooks/useOutsideClick";
 import {getBetMaxSingle, getMinMaxOdd } from 'hooks/useStake'
 
-import {setStake} from "store/actions/stakeAction";
+import {setStake} from "store/HOME/actions/stakeAction";
 
 import CalculatorModal from "pages/Home/modules/CalculatorModal";
 import Icon from "components/Icon";
@@ -13,7 +13,7 @@ import Button from "components/Button";
 
 import {oddsType} from "constant/config";
 
-import {deleteBetslip} from "store/actions/betslipAction";
+import {deleteBetslip} from "store/HOME/actions/betslipAction";
 
 import style from './index.module.scss';
 

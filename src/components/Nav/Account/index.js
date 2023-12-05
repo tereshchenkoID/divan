@@ -6,7 +6,7 @@ import {time} from 'constant/config'
 
 import {checkCmd} from "helpers/checkCmd";
 
-import {setBalance} from "store/actions/balanceAction";
+import {setBalance} from "store/HOME/actions/balanceAction";
 
 import Icon from "components/Icon";
 

@@ -12,9 +12,9 @@ import {checkTime} from "helpers/checkTime";
 import {checkData} from "helpers/checkData";
 import {checkCmd} from "helpers/checkCmd";
 
-import {setModal} from "store/actions/modalAction";
-import {setLive} from "store/actions/liveAction";
-import {setData} from "store/actions/dataAction";
+import {setModal} from "store/HOME/actions/modalAction";
+import {setLive} from "store/HOME/actions/liveAction";
+import {setData} from "store/HOME/actions/dataAction";
 
 import TableChips from "./TableChips";
 import Loader from "components/Loader";

@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 
 import {setProgress} from "store/LIVE/actions/progressAction";
-import {setModal} from "store/actions/modalAction";
+import {setModal} from "store/HOME/actions/modalAction";
 import {setTv} from "store/LIVE/actions/tvAction";
 
 import {getDifferent} from "helpers/getDifferent";

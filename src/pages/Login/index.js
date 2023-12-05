@@ -9,7 +9,7 @@ import Keyboard from "react-simple-keyboard";
 import 'simple-keyboard/build/css/index.css'
 
 import {postData} from "helpers/api";
-import {setNotification} from "store/actions/notificationAction";
+import {setNotification} from "store/HOME/actions/notificationAction";
 import {setAuth} from "store/actions/authAction";
 
 import Button from "components/Button";

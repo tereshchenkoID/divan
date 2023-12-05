@@ -11,7 +11,7 @@ import {getIcon} from "helpers/getIcon";
 import {getData} from "helpers/api";
 import {getDateTime} from "helpers/getDateTime";
 
-import {setNotification} from "store/actions/notificationAction";
+import {setNotification} from "store/HOME/actions/notificationAction";
 
 import Loader from "components/Loader";
 import Icon from "components/Icon";

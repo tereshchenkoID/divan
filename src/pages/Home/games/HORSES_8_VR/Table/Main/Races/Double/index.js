@@ -2,7 +2,7 @@ import {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {useTranslation} from "react-i18next";
 
-import {deleteBetslip} from "store/actions/betslipAction";
+import {deleteBetslip} from "store/HOME/actions/betslipAction";
 import {generateCircles} from "helpers/generateCircles";
 
 import classNames from "classnames";

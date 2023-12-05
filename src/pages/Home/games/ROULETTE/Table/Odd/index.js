@@ -6,7 +6,7 @@ import Amount from "../Amount";
 
 import style from './index.module.scss';
 
-import {deleteBetslip, setBetslip} from "store/actions/betslipAction";
+import {deleteBetslip, setBetslip} from "store/HOME/actions/betslipAction";
 
 const findBet = (data, id, outcome) => {
     return data.find(el => {

@@ -1,7 +1,7 @@
 import {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 
-import {deleteBetslip} from "store/actions/betslipAction";
+import {deleteBetslip} from "store/HOME/actions/betslipAction";
 
 const deleteBets = (data, now) => {
     const a = []

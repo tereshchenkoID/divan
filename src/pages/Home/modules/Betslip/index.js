@@ -15,11 +15,11 @@ import {
     getTotalStakeSystem
 } from 'hooks/useStake'
 
-import {deleteBetslip} from "store/actions/betslipAction";
-import {setStake} from "store/actions/stakeAction";
-import {setTicket} from "store/actions/ticketAction";
-import {setBalance} from "store/actions/balanceAction";
-import {setNotification} from "store/actions/notificationAction";
+import {deleteBetslip} from "store/HOME/actions/betslipAction";
+import {setStake} from "store/HOME/actions/stakeAction";
+import {setTicket} from "store/HOME/actions/ticketAction";
+import {setBalance} from "store/HOME/actions/balanceAction";
+import {setNotification} from "store/HOME/actions/notificationAction";
 
 import {checkCmd} from "helpers/checkCmd";
 import {getData, postData} from "helpers/api";

@@ -4,9 +4,9 @@ import {useDispatch, useSelector} from "react-redux";
 import {gameType, rouletteColor} from "constant/config";
 
 import classNames from "classnames";
-import {deleteBetslip} from "store/actions/betslipAction";
 
-import {setStake} from "store/actions/stakeAction";
+import {deleteBetslip} from "store/HOME/actions/betslipAction";
+import {setStake} from "store/HOME/actions/stakeAction";
 
 import {data} from "./data";
 

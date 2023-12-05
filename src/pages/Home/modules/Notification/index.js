@@ -1,7 +1,7 @@
 import {useDispatch} from "react-redux";
 import {useEffect} from "react";
 
-import {setNotification} from "store/actions/notificationAction";
+import {setNotification} from "store/HOME/actions/notificationAction";
 
 import Icon from "components/Icon";
 

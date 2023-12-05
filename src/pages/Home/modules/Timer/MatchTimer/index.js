@@ -4,9 +4,9 @@ import {useDispatch, useSelector} from "react-redux";
 
 import useSocket from "hooks/useSocket";
 
-import {setLive} from "store/actions/liveAction";
-import {setLiveTimer} from "store/actions/liveTimerAction";
-import {setUpdate} from "store/actions/updateAction";
+import {setLive} from "store/HOME/actions/liveAction";
+import {setLiveTimer} from "store/HOME/actions/liveTimerAction";
+import {setUpdate} from "store/HOME/actions/updateAction";
 
 import {getDifferent} from "helpers/getDifferent";
 

@@ -11,8 +11,8 @@ import classNames from "classnames";
 
 import {checkCmd} from "helpers/checkCmd";
 import {getData, postData} from "helpers/api";
-import {deleteBetslip} from "store/actions/betslipAction";
-import {setNotification} from "store/actions/notificationAction";
+import {deleteBetslip} from "store/HOME/actions/betslipAction";
+import {setNotification} from "store/HOME/actions/notificationAction";
 
 import {TicketPrint} from "pages/Home/modules/TicketPrint";
 import Button from "components/Button";

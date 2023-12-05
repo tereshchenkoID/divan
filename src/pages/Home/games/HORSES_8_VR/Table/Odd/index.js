@@ -5,7 +5,7 @@ import classNames from "classnames";
 import {gameType} from "constant/config";
 
 import {generateCircles} from "helpers/generateCircles";
-import {deleteBetslip, setBetslip} from "store/actions/betslipAction";
+import {deleteBetslip, setBetslip} from "store/HOME/actions/betslipAction";
 
 import Number from "../Number";
 

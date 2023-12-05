@@ -3,19 +3,21 @@ import thunk from 'redux-thunk';
 
 import gameReducer from "./reducers/gameReducer";
 import settingsReducer from "./reducers/settingsReducer";
-import betslipReducer from "./reducers/betslipReducer";
-import stakeReducer from "./reducers/stakeReducer";
-import liveReducer from "./reducers/liveReducer";
-import dataReducer from "./reducers/dataReducer";
-import modalReducer from "./reducers/modalReducer";
-import updateReducer from "./reducers/updateReducer";
-import liveTimerReducer from "./reducers/liveTimerReducer";
 import deltaReducer from "./reducers/deltaReducer";
-import ticketReducer from "./reducers/ticketReducer";
-import balanceReducer from "./reducers/balanceReducer";
-import notificationReducer from './reducers/notificationReducer'
 import authReducer from "./reducers/authReducer";
-import socketReducer from "./reducers/socketReducer";
+
+/* HOME REDUCERS */
+import betslipReducer from "./HOME/reducers/betslipReducer";
+import stakeReducer from "./HOME/reducers/stakeReducer";
+import liveReducer from "./HOME/reducers/liveReducer";
+import dataReducer from "./HOME/reducers/dataReducer";
+import modalReducer from "./HOME/reducers/modalReducer";
+import updateReducer from "./HOME/reducers/updateReducer";
+import liveTimerReducer from "./HOME/reducers/liveTimerReducer";
+import ticketReducer from "./HOME/reducers/ticketReducer";
+import balanceReducer from "./HOME/reducers/balanceReducer";
+import notificationReducer from './HOME/reducers/notificationReducer'
+import socketReducer from "./HOME/reducers/socketReducer";
 
 /* LIVE REDUCERS */
 import progressReducer from "./LIVE/reducers/progressReducer";
@@ -24,11 +26,13 @@ import historyReducer from "./LIVE/reducers/historyReducer";
 
 const allReducer = combineReducers({
     auth: authReducer,
-    data: dataReducer,
-    update: updateReducer,
-    game: gameReducer,
-    settings: settingsReducer,
-    delta: deltaReducer,
+	game: gameReducer,
+	delta: deltaReducer,
+	
+	/* HOME REDUCERS */
+	data: dataReducer,
+	update: updateReducer,
+	settings: settingsReducer,
     live: liveReducer,
     liveTimer: liveTimerReducer,
     modal: modalReducer,

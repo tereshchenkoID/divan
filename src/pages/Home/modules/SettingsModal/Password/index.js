@@ -6,7 +6,7 @@ import useSocket from "hooks/useSocket";
 import {postData} from "helpers/api";
 import {checkCmd} from "helpers/checkCmd";
 
-import {setNotification} from "store/actions/notificationAction";
+import {setNotification} from "store/HOME/actions/notificationAction";
 
 import Button from "components/Button";
 

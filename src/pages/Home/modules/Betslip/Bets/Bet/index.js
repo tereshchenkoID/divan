@@ -9,8 +9,8 @@ import {gameType} from "constant/config"
 import {getIcon} from "helpers/getIcon";
 import {useOutsideClick} from "hooks/useOutsideClick";
 
-import {deleteBetslip} from "store/actions/betslipAction";
-import {setStake} from "store/actions/stakeAction";
+import {deleteBetslip} from "store/HOME/actions/betslipAction";
+import {setStake} from "store/HOME/actions/stakeAction";
 
 import Icon from "components/Icon";
 import Button from "components/Button";

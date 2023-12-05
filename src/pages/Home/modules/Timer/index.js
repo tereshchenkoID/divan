@@ -3,8 +3,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {useTranslation} from "react-i18next";
 import useSocket from "hooks/useSocket";
 
-import {setUpdate} from "store/actions/updateAction";
-import {setLive} from "store/actions/liveAction";
+import {setUpdate} from "store/HOME/actions/updateAction";
+import {setLive} from "store/HOME/actions/liveAction";
 
 import {convertTime} from "helpers/convertTime";
 import {checkData} from "helpers/checkData";

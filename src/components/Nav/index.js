@@ -3,7 +3,7 @@ import {useState} from "react";
 import {Link} from "react-router-dom";
 
 import {setAuth} from "store/actions/authAction";
-import {setTicket} from "store/actions/ticketAction";
+import {setTicket} from "store/HOME/actions/ticketAction";
 
 import SettingsModal from "pages/Home/modules/SettingsModal";
 import ReportsModal from "pages/Home/modules/ReportsModal";

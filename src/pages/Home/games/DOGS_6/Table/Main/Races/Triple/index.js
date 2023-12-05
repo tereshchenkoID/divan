@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {useTranslation} from "react-i18next";
 
 import {generateCircles} from "helpers/generateCircles";
-import {deleteBetslip} from "store/actions/betslipAction";
+import {deleteBetslip} from "store/HOME/actions/betslipAction";
 
 import classNames from "classnames";
 

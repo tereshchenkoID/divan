@@ -4,9 +4,9 @@ import useSocket from "hooks/useSocket";
 
 import {matchStatus} from "constant/config";
 
-import {setUpdate} from "store/actions/updateAction";
-import {setData} from "store/actions/dataAction";
-import {setLive} from "store/actions/liveAction";
+import {setUpdate} from "store/HOME/actions/updateAction";
+import {setData} from "store/HOME/actions/dataAction";
+import {setLive} from "store/HOME/actions/liveAction";
 
 import {checkCmd} from "helpers/checkCmd";
 import {getDifferent} from "helpers/getDifferent";

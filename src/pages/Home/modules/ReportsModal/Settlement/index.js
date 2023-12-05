@@ -8,7 +8,7 @@ import { MD5 } from 'crypto-js';
 
 import classNames from "classnames";
 
-import {setNotification} from "store/actions/notificationAction";
+import {setNotification} from "store/HOME/actions/notificationAction";
 
 import {checkCmd} from "helpers/checkCmd";
 import {getData} from "helpers/api";

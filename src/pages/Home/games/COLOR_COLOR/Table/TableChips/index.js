@@ -6,7 +6,7 @@ import {colorType, gameType} from "constant/config";
 
 import classNames from "classnames";
 
-import {deleteBetslip} from "store/actions/betslipAction";
+import {deleteBetslip} from "store/HOME/actions/betslipAction";
 import {checkTime} from "helpers/checkTime";
 
 import Numbers from "../Numbers";

@@ -6,9 +6,9 @@ import useSocket from "hooks/useSocket";
 
 import classNames from "classnames";
 
-import {setModal} from "store/actions/modalAction";
-import {setLive} from "store/actions/liveAction";
-import {setData} from "store/actions/dataAction";
+import {setModal} from "store/HOME/actions/modalAction";
+import {setLive} from "store/HOME/actions/liveAction";
+import {setData} from "store/HOME/actions/dataAction";
 
 import {getDateTime} from "helpers/getDateTime";
 import {conditionStatus} from "helpers/conditionStatus";

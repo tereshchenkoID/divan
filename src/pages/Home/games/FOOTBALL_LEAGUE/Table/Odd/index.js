@@ -2,8 +2,8 @@ import {useDispatch, useSelector} from "react-redux";
 
 import classNames from "classnames";
 
-import {deleteBetslip, setBetslip} from "store/actions/betslipAction";
-import {setTicket} from "store/actions/ticketAction";
+import {deleteBetslip, setBetslip} from "store/HOME/actions/betslipAction";
+import {setTicket} from "store/HOME/actions/ticketAction";
 
 import style from './index.module.scss';
 

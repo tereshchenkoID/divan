@@ -1,5 +1,6 @@
 import {useRequest} from "hooks/useRequest";
-import {setDelta} from "./deltaAction";
+
+import {setDelta} from "store/actions/deltaAction";
 
 import { types } from "store/actionTypes";
 

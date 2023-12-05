@@ -5,10 +5,10 @@ import {useTranslation} from "react-i18next";
 
 import useSocket from "hooks/useSocket";
 
-import {setLive} from "store/actions/liveAction";
+import {setLive} from "store/HOME/actions/liveAction";
 
 import {getDifferent} from "helpers/getDifferent";
-import {setData} from "store/actions/dataAction";
+import {setData} from "store/HOME/actions/dataAction";
 
 const ResultTimer = ({data, game, delta}) => {
     const { t } = useTranslation()

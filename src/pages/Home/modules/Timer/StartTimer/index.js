@@ -4,11 +4,11 @@ import {useDispatch, useSelector} from "react-redux";
 
 import useSocket from "hooks/useSocket";
 
-import {setLive} from "store/actions/liveAction";
-import {setModal} from "store/actions/modalAction";
+import {setLive} from "store/HOME/actions/liveAction";
+import {setModal} from "store/HOME/actions/modalAction";
 
 import {getDifferent} from "helpers/getDifferent";
-import {setUpdate} from "store/actions/updateAction";
+import {setUpdate} from "store/HOME/actions/updateAction";
 
 const StartTimer = ({data, delta}) => {
     const dispatch = useDispatch()
