@@ -1,0 +1,22 @@
+@import "scss/config";
+
+.row {
+    @include wrapper;
+
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    color: var(--color-white);
+}
+
+.cell {
+    @include make-spacer(p, 1);
+    @include flex(center, center, column);
+
+    background-color: var(--color-thunder);
+    border-right: rem(1px) solid var(--color-border);
+    gap: rem(10px);
+
+    &:nth-child(odd) {
+        background-color: var(--color-heavy-metal);
+    }
+}

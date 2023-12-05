@@ -11,15 +11,17 @@ import Loader from "components/Loader";
 import JackPot from "modules/JackPot";
 import Decor from "modules/Decor";
 
-import FOOTBALL_LEAGUE from "./FOOTBALL_LEAGUE";
-import DOGS_6 from "./DOGS_6";
-import ROULETTE from "./ROULETTE";
+import FOOTBALL_LEAGUE from "./games/FOOTBALL_LEAGUE";
+import COLOR_COLOR from "./games/COLOR_COLOR";
+import ROULETTE from "./games/ROULETTE";
+import DOGS_6 from "./games/DOGS_6";
+import KENO from "./games/KENO";
 
 import JackPotWinner from "./modules/JackPot";
-import Games from "./modules/Games";
 import Countdown from "./modules/Modal/Countdown";
-import Ticker from "./Ticker";
-import KENO from "./KENO";
+import Games from "./modules/Games";
+import Ticker from "./modules/Ticker";
+
 import Jackpot from "./modules/Modal/Jackpot";
 
 import style from './index.module.scss';
@@ -34,6 +36,8 @@ const getGame = (id) => {
             return <ROULETTE />
         case gameType.KENO:
             return <KENO />
+		case gameType.COLOR_COLOR:
+			return <COLOR_COLOR />
         default:
             return <div>{id}</div>
     }
