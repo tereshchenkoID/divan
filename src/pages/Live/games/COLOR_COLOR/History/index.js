@@ -1,3 +1,5 @@
+import React from "react";
+
 import classNames from "classnames";
 
 import Label from "../../../modules/Label";
@@ -5,8 +7,29 @@ import Odd from "../Odd";
 
 import style from './index.module.scss';
 
-const History = () => {
+const colorCounter = ({ results }) => {
+	return results.reduce((counts, {color}) => {
+		counts[color] = (counts[color] || 0) + 1;
+		return counts;
+	}, {})
+}
+
+const findMostCommonColor = (data) => {
+	let mostCommonColor = '';
+	let maxCount = 0;
 	
+	Object.entries(data).forEach(([color, count]) => {
+		if (count > maxCount) {
+			mostCommonColor = color;
+			maxCount = count;
+		}
+	});
+	
+	return mostCommonColor;
+};
+
+const History = ({data}) => {
+
 	return (
         <div className={style.block}>
 			<div className={style.row}>
@@ -24,56 +47,44 @@ const History = () => {
 				}
 			>
 				{
-					Array.from({ length: 8 }, (_, idx) =>
-						<>
-							<div className={style.cell}>112312312</div>
+					data.history.map((el, idx) =>
+						<React.Fragment key={idx}>
+							<div className={style.cell}>#{el.id}</div>
 							<div className={style.cell}>
-								<Odd
-									color={'red'}
-									data={'1'}
-								/>
-								<Odd
-									color={'yellow'}
-									data={'1'}
-								/>
-								<Odd
-									color={'blue'}
-									data={'1'}
-								/>
-								<Odd
-									color={'draw'}
-									data={'1'}
-								/>
-								<Odd
-									color={'red'}
-									data={'1'}
-								/>
-								<Odd
-									color={'red'}
-									data={'1'}
-								/>
+								{
+									el.results.map((o_el, o_idx) =>
+										<Odd
+											key={o_idx}
+											color={o_el.color}
+											data={o_el.num}
+										/>
+									)
+								}
+							</div>
+							<div
+								className={
+									classNames(
+										style.cell,
+										style.left
+									)
+								}
+							>
+								{
+									Object.entries(colorCounter(el)).map(([color, count]) =>
+										<Odd
+											key={color}
+											color={color}
+											data={count}
+										/>
+									)
+								}
 							</div>
 							<div className={style.cell}>
 								<Odd
-									color={'draw'}
-									data={'1'}
-								/>
-								<Odd
-									color={'red'}
-									data={'1'}
-								/>
-								<Odd
-									color={'blue'}
-									data={'1'}
+									color={findMostCommonColor(colorCounter(el))}
 								/>
 							</div>
-							<div className={style.cell}>
-								<Odd
-									color={'draw'}
-									data={'1'}
-								/>
-							</div>
-						</>
+						</React.Fragment>
 					)
 				}
 			</div>

@@ -8,11 +8,7 @@ import {setTv} from "store/LIVE/actions/tvAction";
 
 import Alert from "../../modules/Alert";
 import Timer from "../../modules/Timer";
-import History from "./History";
-import Statistics from "./Statistics";
-import Hot from "./Hot";
-import Winning from "./Winning";
-import Translation from "./Translation";
+import Table from "./Table";
 
 import style from './index.module.scss';
 
@@ -71,17 +67,7 @@ const Page = () => {
                             <div className={style.weeks}>
                                 <button className={style.week}>{t('interface.round')} #{tv.event.id}</button>
                             </div>
-							<div className={style.grid}>
-								<div>
-									<History />
-								</div>
-								<div>
-									<Statistics />
-									<Hot />
-									<Winning />
-								</div>
-								<Translation />
-							</div>
+							<Table data={tv.event} />
                         </>
                     :
                         <Alert

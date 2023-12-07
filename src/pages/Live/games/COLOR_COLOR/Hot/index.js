@@ -3,51 +3,26 @@ import Odd from "../Odd";
 
 import style from './index.module.scss';
 
-const Hot = () => {
+const Hot = ({data}) => {
 	return (
         <>
 			<Label text={'Hot numbers in the last 20 draws'} />
 			<div className={style.row}>
-				<div className={style.cell}>
-					<Odd
-						color={'red'}
-						data={'1'}
-						size={'md'}
-					/>
-					<div>32</div>
-				</div>
-				<div className={style.cell}>
-					<Odd
-						color={'red'}
-						data={'1'}
-						size={'md'}
-					/>
-					<div>32</div>
-				</div>
-				<div className={style.cell}>
-					<Odd
-						color={'red'}
-						data={'1'}
-						size={'md'}
-					/>
-					<div>32</div>
-				</div>
-				<div className={style.cell}>
-					<Odd
-						color={'red'}
-						data={'1'}
-						size={'md'}
-					/>
-					<div>32</div>
-				</div>
-				<div className={style.cell}>
-					<Odd
-						color={'red'}
-						data={'1'}
-						size={'md'}
-					/>
-					<div>32</div>
-				</div>
+				{
+					data.statistics.hot.map((el, idx) =>
+						<div
+							key={idx}
+							className={style.cell}
+						>
+							<Odd
+								color={el.color}
+								data={el.num}
+								size={'md'}
+							/>
+							<div>{el.count}</div>
+						</div>
+					)
+				}
 			</div>
         </>
     );

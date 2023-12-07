@@ -20,6 +20,11 @@
     border-radius: inherit;
     content: '';
   }
+	
+	&.black,
+	&.draw {
+		background-color: #222;
+	}
 
   &.red {
     background-color: #bf1e2e;
@@ -31,10 +36,6 @@
 
   &.yellow {
     background-color: #c08301;
-  }
-
-  &.draw {
-    background-color: #222;
   }
 
   &.sm {
@@ -61,7 +62,9 @@
 
   &.lg {
     @include size(rem(67px));
-
+	  
+	  font-size: rem(36px);
+	  
     &::before {
       @include size(rem(55px));
     }

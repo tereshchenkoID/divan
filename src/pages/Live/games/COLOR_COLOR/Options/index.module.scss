@@ -1,34 +1,23 @@
 @import "scss/config";
 
-.block {
-    position: relative;
-}
-
 .row {
-    display: grid;
-    grid-template-columns: 1.5fr 2.5fr 1.5fr 1fr;
+		@include make-spacer(mt, 4);
+		@include wrapper;
+		
+		display: grid;
+    grid-template-columns: 2.5fr 1fr 2.5fr 1fr;
     color: var(--color-white);
-
-    &.alt {
-        @include wrapper;
-    }
 }
 
 .cell {
-    @include make-spacer(px, 1);
+    @include make-spacer(p, 1);
     @include flex(center, center);
 
     background-color: var(--color-thunder);
     border-right: rem(1px) solid var(--color-border);
-    border-bottom: rem(1px) solid var(--color-border);
-    height: rem(40px);
     gap: rem(10px);
 
     &:nth-child(odd) {
         background-color: var(--color-heavy-metal);
     }
-	
-		&.left {
-				justify-content: flex-start;
-		}
 }

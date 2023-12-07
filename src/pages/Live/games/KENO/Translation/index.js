@@ -71,7 +71,7 @@ const Translation = ({data}) => {
 	}
 	
 	useEffect(() => {
-		if (current === 0) {
+		if (scenes && current === 0) {
 			const init = scenes.filter(el => {
 				return el.update <= getIndex()
 			})
@@ -93,7 +93,7 @@ const Translation = ({data}) => {
 	}, [data])
     
     useEffect(() => {
-		if (current < scenes.length && getIndex() === scenes[current].update) {
+		if (scenes && current < scenes.length && getIndex() === scenes[current].update) {
 			setCurrent((prevIndex) => prevIndex + 1)
 			setActive(results[Number(current)])
 		}
