@@ -67,7 +67,7 @@ const Page = () => {
                             <div className={style.weeks}>
                                 <button className={style.week}>{t('interface.round')} #{tv.event.id}</button>
                             </div>
-							<Table data={tv.event} />
+														<Table data={tv.event} />
                         </>
                     :
                         <Alert

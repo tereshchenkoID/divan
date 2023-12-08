@@ -20,7 +20,7 @@
 				.odd {
 					
 						&:last-child {
-								animation: 2.5s ease-in-out alternate bounce;
+								animation: 2.2s ease-in-out alternate bounce;
 						}
 				}
 		}
@@ -35,7 +35,7 @@
 
 @keyframes bounce {
 	0% {
-		transform: translateX(-500px) rotate(0deg)
+		transform: translateX(-680px) rotate(0deg)
 	}
 	30% {
 		transform: translateX(0) rotate(360deg)

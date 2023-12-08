@@ -5,7 +5,6 @@ import { types } from "../actionTypes";
 
 export const setTv = (url) => async dispatch => {
     const { get } = useRequest('viewer/event');
-
     try {
         const data = await get(url)
         

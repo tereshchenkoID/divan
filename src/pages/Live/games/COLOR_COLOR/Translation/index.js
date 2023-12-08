@@ -17,21 +17,16 @@ const colorCounter = ({ results }) => {
 }
 
 const findMostCommonColor = (data) => {
-	let mostCommonColor = '';
-	let maxCount = 0;
-
-	Object.entries(data).forEach(([color, count]) => {
-		if (count > maxCount) {
-			mostCommonColor = color;
-			maxCount = count;
-		}
-	});
-
-	return maxCount >= 3 ? mostCommonColor : 'draw';
+	const maxCount = Math.max(...Object.values(data));
+	const maxCounts = Object.entries(data).filter(([, count]) => {
+		return count >= 3
+	})
+	
+	return (maxCounts.length > 1 || maxCount < 3) ? 'draw' : Object.keys(data).find((color) => data[color] === maxCount);
 };
 
-const getDuration = (start, next, delta) => {
-	const c = new Date(start).getTime() + delta
+const getDuration = (start, next) => {
+	const c = new Date(start).getTime()
 	const r = new Date(next - c)
 	return r.getMinutes() * 60 + r.getSeconds()
 }
@@ -45,14 +40,13 @@ const Translation = ({data}) => {
 	const scenes = data.round.scenes
 	
 	const getIndex = () => {
-		const timeDuration = getDuration(data.start, data.nextUpdate, delta)
+		const timeDuration = getDuration(data.start, data.nextUpdate)
 		const timeCurrent = getDifferent(data.nextUpdate, delta, 1)
 		return timeDuration - timeCurrent
 	}
 	
 	useEffect(() => {
 		if(progress === 2) {
-			console.log("1")
 			setCurrent(0)
 			setColumn([])
 		}
@@ -60,14 +54,15 @@ const Translation = ({data}) => {
 	
 	useEffect(() => {
 		if (progress === 1 || progress === 3) {
+			setCurrent(0)
 			setColumn(data.history[0].results)
 		}
 		else {
-			if (scenes && current === 0) {
+			if (scenes) {
 				const init = scenes.filter(el => {
 					return el.update <= getIndex()
 				})
-				
+
 				setCurrent(init.length)
 				setColumn(scenes.slice(0, init.length))
 			}
@@ -86,7 +81,7 @@ const Translation = ({data}) => {
 	}, [liveTimer])
 	
 	return (
-        <div className={style.block}>
+		<div className={style.block}>
 			<div className={style.row}>
 				<div
 					className={
@@ -132,8 +127,8 @@ const Translation = ({data}) => {
 					<div>{findMostCommonColor(colorCounter(data.history[0]))}</div>
 				</div>
 			}
-        </div>
-    );
+		</div>
+  );
 }
 
 export default Translation;

@@ -15,23 +15,17 @@ const colorCounter = ({ results }) => {
 }
 
 const findMostCommonColor = (data) => {
-	let mostCommonColor = '';
-	let maxCount = 0;
+	const maxCount = Math.max(...Object.values(data));
+	const maxCounts = Object.entries(data).filter(([, count]) => {
+		return count >= 3
+	})
 	
-	Object.entries(data).forEach(([color, count]) => {
-		if (count > maxCount) {
-			mostCommonColor = color;
-			maxCount = count;
-		}
-	});
-	
-	return mostCommonColor;
+	return (maxCounts.length > 1 || maxCount < 3) ? 'draw' : Object.keys(data).find((color) => data[color] === maxCount);
 };
 
 const History = ({data}) => {
-
 	return (
-        <div className={style.block}>
+    <div className={style.block}>
 			<div className={style.row}>
 				<Label text={'Event'} />
 				<Label text={'Numbers'} />
@@ -88,8 +82,8 @@ const History = ({data}) => {
 					)
 				}
 			</div>
-        </div>
-    );
+    </div>
+  );
 }
 
 export default History;

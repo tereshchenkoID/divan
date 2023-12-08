@@ -9,9 +9,8 @@ import Translation from "../Translation";
 import Options from "../Options";
 
 import style from './index.module.scss';
-
 const Table = ({data}) => {
-    const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(true)
 	
 	useEffect(() => {
 		setTimeout(() => {
