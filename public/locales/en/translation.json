@@ -18,6 +18,14 @@
     "bets_close_in": "Bets close in"
   },
   "interface": {
+    "numbers": "numbers",
+    "colors": "colors",
+    "winning": "winning",
+    "late_numbers": "late numbers",
+    "hot_numbers": "Hot numbers in the last 20 draws",
+    "winning_colors": "Winning colors in the last 20 draws",
+    "max_delay": "Max delay",
+    "most_frequent": "The most frequent",
     "history": "history",
     "pay_table": "pay table",
     "name": "name",

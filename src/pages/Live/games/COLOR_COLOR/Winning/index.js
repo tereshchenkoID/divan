@@ -1,12 +1,16 @@
+import {useTranslation} from "react-i18next";
+
 import Label from "../../../modules/Label";
 import Odd from "../Odd";
 
 import style from './index.module.scss';
 
 const Winning = ({data}) => {
+	const { t } = useTranslation()
+	
 	return (
         <>
-			<Label text={'Winning colors in the last 20 draws'} />
+			<Label text={t('interface.winning_colors')} />
 			<div className={style.row}>
 				{
 					data.statistics.winning.map((el, idx) =>

@@ -9,7 +9,7 @@ import Translation from "../Translation";
 import Options from "../Options";
 
 import style from './index.module.scss';
-const Table = ({data}) => {
+const Table = ({data, progress}) => {
   const [loading, setLoading] = useState(true)
 	
 	useEffect(() => {

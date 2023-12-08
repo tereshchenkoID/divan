@@ -18,6 +18,14 @@
     "bets_close_in": "Bets close in UA"
   },
   "interface": {
+    "numbers": "numbers UA",
+    "colors": "colors UA",
+    "winning": "winning UA",
+    "late_numbers": "late numbers UA",
+    "hot_numbers": "Hot numbers in the last 20 draws UA",
+    "winning_colors": "Winning colors in the last 20 draws UA",
+    "max_delay": "Max delay UA",
+    "most_frequent": "The most frequent UA",
     "history": "history UA",
     "pay_table": "pay table UA",
     "name": "name UA",

@@ -1,6 +1,10 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
+import {useSelector} from "react-redux";
+import {useTranslation} from "react-i18next";
 
 import classNames from "classnames";
+
+import {getDifferent} from "helpers/getDifferent";
 
 import Label from "../../../modules/Label";
 import Odd from "../Odd";
@@ -21,16 +25,74 @@ const findMostCommonColor = (data) => {
 	})
 	
 	return (maxCounts.length > 1 || maxCount < 3) ? 'draw' : Object.keys(data).find((color) => data[color] === maxCount);
-};
+}
+
+const getDuration = (start, next) => {
+	const c = new Date(start).getTime()
+	const r = new Date(next - c)
+	return r.getMinutes() * 60 + r.getSeconds()
+}
 
 const History = ({data}) => {
+	const { t } = useTranslation()
+	const {delta} = useSelector((state) => state.delta)
+	const {progress} = useSelector((state) => state.progress)
+	const {liveTimer} = useSelector((state) => state.liveTimer)
+	const [current, setCurrent] = useState(0);
+	const [columns, setColumn] = useState([])
+	const scenes = data.round.scenes
+	
+	const getIndex = () => {
+		const timeDuration = getDuration(data.start, data.nextUpdate)
+		const timeCurrent = getDifferent(data.nextUpdate, delta, 1)
+		return timeDuration - timeCurrent
+	}
+	
+	useEffect(() => {
+		if(progress === 2) {
+			setCurrent(0)
+			setColumn([])
+		}
+	}, [progress])
+	
+	useEffect(() => {
+		if (progress === 1 || progress === 3) {
+			setCurrent(0)
+			setColumn(data.history[0].results)
+		}
+		else {
+			if (scenes) {
+				const init = scenes.filter(el => {
+					return el.update <= getIndex()
+				})
+				
+				setCurrent(init.length)
+				setColumn(scenes.slice(0, init.length))
+			}
+		}
+	}, [data])
+	
+	useEffect(() => {
+		if (scenes && current < scenes.length && getIndex() === scenes[current].update) {
+			const active = scenes[Number(current)]
+			
+			setTimeout(() => {
+				setCurrent((prevIndex) => prevIndex + 1)
+				setColumn((prevIndex) => [...prevIndex, {
+					color: active.color,
+					num: active.num
+				}])
+			}, 1500)
+		}
+	}, [liveTimer])
+	
 	return (
-    <div className={style.block}>
+		<div className={style.block}>
 			<div className={style.row}>
-				<Label text={'Event'} />
-				<Label text={'Numbers'} />
-				<Label text={'Colors'} />
-				<Label text={'Winning'} />
+				<Label text={t('interface.event')} />
+				<Label text={t('interface.numbers')} />
+				<Label text={t('interface.colors')} />
+				<Label text={t('interface.winning')} />
 			</div>
 			<div
 				className={
@@ -40,6 +102,30 @@ const History = ({data}) => {
 					)
 				}
 			>
+				{
+					progress === 2 &&
+					<>
+						<div className={style.cell}>#{data.round.id}</div>
+						<div className={style.cell}>
+							{
+								columns.map((el, idx) =>
+									<div
+										key={idx}
+										className={style.odd}
+									>
+										<Odd
+											key={idx}
+											color={el.color}
+											data={el.num}
+										/>
+									</div>
+								)
+							}
+						</div>
+						<div className={style.cell} />
+						<div className={style.cell} />
+					</>
+				}
 				{
 					data.history.map((el, idx) =>
 						<React.Fragment key={idx}>
@@ -74,16 +160,14 @@ const History = ({data}) => {
 								}
 							</div>
 							<div className={style.cell}>
-								<Odd
-									color={findMostCommonColor(colorCounter(el))}
-								/>
+								<Odd color={findMostCommonColor(colorCounter(el))}/>
 							</div>
 						</React.Fragment>
 					)
 				}
 			</div>
-    </div>
-  );
+		</div>
+	);
 }
 
 export default History;

@@ -15,29 +15,31 @@
 
     gap: rem(10px);
 	
-		&.active {
+	&.active {
+		
+		.odd {
 			
-				.odd {
-					
-						&:last-child {
-								animation: 2.2s ease-in-out alternate bounce;
-						}
-				}
+			&:last-child {
+				animation: 2.2s ease-in-out alternate bounce;
+			}
 		}
+	}
 }
 
 .grid {
-		@include make-spacer(mb, 3);
-		@include flex($align-items: center);
+	@include make-spacer(mb, 3);
+	@include flex($align-items: center);
 	
-		gap: rem(10px);
+	gap: rem(10px);
 }
 
 @keyframes bounce {
 	0% {
-		transform: translateX(-680px) rotate(0deg)
+		opacity: 0;
+		transform: translateX(rem(-680px)) rotate(0deg)
 	}
 	30% {
+		opacity: 1;
 		transform: translateX(0) rotate(360deg)
 	}
 	50% {

@@ -74,7 +74,7 @@ const Table = () => {
                                 }
                             </div>
                             <div className={style.weeks}>
-                                <button className={style.week}>{t('interface.event')} {tv.event.id}</button>
+                                <button className={style.week}>{t('interface.event')} #{tv.event.id}</button>
                             </div>
                             {
                                 progress === 1 && <Markets data={tv.event} />

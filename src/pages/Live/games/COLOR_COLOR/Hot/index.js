@@ -1,12 +1,16 @@
+import {useTranslation} from "react-i18next";
+
 import Label from "../../../modules/Label";
 import Odd from "../Odd";
 
 import style from './index.module.scss';
 
 const Hot = ({data}) => {
+	const { t } = useTranslation()
+	
 	return (
         <>
-			<Label text={'Hot numbers in the last 20 draws'} />
+			<Label text={t('interface.hot_numbers')} />
 			<div className={style.row}>
 				{
 					data.statistics.hot.map((el, idx) =>
