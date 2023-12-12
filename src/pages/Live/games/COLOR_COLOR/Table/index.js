@@ -9,8 +9,9 @@ import Translation from "../Translation";
 import Options from "../Options";
 
 import style from './index.module.scss';
+
 const Table = ({data, progress}) => {
-  const [loading, setLoading] = useState(true)
+	const [loading, setLoading] = useState(true)
 	
 	useEffect(() => {
 		setTimeout(() => {
@@ -18,31 +19,31 @@ const Table = ({data, progress}) => {
 		}, 500)
 	}, [data])
 	
-    return (
-        <div className={style.block}>
+	return (
+		<div className={style.block}>
 			{
 				loading
 					?
-						<Loader
-							type={'block'}
-							background={'transparent'}
-						/>
+					<Loader
+						type={'block'}
+						background={'transparent'}
+					/>
 					:
-						<div className={style.grid}>
-							<div>
-								<History data={data} />
-							</div>
-							<div>
-								<Statistics data={data} />
-								<Hot data={data} />
-								<Options data={data} />
-								<Winning data={data} />
-							</div>
-							<Translation data={data} />
+					<div className={style.grid}>
+						<div>
+							<History data={data} />
 						</div>
+						<div>
+							<Statistics data={data} />
+							<Hot data={data} />
+							<Options data={data} />
+							<Winning data={data} />
+						</div>
+						<Translation data={data} />
+					</div>
 			}
 		</div>
-    );
+	);
 }
 
 export default Table;
