@@ -1,53 +1,53 @@
 @import "scss/config";
 
 .block {
-    @include make-spacer(px, 2);
-    @include wrapper;
-    @include flex($align-items: center);
+  @include make-spacer(px, 2);
+  @include wrapper;
+  @include flex($align-items: center);
 
-    background-color: var(--color-heavy-metal);
-    gap: rem(20px);
-    color: var(--color-white);
+  background-color: var(--color-heavy-metal);
+  gap: rem(20px);
+  color: var(--color-white);
 }
 
 .row {
-    @include flex($align-items: center);
+  @include flex($align-items: center);
 
-    gap: rem(10px);
-	
-	&.active {
-		
-		.odd {
-			
-			&:last-child {
-				animation: 2.2s ease-in-out alternate bounce;
-			}
-		}
-	}
+  gap: rem(10px);
+
+  &.active {
+
+    .odd {
+
+      &:last-child {
+        animation: 2.2s ease-in-out alternate bounce;
+      }
+    }
+  }
 }
 
 .grid {
-	@include make-spacer(mb, 3);
-	@include flex($align-items: center);
-	
-	gap: rem(10px);
+  @include make-spacer(mb, 3);
+  @include flex($align-items: center);
+
+  gap: rem(10px);
 }
 
 @keyframes bounce {
-	0% {
-		opacity: 0;
-		transform: translateX(rem(-680px)) rotate(0deg)
-	}
-	30% {
-		opacity: 1;
-		transform: translateX(0) rotate(360deg)
-	}
-	50% {
-		animation-timing-function: ease-out;
-		transform: translate3d(-15%, 0, 0) rotate(340deg);
-	}
-	100% {
-		animation-timing-function: ease-in;
-		transform: rotate(360deg);
-	}
+  0% {
+    opacity: 0;
+    transform: translateX(rem(-680px)) rotate(0deg)
+  }
+  30% {
+    opacity: 1;
+    transform: translateX(0) rotate(360deg)
+  }
+  50% {
+    animation-timing-function: ease-out;
+    transform: translate3d(-15%, 0, 0) rotate(340deg);
+  }
+  100% {
+    animation-timing-function: ease-in;
+    transform: rotate(360deg);
+  }
 }

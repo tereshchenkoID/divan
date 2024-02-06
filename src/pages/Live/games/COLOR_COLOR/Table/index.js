@@ -24,23 +24,23 @@ const Table = ({data, progress}) => {
 			{
 				loading
 					?
-					<Loader
-						type={'block'}
-						background={'transparent'}
-					/>
+						<Loader
+							type={'block'}
+							background={'transparent'}
+						/>
 					:
-					<div className={style.grid}>
-						<div>
-							<History data={data} />
+						<div className={style.grid}>
+							<div>
+								<History data={data} />
+							</div>
+							<div>
+								<Statistics data={data} />
+								<Hot data={data} />
+								<Options data={data} />
+								<Winning data={data} />
+							</div>
+							<Translation data={data} />
 						</div>
-						<div>
-							<Statistics data={data} />
-							<Hot data={data} />
-							<Options data={data} />
-							<Winning data={data} />
-						</div>
-						<Translation data={data} />
-					</div>
 			}
 		</div>
 	);

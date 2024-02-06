@@ -28,25 +28,25 @@ const allReducer = combineReducers({
     auth: authReducer,
 	game: gameReducer,
 	delta: deltaReducer,
-	
+
 	/* HOME REDUCERS */
 	data: dataReducer,
 	update: updateReducer,
 	settings: settingsReducer,
-    live: liveReducer,
-    liveTimer: liveTimerReducer,
-    modal: modalReducer,
-    betslip: betslipReducer,
-    stake: stakeReducer,
-    ticket: ticketReducer,
-    balance: balanceReducer,
-    notification: notificationReducer,
-    socket: socketReducer,
-    
-    /* LIVE REDUCERS */
-    progress: progressReducer,
-    history: historyReducer,
-    tv: tvReducer,
+  live: liveReducer,
+  liveTimer: liveTimerReducer,
+  modal: modalReducer,
+  betslip: betslipReducer,
+  stake: stakeReducer,
+  ticket: ticketReducer,
+  balance: balanceReducer,
+  notification: notificationReducer,
+  socket: socketReducer,
+
+  /* LIVE REDUCERS */
+  progress: progressReducer,
+  history: historyReducer,
+  tv: tvReducer,
 });
 
 const composeEnhancers = process.env.NODE_ENV !== 'production' && typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : compose;

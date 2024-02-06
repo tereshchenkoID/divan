@@ -6,7 +6,7 @@ import classNames from 'classnames'
 
 import { getDifferent } from 'helpers/getDifferent'
 
-import Label from '../../../modules/Label'
+import Label from 'pages/Home/modules/Label'
 import Odd from '../Odd'
 
 import style from './index.module.scss'
@@ -62,28 +62,35 @@ const History = ({ data }) => {
       setCurrent(0)
       setColumn(data.history[0].results)
     } else {
-      const init = scenes ? scenes.filter(el => el.update <= getIndex()) : []
-      setCurrent(init.length)
-      setColumn(scenes.slice(0, init.length))
+      if (scenes) {
+        const init = scenes.filter(el => {
+          return el.update <= getIndex()
+        })
+
+        setCurrent(init.length)
+        setColumn(scenes.slice(0, init.length))
+      }
     }
   }, [data])
 
   useEffect(() => {
-    const init = scenes ? scenes.filter(el => el.update <= getIndex()) : []
-
-    setCurrent(init.length)
-
     if (
       scenes &&
       current < scenes.length &&
       getIndex() === scenes[current].update
     ) {
-      const next = current + 1
+      const active = scenes[Number(current)]
 
       setTimeout(() => {
-        setCurrent(next)
-        setColumn(scenes.slice(0, next))
-      }, 500)
+        setCurrent(prevIndex => prevIndex + 1)
+        setColumn(prevIndex => [
+          ...prevIndex,
+          {
+            color: active.color,
+            num: active.num,
+          },
+        ])
+      }, 1500)
     }
   }, [liveTimer])
 

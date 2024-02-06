@@ -9,8 +9,8 @@
   font-size: var(--font-size);
   font-weight: var(--typography-regular);
   min-height: rem(768px);
-  min-width: rem(1366px);
   overflow: hidden;
+  min-width: rem(1366px);
 
   &.fixed {
     @include size(rem(1366px), rem(768px));

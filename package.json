@@ -9,7 +9,7 @@
     "animejs": "^3.2.1",
     "axios": "^0.24.0",
     "classnames": "^2.3.2",
-    "crypto-js": "^4.1.1",
+    "crypto-js": "^4.2.0",
     "i18next": "^22.4.9",
     "i18next-browser-languagedetector": "^7.0.1",
     "i18next-http-backend": "^2.1.1",
@@ -32,6 +32,15 @@
     "swiper": "^9.0.5",
     "web-vitals": "^2.1.4"
   },
+  "devDependencies": {
+    "prettier": "^3.2.4",
+    "stylelint": "^10.1.0",
+    "stylelint-config-concentric-order": "^3.4.1",
+    "stylelint-config-recommended-scss": "^14.0.0",
+    "stylelint-config-sass-guidelines": "^6.0.0",
+    "stylelint-order": "^3.0.0",
+    "stylelint-scss": "^3.8.0"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -44,16 +53,7 @@
       "react-app/jest"
     ]
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  }
+  "browserslist": [
+    "last 4 versions"
+  ]
 }
