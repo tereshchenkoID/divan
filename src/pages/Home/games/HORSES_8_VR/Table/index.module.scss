@@ -30,8 +30,26 @@
 }
 
 .live {
+  @include make-spacer(p, 2);
+  @include flex(center, center);
   @include size(100%);
   @include wrapper;
+
+  font-size: rem(52px);
+  color: var(--color-orange);
+
+  * {
+    animation: blink 1.5s infinite;
+  }
+}
+
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }
 
 .league {

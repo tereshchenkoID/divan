@@ -23,6 +23,7 @@ import Games from './modules/Games'
 import Ticker from './modules/Ticker'
 
 import style from './index.module.scss'
+import Jackpot from './modules/Modal/Jackpot'
 
 const getGame = id => {
   switch (id) {

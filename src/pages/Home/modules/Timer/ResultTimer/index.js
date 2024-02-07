@@ -27,7 +27,8 @@ const ResultTimer = ({ data, game, delta }) => {
       let r = getDifferent(data.event.nextUpdate, delta)
       setTimer(r)
 
-      if (r === '0') {
+      if (new Date().getTime() + delta >= data.event.nextUpdate) {
+        // if (r === '0') {
         if (isConnected) {
           sendMessage({
             cmd: `feed/${sessionStorage.getItem('authToken')}/${game.type}/${game.id}`,

@@ -25,7 +25,8 @@ const StartTimer = ({ data, delta }) => {
       let r = getDifferent(data.start, delta)
       const diff = (data.start - (new Date().getTime() + delta)) / 1000
 
-      if (r === '0') {
+      if (new Date().getTime() + delta >= data.nextUpdate) {
+        // if (r === '0') {
         if (isConnected) {
           sendMessage({
             cmd: `feed/${sessionStorage.getItem('authToken')}/EVENT/${data.id}`,
