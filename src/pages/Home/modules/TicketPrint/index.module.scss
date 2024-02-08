@@ -6,8 +6,8 @@ $color: #000;
   @include make-spacer('p', 4);
 
   max-width: 350px;
-  color: $color;
   font-size: rem(12px);
+  color: $color;
 }
 
 .logo {
@@ -26,18 +26,18 @@ $color: #000;
   @include make-spacer('mx', auto);
   @include make-spacer('mb', 4);
 
-  text-align: center;
-  font-size: rem(20px);
-  font-family: var(--font-family-code);
   height: rem(100px);
+  font-family: var(--font-family-code);
+  font-size: rem(20px);
+  text-align: center;
   color: $color;
 }
 
 .header {
   display: grid;
   grid-template-columns: 2fr 3fr;
-  align-items: center;
   grid-gap: rem(10px);
+  align-items: center;
 }
 
 .body {

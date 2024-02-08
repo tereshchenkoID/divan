@@ -6,8 +6,8 @@ $color: #000;
   @include make-spacer('p', 4);
 
   max-width: 450px;
-  color: $color;
   font-size: rem(14px);
+  color: $color;
 }
 
 .title {

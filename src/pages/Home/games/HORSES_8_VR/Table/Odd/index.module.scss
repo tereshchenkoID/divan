@@ -15,9 +15,9 @@
   &.horizontal {
     @include make-spacer('pl', 4);
 
-    justify-content: flex-start;
-    flex-direction: row;
     gap: rem(5px);
+    flex-direction: row;
+    justify-content: flex-start;
   }
 }
 

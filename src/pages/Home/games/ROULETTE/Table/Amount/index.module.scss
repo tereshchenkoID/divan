@@ -10,8 +10,8 @@
 .animation {
   position: absolute;
   top: rem(-5px);
-  left: 0;
   right: 0;
+  left: 0;
   color: var(--color-orange);
   opacity: 0;
 
@@ -24,12 +24,8 @@
   @include size(100%);
   @include flex(center, center);
 
-  font-size: rem(14px);
   border-radius: 50%;
-
-  &.active {
-    animation: chip_move 0.3s ease-in-out forwards;
-  }
+  font-size: rem(14px);
 
   img {
     @include absolute-filled;
@@ -38,18 +34,26 @@
   p {
     position: relative;
   }
+
+  &.active {
+    animation: chip_move 0.3s ease-in-out forwards;
+  }
 }
 
 @keyframes amount_move {
+
   0% {
     opacity: 0;
   }
+
   10% {
     opacity: 1;
   }
+
   50% {
     transform: translateY(-50%);
   }
+
   100% {
     transform: translateY(-100%);
     opacity: 0;
@@ -57,6 +61,7 @@
 }
 
 @keyframes chip_move {
+
   0% {
     transform: translateY(0);
   }

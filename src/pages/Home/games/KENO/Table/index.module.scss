@@ -21,10 +21,10 @@
 
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  column-gap: rem(40px);
-  padding-left: rem(270px);
   flex-shrink: 0;
   min-height: rem(92px);
+  padding-left: rem(270px);
+  column-gap: rem(40px);
 }
 
 .wrapper {

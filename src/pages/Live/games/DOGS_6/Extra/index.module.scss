@@ -17,7 +17,7 @@
   @include make-spacer(px, 2);
   @include flex(center, center);
 
+  height: rem(40px);
   border-right: rem(1px) solid var(--color-border);
   border-bottom: rem(1px) solid var(--color-border);
-  height: rem(40px);
 }

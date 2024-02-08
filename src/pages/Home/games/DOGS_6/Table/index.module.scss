@@ -20,9 +20,9 @@
   @include flex($align-items: center);
   @include make-spacer('my', 2);
 
-  padding-left: rem(270px);
   flex-shrink: 0;
   min-height: rem(92px);
+  padding-left: rem(270px);
 }
 
 .wrapper {
@@ -44,9 +44,11 @@
 }
 
 @keyframes blink {
+
   0% {
     opacity: 1;
   }
+
   100% {
     opacity: 0;
   }

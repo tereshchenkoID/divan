@@ -3,8 +3,8 @@
 .block {
   display: grid;
   grid-template-columns: rem(216px) 1fr;
-  border-top: 1px solid var(--color-border);
   height: rem(171px);
+  border-top: 1px solid var(--color-border);
 
   > div {
 
@@ -44,7 +44,7 @@
 .cell {
   @include flex(center, center);
 
-  background-color: var(--color-thunder);
   border-right: 1px solid var(--color-border);
   border-bottom: 1px solid var(--color-border);
+  background-color: var(--color-thunder);
 }

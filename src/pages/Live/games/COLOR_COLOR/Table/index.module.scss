@@ -12,8 +12,8 @@
     @include size(100%);
 
     display: grid;
-    grid-template-columns: 2fr 1.5fr;
     grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: 2fr 1.5fr;
     gap: rem(20px);
 
     & > div {

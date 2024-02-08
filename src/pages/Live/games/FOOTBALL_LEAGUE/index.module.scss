@@ -4,14 +4,14 @@
   @include size(100%);
 
   display: grid;
-  grid-template-columns: 1fr rem(357px);
-  column-gap: rem(10px);
   position: relative;
-  overflow: hidden;
-  text-transform: uppercase;
-  text-align: center;
+  grid-template-columns: 1fr rem(357px);
   font-weight: var(--typography-bold);
+  text-align: center;
+  text-transform: uppercase;
+  overflow: hidden;
   color: var(--color-white);
+  column-gap: rem(10px);
 }
 
 .column {

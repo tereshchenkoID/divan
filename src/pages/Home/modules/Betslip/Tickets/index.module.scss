@@ -12,13 +12,13 @@
 
   display: grid;
   grid-template-columns: rem(50px) 1fr rem(80px) rem(100px);
-  column-gap: rem(5px);
   align-items: center;
-  overflow: hidden;
   font-size: rem(12px);
   font-weight: var(--typography-bold);
   text-align: center;
+  overflow: hidden;
   color: var(--color-orange);
+  column-gap: rem(5px);
 }
 
 .item {

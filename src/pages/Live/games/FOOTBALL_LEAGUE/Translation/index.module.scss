@@ -4,32 +4,32 @@
   @include make-spacer(p, 2);
 
   display: grid;
-  grid-template-columns: 1fr rem(257px);
-  column-gap: rem(10px);
   position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
   z-index: 15;
-  background-color: var(--color-green-100);
+  grid-template-columns: 1fr rem(257px);
   flex-grow: 1;
-  overflow: hidden;
-  text-transform: uppercase;
-  text-align: center;
   font-weight: var(--typography-bold);
+  text-align: center;
+  text-transform: uppercase;
+  overflow: hidden;
   color: var(--color-white);
+  background-color: var(--color-green-100);
+  column-gap: rem(10px);
 }
 
 .table {
   @include flex($direction: column);
 
+  position: relative;
+  z-index: 1;
   border: rem(3px) solid var(--color-orange-900);
   border-radius: rem(9px);
   overflow: hidden;
   background-color: #1b1b1b;
-  position: relative;
-  z-index: 1;
 }
 
 .info {

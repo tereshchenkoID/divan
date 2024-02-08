@@ -25,10 +25,10 @@
 .cell {
   @include flex(center, center, column);
 
+  height: rem(74px);
   border-right: rem(1px) solid var(--color-border);
   border-bottom: rem(1px) solid var(--color-border);
   background-color: var(--color-heavy-metal);
-  height: rem(74px);
 
   &:nth-child(12n+1),
   &:nth-child(12n+2),

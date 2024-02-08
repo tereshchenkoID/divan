@@ -45,20 +45,20 @@
   @include size(100%);
 
   border: 1px solid #808080;
-  background-color: #363636;
   border-radius: rem(5px);
-  overflow: hidden;
-  text-align: right;
   font-weight: var(--typography-bold);
   line-height: 1;
+  text-align: right;
   white-space: nowrap;
-  -moz-appearance: textfield;
+  overflow: hidden;
   color: var(--color-white);
+  background-color: #363636;
+  appearance: textfield;
 
   &::-webkit-outer-spin-button,
   &::-webkit-inner-spin-button {
-    -webkit-appearance: none;
     margin: 0;
+    appearance: none;
   }
 }
 
@@ -82,9 +82,9 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   align-items: center;
-  background-color: #333333;
-  color: var(--color-white);
   font-size: rem(13px);
+  color: var(--color-white);
+  background-color: #333;
 
   div {
 

@@ -4,8 +4,8 @@
   @include size(100%);
 
   display: grid;
-  grid-template-columns: rem(270px) 1fr;
   position: relative;
+  grid-template-columns: rem(270px) 1fr;
 }
 
 .odd,
@@ -17,8 +17,8 @@
 
   .results {
     border-top: rem(3px) solid var(--color-orange-900);
-    border-left: rem(3px) solid var(--color-orange-900);
     border-bottom: rem(3px) solid var(--color-orange-900);
+    border-left: rem(3px) solid var(--color-orange-900);
     border-radius: rem(9px) 0 0 rem(9px);
   }
 }
@@ -44,8 +44,8 @@
   .row {
     display: grid;
     grid-template-columns: rem(35px) 1fr;
-    column-gap: rem(10px);
     align-items: center;
+    column-gap: rem(10px);
   }
 }
 
@@ -66,8 +66,8 @@
   @include flex;
 
   position: relative;
-  padding-right: rem(3px);
   height: rem(37px);
+  padding-right: rem(3px);
 
   .column {
     border-top: rem(1px) solid var(--color-border);
@@ -75,8 +75,8 @@
 }
 
 .row {
-  border-top: rem(1px) solid var(--color-border);
   height: rem(53px);
+  border-top: rem(1px) solid var(--color-border);
   text-align: center;
 
   &:nth-child(even) {
@@ -122,8 +122,8 @@
   grid-template-columns: rem(40px) 1fr rem(20px) 1fr rem(40px);
   align-items: center;
   height: 100%;
-  text-align: center;
   font-size: rem(15px);
+  text-align: center;
 }
 
 .column {
@@ -139,13 +139,13 @@
   @include make-spacer(py, half);
 
   display: inline-block;
-  border-radius: rem(3px);
-  background-color: var(--color-green);
   z-index: 1;
-  color: var(--color-orange);
-  white-space: nowrap;
-  line-height: 1;
+  border-radius: rem(3px);
   font-size: rem(10px);
+  line-height: 1;
+  white-space: nowrap;
+  color: var(--color-orange);
+  background-color: var(--color-green);
 }
 
 .logo {

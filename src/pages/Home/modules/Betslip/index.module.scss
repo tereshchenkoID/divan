@@ -3,19 +3,19 @@
 .block {
   @include flex($direction: column);
 
+  height: 100%;
   border: rem(2px) solid var(--color-orange);
   border-radius: rem(10px);
-  background-color: var(--color-black);
-  height: 100%;
   overflow: hidden;
+  background-color: var(--color-black);
 }
 
 .body {
   @include scroll;
   @include make-spacer('py', 2);
 
-  overflow-x: hidden;
   flex-grow: 1;
+  overflow-x: hidden;
 }
 
 .stake {
@@ -25,9 +25,9 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   align-items: center;
-  background-color: #333333;
-  color: var(--color-white);
   font-size: rem(13px);
+  color: var(--color-white);
+  background-color: #333;
 
   div {
 

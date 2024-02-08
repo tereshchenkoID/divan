@@ -7,15 +7,15 @@
   position: fixed;
   top: rem(-10px);
   left: 50%;
-  transform: translateX(-50%);
-  background-color: var(--color-mine-shaft);
+  z-index: 14;
+  min-width: rem(780px);
   border: rem(2px) solid var(--color-orange);
   border-radius: rem(10px);
-  overflow: hidden;
-  min-width: rem(780px);
-  color: var(--color-white);
   text-align: center;
-  z-index: 14;
+  overflow: hidden;
+  color: var(--color-white);
+  background-color: var(--color-mine-shaft);
+  transform: translateX(-50%);
 }
 
 .wrapper {
@@ -31,11 +31,11 @@
   @include size(rem(30px));
 
   position: relative;
-  border-radius: rem(3px);
   border: 1px solid #8b0e26;
+  border-radius: rem(3px);
+  color: var(--color-white);
   background: linear-gradient(360deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.1) 100%);
   background-color: #d6233c;
-  color: var(--color-white);
 
   &::before {
     position: absolute;

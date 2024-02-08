@@ -13,8 +13,8 @@
 
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  align-items: center;
   grid-gap: rem(10px);
+  align-items: center;
 
   &:last-child {
     @include make-spacer('mb', 0);
@@ -39,10 +39,10 @@
   @include make-spacer('px', 2);
   @include size(100%, rem(38px));
 
-  background-color: var(--color-black);
-  border-radius: rem(5px);
   border: 2px solid var(--color-orange);
+  border-radius: rem(5px);
   color: var(--color-white);
+  background-color: var(--color-black);
 
   &:focus {
     outline: 0;

@@ -8,11 +8,11 @@
 .cell {
   @include flex(center, center);
 
-  background-color: var(--color-thunder);
-  border-right: 1px solid var(--color-border);
-  border-bottom: 1px solid var(--color-border);
   flex: 0 0 calc(100% / 9);
   height: rem(53px);
+  border-right: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+  background-color: var(--color-thunder);
 
   &:nth-child(18n+1),
   &:nth-child(18n+2),

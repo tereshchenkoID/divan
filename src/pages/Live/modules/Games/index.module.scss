@@ -23,12 +23,12 @@
   @include wrapper;
 
   display: grid;
-  grid-template-columns: repeat(4, rem(90px));
-  justify-content: center;
-  align-items: center;
-  gap: rem(15px);
   position: relative;
   z-index: 1;
+  grid-template-columns: repeat(4, rem(90px));
+  gap: rem(15px);
+  justify-content: center;
+  align-items: center;
 }
 
 .button {
@@ -37,12 +37,12 @@
   @include make-spacer(py, 2);
 
   border-radius: rem(10px);
-  background: linear-gradient(360deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 100%);
   font-size: rem(12px);
   font-weight: var(--typography-bold);
   text-transform: uppercase;
   text-shadow: none;
   color: var(--color-white);
+  background: linear-gradient(360deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 100%);
 
   &:hover {
     background-color: var(--color-orange-900);

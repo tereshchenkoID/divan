@@ -20,8 +20,8 @@
   }
 
   &.sm {
-    overflow: hidden;
     border: 1px solid var(--color-green-800);
+    overflow: hidden;
     background-color: var(--color-white);
 
     .label {
@@ -30,9 +30,9 @@
     }
 
     .odd {
-      background: linear-gradient(0deg, #294329 0%, #00a900 52%, #00a900 100%);
-      font-size: rem(16px);
       width: 100%;
+      font-size: rem(16px);
+      background: linear-gradient(0deg, #294329 0%, #00a900 52%, #00a900 100%);
     }
 
     &:hover,

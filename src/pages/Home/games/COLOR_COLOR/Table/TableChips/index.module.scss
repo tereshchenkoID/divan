@@ -2,11 +2,11 @@
 
 .block {
   display: grid;
+  position: relative;
   grid-template-columns: 1fr rem(300px);
   grid-gap: rem(5px);
-  position: relative;
-  overflow: hidden;
   width: 100%;
+  overflow: hidden;
 }
 
 .wrapper {
@@ -50,15 +50,15 @@
   @include make-spacer('px', 3);
   @include flex(center, center, column);
 
-  background-color: #333333;
   min-height: rem(115px);
+  background-color: #333;
 }
 
 .subtitle {
   @include make-spacer('mb', 2);
 
-  color: var(--color-white);
   font-size: rem(13px);
+  color: var(--color-white);
 }
 
 .quantity {

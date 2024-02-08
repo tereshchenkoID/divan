@@ -4,8 +4,8 @@
   @include flex($align-items: center);
 
   gap: rem(5px);
-  font-weight: var(--typography-bold);
   font-size: rem(13px);
+  font-weight: var(--typography-bold);
 }
 
 .icon {

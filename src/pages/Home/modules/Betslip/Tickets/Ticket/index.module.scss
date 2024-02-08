@@ -7,9 +7,9 @@
   display: grid;
   grid-template-columns: rem(50px) 1fr rem(80px) rem(100px);
   align-items: center;
-  column-gap: rem(5px);
   font-size: rem(12px);
   color: var(--color-white);
+  column-gap: rem(5px);
 
   &:last-child {
     @include make-spacer('mb', 0);

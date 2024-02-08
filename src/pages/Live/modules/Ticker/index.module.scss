@@ -15,14 +15,14 @@
 
   display: grid;
   grid-template-columns: rem(30px) 1fr rem(40px) rem(40px) rem(40px) 1fr;
+  flex-shrink: 0;
   align-items: center;
+  height: 100%;
   border: rem(3px) solid var(--color-orange-900);
   border-radius: rem(9px);
-  overflow: hidden;
-  flex-shrink: 0;
-  height: 100%;
-  text-align: center;
   font-size: rem(15px);
+  text-align: center;
+  overflow: hidden;
   color: var(--color-white);
 
   &:nth-child(even) {

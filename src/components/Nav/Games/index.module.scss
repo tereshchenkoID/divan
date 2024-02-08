@@ -13,12 +13,11 @@
   padding-top: rem(5px);
   padding-bottom: rem(9px);
   border-radius: rem(10px);
-  background-color: var(--color-orange-900);
-  background: linear-gradient(360deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 100%);
   font-size: rem(12px);
   font-weight: var(--typography-bold);
   text-transform: uppercase;
   text-shadow: none;
+  background: linear-gradient(360deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 100%);
 
   &.active {
     background-color: var(--color-yellow);
@@ -60,9 +59,9 @@
 
     position: absolute;
     top: rem(8px);
+    font-size: 0;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23000000' viewBox='0 0 32 32'%3E%3Cpath d='M11.303 8l11.394 7.997L11.303 24z'/%3E%3C/svg%3E");
     background-size: cover;
-    font-size: 0;
 
     &::after {
       display: none;

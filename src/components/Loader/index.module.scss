@@ -27,8 +27,8 @@
   }
 
   &.default {
-    background-color: var(--color-green-100);
     border: rem(2px) solid var(--color-orange);
+    background-color: var(--color-green-100);
   }
 
   &.transparent {
@@ -39,9 +39,9 @@
 .wrapper {
   display: block;
   position: relative;
-  border-radius: 50%;
   border: rem(3px) solid transparent;
   border-top-color: var(--color-green);
+  border-radius: 50%;
   animation: spin 2s linear infinite;
 }
 
@@ -50,43 +50,47 @@
   &::after,
   &::before {
     position: absolute;
-    border-radius: 50%;
     border: rem(3px) solid transparent;
+    border-radius: 50%;
     content: '';
   }
 
-  &:before {
+  &::before {
     top: rem(5px);
-    left: rem(5px);
     right: rem(5px);
     bottom: rem(5px);
+    left: rem(5px);
     border-top-color: var(--color-orange-900);
     animation: spin 3s linear infinite;
   }
 
-  &:after {
+  &::after {
     top: rem(15px);
-    left: rem(15px);
     right: rem(15px);
     bottom: rem(15px);
+    left: rem(15px);
     border-top-color: var(--color-orange);
     animation: spin 1.5s linear infinite;
   }
 }
 
-@-webkit-keyframes spin {
+@keyframes spin {
+
   0% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(360deg);
   }
 }
 
 @keyframes spin {
+
   0% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(360deg);
   }

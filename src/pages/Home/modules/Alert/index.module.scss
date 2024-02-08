@@ -7,10 +7,10 @@
 
   &.default {
     position: relative;
-    background-color: var(--color-mine-shaft);
     border: rem(2px) solid var(--color-orange);
     border-radius: rem(10px);
     overflow: hidden;
     color: var(--color-white);
+    background-color: var(--color-mine-shaft);
   }
 }

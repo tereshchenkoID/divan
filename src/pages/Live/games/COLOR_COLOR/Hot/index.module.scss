@@ -12,9 +12,9 @@
     @include make-spacer(p, 1);
     @include flex(center, center);
 
-    background-color: var(--color-thunder);
-    border-right: rem(1px) solid var(--color-border);
     gap: rem(10px);
+    border-right: rem(1px) solid var(--color-border);
+    background-color: var(--color-thunder);
 
     &:nth-child(odd) {
         background-color: var(--color-heavy-metal);

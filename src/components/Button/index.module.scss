@@ -2,11 +2,11 @@
 
 .block {
   position: relative;
+  width: 100%;
   border-width: rem(1px);
   border-style: solid;
-  background: linear-gradient(360deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.1) 100%);
   color: var(--color-white);
-  width: 100%;
+  background: linear-gradient(360deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.1) 100%);
 
   &::before {
     position: absolute;
@@ -22,8 +22,8 @@
   &.sm {
     @include make-spacer('p', 1);
 
-    border-radius: rem(3px);
     height: rem(25px);
+    border-radius: rem(3px);
     font-size: rem(13px);
 
     &::before {
@@ -34,8 +34,8 @@
   &.md {
     @include make-spacer('p', 1);
 
-    border-radius: rem(5px);
     height: rem(38px);
+    border-radius: rem(5px);
 
     &::before {
       height: rem(5px);
@@ -45,40 +45,40 @@
   &.lg {
     @include make-spacer('p', 2);
 
-    border-radius: rem(8px);
     height: rem(64px);
+    border-radius: rem(8px);
   }
 
   &.wide {
     @include make-spacer('p', 2);
 
-    border-radius: rem(5px);
     height: 100%;
+    border-radius: rem(5px);
   }
 
   &.grey {
-    background-color: var(--color-thunder);
     border-color: #000;
+    background-color: var(--color-thunder);
   }
 
   &.red {
-    background-color: #d6233c;
     border-color: #8b0e26;
+    background-color: #d6233c;
   }
 
   &.blue {
-    background-color: #1b79c9;
     border-color: #1d4c89;
+    background-color: #1b79c9;
   }
 
   &.olive {
-    background-color: #3fa025;
     border-color: #113808;
+    background-color: #3fa025;
   }
 
   &.green {
-    background-color: #0b5a07;
     border-color: #15490a;
+    background-color: #0b5a07;
   }
 }
 

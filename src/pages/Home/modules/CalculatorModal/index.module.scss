@@ -27,16 +27,16 @@
 .content {
   @include make-spacer('p', 3);
 
-  background-color: var(--color-black);
-  border-radius: rem(12px);
   min-width: rem(350px);
+  border-radius: rem(12px);
+  background-color: var(--color-black);
 }
 
 .header {
   position: relative;
+  height: rem(65px);
   border-radius: rem(3px);
   overflow: hidden;
-  height: rem(65px);
   background-color: rgba(255, 255, 255, 0.3);
 
   button {
@@ -46,8 +46,8 @@
     top: 0;
     right: 0;
     bottom: 0;
-    font-size: rem(25px);
     border-radius: 0 rem(3px) rem(3px) 0!important;
+    font-size: rem(25px);
   }
 }
 
@@ -60,10 +60,10 @@
   @include size(100%);
 
   border: 0;
-  background-color: transparent;
-  color: var(--color-white);
   font-size: rem(28px);
   text-align: right;
+  color: var(--color-white);
+  background-color: transparent;
 }
 
 .keyboard {

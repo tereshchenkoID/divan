@@ -5,14 +5,14 @@
 
   display: grid;
   grid-template-columns: minmax(rem(100px), 1fr) 1.5fr;
-  background: linear-gradient(360deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 100%);
-  background-color: var(--color-black);
-  border-radius: rem(3px);
   padding: 2px;
-  overflow: hidden;
-  color: var(--color-white);
+  border-radius: rem(3px);
   font-size: rem(10px);
   line-height: 1;
+  overflow: hidden;
+  color: var(--color-white);
+  background: linear-gradient(360deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 100%);
+  background-color: var(--color-black);
 
   &.bronze {
     background-color: #6E6929;

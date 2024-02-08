@@ -31,8 +31,8 @@
 
 .grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(6, auto);
+    grid-template-columns: repeat(4, 1fr);
     column-gap: rem(8px);
 
     & > div {

@@ -7,8 +7,8 @@
 
   display: grid;
   grid-template-columns: 1.5fr 1fr;
-  align-items: center;
   gap: rem(20px);
+  align-items: center;
 }
 
 .table {
@@ -23,8 +23,8 @@
 .row {
   display: grid;
   grid-template-columns: rem(50px) 1fr repeat(3, rem(100px));
-  background-color: var(--color-thunder);
   color: var(--color-white);
+  background-color: var(--color-thunder);
 
   &.alt {
     grid-template-columns: repeat(2, 1fr);
@@ -35,14 +35,10 @@
   @include make-spacer(px, 2);
   @include flex(center, center);
 
+  gap: rem(5px);
+  height: rem(40px);
   border-right: rem(1px) solid var(--color-border);
   border-bottom: rem(1px) solid var(--color-border);
-  height: rem(40px);
-  gap: rem(5px);
-
-  &.left {
-    justify-content: flex-start;
-  }
 
   &:nth-child(odd) {
     background-color: var(--color-thunder);
@@ -50,5 +46,9 @@
 
   &:nth-child(even) {
     background-color: var(--color-heavy-metal);
+  }
+
+  &.left {
+    justify-content: flex-start;
   }
 }

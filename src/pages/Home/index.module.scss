@@ -12,25 +12,25 @@
   @include make-spacer('py', 2);
 
   display: grid;
+  z-index: 1;
   grid-template-columns: 1fr rem(357px);
-  column-gap: rem(10px);
   flex-grow: 1;
   overflow: hidden;
-  z-index: 1;
+  column-gap: rem(10px);
 }
 
 .column {
-  overflow: hidden;
   height: 100%;
+  overflow: hidden;
 }
 
 .table {
   position: relative;
-  min-height: rem(690px);
   height: 100%;
-  text-transform: uppercase;
-  text-align: center;
+  min-height: rem(690px);
   font-weight: var(--typography-bold);
+  text-align: center;
+  text-transform: uppercase;
 }
 
 .banners {

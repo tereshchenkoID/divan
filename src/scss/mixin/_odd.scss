@@ -3,23 +3,23 @@
   @include size(100%);
 
   position: relative;
-  border: 0 solid var(--color-black);
   min-height: rem(42px);
-  transition: var(--default-transition);
-  cursor: pointer;
-  font-weight: var(--typography-bold);
+  border: 0 solid var(--color-black);
   font-size: rem(17px);
+  font-weight: var(--typography-bold);
   text-align: center;
   text-transform: uppercase;
   color: var(--color-white);
+  cursor: pointer;
+  transition: var(--default-transition);
 
   &:hover {
     background-image: linear-gradient(0deg, #294329 0%, #00a900 52%, #00a900 100%);
   }
 
   &.disabled {
+    background-image: linear-gradient(0deg, #111 0%, #3f3f3f 17%, #6d6d6d 51%, #6d6d6d 100%);
     pointer-events: none;
-    background-image: linear-gradient(0deg, #111111 0%, #3f3f3f 17%, #6d6d6d 51%, #6d6d6d 100%);
   }
 
   &.active {

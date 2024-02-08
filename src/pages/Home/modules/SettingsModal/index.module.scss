@@ -16,11 +16,11 @@
   @include make-spacer('mx', auto);
   @include size(100%);
 
-  background-color: var(--color-black);
-  border-radius: rem(8px);
-  border: rem(3px) solid var(--color-orange);
-  overflow: hidden;
   max-width: rem(1200px);
+  border: rem(3px) solid var(--color-orange);
+  border-radius: rem(8px);
+  overflow: hidden;
+  background-color: var(--color-black);
 }
 
 .header {
@@ -29,11 +29,11 @@
   @include make-spacer('pr', 1);
   @include size(100%, rem(40px));
 
-  background-color: var(--color-orange-900);
-  text-transform: uppercase;
-  font-weight: var(--typography-bold);
   font-size: rem(14px);
+  font-weight: var(--typography-bold);
+  text-transform: uppercase;
   color: var(--color-white);
+  background-color: var(--color-orange-900);
 }
 
 .body {
@@ -66,10 +66,10 @@
 
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  column-gap: rem(10px);
   align-items: center;
-  border-top: 1px solid var(--color-border);
   height: rem(50px);
+  border-top: 1px solid var(--color-border);
+  column-gap: rem(10px);
 
   &:nth-child(even) {
     background-color: var(--color-thunder);
@@ -112,10 +112,10 @@
   @include make-spacer('px', 2);
   @include size(100%, rem(38px));
 
-  background-color: var(--color-black);
-  border-radius: rem(5px);
   border: 2px solid var(--color-orange);
+  border-radius: rem(5px);
   color: var(--color-white);
+  background-color: var(--color-black);
 
   &:focus {
     outline: 0;
@@ -123,12 +123,12 @@
 }
 
 .input {
-  -moz-appearance: textfield;
+  appearance: textfield;
 
   &::-webkit-outer-spin-button,
   &::-webkit-inner-spin-button {
-    -webkit-appearance: none;
     margin: 0;
+    appearance: none;
   }
 }
 

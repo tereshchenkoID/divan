@@ -17,11 +17,11 @@
   @include make-spacer('mx', auto);
   @include size(100%);
 
-  background-color: var(--color-black);
-  border-radius: rem(8px);
-  border: rem(3px) solid var(--color-orange);
-  overflow: hidden;
   max-width: rem(1200px);
+  border: rem(3px) solid var(--color-orange);
+  border-radius: rem(8px);
+  overflow: hidden;
+  background-color: var(--color-black);
 }
 
 .header {
@@ -31,11 +31,11 @@
   @include size(100%, rem(40px));
 
   flex-shrink: 0;
-  background-color: var(--color-orange-900);
-  font-weight: var(--typography-bold);
   font-size: rem(14px);
+  font-weight: var(--typography-bold);
   text-transform: uppercase;
   color: var(--color-white);
+  background-color: var(--color-orange-900);
 }
 
 .body {
@@ -69,14 +69,14 @@
   @include flex;
 
   flex-shrink: 0;
-  border-bottom: rem(1px) solid var(--color-border);
   height: rem(50px);
+  border-bottom: rem(1px) solid var(--color-border);
 }
 
 .link {
   flex: 1;
-  background-color: var(--color-mine-shaft);
   color: rgba(255, 255, 255, 0.5);
+  background-color: var(--color-mine-shaft);
 
   &:hover {
     color: var(--color-white);

@@ -10,8 +10,8 @@
 
 .body {
   position: relative;
-  min-height: rem(655px);
   height: 100%;
+  min-height: rem(655px);
 }
 
 .league {
@@ -35,8 +35,8 @@
   @include make-spacer('mb', 1);
   @include flex($align-items: center);
 
-  padding-left: rem(270px);
   min-height: rem(77px);
+  padding-left: rem(270px);
 }
 
 .market {
@@ -62,17 +62,17 @@
   bottom: 0;
   left: rem(270px);
   z-index: 10;
-  background-color: var(--color-mine-shaft);
   color: var(--color-white);
-
-  &.active {
-    display: block;
-  }
+  background-color: var(--color-mine-shaft);
 
   .meta {
     @include make-spacer('mx', auto);
 
     max-width: rem(350px);
+  }
+
+  &.active {
+    display: block;
   }
 }
 
@@ -82,8 +82,8 @@
   position: relative;
 
   .row {
-    border-top: 1px solid var(--color-border);
     height: rem(53px);
+    border-top: 1px solid var(--color-border);
     text-align: center;
 
     &:nth-child(even) {
@@ -113,8 +113,8 @@
   }
 
   .odds {
-    height: 100%;
     gap: rem(1px);
+    height: 100%;
   }
 
   .odd {
@@ -125,14 +125,14 @@
 .row {
   display: grid;
   grid-template-columns: rem(35px) rem(215px) 1fr;
-  column-gap: rem(10px);
   align-items: center;
   color: var(--color-white);
+  column-gap: rem(10px);
 
   &.head {
-    padding-left: rem(2px);
-    padding-right: rem(2px);
     height: rem(37px);
+    padding-right: rem(2px);
+    padding-left: rem(2px);
 
     .cell,
     .odds,
@@ -164,11 +164,11 @@
   display: grid;
   grid-template-columns: rem(40px) 1fr rem(20px) 1fr rem(40px) rem(35px);
   align-items: center;
-  cursor: pointer;
-  text-align: center;
-  font-size: rem(15px);
-  color: var(--color-white);
   height: 100%;
+  font-size: rem(15px);
+  text-align: center;
+  color: var(--color-white);
+  cursor: pointer;
 
   &.disabled {
     opacity: 0.1;
@@ -203,8 +203,8 @@
   @include flex(center, center);
 
   position: relative;
-  flex: 1;
   gap: rem(1px);
+  flex: 1;
 }
 
 .odd,

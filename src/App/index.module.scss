@@ -3,14 +3,14 @@
 .root {
   @include scroll;
 
-  background-color: var(--color-green-100);
-  line-height: var(--line-height);
+  min-width: rem(1366px);
+  min-height: rem(768px);
   font-family: var(--font-family);
   font-size: var(--font-size);
   font-weight: var(--typography-regular);
-  min-height: rem(768px);
+  line-height: var(--line-height);
   overflow: hidden;
-  min-width: rem(1366px);
+  background-color: var(--color-green-100);
 
   &.fixed {
     @include size(rem(1366px), rem(768px));

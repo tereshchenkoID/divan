@@ -5,14 +5,14 @@
 
   display: grid;
   grid-template-columns: minmax(rem(60px), rem(90px)) 1fr;
-  background: linear-gradient(360deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 100%);
-  background-color: var(--color-black);
-  border-radius: rem(3px);
   padding: rem(2px);
-  overflow: hidden;
-  color: var(--color-white);
+  border-radius: rem(3px);
   font-size: rem(10px);
   line-height: 1;
+  overflow: hidden;
+  color: var(--color-white);
+  background: linear-gradient(360deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 100%);
+  background-color: var(--color-black);
 
   &.bronse {
     background-color: rgba(#6E6929, 0.8);
@@ -53,12 +53,12 @@
 .right {
   @include make-spacer(px, 1);
 
-  background: linear-gradient(360deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 100%);
+  min-width: rem(100px);
   padding-bottom: rem(2px);
   border-radius: inherit;
-  min-width: rem(100px);
   font-size: rem(18px);
   font-weight: var(--typography-bold);
+  background: linear-gradient(360deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 100%);
 }
 
 .symbol {

@@ -2,10 +2,10 @@
   @include flex($align-items: center);
 
   gap: rem(15px);
-  text-align: center;
-  color: var(--color-orange);
   font-size: rem(17px);
+  text-align: center;
   white-space: nowrap;
+  color: var(--color-orange);
 
   &::before,
   &::after {

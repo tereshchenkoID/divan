@@ -4,9 +4,9 @@
   @include wrapper;
   @include flex(center, center, column);
 
+  width: 100%;
   padding: rem(28px) rem(16px);
   background-color: var(--color-heavy-metal);
-  width: 100%;
 }
 
 .body {
@@ -26,15 +26,15 @@
 .middle,
 .bottom {
   display: grid;
-  grid-template-columns: rem(55px) rem(845px) rem(55px);
   position: relative;
+  grid-template-columns: rem(55px) rem(845px) rem(55px);
   width: fit-content;
 }
 
 .top,
 .bottom {
-  padding: 0 rem(2px);
   height: rem(55px);
+  padding: 0 rem(2px);
 }
 
 .hidden-zero {
@@ -42,10 +42,10 @@
 
   position: absolute;
   top: rem(20px);
-  left: rem(32px);
   bottom: rem(-17px);
-  width: rem(45px);
+  left: rem(32px);
   z-index: 2;
+  width: rem(45px);
 
   .button {
     flex: 1;
@@ -61,13 +61,13 @@
 .hidden-chips {
   @include flex($justify-content: space-between, $direction: column);
 
-  padding: 5px 0;
   position: absolute;
   top: rem(20px);
-  left: rem(75px);
   right: rem(75px);
   bottom: rem(-18px);
+  left: rem(75px);
   z-index: 2;
+  padding: 5px 0;
 
   .button {
     position: relative;
@@ -124,8 +124,8 @@
 
   .button {
     flex: 1;
-    background-color: var(--color-thunder);
     border: rem(2px) solid var(--color-white);
+    background-color: var(--color-thunder);
   }
 }
 
@@ -134,8 +134,8 @@
   @include flex;
   @include size(100%);
 
-  padding: 0 rem(7px) 0 rem(3px);
   gap: rem(6px);
+  padding: 0 rem(7px) 0 rem(3px);
 }
 
 .dozens {
@@ -156,8 +156,8 @@
   @include flex($direction: column-reverse);
   @include size(100%);
 
-  padding: rem(5px) 0;
   gap: rem(8px);
+  padding: rem(5px) 0;
 
   .button {
     flex-direction: column;
@@ -201,17 +201,17 @@
   @include size(100%, rem(226px));
   @include make-spacer('p', 1);
 
-  gap: rem(5px);
   z-index: 0;
+  gap: rem(5px);
 
   .button {
     @include size(rem(65px), rem(67px));
 
     flex-shrink: 0;
-    box-shadow: 0 rem(2px) rem(2px) rgba(255,255,255,0.14);
     border: rem(2px) solid var(--color-black);
     font-size: rem(28px);
     color: var(--color-white);
+    box-shadow: 0 rem(2px) rem(2px) rgba(255,255,255,0.14);
 
     &::before {
       position: absolute;
@@ -225,11 +225,11 @@
     }
 
     &.black {
-      background-image: linear-gradient(0deg, #2a2a2a 0%, #0d0d0d 7%, #111111 50%, #0d0d0d 100%);
+      background-image: linear-gradient(0deg, #2a2a2a 0%, #0d0d0d 7%, #111 50%, #0d0d0d 100%);
     }
 
     &.red {
-      background-image: linear-gradient(0deg, #111111 0%, #9f0021 17%, #c91e37 52%, #c91e37 100%);
+      background-image: linear-gradient(0deg, #111 0%, #9f0021 17%, #c91e37 52%, #c91e37 100%);
     }
 
     &.hover {
@@ -245,25 +245,25 @@
   @include flex(center, center);
 
   position: relative;
+  border-radius: rem(9px);
   overflow: hidden;
   cursor: pointer;
-  border-radius: rem(9px);
-
-  button {
-    text-align: center;
-    text-transform: uppercase;
-    font-size: rem(24px);
-    font-weight: var(--typography-bold);
-    color: var(--color-white);
-  }
 
   &::after {
     @include absolute-filled;
 
-    opacity: 0;
     background-color: rgba(255, 255, 255, 0.6);
-    transition: var(--default-transition);
+    opacity: 0;
     content: '';
+    transition: var(--default-transition);
+  }
+
+  button {
+    font-size: rem(24px);
+    font-weight: var(--typography-bold);
+    text-align: center;
+    text-transform: uppercase;
+    color: var(--color-white);
   }
 
   &:hover {
@@ -277,8 +277,8 @@
 .actions {
   display: grid;
   grid-template-columns: repeat(2, rem(64px));
-  justify-content: center;
   grid-gap: rem(10px);
+  justify-content: center;
 
   button {
     font-size: rem(36px);
@@ -298,18 +298,10 @@
 
   position: relative;
   border-radius: 50%;
-  color: var(--color-white);
   font-size: rem(24px);
   font-weight: var(--typography-bold);
   letter-spacing: rem(-2px);
-
-  &.active {
-    @include size(rem(94px));
-
-    font-size: rem(36px);
-    transform: rotateZ(360deg);
-    transition: var(--default-transition);
-  }
+  color: var(--color-white);
 
   img {
     @include absolute-filled;
@@ -317,5 +309,13 @@
 
   p {
     position: relative;
+  }
+
+  &.active {
+    @include size(rem(94px));
+
+    font-size: rem(36px);
+    transform: rotateZ(360deg);
+    transition: var(--default-transition);
   }
 }

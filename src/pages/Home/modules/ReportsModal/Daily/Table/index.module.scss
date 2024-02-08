@@ -10,9 +10,9 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   align-items: center;
+  height: rem(50px);
   border-top: rem(1px) solid var(--color-border);
   background-color: lighten(#272727, 10%);
-  height: rem(50px);
 
   &:first-child,
   &:last-child {
@@ -54,8 +54,8 @@
   }
 
   &.default {
-    left: 0;
     right: 0;
+    left: 0;
 
     div {
       background-color: rgba(#0362b3, 0.5);

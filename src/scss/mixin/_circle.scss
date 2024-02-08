@@ -5,19 +5,19 @@
   position: relative;
   border-radius: 50%;
   font-size: rem(26px);
+  font-weight: var(--typography-bold);
   letter-spacing: -1px;
+  text-align: center;
   text-transform: uppercase;
   color: var(--color-white);
-  font-weight: var(--typography-bold);
-  text-align: center;
-  filter: drop-shadow(0px -2px 0px rgba(0,0,0,0.3));
+  filter: drop-shadow(0 -2px 0 rgba(0,0,0,0.3));
 
   &::before {
     @include size(rem(35px));
     @include absolute-center-top(0);
 
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 100%);
     border-radius: inherit;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 100%);
     content: '';
   }
 	

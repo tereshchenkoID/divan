@@ -1,5 +1,5 @@
 @mixin line-clamp($count) {
-  display: -webkit-box;
+  display: box;
   -webkit-line-clamp: $count;
   -webkit-box-orient: vertical;
   overflow: hidden;

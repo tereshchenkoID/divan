@@ -19,11 +19,11 @@
   @include make-spacer(px, 1);
   @include flex(null, center);
 
-  background-color: var(--color-thunder);
+  gap: rem(5px);
+  flex: 1;
   border-right: rem(1px) solid var(--color-border);
   border-bottom: rem(1px) solid var(--color-border);
-  flex: 1;
-  gap: rem(5px);
+  background-color: var(--color-thunder);
 
   &:nth-child(odd) {
     font-size: rem(12px);

@@ -16,8 +16,8 @@
 
 .link {
   flex: 1;
-  background-color: var(--color-mine-shaft);
   color: rgba(255, 255, 255, 0.5);
+  background-color: var(--color-mine-shaft);
 
   &:hover {
     color: var(--color-white);
@@ -73,10 +73,10 @@
   @include make-spacer('px', 2);
   @include size(100%, rem(45px));
 
-  background-color: var(--color-black);
-  border-radius: rem(5px);
   border: 2px solid var(--color-orange);
+  border-radius: rem(5px);
   color: var(--color-white);
+  background-color: var(--color-black);
 
   &:focus {
     outline: 0;

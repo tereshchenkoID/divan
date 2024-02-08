@@ -3,12 +3,12 @@
 .block {
   display: grid;
   grid-template-columns: rem(35px) rem(215px) 1fr;
-  column-gap: rem(10px);
-  border-bottom: 1px solid var(--color-border);
-  transition: var(--default-transition);
   height: rem(53px);
+  border-bottom: 1px solid var(--color-border);
   text-align: center;
   color: var(--color-white);
+  column-gap: rem(10px);
+  transition: var(--default-transition);
 
   &:nth-child(even) {
     background-color: var(--color-thunder);
@@ -30,21 +30,21 @@
 .odds {
   @include flex;
 
-  height: 100%;
   gap: rem(1px);
+  height: 100%;
 }
 
 .odd {
   @include flex($justify-content: center, $direction: column);
 
-  height: 100%;
   flex: 1;
+  height: 100%;
 
   &.active {
+    border: 0 solid var(--color-black);
+    background-image: linear-gradient(0deg, #294329 0%, #00a900 52%, #00a900 100%);
     filter: drop-shadow(0 0 0.5px rgba(0, 0, 0, 0.56));
     box-shadow: inset 0 3px 3.5px rgba(0, 0, 0, 0.18);
-    background-image: linear-gradient(0deg, #294329 0%, #00a900 52%, #00a900 100%);
-    border: 0 solid var(--color-black);
   }
 }
 
@@ -59,8 +59,8 @@
   display: grid;
   grid-template-columns: rem(40px) 1fr rem(40px) 1fr rem(40px);
   align-items: center;
-  text-align: center;
   font-size: rem(15px);
+  text-align: center;
   color: var(--color-white);
 }
 
@@ -72,9 +72,9 @@
 .score {
   display: grid;
   grid-template-columns: 1fr rem(5px) 1fr;
-  column-gap: rem(5px);
-  color: var(--color-orange-900);
   font-weight: var(--typography-bold);
+  color: var(--color-orange-900);
+  column-gap: rem(5px);
 }
 
 .logo {

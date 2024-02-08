@@ -10,13 +10,13 @@
   @include make-spacer('pr', 7);
 
   display: grid;
-  column-gap: rem(5px);
   align-items: center;
-  overflow: hidden;
   font-size: rem(12px);
   font-weight: var(--typography-bold);
   text-align: center;
+  overflow: hidden;
   color: var(--color-orange);
+  column-gap: rem(5px);
 
   &.lg {
     grid-template-columns: 1fr rem(50px) rem(60px);
