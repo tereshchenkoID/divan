@@ -68,7 +68,7 @@ const Live = () => {
         <Loader />
       ) : (
         <>
-          <Decor type={game.type} />
+          <Decor type={game.decor} />
           <div
             className={style.wrapper}
             onClick={() => {

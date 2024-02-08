@@ -1,66 +1,77 @@
-import {useState, useEffect} from "react";
+import { useState, useEffect } from 'react'
+import { hostnames } from 'constant/config'
 
-import Loader from "components/Loader";
-import Pay from "../Pay";
-import Numbers from "../Numbers";
-import Colors from "../Colors";
-import History from "../History";
-import Dozens from "../Dozens";
-import Hot from "../Hot";
+import { useSelector } from 'react-redux'
 
-import style from './index.module.scss';
+import Loader from 'components/Loader'
+import Pay from '../Pay'
+import Numbers from '../Numbers'
+import Colors from '../Colors'
+import History from '../History'
+import Dozens from '../Dozens'
+import Hot from '../Hot'
 
-const Table = ({data}) => {
-	const [loading, setLoading] = useState(true)
-	
-	useEffect(() => {
-		setTimeout(() => {
-			setLoading(false)
-		}, 500)
-	}, [data])
+import style from './index.module.scss'
 
-    return (
-        <div className={style.block}>
-			{
-				loading
-					?
-						<Loader
-							type={'block'}
-							background={'transparent'}
-						/>
-					:
-						<div className={style.wrapper}>
-							<div className={style.column}>
-								<div className={style.wheel}>
-									<iframe title={'Wheel'} src="https://api.qool90.bet/iframe/wheel/" frameBorder="0" />
-								</div>
-							</div>
-							<div className={style.column}>
-								<div className={style.grid}>
-									<div>
-										<Hot data={data} />
-									</div>
-									<div>
-										<Dozens data={data} />
-									</div>
-									<div>
-										<Colors data={data} />
-									</div>
-									<div>
-										<History data={data} />
-									</div>
-									<div>
-										<Pay />
-									</div>
-									<div>
-										<Numbers data={data} />
-									</div>
-								</div>
-							</div>
-					</div>
-			}
+const Table = ({ data }) => {
+  const { progress } = useSelector(state => state.progress)
+  const [loading, setLoading] = useState(true)
+  const [params, setParams] = useState('')
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false)
+    }, 500)
+  }, [data])
+
+  useEffect(() => {
+    setParams(
+      `status=${progress !== 2 ? 'init' : 'start'}&number=${data.round.result || data.history[0].results}&time=${data.start}`,
+    )
+  }, [progress])
+
+  return (
+    <div className={style.block}>
+      {loading ? (
+        <Loader type={'block'} background={'transparent'} />
+      ) : (
+        <div className={style.wrapper}>
+          <div className={style.column}>
+            {params}
+            <div className={style.wheel}>
+              <iframe
+                title={'Wheel'}
+                src={`${hostnames.PROD}/iframe/wheel/#/${params}`}
+                frameBorder="0"
+              />
+            </div>
+          </div>
+          <div className={style.column}>
+            <div className={style.grid}>
+              <div>
+                <Hot data={data} />
+              </div>
+              <div>
+                <Dozens data={data} />
+              </div>
+              <div>
+                <Colors data={data} />
+              </div>
+              <div>
+                <History data={data} />
+              </div>
+              <div>
+                <Pay />
+              </div>
+              <div>
+                <Numbers data={data} />
+              </div>
+            </div>
+          </div>
         </div>
-    );
+      )}
+    </div>
+  )
 }
 
-export default Table;
+export default Table
