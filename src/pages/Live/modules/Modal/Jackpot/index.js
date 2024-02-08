@@ -1,21 +1,28 @@
 import { useSelector } from 'react-redux'
+import { useTranslation } from 'react-i18next'
+
+import classNames from 'classnames'
 
 import style from './index.module.scss'
 
 const Jackpot = () => {
-  const { tv } = useSelector(state => state.tv)
-
-  if (!tv.event) {
-    return false
-  }
+  const { t } = useTranslation()
+  const { jackpot } = useSelector(state => state.jackpot)
 
   return (
-    <div className={style.block}>
+    <div className={classNames(style.block, style[jackpot.type.toLowerCase()])}>
       <div className={style.decor}>
-        <img src={`/img/decor/LIVE/TIMER/light.png`} alt="Decor" />
+        <img
+          src={`/img/decor/LIVE/JACKPOT/${jackpot.type.toLowerCase()}.png`}
+          alt="Jackpot"
+        />
       </div>
-      <div className={style.title}>jackpot winner</div>
-      <div className={style.id}>#{tv.event.id}</div>
+      <div className={style.title}>{t('interface.jackpot_winner')}!</div>
+      <div className={style.jackpot}>
+        {jackpot.amount}
+        <span>{jackpot.currency}</span>
+      </div>
+      <div className={style.id}>#{jackpot.ticket}</div>
     </div>
   )
 }

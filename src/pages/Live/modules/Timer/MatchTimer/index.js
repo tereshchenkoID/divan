@@ -31,43 +31,43 @@ const checkType = (start, end, delta, type) => {
   }
 }
 
-const MatchTimer = ({ start, end, delta, type }) => {
+const MatchTimer = ({ data, delta, type }) => {
   const dispatch = useDispatch()
   const [timer, setTimer] = useState('')
   const { game } = useSelector(state => state.game)
-  let animationFrameId = null
-
-  const updateTime = () => {
-    let r = checkType(start, end, delta, type)
-
-    // console.log(r)
-
-    if (r === '0') {
-      dispatch(setTv(`${type}/${game.id}`)).then(json => {
-        dispatch(setLiveTimer(0))
-
-        if (json.event.status === matchStatus.RESULTS) {
-          dispatch(setProgress(3))
-          dispatch(setLiveTimer(0))
-          return
-        }
-        animationFrameId = requestAnimationFrame(updateTime)
-      })
-    } else {
-      dispatch(setLiveTimer(r))
-      setTimer(r)
-      animationFrameId = requestAnimationFrame(updateTime)
-    }
-  }
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    animationFrameId = requestAnimationFrame(updateTime)
+    let r = checkType(data.start, data.nextUpdate, delta, type)
+    dispatch(setLiveTimer(r))
+    setTimer(r)
+  }, [data.start, delta])
+
+  useEffect(() => {
+    const a = setInterval(() => {
+      let r = checkType(data.start, data.nextUpdate, delta, type)
+
+      if (new Date().getTime() + delta >= data.nextUpdate) {
+        // if (r === '0') {
+        dispatch(setTv(`${type}/${game.id}`)).then(json => {
+          dispatch(setLiveTimer(0))
+
+          if (json.event.status === matchStatus.RESULTS) {
+            dispatch(setProgress(3))
+            dispatch(setLiveTimer(0))
+            clearInterval(a)
+          }
+        })
+      } else {
+        dispatch(setLiveTimer(r))
+        setTimer(r)
+      }
+    }, 1000)
 
     return () => {
-      cancelAnimationFrame(animationFrameId)
+      setTimer('')
+      clearInterval(a)
     }
-  }, [start, delta])
+  }, [data.start, delta])
 
   return (
     <div>

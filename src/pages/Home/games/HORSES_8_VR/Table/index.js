@@ -13,7 +13,7 @@ import { checkData } from 'helpers/checkData'
 import { checkCmd } from 'helpers/checkCmd'
 import { getLogo } from 'helpers/getLogo'
 
-import { setModal } from 'store/HOME/actions/modalAction'
+import { setModal } from 'store/actions/modalAction'
 import { setLive } from 'store/HOME/actions/liveAction'
 import { setData } from 'store/HOME/actions/dataAction'
 

@@ -8,7 +8,7 @@ import classNames from 'classnames'
 
 import { setLive } from 'store/HOME/actions/liveAction'
 import { setData } from 'store/HOME/actions/dataAction'
-import { setModal } from 'store/HOME/actions/modalAction'
+import { setModal } from 'store/actions/modalAction'
 
 import { checkData } from 'helpers/checkData'
 import { conditionStatus } from 'helpers/conditionStatus'

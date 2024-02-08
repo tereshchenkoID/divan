@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import useSocket from 'hooks/useSocket'
 
+import { setModal } from 'store/actions/modalAction'
 import { setLive } from 'store/HOME/actions/liveAction'
-import { setModal } from 'store/HOME/actions/modalAction'
 import { setUpdate } from 'store/HOME/actions/updateAction'
 
 import { getDifferent } from 'helpers/getDifferent'

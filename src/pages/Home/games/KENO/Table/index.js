@@ -6,7 +6,7 @@ import useSocket from 'hooks/useSocket'
 
 import classNames from 'classnames'
 
-import { setModal } from 'store/HOME/actions/modalAction'
+import { setModal } from 'store/actions/modalAction'
 import { setLive } from 'store/HOME/actions/liveAction'
 import { setData } from 'store/HOME/actions/dataAction'
 

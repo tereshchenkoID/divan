@@ -1,27 +1,45 @@
 @import "scss/config";
 
 .block {
-  @include flex(center, center, column);
+  @include make-spacer(pt, 5);
+  @include absolute-filled;
 
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
   border: rem(3px) solid var(--color-orange-900);
   border-radius: rem(9px);
   z-index: 15;
-  background-color: rgba(#09230a, 0.95);
   text-transform: uppercase;
   text-align: center;
   font-weight: var(--typography-bold);
   color: var(--color-white);
+
+  &.bronze {
+    background-image: linear-gradient(rgba(#6E6929, 0.99), rgba(#D2B76F, 0.9));
+
+    .title {
+      background-image: linear-gradient(rgba(#fff, 0.5) 40%, rgba(#6E6929, 0.99) 80%, #D2B76F);
+    }
+  }
+
+  &.silver {
+    background-image: linear-gradient(rgba(#697267, 0.99), rgba(#A8ACA8, 0.9));
+
+    .title {
+      background-image: linear-gradient(rgba(#fff, 0.5) 40%, rgba(#697267, 0.99) 80%, #A8ACA8);
+    }
+  }
+
+  &.gold {
+    background-image: linear-gradient(rgba(#7A5F05, 0.99), rgba(#BF8609, 0.9));
+
+    .title {
+      background-image: linear-gradient(rgba(#fff, 0.5) 40%, rgba(#7A5F05, 0.99) 80%, #BF8609);
+    }
+  }
 }
 
 .id,
-.timer,
 .title,
-.subtitle {
+.jackpot {
   position: relative;
   z-index: 1;
 }
@@ -44,36 +62,33 @@
 }
 
 .decor {
-  @include absolute-filled;
+  @include size(rem(800px), auto);
+  @include absolute-center;
 
   img {
     object-fit: cover;
   }
 }
 
-.timer {
-  @include flex(center, center);
-  @include make-spacer(mt, 3);
-  @include make-spacer(mb, 5);
-  @include size(rem(365px));
+.title {
+  @include stroke(rem(1px), var(--color-orange), transparent);
 
-  border-radius: 50%;
-  font-size: rem(179px);
+  display: block;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: rem(56px);
+  font-weight: var(--typography-extra-bold);
+}
 
-  img {
-    @include absolute-filled;
-  }
+.jackpot {
+  @include absolute-center-top(rem(450px));
+
+  text-align: center;
+  font-size: rem(32px);
+  color: var(--color-thunder);
 
   span {
-    position: relative;
+    @include make-spacer(ml, 1);
+    font-size: rem(20px);
   }
-}
-
-.title {
-  font-size: rem(42px);
-  color: var(--color-orange);
-}
-
-.subtitle {
-  font-size: rem(62px);
 }

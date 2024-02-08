@@ -18,6 +18,7 @@
     "bets_close_in": "Bets close in UA"
   },
   "interface": {
+    "jackpot_winner": "jackpot winner UA",
     "numbers": "numbers UA",
     "colors": "colors UA",
     "winning": "winning UA",

@@ -19,11 +19,11 @@ import KENO from './games/KENO'
 
 import JackPotWinner from './modules/JackPot'
 import Countdown from './modules/Modal/Countdown'
-import Games from './modules/Games'
+import Jackpot from './modules/Modal/Jackpot'
 import Ticker from './modules/Ticker'
+import Games from './modules/Games'
 
 import style from './index.module.scss'
-import Jackpot from './modules/Modal/Jackpot'
 
 const getGame = id => {
   switch (id) {
@@ -46,6 +46,7 @@ const Live = () => {
   const dispatch = useDispatch()
   const { game } = useSelector(state => state.game)
   const { modal } = useSelector(state => state.modal)
+  const { jackpot } = useSelector(state => state.jackpot)
   const [loading, setLoading] = useState(true)
   const [active, setActive] = useState(false)
 
@@ -84,10 +85,9 @@ const Live = () => {
               <div className={style.banners}>
                 <JackPot size={'lg'} />
               </div>
-
               <div className={style.table}>{getGame(game.type)}</div>
               {modal === 1 && <Countdown />}
-              {/*<Jackpot />*/}
+              {jackpot && <Jackpot />}
             </div>
           </div>
           {active && <Games action={setActive} />}
