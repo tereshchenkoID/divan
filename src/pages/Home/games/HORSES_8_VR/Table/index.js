@@ -11,7 +11,6 @@ import { conditionStatus } from 'helpers/conditionStatus'
 import { checkTime } from 'helpers/checkTime'
 import { checkData } from 'helpers/checkData'
 import { checkCmd } from 'helpers/checkCmd'
-import { getLogo } from 'helpers/getLogo'
 
 import { setModal } from 'store/actions/modalAction'
 import { setLive } from 'store/HOME/actions/liveAction'
@@ -32,7 +31,6 @@ const Table = () => {
   const dispatch = useDispatch()
   const { sendMessage } = useSocket()
 
-  const { settings } = useSelector(state => state.settings)
   const { data } = useSelector(state => state.data)
   const { delta } = useSelector(state => state.delta)
   const { game } = useSelector(state => state.game)
@@ -166,7 +164,7 @@ const Table = () => {
           </div>
           <div className={style.info}>
             <div className={style.league}>
-              <img src={getLogo(settings.games, game.id)} alt={game.name} />
+              <img src={game} alt={game.name} />
             </div>
             <Timer data={active} type={gameType.HORSES_8_VR} />
           </div>

@@ -6,8 +6,6 @@ import { useTranslation } from 'react-i18next'
 import { setProgress } from 'store/LIVE/actions/progressAction'
 import { setTv } from 'store/LIVE/actions/tvAction'
 
-import { getLogo } from 'helpers/getLogo'
-
 import Alert from '../../modules/Alert'
 import Timer from '../../modules/Timer'
 import Translation from './Translation'
@@ -56,7 +54,7 @@ const Table = () => {
             liveTimer !== 0 && <Translation data={tv} />}
           <div className={style.info}>
             <div className={style.league}>
-              <img src={getLogo(settings.games, game.id)} alt={game.name} />
+              <img src={game.logo} alt={game.name} />
             </div>
             {progress !== 0 && <Timer data={tv.event} type={gameType.DOGS_6} />}
           </div>

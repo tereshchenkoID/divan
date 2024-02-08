@@ -13,7 +13,6 @@ import { setModal } from 'store/actions/modalAction'
 import { checkData } from 'helpers/checkData'
 import { conditionStatus } from 'helpers/conditionStatus'
 import { checkCmd } from 'helpers/checkCmd'
-import { getLogo } from 'helpers/getLogo'
 
 import Alert from 'pages/Home/modules/Alert'
 import Timer from 'pages/Home/modules/Timer'
@@ -61,7 +60,6 @@ const Table = () => {
   const dispatch = useDispatch()
   const { sendMessage } = useSocket()
 
-  const { settings } = useSelector(state => state.settings)
   const { game } = useSelector(state => state.game)
   const { data } = useSelector(state => state.data)
   const { live } = useSelector(state => state.live)
@@ -209,7 +207,7 @@ const Table = () => {
           </div>
           <div className={style.info}>
             <div className={style.league}>
-              <img src={getLogo(settings.games, game.id)} alt={game.name} />
+              <img src={game.logo} alt={game.name} />
             </div>
             <Timer data={active} type={gameType.FOOTBALL_LEAGUE} />
           </div>
