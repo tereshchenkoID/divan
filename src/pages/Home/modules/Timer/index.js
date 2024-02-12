@@ -59,20 +59,22 @@ const Timer = ({ data, type }) => {
 
   return (
     <div className={style.block}>
-      <div className={style.top}>
-        {live === 1 && <StartTimer data={data} delta={delta} />}
-        {live === 2 && t('interface.live')}
-      </div>
-      <div className={style.bottom}>
-        {live === 1 && <div>{convertTime(data.start, delta)}</div>}
-        {live === 2 && !checkData(update) && (
-          <MatchTimer data={update} delta={delta} type={type} />
-        )}
-        {live === 3 && !checkData(update) && (
-          <ResultTimer data={update} game={game} delta={delta} />
-        )}
-        {live === 4 && <div>{t('interface.results')}</div>}
-      </div>
+      <StartTimer data={data} delta={delta} />
+
+      {/*<div className={style.top}>*/}
+      {/*  {live === 1 && <StartTimer data={data} delta={delta} />}*/}
+      {/*  {live === 2 && t('interface.live')}*/}
+      {/*</div>*/}
+      {/*<div className={style.bottom}>*/}
+      {/*  {live === 1 && <div>{convertTime(data.start, delta)}</div>}*/}
+      {/*  {live === 2 && !checkData(update) && (*/}
+      {/*    <MatchTimer data={update} delta={delta} type={type} />*/}
+      {/*  )}*/}
+      {/*  {live === 3 && !checkData(update) && (*/}
+      {/*    <ResultTimer data={update} game={game} delta={delta} />*/}
+      {/*  )}*/}
+      {/*  {live === 4 && <div>{t('interface.results')}</div>}*/}
+      {/*</div>*/}
     </div>
   )
 }

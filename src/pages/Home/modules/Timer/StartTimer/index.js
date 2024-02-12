@@ -1,60 +1,37 @@
-import { matchStatus } from 'constant/config'
-import { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import React, { useEffect, useState } from 'react'
 
-import useSocket from 'hooks/useSocket'
-
-import { setModal } from 'store/actions/modalAction'
-import { setLive } from 'store/HOME/actions/liveAction'
-import { setUpdate } from 'store/HOME/actions/updateAction'
-
-import { getDifferent } from 'helpers/getDifferent'
+import { useWebWorker } from 'hooks/useWorker'
 
 const StartTimer = ({ data, delta }) => {
-  const dispatch = useDispatch()
-  const { sendMessage } = useSocket()
-  const { isConnected } = useSelector(state => state.socket)
-  const [timer, setTimer] = useState('')
+  const [value, setValue] = useState(null)
+  const { result, run } = useWebWorker(k => k * 2)
 
   useEffect(() => {
-    setTimer(getDifferent(data.start, delta))
-  }, [data.start, delta])
+    // Функция, которая будет вызываться каждые 30 секунд
+    const fetchData = () => {
+      // Выполните запрос на сервер здесь
+      console.log('Fetching data from server...')
+    }
 
-  useEffect(() => {
     const a = setInterval(() => {
-      let r = getDifferent(data.start, delta)
-      const diff = (data.start - (new Date().getTime() + delta)) / 1000
-
-      if (new Date().getTime() + delta >= data.nextUpdate) {
-        // if (r === '0') {
-        if (isConnected) {
-          sendMessage({
-            cmd: `feed/${sessionStorage.getItem('authToken')}/EVENT/${data.id}`,
-          })
-        } else {
-          dispatch(setUpdate(data.id, null)).then(json => {
-            if (json.event.status === matchStatus.PROGRESS) {
-              dispatch(setLive(2))
-              clearInterval(a)
-            }
-          })
-        }
-      } else {
-        setTimer(r)
-      }
-
-      if (diff < 6) {
-        dispatch(setModal(1))
-      }
+      console.log(new Date().getTime())
     }, 1000)
 
-    return () => {
-      setTimer('')
-      clearInterval(a)
-    }
-  }, [data.start, delta])
+    // Очистите интервал при размонтировании компонента
+    return () => clearInterval(a)
+  }, [])
 
-  return <div>{timer === '0' ? '00:00' : timer}</div>
+  const handleClick = () => {
+    setValue(10)
+    run(10)
+  }
+
+  return (
+    <div>
+      <button onClick={handleClick}>Click</button>
+      {result}
+    </div>
+  )
 }
 
 export default StartTimer
