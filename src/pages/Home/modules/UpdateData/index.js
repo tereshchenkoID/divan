@@ -31,9 +31,7 @@ const UpdateData = ({ find, setActive, setFind }) => {
   useEffect(() => {
     if (!isConnected) {
       a.current = setInterval(() => {
-        // const t = getDifferent(find.nextUpdate, delta)
-
-        // console.log(t)
+        console.log(getDifferent(find.nextUpdate, delta))
 
         if (new Date().getTime() + delta >= find.nextUpdate) {
           // if (t === '0') {
@@ -69,9 +67,7 @@ const UpdateData = ({ find, setActive, setFind }) => {
       dispatch(setUpdate(null, receivedMessage))
 
       a.current = setInterval(() => {
-        // const t = getDifferent(receivedMessage.event.nextUpdate, delta)
-
-        // console.log(t)
+        console.log(getDifferent(receivedMessage.event.nextUpdate, delta))
 
         if (new Date().getTime() + delta >= receivedMessage.event.nextUpdate) {
           // if (t === '0') {

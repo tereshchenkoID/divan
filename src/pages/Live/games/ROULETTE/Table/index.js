@@ -42,7 +42,6 @@ const Table = ({ data }) => {
               <iframe
                 title={'Wheel'}
                 src={`${hostnames.PROD}/iframe/wheel/#/${params}`}
-                frameBorder="0"
               />
             </div>
           </div>
