@@ -1,0 +1,49 @@
+@import "scss/config";
+
+.block {
+  @include make-spacer(pt, 2);
+  @include make-spacer(px, 2);
+  @include size(100%, auto);
+
+  display: grid;
+  grid-template-columns: auto 1fr rem(100px);
+  gap: rem(20px);
+  align-items: center;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.left {
+  display: grid;
+  grid-template-columns: rem(150px) rem(95px);
+  align-items: center;
+}
+
+.center {
+  @include flex($align-items: flex-start, $direction: column);
+
+  gap: rem(10px);
+}
+
+.right {
+  @include size(100%);
+}
+
+.league {
+  @include size(rem(135px), rem(70px));
+}
+
+.img {
+  width: auto;
+}
+
+.weeks {
+  @include flex($align-items: center);
+}
+
+.week {
+  @include link;
+  @include make-spacer(px, 2);
+
+  width: auto;
+}

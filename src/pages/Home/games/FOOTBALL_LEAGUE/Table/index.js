@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import useSocket from 'hooks/useSocket'
 
+import { hostnames } from 'constant/config'
+
 import classNames from 'classnames'
 
 import { setLive } from 'store/HOME/actions/liveAction'
@@ -292,7 +294,7 @@ const Table = () => {
                           <div>
                             <div className={style.logo}>
                               <img
-                                src={`https://view.divan.bet/engine/shop/resource/${el_m.teams.home.img}`}
+                                src={`${hostnames.ASSETS}/${el_m.teams.home.img}`}
                                 alt={el_m.teams.home.name}
                               />
                             </div>
@@ -303,7 +305,7 @@ const Table = () => {
                           <div>
                             <div className={style.logo}>
                               <img
-                                src={`https://view.divan.bet/engine/shop/resource/${el_m.teams.away.img}`}
+                                src={`${hostnames.ASSETS}/${el_m.teams.away.img}`}
                                 alt={el_m.teams.away.name}
                               />
                             </div>

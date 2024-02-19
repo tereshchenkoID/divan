@@ -5,7 +5,9 @@
   @include size(rem(95px));
 
   border-radius: 50%;
+  font-weight: var(--typography-bold);
   text-align: center;
+  text-transform: uppercase;
   color: var(--color-white);
   background-image: linear-gradient(0deg, #294329 0%, #00a900 52%, #00a900 100%);
   filter: drop-shadow(0 0 0.5px rgba(0, 0, 0, 0.56));
@@ -14,7 +16,6 @@
 
 .top {
   font-size: rem(22px);
-  font-weight: var(--typography-bold);
 }
 
 .bottom {

@@ -21,7 +21,6 @@
 
   &:hover,
   &.active {
-    background: linear-gradient(360deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.1) 100%);
-    background-color: var(--color-red);
+    background: var(--color-red) linear-gradient(360deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.1) 100%);
   }
 }

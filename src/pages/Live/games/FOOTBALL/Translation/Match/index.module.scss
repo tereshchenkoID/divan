@@ -1,0 +1,49 @@
+@import "scss/config";
+
+.block {
+  @include make-spacer(px, 2);
+
+  display: grid;
+  grid-template-columns: rem(25px) rem(30px) 1fr rem(30px) rem(10px) rem(30px) 1fr rem(30px);
+  align-items: center;
+  border-top: rem(1px) solid var(--color-border);
+  font-size: rem(15px);
+  overflow: hidden;
+
+  &:nth-child(even) {
+    background-color: var(--color-thunder);
+  }
+
+  &:nth-child(odd) {
+    background-color: var(--color-mine-shaft);
+  }
+
+  &:first-child {
+    border-top: 0;
+  }
+
+  &.active {
+    background-image: linear-gradient(0deg, #294329 0%, #00a900 52%, #00a900 100%);
+  }
+}
+
+.cell {
+  overflow: hidden;
+}
+
+.logo {
+  @include make-spacer(p, 1);
+  @include size(rem(30px));
+
+  img {
+    object-fit: contain;
+  }
+}
+
+.score {
+
+  &.win {
+    font-weight: var(--typography-bold);
+    color: var(--color-green-900);
+  }
+}

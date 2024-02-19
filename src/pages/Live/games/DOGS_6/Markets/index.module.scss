@@ -1,13 +1,17 @@
 @import "scss/config";
 
 .block {
-    @include make-spacer(p, 2);
-    @include wrapper;
-    @include size(100%);
+  @include make-spacer(p, 2);
+  @include wrapper;
+  @include size(100%);
 }
 
 .slide {
-    @include size(100%);
+  @include size(100%);
 
-    overflow: hidden;
+  overflow: hidden;
+}
+
+.row {
+  @include make-spacer(mb, 2);
 }

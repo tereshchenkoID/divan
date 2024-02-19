@@ -3,7 +3,6 @@ import { hostnames } from 'constant/config'
 
 import { useSelector } from 'react-redux'
 
-import Loader from 'components/Loader'
 import Pay from '../Pay'
 import Numbers from '../Numbers'
 import Colors from '../Colors'
@@ -15,14 +14,7 @@ import style from './index.module.scss'
 
 const Table = ({ data }) => {
   const { progress } = useSelector(state => state.progress)
-  const [loading, setLoading] = useState(true)
   const [params, setParams] = useState('')
-
-  useEffect(() => {
-    setTimeout(() => {
-      setLoading(false)
-    }, 500)
-  }, [data])
 
   useEffect(() => {
     setParams(
@@ -32,43 +24,39 @@ const Table = ({ data }) => {
 
   return (
     <div className={style.block}>
-      {loading ? (
-        <Loader type={'block'} background={'transparent'} />
-      ) : (
-        <div className={style.wrapper}>
-          <div className={style.column}>
-            {params}
-            <div className={style.wheel}>
-              <iframe
-                title={'Wheel'}
-                src={`${hostnames.PROD}/iframe/wheel/#/${params}`}
-              />
-            </div>
+      <div className={style.wrapper}>
+        <div className={style.column}>
+          {params}
+          <div className={style.wheel}>
+            <iframe
+              title={'Wheel'}
+              src={`${hostnames.PROD}/iframe/wheel/#/${params}`}
+            />
           </div>
-          <div className={style.column}>
-            <div className={style.grid}>
-              <div>
-                <Hot data={data} />
-              </div>
-              <div>
-                <Dozens data={data} />
-              </div>
-              <div>
-                <Colors data={data} />
-              </div>
-              <div>
-                <History data={data} />
-              </div>
-              <div>
-                <Pay />
-              </div>
-              <div>
-                <Numbers data={data} />
-              </div>
+        </div>
+        <div className={style.column}>
+          <div className={style.grid}>
+            <div>
+              <Hot data={data} />
+            </div>
+            <div>
+              <Dozens data={data} />
+            </div>
+            <div>
+              <Colors data={data} />
+            </div>
+            <div>
+              <History data={data} />
+            </div>
+            <div>
+              <Pay />
+            </div>
+            <div>
+              <Numbers data={data} />
             </div>
           </div>
         </div>
-      )}
+      </div>
     </div>
   )
 }

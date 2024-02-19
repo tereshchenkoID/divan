@@ -14,6 +14,14 @@
 }
 
 .left {
+  padding-top: rem(45px);
+
+  .row {
+    display: grid;
+    grid-template-columns: rem(35px) 1fr;
+    align-items: center;
+    column-gap: rem(10px);
+  }
 
   .results {
     border-top: rem(3px) solid var(--color-orange-900);
@@ -24,12 +32,17 @@
 }
 
 .right {
+  overflow: hidden;
 
   .results {
     border-top: rem(3px) solid var(--color-orange-900);
     border-right: rem(3px) solid var(--color-orange-900);
     border-bottom: rem(3px) solid var(--color-orange-900);
     border-radius: 0 rem(9px) rem(9px) 0;
+  }
+
+  .row {
+    @include flex;
   }
 }
 
@@ -38,26 +51,8 @@
   background-color: #1b1b1b;
 }
 
-.left {
-  padding-top: rem(45px);
-
-  .row {
-    display: grid;
-    grid-template-columns: rem(35px) 1fr;
-    align-items: center;
-    column-gap: rem(10px);
-  }
-}
-
-.right {
-  overflow: hidden;
-
-  .row {
-    @include flex;
-  }
-}
-
 .slide {
+  height: 100%;
   padding-top: rem(8px);
   overflow: hidden;
 }
@@ -93,6 +88,10 @@
 }
 
 .column {
+  @include flex(center, center);
+
+  position: relative;
+  flex: 1;
   height: 100%;
   border-right: rem(1px) solid var(--color-border);
 
@@ -124,13 +123,6 @@
   height: 100%;
   font-size: rem(15px);
   text-align: center;
-}
-
-.column {
-  @include flex(center, center);
-
-  position: relative;
-  flex: 1;
 }
 
 .legend {

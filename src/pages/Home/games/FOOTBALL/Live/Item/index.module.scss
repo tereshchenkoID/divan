@@ -1,0 +1,87 @@
+@import "scss/config";
+
+.block {
+  display: grid;
+  grid-template-columns: rem(35px) rem(215px) 1fr;
+  height: rem(53px);
+  border-bottom: 1px solid var(--color-border);
+  text-align: center;
+  color: var(--color-white);
+  column-gap: rem(10px);
+  transition: var(--default-transition);
+
+  &:nth-child(even) {
+    background-color: var(--color-thunder);
+  }
+
+  &:nth-child(odd) {
+    background-color: var(--color-mine-shaft);
+  }
+
+  &:last-child {
+    border-bottom: 0;
+  }
+
+  &.active {
+    background-image: linear-gradient(0deg, #294329 0%, #00a900 52%, #00a900 100%);
+  }
+}
+
+.odds {
+  @include flex;
+
+  gap: rem(1px);
+  height: 100%;
+}
+
+.odd {
+  @include flex($justify-content: center, $direction: column);
+
+  flex: 1;
+  height: 100%;
+
+  &.active {
+    border: 0 solid var(--color-black);
+    background-image: linear-gradient(0deg, #294329 0%, #00a900 52%, #00a900 100%);
+    filter: drop-shadow(0 0 0.5px rgba(0, 0, 0, 0.56));
+    box-shadow: inset 0 3px 3.5px rgba(0, 0, 0, 0.18);
+  }
+}
+
+.label {
+  font-size: rem(12px);
+  opacity: 0.8;
+}
+
+.meta {
+  @include size(100%);
+
+  display: grid;
+  grid-template-columns: rem(40px) 1fr rem(40px) 1fr rem(40px);
+  align-items: center;
+  font-size: rem(15px);
+  text-align: center;
+  color: var(--color-white);
+}
+
+.position {
+  @include flex(center, center);
+  @include size(100%);
+}
+
+.score {
+  display: grid;
+  grid-template-columns: 1fr rem(5px) 1fr;
+  font-weight: var(--typography-bold);
+  color: var(--color-orange-900);
+  column-gap: rem(5px);
+}
+
+.logo {
+  @include make-spacer('p', 1);
+  @include size(rem(40px));
+
+  img {
+    object-fit: contain;
+  }
+}

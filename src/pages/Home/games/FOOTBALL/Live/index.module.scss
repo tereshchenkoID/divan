@@ -1,0 +1,50 @@
+@import "scss/config";
+
+.block {
+  @include size(100%, auto);
+
+  position: relative;
+  padding-top: rem(82px);
+}
+
+.cell,
+.odds,
+.column {
+  height: 100%;
+}
+
+.wrapper {
+  @include wrapper;
+
+  //min-height: rem(530px);
+}
+
+.head {
+  display: grid;
+  grid-template-columns: rem(35px) rem(215px) 1fr;
+  align-items: center;
+  height: rem(37px);
+  padding-right: rem(2px);
+  padding-left: rem(2px);
+  font-size: rem(12px);
+  color: var(--color-white);
+  column-gap: rem(10px);
+}
+
+.odds {
+  @include flex;
+}
+
+.column {
+  @include flex(center, center);
+
+  border-top: rem(1px) solid var(--color-border);
+  border-right: rem(1px) solid var(--color-border);
+  border-bottom: rem(1px) solid transparent;
+  flex: 1;
+  height: 100%;
+
+  &:last-child {
+    border-right: 0;
+  }
+}

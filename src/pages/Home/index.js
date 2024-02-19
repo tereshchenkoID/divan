@@ -12,6 +12,7 @@ import { checkCmd } from 'helpers/checkCmd'
 
 import { setSettings } from 'store/actions/settingsAction'
 
+import FOOTBALL from './games/FOOTBALL'
 import FOOTBALL_LEAGUE from 'pages/Home/games/FOOTBALL_LEAGUE'
 import COLOR_COLOR from 'pages/Home/games/COLOR_COLOR'
 import ROULETTE from 'pages/Home/games/ROULETTE'
@@ -30,6 +31,8 @@ import style from './index.module.scss'
 
 const setGame = id => {
   switch (id) {
+    case gameType.FOOTBALL:
+      return <FOOTBALL />
     case gameType.FOOTBALL_LEAGUE:
       return <FOOTBALL_LEAGUE />
     case gameType.ROULETTE:

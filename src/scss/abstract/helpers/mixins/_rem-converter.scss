@@ -38,7 +38,7 @@ $rem-px-only: false !default;
       $result: append($result, $value / 1rem * $rem-baseline, $separator);
     }
 
- @else if
+    @else if
     type-of($value) ==
       'number' and
       unit($value) ==
@@ -49,14 +49,14 @@ $rem-px-only: false !default;
       $result: append($result, $value / $rem-baseline * 1rem, $separator);
     }
 
- @else if type-of($value) == 'list' {
+    @else if type-of($value) == 'list' {
       $value-separator: rem-separator($value);
       $value: rem-convert($to, $value...);
       $value: rem-separator($value, $value-separator);
       $result: append($result, $value, $separator);
     }
 
- @else {
+    @else {
       $result: append($result, $value, $separator);
     }
   }
@@ -69,7 +69,7 @@ $rem-px-only: false !default;
     @return rem-convert(px, $values...);
   }
 
- @else {
+  @else {
     @return rem-convert(rem, $values...);
   }
 }
@@ -81,7 +81,7 @@ $rem-px-only: false !default;
     }
   }
 
- @else {
+  @else {
     @each $property in $properties {
       @if $rem-fallback or $rem-px-only {
         #{$property}: rem-convert(px, $values...);

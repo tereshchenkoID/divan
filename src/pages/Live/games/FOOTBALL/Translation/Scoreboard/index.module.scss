@@ -1,0 +1,45 @@
+@import "scss/config";
+
+.block {
+  @include flex($direction: column);
+
+  height: rem(95px);
+  border: rem(3px) solid var(--color-orange-900);
+  border-radius: rem(9px);
+  overflow: hidden;
+  background-color: #1b1b1b;
+}
+
+.cell {
+  @include flex(center, center);
+  @include make-spacer(px, 2);
+  @include make-spacer(py, 1);
+}
+
+.top {
+  @include make-spacer(py, 1);
+
+  display: grid;
+  grid-template-columns: rem(50px) 1fr rem(50px);
+  align-items: center;
+  border-bottom: rem(1px) solid var(--color-border);
+}
+
+.bottom {
+  flex-grow: 1;
+  background-color: var(--color-mine-shaft);
+}
+
+.scoreboard {
+  display: grid;
+  grid-template-columns: 1fr rem(40px) rem(20px) rem(40px) 1fr;
+  align-items: center;
+}
+
+.score {
+
+  &.win {
+    font-weight: var(--typography-bold);
+    color: var(--color-green-900);
+  }
+}

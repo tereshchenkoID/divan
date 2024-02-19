@@ -1,0 +1,136 @@
+@import "scss/config";
+
+.block {
+  display: grid;
+  grid-template-columns: rem(270px) 1fr;
+  text-align: center;
+  color: var(--color-white);
+  transition: var(--default-transition);
+
+  &.active {
+
+    .meta {
+      background-image: linear-gradient(0deg, #294329 0%, #00a900 52%, #00a900 100%);
+    }
+  }
+}
+
+.value,
+.label {
+  @include flex(center, center);
+
+  flex: 1;
+}
+
+.wrapper {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  row-gap: rem(20px);
+}
+
+.odds {
+  @include flex;
+  @include size(100%);
+}
+
+.odd {
+  @include flex;
+
+  flex: 1;
+
+  &.active {
+    background-image: linear-gradient(0deg, #294329 0%, #00a900 52%, #00a900 100%)!important;
+    box-shadow: inset 0 3px 3.5px rgba(0, 0, 0, 0.18);
+  }
+}
+
+.column {
+
+  &:nth-child(even) {
+
+    .market {
+      border-right: rem(3px) solid var(--color-orange-900);
+      border-radius: 0 rem(9px) rem(9px) 0;
+    }
+
+    .head {
+      border-right: 0;
+    }
+  }
+
+  &:nth-child(odd) {
+
+    .market {
+      border-left: rem(3px) solid var(--color-orange-900);
+      border-radius:  rem(9px) 0 0 rem(9px);
+    }
+  }
+
+  &:nth-child(1) {
+
+    .market {
+      border-left: 0;
+      border-radius: 0;
+    }
+  }
+}
+
+.head {
+  @include flex(center, center);
+
+  flex-shrink: 0;
+  height: rem(37px);
+  border-top: rem(1px) solid var(--color-border);
+  border-right: rem(1px) solid var(--color-border);
+  font-size: rem(12px);
+}
+
+.market {
+  @include flex;
+
+  height: rem(53px);
+  border-top: rem(3px) solid var(--color-orange-900);
+  border-bottom: rem(3px) solid var(--color-orange-900);
+  background-color: var(--color-thunder);
+}
+
+.label {
+  opacity: 0.8;
+}
+
+.meta {
+  @include make-spacer(px, 1);
+  @include size(100%, rem(53px));
+
+  display: grid;
+  grid-template-columns: rem(40px) 1fr rem(40px) 1fr rem(40px);
+  align-items: center;
+  margin-top: rem(37px);
+  border-top: rem(3px) solid var(--color-orange-900);
+  border-bottom: rem(3px) solid var(--color-orange-900);
+  border-left: rem(3px) solid var(--color-orange-900);
+  border-radius: rem(9px) 0 0 rem(9px);
+  font-size: rem(15px);
+  background-color: var(--color-thunder);
+}
+
+.score {
+  display: grid;
+  grid-template-columns: 1fr rem(5px) 1fr;
+  font-weight: var(--typography-bold);
+  color: var(--color-orange-900);
+  column-gap: rem(5px);
+}
+
+.value {
+  background-color: var(--color-mine-shaft);
+}
+
+.logo {
+  @include make-spacer(p, 1);
+  @include size(rem(40px));
+
+  img {
+    object-fit: contain;
+  }
+}

@@ -1,4 +1,4 @@
-import { gameType } from 'constant/config'
+import { gameType, matchStatus } from 'constant/config'
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -8,9 +8,9 @@ import { setSettings } from 'store/actions/settingsAction'
 import { setGame } from 'store/actions/gameAction'
 
 import Loader from 'components/Loader'
-import JackPot from 'pages/Home/modules/JackPot'
 import Decor from 'pages/Home/modules/Decor'
 
+import FOOTBALL from './games/FOOTBALL'
 import FOOTBALL_LEAGUE from './games/FOOTBALL_LEAGUE'
 import COLOR_COLOR from './games/COLOR_COLOR'
 import ROULETTE from './games/ROULETTE'
@@ -22,11 +22,17 @@ import Countdown from './modules/Modal/Countdown'
 import Jackpot from './modules/Modal/Jackpot'
 import Ticker from './modules/Ticker'
 import Games from './modules/Games'
+import Header from './modules/Header'
+
+import { setProgress } from 'store/LIVE/actions/progressAction'
+import { setTv } from 'store/LIVE/actions/tvAction'
 
 import style from './index.module.scss'
 
 const getGame = id => {
   switch (id) {
+    case gameType.FOOTBALL:
+      return <FOOTBALL />
     case gameType.FOOTBALL_LEAGUE:
       return <FOOTBALL_LEAGUE />
     case gameType.DOGS_6:
@@ -47,7 +53,9 @@ const Live = () => {
   const { game } = useSelector(state => state.game)
   const { modal } = useSelector(state => state.modal)
   const { jackpot } = useSelector(state => state.jackpot)
+  const { tv } = useSelector(state => state.tv)
   const [loading, setLoading] = useState(true)
+  const [preloader, setPreloader] = useState(true)
   const [active, setActive] = useState(false)
 
   useEffect(() => {
@@ -61,6 +69,24 @@ const Live = () => {
       }
     })
   }, [])
+
+  useEffect(() => {
+    if (game) {
+      dispatch(setTv(`${game.type}/${game.id}`)).then(json => {
+        if (json.event.status === matchStatus.ANNOUNCEMENT) {
+          dispatch(setProgress(1))
+        } else if (json.event.status === matchStatus.PROGRESS) {
+          dispatch(setProgress(2))
+        } else if (json.event.status === matchStatus.RESULTS) {
+          dispatch(setProgress(3))
+        } else if (json.event.status === matchStatus.COMPLETED) {
+          dispatch(setProgress(4))
+        }
+
+        setPreloader(false)
+      })
+    }
+  }, [game])
 
   return (
     <div className={style.block}>
@@ -81,16 +107,18 @@ const Live = () => {
               </div>
               <Ticker />
             </div>
-            <div className={style.content}>
-              <div className={style.banners}>
-                <JackPot size={'lg'} />
+            {preloader && tv ? (
+              <Loader type={'block'} background={'transparent'} />
+            ) : (
+              <div className={style.content}>
+                <Header />
+                <div className={style.table}>{getGame(game.type)}</div>
               </div>
-              <div className={style.table}>{getGame(game.type)}</div>
-              {modal === 1 && <Countdown />}
-              {jackpot && <Jackpot />}
-            </div>
+            )}
+            {modal === 1 && <Countdown />}
+            {jackpot && <Jackpot />}
           </div>
-          {active && <Games action={setActive} />}
+          {active && <Games action={setActive} setPreloader={setPreloader} />}
         </>
       )}
     </div>

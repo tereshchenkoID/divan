@@ -1,9 +1,6 @@
 import { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
-
-import { setProgress } from 'store/LIVE/actions/progressAction'
-import { setTv } from 'store/LIVE/actions/tvAction'
 
 import { convertTime } from 'helpers/convertTime'
 
@@ -14,21 +11,11 @@ import ResultTimer from './ResultTimer'
 import style from './index.module.scss'
 
 const Timer = ({ data, type }) => {
-  const dispatch = useDispatch()
   const { t } = useTranslation()
   const { progress } = useSelector(state => state.progress)
   const { delta } = useSelector(state => state.delta)
-  const { game } = useSelector(state => state.game)
 
   useEffect(() => {}, [delta])
-
-  useEffect(() => {
-    return () => {
-      dispatch(setTv(`${type}/${game.id}`))
-      dispatch(setProgress(1))
-    }
-  }, [])
-
   return (
     <div className={style.block}>
       <div className={style.top}>
