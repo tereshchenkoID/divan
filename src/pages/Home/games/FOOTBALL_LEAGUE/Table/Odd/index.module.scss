@@ -1,4 +1,4 @@
-@import "scss/config";
+@import 'scss/config';
 
 .block {
   @include odd;
@@ -52,7 +52,7 @@
       background-image: none;
 
       .odd {
-        background: linear-gradient(360deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.1) 100%);
+        background: linear-gradient(360deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.1) 100%);
         background-color: var(--color-red);
       }
     }

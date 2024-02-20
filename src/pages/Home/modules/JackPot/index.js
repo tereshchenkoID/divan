@@ -21,9 +21,7 @@ const JackPot = ({ size = 'default' }) => {
   const [timer, setTimer] = useState('')
 
   const { delta } = useSelector(state => state.delta)
-  const { socket, isConnected, receivedMessage } = useSelector(
-    state => state.socket,
-  )
+  const { socket, isConnected, receivedMessage } = useSelector(state => state.socket)
 
   useEffect(() => {
     if (isConnected) {

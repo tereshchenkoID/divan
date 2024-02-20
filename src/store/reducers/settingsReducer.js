@@ -1,23 +1,23 @@
-import { types } from "store/actionTypes";
+import { types } from 'store/actionTypes'
 
 const initialState = {
-    settings: {}
-};
+  settings: {},
+}
 
 const settingsReducer = (state = initialState, action) => {
-    switch (action.type) {
-        case types.GET_SETTINGS:
-            return {
-                ...state
-            };
-        case types.SET_SETTINGS:
-            return {
-                ...state,
-                settings: action.payload
-            };
-        default:
-            return state;
-    }
-};
+  switch (action.type) {
+    case types.GET_SETTINGS:
+      return {
+        ...state,
+      }
+    case types.SET_SETTINGS:
+      return {
+        ...state,
+        settings: action.payload,
+      }
+    default:
+      return state
+  }
+}
 
-export default settingsReducer;
+export default settingsReducer

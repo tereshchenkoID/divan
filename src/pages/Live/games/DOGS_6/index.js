@@ -20,9 +20,7 @@ const Table = () => {
     <div className={style.block}>
       {tv.event ? (
         <>
-          {settings.account.mode === '1' &&
-            progress === 2 &&
-            liveTimer !== 0 && <Translation data={tv} />}
+          {settings.account.mode === '1' && progress === 2 && liveTimer !== 0 && <Translation data={tv} />}
           {progress === 1 && <Markets data={tv.event} />}
           {progress === 2 && <Live />}
           {progress === 3 && <Results data={tv.event} />}

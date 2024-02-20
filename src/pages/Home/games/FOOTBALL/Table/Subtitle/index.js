@@ -1,19 +1,9 @@
-import classNames from "classnames";
+import classNames from 'classnames'
 
-import style from './index.module.scss';
+import style from './index.module.scss'
 
-const Subtitle = ({data, size}) => {
-
-    return (
-        <div className={
-            classNames(
-                style.block,
-                style[size]
-            )
-        }>
-            {data}
-        </div>
-    );
+const Subtitle = ({ data, size }) => {
+  return <div className={classNames(style.block, style[size])}>{data}</div>
 }
 
-export default Subtitle;
+export default Subtitle

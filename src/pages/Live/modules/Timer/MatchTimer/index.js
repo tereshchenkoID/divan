@@ -69,13 +69,7 @@ const MatchTimer = ({ data, delta, type }) => {
     }
   }, [data.start, delta])
 
-  return (
-    <div>
-      {timer === '0'
-        ? '00:00'
-        : `${timer}${type === gameType.FOOTBALL_LEAGUE ? `'` : ''}`}
-    </div>
-  )
+  return <div>{timer === '0' ? '00:00' : `${timer}${type === gameType.FOOTBALL_LEAGUE ? `'` : ''}`}</div>
 }
 
 export default MatchTimer

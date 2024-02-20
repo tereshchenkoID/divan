@@ -1,4 +1,4 @@
-@import "scss/config";
+@import 'scss/config';
 
 .block {
   @include size(100%, rem(53px));
@@ -11,14 +11,14 @@
   line-height: 1;
   overflow: hidden;
   color: var(--color-white);
-  background: linear-gradient(360deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 100%);
+  background: linear-gradient(360deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 100%);
   background-color: var(--color-black);
 
   &.bronze {
-    background-color: #6E6929;
+    background-color: #6e6929;
 
     .right {
-      background-color: #D2B76F;
+      background-color: #d2b76f;
     }
   }
 
@@ -26,15 +26,15 @@
     background-color: #697267;
 
     .right {
-      background-color: #A8ACA8;
+      background-color: #a8aca8;
     }
   }
 
   &.gold {
-    background-color: #7A5F05;
+    background-color: #7a5f05;
 
     .right {
-      background-color: #BF8609;
+      background-color: #bf8609;
     }
   }
 }
@@ -51,7 +51,7 @@
 .right {
   border-radius: rem(2px);
   overflow: hidden;
-  background: linear-gradient(360deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 100%);
+  background: linear-gradient(360deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 100%);
 }
 
 .amount {

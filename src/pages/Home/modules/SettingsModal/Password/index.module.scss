@@ -1,4 +1,4 @@
-@import "scss/config";
+@import 'scss/config';
 
 .block {
   @include make-spacer('p', 4);
@@ -48,5 +48,3 @@
     outline: 0;
   }
 }
-
-

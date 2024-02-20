@@ -1,24 +1,23 @@
 const deleteBets = (data, id) => {
-    const a = []
+  const a = []
 
-    for(let i = 0; i < data.length; i++) {
-        if (data[i].sid !== id) {
-            a.push(data[i])
-        }
+  for (let i = 0; i < data.length; i++) {
+    if (data[i].sid !== id) {
+      a.push(data[i])
     }
+  }
 
-    return a
+  return a
 }
 
 export const clearActiveBets = (data, id) => {
-    if (data) {
-        const f = data.find(el => {
-            return el.sid === id
-        })
+  if (data) {
+    const f = data.find(el => {
+      return el.sid === id
+    })
 
-        return f ? deleteBets(data, id) : null
-    }
-    else {
-        return null
-    }
+    return f ? deleteBets(data, id) : null
+  } else {
+    return null
+  }
 }

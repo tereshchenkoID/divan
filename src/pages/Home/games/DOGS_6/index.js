@@ -1,10 +1,7 @@
 import Table from './Table'
 
 const DOGS_6 = () => {
-
-    return (
-        <Table />
-    );
+  return <Table />
 }
 
-export default DOGS_6;
+export default DOGS_6

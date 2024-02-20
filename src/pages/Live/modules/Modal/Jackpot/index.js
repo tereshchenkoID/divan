@@ -12,10 +12,7 @@ const Jackpot = () => {
   return (
     <div className={classNames(style.block, style[jackpot.type.toLowerCase()])}>
       <div className={style.decor}>
-        <img
-          src={`/img/decor/LIVE/JACKPOT/${jackpot.type.toLowerCase()}.png`}
-          alt="Jackpot"
-        />
+        <img src={`/img/decor/LIVE/JACKPOT/${jackpot.type.toLowerCase()}.png`} alt="Jackpot" />
       </div>
       <div className={style.title}>{t('interface.jackpot_winner')}!</div>
       <div className={style.jackpot}>

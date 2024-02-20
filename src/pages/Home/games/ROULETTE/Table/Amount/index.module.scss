@@ -1,4 +1,4 @@
-@import "scss/config";
+@import 'scss/config';
 
 .block {
   @include size(rem(40px));
@@ -41,7 +41,6 @@
 }
 
 @keyframes amount_move {
-
   0% {
     opacity: 0;
   }
@@ -61,7 +60,6 @@
 }
 
 @keyframes chip_move {
-
   0% {
     transform: translateY(0);
   }

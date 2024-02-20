@@ -1,4 +1,4 @@
-@import "scss/config";
+@import 'scss/config';
 
 .block {
   @include flex(center, center);
@@ -10,7 +10,7 @@
   border-radius: rem(6px);
   font-size: rem(14px);
   color: var(--color-white);
-  box-shadow: 0 rem(2px) rem(2px) rgba(255,255,255,0.14);
+  box-shadow: 0 rem(2px) rem(2px) rgba(255, 255, 255, 0.14);
 
   &::before {
     position: absolute;

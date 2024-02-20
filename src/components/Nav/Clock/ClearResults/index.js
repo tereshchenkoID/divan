@@ -1,42 +1,42 @@
-import {useEffect} from "react";
-import {useDispatch, useSelector} from "react-redux";
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
-import {deleteBetslip} from "store/HOME/actions/betslipAction";
+import { deleteBetslip } from 'store/HOME/actions/betslipAction'
 
 const deleteBets = (data, now) => {
-    const a = []
+  const a = []
 
-    for(let i = 0; i < data.length; i++) {
-        if(data[i].start > now) {
-            a.push(data[i])
-        }
+  for (let i = 0; i < data.length; i++) {
+    if (data[i].start > now) {
+      a.push(data[i])
     }
+  }
 
-    return a
+  return a
 }
 
 const clearActiveBets = (data, now) => {
-    const f = data.find(el => {
-        return el.start < now
-    })
+  const f = data.find(el => {
+    return el.start < now
+  })
 
-    return f ? deleteBets(data, now) : null
+  return f ? deleteBets(data, now) : null
 }
 
-const ClearResults = ({date}) => {
-    const dispatch = useDispatch()
-    const {betslip} = useSelector((state) => state.betslip)
+const ClearResults = ({ date }) => {
+  const dispatch = useDispatch()
+  const { betslip } = useSelector(state => state.betslip)
 
-    useEffect(() => {
-        if(betslip.length > 0) {
-            const a = clearActiveBets(betslip, date)
-            if (a) {
-                dispatch(deleteBetslip(a))
-            }
-        }
-    }, [betslip, date])
+  useEffect(() => {
+    if (betslip.length > 0) {
+      const a = clearActiveBets(betslip, date)
+      if (a) {
+        dispatch(deleteBetslip(a))
+      }
+    }
+  }, [betslip, date])
 
-    return null
+  return null
 }
 
-export default ClearResults;
+export default ClearResults

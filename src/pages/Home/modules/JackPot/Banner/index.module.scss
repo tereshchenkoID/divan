@@ -1,4 +1,4 @@
-@import "scss/config";
+@import 'scss/config';
 
 .block {
   @include size(100%);
@@ -11,14 +11,14 @@
   line-height: 1;
   overflow: hidden;
   color: var(--color-white);
-  background: linear-gradient(360deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 100%);
+  background: linear-gradient(360deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 100%);
   background-color: var(--color-black);
 
   &.bronse {
-    background-color: rgba(#6E6929, 0.8);
+    background-color: rgba(#6e6929, 0.8);
 
     .right {
-      background-color: #D2B76F;
+      background-color: #d2b76f;
     }
   }
 
@@ -26,15 +26,15 @@
     background-color: rgba(#697267, 0.8);
 
     .right {
-      background-color: #A8ACA8;
+      background-color: #a8aca8;
     }
   }
 
   &.gold {
-    background-color: rgba(#7A5F05, 0.8);
+    background-color: rgba(#7a5f05, 0.8);
 
     .right {
-      background-color: #BF8609;
+      background-color: #bf8609;
     }
   }
 }
@@ -58,7 +58,7 @@
   border-radius: inherit;
   font-size: rem(18px);
   font-weight: var(--typography-bold);
-  background: linear-gradient(360deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 100%);
+  background: linear-gradient(360deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 100%);
 }
 
 .symbol {

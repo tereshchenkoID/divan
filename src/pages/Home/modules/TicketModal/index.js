@@ -97,10 +97,7 @@ const TicketModal = ({ id, action }) => {
         // }
       }
 
-      if (
-        checkCmd('payout', receivedMessage.cmd) ||
-        checkCmd('cancel', receivedMessage.cmd)
-      ) {
+      if (checkCmd('payout', receivedMessage.cmd) || checkCmd('cancel', receivedMessage.cmd)) {
         if (receivedMessage.hasOwnProperty('stake')) {
           setData(receivedMessage)
         }
@@ -141,12 +138,7 @@ const TicketModal = ({ id, action }) => {
                     }}
                   />
                   <div className={classNames(style.button, style.md)}>
-                    <Button
-                      type={'green'}
-                      size={'md'}
-                      icon={'search'}
-                      props={'submit'}
-                    />
+                    <Button type={'green'} size={'md'} icon={'search'} props={'submit'} />
                   </div>
                 </form>
               </>
@@ -164,144 +156,71 @@ const TicketModal = ({ id, action }) => {
                         data.stake.status === 'CANCELLED' && style['cancelled'],
                       )}
                     >
-                      {data.stake.paid === '1' ? (
-                        <img src={'/img/paid.png'} alt={'Paid'} />
-                      ) : (
-                        <img src={'/img/cancelled.png'} alt={'Paid'} />
-                      )}
+                      {data.stake.paid === '1' ? <img src={'/img/paid.png'} alt={'Paid'} /> : <img src={'/img/cancelled.png'} alt={'Paid'} />}
                     </div>
                     <div className={style.wrapper}>
-                      <div className={style.title}>
-                        {t('interface.details')}
-                      </div>
-                      <div
-                        className={classNames(
-                          style.table,
-                          style.left,
-                          style.sm,
-                        )}
-                      >
+                      <div className={style.title}>{t('interface.details')}</div>
+                      <div className={classNames(style.table, style.left, style.sm)}>
                         <div className={style.row}>
-                          <div className={style.cell}>
-                            {t('interface.ticket_number')}
-                          </div>
+                          <div className={style.cell}>{t('interface.ticket_number')}</div>
                           <div className={style.cell}>{data.stake.id}</div>
-                          <div className={style.cell}>
-                            {t('interface.total_stake')}
-                          </div>
+                          <div className={style.cell}>{t('interface.total_stake')}</div>
                           <div className={style.cell}>
                             {settings.account.symbol} {data.stake.amount}
                           </div>
                         </div>
                         <div className={style.row}>
-                          <div className={style.cell}>
-                            {t('interface.book_time')}
-                          </div>
-                          <div className={style.cell}>
-                            {getDateTime(data.stake.placed, 1)}
-                          </div>
-                          <div className={style.cell}>
-                            {t('interface.jackpot')}
-                          </div>
+                          <div className={style.cell}>{t('interface.book_time')}</div>
+                          <div className={style.cell}>{getDateTime(data.stake.placed, 1)}</div>
+                          <div className={style.cell}>{t('interface.jackpot')}</div>
                           <div className={style.cell}></div>
                         </div>
                         <div className={style.row}>
-                          <div className={style.cell}>
-                            {t('interface.selections')}
-                          </div>
-                          <div className={style.cell}>
-                            {data.stake.bets.length}
-                          </div>
-                          <div className={style.cell}>
-                            {t('interface.total_payout')}
-                          </div>
-                          <div className={style.cell}>
-                            {data.stake.payout &&
-                              `${settings.account.symbol} ${data.stake.payout}`}
-                          </div>
+                          <div className={style.cell}>{t('interface.selections')}</div>
+                          <div className={style.cell}>{data.stake.bets.length}</div>
+                          <div className={style.cell}>{t('interface.total_payout')}</div>
+                          <div className={style.cell}>{data.stake.payout && `${settings.account.symbol} ${data.stake.payout}`}</div>
                         </div>
                         <div className={style.row}>
-                          <div className={style.cell}>
-                            {t('interface.ticket_type')}
-                          </div>
-                          <div className={style.cell}>
-                            {data.stake.group.length
-                              ? t('interface.system')
-                              : t('interface.single')}
-                          </div>
-                          <div className={style.cell}>
-                            {t('interface.winning_tax')}
-                          </div>
+                          <div className={style.cell}>{t('interface.ticket_type')}</div>
+                          <div className={style.cell}>{data.stake.group.length ? t('interface.system') : t('interface.single')}</div>
+                          <div className={style.cell}>{t('interface.winning_tax')}</div>
                           <div className={style.cell}>{data.stake.tax}</div>
                         </div>
                         <div className={style.row}>
+                          <div className={style.cell}>{t('interface.status')}</div>
                           <div className={style.cell}>
-                            {t('interface.status')}
-                          </div>
-                          <div className={style.cell}>
-                            <div
-                              className={classNames(
-                                style.status,
-                                style[data.stake.status.toLowerCase()],
-                              )}
-                            />
+                            <div className={classNames(style.status, style[data.stake.status.toLowerCase()])} />
                             {data.stake.status}
                           </div>
-                          <div className={style.cell}>
-                            {t('interface.net_payout')}
-                          </div>
-                          <div className={style.cell}>
-                            {data.stake.payout &&
-                              `${settings.account.symbol} ${data.stake.payout}`}
-                          </div>
+                          <div className={style.cell}>{t('interface.net_payout')}</div>
+                          <div className={style.cell}>{data.stake.payout && `${settings.account.symbol} ${data.stake.payout}`}</div>
                         </div>
                       </div>
                     </div>
                     {type === 1 && (
                       <div className={style.wrapper}>
-                        <div className={style.title}>
-                          {t('interface.system_details')}
-                        </div>
-                        <div
-                          className={classNames(
-                            style.table,
-                            style.center,
-                            style.lg,
-                          )}
-                        >
+                        <div className={style.title}>{t('interface.system_details')}</div>
+                        <div className={classNames(style.table, style.center, style.lg)}>
                           <div className={classNames(style.row, style.head)}>
+                            <div className={style.cell}>{t('interface.gr')}</div>
+                            <div className={style.cell}>{t('interface.combi')}</div>
+                            <div className={style.cell}>{t('interface.stake')}</div>
                             <div className={style.cell}>
-                              {t('interface.gr')}
+                              {t('interface.pot')}. {t('interface.min')} {t('interface.win')}
                             </div>
                             <div className={style.cell}>
-                              {t('interface.combi')}
+                              {t('interface.pot')}. {t('interface.max')} {t('interface.win')}
                             </div>
-                            <div className={style.cell}>
-                              {t('interface.stake')}
-                            </div>
-                            <div className={style.cell}>
-                              {t('interface.pot')}. {t('interface.min')}{' '}
-                              {t('interface.win')}
-                            </div>
-                            <div className={style.cell}>
-                              {t('interface.pot')}. {t('interface.max')}{' '}
-                              {t('interface.win')}
-                            </div>
-                            <div className={style.cell}>
-                              {t('interface.win')}
-                            </div>
-                            <div className={style.cell}>
-                              {t('interface.bonus')}
-                            </div>
+                            <div className={style.cell}>{t('interface.win')}</div>
+                            <div className={style.cell}>{t('interface.bonus')}</div>
                           </div>
                           {data.stake.group.map((el, idx) => (
                             <div key={idx} className={style.row}>
                               <div className={style.cell}>{el.group}</div>
                               <div className={style.cell}>{el.combi}</div>
                               <div className={style.cell}>
-                                {el.combi} x {settings.account.symbol}{' '}
-                                {el.amount} = {settings.account.symbol}{' '}
-                                {el.combi * el.unit}
+                                {el.combi} x {settings.account.symbol} {el.amount} = {settings.account.symbol} {el.combi * el.unit}
                               </div>
                               <div className={style.cell}>
                                 {settings.account.symbol} {el.minwin.toFixed(2)}
@@ -309,10 +228,7 @@ const TicketModal = ({ id, action }) => {
                               <div className={style.cell}>
                                 {settings.account.symbol} {el.maxwin.toFixed(2)}
                               </div>
-                              <div className={style.cell}>
-                                {el.win &&
-                                  `${settings.account.symbol} ${data.stake.win || 0}`}
-                              </div>
+                              <div className={style.cell}>{el.win && `${settings.account.symbol} ${data.stake.win || 0}`}</div>
                               <div className={style.cell}></div>
                             </div>
                           ))}
@@ -320,40 +236,20 @@ const TicketModal = ({ id, action }) => {
                       </div>
                     )}
                     <div className={style.wrapper}>
-                      <div className={style.title}>
-                        {t('interface.bet_list')}
-                      </div>
-                      <div
-                        className={classNames(
-                          style.table,
-                          style.center,
-                          style[type === 0 ? 'single' : 'system'],
-                        )}
-                      >
+                      <div className={style.title}>{t('interface.bet_list')}</div>
+                      <div className={classNames(style.table, style.center, style[type === 0 ? 'single' : 'system'])}>
                         <div className={classNames(style.row, style.head)}>
-                          <div className={style.cell}>
-                            {t('interface.time')}
-                          </div>
-                          <div className={style.cell}>
-                            {t('interface.selection')}
-                          </div>
-                          <div className={style.cell}>
-                            {t('interface.event_result')}
-                          </div>
-                          <div className={style.cell}>
-                            {t('interface.outcome')}
-                          </div>
+                          <div className={style.cell}>{t('interface.time')}</div>
+                          <div className={style.cell}>{t('interface.selection')}</div>
+                          <div className={style.cell}>{t('interface.event_result')}</div>
+                          <div className={style.cell}>{t('interface.outcome')}</div>
                           <div className={style.cell}>
                             {t('interface.max')} {t('interface.odds')}
                           </div>
                           {type === 0 ? (
                             <>
-                              <div className={style.cell}>
-                                {t('interface.stake')}
-                              </div>
-                              <div className={style.cell}>
-                                {t('interface.win')}
-                              </div>
+                              <div className={style.cell}>{t('interface.stake')}</div>
+                              <div className={style.cell}>{t('interface.win')}</div>
                             </>
                           ) : (
                             <>
@@ -365,16 +261,13 @@ const TicketModal = ({ id, action }) => {
                         </div>
                         {data.stake.bets.map((el, idx) => (
                           <div key={idx} className={style.row}>
-                            <div className={style.cell}>
-                              {getDateTime(el.details.start, 0)}
-                            </div>
+                            <div className={style.cell}>{getDateTime(el.details.start, 0)}</div>
                             <div className={classNames(style.cell, style.left)}>
                               <div className={style.icon}>
                                 <Icon id={getIcon(el.type)} />
                               </div>
                               <div className={style.scoreboard}>
-                                {el.details.pos}.{el.details.teams.home}-
-                                {el.details.teams.away}
+                                {el.details.pos}.{el.details.teams.home}-{el.details.teams.away}
                               </div>
                               {el.market}: {el.selection}
                             </div>
@@ -382,18 +275,11 @@ const TicketModal = ({ id, action }) => {
                               <div className={style.score}>
                                 {el.status !== 'MANUALLY_CANCELLED' &&
                                   el.details.results &&
-                                  el.details.results.map((el, idx) => (
-                                    <span key={idx}>{el}</span>
-                                  ))}
+                                  el.details.results.map((el, idx) => <span key={idx}>{el}</span>)}
                               </div>
                             </div>
                             <div className={classNames(style.cell, style.left)}>
-                              <div
-                                className={classNames(
-                                  style.status,
-                                  style[el.status.toLowerCase()],
-                                )}
-                              />
+                              <div className={classNames(style.status, style[el.status.toLowerCase()])} />
                               {el.status}
                             </div>
                             <div className={style.cell}>{el.odds}</div>
@@ -402,10 +288,7 @@ const TicketModal = ({ id, action }) => {
                                 <div className={style.cell}>
                                   {settings.account.symbol} {el.amount}
                                 </div>
-                                <div className={style.cell}>
-                                  {el.win &&
-                                    `${settings.account.symbol} ${data.stake.win || 0}`}
-                                </div>
+                                <div className={style.cell}>{el.win && `${settings.account.symbol} ${data.stake.win || 0}`}</div>
                               </>
                             ) : (
                               <>
@@ -435,20 +318,18 @@ const TicketModal = ({ id, action }) => {
                   />
                 </div>
               )}
-              {settings.business.payout &&
-                data.stake.status === 'WIN' &&
-                data.stake.paid === '0' && (
-                  <div className={classNames(style.button, style.lg)}>
-                    <Button
-                      type={'olive'}
-                      size={'lg'}
-                      icon={'dollar'}
-                      action={() => {
-                        sendAction('payout')
-                      }}
-                    />
-                  </div>
-                )}
+              {settings.business.payout && data.stake.status === 'WIN' && data.stake.paid === '0' && (
+                <div className={classNames(style.button, style.lg)}>
+                  <Button
+                    type={'olive'}
+                    size={'lg'}
+                    icon={'dollar'}
+                    action={() => {
+                      sendAction('payout')
+                    }}
+                  />
+                </div>
+              )}
               <div className={classNames(style.button, style.lg)}>
                 <Button
                   type={'red'}

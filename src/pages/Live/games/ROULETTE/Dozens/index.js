@@ -1,29 +1,23 @@
-import Label from "../../../modules/Label";
-import Odd from "../Odd";
+import Label from '../../../modules/Label'
+import Odd from '../Odd'
 
-import style from './index.module.scss';
+import style from './index.module.scss'
 
-const Dozens = ({data}) => {
-
+const Dozens = ({ data }) => {
   return (
     <div className={style.block}>
       <Label text={'Dozens'} />
       <div className={style.row}>
-        {
-          data.statistics.dozens.map((el, idx) =>
-            <div
-              key={idx}
-              className={style.cell}
-            >
-              {el.num}
+        {data.statistics.dozens.map((el, idx) => (
+          <div key={idx} className={style.cell}>
+            {el.num}
 
-              <Odd number={el.count}/>
-            </div>
-          )
-        }
+            <Odd number={el.count} />
+          </div>
+        ))}
       </div>
     </div>
-  );
+  )
 }
 
-export default Dozens;
+export default Dozens

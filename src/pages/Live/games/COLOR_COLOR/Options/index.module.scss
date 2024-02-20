@@ -1,23 +1,23 @@
-@import "scss/config";
+@import 'scss/config';
 
 .row {
-		@include make-spacer(mt, 4);
-		@include wrapper;
-		
-		display: grid;
-    grid-template-columns: 2.5fr 1fr 2.5fr 1fr;
-    color: var(--color-white);
+  @include make-spacer(mt, 4);
+  @include wrapper;
+
+  display: grid;
+  grid-template-columns: 2.5fr 1fr 2.5fr 1fr;
+  color: var(--color-white);
 }
 
 .cell {
-    @include make-spacer(p, 1);
-    @include flex(center, center);
+  @include make-spacer(p, 1);
+  @include flex(center, center);
 
-    gap: rem(10px);
-    border-right: rem(1px) solid var(--color-border);
-    background-color: var(--color-thunder);
+  gap: rem(10px);
+  border-right: rem(1px) solid var(--color-border);
+  background-color: var(--color-thunder);
 
-    &:nth-child(odd) {
-        background-color: var(--color-heavy-metal);
-    }
+  &:nth-child(odd) {
+    background-color: var(--color-heavy-metal);
+  }
 }

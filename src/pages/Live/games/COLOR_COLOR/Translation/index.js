@@ -22,9 +22,7 @@ const findMostCommonColor = data => {
     return count >= 3
   })
 
-  return maxCounts.length > 1 || maxCount < 3
-    ? 'draw'
-    : Object.keys(data).find(color => data[color] === maxCount)
+  return maxCounts.length > 1 || maxCount < 3 ? 'draw' : Object.keys(data).find(color => data[color] === maxCount)
 }
 
 const getDuration = (start, next) => {
@@ -70,11 +68,7 @@ const Translation = ({ data }) => {
 
     setCurrent(init.length)
 
-    if (
-      scenes &&
-      current < scenes.length &&
-      getIndex() === scenes[current].update
-    ) {
+    if (scenes && current < scenes.length && getIndex() === scenes[current].update) {
       const next = current + 1
       setCurrent(next)
       setColumn(scenes.slice(0, next))
@@ -95,13 +89,11 @@ const Translation = ({ data }) => {
       {(progress === 1 || progress === 3) && (
         <div>
           <div className={style.grid}>
-            {Object.entries(colorCounter(data.history[0])).map(
-              ([color, count]) => (
-                <div key={color}>
-                  <Odd color={color} size={'md'} data={count} />
-                </div>
-              ),
-            )}
+            {Object.entries(colorCounter(data.history[0])).map(([color, count]) => (
+              <div key={color}>
+                <Odd color={color} size={'md'} data={count} />
+              </div>
+            ))}
           </div>
           <div>{findMostCommonColor(colorCounter(data.history[0]))}</div>
         </div>

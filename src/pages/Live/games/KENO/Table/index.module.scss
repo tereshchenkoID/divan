@@ -1,17 +1,17 @@
-@import "scss/config";
+@import 'scss/config';
 
 .block {
-    @include size(100%);
+  @include size(100%);
 
-    position: relative;
+  position: relative;
 }
 
 .grid {
-    @include make-spacer(p, 2);
-    @include wrapper;
-    @include size(100%);
+  @include make-spacer(p, 2);
+  @include wrapper;
+  @include size(100%);
 
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    column-gap: rem(50px);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  column-gap: rem(50px);
 }

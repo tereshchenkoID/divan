@@ -144,12 +144,7 @@ const Login = () => {
             </div>
           )}
           <div className={style.button}>
-            <Button
-              type={'green'}
-              size={'md'}
-              text={'Login'}
-              props={'submit'}
-            />
+            <Button type={'green'} size={'md'} text={'Login'} props={'submit'} />
           </div>
         </div>
       </form>

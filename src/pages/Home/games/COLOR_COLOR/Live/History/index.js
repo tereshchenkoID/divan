@@ -24,9 +24,7 @@ const findMostCommonColor = data => {
     return count >= 3
   })
 
-  return maxCounts.length > 1 || maxCount < 3
-    ? 'draw'
-    : Object.keys(data).find(color => data[color] === maxCount)
+  return maxCounts.length > 1 || maxCount < 3 ? 'draw' : Object.keys(data).find(color => data[color] === maxCount)
 }
 
 const getDuration = (start, next) => {
@@ -74,11 +72,7 @@ const History = ({ data }) => {
   }, [data])
 
   useEffect(() => {
-    if (
-      scenes &&
-      current < scenes.length &&
-      getIndex() === scenes[current].update
-    ) {
+    if (scenes && current < scenes.length && getIndex() === scenes[current].update) {
       const active = scenes[Number(current)]
 
       setTimeout(() => {

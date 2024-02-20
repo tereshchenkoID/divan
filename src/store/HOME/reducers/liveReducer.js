@@ -1,23 +1,23 @@
-import { types } from "store/actionTypes";
+import { types } from 'store/actionTypes'
 
 const initialState = {
-    live: 0
-};
+  live: 0,
+}
 
 const liveReducer = (state = initialState, action) => {
-    switch (action.type) {
-        case types.GET_LIVE:
-            return {
-                ...state
-            };
-        case types.SET_LIVE:
-            return {
-                ...state,
-                live: action.payload
-            };
-        default:
-            return state;
-    }
-};
+  switch (action.type) {
+    case types.GET_LIVE:
+      return {
+        ...state,
+      }
+    case types.SET_LIVE:
+      return {
+        ...state,
+        live: action.payload,
+      }
+    default:
+      return state
+  }
+}
 
-export default liveReducer;
+export default liveReducer

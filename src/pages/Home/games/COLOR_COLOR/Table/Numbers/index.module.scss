@@ -1,4 +1,4 @@
-@import "scss/config";
+@import 'scss/config';
 
 .block {
   @include make-spacer('mb', 2);
@@ -14,15 +14,15 @@
   border-bottom: 1px solid var(--color-border);
   background-color: var(--color-thunder);
 
-  &:nth-child(18n+1),
-  &:nth-child(18n+2),
-  &:nth-child(18n+3),
-  &:nth-child(18n+4),
-  &:nth-child(18n+5),
-  &:nth-child(18n+6),
-  &:nth-child(18n+7),
-  &:nth-child(18n+8),
-  &:nth-child(18n+9) {
+  &:nth-child(18n + 1),
+  &:nth-child(18n + 2),
+  &:nth-child(18n + 3),
+  &:nth-child(18n + 4),
+  &:nth-child(18n + 5),
+  &:nth-child(18n + 6),
+  &:nth-child(18n + 7),
+  &:nth-child(18n + 8),
+  &:nth-child(18n + 9) {
     background-color: var(--color-heavy-metal);
   }
 

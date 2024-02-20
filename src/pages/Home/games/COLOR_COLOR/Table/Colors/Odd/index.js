@@ -1,68 +1,53 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from 'react'
 
-import classNames from "classnames";
+import classNames from 'classnames'
 
-import Number from "../../Number";
+import Number from '../../Number'
 
-import style from './index.module.scss';
+import style from './index.module.scss'
 
-const Odd = ({
-   data,
-   color,
-   size = null,
-   date,
-   action,
-   market,
-   print
-}) => {
-    const [active, setActive] = useState(false)
+const Odd = ({ data, color, size = null, date, action, market, print }) => {
+  const [active, setActive] = useState(false)
 
-    useEffect(() => {
-        !date.length && setActive(false)
-    }, [date])
+  useEffect(() => {
+    !date.length && setActive(false)
+  }, [date])
 
-    const addSingleStake = (el, o = '') => {
-        const f = date.find(i => {
-            return (i.id === el.id)
-        })
+  const addSingleStake = (el, o = '') => {
+    const f = date.find(i => {
+      return i.id === el.id
+    })
 
-        if (f) {
-            const index = date.indexOf(f)
-            action([...date.slice(0, index), ...date.slice(index + 1)])
-        }
-        else {
-            action([...date, {
-                id: el.id,
-                b: el.b || 0,
-                outcome: el.a,
-                color: o,
-                market,
-                print
-            }])
-        }
-
-        setActive(!active)
+    if (f) {
+      const index = date.indexOf(f)
+      action([...date.slice(0, index), ...date.slice(index + 1)])
+    } else {
+      action([
+        ...date,
+        {
+          id: el.id,
+          b: el.b || 0,
+          outcome: el.a,
+          color: o,
+          market,
+          print,
+        },
+      ])
     }
 
-    return (
-        <button
-            className={
-                classNames(
-                    style.block,
-                    active && style.active
-                )
-            }
-            onClick={() => {
-                addSingleStake(data, color)
-            }}
-        >
-            <Number
-                data={data}
-                color={color}
-                size={size}
-            />
-        </button>
-    );
+    setActive(!active)
+  }
+
+  return (
+    <button
+      className={classNames(style.block, active && style.active)}
+      onClick={() => {
+        addSingleStake(data, color)
+      }}
+    >
+      <Number data={data} color={color} size={size} />
+    </button>
+  )
 }
 
-export default Odd;
+export default Odd

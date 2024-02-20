@@ -10,7 +10,7 @@
   text-align: center;
   text-transform: uppercase;
   color: var(--color-white);
-  filter: drop-shadow(0 -2px 0 rgba(0,0,0,0.3));
+  filter: drop-shadow(0 -2px 0 rgba(0, 0, 0, 0.3));
 
   &::before {
     @include size(rem(35px));
@@ -20,11 +20,11 @@
     background: linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 100%);
     content: '';
   }
-	
-	&.black,
-	&.draw {
-		background-color: #222;
-	}
+
+  &.black,
+  &.draw {
+    background-color: #222;
+  }
 
   &.red {
     background-color: #bf1e2e;
@@ -62,9 +62,9 @@
 
   &.lg {
     @include size(rem(67px));
-	  
-	  font-size: rem(36px);
-	  
+
+    font-size: rem(36px);
+
     &::before {
       @include size(rem(55px));
     }

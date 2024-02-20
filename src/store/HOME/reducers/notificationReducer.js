@@ -1,23 +1,23 @@
-import { types } from "store/actionTypes";
+import { types } from 'store/actionTypes'
 
 const initialState = {
-    notification: null
-};
+  notification: null,
+}
 
 const notificationReducer = (state = initialState, action) => {
-    switch (action.type) {
-        case types.GET_NOTIFICATION:
-            return {
-                ...state
-            };
-        case types.SET_NOTIFICATION:
-            return {
-                ...state,
-                notification: action.payload
-            };
-        default:
-            return state;
-    }
-};
+  switch (action.type) {
+    case types.GET_NOTIFICATION:
+      return {
+        ...state,
+      }
+    case types.SET_NOTIFICATION:
+      return {
+        ...state,
+        notification: action.payload,
+      }
+    default:
+      return state
+  }
+}
 
-export default notificationReducer;
+export default notificationReducer

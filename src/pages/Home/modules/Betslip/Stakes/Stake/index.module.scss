@@ -1,4 +1,4 @@
-@import "scss/config";
+@import 'scss/config';
 
 .block {
   position: relative;
@@ -87,7 +87,6 @@
   background-color: #333;
 
   div {
-
     &:last-child {
       text-align: right;
     }

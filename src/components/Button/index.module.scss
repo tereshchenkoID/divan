@@ -1,4 +1,4 @@
-@import "scss/config";
+@import 'scss/config';
 
 .block {
   position: relative;
@@ -6,7 +6,7 @@
   border-width: rem(1px);
   border-style: solid;
   color: var(--color-white);
-  background: linear-gradient(360deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.1) 100%);
+  background: linear-gradient(360deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.1) 100%);
 
   &::before {
     position: absolute;
@@ -81,4 +81,3 @@
     background-color: #0b5a07;
   }
 }
-

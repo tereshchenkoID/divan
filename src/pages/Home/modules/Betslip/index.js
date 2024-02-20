@@ -102,16 +102,8 @@ const Betslip = () => {
         }
       }
 
-      setMin(
-        stake[0].type === 1
-          ? settings.betslip.system.min
-          : settings.betslip.single.min,
-      )
-      setMax(
-        stake[0].type === 1
-          ? settings.betslip.system.max
-          : settings.betslip.single.max,
-      )
+      setMin(stake[0].type === 1 ? settings.betslip.system.min : settings.betslip.single.min)
+      setMax(stake[0].type === 1 ? settings.betslip.system.max : settings.betslip.single.max)
 
       if (isConnected) {
         sendMessage({
@@ -123,11 +115,8 @@ const Betslip = () => {
         })
       } else {
         postData('/placebet', JSON.stringify(a)).then(json => {
-          if (!json.data) {
-            if (
-              settings.print.mode === printMode.WEB_PRINT &&
-              settings.print.payout
-            ) {
+          if (json.hasOwnProperty('account')) {
+            if (settings.print.mode === printMode.WEB_PRINT && settings.print.payout) {
               setResponse(json)
             }
 
@@ -137,10 +126,7 @@ const Betslip = () => {
           } else {
             dispatch(
               setNotification(
-                t('notification.stake_lower_upper')
-                  .replaceAll('${symbol}', settings.account.symbol)
-                  .replace('${min}', min)
-                  .replace('${max}', max),
+                t('notification.stake_lower_upper').replaceAll('${symbol}', settings.account.symbol).replace('${min}', min).replace('${max}', max),
               ),
             )
           }
@@ -159,10 +145,7 @@ const Betslip = () => {
     } else {
       getData(`/reprint`).then(json => {
         if (json.hasOwnProperty('stake')) {
-          if (
-            settings.print.mode === printMode.WEB_PRINT &&
-            settings.print.payout
-          ) {
+          if (settings.print.mode === printMode.WEB_PRINT && settings.print.payout) {
             setResponse(json)
           }
         } else {
@@ -175,24 +158,15 @@ const Betslip = () => {
   useEffect(() => {
     if (receivedMessage !== '' && checkCmd('reprint', receivedMessage.cmd)) {
       if (receivedMessage.hasOwnProperty('stake')) {
-        if (
-          settings.print.mode === printMode.WEB_PRINT &&
-          settings.print.payout
-        ) {
+        if (settings.print.mode === printMode.WEB_PRINT && settings.print.payout) {
           setResponse(receivedMessage)
         }
       } else {
         dispatch(setNotification(t('notification.ticket_not_found')))
       }
-    } else if (
-      receivedMessage !== '' &&
-      checkCmd('placebet', receivedMessage.cmd)
-    ) {
+    } else if (receivedMessage !== '' && checkCmd('placebet', receivedMessage.cmd)) {
       if (!receivedMessage.data) {
-        if (
-          settings.print.mode === printMode.WEB_PRINT &&
-          settings.print.payout
-        ) {
+        if (settings.print.mode === printMode.WEB_PRINT && settings.print.payout) {
           setResponse(receivedMessage)
         }
 
@@ -202,10 +176,7 @@ const Betslip = () => {
       } else {
         dispatch(
           setNotification(
-            t('notification.stake_lower_upper')
-              .replaceAll('${symbol}', settings.account.symbol)
-              .replace('${min}', min)
-              .replace('${max}', max),
+            t('notification.stake_lower_upper').replaceAll('${symbol}', settings.account.symbol).replace('${min}', min).replace('${max}', max),
           ),
         )
       }
@@ -272,10 +243,7 @@ const Betslip = () => {
     } else {
       if (!init) {
         if (betslip[0].type === gameType.FOOTBALL_LEAGUE) {
-          s =
-            settings.betting.type === oddsType.PER_BET
-              ? settings.betslip.single.default
-              : settings.betslip.single.default / betslip.length
+          s = settings.betting.type === oddsType.PER_BET ? settings.betslip.single.default : settings.betslip.single.default / betslip.length
         } else {
           s = getTotalStakeSingle(betslip)
         }
@@ -365,19 +333,13 @@ const Betslip = () => {
         {ticket === 0 ? (
           betslip.length > 0 ? (
             <>
-              <Bets
-                betslip={betslip}
-                stake={stake}
-                type={type}
-                setInit={setInit}
-                setDisabled={setDisabled}
-              />
+              <Bets betslip={betslip} stake={stake} type={type} setInit={setInit} setDisabled={setDisabled} />
               <Types type={type} setType={setType} disabled={disabled} />
               <Stakes stake={stake} />
             </>
           ) : (
             <div className={style.empty}>
-              <img src={settings.account.logo} alt="" loading="lazy" />
+              <img src={settings.account.logo} alt="logo" loading="lazy" />
               <div className={style.icon}>
                 <Icon id={'add'} />
               </div>
@@ -398,59 +360,50 @@ const Betslip = () => {
           )}
           {type === 1 && (
             <div>
-              {balance.account.symbol}{' '}
-              {getTotalStakeSystem(stake, settings.betting.type).toFixed(2)}
+              {balance.account.symbol} {getTotalStakeSystem(stake, settings.betting.type).toFixed(2)}
             </div>
           )}
         </div>
       )}
       <div className={style.footer}>
-        <div className={style.button}>
-          <Button
-            type={'red'}
-            size={'lg'}
-            icon={'trash'}
-            action={() => {
-              dispatch(setStake([]))
-              dispatch(deleteBetslip([]))
-              dispatch(setTicket(0))
-              setDisabled(true)
-              setInit(false)
-            }}
-          />
-        </div>
-        <div className={style.button}>
-          <Button
-            type={'green'}
-            size={'lg'}
-            icon={'search'}
-            action={() => {
-              setCheckTicket(true)
-            }}
-          />
-        </div>
+        <Button
+          type={'red'}
+          size={'lg'}
+          icon={'trash'}
+          action={() => {
+            dispatch(setStake([]))
+            dispatch(deleteBetslip([]))
+            dispatch(setTicket(0))
+            setDisabled(true)
+            setInit(false)
+          }}
+        />
+        <Button
+          type={'green'}
+          size={'lg'}
+          icon={'search'}
+          action={() => {
+            setCheckTicket(true)
+          }}
+        />
         {settings.business.reprint && (
-          <div className={style.button}>
-            <Button
-              type={'blue'}
-              size={'lg'}
-              icon={'repeat-print'}
-              action={() => {
-                repeatPrint()
-              }}
-            />
-          </div>
-        )}
-        <div className={style.button}>
           <Button
-            type={'olive'}
+            type={'blue'}
             size={'lg'}
-            icon={'print'}
+            icon={'repeat-print'}
             action={() => {
-              sendStake()
+              repeatPrint()
             }}
           />
-        </div>
+        )}
+        <Button
+          type={'olive'}
+          size={'lg'}
+          icon={'print'}
+          action={() => {
+            sendStake()
+          }}
+        />
       </div>
     </div>
   )

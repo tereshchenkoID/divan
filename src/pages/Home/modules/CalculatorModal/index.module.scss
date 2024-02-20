@@ -1,4 +1,4 @@
-@import "scss/config";
+@import 'scss/config';
 
 .block {
   @include make-spacer('p', 2);
@@ -15,9 +15,7 @@
 
 .body,
 .header {
-
   .key {
-
     &:hover {
       background-color: var(--color-mine-shaft);
     }
@@ -46,7 +44,7 @@
     top: 0;
     right: 0;
     bottom: 0;
-    border-radius: 0 rem(3px) rem(3px) 0!important;
+    border-radius: 0 rem(3px) rem(3px) 0 !important;
     font-size: rem(25px);
   }
 }

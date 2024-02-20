@@ -1,17 +1,16 @@
-import {useDispatch} from "react-redux";
-import {useEffect} from "react";
+import { useDispatch } from 'react-redux'
+import { useEffect } from 'react'
 
-import {setNotification} from "store/HOME/actions/notificationAction";
+import { setNotification } from 'store/HOME/actions/notificationAction'
 
-import Icon from "components/Icon";
+import Icon from 'components/Icon'
 
-import style from './index.module.scss';
+import style from './index.module.scss'
 
-const Notification = ({text}) => {
+const Notification = ({ text }) => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-
     if (text.length > 0) {
       setTimeout(() => {
         dispatch(setNotification(null))
@@ -33,7 +32,7 @@ const Notification = ({text}) => {
         </button>
       </div>
     </div>
-  );
+  )
 }
 
-export default Notification;
+export default Notification

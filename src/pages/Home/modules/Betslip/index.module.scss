@@ -1,4 +1,4 @@
-@import "scss/config";
+@import 'scss/config';
 
 .block {
   @include flex($direction: column);
@@ -30,7 +30,6 @@
   background-color: #333;
 
   div {
-
     &:last-child {
       text-align: right;
     }
@@ -43,10 +42,6 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: rem(5px);
-}
-
-.button {
-  flex: 1;
 }
 
 .print {

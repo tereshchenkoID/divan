@@ -1,23 +1,23 @@
-import { types } from "store/actionTypes";
+import { types } from 'store/actionTypes'
 
 const initialState = {
-    data: {}
-};
+  data: {},
+}
 
 const dataReducer = (state = initialState, action) => {
-    switch (action.type) {
-        case types.GET_DATA:
-            return {
-                ...state
-            };
-        case types.SET_DATA:
-            return {
-                ...state,
-                data: action.payload
-            };
-        default:
-            return state;
-    }
-};
+  switch (action.type) {
+    case types.GET_DATA:
+      return {
+        ...state,
+      }
+    case types.SET_DATA:
+      return {
+        ...state,
+        data: action.payload,
+      }
+    default:
+      return state
+  }
+}
 
-export default dataReducer;
+export default dataReducer

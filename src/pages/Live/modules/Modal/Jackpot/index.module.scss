@@ -1,4 +1,4 @@
-@import "scss/config";
+@import 'scss/config';
 
 .block {
   @include make-spacer(pt, 5);
@@ -13,26 +13,26 @@
   color: var(--color-white);
 
   &.bronze {
-    background-image: linear-gradient(rgba(#6E6929, 0.99), rgba(#D2B76F, 0.9));
+    background-image: linear-gradient(rgba(#6e6929, 0.99), rgba(#d2b76f, 0.9));
 
     .title {
-      background-image: linear-gradient(rgba(#fff, 0.5) 40%, rgba(#6E6929, 0.99) 80%, #D2B76F);
+      background-image: linear-gradient(rgba(#fff, 0.5) 40%, rgba(#6e6929, 0.99) 80%, #d2b76f);
     }
   }
 
   &.silver {
-    background-image: linear-gradient(rgba(#697267, 0.99), rgba(#A8ACA8, 0.9));
+    background-image: linear-gradient(rgba(#697267, 0.99), rgba(#a8aca8, 0.9));
 
     .title {
-      background-image: linear-gradient(rgba(#fff, 0.5) 40%, rgba(#697267, 0.99) 80%, #A8ACA8);
+      background-image: linear-gradient(rgba(#fff, 0.5) 40%, rgba(#697267, 0.99) 80%, #a8aca8);
     }
   }
 
   &.gold {
-    background-image: linear-gradient(rgba(#7A5F05, 0.99), rgba(#BF8609, 0.9));
+    background-image: linear-gradient(rgba(#7a5f05, 0.99), rgba(#bf8609, 0.9));
 
     .title {
-      background-image: linear-gradient(rgba(#fff, 0.5) 40%, rgba(#7A5F05, 0.99) 80%, #BF8609);
+      background-image: linear-gradient(rgba(#fff, 0.5) 40%, rgba(#7a5f05, 0.99) 80%, #bf8609);
     }
   }
 }
@@ -57,7 +57,7 @@
   text-transform: uppercase;
   text-shadow: none;
   color: var(--color-black);
-  background: linear-gradient(360deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 100%);
+  background: linear-gradient(360deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 100%);
   background-color: var(--color-orange-900);
 }
 

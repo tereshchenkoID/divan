@@ -17,14 +17,12 @@ const Live = () => {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    getData(`${hostnames.PROD}/viewer/event/${token}/COLOR_COLOR/49`).then(
-      json => {
-        if (json) {
-          setData(json.event)
-          setLoading(false)
-        }
-      },
-    )
+    getData(`${hostnames.PROD}/viewer/event/${token}/COLOR_COLOR/49`).then(json => {
+      if (json) {
+        setData(json.event)
+        setLoading(false)
+      }
+    })
   }, [])
 
   return (

@@ -41,7 +41,7 @@ export const TicketPrint = React.forwardRef((data, ref) => {
           {t('interface.ticket')} #{data.data.stake.id}
         </div>
         <div className={style.code}>
-          <Barcode value={data.data.stake.id} displayValue={false} />
+          <Barcode value={data.data.stake.id.toString()} displayValue={false} />
         </div>
         {data.data.stake.group &&
           data.data.stake.group.map((el, idx) => (
@@ -52,19 +52,15 @@ export const TicketPrint = React.forwardRef((data, ref) => {
                     {t('interface.gr')}: {el.group}
                   </div>
                   <div>
-                    {el.group} x {settings.account.symbol}{' '}
-                    {parseFloat(el.unit).toFixed(2)} = {settings.account.symbol}{' '}
-                    {el.combi * el.unit}
+                    {el.group} x {settings.account.symbol} {parseFloat(el.unit).toFixed(2)} = {settings.account.symbol} {el.combi * el.unit}
                   </div>
                 </li>
                 <li>
                   <div>
-                    {t('interface.min')}/{t('interface.max')}{' '}
-                    {t('interface.win')}:
+                    {t('interface.min')}/{t('interface.max')} {t('interface.win')}:
                   </div>
                   <div>
-                    {settings.account.symbol} {el.minwin.toFixed(2)} /{' '}
-                    {settings.account.symbol} {el.maxwin.toFixed(2)}
+                    {settings.account.symbol} {el.minwin.toFixed(2)} / {settings.account.symbol} {el.maxwin.toFixed(2)}
                   </div>
                 </li>
               </ul>
@@ -105,16 +101,12 @@ export const TicketPrint = React.forwardRef((data, ref) => {
               {t('interface.min')}/{t('interface.max')} {t('interface.win')}:{' '}
             </div>
             <div>
-              {settings.account.symbol}{' '}
-              {data.data.stake.minwin ? data.data.stake.minwin.toFixed(2) : 0} /{' '}
-              {settings.account.symbol}{' '}
+              {settings.account.symbol} {data.data.stake.minwin ? data.data.stake.minwin.toFixed(2) : 0} / {settings.account.symbol}{' '}
               {data.data.stake.maxwin ? data.data.stake.maxwin.toFixed(2) : 0}
             </div>
           </li>
         </ul>
-        {settings.print.text !== '' && (
-          <div className={style.text}>{settings.print.text}</div>
-        )}
+        {settings.print.text !== '' && <div className={style.text}>{settings.print.text}</div>}
       </div>
     </div>
   )

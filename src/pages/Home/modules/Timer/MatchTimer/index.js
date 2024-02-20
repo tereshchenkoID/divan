@@ -57,10 +57,7 @@ const MatchTimer = ({ data, delta, type }) => {
           })
         } else {
           dispatch(setUpdate(data.event.id, null)).then(json => {
-            if (
-              json.event.status === matchStatus.COMPLETED ||
-              json.event.status === matchStatus.RESULTS
-            ) {
+            if (json.event.status === matchStatus.COMPLETED || json.event.status === matchStatus.RESULTS) {
               dispatch(setLive(3))
               clearInterval(a)
             }

@@ -1,4 +1,4 @@
-@import "scss/config";
+@import 'scss/config';
 
 .block {
   @include flex($direction: column);
@@ -35,5 +35,5 @@
 
 .banners {
   position: absolute;
-  right: rem(378px)
+  right: rem(378px);
 }

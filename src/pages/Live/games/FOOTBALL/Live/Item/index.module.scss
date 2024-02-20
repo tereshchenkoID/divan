@@ -1,4 +1,4 @@
-@import "scss/config";
+@import 'scss/config';
 
 .block {
   display: grid;
@@ -8,7 +8,6 @@
   transition: var(--default-transition);
 
   &.active {
-
     .meta {
       background-image: linear-gradient(0deg, #294329 0%, #00a900 52%, #00a900 100%);
     }
@@ -39,15 +38,13 @@
   flex: 1;
 
   &.active {
-    background-image: linear-gradient(0deg, #294329 0%, #00a900 52%, #00a900 100%)!important;
+    background-image: linear-gradient(0deg, #294329 0%, #00a900 52%, #00a900 100%) !important;
     box-shadow: inset 0 3px 3.5px rgba(0, 0, 0, 0.18);
   }
 }
 
 .column {
-
   &:nth-child(even) {
-
     .market {
       border-right: rem(3px) solid var(--color-orange-900);
       border-radius: 0 rem(9px) rem(9px) 0;
@@ -59,15 +56,13 @@
   }
 
   &:nth-child(odd) {
-
     .market {
       border-left: rem(3px) solid var(--color-orange-900);
-      border-radius:  rem(9px) 0 0 rem(9px);
+      border-radius: rem(9px) 0 0 rem(9px);
     }
   }
 
   &:nth-child(1) {
-
     .market {
       border-left: 0;
       border-radius: 0;

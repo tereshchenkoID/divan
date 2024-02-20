@@ -23,14 +23,8 @@ const Page = () => {
         <div className={style.grid}>
           <div className={style.column}>
             <>
-              {settings.account.mode === '1' &&
-                progress === 2 &&
-                liveTimer !== 0 && <Translation game={game} />}
-              {progress === 1 ? (
-                <Table data={tv.event} />
-              ) : (
-                <Live data={tv.event} />
-              )}
+              {settings.account.mode === '1' && progress === 2 && liveTimer !== 0 && <Translation game={game} />}
+              {progress === 1 ? <Table data={tv.event} /> : <Live data={tv.event} />}
             </>
           </div>
           <div className={style.column}>

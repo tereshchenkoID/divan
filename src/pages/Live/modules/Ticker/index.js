@@ -18,9 +18,7 @@ const Ticker = () => {
 
   useEffect(() => {
     if (game.type === gameType.FOOTBALL_LEAGUE) {
-      getData(
-        `${hostnames.PROD}/viewer/lastgame/${token}/FOOTBALL_LEAGUE/${game.id}`,
-      ).then(json => {
+      getData(`${hostnames.PROD}/viewer/lastgame/${token}/FOOTBALL_LEAGUE/${game.id}`).then(json => {
         if (json.last) {
           setData(json)
           setLoading(false)
@@ -50,41 +48,19 @@ const Ticker = () => {
             <div className={style.id}>{index + 1}.</div>
             <div>
               <div className={style.logo}>
-                <img
-                  src={`${hostnames.ASSETS}/${item.teams[0].img}`}
-                  alt={item.teams[0].name}
-                  loading={'lazy'}
-                />
+                <img src={`${hostnames.ASSETS}/${item.teams[0].img}`} alt={item.teams[0].name} loading={'lazy'} />
               </div>
             </div>
             <div>{item.teams[0].name}</div>
             <div className={style.scoreboard}>
-              <div
-                className={classNames(
-                  style.score,
-                  item.score[0] > item.score[1] && style.win,
-                )}
-              >
-                {item.score[0]}
-              </div>
+              <div className={classNames(style.score, item.score[0] > item.score[1] && style.win)}>{item.score[0]}</div>
               <div>:</div>
-              <div
-                className={classNames(
-                  style.score,
-                  item.score[1] > item.score[0] && style.win,
-                )}
-              >
-                {item.score[1]}
-              </div>
+              <div className={classNames(style.score, item.score[1] > item.score[0] && style.win)}>{item.score[1]}</div>
             </div>
             <div>{item.teams[1].name}</div>
             <div>
               <div className={style.logo}>
-                <img
-                  src={`${hostnames.ASSETS}/${item.teams[1].img}`}
-                  alt={item.teams[1].name}
-                  loading={'lazy'}
-                />
+                <img src={`${hostnames.ASSETS}/${item.teams[1].img}`} alt={item.teams[1].name} loading={'lazy'} />
               </div>
             </div>
           </div>

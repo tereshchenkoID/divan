@@ -1,23 +1,23 @@
-import { types } from "store/actionTypes";
+import { types } from 'store/actionTypes'
 
 const initialState = {
-    balance: {}
-};
+  balance: {},
+}
 
 const balanceReducer = (state = initialState, action) => {
-    switch (action.type) {
-        case types.GET_BALANCE:
-            return {
-                ...state
-            };
-        case types.SET_BALANCE:
-            return {
-                ...state,
-                balance: action.payload
-            };
-        default:
-            return state;
-    }
-};
+  switch (action.type) {
+    case types.GET_BALANCE:
+      return {
+        ...state,
+      }
+    case types.SET_BALANCE:
+      return {
+        ...state,
+        balance: action.payload,
+      }
+    default:
+      return state
+  }
+}
 
-export default balanceReducer;
+export default balanceReducer

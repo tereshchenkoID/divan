@@ -35,37 +35,21 @@ const Match = ({ index, data, timer }) => {
       <div className={style.cell}>{index + 1}.</div>
       <div className={style.cell}>
         <div className={style.logo}>
-          <img
-            src={`${hostnames.ASSETS}/${data.teams.home.img}`}
-            alt={data.teams.home.name}
-            loading={'lazy'}
-          />
+          <img src={`${hostnames.ASSETS}/${data.teams.home.img}`} alt={data.teams.home.name} loading={'lazy'} />
         </div>
       </div>
       <div className={style.cell}>{data.teams.home.name}</div>
       <div className={style.cell}>
-        <div
-          className={classNames(style.score, score[0] > score[1] && style.win)}
-        >
-          {score[0]}
-        </div>
+        <div className={classNames(style.score, score[0] > score[1] && style.win)}>{score[0]}</div>
       </div>
       <div className={style.cell}>-</div>
       <div className={style.cell}>
-        <div
-          className={classNames(style.score, score[1] > score[0] && style.win)}
-        >
-          {score[1]}
-        </div>
+        <div className={classNames(style.score, score[1] > score[0] && style.win)}>{score[1]}</div>
       </div>
       <div className={style.cell}>{data.teams.away.name}</div>
       <div className={style.cell}>
         <div className={style.logo}>
-          <img
-            src={`${hostnames.ASSETS}/${data.teams.away.img}`}
-            alt={data.teams.away.name}
-            loading={'lazy'}
-          />
+          <img src={`${hostnames.ASSETS}/${data.teams.away.img}`} alt={data.teams.away.name} loading={'lazy'} />
         </div>
       </div>
     </div>

@@ -1,4 +1,4 @@
-@import "scss/config";
+@import 'scss/config';
 
 $color: #000;
 
@@ -65,7 +65,6 @@ $color: #000;
     }
 
     > div {
-
       &:nth-child(2) {
         text-align: right;
       }

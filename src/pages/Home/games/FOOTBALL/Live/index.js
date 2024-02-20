@@ -62,13 +62,7 @@ const Live = () => {
         </div>
       </div>
       <div className={style.wrapper}>
-        {loading ? (
-          <Loader type={'block'} />
-        ) : (
-          update.event.league.matches.map((el, idx) => (
-            <Item key={idx} data={el} timer={liveTimer} />
-          ))
-        )}
+        {loading ? <Loader type={'block'} /> : update.event.league.matches.map((el, idx) => <Item key={idx} data={el} timer={liveTimer} />)}
       </div>
     </div>
   )

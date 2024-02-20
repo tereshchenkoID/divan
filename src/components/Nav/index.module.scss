@@ -1,4 +1,4 @@
-@import "scss/config";
+@import 'scss/config';
 
 .block {
   @include flex(space-between, center);
@@ -10,7 +10,7 @@
   border-top: rem(2px) solid var(--color-yellow);
   border-bottom: rem(2px) solid var(--color-yellow);
   overflow: hidden;
-  background: linear-gradient(360deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 100%);
+  background: linear-gradient(360deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 100%);
   background-color: #ffd76d;
 }
 
@@ -32,7 +32,6 @@
 }
 
 .option {
-
   button {
     width: rem(38px);
     box-shadow: 0 0 rem(2px) rem(3px) rgba(0, 0, 0, 0.4);

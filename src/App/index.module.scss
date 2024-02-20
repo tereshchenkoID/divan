@@ -1,4 +1,4 @@
-@import "scss/config";
+@import 'scss/config';
 
 .root {
   @include scroll;
@@ -27,7 +27,6 @@
 button,
 a,
 input {
-
   &:focus {
     outline: none;
   }

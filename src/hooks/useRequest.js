@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import {hostnames} from "constant/config"
+import { hostnames } from 'constant/config'
 
 export const useRequest = (type = 'account') => {
   const token = sessionStorage.getItem('authToken')
@@ -14,7 +14,7 @@ export const useRequest = (type = 'account') => {
       const req = await server({
         method: 'get',
         url,
-        headers
+        headers,
       })
       return await req.data
     } catch (e) {
@@ -28,7 +28,7 @@ export const useRequest = (type = 'account') => {
         method: 'post',
         url,
         data,
-        headers
+        headers,
       })
       return await req.data
     } catch (e) {

@@ -9,8 +9,7 @@ import style from './index.module.scss'
 import { useTranslation } from 'react-i18next'
 
 const sumField = (data, field) => {
-  if (data.data)
-    return data.data.reduce((sum, item) => sum + Number(item[field]), 0)
+  if (data.data) return data.data.reduce((sum, item) => sum + Number(item[field]), 0)
 
   return 0
 }
@@ -121,11 +120,7 @@ const Table = ({ data }) => {
             </div>
             <div className={style.cell}>
               <div
-                className={classNames(
-                  style.scale,
-                  el.Profit > 0 && style.up,
-                  el.Profit < 0 && style.down,
-                )}
+                className={classNames(style.scale, el.Profit > 0 && style.up, el.Profit < 0 && style.down)}
                 style={{
                   width: `${profitScale(el.Profit, profit)}%`,
                 }}

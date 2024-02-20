@@ -1,4 +1,4 @@
-@import "scss/config";
+@import 'scss/config';
 
 .block {
   @include flex(center, center, column);
@@ -38,7 +38,7 @@
   font-size: rem(12px);
   text-transform: uppercase;
   color: var(--color-white);
-  background: linear-gradient(360deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 100%);
+  background: linear-gradient(360deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 100%);
 
   &:hover {
     background-color: var(--color-orange-900);
@@ -65,9 +65,7 @@
   }
 
   &.active {
-
     span {
-
       &::after {
         @include absolute-center;
         @include size(rem(10px));

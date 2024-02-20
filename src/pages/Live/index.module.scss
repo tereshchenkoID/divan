@@ -1,4 +1,4 @@
-@import "scss/config";
+@import 'scss/config';
 
 .block {
   @include flex($direction: column);
@@ -60,7 +60,7 @@
 }
 
 :global {
-  @import "scss/plugin/slider";
+  @import 'scss/plugin/slider';
 
   .slick-slider {
     @include size(100%);

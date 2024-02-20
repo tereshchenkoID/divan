@@ -1,21 +1,9 @@
-import classNames from "classnames";
+import classNames from 'classnames'
 
-import style from './index.module.scss';
+import style from './index.module.scss'
 
-const Odd = ({type, number}) => {
-
-    return (
-        <div
-            className={
-                classNames(
-                    style.block,
-                    style[type],
-                )
-            }
-        >
-            {number}
-        </div>
-    );
+const Odd = ({ type, number }) => {
+  return <div className={classNames(style.block, style[type])}>{number}</div>
 }
 
-export default Odd;
+export default Odd

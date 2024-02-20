@@ -1,4 +1,4 @@
-@import "scss/config";
+@import 'scss/config';
 
 .block {
   position: relative;
@@ -19,6 +19,13 @@
   overflow: hidden;
   color: var(--color-orange);
   column-gap: rem(5px);
+
+  & > * {
+    &:nth-child(3),
+    &:nth-child(4) {
+      text-align: right;
+    }
+  }
 }
 
 .item {

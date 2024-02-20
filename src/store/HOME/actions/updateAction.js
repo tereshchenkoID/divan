@@ -1,33 +1,30 @@
-import {useRequest} from "hooks/useRequest";
+import { useRequest } from 'hooks/useRequest'
 
-import { types } from "store/actionTypes";
+import { types } from 'store/actionTypes'
 
 const setUpdate = (id, value) => async dispatch => {
-    const { get } = useRequest('feed');
+  const { get } = useRequest('feed')
 
-    try {
-        let data
+  try {
+    let data
 
-        if (id) {
-            data = await get(`/EVENT/${id}`)
-        }
-        else if(value) {
-            data = value
-        }
-        else {
-            data = {}
-        }
-
-        dispatch({
-            type: types.SET_UPDATE,
-            payload: data,
-        })
-
-        return data
+    if (id) {
+      data = await get(`/EVENT/${id}`)
+    } else if (value) {
+      data = value
+    } else {
+      data = {}
     }
-    catch (e) {
-        console.log(e)
-    }
-};
 
-export { setUpdate };
+    dispatch({
+      type: types.SET_UPDATE,
+      payload: data,
+    })
+
+    return data
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+export { setUpdate }

@@ -56,11 +56,7 @@ const Results = ({ data }) => {
                       {data.race.participants[el - 1].b}
                     </div>
                     <div className={style.cell}>
-                      {idx === 0
-                        ? data.race.odds.markets[0].outcomes[el - 1]
-                          ? data.race.odds.markets[0].outcomes[el - 1].b
-                          : '1.00'
-                        : 'x'}
+                      {idx === 0 ? (data.race.odds.markets[0].outcomes[el - 1] ? data.race.odds.markets[0].outcomes[el - 1].b : '1.00') : 'x'}
                     </div>
                     <div className={style.cell}>
                       {idx === 0 || idx === 1
@@ -90,12 +86,7 @@ const Results = ({ data }) => {
                       <Number key={idx} color={el - 1} data={el} />
                     ))}
                   </div>
-                  <div className={style.cell}>
-                    {findOutcomes(
-                      data.race.results.slice(0, 2),
-                      data.race.odds.markets[6].outcomes,
-                    )}
-                  </div>
+                  <div className={style.cell}>{findOutcomes(data.race.results.slice(0, 2), data.race.odds.markets[6].outcomes)}</div>
                 </div>
               </div>
 
@@ -107,12 +98,7 @@ const Results = ({ data }) => {
                       <Number key={idx} color={el - 1} data={el} />
                     ))}
                   </div>
-                  <div className={style.cell}>
-                    {findOutcomes(
-                      data.race.results.slice(0, 2),
-                      data.race.odds.markets[3].outcomes,
-                    )}
-                  </div>
+                  <div className={style.cell}>{findOutcomes(data.race.results.slice(0, 2), data.race.odds.markets[3].outcomes)}</div>
                 </div>
               </div>
 
@@ -124,56 +110,23 @@ const Results = ({ data }) => {
                       <Number key={idx} color={el - 1} data={el} />
                     ))}
                   </div>
-                  <div className={style.cell}>
-                    {findOutcomes(
-                      data.race.results,
-                      data.race.odds.markets[7].outcomes,
-                    )}
-                  </div>
+                  <div className={style.cell}>{findOutcomes(data.race.results, data.race.odds.markets[7].outcomes)}</div>
                 </div>
               </div>
 
               <Label text={data.race.odds.markets[4].printname} />
               <div className={style.table}>
                 <div className={classNames(style.row, style.alt)}>
-                  <div className={style.cell}>
-                    {
-                      overUnder(
-                        data.race.results[0],
-                        data.race.odds.markets[4].outcomes,
-                      ).a
-                    }
-                  </div>
-                  <div className={style.cell}>
-                    {
-                      overUnder(
-                        data.race.results[0],
-                        data.race.odds.markets[4].outcomes,
-                      ).b
-                    }
-                  </div>
+                  <div className={style.cell}>{overUnder(data.race.results[0], data.race.odds.markets[4].outcomes).a}</div>
+                  <div className={style.cell}>{overUnder(data.race.results[0], data.race.odds.markets[4].outcomes).b}</div>
                 </div>
               </div>
 
               <Label text={data.race.odds.markets[5].printname} />
               <div className={style.table}>
                 <div className={classNames(style.row, style.alt)}>
-                  <div className={style.cell}>
-                    {
-                      oddEven(
-                        data.race.results[0],
-                        data.race.odds.markets[5].outcomes,
-                      ).a
-                    }
-                  </div>
-                  <div className={style.cell}>
-                    {
-                      oddEven(
-                        data.race.results[0],
-                        data.race.odds.markets[5].outcomes,
-                      ).b
-                    }
-                  </div>
+                  <div className={style.cell}>{oddEven(data.race.results[0], data.race.odds.markets[5].outcomes).a}</div>
+                  <div className={style.cell}>{oddEven(data.race.results[0], data.race.odds.markets[5].outcomes).b}</div>
                 </div>
               </div>
             </div>

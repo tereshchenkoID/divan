@@ -1,12 +1,12 @@
-@import "scss/config";
+@import 'scss/config';
 
 .block {
-    @include circle;
-    @include size(rem(30px));
+  @include circle;
+  @include size(rem(30px));
 
-    font-size: rem(18px);
+  font-size: rem(18px);
 
-    &::before {
-        @include size(rem(25px));
-    }
+  &::before {
+    @include size(rem(25px));
+  }
 }

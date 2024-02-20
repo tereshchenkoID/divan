@@ -183,11 +183,7 @@ const Item = ({ data, timer }) => {
   const filterMarket = score => {
     const a = []
 
-    a.push(
-      ...data.odds[0].groups[0].markets,
-      ...data.odds[0].groups[6].markets,
-      goalsMarket(data.odds[0].groups[7]),
-    )
+    a.push(...data.odds[0].groups[0].markets, ...data.odds[0].groups[6].markets, goalsMarket(data.odds[0].groups[7]))
 
     setMarkets(a)
     setScore([score[0], score[1]])
@@ -270,10 +266,7 @@ const Item = ({ data, timer }) => {
         <div className={style.meta}>
           <div>
             <div className={style.logo}>
-              <img
-                src={`${hostnames.ASSETS}/${data.teams.home.img}`}
-                alt={data.teams.home.name}
-              />
+              <img src={`${hostnames.ASSETS}/${data.teams.home.img}`} alt={data.teams.home.name} />
             </div>
           </div>
           <div>{data.teams.home.name}</div>
@@ -285,10 +278,7 @@ const Item = ({ data, timer }) => {
           <div>{data.teams.away.name}</div>
           <div>
             <div className={style.logo}>
-              <img
-                src={`${hostnames.ASSETS}/${data.teams.away.img}`}
-                alt={data.teams.away.name}
-              />
+              <img src={`${hostnames.ASSETS}/${data.teams.away.img}`} alt={data.teams.away.name} />
             </div>
           </div>
         </div>
@@ -299,25 +289,14 @@ const Item = ({ data, timer }) => {
             odds.map((el, idx) => (
               <div key={idx} className={style.odd}>
                 {el.a ? (
-                  <div
-                    className={classNames(
-                      style.odd,
-                      progress === 2 && el.active && style.active,
-                    )}
-                  >
+                  <div className={classNames(style.odd, progress === 2 && el.active && style.active)}>
                     <div className={style.label}>{el.c || el.a}</div>
                     <div className={style.value}>{el.b || '1.00'}</div>
                   </div>
                 ) : (
                   <div className={style.odds}>
                     {el.map((el_d, idx_d) => (
-                      <div
-                        key={idx_d}
-                        className={classNames(
-                          style.odd,
-                          progress === 2 && el.active && style.active,
-                        )}
-                      >
+                      <div key={idx_d} className={classNames(style.odd, progress === 2 && el.active && style.active)}>
                         <div className={style.label}>{el_d.c || el_d.a}</div>
                         <div className={style.value}>{el_d.b || 1}</div>
                       </div>

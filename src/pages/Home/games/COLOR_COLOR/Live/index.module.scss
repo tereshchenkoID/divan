@@ -1,4 +1,4 @@
-@import "scss/config";
+@import 'scss/config';
 
 .block {
   @include size(100%);
@@ -7,11 +7,11 @@
 }
 
 .grid {
-    @include make-spacer(p, 2);
-    @include wrapper;
-    @include size(100%);
+  @include make-spacer(p, 2);
+  @include wrapper;
+  @include size(100%);
 
-    display: grid;
-    grid-template-rows: auto 1fr;
-    gap: rem(20px);
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: rem(20px);
 }

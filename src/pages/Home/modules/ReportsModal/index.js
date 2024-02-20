@@ -38,10 +38,7 @@ const ReportsModal = ({ action }) => {
               {settings.business.reports && (
                 <>
                   <button
-                    className={classNames(
-                      style.link,
-                      active === 0 && style.active,
-                    )}
+                    className={classNames(style.link, active === 0 && style.active)}
                     onClick={() => {
                       setActive(0)
                     }}
@@ -49,10 +46,7 @@ const ReportsModal = ({ action }) => {
                     {t('interface.general_overview')}
                   </button>
                   <button
-                    className={classNames(
-                      style.link,
-                      active === 1 && style.active,
-                    )}
+                    className={classNames(style.link, active === 1 && style.active)}
                     onClick={() => {
                       setActive(1)
                     }}
@@ -63,10 +57,7 @@ const ReportsModal = ({ action }) => {
               )}
               {settings.business.settlement && (
                 <button
-                  className={classNames(
-                    style.link,
-                    active === 2 && style.active,
-                  )}
+                  className={classNames(style.link, active === 2 && style.active)}
                   onClick={() => {
                     setActive(2)
                   }}

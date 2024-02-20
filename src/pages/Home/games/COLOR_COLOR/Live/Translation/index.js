@@ -22,9 +22,7 @@ const findMostCommonColor = data => {
     return count >= 3
   })
 
-  return maxCounts.length > 1 || maxCount < 3
-    ? 'draw'
-    : Object.keys(data).find(color => data[color] === maxCount)
+  return maxCounts.length > 1 || maxCount < 3 ? 'draw' : Object.keys(data).find(color => data[color] === maxCount)
 }
 
 const getDuration = (start, next) => {
@@ -71,11 +69,7 @@ const Translation = ({ data }) => {
   }, [data])
 
   useEffect(() => {
-    if (
-      scenes &&
-      current < scenes.length &&
-      getIndex() === scenes[current].update
-    ) {
+    if (scenes && current < scenes.length && getIndex() === scenes[current].update) {
       const active = scenes[Number(current)]
       setCurrent(prevIndex => prevIndex + 1)
       setColumn(prevIndex => [
@@ -91,12 +85,7 @@ const Translation = ({ data }) => {
   return (
     <div className={style.block}>
       <div className={style.row}>
-        <div
-          className={classNames(
-            style.row,
-            progress === 2 && columns.length > 0 && style.active,
-          )}
-        >
+        <div className={classNames(style.row, progress === 2 && columns.length > 0 && style.active)}>
           {columns.map((el, idx) => (
             <div key={idx} className={style.odd}>
               <Odd key={idx} size={'xxl'} color={el.color} data={el.num} />
@@ -107,13 +96,11 @@ const Translation = ({ data }) => {
       {(progress === 1 || progress === 3) && (
         <div>
           <div className={style.grid}>
-            {Object.entries(colorCounter(data.history[0])).map(
-              ([color, count]) => (
-                <div key={color}>
-                  <Odd color={color} size={'md'} data={count} />
-                </div>
-              ),
-            )}
+            {Object.entries(colorCounter(data.history[0])).map(([color, count]) => (
+              <div key={color}>
+                <Odd color={color} size={'md'} data={count} />
+              </div>
+            ))}
           </div>
           <div>{findMostCommonColor(colorCounter(data.history[0]))}</div>
         </div>

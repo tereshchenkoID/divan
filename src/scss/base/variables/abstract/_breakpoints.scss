@@ -4,10 +4,16 @@
 // adapting to different screen sizes, for use in media queries.
 //
 $grid-breakpoints: (
-  xs: 29rem, //476
-  sm: 36rem, // 576
-  md: 48rem, // 768
-  lg: 62rem, // 992
-  xl: 75rem, // 1200
-  xxl: 85.3rem, // 1366
+  xs: 29rem,
+  //476
+  sm: 36rem,
+  // 576
+  md: 48rem,
+  // 768
+  lg: 62rem,
+  // 992
+  xl: 75rem,
+  // 1200
+  xxl: 85.3rem,
+  // 1366
 ) !default;

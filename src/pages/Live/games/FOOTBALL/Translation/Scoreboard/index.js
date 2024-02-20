@@ -42,47 +42,23 @@ const Scoreboard = ({ data, timer, setVideo, videoRef }) => {
     <div className={style.block}>
       <div className={style.top}>
         <div className={style.cell}>
-          <img
-            src={`${hostnames.ASSETS}/${data.teams.home.img}`}
-            alt={data.teams.home.name}
-            loading={'lazy'}
-          />
+          <img src={`${hostnames.ASSETS}/${data.teams.home.img}`} alt={data.teams.home.name} loading={'lazy'} />
         </div>
         <div className={style.cell}>
           <div className={style.scoreboard}>
             <div>{data.teams.home.name}</div>
-            <div
-              className={classNames(
-                style.score,
-                score[0] > score[1] && style.win,
-              )}
-            >
-              {score[0]}
-            </div>
+            <div className={classNames(style.score, score[0] > score[1] && style.win)}>{score[0]}</div>
             <div>-</div>
-            <div
-              className={classNames(
-                style.score,
-                score[1] > score[0] && style.win,
-              )}
-            >
-              {score[1]}
-            </div>
+            <div className={classNames(style.score, score[1] > score[0] && style.win)}>{score[1]}</div>
             <div>{data.teams.away.name}</div>
           </div>
         </div>
         <div className={style.cell}>
-          <img
-            src={`${hostnames.ASSETS}/${data.teams.away.img}`}
-            alt={data.teams.away.name}
-            loading={'lazy'}
-          />
+          <img src={`${hostnames.ASSETS}/${data.teams.away.img}`} alt={data.teams.away.name} loading={'lazy'} />
         </div>
       </div>
       <div className={style.bottom}>
-        <div className={style.cell}>
-          {timer < 45 ? `1 ${t('interface.half')}` : `2 ${t('interface.half')}`}
-        </div>
+        <div className={style.cell}>{timer < 45 ? `1 ${t('interface.half')}` : `2 ${t('interface.half')}`}</div>
       </div>
     </div>
   )

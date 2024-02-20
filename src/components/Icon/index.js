@@ -1,13 +1,13 @@
-import style from './index.module.scss';
+import style from './index.module.scss'
 
-import icon from './icon.svg';
+import icon from './icon.svg'
 
-const Icon = ({id}) => {
-    return (
-        <svg className={style.block}>
-            <use xlinkHref={`${icon}#${id}`} />
-        </svg>
-    );
+const Icon = ({ id }) => {
+  return (
+    <svg className={style.block}>
+      <use xlinkHref={`${icon}#${id}`} />
+    </svg>
+  )
 }
 
-export default Icon;
+export default Icon

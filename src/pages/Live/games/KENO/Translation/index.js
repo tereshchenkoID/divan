@@ -128,9 +128,7 @@ const Translation = ({ data }) => {
 
     setNumbers(newData)
 
-    const newColumns = Array.from({ length: 4 }, (_, columnIndex) =>
-      init.filter((_, index) => index % 4 === columnIndex).map(el => el),
-    )
+    const newColumns = Array.from({ length: 4 }, (_, columnIndex) => init.filter((_, index) => index % 4 === columnIndex).map(el => el))
 
     setColumn(newColumns)
   }
@@ -147,11 +145,7 @@ const Translation = ({ data }) => {
     initActive(scenes.slice(0, init.length))
     setCurrent(init.length)
 
-    if (
-      scenes &&
-      current < scenes.length &&
-      getIndex() === scenes[current].update
-    ) {
+    if (scenes && current < scenes.length && getIndex() === scenes[current].update) {
       const next = current + 1
       setCurrent(next)
       setActive(scenes[Number(current)])
@@ -162,10 +156,7 @@ const Translation = ({ data }) => {
     <div className={style.block}>
       <div className={style.row}>
         {numbers.map((el, idx) => (
-          <div
-            key={idx}
-            className={classNames(style.cell, el.active && style.active)}
-          >
+          <div key={idx} className={classNames(style.cell, el.active && style.active)}>
             <Odd data={el.value} />
           </div>
         ))}

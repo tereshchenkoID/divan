@@ -1,4 +1,4 @@
-@import "scss/config";
+@import 'scss/config';
 
 .block {
   @include make-spacer('p', 10);
@@ -89,12 +89,11 @@
 }
 
 .button {
-
   &.sm {
     text-align: right;
 
     button {
-      @include size(rem(35px)!important)
+      @include size(rem(35px) !important);
     }
   }
 }

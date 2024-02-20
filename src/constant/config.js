@@ -92,14 +92,7 @@ export const rouletteType = {
   DOZEN: 'DOZEN',
 }
 
-export const rouletteColor = [
-  'violet',
-  'blue',
-  'green',
-  'red',
-  'black',
-  'orange',
-]
+export const rouletteColor = ['violet', 'blue', 'green', 'red', 'black', 'orange']
 
 export const colorType = {
   COLOR: 'COLOR',
@@ -110,13 +103,4 @@ export const colorType = {
 
 export const dogsColor = ['red', 'blue', 'white', 'black', 'orange', 'mixed']
 
-export const horseColor = [
-  'red',
-  'white',
-  'blue',
-  'yellow',
-  'green',
-  'black',
-  'orange',
-  'violet',
-]
+export const horseColor = ['red', 'white', 'blue', 'yellow', 'green', 'black', 'orange', 'violet']

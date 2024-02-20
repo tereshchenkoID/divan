@@ -17,9 +17,7 @@ const Table = ({ data }) => {
   const [params, setParams] = useState('')
 
   useEffect(() => {
-    setParams(
-      `status=${progress !== 2 ? 'init' : 'start'}&number=${data.round.result || data.history[0].results}&time=${data.start}`,
-    )
+    setParams(`status=${progress !== 2 ? 'init' : 'start'}&number=${data.round.result || data.history[0].results}&time=${data.start}`)
   }, [progress])
 
   return (
@@ -28,10 +26,7 @@ const Table = ({ data }) => {
         <div className={style.column}>
           {params}
           <div className={style.wheel}>
-            <iframe
-              title={'Wheel'}
-              src={`${hostnames.PROD}/iframe/wheel/#/${params}`}
-            />
+            <iframe title={'Wheel'} src={`${hostnames.PROD}/iframe/wheel/#/${params}`} />
           </div>
         </div>
         <div className={style.column}>

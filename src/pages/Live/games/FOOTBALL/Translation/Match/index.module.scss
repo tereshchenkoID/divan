@@ -1,4 +1,4 @@
-@import "scss/config";
+@import 'scss/config';
 
 .block {
   @include make-spacer(px, 2);
@@ -41,7 +41,6 @@
 }
 
 .score {
-
   &.win {
     font-weight: var(--typography-bold);
     color: var(--color-green-900);

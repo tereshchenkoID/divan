@@ -1,4 +1,4 @@
-@import "scss/config";
+@import 'scss/config';
 
 .block {
   @include flex;
@@ -7,7 +7,6 @@
   height: rem(35px);
 
   &.lg {
-
     .banner {
       min-width: rem(120px);
     }

@@ -1,83 +1,81 @@
-import {useEffect, useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import useSocket from "hooks/useSocket";
+import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import useSocket from 'hooks/useSocket'
 
-import {time} from 'constant/config'
+import { time } from 'constant/config'
 
-import {checkCmd} from "helpers/checkCmd";
+import { checkCmd } from 'helpers/checkCmd'
 
-import {setBalance} from "store/HOME/actions/balanceAction";
+import { setBalance } from 'store/HOME/actions/balanceAction'
 
-import Icon from "components/Icon";
+import Icon from 'components/Icon'
 
-import style from './index.module.scss';
+import style from './index.module.scss'
 
 const Account = () => {
-    const dispatch = useDispatch()
-    const { sendMessage } = useSocket()
+  const dispatch = useDispatch()
+  const { sendMessage } = useSocket()
 
-    const [loading, setLoading] = useState(true)
-    const {balance} = useSelector((state) => state.balance)
-    const {isConnected, receivedMessage} = useSelector((state) => state.socket);
-    const britishNumberFormatter = new Intl.NumberFormat('en',{ minimumFractionDigits: 2 });
+  const [loading, setLoading] = useState(true)
+  const { balance } = useSelector(state => state.balance)
+  const { isConnected, receivedMessage } = useSelector(state => state.socket)
+  const britishNumberFormatter = new Intl.NumberFormat('en', { minimumFractionDigits: 2 })
 
-    useEffect(() => {
-        if (isConnected) {
-            sendMessage({cmd:`account/${sessionStorage.getItem('authToken')}/balance`})
+  useEffect(() => {
+    if (isConnected) {
+      sendMessage({ cmd: `account/${sessionStorage.getItem('authToken')}/balance` })
 
-            const a = setInterval(() => {
-                sendMessage({cmd:`account/${sessionStorage.getItem('authToken')}/balance`})
-            }, time.UPDATE)
+      const a = setInterval(() => {
+        sendMessage({ cmd: `account/${sessionStorage.getItem('authToken')}/balance` })
+      }, time.UPDATE)
 
-            return () => {
-                clearInterval(a)
-            }
-        }
-        else {
-            dispatch(setBalance()).then(() => {
-                setLoading(false)
-            })
+      return () => {
+        clearInterval(a)
+      }
+    } else {
+      dispatch(setBalance()).then(() => {
+        setLoading(false)
+      })
 
-            const a = setInterval(() => {
-                dispatch(setBalance())
-            }, time.UPDATE)
+      const a = setInterval(() => {
+        dispatch(setBalance())
+      }, time.UPDATE)
 
-            return () => {
-                clearInterval(a)
-            }
-        }
-    }, [isConnected]);
+      return () => {
+        clearInterval(a)
+      }
+    }
+  }, [isConnected])
 
-    useEffect(() => {
-        if (receivedMessage !== '' && checkCmd('balance', receivedMessage.cmd)) {
-            dispatch(setBalance(receivedMessage))
-            setLoading(false)
-        }
-    }, [receivedMessage])
+  useEffect(() => {
+    if (receivedMessage !== '' && checkCmd('balance', receivedMessage.cmd)) {
+      dispatch(setBalance(receivedMessage))
+      setLoading(false)
+    }
+  }, [receivedMessage])
 
-
-    return (
-        <div className={style.block}>
-            {
-                !loading &&
-                balance &&
-                <>
-                    <div className={style.cell}>
-                        <div className={style.icon}>
-                            <Icon id={'user'} />
-                        </div>
-                        <div className={style.text}>{balance.username || 'user'}</div>
-                    </div>
-                    <div className={style.cell}>
-                        <div className={style.icon}>
-                            <Icon id={'money'} />
-                        </div>
-                        <div className={style.text}>{balance.account.symbol || '$'} {britishNumberFormatter.format(balance.account.balance)}</div>
-                    </div>
-                </>
-            }
-        </div>
-    );
+  return (
+    <div className={style.block}>
+      {!loading && balance && (
+        <>
+          <div className={style.cell}>
+            <div className={style.icon}>
+              <Icon id={'user'} />
+            </div>
+            <div className={style.text}>{balance.username || 'user'}</div>
+          </div>
+          <div className={style.cell}>
+            <div className={style.icon}>
+              <Icon id={'money'} />
+            </div>
+            <div className={style.text}>
+              {balance.account.symbol || '$'} {britishNumberFormatter.format(balance.account.balance)}
+            </div>
+          </div>
+        </>
+      )}
+    </div>
+  )
 }
 
-export default Account;
+export default Account

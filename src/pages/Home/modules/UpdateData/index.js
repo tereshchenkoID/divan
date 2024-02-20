@@ -35,10 +35,7 @@ const UpdateData = ({ find, setActive, setFind }) => {
 
         if (new Date().getTime() + delta >= find.nextUpdate) {
           // if (t === '0') {
-          if (
-            find.status === matchStatus.COMPLETED ||
-            find.status === matchStatus.RESULTS
-          ) {
+          if (find.status === matchStatus.COMPLETED || find.status === matchStatus.RESULTS) {
             dispatch(setData(game, null)).then(json => {
               setFind(null)
               dispatch(setLive(1))
@@ -71,10 +68,7 @@ const UpdateData = ({ find, setActive, setFind }) => {
 
         if (new Date().getTime() + delta >= receivedMessage.event.nextUpdate) {
           // if (t === '0') {
-          if (
-            receivedMessage.event.status === matchStatus.COMPLETED ||
-            receivedMessage.event.status === matchStatus.RESULTS
-          ) {
+          if (receivedMessage.event.status === matchStatus.COMPLETED || receivedMessage.event.status === matchStatus.RESULTS) {
             sendMessage({
               cmd: `feed/${sessionStorage.getItem('authToken')}/${game.type}/${game.id}`,
             })

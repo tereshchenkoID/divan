@@ -114,11 +114,7 @@ const Table = () => {
 
   useEffect(() => {
     if (receivedMessage !== '' && checkCmd('feed', receivedMessage.cmd)) {
-      if (
-        receivedMessage.events &&
-        receivedMessage.events[0].type === game.type &&
-        modal !== 2
-      ) {
+      if (receivedMessage.events && receivedMessage.events[0].type === game.type && modal !== 2) {
         dispatch(setData(game, receivedMessage)).then(() => {
           if (receivedMessage.events[0].status !== matchStatus.ANNOUNCEMENT) {
             setActive(receivedMessage.events[1])
@@ -155,21 +151,12 @@ const Table = () => {
       ) : data && data.events.length > 0 ? (
         <>
           {modal === 1 && <SkipModal action={handleNext} />}
-          {active.id !== data.events[0].id && (
-            <UpdateData
-              find={find || data.events[0]}
-              setActive={setActive}
-              setFind={setFind}
-            />
-          )}
+          {active.id !== data.events[0].id && <UpdateData find={find || data.events[0]} setActive={setActive} setFind={setFind} />}
           <div className={style.tab}>
             {data.events.map((el, idx) => (
               <button
                 key={idx}
-                className={classNames(
-                  style.link,
-                  el.id === active.id && style.active,
-                )}
+                className={classNames(style.link, el.id === active.id && style.active)}
                 onClick={() => {
                   checkStatus(el)
                   setActive(el)
@@ -190,12 +177,8 @@ const Table = () => {
             <div className={style.header}>
               {checkTime(active.start, delta) && (
                 <>
-                  <div className={style.label}>
-                    {t('games.COLOR_COLOR.random')}
-                  </div>
-                  <div className={style.label}>
-                    {t('games.COLOR_COLOR.repeat')}
-                  </div>
+                  <div className={style.label}>{t('games.COLOR_COLOR.random')}</div>
+                  <div className={style.label}>{t('games.COLOR_COLOR.repeat')}</div>
                   <div className={style.sort}>
                     {SORT.map((el, idx) => (
                       <button
@@ -215,9 +198,7 @@ const Table = () => {
                         key={idx}
                         className={classNames(
                           style.market,
-                          find &&
-                            idx === data.events.length - 1 &&
-                            style.disabled,
+                          find && idx === data.events.length - 1 && style.disabled,
                           idx + 1 === repeat && style.active,
                         )}
                         onClick={() => {
@@ -233,13 +214,7 @@ const Table = () => {
             </div>
             <div className={style.wrapper}>
               {checkTime(active.start, delta) ? (
-                <TableChips
-                  events={data.events}
-                  repeat={repeat}
-                  random={random}
-                  data={active}
-                  setRepeat={setRepeat}
-                />
+                <TableChips events={data.events} repeat={repeat} random={random} data={active} setRepeat={setRepeat} />
               ) : (
                 <div className={style.live}>{/*<Live data={data} />*/}</div>
               )}

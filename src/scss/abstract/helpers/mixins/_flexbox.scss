@@ -19,13 +19,7 @@
 /// }
 ///
 
-@mixin flex(
-  $justify-content: null,
-  $align-items: null,
-  $direction: null,
-  $wrap: null,
-  $display: flex
-) {
+@mixin flex($justify-content: null, $align-items: null, $direction: null, $wrap: null, $display: flex) {
   @if $justify-content != null {
     justify-content: $justify-content;
   }

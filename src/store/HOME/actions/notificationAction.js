@@ -1,10 +1,10 @@
-import { types } from "store/actionTypes";
+import { types } from 'store/actionTypes'
 
-const setNotification = (data) => {
-    return {
-        type: types.SET_NOTIFICATION,
-        payload: data
-    };
-};
+const setNotification = data => {
+  return {
+    type: types.SET_NOTIFICATION,
+    payload: data,
+  }
+}
 
-export { setNotification };
+export { setNotification }

@@ -1,4 +1,4 @@
-@import "scss/config";
+@import 'scss/config';
 
 .block {
   display: grid;
@@ -19,7 +19,7 @@
 
     > .content {
       @include make-spacer('pt', 2);
-      @include make-spacer('pb', 0)
+      @include make-spacer('pb', 0);
     }
   }
 }

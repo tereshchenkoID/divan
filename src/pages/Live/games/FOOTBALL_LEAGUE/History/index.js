@@ -34,11 +34,7 @@ const History = () => {
           <div className={style.cell}>{item.pos}.</div>
           <div className={style.cell}>
             <div className={style.logo}>
-              <img
-                src={`${hostnames.ASSETS}/${item.img}`}
-                alt={item.team}
-                loading={'lazy'}
-              />
+              <img src={`${hostnames.ASSETS}/${item.img}`} alt={item.team} loading={'lazy'} />
             </div>
           </div>
           <div className={style.cell}>{item.team}</div>
@@ -46,10 +42,7 @@ const History = () => {
           <div className={style.cell}>
             <div className={style.states}>
               {item.last5.split('').map((char, index) => (
-                <div
-                  key={index}
-                  className={classNames(style.state, style[char.toLowerCase()])}
-                >
+                <div key={index} className={classNames(style.state, style[char.toLowerCase()])}>
                   {char}
                 </div>
               ))}

@@ -91,10 +91,7 @@ const Double = ({ data }) => {
         {data.race.odds.markets[0].outcomes.map((el, idx) => (
           <div key={idx} className={style.cell}>
             <button
-              className={classNames(
-                style.odd,
-                select.indexOf(idx + 1) !== -1 && style.active,
-              )}
+              className={classNames(style.odd, select.indexOf(idx + 1) !== -1 && style.active)}
               onClick={() => {
                 addStake(idx + 1, select, setSelect)
               }}
@@ -105,10 +102,7 @@ const Double = ({ data }) => {
         ))}
       </div>
       <button
-        className={classNames(
-          style.button,
-          select.length < 2 && style.disabled,
-        )}
+        className={classNames(style.button, select.length < 2 && style.disabled)}
         onClick={() => {
           placeBets()
         }}

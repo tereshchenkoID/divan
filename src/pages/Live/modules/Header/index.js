@@ -39,8 +39,7 @@ const Header = () => {
             </>
           ) : (
             <div className={style.week}>
-              {t('interface.round')} #
-              {tv.event.round ? tv.event.round.id : tv.event.id}
+              {t('interface.round')} #{tv.event.round ? tv.event.round.id : tv.event.id}
             </div>
           )}
         </div>

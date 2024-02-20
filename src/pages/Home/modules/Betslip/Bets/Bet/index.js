@@ -89,22 +89,14 @@ const Bet = ({ id, data, betslip, type, setInit, setDisabled }) => {
   useOutsideClick(blockRef, buttonRef, setEdit, data)
 
   return (
-    <div
-      className={classNames(
-        style.block,
-        type === 0 ? style.lg : style.sm,
-        style[data.type],
-      )}
-      ref={blockRef}
-    >
+    <div className={classNames(style.block, type === 0 ? style.lg : style.sm, style[data.type])} ref={blockRef}>
       <div className={style.bet}>
         <div>
           <div className={style.icon}>
             <Icon id={getIcon(data.type)} />
           </div>
         </div>
-        {(data.type === gameType.FOOTBALL ||
-          data.type === gameType.FOOTBALL_LEAGUE) && (
+        {(data.type === gameType.FOOTBALL || data.type === gameType.FOOTBALL_LEAGUE) && (
           <div>
             <div className={style.meta}>
               {data.pos}.{data.teams.home.name}-{data.teams.away.name}
@@ -113,16 +105,10 @@ const Bet = ({ id, data, betslip, type, setInit, setDisabled }) => {
         )}
         <div className={style.market}>
           <span>
-            {(data.type === gameType.FOOTBALL ||
-              data.type === gameType.FOOTBALL_LEAGUE) &&
-              `${data.market.replaceAll('_', ' ')}:${data.c || data.a}`}
-            {data.type === gameType.ROULETTE &&
-              (data.print || data.market).replace('_', ' ')}
+            {(data.type === gameType.FOOTBALL || data.type === gameType.FOOTBALL_LEAGUE) && `${data.market.replaceAll('_', ' ')}:${data.c || data.a}`}
+            {data.type === gameType.ROULETTE && (data.print || data.market).replace('_', ' ')}
             {data.type === gameType.COLOR_COLOR && data.print.replace('_', '/')}
-            {(data.type === gameType.KENO ||
-              data.type === gameType.DOGS_6 ||
-              data.type === gameType.HORSES_8_VR) &&
-              data.print}
+            {(data.type === gameType.KENO || data.type === gameType.DOGS_6 || data.type === gameType.HORSES_8_VR) && data.print}
           </span>
           {data.circles && (
             <div className={style.circles}>
@@ -130,19 +116,12 @@ const Bet = ({ id, data, betslip, type, setInit, setDisabled }) => {
                 <div
                   key={idx}
                   className={classNames(
-                    style[
-                      data.type === gameType.DOGS_6 ||
-                      data.type === gameType.HORSES_8_VR
-                        ? 'number'
-                        : 'circle'
-                    ],
+                    style[data.type === gameType.DOGS_6 || data.type === gameType.HORSES_8_VR ? 'number' : 'circle'],
                     style.sm,
                     style[el.color ? el.color.toLowerCase() : 'draw'],
                   )}
                 >
-                  {data.type === gameType.COLOR_COLOR &&
-                    el.id.toString().length < 3 &&
-                    el.id}
+                  {data.type === gameType.COLOR_COLOR && el.id.toString().length < 3 && el.id}
                   {data.type === gameType.KENO && el}
                   {data.type === gameType.DOGS_6 && el.id}
                   {data.type === gameType.HORSES_8_VR && el.id}

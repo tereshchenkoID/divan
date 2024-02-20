@@ -11,33 +11,30 @@ import style from './index.module.scss'
 const Ticket = ({ data, currency }) => {
   const { settings } = useSelector(state => state.settings)
   const [active, setActive] = useState(false)
+  const isShow = settings.business.hide_ticket
 
   return (
-    <div className={style.block}>
+    <div className={classNames(style.block, isShow && style.hide)}>
       {active && <TicketModal id={data.id} action={setActive} />}
-      <div className={classNames(style.cell, style.left)}>
-        <div className={style.button}>
-          <Button
-            type={'red'}
-            size={'sm'}
-            icon={'info'}
-            action={() => {
-              setActive(true)
-            }}
-          />
-        </div>
+      <div className={style.cell}>
+        {!isShow && (
+          <div className={style.button}>
+            <Button
+              type={'red'}
+              size={'sm'}
+              icon={'info'}
+              action={() => {
+                setActive(true)
+              }}
+            />
+          </div>
+        )}
       </div>
-      <div className={classNames(style.cell, style.left)}>
-        {settings.business.hide_ticket && data.id
-          ? data.id.replace(/.{4}$/, '****')
-          : data.id}
-      </div>
+      <div className={classNames(style.cell, style.left)}>{isShow && data.id ? data.id.replace(/.{4}$/, '****') : data.id}</div>
       <div className={classNames(style.cell, style.right)}>
         {currency} {data.amount}
       </div>
-      <div className={classNames(style.cell, style.right)}>
-        {data.win ? `${currency} ${data.win}` : data.status}
-      </div>
+      <div className={classNames(style.cell, style.right)}>{data.win ? `${currency} ${data.win}` : data.status}</div>
     </div>
   )
 }

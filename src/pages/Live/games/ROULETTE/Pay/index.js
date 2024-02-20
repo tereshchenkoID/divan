@@ -1,11 +1,11 @@
-import {useTranslation} from "react-i18next";
+import { useTranslation } from 'react-i18next'
 
-import classNames from "classnames";
+import classNames from 'classnames'
 
-import Label from "../../../modules/Label";
-import Odd from "../Odd";
+import Label from '../../../modules/Label'
+import Odd from '../Odd'
 
-import style from './index.module.scss';
+import style from './index.module.scss'
 
 const Pay = () => {
   const { t } = useTranslation()
@@ -15,64 +15,21 @@ const Pay = () => {
       <Label text={t('interface.pay_table')} />
       <div className={style.row}>
         <div className={style.cell}>Color</div>
-        <div
-          className={
-            classNames(
-              style.cell,
-              style.center
-            )
-          }
-        >
-          <Odd type={'black'} number={2}/>
-          <Odd type={'red'} number={2}/>
+        <div className={classNames(style.cell, style.center)}>
+          <Odd type={'black'} number={2} />
+          <Odd type={'red'} number={2} />
         </div>
         <div className={style.cell}>Dozens</div>
-        <div
-          className={
-            classNames(
-              style.cell,
-              style.center
-            )
-          }
-        >
-          3
-        </div>
+        <div className={classNames(style.cell, style.center)}>3</div>
         <div className={style.cell}>Sectors</div>
-        <div
-          className={
-            classNames(
-              style.cell,
-              style.center
-            )
-          }
-        >
-          6
-        </div>
+        <div className={classNames(style.cell, style.center)}>6</div>
         <div className={style.cell}>Even/Odd</div>
-        <div
-          className={
-            classNames(
-              style.cell,
-              style.center
-            )
-          }
-        >
-          2
-        </div>
+        <div className={classNames(style.cell, style.center)}>2</div>
         <div className={style.cell}>Number</div>
-        <div
-          className={
-            classNames(
-              style.cell,
-              style.center
-            )
-          }
-        >
-          36
-        </div>
+        <div className={classNames(style.cell, style.center)}>36</div>
       </div>
     </div>
-  );
+  )
 }
 
-export default Pay;
+export default Pay

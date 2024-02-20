@@ -1,10 +1,7 @@
 import Table from './Table'
 
 const COLOR_COLOR = () => {
-
-    return (
-        <Table />
-    );
+  return <Table />
 }
 
-export default COLOR_COLOR;
+export default COLOR_COLOR

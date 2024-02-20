@@ -1,4 +1,4 @@
-@import "scss/config";
+@import 'scss/config';
 
 .block {
   @include flex(center, center, column);
@@ -39,7 +39,7 @@
   text-transform: uppercase;
   text-shadow: none;
   color: var(--color-black);
-  background: linear-gradient(360deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 100%);
+  background: linear-gradient(360deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 100%);
   background-color: var(--color-orange-900);
 }
 

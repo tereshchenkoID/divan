@@ -1,4 +1,4 @@
-@import "scss/config";
+@import 'scss/config';
 
 .block {
   @include make-spacer('pl', 1);
@@ -14,17 +14,19 @@
   &:last-child {
     @include make-spacer('mb', 0);
   }
+
+  &.hide {
+    pointer-events: none;
+  }
 }
 
 .cell {
-
   &.right {
     text-align: right;
   }
 }
 
 .button {
-
   button {
     @include size(rem(30px) !important);
   }

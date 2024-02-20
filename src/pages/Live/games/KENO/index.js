@@ -16,9 +16,7 @@ const Page = () => {
     <div className={style.block}>
       {tv.event ? (
         <>
-          {(progress === 2 || progress === 3) && (
-            <Translation data={tv.event} />
-          )}
+          {(progress === 2 || progress === 3) && <Translation data={tv.event} />}
           {progress === 1 && <Table data={tv.event} />}
         </>
       ) : (

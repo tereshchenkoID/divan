@@ -1,4 +1,4 @@
-@import "scss/config";
+@import 'scss/config';
 
 .block {
   @include size(rem(700px), rem(55px));
@@ -30,7 +30,7 @@
 }
 
 :global {
-  @import "scss/plugin/slider";
+  @import 'scss/plugin/slider';
 
   .slick-slider {
     @include size(100%);

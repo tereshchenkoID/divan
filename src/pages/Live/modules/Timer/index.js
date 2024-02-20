@@ -25,9 +25,7 @@ const Timer = ({ data, type }) => {
       <div className={style.bottom}>
         {progress === 1 && <div>{convertTime(data.start, delta)}</div>}
         {progress === 2 && <MatchTimer data={data} delta={delta} type={type} />}
-        {progress === 3 && (
-          <ResultTimer data={data} delta={delta} type={type} />
-        )}
+        {progress === 3 && <ResultTimer data={data} delta={delta} type={type} />}
         {progress === 4 && <div>{t('interface.results')}</div>}
       </div>
     </div>

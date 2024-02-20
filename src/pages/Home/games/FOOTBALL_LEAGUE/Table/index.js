@@ -141,11 +141,7 @@ const Table = () => {
 
   useEffect(() => {
     if (receivedMessage !== '' && checkCmd('feed', receivedMessage.cmd)) {
-      if (
-        receivedMessage.events &&
-        receivedMessage.events[0].type === game.type &&
-        modal !== 2
-      ) {
+      if (receivedMessage.events && receivedMessage.events[0].type === game.type && modal !== 2) {
         dispatch(setData(game, receivedMessage)).then(() => {
           if (receivedMessage.events[0].status !== matchStatus.ANNOUNCEMENT) {
             setFind(receivedMessage.events[0])
@@ -182,21 +178,12 @@ const Table = () => {
       ) : data && data.events.length > 0 ? (
         <>
           {modal === 1 && <SkipModal action={handleNext} />}
-          {active.id !== data.events[0].id && (
-            <UpdateData
-              find={find || data.events[0]}
-              setActive={setActive}
-              setFind={setFind}
-            />
-          )}
+          {active.id !== data.events[0].id && <UpdateData find={find || data.events[0]} setActive={setActive} setFind={setFind} />}
           <div className={style.tab}>
             {data.events.map((el, idx) => (
               <button
                 key={idx}
-                className={classNames(
-                  style.link,
-                  active.id === el.id && style.active,
-                )}
+                className={classNames(style.link, active.id === el.id && style.active)}
                 onClick={() => {
                   checkStatus(el)
                   setActive(el)
@@ -223,10 +210,7 @@ const Table = () => {
                       el.name !== 'Total Goals' && (
                         <button
                           key={idx}
-                          className={classNames(
-                            style.market,
-                            group === idx && style.active,
-                          )}
+                          className={classNames(style.market, group === idx && style.active)}
                           onClick={() => {
                             setGroup(idx)
                             setToggle({
@@ -244,22 +228,12 @@ const Table = () => {
                   <div className={style.cell} />
                   <div className={style.cell} />
                   <div className={style.cell}>
-                    <div
-                      className={classNames(
-                        style.odds,
-                        toggle.id !== null && toggle.toggle && style.hide,
-                      )}
-                    >
-                      {Object.values(
-                        active.league.matches[0].odds[0].groups[group].markets,
-                      ).map((el, idx) => (
+                    <div className={classNames(style.odds, toggle.id !== null && toggle.toggle && style.hide)}>
+                      {Object.values(active.league.matches[0].odds[0].groups[group].markets).map((el, idx) => (
                         <div key={idx} className={style.column}>
                           {el.name && (
                             <div className={style.legend}>
-                              <Subtitle
-                                data={el.name.replaceAll('_', ' ')}
-                                size={'sm'}
-                              />
+                              <Subtitle data={el.name.replaceAll('_', ' ')} size={'sm'} />
                             </div>
                           )}
                           {el.headers.map((el, idx) => (
@@ -280,23 +254,14 @@ const Table = () => {
                       </div>
                       <div className={style.cell}>
                         <div
-                          className={classNames(
-                            style.meta,
-                            toggle.toggle && style.disabled,
-                            toggle.id === idx_m &&
-                              toggle.toggle &&
-                              style.active,
-                          )}
+                          className={classNames(style.meta, toggle.toggle && style.disabled, toggle.id === idx_m && toggle.toggle && style.active)}
                           onClick={() => {
                             handleToggle(idx_m)
                           }}
                         >
                           <div>
                             <div className={style.logo}>
-                              <img
-                                src={`${hostnames.ASSETS}/${el_m.teams.home.img}`}
-                                alt={el_m.teams.home.name}
-                              />
+                              <img src={`${hostnames.ASSETS}/${el_m.teams.home.img}`} alt={el_m.teams.home.name} />
                             </div>
                           </div>
                           <div>{el_m.teams.home.name}</div>
@@ -304,17 +269,11 @@ const Table = () => {
                           <div>{el_m.teams.away.name}</div>
                           <div>
                             <div className={style.logo}>
-                              <img
-                                src={`${hostnames.ASSETS}/${el_m.teams.away.img}`}
-                                alt={el_m.teams.away.name}
-                              />
+                              <img src={`${hostnames.ASSETS}/${el_m.teams.away.img}`} alt={el_m.teams.away.name} />
                             </div>
                           </div>
                           <div>
-                            <button
-                              className={style.toggle}
-                              aria-label={'Toggle'}
-                            >
+                            <button className={style.toggle} aria-label={'Toggle'}>
                               <Icon id={'arrow-right'} />
                             </button>
                           </div>
@@ -322,9 +281,7 @@ const Table = () => {
                       </div>
                       <div className={style.cell}>
                         <div className={style.odds}>
-                          {Object.values(
-                            el_m.odds[0].groups[group].markets,
-                          ).map((el_o, idx_o) => (
+                          {Object.values(el_m.odds[0].groups[group].markets).map((el_o, idx_o) => (
                             <div key={idx_o} className={style.column}>
                               {el_o.outcomes.map((el, idx) => (
                                 <div key={idx} className={style.odd}>
@@ -352,58 +309,36 @@ const Table = () => {
                     </div>
                   ))}
                   {toggle.id !== null && toggle.toggle && (
-                    <div
-                      className={classNames(
-                        style.dropdown,
-                        toggle.toggle && style.active,
-                      )}
-                    >
-                      <div className={style.subtitle}>
-                        {
-                          active.league.matches[toggle.id].odds[0].groups[6]
-                            .name
-                        }
-                      </div>
+                    <div className={classNames(style.dropdown, toggle.toggle && style.active)}>
+                      <div className={style.subtitle}>{active.league.matches[toggle.id].odds[0].groups[6].name}</div>
                       <div className={style.goals}>
-                        {active.league.matches[
-                          toggle.id
-                        ].odds[0].groups[6].markets[0].outcomes.map(
-                          (el, idx) => (
-                            <div key={idx} className={style.outcome}>
-                              <div className={style.button}>
-                                <Odd
-                                  data={{
-                                    ...el,
-                                    ...active.league.matches[toggle.id].teams,
-                                    pos: active.league.matches[toggle.id].pos,
-                                    market:
-                                      active.league.matches[toggle.id].odds[0]
-                                        .groups[6].markets[0].printname,
-                                    c: el.a,
-                                    sid: active.id,
-                                    mid: active.league.matches[toggle.id].id,
-                                    start: active.start,
-                                    type: active.type,
-                                    m_old:
-                                      active.league.matches[toggle.id].odds[0]
-                                        .groups[6].markets[0].name,
-                                    o_old: el.a,
-                                  }}
-                                  label={el.a}
-                                />
-                              </div>
+                        {active.league.matches[toggle.id].odds[0].groups[6].markets[0].outcomes.map((el, idx) => (
+                          <div key={idx} className={style.outcome}>
+                            <div className={style.button}>
+                              <Odd
+                                data={{
+                                  ...el,
+                                  ...active.league.matches[toggle.id].teams,
+                                  pos: active.league.matches[toggle.id].pos,
+                                  market: active.league.matches[toggle.id].odds[0].groups[6].markets[0].printname,
+                                  c: el.a,
+                                  sid: active.id,
+                                  mid: active.league.matches[toggle.id].id,
+                                  start: active.start,
+                                  type: active.type,
+                                  m_old: active.league.matches[toggle.id].odds[0].groups[6].markets[0].name,
+                                  o_old: el.a,
+                                }}
+                                label={el.a}
+                              />
                             </div>
-                          ),
-                        )}
+                          </div>
+                        ))}
                       </div>
                       <div className={style.goals}>
-                        {active.league.matches[
-                          toggle.id
-                        ].odds[0].groups[7].markets.map((el, idx) => (
+                        {active.league.matches[toggle.id].odds[0].groups[7].markets.map((el, idx) => (
                           <div key={idx} className={style.outcomes}>
-                            <div className={style.subtitle}>
-                              {el.headers[0]}
-                            </div>
+                            <div className={style.subtitle}>{el.headers[0]}</div>
                             <div className={style.list}>
                               {filterColumn(el.outcomes).map((el, idx) => (
                                 <div key={idx} className={style.outcomes}>
@@ -413,26 +348,15 @@ const Table = () => {
                                         <Odd
                                           data={{
                                             ...el,
-                                            ...active.league.matches[toggle.id]
-                                              .teams,
-                                            pos: active.league.matches[
-                                              toggle.id
-                                            ].pos,
-                                            market:
-                                              active.league.matches[toggle.id]
-                                                .odds[0].groups[7].markets[0]
-                                                .printname,
+                                            ...active.league.matches[toggle.id].teams,
+                                            pos: active.league.matches[toggle.id].pos,
+                                            market: active.league.matches[toggle.id].odds[0].groups[7].markets[0].printname,
                                             c: el.a,
                                             sid: active.id,
-                                            mid: active.league.matches[
-                                              toggle.id
-                                            ].id,
+                                            mid: active.league.matches[toggle.id].id,
                                             start: active.start,
                                             type: active.type,
-                                            m_old:
-                                              active.league.matches[toggle.id]
-                                                .odds[0].groups[7].markets[0]
-                                                .name,
+                                            m_old: active.league.matches[toggle.id].odds[0].groups[7].markets[0].name,
                                             o_old: el.a,
                                           }}
                                           label={el.a}

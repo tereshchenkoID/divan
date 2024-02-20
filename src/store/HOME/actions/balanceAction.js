@@ -1,19 +1,18 @@
-import {useRequest} from "hooks/useRequest";
+import { useRequest } from 'hooks/useRequest'
 
-import { types } from "store/actionTypes";
+import { types } from 'store/actionTypes'
 
-export const setBalance = (value) => async dispatch => {
-    const { get } = useRequest();
+export const setBalance = value => async dispatch => {
+  const { get } = useRequest()
 
-    try {
-        const data = value || await get('/balance')
+  try {
+    const data = value || (await get('/balance'))
 
-        dispatch({
-            type: types.SET_BALANCE,
-            payload: data,
-        })
-    }
-    catch (e) {
-        console.log(e)
-    }
-};
+    dispatch({
+      type: types.SET_BALANCE,
+      payload: data,
+    })
+  } catch (e) {
+    console.log(e)
+  }
+}
