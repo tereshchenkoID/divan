@@ -216,7 +216,9 @@ const Table = () => {
               {checkTime(active.start, delta) ? (
                 <TableChips events={data.events} repeat={repeat} random={random} data={active} setRepeat={setRepeat} />
               ) : (
-                <div className={style.live}>{/*<Live data={data} />*/}</div>
+                <div className={style.live}>
+                  <Live data={data} />
+                </div>
               )}
             </div>
           </div>

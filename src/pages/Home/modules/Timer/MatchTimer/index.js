@@ -41,7 +41,8 @@ const MatchTimer = ({ data, delta, type }) => {
 
   useEffect(() => {
     let r = checkType(data.event.start, data.event.nextUpdate, delta, type)
-    type === gameType.FOOTBALL_LEAGUE && dispatch(setLiveTimer(r))
+    // type === gameType.FOOTBALL_LEAGUE && dispatch(setLiveTimer(r))
+    dispatch(setLiveTimer(r))
     setTimer(r)
   }, [data.event.start, delta])
 
@@ -64,7 +65,8 @@ const MatchTimer = ({ data, delta, type }) => {
           })
         }
       } else {
-        type === gameType.FOOTBALL_LEAGUE && dispatch(setLiveTimer(r))
+        // type === gameType.FOOTBALL_LEAGUE && dispatch(setLiveTimer(r))
+        dispatch(setLiveTimer(r))
         setTimer(r)
       }
     }, 1000)

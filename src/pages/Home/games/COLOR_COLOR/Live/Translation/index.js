@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 
-import classNames from 'classnames'
-
 import { getDifferent } from 'helpers/getDifferent'
 
 import Odd from '../Odd'
@@ -33,7 +31,7 @@ const getDuration = (start, next) => {
 
 const Translation = ({ data }) => {
   const { delta } = useSelector(state => state.delta)
-  const { progress } = useSelector(state => state.progress)
+  const { live } = useSelector(state => state.live)
   const { liveTimer } = useSelector(state => state.liveTimer)
   const [current, setCurrent] = useState(0)
   const [columns, setColumn] = useState([])
@@ -46,54 +44,45 @@ const Translation = ({ data }) => {
   }
 
   useEffect(() => {
-    if (progress === 2) {
+    if (live === 2) {
       setCurrent(0)
       setColumn([])
     }
-  }, [progress])
+  }, [live])
 
   useEffect(() => {
-    if (progress === 1 || progress === 3) {
+    if (live === 1 || live === 3) {
       setCurrent(0)
       setColumn(data.history[0].results)
     } else {
-      if (scenes) {
-        const init = scenes.filter(el => {
-          return el.update <= getIndex()
-        })
-
-        setCurrent(init.length)
-        setColumn(scenes.slice(0, init.length))
-      }
+      const init = scenes ? scenes.filter(el => el.update <= getIndex()) : []
+      setCurrent(init.length)
+      setColumn(scenes.slice(0, init.length))
     }
   }, [data])
 
   useEffect(() => {
+    const init = scenes ? scenes.filter(el => el.update <= getIndex()) : []
+
+    setCurrent(init.length)
+
     if (scenes && current < scenes.length && getIndex() === scenes[current].update) {
-      const active = scenes[Number(current)]
-      setCurrent(prevIndex => prevIndex + 1)
-      setColumn(prevIndex => [
-        ...prevIndex,
-        {
-          color: active.color,
-          num: active.num,
-        },
-      ])
+      const next = current + 1
+      setCurrent(next)
+      setColumn(scenes.slice(0, next))
     }
   }, [liveTimer])
 
   return (
     <div className={style.block}>
       <div className={style.row}>
-        <div className={classNames(style.row, progress === 2 && columns.length > 0 && style.active)}>
-          {columns.map((el, idx) => (
-            <div key={idx} className={style.odd}>
-              <Odd key={idx} size={'xxl'} color={el.color} data={el.num} />
-            </div>
-          ))}
-        </div>
+        {columns.map((el, idx) => (
+          <div key={idx} className={style.odd}>
+            <Odd key={idx} size={'xxl'} color={el.color} data={el.num} />
+          </div>
+        ))}
       </div>
-      {(progress === 1 || progress === 3) && (
+      {(live === 1 || live === 3) && (
         <div>
           <div className={style.grid}>
             {Object.entries(colorCounter(data.history[0])).map(([color, count]) => (

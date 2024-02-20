@@ -36,7 +36,7 @@ const getDuration = (start, next) => {
 const History = ({ data }) => {
   const { t } = useTranslation()
   const { delta } = useSelector(state => state.delta)
-  const { progress } = useSelector(state => state.progress)
+  const { live } = useSelector(state => state.live)
   const { liveTimer } = useSelector(state => state.liveTimer)
   const [current, setCurrent] = useState(0)
   const [columns, setColumn] = useState([])
@@ -49,14 +49,14 @@ const History = ({ data }) => {
   }
 
   useEffect(() => {
-    if (progress === 2) {
+    if (live === 2) {
       setCurrent(0)
       setColumn([])
     }
-  }, [progress])
+  }, [live])
 
   useEffect(() => {
-    if (progress === 1 || progress === 3) {
+    if (live === 1 || live === 3) {
       setCurrent(0)
       setColumn(data.history[0].results)
     } else {
@@ -97,7 +97,7 @@ const History = ({ data }) => {
         <Label text={t('interface.winning')} />
       </div>
       <div className={classNames(style.row, style.alt)}>
-        {progress === 2 && (
+        {live === 2 && (
           <>
             <div className={style.cell}>#{data.round.id}</div>
             <div className={style.cell}>

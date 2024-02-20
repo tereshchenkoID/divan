@@ -16,7 +16,9 @@
   gap: rem(10px);
 
   &.active {
+
     .odd {
+
       &:last-child {
         animation: 2.2s ease-in-out alternate bounce;
       }
@@ -32,6 +34,7 @@
 }
 
 @keyframes bounce {
+
   0% {
     transform: translateX(rem(-680px)) rotate(0deg);
     opacity: 0;
