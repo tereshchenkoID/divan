@@ -1,0 +1,7 @@
+@import 'scss/config';
+
+.block {
+  @include size(100%);
+
+  position: relative;
+}

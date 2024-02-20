@@ -1,0 +1,20 @@
+@import '../../../../../../scss/config';
+
+.block {
+  @include odd;
+  @include make-spacer(p, 0);
+}
+
+.color {
+  @include circle;
+
+  &.wide {
+    @include size(rem(37px));
+
+    font-size: rem(22px);
+
+    &::before {
+      @include size(rem(25px));
+    }
+  }
+}

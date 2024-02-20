@@ -14,12 +14,15 @@
   @include flex($align-items: center);
 
   gap: rem(10px);
-}
 
-.odd {
+  &.active {
 
-  &:last-child {
-    animation: 2.2s ease-in-out alternate bounce;
+    .odd {
+
+      &:last-child {
+        animation: 2.2s ease-in-out alternate bounce;
+      }
+    }
   }
 }
 

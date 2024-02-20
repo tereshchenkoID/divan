@@ -16,12 +16,13 @@ import { checkTime } from 'helpers/checkTime'
 import { checkData } from 'helpers/checkData'
 import { checkCmd } from 'helpers/checkCmd'
 
-import TableChips from './TableChips'
+import Alert from 'pages/Home/modules/Alert'
+import Timer from 'pages/Home/modules/Timer'
 import Loader from 'components/Loader'
 import SkipModal from 'pages/Home/modules/SkipModal'
 import UpdateData from 'pages/Home/modules/UpdateData'
-import Alert from 'pages/Home/modules/Alert'
-import Timer from 'pages/Home/modules/Timer'
+import TableChips from './TableChips'
+import Live from '../Live'
 
 import style from './index.module.scss'
 
@@ -215,7 +216,9 @@ const Table = () => {
               {checkTime(active.start, delta) ? (
                 <TableChips events={data.events} repeat={repeat} random={random} data={active} setRepeat={setRepeat} />
               ) : (
-                <div className={style.live} />
+                <div className={style.live}>
+                  <Live />
+                </div>
               )}
             </div>
           </div>

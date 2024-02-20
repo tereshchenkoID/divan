@@ -24,7 +24,7 @@ const getDifferentPeriod = (start, end, delta) => {
 }
 
 const checkType = (start, end, delta, type) => {
-  if (type === gameType.FOOTBALL_LEAGUE) {
+  if (type === gameType.FOOTBALL_LEAGUE || type === gameType.FOOTBALL) {
     return getDifferentPeriod(start, end, delta)
   } else {
     return getDifferent(end, delta)
@@ -69,7 +69,9 @@ const MatchTimer = ({ data, delta, type }) => {
     }
   }, [data.start, delta])
 
-  return <div>{timer === '0' ? '00:00' : `${timer}${type === gameType.FOOTBALL_LEAGUE ? `'` : ''}`}</div>
+  return (
+    <div>{timer === '0' ? '00:00' : `${timer}${type === gameType.FOOTBALL_LEAGUE || type === gameType.FOOTBALL ? `'` : ''}`}</div>
+  )
 }
 
 export default MatchTimer

@@ -217,7 +217,7 @@ const Table = () => {
                 <TableChips events={data.events} repeat={repeat} random={random} data={active} setRepeat={setRepeat} />
               ) : (
                 <div className={style.live}>
-                  <Live data={data} />
+                  <Live />
                 </div>
               )}
             </div>

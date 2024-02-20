@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux'
 
 import Loader from 'components/Loader'
 import Translation from './Translation'
-import History from './History'
 
 import { checkData } from 'helpers/checkData'
 
@@ -17,18 +16,7 @@ const Live = () => {
     !checkData(update) && setLoading(false)
   }, [update])
 
-  return (
-    <div className={style.block}>
-      {loading ? (
-        <Loader type={'block'} />
-      ) : (
-        <div className={style.grid}>
-          <History data={update.event} />
-          <Translation data={update.event} />
-        </div>
-      )}
-    </div>
-  )
+  return <div className={style.block}>{loading ? <Loader type={'block'} /> : <Translation data={update.event} />}</div>
 }
 
 export default Live

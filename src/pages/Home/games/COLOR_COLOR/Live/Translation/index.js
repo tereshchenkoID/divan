@@ -6,6 +6,7 @@ import { getDifferent } from 'helpers/getDifferent'
 import Odd from '../Odd'
 
 import style from './index.module.scss'
+import classNames from 'classnames'
 
 const colorCounter = ({ results }) => {
   return results.reduce((counts, { color }) => {
@@ -75,7 +76,7 @@ const Translation = ({ data }) => {
 
   return (
     <div className={style.block}>
-      <div className={style.row}>
+      <div className={classNames(style.row, live === 2 && style.active)}>
         {columns.map((el, idx) => (
           <div key={idx} className={style.odd}>
             <Odd key={idx} size={'xxl'} color={el.color} data={el.num} />
