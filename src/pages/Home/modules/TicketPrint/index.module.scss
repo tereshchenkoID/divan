@@ -76,10 +76,10 @@ $color: #000;
 .bet {
   @include make-spacer('py', 2);
 
-  border-top: 1px solid $color;
+  border-top: rem(1px) solid $color;
 
   &:last-child {
-    border-bottom: 1px solid $color;
+    border-bottom: rem(1px) solid $color;
   }
 }
 
@@ -98,7 +98,7 @@ $color: #000;
 
 .teams {
   display: grid;
-  grid-template-columns: 50px 10px 50px;
+  grid-template-columns: rem(50px) rem(10px) rem(50px);
   align-items: center;
   text-align: center;
 }
@@ -106,4 +106,10 @@ $color: #000;
 .odd {
   flex-grow: 1;
   text-align: right;
+}
+
+.text {
+  @include make-spacer(mt, 4);
+
+  text-align: center;
 }

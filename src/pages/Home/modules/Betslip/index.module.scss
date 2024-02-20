@@ -39,8 +39,9 @@
 
 .footer {
   @include make-spacer('p', 1);
-  @include flex(flex-end);
 
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   gap: rem(5px);
 }
 

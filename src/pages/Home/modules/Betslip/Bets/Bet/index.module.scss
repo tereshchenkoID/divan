@@ -14,6 +14,7 @@
     }
   }
 
+  &.FOOTBALL,
   &.FOOTBALL_LEAGUE {
 
     &.lg {
@@ -60,7 +61,6 @@
 }
 
 .market {
-  //@include ellipsis;
   @include flex($align-items: center, $wrap: wrap);
 
   gap: rem(5px);

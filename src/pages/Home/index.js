@@ -12,13 +12,13 @@ import { checkCmd } from 'helpers/checkCmd'
 
 import { setSettings } from 'store/actions/settingsAction'
 
-import FOOTBALL from './games/FOOTBALL'
-import FOOTBALL_LEAGUE from 'pages/Home/games/FOOTBALL_LEAGUE'
-import COLOR_COLOR from 'pages/Home/games/COLOR_COLOR'
-import ROULETTE from 'pages/Home/games/ROULETTE'
-import KENO from 'pages/Home/games/KENO'
-import DOGS_6 from 'pages/Home/games/DOGS_6'
-import HORSES_8_VR from 'pages/Home/games/HORSES_8_VR'
+import FOOTBALL from './games/FOOTBALL/Table'
+import FOOTBALL_LEAGUE from 'pages/Home/games/FOOTBALL_LEAGUE/Table'
+import COLOR_COLOR from 'pages/Home/games/COLOR_COLOR/Table'
+import ROULETTE from 'pages/Home/games/ROULETTE/Table'
+import KENO from 'pages/Home/games/KENO/Table'
+import DOGS_6 from 'pages/Home/games/DOGS_6/Table'
+import HORSES_8_VR from 'pages/Home/games/HORSES_8_VR/Table'
 
 import Loader from 'components/Loader'
 import Nav from 'components/Nav'
@@ -57,6 +57,7 @@ const Home = () => {
   const [loading, setLoading] = useState(true)
   const { notification } = useSelector(state => state.notification)
   const { game } = useSelector(state => state.game)
+  const { settings } = useSelector(state => state.settings)
   const { isConnected, receivedMessage } = useSelector(state => state.socket)
 
   useEffect(() => {
@@ -65,14 +66,18 @@ const Home = () => {
         cmd: `account/${sessionStorage.getItem('authToken')}/settings`,
       })
     } else {
-      dispatch(setSettings()).then(json => {
-        if (json.hasOwnProperty('data')) {
-          sessionStorage.clear()
-        } else {
-          i18n.changeLanguage(json.account.language || 'en')
-          setLoading(false)
-        }
-      })
+      if (Object.keys(settings).length === 0) {
+        dispatch(setSettings()).then(json => {
+          if (json.hasOwnProperty('data')) {
+            sessionStorage.clear()
+          } else {
+            i18n.changeLanguage(json.account.language || 'en')
+            setLoading(false)
+          }
+        })
+      } else {
+        setLoading(false)
+      }
     }
   }, [isConnected])
 
@@ -82,9 +87,13 @@ const Home = () => {
         sessionStorage.clear()
         navigate(0)
       } else {
-        dispatch(setSettings(receivedMessage))
-        i18n.changeLanguage(receivedMessage.account.language || 'en')
-        setLoading(false)
+        if (Object.keys(settings).length === 0) {
+          dispatch(setSettings(receivedMessage))
+          i18n.changeLanguage(receivedMessage.account.language || 'en')
+          setLoading(false)
+        } else {
+          setLoading(false)
+        }
       }
     }
   }, [receivedMessage])
@@ -95,14 +104,13 @@ const Home = () => {
         <Loader />
       ) : (
         <>
-          {game && <Decor type={game.decor} />}
+          <Decor type={game?.decor} />
           <Nav />
           <div className={style.content}>
             <div className={style.column}>
               <div className={style.banners}>
                 <JackPot />
               </div>
-
               <div className={style.table}>{game && setGame(game.type)}</div>
             </div>
             <div className={style.column}>

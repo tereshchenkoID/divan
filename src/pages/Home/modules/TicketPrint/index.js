@@ -112,6 +112,9 @@ export const TicketPrint = React.forwardRef((data, ref) => {
             </div>
           </li>
         </ul>
+        {settings.print.text !== '' && (
+          <div className={style.text}>{settings.print.text}</div>
+        )}
       </div>
     </div>
   )
