@@ -1,37 +1,36 @@
 import { useDispatch } from 'react-redux'
 import { useEffect } from 'react'
+import { ToastContainer, toast } from 'react-toastify'
+
+import 'react-toastify/dist/ReactToastify.css'
 
 import { setNotification } from 'store/HOME/actions/notificationAction'
 
-import Icon from 'components/Icon'
-
-import style from './index.module.scss'
-
-const Notification = ({ text }) => {
+const Notification = ({ data }) => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    if (text.length > 0) {
-      setTimeout(() => {
-        dispatch(setNotification(null))
-      }, 3000)
+    if (data) {
+      toast(data.text, {
+        type: data.type,
+        onClose: () => dispatch(setNotification(null)),
+      })
     }
-  }, [text])
+  }, [data])
 
   return (
-    <div className={style.block}>
-      <div className={style.wrapper}>
-        <div className={style.text}>{text}</div>
-        <button
-          className={style.button}
-          onClick={() => {
-            dispatch(setNotification(null))
-          }}
-        >
-          <Icon id={'close'} />
-        </button>
-      </div>
-    </div>
+    <ToastContainer
+      position="top-center"
+      autoClose={5000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+      theme="dark"
+    />
   )
 }
 

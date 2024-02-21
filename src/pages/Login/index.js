@@ -2,7 +2,7 @@ import { useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import classNames from 'classnames'
 
-import { hostnames } from 'constant/config'
+import { hostnames, status } from 'constant/config'
 
 import Keyboard from 'react-simple-keyboard'
 
@@ -75,10 +75,10 @@ const Login = () => {
         dispatch(setAuth(json.authToken))
 
         dispatch(setSettings()).then(json => {
-          dispatch(setNotification(json.account.notification))
+          dispatch(setNotification({ text: json.account.notification, type: status.info }))
         })
       } else {
-        dispatch(setNotification('Invalid password or login'))
+        dispatch(setNotification({ text: 'Invalid password or login', type: status.error }))
       }
     })
   }

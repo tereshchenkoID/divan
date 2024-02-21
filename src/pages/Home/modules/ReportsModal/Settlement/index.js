@@ -6,6 +6,8 @@ import useSocket from 'hooks/useSocket'
 
 import { MD5 } from 'crypto-js'
 
+import { status } from 'constant/config'
+
 import classNames from 'classnames'
 
 import { setNotification } from 'store/HOME/actions/notificationAction'
@@ -39,7 +41,7 @@ const Settlement = () => {
 
   const handleSubmit = () => {
     if (active === 'master' && password.length === 0) {
-      dispatch(setNotification(t('notification.password_is_blank')))
+      dispatch(setNotification({ text: t('notification.password_is_blank'), type: status.error }))
       return
     }
 
@@ -54,7 +56,7 @@ const Settlement = () => {
 
         if (active === 'master') {
           if (json.code) {
-            dispatch(setNotification(t('notification.password_dont_match')))
+            dispatch(setNotification({ text: t('notification.password_dont_match'), type: status.error }))
           } else {
             setData(json)
             setLoading(false)
@@ -76,7 +78,7 @@ const Settlement = () => {
 
       if (active === 'master') {
         if (receivedMessage.code) {
-          dispatch(setNotification(t('notification.password_dont_match')))
+          dispatch(setNotification({ text: t('notification.password_dont_match'), type: status.error }))
         } else {
           setData(receivedMessage)
           setLoading(false)

@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import useSocket from 'hooks/useSocket'
 import i18n from 'i18next'
 
-import { printMode, oddsType } from 'constant/config'
+import { status, printMode, oddsType } from 'constant/config'
 
 import classNames from 'classnames'
 
@@ -25,7 +25,7 @@ const SettingsModal = ({ action }) => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
   const { sendMessage } = useSocket()
-  const { socket, isConnected, receivedMessage } = useSelector(state => state.socket)
+  const { isConnected, receivedMessage } = useSelector(state => state.socket)
 
   const { settings } = useSelector(state => state.settings)
   const [response, setResponse] = useState(null)
@@ -53,9 +53,9 @@ const SettingsModal = ({ action }) => {
         }),
       ).then(json => {
         if (json.code === 'OK') {
-          dispatch(setNotification(t('notification.saved')))
+          dispatch(setNotification({ text: t('notification.saved'), type: status.success }))
         } else {
-          dispatch(setNotification(t('notification.something_wrong')))
+          dispatch(setNotification({ text: t('notification.something_wrong'), type: status.error }))
         }
       })
     }
@@ -71,7 +71,7 @@ const SettingsModal = ({ action }) => {
             setResponse(json)
           }
         } else {
-          dispatch(setNotification(t('notification.ticket_not_found')))
+          dispatch(setNotification({ text: t('notification.ticket_not_found'), type: status.error }))
         }
       })
     }
@@ -86,13 +86,13 @@ const SettingsModal = ({ action }) => {
           }
         }
       } else {
-        dispatch(setNotification(t('notification.ticket_not_found')))
+        dispatch(setNotification({ text: t('notification.ticket_not_found'), type: status.error }))
       }
     } else if (receivedMessage !== '' && checkCmd('config', receivedMessage.cmd)) {
       if (receivedMessage.code === 'OK') {
-        dispatch(setNotification(t('notification.saved')))
+        dispatch(setNotification({ text: t('notification.saved'), type: status.success }))
       } else {
-        dispatch(setNotification(t('notification.something_wrong')))
+        dispatch(setNotification({ text: t('notification.something_wrong'), type: status.error }))
       }
     }
   }, [receivedMessage])

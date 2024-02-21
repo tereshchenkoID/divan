@@ -4,6 +4,8 @@ import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
 
+import { status } from 'constant/config'
+
 import useSocket from 'hooks/useSocket'
 
 import { checkCmd } from 'helpers/checkCmd'
@@ -43,7 +45,7 @@ const TicketModal = ({ id, action }) => {
         if (json.hasOwnProperty('stake')) {
           setData(json)
         } else {
-          dispatch(setNotification(t('notification.ticket_not_found')))
+          dispatch(setNotification({ text: t('notification.ticket_not_found'), type: status.error }))
         }
       })
     }
@@ -64,7 +66,7 @@ const TicketModal = ({ id, action }) => {
           setType(json.stake.group.length > 0 ? 1 : 0)
           setLoading(false)
         } else {
-          dispatch(setNotification(t('notification.ticket_not_found')))
+          dispatch(setNotification({ text: t('notification.ticket_not_found'), type: status.error }))
         }
       })
     }
@@ -156,7 +158,11 @@ const TicketModal = ({ id, action }) => {
                         data.stake.status === 'CANCELLED' && style['cancelled'],
                       )}
                     >
-                      {data.stake.paid === '1' ? <img src={'/img/paid.png'} alt={'Paid'} /> : <img src={'/img/cancelled.png'} alt={'Paid'} />}
+                      {data.stake.paid === '1' ? (
+                        <img src={'/img/paid.png'} alt={'Paid'} />
+                      ) : (
+                        <img src={'/img/cancelled.png'} alt={'Paid'} />
+                      )}
                     </div>
                     <div className={style.wrapper}>
                       <div className={style.title}>{t('interface.details')}</div>
@@ -179,11 +185,15 @@ const TicketModal = ({ id, action }) => {
                           <div className={style.cell}>{t('interface.selections')}</div>
                           <div className={style.cell}>{data.stake.bets.length}</div>
                           <div className={style.cell}>{t('interface.total_payout')}</div>
-                          <div className={style.cell}>{data.stake.payout && `${settings.account.symbol} ${data.stake.payout}`}</div>
+                          <div className={style.cell}>
+                            {data.stake.payout && `${settings.account.symbol} ${data.stake.payout}`}
+                          </div>
                         </div>
                         <div className={style.row}>
                           <div className={style.cell}>{t('interface.ticket_type')}</div>
-                          <div className={style.cell}>{data.stake.group.length ? t('interface.system') : t('interface.single')}</div>
+                          <div className={style.cell}>
+                            {data.stake.group.length ? t('interface.system') : t('interface.single')}
+                          </div>
                           <div className={style.cell}>{t('interface.winning_tax')}</div>
                           <div className={style.cell}>{data.stake.tax}</div>
                         </div>
@@ -194,7 +204,9 @@ const TicketModal = ({ id, action }) => {
                             {data.stake.status}
                           </div>
                           <div className={style.cell}>{t('interface.net_payout')}</div>
-                          <div className={style.cell}>{data.stake.payout && `${settings.account.symbol} ${data.stake.payout}`}</div>
+                          <div className={style.cell}>
+                            {data.stake.payout && `${settings.account.symbol} ${data.stake.payout}`}
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -220,7 +232,8 @@ const TicketModal = ({ id, action }) => {
                               <div className={style.cell}>{el.group}</div>
                               <div className={style.cell}>{el.combi}</div>
                               <div className={style.cell}>
-                                {el.combi} x {settings.account.symbol} {el.amount} = {settings.account.symbol} {el.combi * el.unit}
+                                {el.combi} x {settings.account.symbol} {el.amount} = {settings.account.symbol}{' '}
+                                {el.combi * el.unit}
                               </div>
                               <div className={style.cell}>
                                 {settings.account.symbol} {el.minwin.toFixed(2)}

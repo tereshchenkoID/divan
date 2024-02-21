@@ -4,6 +4,13 @@ export const hostnames = {
   ASSETS: 'https://view.divan.bet/engine/shop/resource',
 }
 
+export const status = {
+  info: 'info',
+  error: 'error',
+  success: 'success',
+  warning: 'warn',
+}
+
 export const time = {
   UPDATE: 30000,
 }

@@ -4,7 +4,7 @@ import { useReactToPrint } from 'react-to-print'
 import { useTranslation } from 'react-i18next'
 import useSocket from 'hooks/useSocket'
 
-import { gameType, oddsType, printMode } from 'constant/config'
+import { status, gameType, oddsType, printMode } from 'constant/config'
 
 import {
   getBetMaxSingle,
@@ -125,15 +125,19 @@ const Betslip = () => {
             dispatch(setStake([]))
           } else {
             dispatch(
-              setNotification(
-                t('notification.stake_lower_upper').replaceAll('${symbol}', settings.account.symbol).replace('${min}', min).replace('${max}', max),
-              ),
+              setNotification({
+                text: t('notification.stake_lower_upper')
+                  .replaceAll('${symbol}', settings.account.symbol)
+                  .replace('${min}', min)
+                  .replace('${max}', max),
+                type: status.error,
+              }),
             )
           }
         })
       }
     } else {
-      dispatch(setNotification(t('notification.please_pick_up_bet')))
+      dispatch(setNotification({ text: t('notification.please_pick_up_bet'), type: status.error }))
     }
   }
 
@@ -149,7 +153,7 @@ const Betslip = () => {
             setResponse(json)
           }
         } else {
-          dispatch(setNotification(t('notification.ticket_not_found')))
+          dispatch(setNotification({ text: t('notification.ticket_not_found'), type: status.error }))
         }
       })
     }
@@ -162,7 +166,7 @@ const Betslip = () => {
           setResponse(receivedMessage)
         }
       } else {
-        dispatch(setNotification(t('notification.ticket_not_found')))
+        dispatch(setNotification({ text: t('notification.ticket_not_found'), type: status.error }))
       }
     } else if (receivedMessage !== '' && checkCmd('placebet', receivedMessage.cmd)) {
       if (!receivedMessage.data) {
@@ -175,9 +179,13 @@ const Betslip = () => {
         dispatch(setStake([]))
       } else {
         dispatch(
-          setNotification(
-            t('notification.stake_lower_upper').replaceAll('${symbol}', settings.account.symbol).replace('${min}', min).replace('${max}', max),
-          ),
+          setNotification({
+            text: t('notification.stake_lower_upper')
+              .replaceAll('${symbol}', settings.account.symbol)
+              .replace('${min}', min)
+              .replace('${max}', max),
+            type: status.error,
+          }),
         )
       }
     }
@@ -243,7 +251,10 @@ const Betslip = () => {
     } else {
       if (!init) {
         if (betslip[0].type === gameType.FOOTBALL_LEAGUE) {
-          s = settings.betting.type === oddsType.PER_BET ? settings.betslip.single.default : settings.betslip.single.default / betslip.length
+          s =
+            settings.betting.type === oddsType.PER_BET
+              ? settings.betslip.single.default
+              : settings.betslip.single.default / betslip.length
         } else {
           s = getTotalStakeSingle(betslip)
         }

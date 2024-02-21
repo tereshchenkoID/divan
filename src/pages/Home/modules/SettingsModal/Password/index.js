@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import useSocket from 'hooks/useSocket'
 
+import { status } from 'constant/config'
+
 import { postData } from 'helpers/api'
 import { checkCmd } from 'helpers/checkCmd'
 
@@ -32,7 +34,11 @@ const Password = ({ action }) => {
   const checkNewPassword = () => {
     if (newPassword === confirmPassword && oldPassword.length > 4) {
       if (isConnected) {
-        sendMessage({ cmd: `account/${sessionStorage.getItem('authToken')}/password`, password: oldPassword, old_password: newPassword })
+        sendMessage({
+          cmd: `account/${sessionStorage.getItem('authToken')}/password`,
+          password: oldPassword,
+          old_password: newPassword,
+        })
       } else {
         postData(
           '/password',
@@ -42,25 +48,25 @@ const Password = ({ action }) => {
           }),
         ).then(json => {
           if (json.hasOwnProperty('data')) {
-            dispatch(setNotification(t('notification.old_password_invalid')))
+            dispatch(setNotification({ text: t('notification.old_password_invalid'), type: status.error }))
           } else {
-            dispatch(setNotification(t('notification.password_changed')))
+            dispatch(setNotification({ text: t('notification.password_changed'), type: status.success }))
           }
         })
       }
     } else if (oldPassword.length < 4) {
-      dispatch(setNotification(t('notification.type_old_password')))
+      dispatch(setNotification({ text: t('notification.type_old_password'), type: status.error }))
     } else {
-      dispatch(setNotification(t('notification.password_dont_match')))
+      dispatch(setNotification({ text: t('notification.password_dont_match'), type: status.error }))
     }
   }
 
   useEffect(() => {
     if (receivedMessage !== '' && checkCmd('password', receivedMessage.cmd)) {
       if (receivedMessage.hasOwnProperty('code')) {
-        dispatch(setNotification(t('notification.old_password_invalid')))
+        dispatch(setNotification({ text: t('notification.old_password_invalid'), type: status.error }))
       } else {
-        dispatch(setNotification(t('notification.password_changed')))
+        dispatch(setNotification({ text: t('notification.password_changed'), type: status.success }))
       }
     }
   }, [receivedMessage])

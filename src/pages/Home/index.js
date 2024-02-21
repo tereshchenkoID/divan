@@ -11,6 +11,7 @@ import { gameType } from 'constant/config'
 import { checkCmd } from 'helpers/checkCmd'
 
 import { setSettings } from 'store/actions/settingsAction'
+import { setAuth } from 'store/actions/authAction'
 
 import FOOTBALL from './games/FOOTBALL/Table'
 import FOOTBALL_LEAGUE from 'pages/Home/games/FOOTBALL_LEAGUE/Table'
@@ -69,6 +70,7 @@ const Home = () => {
       if (Object.keys(settings).length === 0) {
         dispatch(setSettings()).then(json => {
           if (json.hasOwnProperty('data')) {
+            dispatch(setAuth(null))
             sessionStorage.clear()
           } else {
             i18n.changeLanguage(json.account.language || 'en')
@@ -84,6 +86,7 @@ const Home = () => {
   useEffect(() => {
     if (receivedMessage !== '' && checkCmd('settings', receivedMessage.cmd)) {
       if (receivedMessage.hasOwnProperty('code')) {
+        dispatch(setAuth(null))
         sessionStorage.clear()
         navigate(0)
       } else {
@@ -117,7 +120,7 @@ const Home = () => {
               <Betslip />
             </div>
           </div>
-          {notification && <Notification text={notification} />}
+          {notification && <Notification data={notification} />}
         </>
       )}
     </div>
