@@ -20,7 +20,7 @@ const Main = ({ data }) => {
         <Label text={data.race.odds.markets[2].printname} />
       </div>
       <div className={classNames(style.row, style.alt)}>
-        <div>
+        <div className={style.column}>
           {data.race.participants.map((el, idx) => (
             <div key={idx} className={style.cell}>
               <Number data={idx + 1} color={idx} />
@@ -28,28 +28,28 @@ const Main = ({ data }) => {
             </div>
           ))}
         </div>
-        <div>
+        <div className={style.column}>
           {data.race.participants.map((el, idx) => (
             <div key={idx} className={classNames(style.cell, style.center)}>
               {el.c}
             </div>
           ))}
         </div>
-        <div>
+        <div className={style.column}>
           {data.race.odds.markets[0].outcomes.map((el, idx) => (
             <div key={idx} className={classNames(style.cell, style.center)}>
               {el.b.toFixed(1)}
             </div>
           ))}
         </div>
-        <div>
+        <div className={style.column}>
           {data.race.odds.markets[1].outcomes.map((el, idx) => (
             <div key={idx} className={classNames(style.cell, style.center)}>
               {el.b.toFixed(1)}
             </div>
           ))}
         </div>
-        <div>
+        <div className={style.column}>
           {data.race.odds.markets[2].outcomes.map((el, idx) => (
             <div key={idx} className={classNames(style.cell, style.center)}>
               {el.b.toFixed(1)}

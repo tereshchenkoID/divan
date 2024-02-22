@@ -5,17 +5,6 @@
   @include size(100%);
 }
 
-.info {
-  @include info;
-}
-
-.body {
-  @include flex($direction: column);
-
-  position: relative;
-  flex-grow: 1;
-}
-
 .header {
   @include flex($align-items: center);
   @include make-spacer('my', 2);
@@ -51,24 +40,6 @@
   100% {
     opacity: 0;
   }
-}
-
-.league {
-  @include size(rem(135px), rem(70px));
-
-  img {
-    width: auto;
-  }
-}
-
-.tab {
-  @include flex($align-items: center);
-}
-
-.link {
-  @include link;
-
-  flex-direction: column;
 }
 
 .market {

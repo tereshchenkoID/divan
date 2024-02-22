@@ -11,12 +11,20 @@
 .cell {
   @include flex(center);
 
-  height: rem(56px);
+  height: rem(60px);
   border-right: rem(1px) solid var(--color-border);
   border-bottom: rem(1px) solid var(--color-border);
   background-color: var(--color-thunder);
 
   &:nth-child(even) {
     background-color: var(--color-heavy-metal);
+  }
+
+  &:nth-child(5n) {
+    border-right: 0;
+  }
+
+  &:nth-last-child(-n + 5) {
+    border-bottom: 0;
   }
 }

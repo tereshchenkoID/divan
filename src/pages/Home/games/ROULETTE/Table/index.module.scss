@@ -5,19 +5,8 @@
   @include size(100%);
 }
 
-.info {
-  @include info;
-}
-
-.body {
-  @include flex($direction: column);
-
-  position: relative;
-  flex-grow: 1;
-}
-
 .header {
-  @include make-spacer('my', 2);
+  @include make-spacer(my, 2);
 
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -36,40 +25,22 @@
   @include wrapper;
 }
 
-.league {
-  @include size(rem(135px), rem(70px));
-
-  img {
-    width: auto;
-  }
-}
-
-.tab {
-  @include flex($align-items: center);
-}
-
-.link {
-  @include link;
-
-  flex-direction: column;
-}
-
 .label {
   @include label;
-  @include make-spacer('mb', 2);
+  @include make-spacer(mb, 2);
 }
 
 .sort {
-  @include make-spacer('mb', 2);
+  @include make-spacer(mb, 2);
   @include flex($align-items: center);
 }
 
 .market {
   @include button;
-  @include make-spacer('mr', half);
+  @include make-spacer(mr, 1);
   @include size(rem(43px));
 
   &:last-child {
-    @include make-spacer('mr', 0);
+    @include make-spacer(mr, 0);
   }
 }

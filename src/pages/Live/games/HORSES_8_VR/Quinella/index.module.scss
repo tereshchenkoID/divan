@@ -1,0 +1,30 @@
+@import 'scss/config';
+
+.row {
+  @include wrapper;
+
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  color: var(--color-white);
+}
+
+.cell {
+  @include flex(center);
+
+  height: rem(74px);
+  border-right: rem(1px) solid var(--color-border);
+  border-bottom: rem(1px) solid var(--color-border);
+  background-color: var(--color-thunder);
+
+  &:nth-child(even) {
+    background-color: var(--color-heavy-metal);
+  }
+
+  &:nth-child(7n) {
+    border-right: 0;
+  }
+
+  &:nth-last-child(-n + 7) {
+    border-bottom: 0;
+  }
+}

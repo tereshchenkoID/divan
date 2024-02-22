@@ -1,25 +1,14 @@
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-
-import i18n from 'i18next'
-
 import useSocket from 'hooks/useSocket'
 
-import { gameType } from 'constant/config'
+import i18n from 'i18next'
 
 import { checkCmd } from 'helpers/checkCmd'
 
 import { setSettings } from 'store/actions/settingsAction'
 import { setAuth } from 'store/actions/authAction'
-
-import FOOTBALL from './games/FOOTBALL/Table'
-import FOOTBALL_LEAGUE from 'pages/Home/games/FOOTBALL_LEAGUE/Table'
-import COLOR_COLOR from 'pages/Home/games/COLOR_COLOR/Table'
-import ROULETTE from 'pages/Home/games/ROULETTE/Table'
-import KENO from 'pages/Home/games/KENO/Table'
-import DOGS_6 from 'pages/Home/games/DOGS_6/Table'
-import HORSES_8_VR from 'pages/Home/games/HORSES_8_VR/Table'
 
 import Loader from 'components/Loader'
 import Nav from 'components/Nav'
@@ -27,29 +16,9 @@ import Betslip from 'pages/Home/modules/Betslip'
 import Notification from 'pages/Home/modules/Notification'
 import JackPot from 'pages/Home/modules/JackPot'
 import Decor from 'pages/Home/modules/Decor'
+import Skeleton from './modules/Skeleton'
 
 import style from './index.module.scss'
-
-const setGame = id => {
-  switch (id) {
-    case gameType.FOOTBALL:
-      return <FOOTBALL />
-    case gameType.FOOTBALL_LEAGUE:
-      return <FOOTBALL_LEAGUE />
-    case gameType.ROULETTE:
-      return <ROULETTE />
-    case gameType.COLOR_COLOR:
-      return <COLOR_COLOR />
-    case gameType.KENO:
-      return <KENO />
-    case gameType.DOGS_6:
-      return <DOGS_6 />
-    case gameType.HORSES_8_VR:
-      return <HORSES_8_VR />
-    default:
-      return <FOOTBALL_LEAGUE />
-  }
-}
 
 const Home = () => {
   const { sendMessage } = useSocket()
@@ -114,7 +83,7 @@ const Home = () => {
               <div className={style.banners}>
                 <JackPot />
               </div>
-              <div className={style.table}>{game && setGame(game.type)}</div>
+              <Skeleton />
             </div>
             <div className={style.column}>
               <Betslip />

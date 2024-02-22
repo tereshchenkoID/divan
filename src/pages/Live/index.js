@@ -12,6 +12,7 @@ import Decor from 'pages/Home/modules/Decor'
 
 import FOOTBALL from './games/FOOTBALL'
 import FOOTBALL_LEAGUE from './games/FOOTBALL_LEAGUE'
+import HORSES_8_VR from './games/HORSES_8_VR'
 import COLOR_COLOR from './games/COLOR_COLOR'
 import ROULETTE from './games/ROULETTE'
 import DOGS_6 from './games/DOGS_6'
@@ -43,6 +44,8 @@ const getGame = id => {
       return <KENO />
     case gameType.COLOR_COLOR:
       return <COLOR_COLOR />
+    case gameType.HORSES_8_VR:
+      return <HORSES_8_VR />
     default:
       return <div>{id}</div>
   }

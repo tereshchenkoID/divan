@@ -1,0 +1,36 @@
+@import 'scss/config';
+
+.block {
+  @include odd;
+  @include size(100%);
+
+  &.vertical {
+    flex-direction: column;
+
+    .numbers {
+      @include make-spacer(mb, 1);
+    }
+  }
+
+  &.horizontal {
+    @include make-spacer(pl, 4);
+
+    gap: rem(5px);
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+
+  &.disabled {
+    background-image: linear-gradient(0deg, #111 0%, #3f3f3f 17%, #6d6d6d 51%, #6d6d6d 100%);
+  }
+}
+
+.market {
+  @include make-spacer(mr, 2);
+}
+
+.numbers {
+  @include flex($align-items: center);
+
+  gap: rem(5px);
+}

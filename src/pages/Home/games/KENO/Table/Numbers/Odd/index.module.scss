@@ -2,6 +2,8 @@
 
 .block {
   @include odd;
+
+  pointer-events: none;
 }
 
 .color {

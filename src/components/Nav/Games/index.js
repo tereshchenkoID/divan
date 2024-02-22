@@ -11,6 +11,7 @@ import { setGame } from 'store/actions/gameAction'
 import Icon from 'components/Icon'
 
 import style from './index.module.scss'
+import { setLive } from '../../../store/HOME/actions/liveAction'
 
 const Games = () => {
   const dispatch = useDispatch()
@@ -39,6 +40,7 @@ const Games = () => {
                 className={classNames(style.button, game.id === el.id && style.active)}
                 aria-label={el.name}
                 onClick={() => {
+                  dispatch(setLive(0))
                   dispatch(setGame(el))
                 }}
               >

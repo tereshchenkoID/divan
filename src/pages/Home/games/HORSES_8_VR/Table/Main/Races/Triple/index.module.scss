@@ -17,6 +17,10 @@
 .cell {
   border-right: 1px solid var(--color-border);
   background-color: var(--color-thunder);
+
+  &:last-child {
+    border-right: 0;
+  }
 }
 
 .button {

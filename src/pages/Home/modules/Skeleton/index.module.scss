@@ -1,0 +1,44 @@
+@import 'scss/config';
+
+.block {
+  @include flex($direction: column);
+  @include size(100%);
+
+  position: relative;
+  font-weight: var(--typography-bold);
+  text-transform: uppercase;
+}
+
+.info {
+  display: grid;
+  position: absolute;
+  top: rem(43px);
+  grid-template-columns: 1fr rem(95px);
+  align-items: center;
+  width: rem(250px);
+}
+
+.body {
+  @include flex($direction: column);
+
+  position: relative;
+  flex-grow: 1;
+}
+
+.league {
+  @include size(rem(135px), rem(70px));
+
+  img {
+    width: auto;
+  }
+}
+
+.tab {
+  @include flex($align-items: center);
+}
+
+.link {
+  @include link;
+
+  flex-direction: column;
+}

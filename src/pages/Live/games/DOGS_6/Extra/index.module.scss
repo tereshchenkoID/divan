@@ -10,6 +10,13 @@
 
     grid-template-columns: repeat(4, 1fr);
     background-color: var(--color-thunder);
+
+    .cell {
+
+      &:nth-child(even) {
+        background-color: var(--color-heavy-metal);
+      }
+    }
   }
 }
 
@@ -19,5 +26,8 @@
 
   height: rem(40px);
   border-right: rem(1px) solid var(--color-border);
-  border-bottom: rem(1px) solid var(--color-border);
+
+  &:last-child {
+    border-right: 0;
+  }
 }
