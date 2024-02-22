@@ -14,10 +14,13 @@ import style from './index.module.scss'
 
 const Table = ({ data }) => {
   const { progress } = useSelector(state => state.progress)
+  const { delta } = useSelector(state => state.delta)
   const [params, setParams] = useState('')
 
   useEffect(() => {
-    setParams(`status=${progress !== 2 ? 'init' : 'start'}&number=${data.round.result || data.history[0].results}&time=${data.start}`)
+    setParams(
+      `status=${progress !== 2 ? 'init' : 'start'}&number=${data.round.result || data.history[0].results}&time=${data.start}&delta=${delta}`,
+    )
   }, [progress])
 
   return (
