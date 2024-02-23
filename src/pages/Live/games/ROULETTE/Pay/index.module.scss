@@ -33,6 +33,14 @@
     background-color: var(--color-heavy-metal);
   }
 
+  &:nth-child(2n) {
+    border-right: 0;
+  }
+
+  &:nth-last-child(-n + 2) {
+    border-bottom: 0;
+  }
+
   &.center {
     justify-content: center;
   }

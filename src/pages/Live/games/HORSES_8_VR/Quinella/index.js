@@ -1,4 +1,4 @@
-import Label from '../../../modules/Label'
+import Label from 'components/Label'
 import Odd from '../Odd'
 
 import style from './index.module.scss'
@@ -10,7 +10,7 @@ const Quinella = ({ data }) => {
       <div className={style.row}>
         {data.race.odds.markets[3].outcomes.map((el, idx) => (
           <div key={idx} className={style.cell}>
-            <Odd data={el} view={'vertical'} />
+            <Odd data={el} view={'horizontal'} />
           </div>
         ))}
       </div>

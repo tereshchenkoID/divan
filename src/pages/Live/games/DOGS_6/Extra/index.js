@@ -1,6 +1,6 @@
 import classNames from 'classnames'
 
-import Label from '../../../modules/Label'
+import Label from 'components/Label'
 
 import style from './index.module.scss'
 

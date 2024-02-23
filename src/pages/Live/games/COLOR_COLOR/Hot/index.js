@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next'
 
-import Label from '../../../modules/Label'
+import Label from 'components/Label'
 import Odd from '../Odd'
 
 import style from './index.module.scss'

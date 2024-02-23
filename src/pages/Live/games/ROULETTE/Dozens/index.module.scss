@@ -23,6 +23,10 @@
     background-color: var(--color-heavy-metal);
   }
 
+  &:last-child {
+    border-right: 0;
+  }
+
   &.center {
     justify-content: center;
   }

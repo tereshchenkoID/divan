@@ -26,15 +26,27 @@ const Translation = ({ data }) => {
       setVideo(data.event.race.scenes[0].video)
       videoRef.current.currentTime = getDifferent(data.event.start, data.event.nextUpdate, delta)
 
-      setTimeout(() => {
-        videoRef.current.play()
-      }, 500)
+      videoRef.current.muted = true
+      // videoRef.current.play()
+
+      const playPromise = videoRef.current.play()
+
+      if (playPromise !== undefined) {
+        playPromise
+          .then(_ => {
+            video.play()
+          })
+          .catch(error => {
+            // Auto-play was prevented
+            // Show paused UI.
+          })
+      }
     }
   }, [videoRef])
 
   return (
     <div className={style.block}>
-      <video className={style.video} src={video} ref={videoRef} />
+      <video className={style.video} src={video} ref={videoRef} preload="none" />
     </div>
   )
 }

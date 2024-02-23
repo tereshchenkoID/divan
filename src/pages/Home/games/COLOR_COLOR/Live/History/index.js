@@ -6,7 +6,7 @@ import classNames from 'classnames'
 
 import { getDifferent } from 'helpers/getDifferent'
 
-import Label from 'pages/Home/modules/Label'
+import Label from 'components/Label'
 import Odd from '../Odd'
 
 import style from './index.module.scss'

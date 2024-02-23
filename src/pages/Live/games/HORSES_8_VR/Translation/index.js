@@ -1,6 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 
+import classNames from 'classnames'
+
+import Number from '../Number'
+
 import style from './index.module.scss'
 
 const getDifferent = (start, end, delta) => {
@@ -18,23 +22,39 @@ const getDifferent = (start, end, delta) => {
 
 const Translation = ({ data }) => {
   const { delta } = useSelector(state => state.delta)
-  const [video, setVideo] = useState(null)
+  const { liveTimer } = useSelector(state => state.liveTimer)
+  const [video, setVideo] = useState('https://matchtracker.live/video/HorceRacing.mp4')
+  const [active, setActive] = useState(false)
   const videoRef = useRef(null)
 
   useEffect(() => {
-    if (!video && videoRef.current) {
-      setVideo(data.event.race.scenes[0].video)
-      videoRef.current.currentTime = getDifferent(data.event.start, data.event.nextUpdate, delta)
+    const { current: videoElement } = videoRef
 
-      setTimeout(() => {
-        videoRef.current.play()
-      }, 500)
+    if (videoElement) {
+      // setVideo(data.event.race.scenes[0].video)
+      videoElement.currentTime = getDifferent(data.event.start, data.event.nextUpdate, delta)
+      videoElement.muted = true
+      videoElement.play()
     }
   }, [videoRef])
 
+  useEffect(() => {
+    const [minutes, seconds] = liveTimer.split(':')
+    const totalSeconds = parseInt(minutes, 10) * 60 + parseInt(seconds, 10)
+
+    if (totalSeconds === 10) {
+      setActive(true)
+    }
+  }, [liveTimer])
+
   return (
     <div className={style.block}>
-      <video className={style.video} src={video} ref={videoRef} />
+      <video className={style.video} src={video} ref={videoRef} playsInline autoPlay muted />
+      <div className={classNames(style.footer, active && style.active)}>
+        {data.event.race.results?.map((el, idx) => (
+          <Number key={idx} color={el - 1} data={el} size={'xl'} />
+        ))}
+      </div>
     </div>
   )
 }

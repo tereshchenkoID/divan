@@ -15,7 +15,7 @@ const init = {
   autoplay: true,
   infinite: true,
   speed: 500,
-  autoplaySpeed: 10000,
+  autoplaySpeed: 5000,
   slidesToShow: 1,
   slidesToScroll: 1,
 }
@@ -25,10 +25,12 @@ const Markets = ({ data }) => {
     <div className={style.block}>
       <Slider {...init}>
         <div className={style.slide}>
-          <Main data={data} />
-        </div>
-        <div className={style.slide}>
-          <Quinella data={data} />
+          <div className={style.row}>
+            <Main data={data} />
+          </div>
+          <div className={style.row}>
+            <Quinella data={data} />
+          </div>
         </div>
         <div className={style.slide}>
           <div className={style.row}>

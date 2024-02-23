@@ -3,22 +3,14 @@
 .block {
   @include make-spacer(p, 2);
 
-  display: grid;
   position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
   z-index: 15;
-  grid-template-columns: 1fr rem(257px);
-  flex-grow: 1;
-  font-weight: var(--typography-bold);
-  text-align: center;
-  text-transform: uppercase;
   overflow: hidden;
-  color: var(--color-white);
   background-color: var(--color-green-100);
-  column-gap: rem(10px);
 }
 
 .video {
@@ -27,4 +19,24 @@
 
   display: block;
   object-fit: cover;
+}
+
+.footer {
+  @include transition(all, 0.5s);
+  @include make-spacer(px, 2);
+  @include flex($align-items: center);
+
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  gap: rem(10px);
+  height: rem(70px);
+  border-top: rem(2px) solid var(--color-yellow);
+  background: #ffd76d linear-gradient(360deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 100%);
+  opacity: 0;
+
+  &.active {
+    opacity: 1;
+  }
 }

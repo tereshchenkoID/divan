@@ -31,7 +31,16 @@
     background-color: var(--color-heavy-metal);
   }
 
+  &:nth-child(4n) {
+    border-right: 0;
+  }
+
+  &:nth-last-child(-n + 4) {
+    border-bottom: 0;
+  }
+
   .odd {
+
     &:last-child {
       animation: bounce 0.6s ease-in-out alternate;
     }
@@ -43,6 +52,7 @@
 }
 
 @keyframes bounce {
+
   0% {
     transform: translateY(rem(-15px));
     opacity: 0;

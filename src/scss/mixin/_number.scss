@@ -97,4 +97,10 @@
 
     font-size: rem(22px);
   }
+
+  &.xl {
+    @include size(rem(50px));
+
+    font-size: rem(30px);
+  }
 }

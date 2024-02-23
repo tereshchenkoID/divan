@@ -3,22 +3,14 @@
 .block {
   @include make-spacer(p, 2);
 
-  display: grid;
   position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
   z-index: 15;
-  grid-template-columns: 1fr rem(257px);
-  flex-grow: 1;
-  font-weight: var(--typography-bold);
-  text-align: center;
-  text-transform: uppercase;
   overflow: hidden;
-  color: var(--color-white);
   background-color: var(--color-green-100);
-  column-gap: rem(10px);
 }
 
 .video {
@@ -28,3 +20,4 @@
   display: block;
   object-fit: cover;
 }
+
