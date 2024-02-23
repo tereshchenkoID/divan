@@ -6,6 +6,10 @@
   position: relative;
   height: 100%;
   overflow: hidden;
+  font-weight: var(--typography-bold);
+  text-align: center;
+  text-transform: uppercase;
+  color: var(--color-white);
 }
 
 .ticker,

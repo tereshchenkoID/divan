@@ -21,9 +21,9 @@ const getDifferent = (start, end, delta) => {
 }
 
 const Translation = ({ data }) => {
+  const video = data.event.race.scenes[0].video
   const { delta } = useSelector(state => state.delta)
   const { liveTimer } = useSelector(state => state.liveTimer)
-  const [video, setVideo] = useState('https://matchtracker.live/video/HorceRacing.mp4')
   const [active, setActive] = useState(false)
   const videoRef = useRef(null)
 
@@ -31,7 +31,6 @@ const Translation = ({ data }) => {
     const { current: videoElement } = videoRef
 
     if (videoElement) {
-      // setVideo(data.event.race.scenes[0].video)
       videoElement.currentTime = getDifferent(data.event.start, data.event.nextUpdate, delta)
       videoElement.muted = true
       videoElement.play()
@@ -39,7 +38,7 @@ const Translation = ({ data }) => {
   }, [videoRef])
 
   useEffect(() => {
-    const [minutes, seconds] = liveTimer.split(':')
+    const [minutes, seconds] = liveTimer?.split(':')
     const totalSeconds = parseInt(minutes, 10) * 60 + parseInt(seconds, 10)
 
     if (totalSeconds === 10) {
@@ -47,9 +46,11 @@ const Translation = ({ data }) => {
     }
   }, [liveTimer])
 
+  if (!video) return false
+
   return (
     <div className={style.block}>
-      <video className={style.video} src={video} ref={videoRef} playsInline autoPlay muted />
+      <video className={style.video} src={video} ref={videoRef} />
       <div className={classNames(style.footer, active && style.active)}>
         {data.event.race.results?.map((el, idx) => (
           <Number key={idx} color={el - 1} data={el} size={'xl'} />

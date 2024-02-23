@@ -1,8 +1,0 @@
-@mixin info {
-  display: grid;
-  position: absolute;
-  top: rem(43px);
-  grid-template-columns: 1fr rem(95px);
-  align-items: center;
-  width: rem(250px);
-}

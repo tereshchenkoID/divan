@@ -2,25 +2,6 @@
 
 .block {
   @include size(100%);
-
-  position: relative;
-  font-weight: var(--typography-bold);
-  text-align: center;
-  text-transform: uppercase;
-  overflow: hidden;
-  color: var(--color-white);
-}
-
-.info {
-  @include info;
-}
-
-.league {
-  @include size(rem(135px), rem(70px));
-
-  img {
-    width: auto;
-  }
 }
 
 .weeks {

@@ -33,9 +33,11 @@
 }
 
 .info {
-  @include info;
-
+  display: grid;
+  position: absolute;
   top: rem(10px);
+  grid-template-columns: 1fr rem(95px);
+  align-items: center;
   gap: rem(20px);
   width: auto;
 }

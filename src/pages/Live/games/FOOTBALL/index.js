@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 
-import Alert from '../../modules/Alert'
+import Alert from 'components/Alert'
 import Translation from './Translation'
 import Table from './Table'
 import Live from './Live'

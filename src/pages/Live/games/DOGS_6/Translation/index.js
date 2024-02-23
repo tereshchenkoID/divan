@@ -17,32 +17,21 @@ const getDifferent = (start, end, delta) => {
 }
 
 const Translation = ({ data }) => {
+  const video = data.event.race.scenes[0].video
   const { delta } = useSelector(state => state.delta)
-  const [video, setVideo] = useState(null)
   const videoRef = useRef(null)
 
   useEffect(() => {
-    if (!video && videoRef.current) {
-      setVideo(data.event.race.scenes[0].video)
-      videoRef.current.currentTime = getDifferent(data.event.start, data.event.nextUpdate, delta)
+    const { current: videoElement } = videoRef
 
-      videoRef.current.muted = true
-      // videoRef.current.play()
-
-      const playPromise = videoRef.current.play()
-
-      if (playPromise !== undefined) {
-        playPromise
-          .then(_ => {
-            video.play()
-          })
-          .catch(error => {
-            // Auto-play was prevented
-            // Show paused UI.
-          })
-      }
+    if (videoElement) {
+      videoElement.currentTime = getDifferent(data.event.start, data.event.nextUpdate, delta)
+      videoElement.muted = true
+      videoElement.play()
     }
   }, [videoRef])
+
+  if (!video) return false
 
   return (
     <div className={style.block}>

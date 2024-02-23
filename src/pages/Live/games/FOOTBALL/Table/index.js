@@ -24,7 +24,7 @@ const Table = ({ data }) => {
       <div className={style.left}>
         <div className={style.results}>
           {data.league.matches.map((el_m, idx_m) => (
-            <div className={style.meta}>
+            <div key={idx_m} className={style.meta}>
               <div className={style.logo}>
                 <img src={`${hostnames.ASSETS}/${el_m.teams.home.img}`} alt={el_m.teams.home.name} />
               </div>
@@ -55,38 +55,40 @@ const Table = ({ data }) => {
       <div className={style.right}>
         <Slider {...init}>
           <div className={style.slide}>
-            {data.league.matches[0].odds[0].groups.slice(0, data.league.matches[0].odds[0].groups.length - 4).map((el_o, idx_o) => (
-              <div key={idx_o} className={style.table}>
-                <div className={style.head}>
-                  {el_o.markets.map((el_ma, idx_ma) => (
-                    <div key={idx_ma} className={style.column}>
-                      {el_ma.name && <div className={style.legend}>{el_ma.name.replaceAll('_', ' ')}</div>}
-                      {el_ma.headers.map((el, idx) => (
-                        <div key={idx} className={style.label}>
-                          {el}
-                        </div>
-                      ))}
-                    </div>
-                  ))}
-                </div>
+            {data.league.matches[0].odds[0].groups
+              .slice(0, data.league.matches[0].odds[0].groups.length - 4)
+              .map((el_o, idx_o) => (
+                <div key={idx_o} className={style.table}>
+                  <div className={style.head}>
+                    {el_o.markets.map((el_ma, idx_ma) => (
+                      <div key={idx_ma} className={style.column}>
+                        {el_ma.name && <div className={style.legend}>{el_ma.name.replaceAll('_', ' ')}</div>}
+                        {el_ma.headers.map((el, idx) => (
+                          <div key={idx} className={style.label}>
+                            {el}
+                          </div>
+                        ))}
+                      </div>
+                    ))}
+                  </div>
 
-                <div className={style.results}>
-                  {data.league.matches.map((el_m, idx_m) => (
-                    <div key={idx_m} className={style.row}>
-                      {el_o.markets.map((el_ma, idx_ma) => (
-                        <div key={idx_ma} className={style.column}>
-                          {el_ma.outcomes.map((el, idx) => (
-                            <div key={idx} className={classNames(style.odd, (!el.b || el.b === '1.00') && style.disabled)}>
-                              {el.b ? parseFloat(el.b).toFixed(2) : '1.00'}
-                            </div>
-                          ))}
-                        </div>
-                      ))}
-                    </div>
-                  ))}
+                  <div className={style.results}>
+                    {data.league.matches.map((el_m, idx_m) => (
+                      <div key={idx_m} className={style.row}>
+                        {el_o.markets.map((el_ma, idx_ma) => (
+                          <div key={idx_ma} className={style.column}>
+                            {el_ma.outcomes.map((el, idx) => (
+                              <div key={idx} className={classNames(style.odd, (!el.b || el.b === '1.00') && style.disabled)}>
+                                {el.b ? parseFloat(el.b).toFixed(2) : '1.00'}
+                              </div>
+                            ))}
+                          </div>
+                        ))}
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
           </div>
           <div className={style.slide}>
             {data.league.matches[0].odds[0].groups

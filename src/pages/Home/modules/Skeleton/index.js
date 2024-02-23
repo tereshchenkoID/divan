@@ -18,9 +18,9 @@ import { setLive } from 'store/HOME/actions/liveAction'
 import { setModal } from 'store/actions/modalAction'
 
 import Loader from 'components/Loader'
+import Alert from 'components/Alert'
 import UpdateData from '../UpdateData'
 import SkipModal from '../SkipModal'
-import Alert from '../Alert'
 import Timer from '../Timer'
 
 import style from './index.module.scss'
