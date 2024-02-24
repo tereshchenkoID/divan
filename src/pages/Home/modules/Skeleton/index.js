@@ -54,7 +54,7 @@ const setGame = (id, active, find) => {
   }
 }
 
-const Skeleton = ({ text, type }) => {
+const Skeleton = () => {
   const dispatch = useDispatch()
   const { t } = useTranslation()
   const { sendMessage } = useSocket()
@@ -69,6 +69,7 @@ const Skeleton = ({ text, type }) => {
   const [loading, setLoading] = useState(true)
   const [find, setFind] = useState(null)
   const [active, setActive] = useState(0)
+  const [type, setType] = useState(null)
 
   const handleNext = () => {
     setFind(data.events[0])
@@ -105,6 +106,7 @@ const Skeleton = ({ text, type }) => {
               dispatch(setLive(1))
             }
           }
+          setType(game)
           setLoading(false)
         })
       }
@@ -128,7 +130,7 @@ const Skeleton = ({ text, type }) => {
             setActive(receivedMessage.events[0])
             dispatch(setLive(1))
           }
-
+          setType(game)
           setLoading(false)
         })
       }
@@ -157,9 +159,9 @@ const Skeleton = ({ text, type }) => {
             <>
               <div className={style.info}>
                 <div className={style.league}>
-                  <img src={game.logo} alt={game.name} />
+                  <img src={type.logo} alt={type.name} />
                 </div>
-                <Timer data={active} type={game.type} />
+                <Timer data={active} type={type.type} />
               </div>
               <div className={style.tab}>
                 {data.events.map((el, idx) => (
@@ -177,7 +179,7 @@ const Skeleton = ({ text, type }) => {
               </div>
               {live !== 0 && (
                 <>
-                  <div className={style.body}>{setGame(game.type, active, find)}</div>
+                  <div className={style.body}>{setGame(type.type, active, find)}</div>
                   {modal === 1 && <SkipModal action={handleNext} />}
                   {active.id !== data.events[0].id && (
                     <UpdateData find={find || data.events[0]} setActive={setActive} setFind={setFind} />

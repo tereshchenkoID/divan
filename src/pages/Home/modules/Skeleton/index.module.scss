@@ -10,12 +10,13 @@
 }
 
 .info {
+  @include size(rem(250px), rem(97px));
+
   display: grid;
   position: absolute;
   top: rem(43px);
   grid-template-columns: 1fr rem(95px);
   align-items: center;
-  width: rem(250px);
 }
 
 .body {

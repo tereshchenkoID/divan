@@ -32,7 +32,7 @@ const Translation = ({ data }) => {
 
     if (videoElement) {
       videoElement.currentTime = getDifferent(data.event.start, data.event.nextUpdate, delta)
-      videoElement.muted = true
+      // videoElement.muted = true
       videoElement.play()
     }
   }, [videoRef])

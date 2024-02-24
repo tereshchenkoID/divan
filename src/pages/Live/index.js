@@ -47,7 +47,7 @@ const getGame = id => {
     case gameType.HORSES_8_VR:
       return <HORSES_8_VR />
     default:
-      return <div>{id}</div>
+      return <FOOTBALL />
   }
 }
 
