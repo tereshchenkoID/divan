@@ -7,14 +7,20 @@
   border-top: 1px solid var(--color-border);
 
   > div {
+
     &:nth-child(1) {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
 
       .cell {
+
         &:nth-child(1),
         &:nth-child(2) {
           background-color: var(--color-heavy-metal);
+        }
+
+        &:nth-last-child(-n + 2) {
+          border-bottom: 0;
         }
       }
     }
@@ -29,8 +35,24 @@
         flex: 1;
 
         &:nth-child(2) {
+
           .cell {
             background-color: var(--color-heavy-metal);
+          }
+        }
+
+
+        &:last-child {
+
+          .cell {
+            border-bottom: 0;
+          }
+        }
+
+        .cell {
+
+          &:last-child {
+            border-right: 0;
           }
         }
       }
@@ -41,7 +63,7 @@
 .cell {
   @include flex(center, center);
 
-  border-right: 1px solid var(--color-border);
-  border-bottom: 1px solid var(--color-border);
+  border-right: rem(1px) solid var(--color-border);
+  border-bottom: rem(1px) solid var(--color-border);
   background-color: var(--color-thunder);
 }

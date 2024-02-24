@@ -17,6 +17,14 @@
     height: rem(35px);
   }
 
+  &:nth-child(10n) {
+    border-right: 0;
+  }
+
+  &:nth-last-child(-n + 10) {
+    border-bottom: 0;
+  }
+
   &:nth-child(2n + 10) {
     background-color: var(--color-heavy-metal);
   }

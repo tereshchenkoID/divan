@@ -77,7 +77,7 @@ const Table = ({ active }) => {
   }, [active])
 
   return (
-    <div className={style.block}>
+    <>
       {live === 1 ? (
         <>
           <div className={style.sort}>
@@ -254,7 +254,7 @@ const Table = ({ active }) => {
       ) : (
         <Live />
       )}
-    </div>
+    </>
   )
 }
 

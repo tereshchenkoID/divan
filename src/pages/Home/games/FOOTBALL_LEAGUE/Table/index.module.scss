@@ -1,15 +1,11 @@
 @import 'scss/config';
 
-.block {
-  @include size(100%);
-}
-
 .sort {
-  @include make-spacer('py', 2);
-  @include make-spacer('mb', 1);
+  @include make-spacer(py, 3);
+  @include make-spacer(mb, 1);
   @include flex($align-items: center);
 
-  min-height: rem(77px);
+  height: rem(77px);
   padding-left: rem(270px);
 }
 

@@ -40,7 +40,7 @@ const Table = ({ active, find }) => {
   }, [active])
 
   return (
-    <div className={style.block}>
+    <>
       <div className={style.header}>
         {live === 1 && (
           <>
@@ -88,7 +88,7 @@ const Table = ({ active, find }) => {
           </div>
         )}
       </div>
-    </div>
+    </>
   )
 }
 

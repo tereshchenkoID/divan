@@ -5,13 +5,13 @@
   @include flex(center, center, column);
 
   width: 100%;
-  padding: rem(28px) rem(16px);
+  padding: rem(28px) rem(8px);
   background-color: var(--color-heavy-metal);
 }
 
 .body {
-  @include make-spacer('mx', auto);
-  @include make-spacer('mb', 10);
+  @include make-spacer(mx, auto);
+  @include make-spacer(mb, 10);
 }
 
 .footer {

@@ -2,6 +2,8 @@ import { useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { hostnames } from 'constant/config'
+
 import { checkTime } from 'helpers/checkTime'
 
 import TableChips from './TableChips'
@@ -14,7 +16,7 @@ const Table = ({ active }) => {
   const { t } = useTranslation()
   const { live } = useSelector(state => state.live)
   const { delta } = useSelector(state => state.delta)
-
+  const [params, setParams] = useState('')
   const [random, setRandom] = useState([])
 
   const generateRandomArray = length => {
@@ -31,13 +33,17 @@ const Table = ({ active }) => {
   }
 
   useEffect(() => {
+    setParams(`status=${live !== 2 ? 'init' : 'start'}&number=${active.round.result}&time=${active.start}&delta=${delta}`)
+  }, [live])
+
+  useEffect(() => {
     return () => {
       setRandom([])
     }
   }, [active])
 
   return (
-    <div className={style.block}>
+    <>
       <div className={style.header}>
         {checkTime(active.start, delta) && (
           <>
@@ -61,9 +67,17 @@ const Table = ({ active }) => {
         )}
       </div>
       <div className={style.wrapper}>
-        {live === 1 ? <TableChips random={random} active={active} /> : <div className={style.live} />}
+        {live === 1 ? (
+          <TableChips random={random} active={active} />
+        ) : (
+          <div className={style.live}>
+            <div className={style.wheel}>
+              <iframe title={'Wheel'} src={`${hostnames.PROD}/iframe/wheel/#/${params}`} />
+            </div>
+          </div>
+        )}
       </div>
-    </div>
+    </>
   )
 }
 

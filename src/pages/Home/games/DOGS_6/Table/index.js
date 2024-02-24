@@ -23,7 +23,7 @@ const Table = ({ active }) => {
   }, [active])
 
   return (
-    <div className={style.block}>
+    <>
       <div className={style.header}>
         {live === 1 &&
           TYPES.map((el, idx) => (
@@ -47,7 +47,7 @@ const Table = ({ active }) => {
           </div>
         )}
       </div>
-    </div>
+    </>
   )
 }
 

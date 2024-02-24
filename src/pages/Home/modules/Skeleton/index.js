@@ -25,8 +25,8 @@ import Timer from '../Timer'
 
 import style from './index.module.scss'
 
-import FOOTBALL from 'pages/Home/games/FOOTBALL/Table'
 import FOOTBALL_LEAGUE from 'pages/Home/games/FOOTBALL_LEAGUE/Table'
+import FOOTBALL from 'pages/Home/games/FOOTBALL/Table'
 import COLOR_COLOR from 'pages/Home/games/COLOR_COLOR/Table'
 import ROULETTE from 'pages/Home/games/ROULETTE/Table'
 import KENO from 'pages/Home/games/KENO/Table'
