@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
 
-import { status } from 'constant/config'
+import { gameType, status } from 'constant/config'
 
 import useSocket from 'hooks/useSocket'
 
@@ -12,6 +12,7 @@ import { checkCmd } from 'helpers/checkCmd'
 import { getIcon } from 'helpers/getIcon'
 import { getData } from 'helpers/api'
 import { getDateTime } from 'helpers/getDateTime'
+import { getGameName } from 'helpers/getGameName'
 
 import { setNotification } from 'store/HOME/actions/notificationAction'
 
@@ -255,7 +256,7 @@ const TicketModal = ({ id, action }) => {
                           <div className={style.cell}>{t('interface.time')}</div>
                           <div className={style.cell}>{t('interface.selection')}</div>
                           <div className={style.cell}>{t('interface.event_result')}</div>
-                          <div className={style.cell}>{t('interface.outcome')}</div>
+                          <div className={style.cell}>{t('interface.outcomes')}</div>
                           <div className={style.cell}>
                             {t('interface.max')} {t('interface.odds')}
                           </div>
@@ -277,10 +278,12 @@ const TicketModal = ({ id, action }) => {
                             <div className={style.cell}>{getDateTime(el.details.start, 0)}</div>
                             <div className={classNames(style.cell, style.left)}>
                               <div className={style.icon}>
-                                <Icon id={getIcon(el.type)} />
+                                <Icon id={getIcon(el.details.game)} />
                               </div>
                               <div className={style.scoreboard}>
-                                {el.details.pos}.{el.details.teams.home}-{el.details.teams.away}
+                                {el.details.game.indexOf(gameType.FOOTBALL) !== -1
+                                  ? `${el.details.pos}.${el.details.teams.home}-${el.details.teams.away}`
+                                  : getGameName(settings.games, el.details.game)}
                               </div>
                               {el.market}: {el.selection}
                             </div>

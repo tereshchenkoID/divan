@@ -3,7 +3,13 @@ import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import Barcode from 'react-barcode'
 
+import { gameType } from 'constant/config'
+
+import { getGameName } from 'helpers/getGameName'
 import { getDateTime } from 'helpers/getDateTime'
+import { getIcon } from 'helpers/getIcon'
+
+import Icon from 'components/Icon'
 
 import style from './index.module.scss'
 
@@ -52,7 +58,8 @@ export const TicketPrint = React.forwardRef((data, ref) => {
                     {t('interface.gr')}: {el.group}
                   </div>
                   <div>
-                    {el.group} x {settings.account.symbol} {parseFloat(el.unit).toFixed(2)} = {settings.account.symbol} {el.combi * el.unit}
+                    {el.group} x {settings.account.symbol} {parseFloat(el.unit).toFixed(2)} = {settings.account.symbol}{' '}
+                    {el.combi * el.unit}
                   </div>
                 </li>
                 <li>
@@ -70,13 +77,21 @@ export const TicketPrint = React.forwardRef((data, ref) => {
           <div key={idx} className={style.bet}>
             <div className={style.wrapper}>
               <div>{el.details.matchId}</div>
-              <div>{el.details.pos}</div>
-              <div>-</div>
-              <div className={style.teams}>
-                <div>{el.details.teams.home}</div>
-                <div>-</div>
-                <div>{el.details.teams.away}</div>
+              <div className={style.icon}>
+                <Icon id={getIcon(el.details.game)} />
               </div>
+              {el.details.game.indexOf(gameType.FOOTBALL) !== -1 ? (
+                <>
+                  {el.details.pos}.
+                  <div className={style.teams}>
+                    <div>{el.details.teams.home}</div>
+                    <div>-</div>
+                    <div>{el.details.teams.away}</div>
+                  </div>
+                </>
+              ) : (
+                getGameName(settings.games, el.details.game)
+              )}
             </div>
             <div className={style.wrapper}>
               <div>{getDateTime(el.details.start, 0)}</div>
@@ -101,8 +116,8 @@ export const TicketPrint = React.forwardRef((data, ref) => {
               {t('interface.min')}/{t('interface.max')} {t('interface.win')}:{' '}
             </div>
             <div>
-              {settings.account.symbol} {data.data.stake.minwin ? data.data.stake.minwin.toFixed(2) : 0} / {settings.account.symbol}{' '}
-              {data.data.stake.maxwin ? data.data.stake.maxwin.toFixed(2) : 0}
+              {settings.account.symbol} {data.data.stake.minwin ? data.data.stake.minwin.toFixed(2) : 0} /{' '}
+              {settings.account.symbol} {data.data.stake.maxwin ? data.data.stake.maxwin.toFixed(2) : 0}
             </div>
           </li>
         </ul>

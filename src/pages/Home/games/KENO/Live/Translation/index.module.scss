@@ -33,6 +33,14 @@
     @include make-spacer(p, 1);
   }
 
+  &:nth-child(10n) {
+    border-right: 0;
+  }
+
+  &:nth-last-child(-n + 10) {
+    border-bottom: 0;
+  }
+
   &:nth-child(even) {
     background-color: var(--color-heavy-metal);
   }

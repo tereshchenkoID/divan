@@ -99,7 +99,6 @@ const Table = ({ active }) => {
           </div>
           <div className={classNames(style.head, style.row)}>
             <div className={style.cell} />
-            <div className={style.cell} />
             <div className={style.cell}>
               <div className={style.odds}>
                 {Object.values(active.league.matches[0].odds[0].groups[group].markets).map((el, idx) => (
@@ -122,9 +121,6 @@ const Table = ({ active }) => {
           <div className={style.wrapper}>
             {active.league.matches.map((el_m, idx_m) => (
               <div key={idx_m} className={style.row}>
-                <div className={style.cell}>
-                  <div className={style.position}>{el_m.pos}</div>
-                </div>
                 <div className={style.cell}>
                   <div
                     className={classNames(

@@ -36,6 +36,14 @@
     background-color: var(--color-heavy-metal);
   }
 
+  &:nth-child(10n) {
+    border-right: 0;
+  }
+
+  &:nth-last-child(-n + 10) {
+    border-bottom: 0;
+  }
+
   &.active {
     background-image: linear-gradient(0deg, #294329 0%, #00a900 52%, #00a900 100%);
     opacity: 1;

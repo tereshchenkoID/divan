@@ -95,30 +95,35 @@
   overflow: hidden;
 
   &.sm {
+
     .row {
       grid-template-columns: repeat(4, 1fr);
     }
   }
 
   &.lg {
+
     .row {
       grid-template-columns: rem(80px) rem(100px) repeat(3, 1fr) rem(80px) rem(100px);
     }
   }
 
   &.single {
+
     .row {
       grid-template-columns: rem(80px) 1fr 1fr repeat(4, 100px);
     }
   }
 
   &.system {
+
     .row {
       grid-template-columns: rem(80px) 1fr 1fr repeat(3, 100px);
     }
   }
 
   &.center {
+
     .cell {
       justify-content: center;
       text-align: center;
@@ -167,9 +172,8 @@
   @include make-spacer('px', 1);
   @include flex($align-items: center);
 
-  min-width: rem(100px);
   height: rem(25px);
-  border: 1px solid #808080;
+  border: rem(1px) solid #808080;
   border-radius: rem(5px);
   font-weight: var(--typography-bold);
   line-height: 1;
@@ -185,19 +189,23 @@
 }
 
 .button {
+
   &.sm {
+
     button {
       @include size(rem(35px) !important);
     }
   }
 
   &.md {
+
     button {
       @include size(rem(38px) !important);
     }
   }
 
   &.lg {
+
     button {
       @include size(rem(64px) !important);
     }
@@ -212,6 +220,7 @@
   width: 100%;
 
   span {
+
     &:nth-child(1) {
       text-align: right;
 
