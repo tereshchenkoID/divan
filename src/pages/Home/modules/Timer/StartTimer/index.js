@@ -6,19 +6,21 @@ import useSocket from 'hooks/useSocket'
 
 import { setModal } from 'store/actions/modalAction'
 import { setLive } from 'store/HOME/actions/liveAction'
-import { setUpdate } from 'store/HOME/actions/updateAction'
 
 import { getDifferent } from 'helpers/getDifferent'
+
+import { setData } from 'store/HOME/actions/dataAction'
 
 const StartTimer = ({ data, delta }) => {
   const dispatch = useDispatch()
   const { sendMessage } = useSocket()
   const { isConnected } = useSelector(state => state.socket)
+  const { game } = useSelector(state => state.game)
   const [timer, setTimer] = useState('')
 
   useEffect(() => {
     setTimer(getDifferent(data.start, delta))
-  }, [data.start, delta])
+  }, [data, delta])
 
   useEffect(() => {
     const a = setInterval(() => {
@@ -26,14 +28,13 @@ const StartTimer = ({ data, delta }) => {
       const diff = (data.start - (new Date().getTime() + delta)) / 1000
 
       if (new Date().getTime() + delta >= data.nextUpdate) {
-        // if (r === '0') {
         if (isConnected) {
           sendMessage({
             cmd: `feed/${sessionStorage.getItem('authToken')}/EVENT/${data.id}`,
           })
         } else {
-          dispatch(setUpdate(data.id, null)).then(json => {
-            if (json.event.status === matchStatus.PROGRESS) {
+          dispatch(setData(game)).then(json => {
+            if (json.events[0].status === matchStatus.PROGRESS) {
               dispatch(setLive(2))
               clearInterval(a)
             }

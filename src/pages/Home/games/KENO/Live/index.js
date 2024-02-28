@@ -1,22 +1,21 @@
-import { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 
-import Loader from 'components/Loader'
-import Translation from './Translation'
+import { matchStatus } from 'constant/config'
 
-import { checkData } from 'helpers/checkData'
+import Translation from './Translation'
 
 import style from './index.module.scss'
 
 const Live = () => {
-  const { update } = useSelector(state => state.update)
-  const [loading, setLoading] = useState(true)
+  const { data } = useSelector(state => state.data)
 
-  useEffect(() => {
-    !checkData(update) && setLoading(false)
-  }, [update])
+  if (data.events[0].status === matchStatus.ANNOUNCEMENT) return
 
-  return <div className={style.block}>{loading ? <Loader type={'block'} /> : <Translation data={update.event} />}</div>
+  return (
+    <div className={style.block}>
+      <Translation data={data.events[0]} />
+    </div>
+  )
 }
 
 export default Live

@@ -6,10 +6,10 @@ import classNames from 'classnames'
 
 import { gameType, matchStatus } from 'constant/config'
 
-import useSocket from 'hooks/useSocket'
-
-import { checkCmd } from 'helpers/checkCmd'
-import { checkData } from 'helpers/checkData'
+// import useSocket from 'hooks/useSocket'
+//
+// import { checkCmd } from 'helpers/checkCmd'
+// import { checkData } from 'helpers/checkData'
 import { getDateTime } from 'helpers/getDateTime'
 import { conditionStatus } from 'helpers/conditionStatus'
 
@@ -57,14 +57,13 @@ const setGame = (id, active, find) => {
 const Skeleton = () => {
   const dispatch = useDispatch()
   const { t } = useTranslation()
-  const { sendMessage } = useSocket()
+  // const { sendMessage } = useSocket()
 
   const { data } = useSelector(state => state.data)
   const { live } = useSelector(state => state.live)
   const { modal } = useSelector(state => state.modal)
   const { game } = useSelector(state => state.game)
-  const { update } = useSelector(state => state.update)
-  const { isConnected, receivedMessage } = useSelector(state => state.socket)
+  // const { isConnected, receivedMessage } = useSelector(state => state.socket)
 
   const [loading, setLoading] = useState(true)
   const [find, setFind] = useState(null)
@@ -79,37 +78,33 @@ const Skeleton = () => {
   }
 
   const checkStatus = el => {
-    if (!checkData(update) && update.event.id === el.id) {
-      dispatch(setLive(conditionStatus(update.event.status)))
-    } else {
-      dispatch(setLive(conditionStatus(el.status)))
-    }
+    dispatch(setLive(conditionStatus(el.status)))
   }
 
   useEffect(() => {
     setLoading(true)
 
     if (game !== null) {
-      if (isConnected) {
-        sendMessage({
-          cmd: `feed/${sessionStorage.getItem('authToken')}/${game.type}/${game.id}`,
-        })
-      } else {
-        dispatch(setData(game)).then(json => {
-          if (json.events.length > 0) {
-            if (json.events[0].status !== matchStatus.ANNOUNCEMENT) {
-              setActive(json.events[1])
-              setFind(json.events[0])
-              checkStatus(json.events[1])
-            } else {
-              setActive(json.events[0])
-              dispatch(setLive(1))
-            }
+      // if (isConnected) {
+      //   sendMessage({
+      //     cmd: `feed/${sessionStorage.getItem('authToken')}/${game.type}/${game.id}`,
+      //   })
+      // } else {
+      dispatch(setData(game)).then(json => {
+        if (json.events.length > 0) {
+          if (json.events[0].status !== matchStatus.ANNOUNCEMENT) {
+            setActive(json.events[1])
+            setFind(json.events[0])
+            checkStatus(json.events[1])
+          } else {
+            setActive(json.events[0])
+            dispatch(setLive(1))
           }
-          setType(game)
-          setLoading(false)
-        })
-      }
+        }
+        setType(game)
+        setLoading(false)
+      })
+      // }
     }
 
     return () => {
@@ -117,25 +112,25 @@ const Skeleton = () => {
     }
   }, [game])
 
-  useEffect(() => {
-    if (receivedMessage !== '' && checkCmd('feed', receivedMessage.cmd)) {
-      if (receivedMessage.events && receivedMessage.events[0].type === game.type && modal !== 2) {
-        dispatch(setData(game, receivedMessage)).then(() => {
-          if (receivedMessage.events[0].status !== matchStatus.ANNOUNCEMENT) {
-            setActive(receivedMessage.events[1])
-            setFind(receivedMessage.events[0])
-            checkStatus(receivedMessage.events[1])
-          } else {
-            setFind(null)
-            setActive(receivedMessage.events[0])
-            dispatch(setLive(1))
-          }
-          setType(game)
-          setLoading(false)
-        })
-      }
-    }
-  }, [receivedMessage])
+  // useEffect(() => {
+  //   if (receivedMessage !== '' && checkCmd('feed', receivedMessage.cmd)) {
+  //     if (receivedMessage.events && receivedMessage.events[0].type === game.type && modal !== 2) {
+  //       dispatch(setData(game, receivedMessage)).then(() => {
+  //         if (receivedMessage.events[0].status !== matchStatus.ANNOUNCEMENT) {
+  //           setActive(receivedMessage.events[1])
+  //           setFind(receivedMessage.events[0])
+  //           checkStatus(receivedMessage.events[1])
+  //         } else {
+  //           setFind(null)
+  //           setActive(receivedMessage.events[0])
+  //           dispatch(setLive(1))
+  //         }
+  //         setType(game)
+  //         setLoading(false)
+  //       })
+  //     }
+  //   }
+  // }, [receivedMessage])
 
   useEffect(() => {
     if (modal === 1) {

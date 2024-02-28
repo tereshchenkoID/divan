@@ -83,9 +83,7 @@ const Table = ({ active, find }) => {
         {live === 1 ? (
           <TableChips events={data.events} repeat={repeat} random={random} data={active} setRepeat={setRepeat} />
         ) : (
-          <div className={style.live}>
-            <Live />
-          </div>
+          <Live />
         )}
       </div>
     </>

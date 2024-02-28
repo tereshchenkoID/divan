@@ -7,11 +7,11 @@ import classNames from 'classnames'
 
 import { getIcon } from 'helpers/getIcon'
 import { setGame } from 'store/actions/gameAction'
+import { setLive } from 'store/HOME/actions/liveAction'
 
 import Icon from 'components/Icon'
 
 import style from './index.module.scss'
-import { setLive } from '../../../store/HOME/actions/liveAction'
 
 const Games = () => {
   const dispatch = useDispatch()

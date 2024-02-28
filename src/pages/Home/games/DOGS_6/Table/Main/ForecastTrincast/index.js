@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { gameType } from 'constant/config'
+import { dogsColor, gameType } from 'constant/config'
 
 import { generateCircles } from 'helpers/generateCircles'
 import { deleteBetslip, setBetslip } from 'store/HOME/actions/betslipAction'
@@ -49,7 +49,7 @@ const defaultValue = (start, el, market, roundId) => {
     m_old: market,
     o_old: el.a,
     stake: 100,
-    circles: generateCircles(el.a),
+    circles: generateCircles(el.a, dogsColor),
     type: gameType.DOGS_6,
   }
 }
@@ -95,7 +95,7 @@ const ForecastTrincast = ({ data }) => {
         f.print = market
         f.m_old = market
         f.o_old = el.a
-        f.circles = generateCircles(el.a)
+        f.circles = generateCircles(el.a, dogsColor)
 
         dispatch(deleteBetslip(a))
       } else {

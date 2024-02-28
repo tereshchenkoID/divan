@@ -174,7 +174,7 @@ const TableChips = ({ events, repeat, random, data, setRepeat }) => {
       if (idx <= repeat && checkTime(round.start, delta)) {
         colors.map(el => {
           r.push({
-            ...defaultProps(el.id, round.start, el.round.id),
+            ...defaultProps(el.id, round.start, round.round.id),
             b: el.b,
             m_old: el.market,
             o_old: el.outcome,

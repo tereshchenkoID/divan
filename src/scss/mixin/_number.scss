@@ -83,6 +83,7 @@
   &.sm {
     @include size(rem(20px));
 
+    border-radius: rem(3px);
     font-size: rem(14px);
   }
 

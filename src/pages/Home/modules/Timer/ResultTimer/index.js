@@ -10,25 +10,26 @@ import { setData } from 'store/HOME/actions/dataAction'
 
 import { getDifferent } from 'helpers/getDifferent'
 
-const ResultTimer = ({ data, game, delta }) => {
+const ResultTimer = ({ delta }) => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
   const { sendMessage } = useSocket()
   const { isConnected } = useSelector(state => state.socket)
   const [timer, setTimer] = useState('')
+  const { data } = useSelector(state => state.data)
+  const { game } = useSelector(state => state.game)
 
   useEffect(() => {
-    let r = getDifferent(data.event.nextUpdate, delta)
+    let r = getDifferent(data.events[0].nextUpdate, delta)
     setTimer(r)
-  }, [data.event.nextUpdate, delta])
+  }, [data, delta])
 
   useEffect(() => {
     const a = setInterval(() => {
-      let r = getDifferent(data.event.nextUpdate, delta)
+      let r = getDifferent(data.events[0].nextUpdate, delta)
       setTimer(r)
 
-      if (new Date().getTime() + delta >= data.event.nextUpdate) {
-        // if (r === '0') {
+      if (new Date().getTime() + delta >= data.events[0].nextUpdate) {
         if (isConnected) {
           sendMessage({
             cmd: `feed/${sessionStorage.getItem('authToken')}/${game.type}/${game.id}`,
@@ -48,7 +49,7 @@ const ResultTimer = ({ data, game, delta }) => {
       setTimer('')
       clearInterval(a)
     }
-  }, [data.event.nextUpdate, delta])
+  }, [data, delta])
 
   return (
     <>

@@ -7,7 +7,7 @@ import { deleteBetslip } from 'store/HOME/actions/betslipAction'
 
 import classNames from 'classnames'
 
-import { gameType } from 'constant/config'
+import { dogsColor, gameType } from 'constant/config'
 
 import Number from '../../../Number'
 
@@ -75,7 +75,7 @@ const Triple = ({ data }) => {
             m_old: m,
             o_old: el.a,
             stake: 100,
-            circles: generateCircles(el.a),
+            circles: generateCircles(el.a, dogsColor),
             type: gameType.DOGS_6,
           })
         }

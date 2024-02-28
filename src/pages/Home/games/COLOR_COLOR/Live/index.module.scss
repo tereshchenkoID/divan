@@ -1,16 +1,11 @@
 @import 'scss/config';
 
 .block {
+  @include wrapper;
+  @include make-spacer(p, 2);
   @include size(100%);
 
   position: relative;
-}
-
-.grid {
-  @include make-spacer(p, 2);
-  @include wrapper;
-  @include size(100%);
-
   display: grid;
   grid-template-rows: auto 1fr;
   gap: rem(20px);

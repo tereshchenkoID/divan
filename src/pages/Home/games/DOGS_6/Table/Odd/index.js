@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import classNames from 'classnames'
 
-import { gameType } from 'constant/config'
+import { dogsColor, gameType } from 'constant/config'
 
 import { generateCircles } from 'helpers/generateCircles'
 import { deleteBetslip, setBetslip } from 'store/HOME/actions/betslipAction'
@@ -39,7 +39,7 @@ const Odd = ({ market, start, data, view, text, roundId }) => {
           m_old: market,
           o_old: data.a,
           stake: 100,
-          circles: text ? [] : generateCircles(data.a),
+          circles: text ? [] : generateCircles(data.a, dogsColor),
           type: gameType.DOGS_6,
         }),
       )
@@ -48,7 +48,12 @@ const Odd = ({ market, start, data, view, text, roundId }) => {
 
   return (
     <button
-      className={classNames(style.block, style[view], findBet(betslip, data.id) && style.active, (!data.b || data.b === 1.0) && style.disabled)}
+      className={classNames(
+        style.block,
+        style[view],
+        findBet(betslip, data.id) && style.active,
+        (!data.b || data.b === 1.0) && style.disabled,
+      )}
       onClick={() => {
         addStake()
       }}

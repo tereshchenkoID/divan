@@ -1,11 +1,7 @@
-import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 
-import { checkData } from 'helpers/checkData'
+import { matchMarkets, matchStatus } from 'constant/config'
 
-import { matchMarkets } from 'constant/config'
-
-import Loader from 'components/Loader'
 import Item from './Item'
 
 import style from './index.module.scss'
@@ -38,13 +34,10 @@ const MARKETS = [
 ]
 
 const Live = () => {
-  const { update } = useSelector(state => state.update)
   const { liveTimer } = useSelector(state => state.liveTimer)
-  const [loading, setLoading] = useState(true)
+  const { data } = useSelector(state => state.data)
 
-  useEffect(() => {
-    !checkData(update) && setLoading(false)
-  }, [update])
+  if (data.events[0].status === matchStatus.ANNOUNCEMENT) return
 
   return (
     <div className={style.block}>
@@ -62,7 +55,9 @@ const Live = () => {
         </div>
       </div>
       <div className={style.wrapper}>
-        {loading ? <Loader type={'block'} /> : update.event.league.matches.map((el, idx) => <Item key={idx} data={el} timer={liveTimer} />)}
+        {data.events[0].league.matches.map((el, idx) => (
+          <Item key={idx} data={el} timer={liveTimer} />
+        ))}
       </div>
     </div>
   )

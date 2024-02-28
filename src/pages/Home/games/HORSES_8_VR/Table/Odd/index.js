@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import classNames from 'classnames'
 
-import { gameType } from 'constant/config'
+import { gameType, horseColor } from 'constant/config'
 
 import { generateCircles } from 'helpers/generateCircles'
 import { deleteBetslip, setBetslip } from 'store/HOME/actions/betslipAction'
@@ -39,7 +39,7 @@ const Odd = ({ market, start, data, view, text, roundId }) => {
           m_old: market,
           o_old: data.a,
           stake: 100,
-          circles: text ? [] : generateCircles(data.a),
+          circles: text ? [] : generateCircles(data.a, horseColor),
           type: gameType.HORSES_8_VR,
         }),
       )

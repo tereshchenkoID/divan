@@ -77,10 +77,9 @@
 
 .row {
   display: grid;
-  grid-template-columns: rem(250px) 1fr;
+  grid-template-columns: rem(270px) 1fr;
   align-items: center;
   color: var(--color-white);
-  column-gap: rem(10px);
 
   &.head {
     height: rem(37px);

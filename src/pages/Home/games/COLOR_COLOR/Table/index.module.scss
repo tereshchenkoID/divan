@@ -15,10 +15,6 @@
   flex-grow: 1;
 }
 
-.live {
-  @include size(100%);
-}
-
 .label {
   @include label;
   @include make-spacer('mb', 2);

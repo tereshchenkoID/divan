@@ -7,7 +7,7 @@ import { generateCircles } from 'helpers/generateCircles'
 
 import classNames from 'classnames'
 
-import { gameType } from 'constant/config'
+import { gameType, horseColor } from 'constant/config'
 
 import Number from '../../../Number'
 
@@ -72,7 +72,7 @@ const Double = ({ data }) => {
             m_old: m,
             o_old: el.a,
             stake: 100,
-            circles: generateCircles(el.a),
+            circles: generateCircles(el.a, horseColor),
             type: gameType.HORSES_8_VR,
           })
         }

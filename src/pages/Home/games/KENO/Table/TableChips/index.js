@@ -59,6 +59,8 @@ const TableChips = ({ events, repeat, random, data, setRepeat }) => {
   const MATCHED = () => {
     let r = []
 
+    console.log(event)
+
     event.map((round, idx) => {
       if (idx <= repeat && checkTime(round.start, delta)) {
         const f = round.round.odds.markets[0].outcomes.filter(el => el.a.indexOf(`${numbers.length}_`) !== -1)

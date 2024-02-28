@@ -6,7 +6,7 @@ import useSocket from 'hooks/useSocket'
 
 import { setLive } from 'store/HOME/actions/liveAction'
 import { setLiveTimer } from 'store/HOME/actions/liveTimerAction'
-import { setUpdate } from 'store/HOME/actions/updateAction'
+import { setData } from 'store/HOME/actions/dataAction'
 
 import { getDifferent } from 'helpers/getDifferent'
 
@@ -33,39 +33,39 @@ const checkType = (start, end, delta, type) => {
   }
 }
 
-const MatchTimer = ({ data, delta, type }) => {
+const MatchTimer = ({ delta }) => {
   const dispatch = useDispatch()
   const { sendMessage } = useSocket()
   const { isConnected } = useSelector(state => state.socket)
   const [timer, setTimer] = useState('')
+  const { data } = useSelector(state => state.data)
+  const { game } = useSelector(state => state.game)
 
   useEffect(() => {
-    let r = checkType(data.event.start, data.event.nextUpdate, delta, type)
-    // type === gameType.FOOTBALL_LEAGUE && dispatch(setLiveTimer(r))
+    let r = checkType(data.events[0].start, data.events[0].nextUpdate, delta, game.type)
     dispatch(setLiveTimer(r))
     setTimer(r)
-  }, [data.event.start, delta])
+  }, [data, delta])
 
   useEffect(() => {
     const a = setInterval(() => {
-      let r = checkType(data.event.start, data.event.nextUpdate, delta, type)
+      let r = checkType(data.events[0].start, data.events[0].nextUpdate, delta, game.type)
 
-      if (new Date().getTime() + delta >= data.event.nextUpdate) {
-        // if (r === '0') {
+      if (new Date().getTime() + delta >= data.events[0].nextUpdate) {
         if (isConnected) {
           sendMessage({
-            cmd: `feed/${sessionStorage.getItem('authToken')}/EVENT/${data.id}`,
+            cmd: `feed/${sessionStorage.getItem('authToken')}/EVENT/${data.events[0].id}`,
           })
         } else {
-          dispatch(setUpdate(data.event.id, null)).then(json => {
-            if (json.event.status === matchStatus.COMPLETED || json.event.status === matchStatus.RESULTS) {
+          dispatch(setData(game)).then(json => {
+            if (json.events[0].status === matchStatus.RESULTS) {
               dispatch(setLive(3))
+              dispatch(setLiveTimer(0))
               clearInterval(a)
             }
           })
         }
       } else {
-        // type === gameType.FOOTBALL_LEAGUE && dispatch(setLiveTimer(r))
         dispatch(setLiveTimer(r))
         setTimer(r)
       }
@@ -73,10 +73,9 @@ const MatchTimer = ({ data, delta, type }) => {
 
     return () => {
       setTimer('')
-      // dispatch(setLiveTimer('0'))
       clearInterval(a)
     }
-  }, [data.event.start, delta])
+  }, [data, delta])
 
   return <div>{timer === '0' ? '00:00' : timer}</div>
 }

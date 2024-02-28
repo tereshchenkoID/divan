@@ -12,7 +12,6 @@ import betslipReducer from './HOME/reducers/betslipReducer'
 import stakeReducer from './HOME/reducers/stakeReducer'
 import liveReducer from './HOME/reducers/liveReducer'
 import dataReducer from './HOME/reducers/dataReducer'
-import updateReducer from './HOME/reducers/updateReducer'
 import liveTimerReducer from './HOME/reducers/liveTimerReducer'
 import ticketReducer from './HOME/reducers/ticketReducer'
 import balanceReducer from './HOME/reducers/balanceReducer'
@@ -33,7 +32,6 @@ const allReducer = combineReducers({
 
   /* HOME REDUCERS */
   data: dataReducer,
-  update: updateReducer,
   settings: settingsReducer,
   live: liveReducer,
   liveTimer: liveTimerReducer,

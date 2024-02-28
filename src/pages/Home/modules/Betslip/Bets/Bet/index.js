@@ -17,6 +17,15 @@ import Button from 'components/Button'
 
 import style from './index.module.scss'
 
+const getColor = (type, color) => {
+  if (type === gameType.DOGS_6) {
+    return `dog-${color.toLowerCase()}`
+  } else if (type === gameType.HORSES_8_VR) {
+    return `horse-${color.toLowerCase()}`
+  }
+  return color.toLowerCase()
+}
+
 const Bet = ({ id, data, betslip, type, setInit, setDisabled }) => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
@@ -105,7 +114,8 @@ const Bet = ({ id, data, betslip, type, setInit, setDisabled }) => {
         )}
         <div className={style.market}>
           <span>
-            {(data.type === gameType.FOOTBALL || data.type === gameType.FOOTBALL_LEAGUE) && `${data.market.replaceAll('_', ' ')}:${data.c || data.a}`}
+            {(data.type === gameType.FOOTBALL || data.type === gameType.FOOTBALL_LEAGUE) &&
+              `${data.market.replaceAll('_', ' ')}:${data.c || data.a}`}
             {data.type === gameType.ROULETTE && (data.print || data.market).replace('_', ' ')}
             {data.type === gameType.COLOR_COLOR && data.print.replace('_', '/')}
             {(data.type === gameType.KENO || data.type === gameType.DOGS_6 || data.type === gameType.HORSES_8_VR) && data.print}
@@ -118,7 +128,7 @@ const Bet = ({ id, data, betslip, type, setInit, setDisabled }) => {
                   className={classNames(
                     style[data.type === gameType.DOGS_6 || data.type === gameType.HORSES_8_VR ? 'number' : 'circle'],
                     style.sm,
-                    style[el.color ? el.color.toLowerCase() : 'draw'],
+                    style[el.color ? getColor(data.type, el.color) : 'draw'],
                   )}
                 >
                   {data.type === gameType.COLOR_COLOR && el.id.toString().length < 3 && el.id}
