@@ -9,7 +9,7 @@ const Numbers = ({ data }) => {
   return (
     <div className={style.block}>
       <div className={style.panel}>
-        <Label text={'Winner'} size={'sm'} />
+        <Label text={'Winner'} />
         <div className={style.table}>
           <div className={style.row}>
             {data.race.odds.markets[0].outcomes.map((el, idx) => (
