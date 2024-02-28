@@ -9,6 +9,7 @@ import classNames from 'classnames'
 import { deleteBetslip } from 'store/HOME/actions/betslipAction'
 import { checkTime } from 'helpers/checkTime'
 
+import Label from 'components/Label'
 import Numbers from '../Numbers'
 import Colors from '../Colors'
 import Anaconda from './Anaconda'
@@ -230,8 +231,8 @@ const TableChips = ({ events, repeat, random, data, setRepeat }) => {
         <Numbers numbers={numbers} setNumbers={setNumbers} random={random} setType={setType} />
 
         <div className={style.labels}>
-          <div className={style.label}>{t('games.COLOR_COLOR.winning_colors')}</div>
-          <div className={style.label}>{t('games.COLOR_COLOR.number_of_colors')}</div>
+          <Label text={t('games.COLOR_COLOR.winning_colors')} size={'sm'} />
+          <Label text={t('games.COLOR_COLOR.number_of_colors')} size={'sm'} />
         </div>
 
         <Colors data={data} colors={colors} setColors={setColors} />

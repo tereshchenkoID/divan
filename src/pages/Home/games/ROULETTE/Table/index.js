@@ -6,6 +6,7 @@ import { hostnames } from 'constant/config'
 
 import { checkTime } from 'helpers/checkTime'
 
+import Label from 'components/Label'
 import TableChips from './TableChips'
 
 import style from './index.module.scss'
@@ -47,7 +48,7 @@ const Table = ({ active }) => {
       <div className={style.header}>
         {checkTime(active.start, delta) && (
           <>
-            <div className={style.label}>{t('games.ROULETTE.random')}</div>
+            <Label text={t('games.ROULETTE.random')} />
             <div />
             <div className={style.sort}>
               {SORT.map((el, idx) => (

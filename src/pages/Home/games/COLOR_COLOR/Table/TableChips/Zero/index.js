@@ -4,6 +4,8 @@ import classNames from 'classnames'
 
 import { colorType } from 'constant/config'
 
+import Label from 'components/Label'
+
 import style from '../index.module.scss'
 
 const Zero = ({ numbers, type, setType, t }) => {
@@ -20,7 +22,7 @@ const Zero = ({ numbers, type, setType, t }) => {
   return (
     <div>
       <div className={style.content}>
-        <div className={style.label}>BET ZERO</div>
+        <Label text={'BET ZERO'} size={'sm'} />
       </div>
       <div className={style.panel}>
         <div className={style.subtitle}>{t('games.COLOR_COLOR.bet_zero_description')}</div>

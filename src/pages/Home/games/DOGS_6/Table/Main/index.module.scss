@@ -14,13 +14,6 @@
   }
 }
 
-.label {
-  @include label;
-  @include make-spacer('mb', 1);
-
-  max-width: rem(450px);
-}
-
 .table {
   @include wrapper;
 }

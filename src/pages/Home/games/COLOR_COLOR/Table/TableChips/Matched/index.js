@@ -4,6 +4,8 @@ import { colorType } from 'constant/config'
 
 import classNames from 'classnames'
 
+import Label from 'components/Label'
+
 import style from '../index.module.scss'
 
 const Matched = ({ numbers, type, setType, t }) => {
@@ -77,7 +79,7 @@ const Matched = ({ numbers, type, setType, t }) => {
   return (
     <div>
       <div className={style.content}>
-        <div className={style.label}>MATCHED NUMBERS</div>
+        <Label text={'MATCHED NUMBERS'} size={'sm'} />
       </div>
       <div className={style.panel}>
         <div className={style.subtitle}>{t('games.COLOR_COLOR.numbers_description')}</div>

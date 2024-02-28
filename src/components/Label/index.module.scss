@@ -2,7 +2,27 @@
 
 .block {
   @include make-spacer(px, 2);
-  @include label;
+  @include flex($align-items: center);
 
-  height: rem(40px);
+  gap: rem(15px);
+  font-size: rem(17px);
+  text-align: center;
+  white-space: nowrap;
+  color: var(--color-orange);
+
+  &::before,
+  &::after {
+    @include size(100%, rem(1px));
+
+    background-color: var(--color-orange);
+    content: '';
+  }
+
+  &.sm {
+    height: rem(30px);
+  }
+
+  &.md {
+    height: rem(40px);
+  }
 }

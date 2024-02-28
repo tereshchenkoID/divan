@@ -8,13 +8,13 @@
 .cell {
   @include flex(center, center);
 
-  height: rem(55px);
-  border-right: 1px solid var(--color-border);
-  border-bottom: 1px solid var(--color-border);
+  height: rem(54px);
+  border-right: rem(1px) solid var(--color-border);
+  border-bottom: rem(1px) solid var(--color-border);
   background-color: var(--color-thunder);
 
   &:nth-child(-n + 10) {
-    height: rem(35px);
+    height: rem(36px);
   }
 
   &:nth-child(10n) {

@@ -25,14 +25,8 @@
 }
 
 .labels {
-  @include make-spacer('mb', 2);
-
   display: grid;
   grid-template-columns: rem(216px) 1fr;
-}
-
-.label {
-  @include label;
 }
 
 .button {

@@ -20,12 +20,8 @@
   @include wrapper;
 }
 
-.label {
-  @include label;
-  @include make-spacer(mb, 2);
-}
-
 .sort {
+  @include make-spacer(mt, 1);
   @include make-spacer(mb, 2);
   @include flex($align-items: center);
 }

@@ -11,7 +11,7 @@
 }
 
 .header {
-  @include make-spacer('mb', 4);
+  @include make-spacer(mb, 4);
   @include flex(center, center);
 
   gap: rem(10px);

@@ -5,10 +5,11 @@ import { hostnames } from 'constant/config'
 
 import classNames from 'classnames'
 
+import Label from 'components/Label'
 import Icon from 'components/Icon'
 import Live from '../Live'
-import Odd from './Odd'
 import Subtitle from './Subtitle'
+import Odd from './Odd'
 
 import style from './index.module.scss'
 
@@ -191,7 +192,7 @@ const Table = ({ active }) => {
             ))}
             {toggle.toggle && (
               <div className={classNames(style.dropdown, style.active)}>
-                <div className={style.subtitle}>{active.league.matches[toggle.id].odds[0].groups[6].name}</div>
+                <Label text={active.league.matches[toggle.id].odds[0].groups[6].name} />
                 <div className={style.goals}>
                   {active.league.matches[toggle.id].odds[0].groups[6].markets[0].outcomes.map((el, idx) => (
                     <div key={idx} className={style.outcome}>
@@ -219,7 +220,7 @@ const Table = ({ active }) => {
                 <div className={style.goals}>
                   {active.league.matches[toggle.id].odds[0].groups[7].markets.map((el, idx) => (
                     <div key={idx} className={style.outcomes}>
-                      <div className={style.subtitle}>{el.headers[0]}</div>
+                      <Label text={el.headers[0]} />
                       <div className={style.list}>
                         {filterColumn(el.outcomes).map((el, idx) => (
                           <div key={idx} className={style.outcomes}>

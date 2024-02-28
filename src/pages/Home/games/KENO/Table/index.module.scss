@@ -15,22 +15,18 @@
   flex-grow: 1;
 }
 
-.label {
-  @include label;
-  @include make-spacer('mb', 2);
-}
-
 .sort {
-  @include make-spacer('mb', 2);
+  @include make-spacer(mt, 1);
+  @include make-spacer(mb, 2);
   @include flex($align-items: center);
 }
 
 .market {
   @include button;
-  @include make-spacer('mr', half);
+  @include make-spacer(mr, half);
   @include size(rem(43px));
 
   &:last-child {
-    @include make-spacer('mr', 0);
+    @include make-spacer(mr, 0);
   }
 }

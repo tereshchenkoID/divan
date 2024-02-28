@@ -4,6 +4,8 @@ import classNames from 'classnames'
 
 import { colorType } from 'constant/config'
 
+import Label from 'components/Label'
+
 import style from '../index.module.scss'
 
 const Anaconda = ({ numbers, type, setType, t }) => {
@@ -21,7 +23,7 @@ const Anaconda = ({ numbers, type, setType, t }) => {
   return (
     <div>
       <div className={style.content}>
-        <div className={style.label}>ANACONDA</div>
+        <Label text={'ANACONDA'} size={'sm'} />
       </div>
       <div className={style.panel}>
         <div className={style.subtitle}>{t('games.COLOR_COLOR.anaconda_description')}</div>

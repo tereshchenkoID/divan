@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
 
+import Label from 'components/Label'
 import TableChips from './TableChips'
 import Live from '../Live'
 
@@ -44,8 +45,8 @@ const Table = ({ active, find }) => {
       <div className={style.header}>
         {live === 1 && (
           <>
-            <div className={style.label}>{t('games.KENO.random')}</div>
-            <div className={style.label}>{t('games.KENO.repeat')}</div>
+            <Label text={t('games.KENO.random')} />
+            <Label text={t('games.KENO.repeat')} />
             <div className={style.sort}>
               {SORT.map((el, idx) => (
                 <button
