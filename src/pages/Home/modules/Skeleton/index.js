@@ -154,7 +154,7 @@ const Skeleton = () => {
             <>
               <div className={style.info}>
                 <div className={style.league}>
-                  <img src={type.logo} alt={type.name} />
+                  <img src={type.logo} alt={type.name} width={135} height={70} loading={'lazy'} />
                 </div>
                 <Timer data={active} type={type.type} />
               </div>

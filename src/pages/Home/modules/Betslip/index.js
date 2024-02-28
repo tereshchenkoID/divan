@@ -350,7 +350,7 @@ const Betslip = () => {
             </>
           ) : (
             <div className={style.empty}>
-              <img src={settings.account.logo} alt="logo" loading="lazy" />
+              <img src={settings.account.logo} width={200} height={80} alt="logo" loading="lazy" />
               <div className={style.icon}>
                 <Icon id={'add'} />
               </div>
