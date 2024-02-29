@@ -16,6 +16,11 @@ const Timer = ({ data, type }) => {
   const { delta } = useSelector(state => state.delta)
 
   useEffect(() => {}, [delta])
+
+  if (!progress) {
+    return false
+  }
+
   return (
     <div className={style.block}>
       <div className={style.top}>

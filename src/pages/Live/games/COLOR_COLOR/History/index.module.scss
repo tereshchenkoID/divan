@@ -12,8 +12,18 @@
   &.alt {
     @include wrapper;
 
-    height: 326px;
+    height: rem(326px);
     overflow: hidden;
+  }
+
+  &.active {
+
+    .cell {
+
+      &:nth-last-child(-n + 8) {
+        border-bottom: 0;
+      }
+    }
   }
 }
 

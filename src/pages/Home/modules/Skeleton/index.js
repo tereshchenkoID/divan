@@ -91,7 +91,7 @@ const Skeleton = () => {
       //   })
       // } else {
       dispatch(setData(game)).then(json => {
-        if (json.events.length > 0) {
+        if (json && json.events.length > 0) {
           if (json.events[0].status !== matchStatus.ANNOUNCEMENT) {
             setActive(json.events[1])
             setFind(json.events[0])
@@ -150,7 +150,7 @@ const Skeleton = () => {
         <Loader type={'block'} />
       ) : (
         <>
-          {data && data.events.length > 0 ? (
+          {data && data.events && data.events.length > 0 ? (
             <>
               <div className={style.info}>
                 <div className={style.league}>

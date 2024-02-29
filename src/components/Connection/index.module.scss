@@ -1,0 +1,24 @@
+@import 'scss/config';
+
+.block {
+  @include make-spacer(p, 2);
+  @include flex(center, center, column);
+  @include size(100%);
+
+  color: var(--color-white);
+}
+
+.icon {
+  @include size(rem(100px));
+}
+
+.button {
+  @include make-spacer(mt, 4);
+  @include flex(flex-end);
+
+  button {
+    @include size(100%, rem(45px) !important);
+
+    min-width: rem(100px);
+  }
+}

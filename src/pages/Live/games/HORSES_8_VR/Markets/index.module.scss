@@ -1,7 +1,8 @@
 @import 'scss/config';
 
 .block {
-  @include make-spacer(p, 2);
+  @include make-spacer(px, 2);
+  @include make-spacer(pb, 2);
   @include wrapper;
   @include size(100%);
 }

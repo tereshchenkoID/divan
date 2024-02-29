@@ -1,13 +1,16 @@
 import { gameType, matchStatus } from 'constant/config'
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useTranslation } from 'react-i18next'
 
 import i18n from 'i18next'
 
 import { setSettings } from 'store/actions/settingsAction'
 import { setGame } from 'store/actions/gameAction'
 
+import Connection from 'components/Connection'
 import Loader from 'components/Loader'
+import Alert from 'components/Alert'
 import Decor from 'pages/Home/modules/Decor'
 
 import FOOTBALL from './games/FOOTBALL'
@@ -26,6 +29,7 @@ import Games from './modules/Games'
 import Header from './modules/Header'
 
 import { setProgress } from 'store/LIVE/actions/progressAction'
+import { setModal } from 'store/actions/modalAction'
 import { setTv } from 'store/LIVE/actions/tvAction'
 
 import style from './index.module.scss'
@@ -52,6 +56,7 @@ const getGame = id => {
 }
 
 const Live = () => {
+  const { t } = useTranslation()
   const dispatch = useDispatch()
   const { game } = useSelector(state => state.game)
   const { modal } = useSelector(state => state.modal)
@@ -91,6 +96,17 @@ const Live = () => {
     }
   }, [game])
 
+  if (tv.hasOwnProperty('error'))
+    return (
+      <Connection
+        action={() => {
+          dispatch(setModal(0))
+          dispatch(setProgress(1))
+          dispatch(setTv(`${game.type}/${game.id}`))
+        }}
+      />
+    )
+
   return (
     <div className={style.block}>
       {loading ? (
@@ -114,8 +130,14 @@ const Live = () => {
               <Loader type={'block'} background={'transparent'} />
             ) : (
               <div className={style.content}>
-                <Header />
-                <div className={style.table}>{getGame(game.type)}</div>
+                {tv.event ? (
+                  <>
+                    <Header />
+                    <div className={style.table}>{getGame(game.type)}</div>
+                  </>
+                ) : (
+                  <Alert text={t('notification.events_not_found')} type={'default'} />
+                )}
               </div>
             )}
             {modal === 1 && <Countdown />}

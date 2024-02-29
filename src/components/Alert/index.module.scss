@@ -1,7 +1,7 @@
 @import 'scss/config';
 
 .block {
-  @include make-spacer('p', 2);
+  @include make-spacer(p, 2);
 
   text-align: center;
 

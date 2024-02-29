@@ -32,14 +32,18 @@ const UpdateData = ({ find, setActive, setFind }) => {
 
       if (new Date().getTime() + delta >= find.nextUpdate) {
         if (find.status === matchStatus.COMPLETED || find.status === matchStatus.RESULTS) {
-          dispatch(setData(game, null)).then(json => {
-            setFind(null)
-            dispatch(setLive(1))
-            setActive(json.events[0])
+          dispatch(setData(game)).then(json => {
+            if (json) {
+              setFind(null)
+              dispatch(setLive(1))
+              setActive(json.events[0])
+            }
           })
         } else {
           dispatch(setData(game)).then(json => {
-            setFind(json.events[0])
+            if (json) {
+              setFind(json.events[0])
+            }
           })
         }
 

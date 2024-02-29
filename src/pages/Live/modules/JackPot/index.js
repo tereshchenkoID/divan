@@ -41,10 +41,10 @@ const JackPotWinner = () => {
       if (loading || timer === 30) {
         setLoading(false)
         getData(`${hostnames.PROD}/viewer/jackpots/${token}`).then(json => {
-          if (json.jackpots) {
+          if (json && json.jackpots) {
             setData(json)
           }
-          if (json.winner) {
+          if (json && json.winner) {
             dispatch(setJackpot(json.winner))
           }
         })

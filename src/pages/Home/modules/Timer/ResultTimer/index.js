@@ -36,7 +36,7 @@ const ResultTimer = ({ delta }) => {
           })
         } else {
           dispatch(setData(game)).then(json => {
-            if (json.events[0].status === matchStatus.ANNOUNCEMENT) {
+            if (json && json.events[0].status === matchStatus.ANNOUNCEMENT) {
               dispatch(setLive(4))
               clearInterval(a)
             }

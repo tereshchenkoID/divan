@@ -5,10 +5,10 @@
 
   position: relative;
   height: 100%;
-  overflow: hidden;
   font-weight: var(--typography-bold);
   text-align: center;
   text-transform: uppercase;
+  overflow: hidden;
   color: var(--color-white);
 }
 
@@ -30,6 +30,8 @@
 }
 
 .content {
+  @include make-spacer(py, 2);
+
   z-index: 1;
   height: 100%;
 }

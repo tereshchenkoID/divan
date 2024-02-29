@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 // import useSocket from 'hooks/useSocket'
 
 import { setLive } from 'store/HOME/actions/liveAction'
+import { setLiveTimer } from 'store/HOME/actions/liveTimerAction'
 // import { setData } from 'store/HOME/actions/dataAction'
 
 import { convertTime } from 'helpers/convertTime'
@@ -13,7 +14,6 @@ import StartTimer from './StartTimer'
 import ResultTimer from './ResultTimer'
 
 import style from './index.module.scss'
-import { setLiveTimer } from '../../../../store/HOME/actions/liveTimerAction'
 
 const Timer = ({ data, type }) => {
   const dispatch = useDispatch()

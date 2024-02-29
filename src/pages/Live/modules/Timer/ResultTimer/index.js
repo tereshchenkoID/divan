@@ -26,9 +26,8 @@ const ResultTimer = ({ data, delta, type }) => {
       setTimer(r)
 
       if (new Date().getTime() + delta >= data.nextUpdate) {
-        // if (r === '0') {
         dispatch(setTv(`${type}/${game.id}`)).then(json => {
-          if (json.event.status === matchStatus.ANNOUNCEMENT) {
+          if (json && json.event.status === matchStatus.ANNOUNCEMENT) {
             dispatch(setProgress(1))
             type === gameType.FOOTBALL_LEAGUE && dispatch(setHistory(`${type}/${game.id}`))
             clearInterval(a)

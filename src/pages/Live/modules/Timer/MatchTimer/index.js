@@ -47,11 +47,10 @@ const MatchTimer = ({ data, delta, type }) => {
       let r = checkType(data.start, data.nextUpdate, delta, type)
 
       if (new Date().getTime() + delta >= data.nextUpdate) {
-        // if (r === '0') {
         dispatch(setTv(`${type}/${game.id}`)).then(json => {
           dispatch(setLiveTimer(0))
 
-          if (json.event.status === matchStatus.RESULTS) {
+          if (json && json.event.status === matchStatus.RESULTS) {
             dispatch(setProgress(3))
             dispatch(setLiveTimer(0))
             clearInterval(a)

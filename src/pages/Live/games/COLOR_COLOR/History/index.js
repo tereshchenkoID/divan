@@ -40,7 +40,7 @@ const History = ({ data }) => {
   const { liveTimer } = useSelector(state => state.liveTimer)
   const [current, setCurrent] = useState(0)
   const [columns, setColumn] = useState([])
-  const scenes = data.round.scenes
+  const scenes = data.round.scenes || []
 
   const getIndex = () => {
     const timeDuration = getDuration(data.start, data.nextUpdate)
@@ -60,14 +60,16 @@ const History = ({ data }) => {
       setCurrent(0)
       setColumn(data.history[0].results)
     } else {
-      const init = scenes ? scenes.filter(el => el.update <= getIndex()) : []
-      setCurrent(init.length)
-      setColumn(scenes.slice(0, init.length))
+      if (scenes) {
+        const init = scenes.filter(el => el.update <= getIndex()) || []
+        setCurrent(init.length)
+        setColumn(scenes.slice(0, init.length))
+      }
     }
   }, [data])
 
   useEffect(() => {
-    const init = scenes ? scenes.filter(el => el.update <= getIndex()) : []
+    const init = scenes.filter(el => el.update <= getIndex()) || []
 
     setCurrent(init.length)
 
@@ -89,7 +91,7 @@ const History = ({ data }) => {
         <Label text={t('interface.colors')} />
         <Label text={t('interface.winning')} />
       </div>
-      <div className={classNames(style.row, style.alt)}>
+      <div className={classNames(style.row, style.alt, progress === 2 && style.active)}>
         {progress === 2 && (
           <>
             <div className={style.cell}>#{data.round.id}</div>

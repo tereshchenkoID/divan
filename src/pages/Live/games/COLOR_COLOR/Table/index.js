@@ -7,7 +7,7 @@ import Hot from '../Hot'
 
 import style from './index.module.scss'
 
-const Table = ({ data, progress }) => {
+const Table = ({ data }) => {
   return (
     <div className={style.block}>
       <div className={style.grid}>

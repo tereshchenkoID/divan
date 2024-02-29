@@ -30,7 +30,7 @@ const JackPot = ({ size = 'default' }) => {
       })
     } else {
       getData(`/jackpots`).then(json => {
-        if (!checkData(json)) {
+        if (json) {
           setData(json)
           setLoading(false)
         }
@@ -71,7 +71,9 @@ const JackPot = ({ size = 'default' }) => {
         if (r === '0') {
           clearInterval(a)
           getData(`/jackpots`).then(json => {
-            setData(json)
+            if (json) {
+              setData(json)
+            }
           })
         }
       }, 1000)

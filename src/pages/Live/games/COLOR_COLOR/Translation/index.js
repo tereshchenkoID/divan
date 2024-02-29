@@ -37,7 +37,7 @@ const Translation = ({ data }) => {
   const { liveTimer } = useSelector(state => state.liveTimer)
   const [current, setCurrent] = useState(0)
   const [columns, setColumn] = useState([])
-  const scenes = data.round.scenes
+  const scenes = data.round.scenes || []
 
   const getIndex = () => {
     const timeDuration = getDuration(data.start, data.nextUpdate)
@@ -57,18 +57,20 @@ const Translation = ({ data }) => {
       setCurrent(0)
       setColumn(data.history[0].results)
     } else {
-      const init = scenes ? scenes.filter(el => el.update <= getIndex()) : []
-      setCurrent(init.length)
-      setColumn(scenes.slice(0, init.length))
+      if (scenes) {
+        const init = scenes.filter(el => el.update <= getIndex()) || []
+        setCurrent(init.length)
+        setColumn(scenes.slice(0, init.length))
+      }
     }
   }, [data])
 
   useEffect(() => {
-    const init = scenes ? scenes.filter(el => el.update <= getIndex()) : []
+    const init = scenes.filter(el => el.update <= getIndex()) || []
 
     setCurrent(init.length)
 
-    if (scenes && current < scenes.length && getIndex() === scenes[current].update) {
+    if (current < scenes.length && getIndex() === scenes[current].update) {
       const next = current + 1
       setCurrent(next)
       setColumn(scenes.slice(0, next))

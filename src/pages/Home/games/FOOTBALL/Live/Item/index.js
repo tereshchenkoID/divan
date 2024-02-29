@@ -240,7 +240,6 @@ const Item = ({ data, timer }) => {
 
       if (live === 2 && timer !== 0) {
         initScene(data.scenes, timer)
-        setInit(false)
       }
     }
 

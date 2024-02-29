@@ -1,10 +1,6 @@
 @import 'scss/config';
 
 .block {
-  @include size(100%);
-}
-
-.grid {
   display: grid;
   position: relative;
   grid-template-columns: 1fr rem(357px);

@@ -21,20 +21,12 @@
 }
 
 .column {
+  position: relative;
   height: 100%;
   overflow: hidden;
 }
 
-.table {
-  position: relative;
-  height: 100%;
-  min-height: rem(690px);
-  font-weight: var(--typography-bold);
-  text-align: center;
-  text-transform: uppercase;
-}
-
 .banners {
   position: absolute;
-  right: rem(378px);
+  right: 0;
 }

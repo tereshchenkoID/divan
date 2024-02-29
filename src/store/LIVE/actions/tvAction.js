@@ -16,6 +16,14 @@ export const setTv = url => async dispatch => {
 
     return data
   } catch (e) {
-    console.log(e)
+    dispatch({
+      type: types.SET_LIVE_TV,
+      payload: {
+        error: true,
+      },
+    })
+
+    return null
+    // console.log(e)
   }
 }

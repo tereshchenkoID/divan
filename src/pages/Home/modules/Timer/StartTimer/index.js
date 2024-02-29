@@ -34,7 +34,7 @@ const StartTimer = ({ data, delta }) => {
           })
         } else {
           dispatch(setData(game)).then(json => {
-            if (json.events[0].status === matchStatus.PROGRESS) {
+            if (json && json.events[0].status === matchStatus.PROGRESS) {
               dispatch(setLive(2))
               clearInterval(a)
             }

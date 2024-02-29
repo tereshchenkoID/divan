@@ -15,9 +15,16 @@ export const setData = (el, value) => async dispatch => {
       type: types.SET_DATA,
       payload: data,
     })
-
     return data
   } catch (e) {
-    console.log(e)
+    dispatch({
+      type: types.SET_DATA,
+      payload: {
+        error: true,
+      },
+    })
+
+    return null
+    // console.log(e)
   }
 }

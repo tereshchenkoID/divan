@@ -10,6 +10,7 @@ import { checkCmd } from 'helpers/checkCmd'
 import { setSettings } from 'store/actions/settingsAction'
 import { setAuth } from 'store/actions/authAction'
 
+import Connection from 'components/Connection'
 import Loader from 'components/Loader'
 import Nav from 'components/Nav'
 import Betslip from 'pages/Home/modules/Betslip'
@@ -19,16 +20,18 @@ import Decor from 'pages/Home/modules/Decor'
 import Skeleton from './modules/Skeleton'
 
 import style from './index.module.scss'
+import { setData } from '../../store/HOME/actions/dataAction'
 
 const Home = () => {
   const { sendMessage } = useSocket()
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const [loading, setLoading] = useState(true)
   const { notification } = useSelector(state => state.notification)
+  const { data } = useSelector(state => state.data)
   const { game } = useSelector(state => state.game)
   const { settings } = useSelector(state => state.settings)
   const { isConnected, receivedMessage } = useSelector(state => state.socket)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     if (isConnected) {
@@ -69,6 +72,15 @@ const Home = () => {
       }
     }
   }, [receivedMessage])
+
+  if (data.hasOwnProperty('error'))
+    return (
+      <Connection
+        action={() => {
+          dispatch(setData(game))
+        }}
+      />
+    )
 
   return (
     <div className={style.block}>

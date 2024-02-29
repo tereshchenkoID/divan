@@ -58,7 +58,7 @@ const MatchTimer = ({ delta }) => {
           })
         } else {
           dispatch(setData(game)).then(json => {
-            if (json.events[0].status === matchStatus.RESULTS) {
+            if (json && json.events[0].status === matchStatus.RESULTS) {
               dispatch(setLive(3))
               dispatch(setLiveTimer(0))
               clearInterval(a)

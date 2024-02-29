@@ -15,9 +15,12 @@
     "generated_financial_report_here": "Generated financial report here UA",
     "open_in_new_window": "Open in new window UA",
     "place_your_bets": "Place your bets UA",
-    "bets_close_in": "Bets close in UA"
+    "bets_close_in": "Bets close in UA",
+    "no_connection": "No connection UA",
+    "check_connection": "Please check your Internet connection and try again UA"
   },
   "interface": {
+    "try_again": "Try again UA",
     "jackpot_winner": "jackpot winner UA",
     "numbers": "numbers UA",
     "colors": "colors UA",

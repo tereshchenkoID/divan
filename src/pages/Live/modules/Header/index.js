@@ -15,8 +15,6 @@ const Header = () => {
   const { tv } = useSelector(state => state.tv)
   const { progress } = useSelector(state => state.progress)
 
-  if (!tv.event) return false
-
   return (
     <div className={style.block}>
       <div className={style.left}>

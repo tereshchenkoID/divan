@@ -1,16 +1,15 @@
 @import 'scss/config';
 
 .block {
-  @include make-spacer(pt, 2);
   @include make-spacer(px, 2);
   @include size(100%, auto);
 
   display: grid;
   grid-template-columns: auto 1fr rem(100px);
   gap: rem(20px);
+  flex-shrink: 0;
   align-items: center;
   overflow: hidden;
-  flex-shrink: 0;
 }
 
 .left {

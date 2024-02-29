@@ -29,9 +29,8 @@ const StartTimer = ({ data, delta, type }) => {
       }
 
       if (new Date().getTime() + delta >= data.nextUpdate) {
-        // if (r === '0') {
         dispatch(setTv(`${type}/${game.id}`)).then(json => {
-          if (json.event.status === matchStatus.PROGRESS) {
+          if (json && json.event.status === matchStatus.PROGRESS) {
             dispatch(setProgress(2))
             dispatch(setModal(0))
             clearInterval(a)
