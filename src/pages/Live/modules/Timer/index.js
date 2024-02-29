@@ -1,8 +1,10 @@
 import { useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 
 import { convertTime } from 'helpers/convertTime'
+import { setLiveTimer } from 'store/HOME/actions/liveTimerAction'
+import { setProgress } from 'store/LIVE/actions/progressAction'
 
 import MatchTimer from './MatchTimer'
 import StartTimer from './StartTimer'
@@ -11,11 +13,19 @@ import ResultTimer from './ResultTimer'
 import style from './index.module.scss'
 
 const Timer = ({ data, type }) => {
+  const dispatch = useDispatch()
   const { t } = useTranslation()
   const { progress } = useSelector(state => state.progress)
   const { delta } = useSelector(state => state.delta)
 
   useEffect(() => {}, [delta])
+
+  useEffect(() => {
+    return () => {
+      dispatch(setLiveTimer(0))
+      dispatch(setProgress(1))
+    }
+  }, [])
 
   if (!progress) {
     return false

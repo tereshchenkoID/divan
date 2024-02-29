@@ -7,6 +7,10 @@ import i18n from 'i18next'
 
 import { setSettings } from 'store/actions/settingsAction'
 import { setGame } from 'store/actions/gameAction'
+import { setProgress } from 'store/LIVE/actions/progressAction'
+import { setModal } from 'store/actions/modalAction'
+import { setTv } from 'store/LIVE/actions/tvAction'
+import { conditionStatus } from 'helpers/conditionStatus'
 
 import Connection from 'components/Connection'
 import Loader from 'components/Loader'
@@ -27,10 +31,6 @@ import Jackpot from './modules/Modal/Jackpot'
 import Ticker from './modules/Ticker'
 import Games from './modules/Games'
 import Header from './modules/Header'
-
-import { setProgress } from 'store/LIVE/actions/progressAction'
-import { setModal } from 'store/actions/modalAction'
-import { setTv } from 'store/LIVE/actions/tvAction'
 
 import style from './index.module.scss'
 
@@ -100,9 +100,14 @@ const Live = () => {
     return (
       <Connection
         action={() => {
-          dispatch(setModal(0))
-          dispatch(setProgress(1))
-          dispatch(setTv(`${game.type}/${game.id}`))
+          setPreloader(true)
+          dispatch(setTv(`${game.type}/${game.id}`)).then(json => {
+            if (json) {
+              dispatch(setModal(0))
+              dispatch(setProgress(conditionStatus(json.event.status)))
+              setPreloader(false)
+            }
+          })
         }}
       />
     )
