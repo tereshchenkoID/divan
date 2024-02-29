@@ -4,7 +4,6 @@
   @include size(100%);
 
   position: relative;
-  padding-top: rem(7px);
 }
 
 .cell,
@@ -15,15 +14,13 @@
 
 .wrapper {
   @include wrapper;
-
-  min-height: rem(530px);
 }
 
 .head {
   display: grid;
   grid-template-columns: rem(35px) rem(215px) 1fr;
   align-items: center;
-  height: rem(37px);
+  height: rem(40px);
   padding-right: rem(2px);
   padding-left: rem(2px);
   font-size: rem(12px);

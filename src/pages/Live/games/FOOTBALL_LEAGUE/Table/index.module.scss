@@ -14,7 +14,7 @@
 }
 
 .left {
-  padding-top: rem(45px);
+  padding-top: rem(50px);
 
   .row {
     display: grid;
@@ -61,7 +61,7 @@
   @include flex;
 
   position: relative;
-  height: rem(37px);
+  height: rem(42px);
   padding-right: rem(3px);
 
   .column {
@@ -70,7 +70,7 @@
 }
 
 .row {
-  height: rem(53px);
+  height: rem(52px);
   border-top: rem(1px) solid var(--color-border);
   text-align: center;
 
@@ -141,7 +141,7 @@
 }
 
 .logo {
-  @include make-spacer('p', 1);
+  @include make-spacer(p, 1);
   @include size(rem(40px));
 
   img {

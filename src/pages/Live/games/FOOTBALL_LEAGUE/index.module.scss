@@ -1,6 +1,8 @@
 @import 'scss/config';
 
 .block {
+  @include size(100%);
+
   display: grid;
   position: relative;
   grid-template-columns: 1fr rem(357px);
@@ -11,8 +13,4 @@
   position: relative;
   height: 100%;
   overflow: hidden;
-
-  &:nth-child(2) {
-    @include make-spacer(pb, 1);
-  }
 }
