@@ -13,11 +13,6 @@
 .slick-slider {
   box-sizing: border-box;
   touch-action: pan-y;
-  touch-action: pan-y;
-  user-select: none;
-  user-select: none;
-  user-select: none;
-  user-select: none;
   user-select: none;
   -webkit-touch-callout: none;
   -webkit-tap-highlight-color: transparent;
@@ -34,16 +29,11 @@
 }
 
 .slick-list.dragging {
-  cursor: pointer;
   cursor: hand;
 }
 
 .slick-slider .slick-list,
 .slick-slider .slick-track {
-  transform: translate3d(0, 0, 0);
-  transform: translate3d(0, 0, 0);
-  transform: translate3d(0, 0, 0);
-  transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
 }
 

@@ -121,10 +121,10 @@ const Login = () => {
         <div className={style.row}>
           <button
             className={style.toggle}
+            type={'button'}
             onClick={() => {
               setType(type === 'password' ? 'text' : 'password')
             }}
-            type={'button'}
           >
             {type === 'password' ? 'Show' : 'Hide'} password
           </button>

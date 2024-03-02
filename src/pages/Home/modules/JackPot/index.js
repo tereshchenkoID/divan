@@ -5,7 +5,6 @@ import useSocket from 'hooks/useSocket'
 import classNames from 'classnames'
 
 import { checkCmd } from 'helpers/checkCmd'
-import { checkData } from 'helpers/checkData'
 import { getData } from 'helpers/api'
 import { getDifferent } from 'helpers/getDifferent'
 

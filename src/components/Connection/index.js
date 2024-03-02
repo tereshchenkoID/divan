@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next'
+import { useEffect } from 'react'
 
 import Button from '../Button'
 
@@ -6,6 +7,13 @@ import style from './index.module.scss'
 
 const Connection = ({ action }) => {
   const { t } = useTranslation()
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      action()
+    }, 10000)
+    return () => clearInterval(intervalId)
+  }, [])
 
   return (
     <div className={style.block}>

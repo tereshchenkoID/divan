@@ -135,7 +135,7 @@ const Table = ({ active }) => {
                   >
                     <div>
                       <div className={style.logo}>
-                        <img src={`${hostnames.ASSETS}/${el_m.teams.home.img}`} alt={el_m.teams.home.name} />
+                        <img src={`${hostnames.ASSETS}/${el_m.teams.home.img}`} alt={el_m.teams.home.name} loading={'lazy'} />
                       </div>
                     </div>
                     <div>{el_m.teams.home.name}</div>
@@ -143,7 +143,7 @@ const Table = ({ active }) => {
                     <div>{el_m.teams.away.name}</div>
                     <div>
                       <div className={style.logo}>
-                        <img src={`${hostnames.ASSETS}/${el_m.teams.away.img}`} alt={el_m.teams.away.name} />
+                        <img src={`${hostnames.ASSETS}/${el_m.teams.away.img}`} alt={el_m.teams.away.name} loading={'lazy'} />
                       </div>
                     </div>
                     <div>

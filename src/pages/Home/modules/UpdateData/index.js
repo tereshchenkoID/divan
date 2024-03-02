@@ -6,7 +6,7 @@ import { matchStatus } from 'constant/config'
 
 import { setData } from 'store/HOME/actions/dataAction'
 import { setLive } from 'store/HOME/actions/liveAction'
-import { getDifferent } from 'helpers/getDifferent'
+// import { getDifferent } from 'helpers/getDifferent'
 
 const UpdateData = ({ find, setActive, setFind }) => {
   const dispatch = useDispatch()
@@ -28,7 +28,7 @@ const UpdateData = ({ find, setActive, setFind }) => {
   useEffect(() => {
     // if (!isConnected) {
     a.current = setInterval(() => {
-      console.log(getDifferent(find.nextUpdate, delta))
+      // console.log(getDifferent(find.nextUpdate, delta))
 
       if (new Date().getTime() + delta >= find.nextUpdate) {
         if (find.status === matchStatus.COMPLETED || find.status === matchStatus.RESULTS) {

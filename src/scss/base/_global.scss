@@ -14,18 +14,8 @@ body {
   @include smooth-font;
 }
 
-menu {
-  @include make-spacer('p', 0);
-}
-
 button {
   @include reset-button;
-}
-
-hr {
-  @include make-spacer('m', 0);
-
-  border: 0;
 }
 
 a {
@@ -49,6 +39,7 @@ img {
 }
 
 input[type='number'] {
+
   &::-webkit-outer-spin-button,
   &::-webkit-inner-spin-button {
     margin: 0;

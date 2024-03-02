@@ -143,7 +143,7 @@ const Table = ({ active }) => {
                   >
                     <div>
                       <div className={style.logo}>
-                        <img src={`${hostnames.ASSETS}/${el_m.teams.home.img}`} alt={el_m.teams.home.name} />
+                        <img src={`${hostnames.ASSETS}/${el_m.teams.home.img}`} alt={el_m.teams.home.name} loading={'lazy'} />
                       </div>
                     </div>
                     <div>{el_m.teams.home.name}</div>
@@ -151,7 +151,7 @@ const Table = ({ active }) => {
                     <div>{el_m.teams.away.name}</div>
                     <div>
                       <div className={style.logo}>
-                        <img src={`${hostnames.ASSETS}/${el_m.teams.away.img}`} alt={el_m.teams.away.name} />
+                        <img src={`${hostnames.ASSETS}/${el_m.teams.away.img}`} alt={el_m.teams.away.name} loading={'lazy'} />
                       </div>
                     </div>
                     <div>
@@ -192,7 +192,7 @@ const Table = ({ active }) => {
             ))}
             {toggle.toggle && (
               <div className={classNames(style.dropdown, style.active)}>
-                <Label text={active.league.matches[toggle.id].odds[0].groups[6].name} />
+                <Label text={active.league.matches[toggle.id].odds[0].groups[6].name} size={'sm'} />
                 <div className={style.goals}>
                   {active.league.matches[toggle.id].odds[0].groups[6].markets[0].outcomes.map((el, idx) => (
                     <div key={idx} className={style.outcome}>
@@ -220,7 +220,7 @@ const Table = ({ active }) => {
                 <div className={style.goals}>
                   {active.league.matches[toggle.id].odds[0].groups[7].markets.map((el, idx) => (
                     <div key={idx} className={style.outcomes}>
-                      <Label text={el.headers[0]} />
+                      <Label text={el.headers[0]} size={'sm'} />
                       <div className={style.list}>
                         {filterColumn(el.outcomes).map((el, idx) => (
                           <div key={idx} className={style.outcomes}>

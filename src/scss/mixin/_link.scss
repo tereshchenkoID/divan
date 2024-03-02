@@ -1,9 +1,8 @@
 @mixin link {
   @include flex(center, center);
   @include size(rem(70px), rem(35px));
-  @include make-spacer('mr', 1);
+  @include make-spacer(mr, 1);
 
-  border: 0 solid var(--color-black);
   border-radius: rem(5px);
   font-size: rem(12px);
   font-weight: var(--typography-bold);
@@ -16,7 +15,7 @@
   transition: var(--default-transition);
 
   &:last-child {
-    @include make-spacer('mr', 0);
+    @include make-spacer(mr, 0);
   }
 
   &:hover,

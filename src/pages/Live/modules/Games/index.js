@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 
 import { setGame } from 'store/actions/gameAction'
+import { setModal } from 'store/actions/modalAction'
 
 import { getIcon } from 'helpers/getIcon'
 
@@ -34,6 +35,7 @@ const Games = ({ action, setPreloader }) => {
             aria-label={el.name}
             onClick={() => {
               setPreloader(true)
+              dispatch(setModal(0))
               dispatch(setGame(el))
               localStorage.setItem('game', JSON.stringify(el))
               action(false)

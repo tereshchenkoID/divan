@@ -1,7 +1,7 @@
 import { types } from 'store/actionTypes'
 
 const initialState = {
-  liveTimer: '0',
+  liveTimer: 0,
 }
 
 const liveTimerReducer = (state = initialState, action) => {

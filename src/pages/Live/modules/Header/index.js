@@ -19,7 +19,7 @@ const Header = () => {
     <div className={style.block}>
       <div className={style.left}>
         <div className={style.league}>
-          <img src={game.logo} alt={game.name} className={style.img} />
+          <img src={game.logo} alt={game.name} className={style.img} loading={'lazy'} />
         </div>
         {progress !== 0 && <Timer data={tv.event} type={game.type} />}
       </div>

@@ -11,6 +11,7 @@
   left: 0;
   z-index: 15;
   grid-template-columns: 1fr rem(257px);
+  align-items: flex-start;
   flex-grow: 1;
   font-weight: var(--typography-bold);
   text-align: center;
@@ -37,15 +38,21 @@
   position: absolute;
   top: rem(10px);
   grid-template-columns: 1fr rem(95px);
+  z-index: 1;
   align-items: center;
   gap: rem(20px);
   width: auto;
 }
 
+.decor,
 .video {
   @include size(100%);
   @include absolute-filled;
 
   display: block;
   object-fit: cover;
+}
+
+.decor {
+  z-index: 1;
 }
