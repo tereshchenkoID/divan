@@ -9,21 +9,15 @@ import style from './index.module.scss'
 
 const Translation = () => {
   const { tv } = useSelector(state => state.tv)
-  // const { settings } = useSelector(state => state.settings)
+  const { settings } = useSelector(state => state.settings)
   const { liveTimer } = useSelector(state => state.liveTimer)
   const [video, setVideo] = useState()
   const stingerRef = useRef(null)
 
-  //settings.account.gif
-
   return (
     <div className={style.block}>
       {video && <video className={style.video} src={video} autoPlay />}
-      <video
-        className={style.decor}
-        src="https://digital-events.weplay.tv/digital/2023_10_06__09:42:38-cc_mixer.webm"
-        ref={stingerRef}
-      />
+      <video className={style.decor} src={settings.account.transition} ref={stingerRef} />
       <div>
         <div className={style.info}>
           <Scoreboard data={tv.event.league.matches[0]} timer={liveTimer} setVideo={setVideo} stingerRef={stingerRef} />

@@ -2,6 +2,7 @@ import { gameType, matchStatus } from 'constant/config'
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
+import { useHistory } from 'react-router-dom'
 
 import i18n from 'i18next'
 
@@ -57,6 +58,7 @@ const getGame = id => {
 
 const Live = () => {
   const { t } = useTranslation()
+  const history = useHistory()
   const dispatch = useDispatch()
   const { game } = useSelector(state => state.game)
   const { modal } = useSelector(state => state.modal)
@@ -68,8 +70,10 @@ const Live = () => {
 
   useEffect(() => {
     dispatch(setSettings()).then(json => {
-      if (json.hasOwnProperty('data')) {
+      console.log(json)
+      if (json === -1) {
         sessionStorage.clear()
+        history.push('/live')
       } else {
         i18n.changeLanguage(json.account.language || 'en')
         dispatch(setGame(game || JSON.parse(localStorage.getItem('game'))))

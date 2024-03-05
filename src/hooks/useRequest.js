@@ -16,6 +16,14 @@ export const useRequest = (type = 'account') => {
         url,
         headers,
       })
+
+      if (req.data.error_code === '-1') {
+        console.log(req.data)
+        sessionStorage.clear()
+        // window.location.reload()
+        return -1
+      }
+
       return await req.data
     } catch (e) {
       return e.response
