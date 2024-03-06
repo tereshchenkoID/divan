@@ -22,7 +22,7 @@ const Tickets = () => {
 
   useEffect(() => {
     if (isConnected) {
-      sendMessage({ cmd: `account/${sessionStorage.getItem('authToken')}/history` })
+      sendMessage({ cmd: `account/${localStorage.getItem('authToken')}/history` })
     } else {
       getData(`/history`).then(json => {
         setData(json)

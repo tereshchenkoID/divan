@@ -1,7 +1,7 @@
 import { types } from 'store/actionTypes'
 
 const initialState = {
-  auth: sessionStorage.getItem('authToken') || false,
+  auth: localStorage.getItem('authToken') || false,
 }
 
 const authReducer = (state = initialState, action) => {

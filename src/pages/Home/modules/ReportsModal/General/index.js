@@ -115,7 +115,7 @@ const Settlement = () => {
     setLoading(true)
 
     if (isConnected) {
-      sendMessage({ cmd: `account/${sessionStorage.getItem('authToken')}/generalOverview/${f}/${t}` })
+      sendMessage({ cmd: `account/${localStorage.getItem('authToken')}/generalOverview/${f}/${t}` })
     } else {
       getData(`/generalOverview/${f}/${t}`).then(json => {
         if (json) {

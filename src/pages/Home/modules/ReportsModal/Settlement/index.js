@@ -48,7 +48,7 @@ const Settlement = () => {
     const type = active === 'master' ? `${active}/${MD5(password).toString()}` : active
 
     if (isConnected) {
-      sendMessage({ cmd: `account/${sessionStorage.getItem('authToken')}/settlement/${type}` })
+      sendMessage({ cmd: `account/${localStorage.getItem('authToken')}/settlement/${type}` })
     } else {
       getData(`/settlement/${type}`).then(json => {
         setData(null)

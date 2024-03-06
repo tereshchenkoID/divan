@@ -54,7 +54,7 @@ const MatchTimer = ({ delta }) => {
       if (new Date().getTime() + delta >= data.events[0].nextUpdate) {
         if (isConnected) {
           sendMessage({
-            cmd: `feed/${sessionStorage.getItem('authToken')}/EVENT/${data.events[0].id}`,
+            cmd: `feed/${localStorage.getItem('authToken')}/EVENT/${data.events[0].id}`,
           })
         } else {
           dispatch(setData(game)).then(json => {

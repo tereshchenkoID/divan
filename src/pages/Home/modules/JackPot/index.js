@@ -25,7 +25,7 @@ const JackPot = ({ size = 'default' }) => {
   useEffect(() => {
     if (isConnected) {
       sendMessage({
-        cmd: `account/${sessionStorage.getItem('authToken')}/jackpots`,
+        cmd: `account/${localStorage.getItem('authToken')}/jackpots`,
       })
     } else {
       getData(`/jackpots`).then(json => {
@@ -53,7 +53,7 @@ const JackPot = ({ size = 'default' }) => {
         if (r === '0') {
           clearInterval(a)
           sendMessage({
-            cmd: `account/${sessionStorage.getItem('authToken')}/jackpots`,
+            cmd: `account/${localStorage.getItem('authToken')}/jackpots`,
           })
         }
       }, 1000)

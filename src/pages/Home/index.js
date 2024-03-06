@@ -1,13 +1,15 @@
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
 import useSocket from 'hooks/useSocket'
 
 import i18n from 'i18next'
+import { status } from 'constant/config'
 
 import { checkCmd } from 'helpers/checkCmd'
 
+import { setNotification } from 'store/HOME/actions/notificationAction'
 import { setSettings } from 'store/actions/settingsAction'
+import { setData } from 'store/HOME/actions/dataAction'
 import { setAuth } from 'store/actions/authAction'
 
 import Connection from 'components/Connection'
@@ -20,56 +22,53 @@ import Decor from 'pages/Home/modules/Decor'
 import Skeleton from './modules/Skeleton'
 
 import style from './index.module.scss'
-import { setData } from '../../store/HOME/actions/dataAction'
 
 const Home = () => {
   const { sendMessage } = useSocket()
   const dispatch = useDispatch()
-  const navigate = useNavigate()
   const { notification } = useSelector(state => state.notification)
   const { data } = useSelector(state => state.data)
   const { game } = useSelector(state => state.game)
-  const { settings } = useSelector(state => state.settings)
   const { isConnected, receivedMessage } = useSelector(state => state.socket)
   const [loading, setLoading] = useState(true)
+
+  const handleRedirect = () => {
+    dispatch(setAuth(null))
+    localStorage.removeItem('authToken')
+  }
 
   useEffect(() => {
     if (isConnected) {
       sendMessage({
-        cmd: `account/${sessionStorage.getItem('authToken')}/settings`,
+        cmd: `account/${localStorage.getItem('authToken')}/settings`,
       })
     } else {
-      if (Object.keys(settings).length === 0) {
-        dispatch(setSettings()).then(json => {
-          if (json.hasOwnProperty('data')) {
-            dispatch(setAuth(null))
-            sessionStorage.clear()
-          } else {
-            i18n.changeLanguage(json.account.language || 'en')
-            setLoading(false)
-          }
-        })
-      } else {
-        setLoading(false)
-      }
+      dispatch(setSettings()).then(json => {
+        if (json === -1) {
+          handleRedirect()
+        } else {
+          i18n.changeLanguage(json.account.language || 'en')
+          setLoading(false)
+          dispatch(setNotification({ text: json.account.notification, type: status.info }))
+        }
+      })
     }
   }, [isConnected])
 
   useEffect(() => {
     if (receivedMessage !== '' && checkCmd('settings', receivedMessage.cmd)) {
       if (receivedMessage.hasOwnProperty('code')) {
-        dispatch(setAuth(null))
-        sessionStorage.clear()
-        navigate(0)
-      } else {
-        if (Object.keys(settings).length === 0) {
-          dispatch(setSettings(receivedMessage))
-          i18n.changeLanguage(receivedMessage.account.language || 'en')
-          setLoading(false)
-        } else {
-          setLoading(false)
-        }
+        handleRedirect()
       }
+      // else {
+      //   if (Object.keys(settings).length === 0) {
+      //     dispatch(setSettings(receivedMessage))
+      //     i18n.changeLanguage(receivedMessage.account.language || 'en')
+      //   } else {
+      //     handleRedirect()
+      //   }
+      //   setLoading(false)
+      // }
     }
   }, [receivedMessage])
 

@@ -35,7 +35,7 @@ const Password = ({ action }) => {
     if (newPassword === confirmPassword && oldPassword.length > 4) {
       if (isConnected) {
         sendMessage({
-          cmd: `account/${sessionStorage.getItem('authToken')}/password`,
+          cmd: `account/${localStorage.getItem('authToken')}/password`,
           password: oldPassword,
           old_password: newPassword,
         })

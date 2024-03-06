@@ -5,8 +5,8 @@
   @include size(100%, auto);
 
   display: grid;
-  grid-template-columns: auto 1fr rem(100px);
-  gap: rem(20px);
+  grid-template-columns: auto 1fr rem(200px);
+  gap: rem(10px);
   flex-shrink: 0;
   align-items: center;
   overflow: hidden;
@@ -14,7 +14,8 @@
 
 .left {
   display: grid;
-  grid-template-columns: rem(200px) rem(95px);
+  grid-template-columns: rem(250px) rem(95px);
+  gap: rem(10px);
   align-items: center;
 }
 
@@ -29,11 +30,17 @@
 }
 
 .league {
-  @include size(rem(135px), rem(70px));
+  @include size(100%);
+
+  display: grid;
+  grid-template-columns: rem(125px) auto;
+  column-gap: rem(10px);
+  align-items: center;
+  overflow: hidden;
 }
 
 .img {
-  width: auto;
+  width: 100%;
 }
 
 .weeks {

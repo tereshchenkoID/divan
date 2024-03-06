@@ -1,0 +1,32 @@
+@import 'scss/config';
+
+.block {
+  @include make-spacer(p, 2);
+  @include flex($direction: column);
+
+  border: rem(3px) solid var(--color-orange-900);
+  border-radius: rem(9px);
+  overflow: hidden;
+  background-color: #1b1b1b;
+  width: 250px;
+}
+
+.top {
+  @include make-spacer(mb, 4);
+}
+
+.bottom {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  justify-content: space-between;
+
+
+  span {
+    color: var(--color-orange-900);
+  }
+}
+
+.img {
+  @include make-spacer(mx, auto);
+  @include size(rem(120px), auto);
+}

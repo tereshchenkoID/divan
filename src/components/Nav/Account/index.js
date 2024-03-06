@@ -23,10 +23,10 @@ const Account = () => {
 
   useEffect(() => {
     if (isConnected) {
-      sendMessage({ cmd: `account/${sessionStorage.getItem('authToken')}/balance` })
+      sendMessage({ cmd: `account/${localStorage.getItem('authToken')}/balance` })
 
       const a = setInterval(() => {
-        sendMessage({ cmd: `account/${sessionStorage.getItem('authToken')}/balance` })
+        sendMessage({ cmd: `account/${localStorage.getItem('authToken')}/balance` })
       }, time.UPDATE)
 
       return () => {

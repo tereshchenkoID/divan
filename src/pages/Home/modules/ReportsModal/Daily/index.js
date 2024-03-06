@@ -90,7 +90,7 @@ const Daily = () => {
     setLoading(true)
 
     if (isConnected) {
-      sendMessage({ cmd: `account/${sessionStorage.getItem('authToken')}/dailySums/${f}/${t}?timezoneId=${getTimezone()}` })
+      sendMessage({ cmd: `account/${localStorage.getItem('authToken')}/dailySums/${f}/${t}?timezoneId=${getTimezone()}` })
     } else {
       getData(`/dailySums/${f}/${t}?timezoneId=${getTimezone()}`).then(json => {
         if (json) {

@@ -44,7 +44,7 @@ const SettingsModal = ({ action }) => {
     }
 
     if (isConnected) {
-      sendMessage({ cmd: `account/${sessionStorage.getItem('authToken')}/config`, payload: { [idx]: ref.current.value } })
+      sendMessage({ cmd: `account/${localStorage.getItem('authToken')}/config`, payload: { [idx]: ref.current.value } })
     } else {
       postData(
         '/config',
@@ -63,7 +63,7 @@ const SettingsModal = ({ action }) => {
 
   const print = ref => {
     if (isConnected) {
-      sendMessage({ cmd: `account/${sessionStorage.getItem('authToken')}/details/${ref.current.value}` })
+      sendMessage({ cmd: `account/${localStorage.getItem('authToken')}/details/${ref.current.value}` })
     } else {
       getData(`/details/${ref.current.value}`).then(json => {
         if (json.hasOwnProperty('stake')) {

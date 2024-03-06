@@ -10,7 +10,6 @@ import 'simple-keyboard/build/css/index.css'
 
 import { postData } from 'helpers/api'
 import { setNotification } from 'store/HOME/actions/notificationAction'
-import { setSettings } from 'store/actions/settingsAction'
 import { setAuth } from 'store/actions/authAction'
 
 import Button from 'components/Button'
@@ -71,12 +70,8 @@ const Login = () => {
       }),
     ).then(json => {
       if (json) {
-        sessionStorage.setItem('authToken', json.authToken)
+        localStorage.setItem('authToken', json.authToken)
         dispatch(setAuth(json.authToken))
-
-        dispatch(setSettings()).then(json => {
-          dispatch(setNotification({ text: json.account.notification, type: status.info }))
-        })
       } else {
         dispatch(setNotification({ text: 'Invalid password or login', type: status.error }))
       }

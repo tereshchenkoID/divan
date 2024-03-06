@@ -39,7 +39,7 @@ const TicketModal = ({ id, action }) => {
   const sendAction = action => {
     if (isConnected) {
       sendMessage({
-        cmd: `account/${sessionStorage.getItem('authToken')}/${action}/${find}`,
+        cmd: `account/${localStorage.getItem('authToken')}/${action}/${find}`,
       })
     } else {
       getData(`/${action}/${find}`).then(json => {
@@ -57,7 +57,7 @@ const TicketModal = ({ id, action }) => {
 
     if (isConnected) {
       sendMessage({
-        cmd: `account/${sessionStorage.getItem('authToken')}/details/${find}`,
+        cmd: `account/${localStorage.getItem('authToken')}/details/${find}`,
       })
     } else {
       getData(`/details/${find}`).then(json => {

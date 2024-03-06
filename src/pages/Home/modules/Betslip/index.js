@@ -107,11 +107,11 @@ const Betslip = () => {
 
       if (isConnected) {
         sendMessage({
-          cmd: `account/${sessionStorage.getItem('authToken')}/placebet`,
+          cmd: `account/${localStorage.getItem('authToken')}/placebet`,
           payload: a,
         })
         sendMessage({
-          cmd: `account/${sessionStorage.getItem('authToken')}/balance`,
+          cmd: `account/${localStorage.getItem('authToken')}/balance`,
         })
       } else {
         postData('/placebet', JSON.stringify(a)).then(json => {
@@ -144,7 +144,7 @@ const Betslip = () => {
   const repeatPrint = () => {
     if (isConnected) {
       sendMessage({
-        cmd: `account/${sessionStorage.getItem('authToken')}/reprint`,
+        cmd: `account/${localStorage.getItem('authToken')}/reprint`,
       })
     } else {
       getData(`/reprint`).then(json => {

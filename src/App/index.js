@@ -1,11 +1,8 @@
 import { Suspense, useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { Routes, Route } from 'react-router-dom'
-import { useLocation } from 'react-router-dom'
 
 import useSocket from 'hooks/useSocket'
-
-import { setAuth } from 'store/actions/authAction'
 
 import classNames from 'classnames'
 
@@ -17,10 +14,8 @@ import Loader from 'components/Loader'
 import style from './index.module.scss'
 
 const App = () => {
-  const dispatch = useDispatch()
   const { auth } = useSelector(state => state.auth)
   const { isConnected } = useSelector(state => state.socket)
-  const location = useLocation()
   const { connectSocket } = useSocket()
 
   useEffect(() => {
@@ -59,18 +54,6 @@ const App = () => {
     })
   }
 
-  const getAuth = () => {
-    const searchParams = new URLSearchParams(location.search)
-    const token = searchParams.get('authToken')
-
-    if (token) {
-      sessionStorage.setItem('authToken', token)
-      dispatch(setAuth(token))
-    }
-
-    return token ? searchParams.get('authToken') : null
-  }
-
   useEffect(() => {
     window.addEventListener('resize', handleResize)
     return () => window.removeEventListener('resize', handleResize)
@@ -84,7 +67,7 @@ const App = () => {
       }}
     >
       <main className={style.main}>
-        {auth || sessionStorage.getItem('authToken') || getAuth() ? (
+        {auth || localStorage.getItem('authToken') ? (
           <Suspense fallback={<Loader />}>
             <Routes>
               {router.map(item => (

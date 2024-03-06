@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux'
 import Scoreboard from './Scoreboard'
 import Timer from './Timer'
 import Match from './Match'
+import Meta from './Meta'
 
 import style from './index.module.scss'
 
@@ -28,6 +29,9 @@ const Translation = () => {
         {tv.event.league.matches.map((item, index) => (
           <Match key={index} index={index} data={item} timer={liveTimer} />
         ))}
+      </div>
+      <div className={style.meta}>
+        <Meta data={tv} />
       </div>
     </div>
   )

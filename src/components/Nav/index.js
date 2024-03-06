@@ -63,7 +63,7 @@ const Nav = () => {
         )}
         {settings.business.web_viewer && (
           <div className={style.option}>
-            <Link to={`/viewer?authToken=${sessionStorage.getItem('authToken')}`} target={'_blank'} rel="noreferrer">
+            <Link to={'/viewer'} target={'_blank'} rel="noreferrer">
               <Button type={'grey'} size={'md'} icon={'tv'} />
             </Link>
           </div>
@@ -74,8 +74,8 @@ const Nav = () => {
             size={'md'}
             icon={'turn-off'}
             action={() => {
-              sessionStorage.clear()
-              dispatch(setAuth(false))
+              dispatch(setAuth(null))
+              localStorage.removeItem('authToken')
             }}
           />
         </div>

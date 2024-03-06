@@ -3,7 +3,7 @@ import axios from 'axios'
 import { hostnames } from 'constant/config'
 
 export const useRequest = (type = 'account') => {
-  const token = sessionStorage.getItem('authToken')
+  const token = localStorage.getItem('authToken')
 
   const server = axios.create({
     baseURL: `${hostnames.PROD}/${type}/${token}`,
@@ -18,9 +18,7 @@ export const useRequest = (type = 'account') => {
       })
 
       if (req.data.error_code === '-1') {
-        console.log(req.data)
-        sessionStorage.clear()
-        // window.location.reload()
+        localStorage.removeItem('authToken')
         return -1
       }
 

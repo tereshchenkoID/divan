@@ -10,6 +10,7 @@ import i18n from 'i18next'
 import { getIcon } from 'helpers/getIcon'
 import { setGame } from 'store/actions/gameAction'
 import { setSettings } from 'store/actions/settingsAction'
+import { setAuth } from 'store/actions/authAction'
 
 import Loader from 'components/Loader'
 import Icon from 'components/Icon'
@@ -25,8 +26,9 @@ const Viewer = () => {
 
   useEffect(() => {
     dispatch(setSettings()).then(json => {
-      if (json.hasOwnProperty('data')) {
-        sessionStorage.clear()
+      if (json === -1) {
+        localStorage.removeItem('authToken')
+        dispatch(setAuth(null))
       } else {
         i18n.changeLanguage(json.account.language || 'en')
         setLoading(false)
@@ -53,7 +55,7 @@ const Viewer = () => {
             {settings.games.map((el, idx) => (
               <div key={idx}>
                 <Link
-                  to={`/live?authToken=${sessionStorage.getItem('authToken')}`}
+                  to={'/live'}
                   className={style.button}
                   aria-label={el.name}
                   target={active ? '_blank' : '_self'}

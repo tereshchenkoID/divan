@@ -10,7 +10,7 @@ import { getData } from 'helpers/api'
 import style from './index.module.scss'
 
 const Ticker = () => {
-  const token = sessionStorage.getItem('authToken')
+  const token = localStorage.getItem('authToken')
   const { t } = useTranslation()
   const { game } = useSelector(state => state.game)
   const [data, setData] = useState({})

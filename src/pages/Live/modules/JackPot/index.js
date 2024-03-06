@@ -25,7 +25,7 @@ const init = {
 
 const JackPotWinner = () => {
   const dispatch = useDispatch()
-  const token = sessionStorage.getItem('authToken')
+  const token = localStorage.getItem('authToken')
   const [data, setData] = useState(null)
   const [timer, setTimer] = useState(0)
   const [loading, setLoading] = useState(true)

@@ -22,11 +22,16 @@
   column-gap: rem(10px);
 }
 
+.table,
+.info,
+.meta {
+  z-index: 1;
+}
+
 .table {
   @include flex($direction: column);
 
   position: relative;
-  z-index: 1;
   border: rem(3px) solid var(--color-orange-900);
   border-radius: rem(9px);
   overflow: hidden;
@@ -38,10 +43,15 @@
   position: absolute;
   top: rem(10px);
   grid-template-columns: 1fr rem(95px);
-  z-index: 1;
   align-items: center;
   gap: rem(20px);
   width: auto;
+}
+
+.meta {
+  position: absolute;
+  bottom: rem(10px);
+  right: rem(10px);
 }
 
 .decor,
