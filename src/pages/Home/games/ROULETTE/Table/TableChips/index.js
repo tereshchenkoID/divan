@@ -360,7 +360,7 @@ const TableChips = ({ random, active }) => {
                 buttonStepSet(el.id)
               }}
             >
-              <img src={`/img/ROULETTE/chips/${el.color}.png`} alt={'Chips'} />
+              <img src={`/img/ROULETTE/chips/${el.color}.webp`} alt={'Chips'} loading={'lazy'} />
               <p>{el.amount}</p>
             </button>
           ))}

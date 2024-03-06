@@ -53,7 +53,11 @@ const Amount = ({ data, step, steps }) => {
     <div className={style.block}>
       {steps.length && (data.stake || data.stake === 0) && (
         <div className={classNames(style.amount, toggle && style.active)}>
-          <img src={`/img/ROULETTE/chips/${(data.stake > 0 ? currentStakeColor(data.stake, steps) : 'violet') || 'red'}.png`} alt={'Chips'} />
+          <img
+            src={`/img/ROULETTE/chips/${(data.stake > 0 ? currentStakeColor(data.stake, steps) : 'violet') || 'red'}.webp`}
+            alt={'Chips'}
+            loading={'lazy'}
+          />
           <p>{parseFloat(data.stake).toFixed(getFixed(data.stake))}</p>
           <div className={classNames(style.animation, toggle && style.active)}>+{step.amount}</div>
         </div>

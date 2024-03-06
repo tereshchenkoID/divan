@@ -160,9 +160,9 @@ const TicketModal = ({ id, action }) => {
                       )}
                     >
                       {data.stake.paid === '1' ? (
-                        <img src={'/img/paid.png'} alt={'Paid'} />
+                        <img src={'/img/paid.webp'} alt={'Paid'} loading={'lazy'} />
                       ) : (
-                        <img src={'/img/cancelled.png'} alt={'Paid'} />
+                        <img src={'/img/cancelled.webp'} alt={'Paid'} loading={'lazy'} />
                       )}
                     </div>
                     <div className={style.wrapper}>

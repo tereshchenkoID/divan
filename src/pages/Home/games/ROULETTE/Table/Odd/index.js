@@ -51,10 +51,12 @@ const Odd = ({ data, step, steps, active }) => {
         addBetslip(data)
       }}
     >
-      {betslip.length > 0 && findBet(betslip, active.id, outcome) && <Amount data={findBet(betslip, active.id, outcome)} step={step} steps={steps} />}
+      {betslip.length > 0 && findBet(betslip, active.id, outcome) && (
+        <Amount data={findBet(betslip, active.id, outcome)} step={step} steps={steps} />
+      )}
       {data.name === 'red' || data.name === 'black' ? (
         <div className={style.diamond}>
-          <img src={`/img/ROULETTE/decor/${data.name}.png`} alt={'Chips'} />
+          <img src={`/img/ROULETTE/decor/${data.name}.webp`} alt={'Chips'} loading={'lazy'} />
         </div>
       ) : (
         data.name

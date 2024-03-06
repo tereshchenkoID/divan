@@ -42,11 +42,11 @@ const Countdown = () => {
   return (
     <div className={style.block}>
       <div className={style.decor}>
-        <img src={`/img/decor/LIVE/TIMER/light.png`} alt="Decor" />
+        <img src={'/img/decor/LIVE/TIMER/light.webp'} alt="Decor" loading="lazy" />
       </div>
       <div className={style.title}>{t('notification.bets_close_in')}</div>
       <div className={style.timer}>
-        <img src={`/img/decor/LIVE/TIMER/circle.png`} alt="Decor" />
+        <img src={'/img/decor/LIVE/TIMER/circle.webp'} alt="Decor" loading="lazy" />
         <span>{seconds}</span>
       </div>
       <div className={style.subtitle}>{t('notification.place_your_bets')}</div>
