@@ -19,8 +19,14 @@ const Header = () => {
     <div className={style.block}>
       <div className={style.left}>
         <div className={style.league}>
-          <img src={game.logo} alt={game.name} className={style.img} loading={'lazy'} />
-          {game.logo2 && <img src={game.logo2} alt={game.name} className={style.img} loading={'lazy'} />}
+          <div className={style.img}>
+            <img src={game.logo} alt={game.name} loading={'lazy'} />
+          </div>
+          {game.logo2 && (
+            <div className={style.img}>
+              <img src={game.logo2} alt={game.name} loading={'lazy'} />
+            </div>
+          )}
         </div>
         {progress !== 0 && <Timer data={tv.event} type={game.type} />}
       </div>

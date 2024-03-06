@@ -7,7 +7,7 @@ import classNames from 'classnames'
 
 import style from './index.module.scss'
 
-const Scoreboard = ({ data, timer, setVideo, videoRef }) => {
+const Scoreboard = ({ data, timer, setVideo, stingerRef }) => {
   const { t } = useTranslation()
   const [score, setScore] = useState([0, 0])
 
@@ -16,11 +16,16 @@ const Scoreboard = ({ data, timer, setVideo, videoRef }) => {
     const DELAY = Math.ceil(TIME / scenes.length)
     const i = timer > DELAY ? Math.ceil(Number(timer) / DELAY) - 1 : 0
     const f = scenes[i]
+    const period = (i + 1) * DELAY
 
     if (f.update === timer) {
       setScore([f.home, f.away])
     }
     setVideo(f.video)
+
+    if (timer === period) {
+      stingerRef.current.play()
+    }
   }
 
   useEffect(() => {
@@ -28,12 +33,7 @@ const Scoreboard = ({ data, timer, setVideo, videoRef }) => {
       initScene(data.scenes, timer)
     }
 
-    // console.log(timer)
-
     if (timer === 90) {
-      // if (videoRef.current) {
-      //     videoRef.current.pause()
-      // }
       setVideo(null)
     }
   }, [timer])

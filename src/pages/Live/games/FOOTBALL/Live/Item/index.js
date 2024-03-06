@@ -313,7 +313,7 @@ const Item = ({ data, timer }) => {
               <div className={style.head}>{MARKETS[idx].name}</div>
               <div className={style.market}>
                 {el.a ? (
-                  <div className={classNames(style.odd, style.active)}>
+                  <div className={classNames(style.odd, progress === 2 && el.active && style.active)}>
                     <div className={style.label}>{el.c || el.a}</div>
                     <div className={style.value}>{el.b || '1.00'}</div>
                   </div>

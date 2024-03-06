@@ -2,7 +2,7 @@
 
 .block {
   @include make-spacer(px, 2);
-  @include size(100%, auto);
+  @include size(100%, rem(95px));
 
   display: grid;
   grid-template-columns: auto 1fr rem(200px);
@@ -12,11 +12,21 @@
   overflow: hidden;
 }
 
-.left {
+.left,
+.right {
+  height: 100%;
+  overflow: hidden;
+}
+
+.left,
+.league {
   display: grid;
-  grid-template-columns: rem(250px) rem(95px);
-  gap: rem(10px);
   align-items: center;
+  column-gap: rem(10px);
+}
+
+.left {
+  grid-template-columns: rem(250px) rem(95px);
 }
 
 .center {
@@ -25,22 +35,16 @@
   gap: rem(10px);
 }
 
-.right {
-  @include size(100%);
-}
-
 .league {
   @include size(100%);
 
-  display: grid;
   grid-template-columns: rem(125px) auto;
-  column-gap: rem(10px);
-  align-items: center;
   overflow: hidden;
 }
 
 .img {
-  width: 100%;
+  height: 100%;
+  overflow: hidden;
 }
 
 .weeks {
