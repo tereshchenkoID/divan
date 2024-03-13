@@ -20,6 +20,8 @@
     "check_connection": "Please check your Internet connection and try again UA"
   },
   "interface": {
+    "copy": "Copy UA",
+    "duplicate": "Duplicate UA",
     "try_again": "Try again UA",
     "jackpot_winner": "jackpot winner UA",
     "numbers": "numbers UA",

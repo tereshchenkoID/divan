@@ -1,18 +1,17 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
+import useSocket from 'hooks/useSocket'
 
 import classNames from 'classnames'
 
 import { gameType, matchStatus } from 'constant/config'
 
-// import useSocket from 'hooks/useSocket'
-//
-// import { checkCmd } from 'helpers/checkCmd'
-// import { checkData } from 'helpers/checkData'
 import { getDateTime } from 'helpers/getDateTime'
 import { conditionStatus } from 'helpers/conditionStatus'
+import { checkCmd } from 'helpers/checkCmd'
 
+import { setLiveTimer } from 'store/HOME/actions/liveTimerAction'
 import { setData } from 'store/HOME/actions/dataAction'
 import { setLive } from 'store/HOME/actions/liveAction'
 import { setModal } from 'store/actions/modalAction'
@@ -33,7 +32,7 @@ import KENO from 'pages/Home/games/KENO/Table'
 import DOGS_6 from 'pages/Home/games/DOGS_6/Table'
 import HORSES_8_VR from 'pages/Home/games/HORSES_8_VR/Table'
 
-const setGame = (id, active, find) => {
+const setGame = (id, active) => {
   switch (id) {
     case gameType.FOOTBALL:
       return <FOOTBALL active={active} />
@@ -42,9 +41,9 @@ const setGame = (id, active, find) => {
     case gameType.ROULETTE:
       return <ROULETTE active={active} />
     case gameType.COLOR_COLOR:
-      return <COLOR_COLOR active={active} find={find} />
+      return <COLOR_COLOR active={active} />
     case gameType.KENO:
-      return <KENO active={active} find={find} />
+      return <KENO active={active} />
     case gameType.DOGS_6:
       return <DOGS_6 active={active} />
     case gameType.HORSES_8_VR:
@@ -57,13 +56,13 @@ const setGame = (id, active, find) => {
 const Skeleton = () => {
   const dispatch = useDispatch()
   const { t } = useTranslation()
-  // const { sendMessage } = useSocket()
+  const { sendMessage } = useSocket()
 
   const { data } = useSelector(state => state.data)
   const { live } = useSelector(state => state.live)
   const { modal } = useSelector(state => state.modal)
   const { game } = useSelector(state => state.game)
-  // const { isConnected, receivedMessage } = useSelector(state => state.socket)
+  const { isConnected, receivedMessage } = useSelector(state => state.socket)
 
   const [loading, setLoading] = useState(true)
   const [find, setFind] = useState(null)
@@ -85,26 +84,26 @@ const Skeleton = () => {
     setLoading(true)
 
     if (game !== null) {
-      // if (isConnected) {
-      //   sendMessage({
-      //     cmd: `feed/${sessionStorage.getItem('authToken')}/${game.type}/${game.id}`,
-      //   })
-      // } else {
-      dispatch(setData(game)).then(json => {
-        if (json && json.events.length > 0) {
-          if (json.events[0].status !== matchStatus.ANNOUNCEMENT) {
-            setActive(json.events[1])
-            setFind(json.events[0])
-            checkStatus(json.events[1])
-          } else {
-            setActive(json.events[0])
-            dispatch(setLive(1))
+      if (isConnected) {
+        sendMessage({
+          cmd: `feed/${localStorage.getItem('authToken')}/${game.type}/${game.id}`,
+        })
+      } else {
+        dispatch(setData(game)).then(json => {
+          if (json && json.events.length > 0) {
+            if (json.events[0].status !== matchStatus.ANNOUNCEMENT) {
+              setActive(json.events[1])
+              setFind(json.events[0])
+              checkStatus(json.events[1])
+            } else {
+              setActive(json.events[0])
+              dispatch(setLive(1))
+            }
           }
-        }
-        setType(game)
-        setLoading(false)
-      })
-      // }
+          setType(game)
+          setLoading(false)
+        })
+      }
     }
 
     return () => {
@@ -112,25 +111,42 @@ const Skeleton = () => {
     }
   }, [game])
 
-  // useEffect(() => {
-  //   if (receivedMessage !== '' && checkCmd('feed', receivedMessage.cmd)) {
-  //     if (receivedMessage.events && receivedMessage.events[0].type === game.type && modal !== 2) {
-  //       dispatch(setData(game, receivedMessage)).then(() => {
-  //         if (receivedMessage.events[0].status !== matchStatus.ANNOUNCEMENT) {
-  //           setActive(receivedMessage.events[1])
-  //           setFind(receivedMessage.events[0])
-  //           checkStatus(receivedMessage.events[1])
-  //         } else {
-  //           setFind(null)
-  //           setActive(receivedMessage.events[0])
-  //           dispatch(setLive(1))
-  //         }
-  //         setType(game)
-  //         setLoading(false)
-  //       })
-  //     }
-  //   }
-  // }, [receivedMessage])
+  useEffect(() => {
+    if (receivedMessage !== '' && checkCmd('feed', receivedMessage.cmd)) {
+      if (loading) {
+        dispatch(setData(game, receivedMessage)).then(() => {
+          if (receivedMessage && receivedMessage.events[0].status !== matchStatus.ANNOUNCEMENT) {
+            setActive(receivedMessage.events[1])
+            setFind(receivedMessage.events[0])
+            checkStatus(receivedMessage.events[1])
+          } else {
+            setActive(receivedMessage.events[0])
+            dispatch(setLive(1))
+          }
+
+          setLoading(false)
+          setType(game)
+        })
+      } else {
+        if (find?.id !== active.id) {
+          dispatch(setData(game, receivedMessage)).then(() => {
+            setFind(receivedMessage.events[0])
+          })
+        } else {
+          dispatch(setData(game, receivedMessage)).then(() => {
+            if (receivedMessage && receivedMessage.events[0].status === matchStatus.PROGRESS) {
+              dispatch(setLive(2))
+            } else if (receivedMessage && receivedMessage.events[0].status === matchStatus.RESULTS) {
+              dispatch(setLive(3))
+              dispatch(setLiveTimer(0))
+            } else if (receivedMessage && receivedMessage.events[0].status === matchStatus.ANNOUNCEMENT) {
+              dispatch(setLive(4))
+            }
+          })
+        }
+      }
+    }
+  }, [receivedMessage])
 
   useEffect(() => {
     if (modal === 1) {
@@ -174,7 +190,7 @@ const Skeleton = () => {
               </div>
               {live !== 0 && (
                 <>
-                  <div className={style.body}>{setGame(type.type, active, find)}</div>
+                  <div className={style.body}>{setGame(type.type, active)}</div>
                   {modal === 1 && <SkipModal action={handleNext} />}
                   {active.id !== data.events[0].id && (
                     <UpdateData find={find || data.events[0]} setActive={setActive} setFind={setFind} />

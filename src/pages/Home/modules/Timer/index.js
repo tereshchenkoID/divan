@@ -1,11 +1,9 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
-// import useSocket from 'hooks/useSocket'
 
 import { setLive } from 'store/HOME/actions/liveAction'
 import { setLiveTimer } from 'store/HOME/actions/liveTimerAction'
-// import { setData } from 'store/HOME/actions/dataAction'
 
 import { convertTime } from 'helpers/convertTime'
 
@@ -18,31 +16,10 @@ import style from './index.module.scss'
 const Timer = ({ data, type }) => {
   const dispatch = useDispatch()
   const { t } = useTranslation()
-  // const { sendMessage } = useSocket()
-  // const { game } = useSelector(state => state.game)
   const { live } = useSelector(state => state.live)
   const { delta } = useSelector(state => state.delta)
-  // const { isConnected, receivedMessage } = useSelector(state => state.socket)
 
   useEffect(() => {}, [delta])
-
-  // useEffect(() => {
-  //   if (live === 2 || live === 3) {
-  //     if (isConnected) {
-  //       sendMessage({
-  //         cmd: `feed/${sessionStorage.getItem('authToken')}/EVENT/${data.id}`,
-  //       })
-  //     } else {
-  //       dispatch(setData(game))
-  //     }
-  //   }
-  // }, [live])
-
-  // useEffect(() => {
-  //   if (receivedMessage !== '' && checkCmd('event', receivedMessage.cmd)) {
-  //     dispatch(setUpdate(null, receivedMessage))
-  //   }
-  // }, [receivedMessage])
 
   useEffect(() => {
     return () => {

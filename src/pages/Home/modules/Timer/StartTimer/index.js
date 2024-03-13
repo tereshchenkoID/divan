@@ -30,7 +30,7 @@ const StartTimer = ({ data, delta }) => {
       if (new Date().getTime() + delta >= data.nextUpdate) {
         if (isConnected) {
           sendMessage({
-            cmd: `feed/${localStorage.getItem('authToken')}/EVENT/${data.id}`,
+            cmd: `feed/${localStorage.getItem('authToken')}/${game.type}/${game.id}`,
           })
         } else {
           dispatch(setData(game)).then(json => {

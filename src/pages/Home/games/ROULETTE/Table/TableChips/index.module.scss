@@ -121,6 +121,7 @@
 .dozens,
 .extra,
 .rows {
+
   .button {
     flex: 1;
     border: rem(2px) solid var(--color-white);
@@ -138,12 +139,14 @@
 }
 
 .dozens {
+
   .button {
     font-size: rem(28px);
   }
 }
 
 .extra {
+
   .button {
     font-size: rem(24px);
   }
@@ -185,6 +188,7 @@
     }
 
     &.hover {
+
       &::after {
         opacity: 1;
       }
@@ -229,6 +233,7 @@
     }
 
     &.hover {
+
       &::after {
         opacity: 1;
       }
@@ -262,6 +267,7 @@
   }
 
   &:hover {
+
     &::after {
       opacity: 1;
     }

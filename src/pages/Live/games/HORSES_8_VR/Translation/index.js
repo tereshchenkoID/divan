@@ -32,7 +32,6 @@ const Translation = ({ data }) => {
 
     if (videoElement) {
       videoElement.currentTime = getDifferent(data.event.start, data.event.nextUpdate, delta)
-      // videoElement.muted = true
       videoElement.play()
     }
   }, [videoRef])
@@ -50,7 +49,7 @@ const Translation = ({ data }) => {
 
   return (
     <div className={style.block}>
-      <video className={style.video} src={video} ref={videoRef} />
+      <video className={style.video} src={video} ref={videoRef} muted />
       <div className={classNames(style.footer, active && style.active)}>
         {data.event.race.results?.map((el, idx) => (
           <Number key={idx} color={el - 1} data={el} size={'xl'} />

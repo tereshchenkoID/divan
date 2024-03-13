@@ -12,8 +12,8 @@ import { postData } from 'helpers/api'
 import { setNotification } from 'store/HOME/actions/notificationAction'
 import { setAuth } from 'store/actions/authAction'
 
-import Button from 'components/Button'
 import Notification from 'pages/Home/modules/Notification'
+import Button from 'components/Button'
 
 import style from './index.module.scss'
 
@@ -26,6 +26,11 @@ const Login = () => {
     login: 'cashier131',
     password: '1qaz2wsx',
   })
+
+  // const [inputs, setInputs] = useState({
+  //   login: '',
+  //   password: '',
+  // })
   const [layoutName, setLayoutName] = useState('default')
   const [inputName, setInputName] = useState('default')
   const keyboard = useRef()
@@ -69,11 +74,11 @@ const Login = () => {
         password: inputs.password,
       }),
     ).then(json => {
-      if (json) {
+      if (json.code) {
+        dispatch(setNotification({ text: 'Invalid password or login', type: status.error }))
+      } else {
         localStorage.setItem('authToken', json.authToken)
         dispatch(setAuth(json.authToken))
-      } else {
-        dispatch(setNotification({ text: 'Invalid password or login', type: status.error }))
       }
     })
   }
@@ -81,7 +86,7 @@ const Login = () => {
   return (
     <div className={style.block}>
       {notification && <Notification text={notification} />}
-      <form className={style.wrapper} onSubmit={handleSubmit}>
+      <form className={style.wrapper} onSubmit={handleSubmit} autoComplete="off">
         <div className={style.row}>
           <p className={style.title}>AUTHENTICATION</p>
         </div>
@@ -97,6 +102,7 @@ const Login = () => {
             type={'text'}
             className={style.field}
             placeholder={'Username'}
+            autoComplete="new-password"
           />
         </div>
         <div className={style.row}>
@@ -111,6 +117,7 @@ const Login = () => {
             type={type}
             className={style.field}
             placeholder={'Password'}
+            autoComplete="new-password"
           />
         </div>
         <div className={style.row}>

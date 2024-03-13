@@ -8,6 +8,7 @@ import { setLive } from 'store/HOME/actions/liveAction'
 import { setLiveTimer } from 'store/HOME/actions/liveTimerAction'
 import { setData } from 'store/HOME/actions/dataAction'
 
+import { checkCmd } from 'helpers/checkCmd'
 import { getDifferent } from 'helpers/getDifferent'
 
 const getDifferentPeriod = (start, end, delta) => {
@@ -36,7 +37,7 @@ const checkType = (start, end, delta, type) => {
 const MatchTimer = ({ delta }) => {
   const dispatch = useDispatch()
   const { sendMessage } = useSocket()
-  const { isConnected } = useSelector(state => state.socket)
+  const { isConnected, receivedMessage } = useSelector(state => state.socket)
   const [timer, setTimer] = useState('')
   const { data } = useSelector(state => state.data)
   const { game } = useSelector(state => state.game)
@@ -54,7 +55,7 @@ const MatchTimer = ({ delta }) => {
       if (new Date().getTime() + delta >= data.events[0].nextUpdate) {
         if (isConnected) {
           sendMessage({
-            cmd: `feed/${localStorage.getItem('authToken')}/EVENT/${data.events[0].id}`,
+            cmd: `feed/${localStorage.getItem('authToken')}/${game.type}/${game.id}`,
           })
         } else {
           dispatch(setData(game)).then(json => {
@@ -76,6 +77,14 @@ const MatchTimer = ({ delta }) => {
       clearInterval(a)
     }
   }, [data, delta])
+
+  useEffect(() => {
+    if (receivedMessage !== '' && checkCmd('feed', receivedMessage.cmd)) {
+      if (receivedMessage && receivedMessage.events[0].status === matchStatus.PROGRESS) {
+        dispatch(setLive(2))
+      }
+    }
+  }, [receivedMessage])
 
   return <div>{timer === '0' ? '00:00' : timer}</div>
 }

@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 
 import Scoreboard from './Scoreboard'
@@ -13,11 +13,26 @@ const Translation = () => {
   const { settings } = useSelector(state => state.settings)
   const { liveTimer } = useSelector(state => state.liveTimer)
   const [video, setVideo] = useState()
+  const videoRef = useRef(null)
   const stingerRef = useRef(null)
+
+  useEffect(() => {
+    const playPromise = videoRef.current?.play()
+
+    if (playPromise !== undefined) {
+      playPromise
+        .then(_ => {
+          console.log('start')
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    }
+  }, [video])
 
   return (
     <div className={style.block}>
-      {video && <video className={style.video} src={video} autoPlay />}
+      {video && <video className={style.video} src={video} autoPlay muted />}
       <video className={style.decor} src={settings.account.transition} ref={stingerRef} />
       <div>
         <div className={style.info}>

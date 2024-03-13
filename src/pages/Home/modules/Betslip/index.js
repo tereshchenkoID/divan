@@ -150,7 +150,10 @@ const Betslip = () => {
       getData(`/reprint`).then(json => {
         if (json.hasOwnProperty('stake')) {
           if (settings.print.mode === printMode.WEB_PRINT && settings.print.payout) {
-            setResponse(json)
+            setResponse({
+              ...json,
+              reprint: true,
+            })
           }
         } else {
           dispatch(setNotification({ text: t('notification.ticket_not_found'), type: status.error }))
@@ -350,7 +353,7 @@ const Betslip = () => {
             </>
           ) : (
             <div className={style.empty}>
-              <img src={settings.account.logo} width={200} height={80} alt="logo" loading="lazy" />
+              {settings.account.logo && <img src={settings.account.logo} width={200} height={80} alt="logo" loading="lazy" />}
               <div className={style.icon}>
                 <Icon id={'add'} />
               </div>

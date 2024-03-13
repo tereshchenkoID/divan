@@ -21,9 +21,11 @@ export const TicketPrint = React.forwardRef((data, ref) => {
     <div className={style.block} ref={ref}>
       <div className={style.header}>
         <div>
-          <div className={style.logo}>
-            <img src={settings.print.logo} alt={'Logo'} />
-          </div>
+          {settings.print.logo && (
+            <div className={style.logo}>
+              <img src={settings.print.logo} alt={'Logo'} loading={'lazy'} />
+            </div>
+          )}
         </div>
         <div>
           <ul className={style.info}>
@@ -43,6 +45,14 @@ export const TicketPrint = React.forwardRef((data, ref) => {
         </div>
       </div>
       <div className={style.body}>
+        {data.data.reprint && (
+          <>
+            <div className={style.copy}>{t('interface.copy')}</div>
+            <div className={style.title}>
+              {t('interface.duplicate')} ({getDateTime(new Date().getTime(), 1)})
+            </div>
+          </>
+        )}
         <div className={style.title}>
           {t('interface.ticket')} #{data.data.stake.id}
         </div>

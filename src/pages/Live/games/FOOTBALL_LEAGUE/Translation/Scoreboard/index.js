@@ -23,7 +23,7 @@ const Scoreboard = ({ data, timer, setVideo, stingerRef }) => {
     }
     setVideo(f.video)
 
-    if (timer === period) {
+    if (timer === period && timer !== TIME) {
       stingerRef.current.play()
     }
   }

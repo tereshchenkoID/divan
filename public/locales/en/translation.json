@@ -20,6 +20,8 @@
     "check_connection": "Please check your Internet connection and try again"
   },
   "interface": {
+    "copy": "Copy",
+    "duplicate": "Duplicate",
     "try_again": "Try again",
     "jackpot_winner": "jackpot winner",
     "numbers": "numbers",

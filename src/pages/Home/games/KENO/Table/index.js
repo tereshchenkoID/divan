@@ -2,6 +2,8 @@ import { useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { matchStatus } from 'constant/config'
+
 import classNames from 'classnames'
 
 import Label from 'components/Label'
@@ -12,7 +14,7 @@ import style from './index.module.scss'
 
 const SORT = [1, 2, 3, 4, 5, 6, 7, 8]
 
-const Table = ({ active, find }) => {
+const Table = ({ active }) => {
   const { t } = useTranslation()
   const { data } = useSelector(state => state.data)
   const { live } = useSelector(state => state.live)
@@ -66,7 +68,7 @@ const Table = ({ active, find }) => {
                   key={idx}
                   className={classNames(
                     style.market,
-                    find && idx === data.events.length - 1 && style.disabled,
+                    data.events[0].status !== matchStatus.ANNOUNCEMENT && idx === data.events.length - 1 && style.disabled,
                     idx + 1 === repeat && style.active,
                   )}
                   onClick={() => {

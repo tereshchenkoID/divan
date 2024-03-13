@@ -12,6 +12,19 @@ import Hot from '../Hot'
 
 import style from './index.module.scss'
 
+const getStatus = id => {
+  switch (id) {
+    case 1:
+      return 'init'
+    case 2:
+      return 'spin'
+    case 3:
+      return 'result'
+    default:
+      return 'wait'
+  }
+}
+
 const Table = ({ data }) => {
   const { progress } = useSelector(state => state.progress)
   const { delta } = useSelector(state => state.delta)
@@ -19,7 +32,7 @@ const Table = ({ data }) => {
 
   useEffect(() => {
     setParams(
-      `status=${progress !== 2 ? 'init' : 'start'}&number=${data.round.result || data.history[0].results}&time=${data.start}&delta=${delta}`,
+      `status=${getStatus(progress)}&number=${data.round.result || data.history[0].results}&time=${data.start}&delta=${delta}`,
     )
   }, [progress])
 
@@ -27,7 +40,6 @@ const Table = ({ data }) => {
     <div className={style.block}>
       <div className={style.wrapper}>
         <div className={style.column}>
-          {params}
           <div className={style.wheel}>
             <iframe title={'Wheel'} src={`${hostnames.PROD}/iframe/wheel/#/${params}`} />
           </div>

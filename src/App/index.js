@@ -8,6 +8,7 @@ import classNames from 'classnames'
 
 import { router } from 'router'
 
+import Notification from 'pages/Home/modules/Notification'
 import Login from 'pages/Login'
 import Loader from 'components/Loader'
 
@@ -16,6 +17,7 @@ import style from './index.module.scss'
 const App = () => {
   const { auth } = useSelector(state => state.auth)
   const { isConnected } = useSelector(state => state.socket)
+  const { notification } = useSelector(state => state.notification)
   const { connectSocket } = useSocket()
 
   useEffect(() => {
@@ -78,6 +80,8 @@ const App = () => {
         ) : (
           <Login />
         )}
+
+        {notification && <Notification data={notification} />}
       </main>
     </div>
   )

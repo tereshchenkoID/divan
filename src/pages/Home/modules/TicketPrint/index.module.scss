@@ -6,8 +6,8 @@ $color: #000;
   @include make-spacer(p, 4);
 
   max-width: rem(350px);
+  font-family: Open Sans, sans-serif;
   font-size: rem(12px);
-  font-family: 'Open Sans', sans-serif;
   color: $color;
 }
 
@@ -41,6 +41,8 @@ $color: #000;
 
 .body {
   @include make-spacer(py, 4);
+
+  position: relative;
 }
 
 .title {
@@ -70,6 +72,7 @@ $color: #000;
     }
 
     > div {
+
       &:nth-child(2) {
         text-align: right;
       }
@@ -102,6 +105,7 @@ $color: #000;
 
 .teams {
   @include make-spacer(ml, half);
+
   display: grid;
   grid-template-columns: auto rem(10px) auto;
   align-items: center;
@@ -117,4 +121,14 @@ $color: #000;
   @include make-spacer(mt, 4);
 
   text-align: center;
+}
+
+.copy {
+  position: absolute;
+  top: rem(180px);
+  left: 50%;
+  font-size: rem(100px);
+  font-weight: var(--typography-extra-bold);
+  color: rgba($color, 0.1);
+  transform: translateX(-50%) rotateZ(-10deg);
 }

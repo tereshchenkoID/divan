@@ -50,7 +50,7 @@ const Header = () => {
         </div>
       </div>
       <div className={style.right}>
-        <img src={settings.account.logo} alt="logo" />
+        {settings.account.logo && <img src={settings.account.logo} alt="logo" loading={'lazy'} />}
       </div>
     </div>
   )

@@ -16,7 +16,6 @@ import Connection from 'components/Connection'
 import Loader from 'components/Loader'
 import Nav from 'components/Nav'
 import Betslip from 'pages/Home/modules/Betslip'
-import Notification from 'pages/Home/modules/Notification'
 import JackPot from 'pages/Home/modules/JackPot'
 import Decor from 'pages/Home/modules/Decor'
 import Skeleton from './modules/Skeleton'
@@ -26,7 +25,6 @@ import style from './index.module.scss'
 const Home = () => {
   const { sendMessage } = useSocket()
   const dispatch = useDispatch()
-  const { notification } = useSelector(state => state.notification)
   const { data } = useSelector(state => state.data)
   const { game } = useSelector(state => state.game)
   const { isConnected, receivedMessage } = useSelector(state => state.socket)
@@ -59,16 +57,11 @@ const Home = () => {
     if (receivedMessage !== '' && checkCmd('settings', receivedMessage.cmd)) {
       if (receivedMessage.hasOwnProperty('code')) {
         handleRedirect()
+      } else {
+        dispatch(setSettings(receivedMessage))
+        i18n.changeLanguage(receivedMessage.account.language || 'en')
+        setLoading(false)
       }
-      // else {
-      //   if (Object.keys(settings).length === 0) {
-      //     dispatch(setSettings(receivedMessage))
-      //     i18n.changeLanguage(receivedMessage.account.language || 'en')
-      //   } else {
-      //     handleRedirect()
-      //   }
-      //   setLoading(false)
-      // }
     }
   }, [receivedMessage])
 
@@ -100,7 +93,6 @@ const Home = () => {
               <Betslip />
             </div>
           </div>
-          {notification && <Notification data={notification} />}
         </>
       )}
     </div>

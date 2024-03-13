@@ -1,0 +1,18 @@
+@import 'scss/config';
+
+.block {
+  @include wrapper;
+  @include absolute-filled;
+}
+
+.wheel {
+  @include size(100%);
+  @include flex(center, center);
+
+  iframe {
+    @include size(100%);
+
+    display: block;
+    border: 0;
+  }
+}

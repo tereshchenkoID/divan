@@ -2,12 +2,11 @@ import { useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { hostnames } from 'constant/config'
-
 import { checkTime } from 'helpers/checkTime'
 
 import Label from 'components/Label'
 import TableChips from './TableChips'
+import Live from '../Live'
 
 import style from './index.module.scss'
 
@@ -17,7 +16,6 @@ const Table = ({ active }) => {
   const { t } = useTranslation()
   const { live } = useSelector(state => state.live)
   const { delta } = useSelector(state => state.delta)
-  const [params, setParams] = useState('')
   const [random, setRandom] = useState([])
 
   const generateRandomArray = length => {
@@ -34,10 +32,6 @@ const Table = ({ active }) => {
   }
 
   useEffect(() => {
-    setParams(`status=${live !== 2 ? 'init' : 'start'}&number=${active.round.result}&time=${active.start}&delta=${delta}`)
-  }, [live])
-
-  useEffect(() => {
     return () => {
       setRandom([])
     }
@@ -49,7 +43,6 @@ const Table = ({ active }) => {
         {checkTime(active.start, delta) && (
           <>
             <Label text={t('games.ROULETTE.random')} />
-            <div />
             <div className={style.sort}>
               {SORT.map((el, idx) => (
                 <button
@@ -63,20 +56,12 @@ const Table = ({ active }) => {
                 </button>
               ))}
             </div>
-            <div />
           </>
         )}
       </div>
       <div className={style.wrapper}>
-        {live === 1 ? (
-          <TableChips random={random} active={active} />
-        ) : (
-          <div className={style.live}>
-            <div className={style.wheel}>
-              <iframe title={'Wheel'} src={`${hostnames.PROD}/iframe/wheel/#/${params}`} />
-            </div>
-          </div>
-        )}
+        <Live active={active} />
+        {live === 1 && <TableChips random={random} active={active} />}
       </div>
     </>
   )

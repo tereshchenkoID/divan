@@ -1,7 +1,8 @@
-import { gameType, hostnames } from 'constant/config'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
+
+import { hostnames } from 'constant/config'
 
 import classNames from 'classnames'
 
@@ -17,14 +18,12 @@ const Ticker = () => {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    if (game.type === gameType.FOOTBALL_LEAGUE) {
-      getData(`${hostnames.PROD}/viewer/lastgame/${token}/FOOTBALL_LEAGUE/${game.id}`).then(json => {
-        if (json.last) {
-          setData(json)
-          setLoading(false)
-        }
-      })
-    }
+    getData(`${hostnames.PROD}/viewer/lastgame/${token}/FOOTBALL_LEAGUE/${game.id}`).then(json => {
+      if (json.last) {
+        setData(json)
+        setLoading(false)
+      }
+    })
   }, [loading])
 
   if (loading) {

@@ -3,21 +3,14 @@
 .header {
   @include make-spacer(my, 2);
 
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  flex-shrink: 0;
+  width: fit-content;
   min-height: rem(92px);
   padding-left: rem(270px);
-  column-gap: rem(40px);
 }
 
 .wrapper {
+  position: relative;
   flex-grow: 1;
-}
-
-.live {
-  @include size(100%);
-  @include wrapper;
 }
 
 .sort {
@@ -33,17 +26,5 @@
 
   &:last-child {
     @include make-spacer(mr, 0);
-  }
-}
-
-.wheel {
-  @include size(100%);
-  @include flex(center, center);
-
-  iframe {
-    @include size(100%);
-
-    display: block;
-    border: 0;
   }
 }

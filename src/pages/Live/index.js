@@ -67,6 +67,23 @@ const Live = () => {
   const [preloader, setPreloader] = useState(true)
   const [active, setActive] = useState(false)
 
+  // const [time, setTime] = useState(0)
+  //
+  // useEffect(() => {
+  //   const timerWorker = new Worker('./serviceWorker.js')
+  //
+  //   timerWorker.addEventListener('message', function (event) {
+  //     setTime(new Date().getTime())
+  //   })
+  //
+  //   timerWorker.postMessage('start')
+  //
+  //   return () => {
+  //     timerWorker.postMessage('stop')
+  //     timerWorker.terminate()
+  //   }
+  // }, [])
+
   useEffect(() => {
     dispatch(setSettings()).then(json => {
       if (json === -1) {
@@ -74,7 +91,7 @@ const Live = () => {
         dispatch(setAuth(null))
       } else {
         i18n.changeLanguage(json.account.language || 'en')
-        dispatch(setGame(game || JSON.parse(localStorage.getItem('game'))))
+        dispatch(setGame(game || JSON.parse(localStorage.getItem('game'))) || json.games[0])
         setLoading(false)
       }
     })
@@ -120,6 +137,14 @@ const Live = () => {
         <Loader />
       ) : (
         <>
+          {/*<p*/}
+          {/*  style={{*/}
+          {/*    color: '#fff',*/}
+          {/*    fontSize: 50,*/}
+          {/*  }}*/}
+          {/*>*/}
+          {/*  {time}*/}
+          {/*</p>*/}
           <Decor type={game.decor} />
           <div
             className={style.wrapper}
@@ -131,7 +156,7 @@ const Live = () => {
               <div className={style.winner}>
                 <JackPotWinner />
               </div>
-              <Ticker />
+              {game.type === gameType.FOOTBALL_LEAGUE && <Ticker />}
             </div>
             {preloader && tv ? (
               <Loader type={'block'} background={'transparent'} />
