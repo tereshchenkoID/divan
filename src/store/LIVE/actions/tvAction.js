@@ -7,13 +7,11 @@ export const setTv = url => async dispatch => {
   const { get } = useRequest('viewer/event')
   try {
     const data = await get(url)
-
     dispatch(setDelta(data.timer))
     dispatch({
       type: types.SET_LIVE_TV,
       payload: data,
     })
-
     return data
   } catch (e) {
     dispatch({
@@ -22,8 +20,6 @@ export const setTv = url => async dispatch => {
         error: true,
       },
     })
-
     return null
-    // console.log(e)
   }
 }

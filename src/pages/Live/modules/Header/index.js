@@ -8,7 +8,7 @@ import Timer from '../Timer'
 
 import style from './index.module.scss'
 
-const Header = () => {
+const Header = ({ timer }) => {
   const { t } = useTranslation()
   const { settings } = useSelector(state => state.settings)
   const { game } = useSelector(state => state.game)
@@ -28,7 +28,7 @@ const Header = () => {
             </div>
           )}
         </div>
-        {progress !== 0 && <Timer data={tv.event} type={game.type} />}
+        {progress !== 0 && <Timer timer={timer} />}
       </div>
       <div className={style.center}>
         <JackPot size={'lg'} />

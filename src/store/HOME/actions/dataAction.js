@@ -6,7 +6,6 @@ import { types } from 'store/actionTypes'
 
 export const setData = (el, value) => async dispatch => {
   const { get } = useRequest('feed')
-
   try {
     const data = value || (await get(`/${el.type}/${el.id}`))
 
@@ -25,6 +24,5 @@ export const setData = (el, value) => async dispatch => {
     })
 
     return null
-    // console.log(e)
   }
 }

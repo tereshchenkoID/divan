@@ -1,51 +1,31 @@
-import { gameType, matchStatus } from 'constant/config'
-import { useEffect, useState } from 'react'
+import { matchStatus } from 'constant/config'
+import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 
 import { setProgress } from 'store/LIVE/actions/progressAction'
-import { setHistory } from 'store/LIVE/actions/historyAction'
 import { setTv } from 'store/LIVE/actions/tvAction'
 
-import { getDifferent } from 'helpers/getDifferent'
-
-const ResultTimer = ({ data, delta, type }) => {
-  const { t } = useTranslation()
+const ResultTimer = ({ delta, timer }) => {
   const dispatch = useDispatch()
-  const [timer, setTimer] = useState('')
+  const { t } = useTranslation()
+  const { tv } = useSelector(state => state.tv)
   const { game } = useSelector(state => state.game)
 
   useEffect(() => {
-    let r = getDifferent(data.nextUpdate, delta)
-    setTimer(r)
-  }, [data.nextUpdate, delta])
-
-  useEffect(() => {
-    const a = setInterval(() => {
-      let r = getDifferent(data.nextUpdate, delta)
-      setTimer(r)
-
-      if (new Date().getTime() + delta >= data.nextUpdate) {
-        dispatch(setTv(`${type}/${game.id}`)).then(json => {
-          if (json && json.event.status === matchStatus.ANNOUNCEMENT) {
-            dispatch(setProgress(1))
-            type === gameType.FOOTBALL_LEAGUE && dispatch(setHistory(`${type}/${game.id}`))
-            clearInterval(a)
-          }
-        })
-      }
-    }, 1000)
-
-    return () => {
-      setTimer('')
-      clearInterval(a)
+    if (new Date().getTime() + delta > tv.event.nextUpdate) {
+      dispatch(setTv(`${game.type}/${game.id}`)).then(json => {
+        if (json && json.event.status === matchStatus.ANNOUNCEMENT) {
+          dispatch(setProgress(1))
+        }
+      })
     }
-  }, [data.nextUpdate, delta])
+  }, [dispatch, game, tv, delta, timer])
 
   return (
     <>
       <div>{t('interface.results')}</div>
-      <div>{timer === '0' ? '00:00' : timer}</div>
+      <div>{timer.time}</div>
     </>
   )
 }

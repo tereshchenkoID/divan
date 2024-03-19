@@ -22,15 +22,15 @@ const Login = () => {
   const { notification } = useSelector(state => state.notification)
   const [type, setType] = useState('password')
   const [show, setShow] = useState(false)
-  const [inputs, setInputs] = useState({
-    login: 'cashier131',
-    password: '1qaz2wsx',
-  })
-
   // const [inputs, setInputs] = useState({
-  //   login: '',
-  //   password: '',
+  //   login: 'cashier131',
+  //   password: '1qaz2wsx',
   // })
+
+  const [inputs, setInputs] = useState({
+    login: '',
+    password: '',
+  })
   const [layoutName, setLayoutName] = useState('default')
   const [inputName, setInputName] = useState('default')
   const keyboard = useRef()

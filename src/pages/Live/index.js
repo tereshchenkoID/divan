@@ -1,5 +1,5 @@
 import { gameType, matchStatus } from 'constant/config'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import { setAuth } from 'store/actions/authAction'
@@ -59,30 +59,20 @@ const getGame = id => {
 const Live = () => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
+  const { delta } = useSelector(state => state.delta)
+  const { tv } = useSelector(state => state.tv)
   const { game } = useSelector(state => state.game)
   const { modal } = useSelector(state => state.modal)
   const { jackpot } = useSelector(state => state.jackpot)
-  const { tv } = useSelector(state => state.tv)
   const [loading, setLoading] = useState(true)
   const [preloader, setPreloader] = useState(true)
   const [active, setActive] = useState(false)
-
-  // const [time, setTime] = useState(0)
-  //
-  // useEffect(() => {
-  //   const timerWorker = new Worker('./serviceWorker.js')
-  //
-  //   timerWorker.addEventListener('message', function (event) {
-  //     setTime(new Date().getTime())
-  //   })
-  //
-  //   timerWorker.postMessage('start')
-  //
-  //   return () => {
-  //     timerWorker.postMessage('stop')
-  //     timerWorker.terminate()
-  //   }
-  // }, [])
+  const [timer, setTimer] = useState({
+    timer: '00:00',
+    update: null,
+    game: null,
+  })
+  const worker = useMemo(() => new Worker('./serviceWorker.js'), [])
 
   useEffect(() => {
     dispatch(setSettings()).then(json => {
@@ -91,11 +81,32 @@ const Live = () => {
         dispatch(setAuth(null))
       } else {
         i18n.changeLanguage(json.account.language || 'en')
-        dispatch(setGame(game || JSON.parse(localStorage.getItem('game'))) || json.games[0])
+        dispatch(setGame(game || JSON.parse(localStorage.getItem('game')) || json.games[0]))
         setLoading(false)
       }
     })
-  }, [])
+  }, [dispatch])
+
+  useEffect(() => {
+    if ('Worker' in window) {
+      worker.addEventListener('message', event => {
+        setTimer(event.data)
+      })
+
+      worker.postMessage({
+        type: 'start',
+        currentTime: tv?.event?.nextUpdate,
+        game: tv?.event?.type,
+        delta: delta,
+      })
+
+      return () => {
+        worker.postMessage('stop')
+      }
+    } else {
+      console.log('SW not supported')
+    }
+  }, [tv, delta, worker])
 
   useEffect(() => {
     if (game) {
@@ -109,11 +120,13 @@ const Live = () => {
         } else if (json.event.status === matchStatus.COMPLETED) {
           dispatch(setProgress(4))
         }
-
-        setPreloader(false)
       })
     }
-  }, [game])
+  }, [dispatch, game])
+
+  useEffect(() => {
+    if (game?.type === timer.game) setPreloader(false)
+  }, [timer, game])
 
   if (tv.hasOwnProperty('error'))
     return (
@@ -137,14 +150,6 @@ const Live = () => {
         <Loader />
       ) : (
         <>
-          {/*<p*/}
-          {/*  style={{*/}
-          {/*    color: '#fff',*/}
-          {/*    fontSize: 50,*/}
-          {/*  }}*/}
-          {/*>*/}
-          {/*  {time}*/}
-          {/*</p>*/}
           <Decor type={game.decor} />
           <div
             className={style.wrapper}
@@ -158,13 +163,13 @@ const Live = () => {
               </div>
               {game.type === gameType.FOOTBALL_LEAGUE && <Ticker />}
             </div>
-            {preloader && tv ? (
+            {preloader ? (
               <Loader type={'block'} background={'transparent'} />
             ) : (
               <div className={style.content}>
                 {tv.event ? (
                   <>
-                    <Header />
+                    <Header timer={timer} />
                     <div className={style.table}>{getGame(game.type)}</div>
                   </>
                 ) : (
@@ -175,7 +180,7 @@ const Live = () => {
             {modal === 1 && <Countdown />}
             {jackpot && <Jackpot />}
           </div>
-          {active && <Games action={setActive} setPreloader={setPreloader} />}
+          {active && <Games action={setActive} setPreloader={setPreloader} setTimer={setTimer} />}
         </>
       )}
     </div>

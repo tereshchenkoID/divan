@@ -10,7 +10,7 @@ import Icon from 'components/Icon'
 
 import style from './index.module.scss'
 
-const Games = ({ action, setPreloader }) => {
+const Games = ({ action, setPreloader, setTimer }) => {
   const dispatch = useDispatch()
   const { settings } = useSelector(state => state.settings)
 

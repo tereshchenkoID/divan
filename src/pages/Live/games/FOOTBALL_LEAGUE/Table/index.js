@@ -19,6 +19,8 @@ const init = {
 }
 
 const Table = ({ data }) => {
+  if (!data) return false
+
   return (
     <div className={style.block}>
       <div className={style.left}>
@@ -36,7 +38,7 @@ const Table = ({ data }) => {
                   <div>
                     <div>{el_m.teams.home.name}</div>
                     <div className={style.states}>
-                      {el_m.teams.home.last3?.split('').map((char, index) => (
+                      {el_m.teams?.home?.last3?.split('').map((char, index) => (
                         <div key={index} className={classNames(style.state, style[char.toLowerCase()])} />
                       ))}
                     </div>
@@ -45,7 +47,7 @@ const Table = ({ data }) => {
                   <div>
                     <div>{el_m.teams.away.name}</div>
                     <div className={style.states}>
-                      {el_m.teams.away.last3?.split('').map((char, index) => (
+                      {el_m.teams?.away?.last3?.split('').map((char, index) => (
                         <div key={index} className={classNames(style.state, style[char.toLowerCase()])} />
                       ))}
                     </div>

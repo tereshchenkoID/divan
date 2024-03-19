@@ -11,20 +11,20 @@ import { getData } from 'helpers/api'
 import style from './index.module.scss'
 
 const Ticker = () => {
-  const token = localStorage.getItem('authToken')
   const { t } = useTranslation()
+  const { auth } = useSelector(state => state.auth)
   const { game } = useSelector(state => state.game)
   const [data, setData] = useState({})
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    getData(`${hostnames.PROD}/viewer/lastgame/${token}/FOOTBALL_LEAGUE/${game.id}`).then(json => {
+    getData(`${hostnames.PROD}/viewer/lastgame/${auth}/FOOTBALL_LEAGUE/${game.id}`).then(json => {
       if (json.last) {
         setData(json)
         setLoading(false)
       }
     })
-  }, [loading])
+  }, [game, auth])
 
   if (loading) {
     return false

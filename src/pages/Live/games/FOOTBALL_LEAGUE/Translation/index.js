@@ -21,9 +21,7 @@ const Translation = () => {
 
     if (playPromise !== undefined) {
       playPromise
-        .then(_ => {
-          console.log('start')
-        })
+        .then(_ => {})
         .catch(error => {
           console.log(error)
         })

@@ -1,10 +1,11 @@
 import { Suspense, useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Routes, Route } from 'react-router-dom'
-
 import useSocket from 'hooks/useSocket'
 
 import classNames from 'classnames'
+
+import { setConfig } from 'store/actions/configAction'
 
 import { router } from 'router'
 
@@ -15,14 +16,20 @@ import Loader from 'components/Loader'
 import style from './index.module.scss'
 
 const App = () => {
+  const dispatch = useDispatch()
   const { auth } = useSelector(state => state.auth)
   const { isConnected } = useSelector(state => state.socket)
   const { notification } = useSelector(state => state.notification)
   const { connectSocket } = useSocket()
 
   useEffect(() => {
-    connectSocket()
-  }, [])
+    fetch('/config.json')
+      .then(response => response.json())
+      .then(config => {
+        dispatch(setConfig(config.hostnames))
+        connectSocket(config.hostnames)
+      })
+  }, [dispatch])
 
   useEffect(() => {
     if (!isConnected) {

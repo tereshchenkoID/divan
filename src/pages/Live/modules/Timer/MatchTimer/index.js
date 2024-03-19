@@ -1,5 +1,5 @@
 import { gameType, matchStatus } from 'constant/config'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { setTv } from 'store/LIVE/actions/tvAction'
@@ -13,7 +13,7 @@ const getDifferentPeriod = (start, end, delta) => {
   const c = new Date().getTime() + delta
 
   let r = 0,
-    result = '0'
+    result = '90'
 
   if (end > c) {
     r = new Date(end - c)
@@ -31,46 +31,29 @@ const checkType = (start, end, delta, type) => {
   }
 }
 
-const MatchTimer = ({ data, delta, type }) => {
+const MatchTimer = ({ delta, timer }) => {
   const dispatch = useDispatch()
-  const [timer, setTimer] = useState('')
+  const { tv } = useSelector(state => state.tv)
   const { game } = useSelector(state => state.game)
+  const { liveTimer } = useSelector(state => state.liveTimer)
 
   useEffect(() => {
-    let r = checkType(data.start, data.nextUpdate, delta, type)
-    dispatch(setLiveTimer(r))
-    setTimer(r)
-  }, [data.start, delta])
-
-  useEffect(() => {
-    const a = setInterval(() => {
-      let r = checkType(data.start, data.nextUpdate, delta, type)
-
-      if (new Date().getTime() + delta >= data.nextUpdate) {
-        dispatch(setTv(`${type}/${game.id}`)).then(json => {
+    if (new Date().getTime() + delta > tv.event.nextUpdate) {
+      dispatch(setTv(`${game.type}/${game.id}`)).then(json => {
+        if (json && json.event.status === matchStatus.RESULTS) {
+          dispatch(setProgress(3))
           dispatch(setLiveTimer(0))
-
-          if (json && json.event.status === matchStatus.RESULTS) {
-            dispatch(setProgress(3))
-            dispatch(setLiveTimer(0))
-            clearInterval(a)
-          }
-        })
-      } else {
-        dispatch(setLiveTimer(r))
-        setTimer(r)
-      }
-    }, 1000)
-
-    return () => {
-      setTimer('')
-      clearInterval(a)
+        }
+      })
     }
-  }, [data.start, delta])
+  }, [dispatch, game, tv, delta, timer])
 
-  return (
-    <div>{timer === '0' ? '00:00' : `${timer}${type === gameType.FOOTBALL_LEAGUE || type === gameType.FOOTBALL ? `'` : ''}`}</div>
-  )
+  useEffect(() => {
+    let r = checkType(tv.event.start, tv.event.nextUpdate, delta, game.type)
+    dispatch(setLiveTimer(r))
+  }, [dispatch, delta, game, timer, tv])
+
+  return <div>{liveTimer === '0' ? '00:00' : `${liveTimer}${game.type === gameType.FOOTBALL_LEAGUE ? `'` : ''}`}</div>
 }
 
 export default MatchTimer

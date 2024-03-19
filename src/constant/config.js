@@ -31,7 +31,7 @@ export const messages = {
   payout: 'account/[]/payout',
   cancel: 'account/[]/cancel',
   feed: 'feed/[]/',
-  event: 'feed/[]/EVENT/',
+  // event: 'feed/[]/EVENT/',
 }
 
 export const gameType = {
