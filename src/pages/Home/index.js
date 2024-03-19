@@ -6,6 +6,7 @@ import i18n from 'i18next'
 import { status } from 'constant/config'
 
 import { checkCmd } from 'helpers/checkCmd'
+import { getToken } from 'helpers/getToken'
 
 import { setNotification } from 'store/HOME/actions/notificationAction'
 import { setSettings } from 'store/actions/settingsAction'
@@ -38,7 +39,7 @@ const Home = () => {
   useEffect(() => {
     if (isConnected) {
       sendMessage({
-        cmd: `account/${localStorage.getItem('authToken')}/settings`,
+        cmd: `account/${getToken()}/settings`,
       })
     } else {
       dispatch(setSettings()).then(json => {

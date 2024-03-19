@@ -9,6 +9,7 @@ import { getData } from 'helpers/api'
 import { getTimezone } from 'helpers/getTimezone'
 import { getDateTime } from 'helpers/getDateTime'
 import { checkCmd } from 'helpers/checkCmd'
+import { getToken } from 'helpers/getToken'
 
 import Button from 'components/Button'
 import Loader from 'components/Loader'
@@ -90,7 +91,7 @@ const Daily = () => {
     setLoading(true)
 
     if (isConnected) {
-      sendMessage({ cmd: `account/${localStorage.getItem('authToken')}/dailySums/${f}/${t}?timezoneId=${getTimezone()}` })
+      sendMessage({ cmd: `account/${getToken()}/dailySums/${f}/${t}?timezoneId=${getTimezone()}` })
     } else {
       getData(`/dailySums/${f}/${t}?timezoneId=${getTimezone()}`).then(json => {
         if (json) {

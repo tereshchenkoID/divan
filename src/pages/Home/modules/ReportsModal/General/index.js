@@ -8,6 +8,7 @@ import classNames from 'classnames'
 import { getData } from 'helpers/api'
 import { getDateTime } from 'helpers/getDateTime'
 import { checkCmd } from 'helpers/checkCmd'
+import { getToken } from 'helpers/getToken'
 
 import Button from 'components/Button'
 import Loader from 'components/Loader'
@@ -115,7 +116,7 @@ const Settlement = () => {
     setLoading(true)
 
     if (isConnected) {
-      sendMessage({ cmd: `account/${localStorage.getItem('authToken')}/generalOverview/${f}/${t}` })
+      sendMessage({ cmd: `account/${getToken()}/generalOverview/${f}/${t}` })
     } else {
       getData(`/generalOverview/${f}/${t}`).then(json => {
         if (json) {

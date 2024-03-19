@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { hostnames } from 'constant/config'
-
 import classNames from 'classnames'
+
+import { getHostName } from 'helpers/getHostName'
 
 import style from './index.module.scss'
 
@@ -42,7 +42,7 @@ const Scoreboard = ({ data, timer, setVideo, stingerRef }) => {
     <div className={style.block}>
       <div className={style.top}>
         <div className={style.cell}>
-          <img src={`${hostnames.ASSETS}/${data.teams.home.img}`} alt={data.teams.home.name} loading={'lazy'} />
+          <img src={`${getHostName('ASSETS')}/${data.teams.home.img}`} alt={data.teams.home.name} loading={'lazy'} />
         </div>
         <div className={style.cell}>
           <div className={style.scoreboard}>
@@ -54,7 +54,7 @@ const Scoreboard = ({ data, timer, setVideo, stingerRef }) => {
           </div>
         </div>
         <div className={style.cell}>
-          <img src={`${hostnames.ASSETS}/${data.teams.away.img}`} alt={data.teams.away.name} loading={'lazy'} />
+          <img src={`${getHostName('ASSETS')}/${data.teams.away.img}`} alt={data.teams.away.name} loading={'lazy'} />
         </div>
       </div>
       <div className={style.bottom}>

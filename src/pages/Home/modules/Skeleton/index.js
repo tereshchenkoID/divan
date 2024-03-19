@@ -10,6 +10,7 @@ import { gameType, matchStatus } from 'constant/config'
 import { getDateTime } from 'helpers/getDateTime'
 import { conditionStatus } from 'helpers/conditionStatus'
 import { checkCmd } from 'helpers/checkCmd'
+import { getToken } from 'helpers/getToken'
 
 import { setLiveTimer } from 'store/HOME/actions/liveTimerAction'
 import { setData } from 'store/HOME/actions/dataAction'
@@ -86,7 +87,7 @@ const Skeleton = () => {
     if (game !== null) {
       if (isConnected) {
         sendMessage({
-          cmd: `feed/${localStorage.getItem('authToken')}/${game.type}/${game.id}`,
+          cmd: `feed/${getToken()}/${game.type}/${game.id}`,
         })
       } else {
         dispatch(setData(game)).then(json => {

@@ -1,7 +1,6 @@
 import { createStore, combineReducers, compose, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 
-import configReducer from './reducers/configReducer'
 import authReducer from './reducers/authReducer'
 import gameReducer from './reducers/gameReducer'
 import settingsReducer from './reducers/settingsReducer'
@@ -26,7 +25,6 @@ import historyReducer from './LIVE/reducers/historyReducer'
 import jackpotReducer from './LIVE/reducers/jackpotReducer'
 
 const allReducer = combineReducers({
-  config: configReducer,
   auth: authReducer,
   game: gameReducer,
   delta: deltaReducer,

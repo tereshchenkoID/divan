@@ -5,6 +5,7 @@ import useSocket from 'hooks/useSocket'
 import { time } from 'constant/config'
 
 import { checkCmd } from 'helpers/checkCmd'
+import { getToken } from 'helpers/getToken'
 
 import { setBalance } from 'store/HOME/actions/balanceAction'
 
@@ -23,10 +24,10 @@ const Account = () => {
 
   useEffect(() => {
     if (isConnected) {
-      sendMessage({ cmd: `account/${localStorage.getItem('authToken')}/balance` })
+      sendMessage({ cmd: `account/${getToken()}/balance` })
 
       const a = setInterval(() => {
-        sendMessage({ cmd: `account/${localStorage.getItem('authToken')}/balance` })
+        sendMessage({ cmd: `account/${getToken()}/balance` })
       }, time.UPDATE)
 
       return () => {

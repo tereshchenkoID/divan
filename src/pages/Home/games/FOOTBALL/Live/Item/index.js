@@ -3,7 +3,9 @@ import { useSelector } from 'react-redux'
 
 import classNames from 'classnames'
 
-import { hostnames, matchMarkets, matchOutcomes } from 'constant/config'
+import { getHostName } from 'helpers/getHostName'
+
+import { matchMarkets, matchOutcomes } from 'constant/config'
 
 import style from './index.module.scss'
 
@@ -268,7 +270,7 @@ const Item = ({ data, timer }) => {
         <div className={style.meta}>
           <div>
             <div className={style.logo}>
-              <img src={`${hostnames.ASSETS}/${data.teams.home.img}`} alt={data.teams.home.name} loading={'lazy'} />
+              <img src={`${getHostName('ASSETS')}/${data.teams.home.img}`} alt={data.teams.home.name} loading={'lazy'} />
             </div>
           </div>
           <div>{data.teams.home.name}</div>
@@ -280,7 +282,7 @@ const Item = ({ data, timer }) => {
           <div>{data.teams.away.name}</div>
           <div>
             <div className={style.logo}>
-              <img src={`${hostnames.ASSETS}/${data.teams.away.img}`} alt={data.teams.away.name} loading={'lazy'} />
+              <img src={`${getHostName('ASSETS')}/${data.teams.away.img}`} alt={data.teams.away.name} loading={'lazy'} />
             </div>
           </div>
         </div>

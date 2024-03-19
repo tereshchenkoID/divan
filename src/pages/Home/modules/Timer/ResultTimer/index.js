@@ -8,6 +8,7 @@ import useSocket from 'hooks/useSocket'
 import { setLive } from 'store/HOME/actions/liveAction'
 import { setData } from 'store/HOME/actions/dataAction'
 
+import { getToken } from 'helpers/getToken'
 import { getDifferent } from 'helpers/getDifferent'
 
 const ResultTimer = ({ delta }) => {
@@ -32,7 +33,7 @@ const ResultTimer = ({ delta }) => {
       if (new Date().getTime() + delta >= data.events[0].nextUpdate) {
         if (isConnected) {
           sendMessage({
-            cmd: `feed/${localStorage.getItem('authToken')}/${game.type}/${game.id}`,
+            cmd: `feed/${getToken()}/${game.type}/${game.id}`,
           })
         } else {
           dispatch(setData(game)).then(json => {

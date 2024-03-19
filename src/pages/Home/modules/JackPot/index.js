@@ -7,6 +7,7 @@ import classNames from 'classnames'
 import { checkCmd } from 'helpers/checkCmd'
 import { getData } from 'helpers/api'
 import { getDifferent } from 'helpers/getDifferent'
+import { getToken } from 'helpers/getToken'
 
 import Banner from './Banner'
 
@@ -25,7 +26,7 @@ const JackPot = ({ size = 'default' }) => {
   useEffect(() => {
     if (isConnected) {
       sendMessage({
-        cmd: `account/${localStorage.getItem('authToken')}/jackpots`,
+        cmd: `account/${getToken()}/jackpots`,
       })
     } else {
       getData(`/jackpots`).then(json => {
@@ -53,7 +54,7 @@ const JackPot = ({ size = 'default' }) => {
         if (r === '0') {
           clearInterval(a)
           sendMessage({
-            cmd: `account/${localStorage.getItem('authToken')}/jackpots`,
+            cmd: `account/${getToken()}/jackpots`,
           })
         }
       }, 1000)

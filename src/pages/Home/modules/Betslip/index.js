@@ -22,6 +22,7 @@ import { setBalance } from 'store/HOME/actions/balanceAction'
 import { setNotification } from 'store/HOME/actions/notificationAction'
 
 import { checkCmd } from 'helpers/checkCmd'
+import { getToken } from 'helpers/getToken'
 import { getData, postData } from 'helpers/api'
 
 import TicketModal from 'pages/Home/modules/TicketModal'
@@ -107,11 +108,11 @@ const Betslip = () => {
 
       if (isConnected) {
         sendMessage({
-          cmd: `account/${localStorage.getItem('authToken')}/placebet`,
+          cmd: `account/${getToken()}/placebet`,
           payload: a,
         })
         sendMessage({
-          cmd: `account/${localStorage.getItem('authToken')}/balance`,
+          cmd: `account/${getToken()}/balance`,
         })
       } else {
         postData('/placebet', JSON.stringify(a)).then(json => {
@@ -144,7 +145,7 @@ const Betslip = () => {
   const repeatPrint = () => {
     if (isConnected) {
       sendMessage({
-        cmd: `account/${localStorage.getItem('authToken')}/reprint`,
+        cmd: `account/${getToken()}/reprint`,
       })
     } else {
       getData(`/reprint`).then(json => {

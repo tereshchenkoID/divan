@@ -11,6 +11,8 @@ import classNames from 'classnames'
 
 import { checkCmd } from 'helpers/checkCmd'
 import { getData, postData } from 'helpers/api'
+import { getToken } from 'helpers/getToken'
+
 import { deleteBetslip } from 'store/HOME/actions/betslipAction'
 import { setNotification } from 'store/HOME/actions/notificationAction'
 
@@ -44,7 +46,7 @@ const SettingsModal = ({ action }) => {
     }
 
     if (isConnected) {
-      sendMessage({ cmd: `account/${localStorage.getItem('authToken')}/config`, payload: { [idx]: ref.current.value } })
+      sendMessage({ cmd: `account/${getToken()}/config`, payload: { [idx]: ref.current.value } })
     } else {
       postData(
         '/config',
@@ -63,7 +65,7 @@ const SettingsModal = ({ action }) => {
 
   const print = ref => {
     if (isConnected) {
-      sendMessage({ cmd: `account/${localStorage.getItem('authToken')}/details/${ref.current.value}` })
+      sendMessage({ cmd: `account/${getToken()}/details/${ref.current.value}` })
     } else {
       getData(`/details/${ref.current.value}`).then(json => {
         if (json.hasOwnProperty('stake')) {

@@ -7,6 +7,7 @@ import { status } from 'constant/config'
 
 import { postData } from 'helpers/api'
 import { checkCmd } from 'helpers/checkCmd'
+import { getToken } from 'helpers/getToken'
 
 import { setNotification } from 'store/HOME/actions/notificationAction'
 
@@ -35,7 +36,7 @@ const Password = ({ action }) => {
     if (newPassword === confirmPassword && oldPassword.length > 4) {
       if (isConnected) {
         sendMessage({
-          cmd: `account/${localStorage.getItem('authToken')}/password`,
+          cmd: `account/${getToken()}/password`,
           password: oldPassword,
           old_password: newPassword,
         })

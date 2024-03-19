@@ -1,6 +1,6 @@
 import classNames from 'classnames'
 
-import { hostnames } from 'constant/config'
+import { getHostName } from 'helpers/getHostName'
 
 import Slider from 'react-slick'
 
@@ -33,7 +33,7 @@ const Table = ({ data }) => {
               <div className={style.cell}>
                 <div className={style.meta}>
                   <div className={style.logo}>
-                    <img src={`${hostnames.ASSETS}/${el_m.teams.home.img}`} alt={el_m.teams.home.name} />
+                    <img src={`${getHostName('ASSETS')}/${el_m.teams.home.img}`} alt={el_m.teams.home.name} />
                   </div>
                   <div>
                     <div>{el_m.teams.home.name}</div>
@@ -53,7 +53,7 @@ const Table = ({ data }) => {
                     </div>
                   </div>
                   <div className={style.logo}>
-                    <img src={`${hostnames.ASSETS}/${el_m.teams.away.img}`} alt={el_m.teams.away.name} />
+                    <img src={`${getHostName('ASSETS')}/${el_m.teams.away.img}`} alt={el_m.teams.away.name} />
                   </div>
                 </div>
               </div>

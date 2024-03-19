@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { hostnames } from 'constant/config'
+import { getHostName } from 'helpers/getHostName'
 
 import classNames from 'classnames'
 
@@ -34,7 +34,7 @@ const History = () => {
           <div className={style.cell}>{item.pos}.</div>
           <div className={style.cell}>
             <div className={style.logo}>
-              <img src={`${hostnames.ASSETS}/${item.img}`} alt={item.team} loading={'lazy'} />
+              <img src={`${getHostName('ASSETS')}/${item.img}`} alt={item.team} loading={'lazy'} />
             </div>
           </div>
           <div className={style.cell}>{item.team}</div>

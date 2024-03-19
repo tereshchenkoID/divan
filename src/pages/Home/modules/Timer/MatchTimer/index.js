@@ -10,6 +10,7 @@ import { setData } from 'store/HOME/actions/dataAction'
 
 import { checkCmd } from 'helpers/checkCmd'
 import { getDifferent } from 'helpers/getDifferent'
+import { getToken } from 'helpers/getToken'
 
 const getDifferentPeriod = (start, end, delta) => {
   const MAX = 90
@@ -55,7 +56,7 @@ const MatchTimer = ({ delta }) => {
       if (new Date().getTime() + delta >= data.events[0].nextUpdate) {
         if (isConnected) {
           sendMessage({
-            cmd: `feed/${localStorage.getItem('authToken')}/${game.type}/${game.id}`,
+            cmd: `feed/${getToken()}/${game.type}/${game.id}`,
           })
         } else {
           dispatch(setData(game)).then(json => {

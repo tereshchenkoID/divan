@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react'
-import { hostnames } from 'constant/config'
 
 import { useSelector } from 'react-redux'
+
+import { getHostName } from 'helpers/getHostName'
 
 import Pay from '../Pay'
 import Numbers from '../Numbers'
@@ -41,7 +42,7 @@ const Table = ({ data }) => {
       <div className={style.wrapper}>
         <div className={style.column}>
           <div className={style.wheel}>
-            <iframe title={'Wheel'} src={`${hostnames.PROD}/iframe/wheel/#/${params}`} />
+            <iframe title={'Wheel'} src={`${getHostName()}/iframe/wheel/#/${params}`} />
           </div>
         </div>
         <div className={style.column}>

@@ -13,6 +13,7 @@ import { getIcon } from 'helpers/getIcon'
 import { getData } from 'helpers/api'
 import { getDateTime } from 'helpers/getDateTime'
 import { getGameName } from 'helpers/getGameName'
+import { getToken } from 'helpers/getToken'
 
 import { setNotification } from 'store/HOME/actions/notificationAction'
 
@@ -39,7 +40,7 @@ const TicketModal = ({ id, action }) => {
   const sendAction = action => {
     if (isConnected) {
       sendMessage({
-        cmd: `account/${localStorage.getItem('authToken')}/${action}/${find}`,
+        cmd: `account/${getToken()}/${action}/${find}`,
       })
     } else {
       getData(`/${action}/${find}`).then(json => {
@@ -57,7 +58,7 @@ const TicketModal = ({ id, action }) => {
 
     if (isConnected) {
       sendMessage({
-        cmd: `account/${localStorage.getItem('authToken')}/details/${find}`,
+        cmd: `account/${getToken()}/details/${find}`,
       })
     } else {
       getData(`/details/${find}`).then(json => {

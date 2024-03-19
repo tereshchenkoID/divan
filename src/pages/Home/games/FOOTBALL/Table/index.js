@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 
-import { hostnames } from 'constant/config'
-
 import classNames from 'classnames'
+
+import { getHostName } from 'helpers/getHostName'
 
 import Label from 'components/Label'
 import Icon from 'components/Icon'
@@ -135,7 +135,11 @@ const Table = ({ active }) => {
                   >
                     <div>
                       <div className={style.logo}>
-                        <img src={`${hostnames.ASSETS}/${el_m.teams.home.img}`} alt={el_m.teams.home.name} loading={'lazy'} />
+                        <img
+                          src={`${getHostName('ASSETS')}/${el_m.teams.home.img}`}
+                          alt={el_m.teams.home.name}
+                          loading={'lazy'}
+                        />
                       </div>
                     </div>
                     <div>{el_m.teams.home.name}</div>
@@ -143,7 +147,11 @@ const Table = ({ active }) => {
                     <div>{el_m.teams.away.name}</div>
                     <div>
                       <div className={style.logo}>
-                        <img src={`${hostnames.ASSETS}/${el_m.teams.away.img}`} alt={el_m.teams.away.name} loading={'lazy'} />
+                        <img
+                          src={`${getHostName('ASSETS')}/${el_m.teams.away.img}`}
+                          alt={el_m.teams.away.name}
+                          loading={'lazy'}
+                        />
                       </div>
                     </div>
                     <div>

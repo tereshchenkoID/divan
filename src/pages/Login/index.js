@@ -2,12 +2,13 @@ import { useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import classNames from 'classnames'
 
-import { hostnames, status } from 'constant/config'
+import { status } from 'constant/config'
 
 import Keyboard from 'react-simple-keyboard'
 
 import 'simple-keyboard/build/css/index.css'
 
+import { getHostName } from 'helpers/getHostName'
 import { postData } from 'helpers/api'
 import { setNotification } from 'store/HOME/actions/notificationAction'
 import { setAuth } from 'store/actions/authAction'
@@ -68,7 +69,7 @@ const Login = () => {
     event && event.preventDefault()
 
     postData(
-      `${hostnames.PROD}/account/login`,
+      `${getHostName()}/account/login`,
       JSON.stringify({
         login: inputs.login,
         password: inputs.password,

@@ -1,7 +1,9 @@
 import { types } from 'store/actionTypes'
 
+import { getToken } from 'helpers/getToken'
+
 const initialState = {
-  auth: localStorage.getItem('authToken') || false,
+  auth: getToken() || false,
 }
 
 const authReducer = (state = initialState, action) => {

@@ -14,6 +14,7 @@ import { setNotification } from 'store/HOME/actions/notificationAction'
 
 import { checkCmd } from 'helpers/checkCmd'
 import { getData } from 'helpers/api'
+import { getToken } from 'helpers/getToken'
 
 import Button from 'components/Button'
 import Loader from 'components/Loader'
@@ -48,7 +49,7 @@ const Settlement = () => {
     const type = active === 'master' ? `${active}/${MD5(password).toString()}` : active
 
     if (isConnected) {
-      sendMessage({ cmd: `account/${localStorage.getItem('authToken')}/settlement/${type}` })
+      sendMessage({ cmd: `account/${getToken()}/settlement/${type}` })
     } else {
       getData(`/settlement/${type}`).then(json => {
         setData(null)

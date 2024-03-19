@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import { hostnames } from 'constant/config'
+import { getHostName } from 'helpers/getHostName'
 
 import classNames from 'classnames'
 
@@ -35,7 +35,7 @@ const Match = ({ index, data, timer }) => {
       <div className={style.cell}>{index + 1}.</div>
       <div className={style.cell}>
         <div className={style.logo}>
-          <img src={`${hostnames.ASSETS}/${data.teams.home.img}`} alt={data.teams.home.name} loading={'lazy'} />
+          <img src={`${getHostName('ASSETS')}/${data.teams.home.img}`} alt={data.teams.home.name} loading={'lazy'} />
         </div>
       </div>
       <div className={style.cell}>{data.teams.home.name}</div>
@@ -49,7 +49,7 @@ const Match = ({ index, data, timer }) => {
       <div className={style.cell}>{data.teams.away.name}</div>
       <div className={style.cell}>
         <div className={style.logo}>
-          <img src={`${hostnames.ASSETS}/${data.teams.away.img}`} alt={data.teams.away.name} loading={'lazy'} />
+          <img src={`${getHostName('ASSETS')}/${data.teams.away.img}`} alt={data.teams.away.name} loading={'lazy'} />
         </div>
       </div>
     </div>

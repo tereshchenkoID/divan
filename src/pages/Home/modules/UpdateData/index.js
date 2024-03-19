@@ -6,8 +6,7 @@ import { matchStatus } from 'constant/config'
 
 import { setData } from 'store/HOME/actions/dataAction'
 import { setLive } from 'store/HOME/actions/liveAction'
-
-// import { getDifferent } from 'helpers/getDifferent'
+import { getToken } from 'helpers/getToken'
 
 const UpdateData = ({ find, setActive, setFind }) => {
   const dispatch = useDispatch()
@@ -20,13 +19,11 @@ const UpdateData = ({ find, setActive, setFind }) => {
 
   useEffect(() => {
     a.current = setInterval(() => {
-      // console.log(getDifferent(find.nextUpdate, delta))
-
       if (new Date().getTime() + delta >= find.nextUpdate) {
         if (find.status === matchStatus.COMPLETED || find.status === matchStatus.RESULTS) {
           if (isConnected) {
             sendMessage({
-              cmd: `feed/${localStorage.getItem('authToken')}/${game.type}/${game.id}`,
+              cmd: `feed/${getToken()}/${game.type}/${game.id}`,
             })
             setFind(null)
             dispatch(setLive(1))
@@ -42,7 +39,7 @@ const UpdateData = ({ find, setActive, setFind }) => {
         } else {
           if (isConnected) {
             sendMessage({
-              cmd: `feed/${localStorage.getItem('authToken')}/${game.type}/${game.id}`,
+              cmd: `feed/${getToken()}/${game.type}/${game.id}`,
             })
           } else {
             dispatch(setData(game)).then(json => {

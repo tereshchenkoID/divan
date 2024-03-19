@@ -8,6 +8,7 @@ import { setModal } from 'store/actions/modalAction'
 import { setLive } from 'store/HOME/actions/liveAction'
 
 import { getDifferent } from 'helpers/getDifferent'
+import { getToken } from 'helpers/getToken'
 
 import { setData } from 'store/HOME/actions/dataAction'
 
@@ -30,7 +31,7 @@ const StartTimer = ({ data, delta }) => {
       if (new Date().getTime() + delta >= data.nextUpdate) {
         if (isConnected) {
           sendMessage({
-            cmd: `feed/${localStorage.getItem('authToken')}/${game.type}/${game.id}`,
+            cmd: `feed/${getToken()}/${game.type}/${game.id}`,
           })
         } else {
           dispatch(setData(game)).then(json => {

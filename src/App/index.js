@@ -5,9 +5,9 @@ import useSocket from 'hooks/useSocket'
 
 import classNames from 'classnames'
 
-import { setConfig } from 'store/actions/configAction'
-
 import { router } from 'router'
+
+import { getToken } from 'helpers/getToken'
 
 import Notification from 'pages/Home/modules/Notification'
 import Login from 'pages/Login'
@@ -26,8 +26,8 @@ const App = () => {
     fetch('/config.json')
       .then(response => response.json())
       .then(config => {
-        dispatch(setConfig(config.hostnames))
-        connectSocket(config.hostnames)
+        localStorage.setItem('config', JSON.stringify(config.hostnames))
+        connectSocket()
       })
   }, [dispatch])
 
@@ -76,7 +76,7 @@ const App = () => {
       }}
     >
       <main className={style.main}>
-        {auth || localStorage.getItem('authToken') ? (
+        {auth || getToken() ? (
           <Suspense fallback={<Loader />}>
             <Routes>
               {router.map(item => (

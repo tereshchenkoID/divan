@@ -1,12 +1,13 @@
 import axios from 'axios'
 
-import { hostnames } from 'constant/config'
+import { getHostName } from 'helpers/getHostName'
+import { getToken } from 'helpers/getToken'
 
 export const useRequest = (type = 'account') => {
-  const token = localStorage.getItem('authToken')
+  const token = getToken()
 
   const server = axios.create({
-    baseURL: `${hostnames.PROD}/${type}/${token}`,
+    baseURL: `${getHostName()}/${type}/${token}`,
   })
 
   const get = async (url, headers) => {

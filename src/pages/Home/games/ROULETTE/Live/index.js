@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 
-import { hostnames } from 'constant/config'
+import { getHostName } from 'helpers/getHostName'
 
 import style from './index.module.scss'
 
@@ -30,7 +30,7 @@ const Live = ({ active }) => {
   return (
     <div className={style.block}>
       <div className={style.wheel}>
-        <iframe src={`${hostnames.PROD}/iframe/wheel/#/${params}`} title={'Wheel'} />
+        <iframe src={`${getHostName()}/iframe/wheel/#/${params}`} title={'Wheel'} />
       </div>
     </div>
   )

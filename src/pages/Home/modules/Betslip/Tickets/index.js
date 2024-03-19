@@ -5,6 +5,7 @@ import useSocket from 'hooks/useSocket'
 
 import { getData } from 'helpers/api'
 import { checkCmd } from 'helpers/checkCmd'
+import { getToken } from 'helpers/getToken'
 
 import Loader from 'components/Loader'
 import Alert from 'components/Alert'
@@ -22,7 +23,7 @@ const Tickets = () => {
 
   useEffect(() => {
     if (isConnected) {
-      sendMessage({ cmd: `account/${localStorage.getItem('authToken')}/history` })
+      sendMessage({ cmd: `account/${getToken()}/history` })
     } else {
       getData(`/history`).then(json => {
         setData(json)

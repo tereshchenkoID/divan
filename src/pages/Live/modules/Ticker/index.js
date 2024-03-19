@@ -2,11 +2,10 @@ import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 
-import { hostnames } from 'constant/config'
-
 import classNames from 'classnames'
 
 import { getData } from 'helpers/api'
+import { getHostName } from 'helpers/getHostName'
 
 import style from './index.module.scss'
 
@@ -18,7 +17,7 @@ const Ticker = () => {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    getData(`${hostnames.PROD}/viewer/lastgame/${auth}/FOOTBALL_LEAGUE/${game.id}`).then(json => {
+    getData(`${getHostName()}/viewer/lastgame/${auth}/FOOTBALL_LEAGUE/${game.id}`).then(json => {
       if (json.last) {
         setData(json)
         setLoading(false)
@@ -47,7 +46,7 @@ const Ticker = () => {
             <div className={style.id}>{index + 1}.</div>
             <div>
               <div className={style.logo}>
-                <img src={`${hostnames.ASSETS}/${item.teams[0].img}`} alt={item.teams[0].name} loading={'lazy'} />
+                <img src={`${getHostName('ASSETS')}/${item.teams[0].img}`} alt={item.teams[0].name} loading={'lazy'} />
               </div>
             </div>
             <div>{item.teams[0].name}</div>
@@ -59,7 +58,7 @@ const Ticker = () => {
             <div>{item.teams[1].name}</div>
             <div>
               <div className={style.logo}>
-                <img src={`${hostnames.ASSETS}/${item.teams[1].img}`} alt={item.teams[1].name} loading={'lazy'} />
+                <img src={`${getHostName('ASSETS')}/${item.teams[1].img}`} alt={item.teams[1].name} loading={'lazy'} />
               </div>
             </div>
           </div>

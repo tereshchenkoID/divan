@@ -1,10 +1,12 @@
-import { hostnames } from 'constant/config'
 import { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 
 import Slider from 'react-slick'
 
 import { getData } from 'helpers/api'
+import { getHostName } from 'helpers/getHostName'
+import { getToken } from 'helpers/getToken'
+
 import { setJackpot } from 'store/LIVE/actions/jackpotAction'
 
 import Banner from './Banner'
@@ -25,7 +27,7 @@ const init = {
 
 const JackPotWinner = () => {
   const dispatch = useDispatch()
-  const token = localStorage.getItem('authToken')
+  const token = getToken()
   const [data, setData] = useState(null)
   const [timer, setTimer] = useState(0)
   const [loading, setLoading] = useState(true)
@@ -40,7 +42,7 @@ const JackPotWinner = () => {
 
       if (loading || timer === 30) {
         setLoading(false)
-        getData(`${hostnames.PROD}/viewer/jackpots/${token}`).then(json => {
+        getData(`${getHostName()}/viewer/jackpots/${token}`).then(json => {
           if (json && json.jackpots) {
             setData(json)
           }

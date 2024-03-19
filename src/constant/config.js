@@ -1,9 +1,3 @@
-export const hostnames = {
-  PROD: 'https://api.qool90.bet',
-  WSS_PROD: 'wss://socket.qool90.bet',
-  ASSETS: 'https://view.divan.bet/engine/shop/resource',
-}
-
 export const status = {
   info: 'info',
   error: 'error',
@@ -31,7 +25,6 @@ export const messages = {
   payout: 'account/[]/payout',
   cancel: 'account/[]/cancel',
   feed: 'feed/[]/',
-  // event: 'feed/[]/EVENT/',
 }
 
 export const gameType = {
