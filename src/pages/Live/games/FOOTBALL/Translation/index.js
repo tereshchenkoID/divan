@@ -30,8 +30,8 @@ const Translation = () => {
 
   return (
     <div className={style.block}>
-      {video && <video className={style.video} src={video} autoPlay muted />}
-      <video className={style.decor} src={settings.account.transition} ref={stingerRef} />
+      <video className={style.video} src={video} ref={videoRef} muted />
+      <video className={style.decor} src={settings.account.transition} ref={stingerRef} muted />
       <div>
         <div className={style.info}>
           <Scoreboard data={tv.event.league.matches[0]} timer={liveTimer} setVideo={setVideo} stingerRef={stingerRef} />

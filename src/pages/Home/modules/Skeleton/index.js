@@ -69,8 +69,10 @@ const Skeleton = () => {
   const [find, setFind] = useState(null)
   const [active, setActive] = useState(0)
   const [type, setType] = useState(null)
+  const [disabled, setDisabled] = useState(false)
 
   const handleNext = () => {
+    setDisabled(true)
     setFind(data.events[0])
     setActive(data.events[1])
     dispatch(setLive(1))
@@ -99,6 +101,7 @@ const Skeleton = () => {
             } else {
               setActive(json.events[0])
               dispatch(setLive(1))
+              setFind(null)
             }
           }
           setType(game)
@@ -179,7 +182,11 @@ const Skeleton = () => {
                 {data.events.map((el, idx) => (
                   <button
                     key={idx}
-                    className={classNames(style.link, el.id === active.id && style.active)}
+                    className={classNames(
+                      style.link,
+                      el.id === active.id && style.active,
+                      disabled && idx === 0 && style.disabled,
+                    )}
                     onClick={() => {
                       checkStatus(el)
                       setActive(el)
@@ -194,7 +201,7 @@ const Skeleton = () => {
                   <div className={style.body}>{setGame(type.type, active)}</div>
                   {modal === 1 && <SkipModal action={handleNext} />}
                   {active.id !== data.events[0].id && (
-                    <UpdateData find={find || data.events[0]} setActive={setActive} setFind={setFind} />
+                    <UpdateData find={find || data.events[0]} setActive={setActive} setFind={setFind} setDisabled={setDisabled} />
                   )}
                 </>
               )}

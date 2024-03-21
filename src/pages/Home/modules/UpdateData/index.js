@@ -6,9 +6,10 @@ import { matchStatus } from 'constant/config'
 
 import { setData } from 'store/HOME/actions/dataAction'
 import { setLive } from 'store/HOME/actions/liveAction'
+import { getDifferent } from 'helpers/getDifferent'
 import { getToken } from 'helpers/getToken'
 
-const UpdateData = ({ find, setActive, setFind }) => {
+const UpdateData = ({ find, setActive, setFind, setDisabled }) => {
   const dispatch = useDispatch()
   const { sendMessage } = useSocket()
 
@@ -19,6 +20,13 @@ const UpdateData = ({ find, setActive, setFind }) => {
 
   useEffect(() => {
     a.current = setInterval(() => {
+      console.log(getDifferent(find.nextUpdate, delta, 1))
+      if (getDifferent(find.nextUpdate, delta, 1) < 6 && find.status === matchStatus.ANNOUNCEMENT) {
+        setDisabled(true)
+      } else {
+        setDisabled(false)
+      }
+
       if (new Date().getTime() + delta >= find.nextUpdate) {
         if (find.status === matchStatus.COMPLETED || find.status === matchStatus.RESULTS) {
           if (isConnected) {
