@@ -13,17 +13,22 @@ const Ticker = () => {
   const { t } = useTranslation()
   const { auth } = useSelector(state => state.auth)
   const { game } = useSelector(state => state.game)
+  const { progress } = useSelector(state => state.progress)
   const [data, setData] = useState({})
   const [loading, setLoading] = useState(true)
 
-  useEffect(() => {
+  const getHistory = () => {
     getData(`${getHostName()}/viewer/lastgame/${auth}/FOOTBALL_LEAGUE/${game.id}`).then(json => {
       if (json.last) {
         setData(json)
         setLoading(false)
       }
     })
-  }, [game, auth])
+  }
+
+  useEffect(() => {
+    getHistory()
+  }, [progress, game])
 
   if (loading) {
     return false

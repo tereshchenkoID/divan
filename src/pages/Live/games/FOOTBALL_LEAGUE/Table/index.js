@@ -37,20 +37,24 @@ const Table = ({ data }) => {
                   </div>
                   <div>
                     <div>{el_m.teams.home.name}</div>
-                    <div className={style.states}>
-                      {el_m.teams?.home?.last3?.split('').map((char, index) => (
-                        <div key={index} className={classNames(style.state, style[char.toLowerCase()])} />
-                      ))}
-                    </div>
+                    {el_m.teams.home.last3 && (
+                      <div className={style.states}>
+                        {el_m.teams.home.last3.split('').map((char, index) => (
+                          <div key={index} className={classNames(style.state, style[char.toLowerCase()])} />
+                        ))}
+                      </div>
+                    )}
                   </div>
                   <div>vs</div>
                   <div>
                     <div>{el_m.teams.away.name}</div>
-                    <div className={style.states}>
-                      {el_m.teams?.away?.last3?.split('').map((char, index) => (
-                        <div key={index} className={classNames(style.state, style[char.toLowerCase()])} />
-                      ))}
-                    </div>
+                    {el_m.teams.away.last3 && (
+                      <div className={style.states}>
+                        {el_m.teams.away.last3.split('').map((char, index) => (
+                          <div key={index} className={classNames(style.state, style[char.toLowerCase()])} />
+                        ))}
+                      </div>
+                    )}
                   </div>
                   <div className={style.logo}>
                     <img src={`${getHostName('ASSETS')}/${el_m.teams.away.img}`} alt={el_m.teams.away.name} />

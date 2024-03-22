@@ -3,8 +3,8 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { setProgress } from 'store/LIVE/actions/progressAction'
-import { setModal } from 'store/actions/modalAction'
 import { setTv } from 'store/LIVE/actions/tvAction'
+import { setModal } from 'store/actions/modalAction'
 
 const StartTimer = ({ delta, timer }) => {
   const dispatch = useDispatch()
@@ -23,8 +23,11 @@ const StartTimer = ({ delta, timer }) => {
     if (new Date().getTime() + delta > tv.event.nextUpdate) {
       dispatch(setTv(`${game.type}/${game.id}`)).then(json => {
         if (json && json.event.status === matchStatus.PROGRESS) {
+          console.log(json.event.status)
           dispatch(setProgress(2))
           dispatch(setModal(0))
+
+          return null
         }
       })
     }

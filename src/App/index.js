@@ -14,6 +14,7 @@ import Login from 'pages/Login'
 import Loader from 'components/Loader'
 
 import style from './index.module.scss'
+import { getHostName } from '../helpers/getHostName'
 
 const App = () => {
   const dispatch = useDispatch()
@@ -27,12 +28,12 @@ const App = () => {
       .then(response => response.json())
       .then(config => {
         localStorage.setItem('config', JSON.stringify(config.hostnames))
-        connectSocket()
+        if (config.hostnames.WSS_PROD) connectSocket()
       })
   }, [dispatch])
 
   useEffect(() => {
-    if (!isConnected) {
+    if (getHostName('WSS_PROD') && !isConnected) {
       const intervalId = setInterval(
         () => {
           console.log('%cSOCKET_RECONNECT', 'color: #157b15')

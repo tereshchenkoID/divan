@@ -12,16 +12,21 @@ import style from './index.module.scss'
 const History = () => {
   const dispatch = useDispatch()
   const { game } = useSelector(state => state.game)
+  const { progress } = useSelector(state => state.progress)
   const { history } = useSelector(state => state.history)
   const [loading, setLoading] = useState(true)
 
-  useEffect(() => {
+  const getHistory = () => {
     dispatch(setHistory(`${game.type}/${game.id}`)).then(json => {
       if (json.table) {
         setLoading(false)
       }
     })
-  }, [])
+  }
+
+  useEffect(() => {
+    getHistory()
+  }, [progress, game])
 
   if (loading) {
     return false

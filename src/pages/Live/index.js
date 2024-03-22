@@ -63,6 +63,7 @@ const Live = () => {
   const { tv } = useSelector(state => state.tv)
   const { game } = useSelector(state => state.game)
   const { modal } = useSelector(state => state.modal)
+  const { progress } = useSelector(state => state.progress)
   const { jackpot } = useSelector(state => state.jackpot)
   const [loading, setLoading] = useState(true)
   const [preloader, setPreloader] = useState(true)
@@ -161,7 +162,7 @@ const Live = () => {
               <div className={style.winner}>
                 <JackPotWinner />
               </div>
-              {game.type === gameType.FOOTBALL_LEAGUE && <Ticker />}
+              {game.type === gameType.FOOTBALL_LEAGUE && progress !== 2 && <Ticker />}
             </div>
             {preloader ? (
               <Loader type={'block'} background={'transparent'} />
