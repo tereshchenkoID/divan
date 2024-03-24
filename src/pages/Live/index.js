@@ -73,7 +73,7 @@ const Live = () => {
     update: null,
     game: null,
   })
-  const worker = useMemo(() => new Worker('./serviceWorker.js'), [])
+  const worker = useMemo(() => new Worker('./viewer.js'), [])
 
   useEffect(() => {
     dispatch(setSettings()).then(json => {
@@ -87,6 +87,21 @@ const Live = () => {
       }
     })
   }, [dispatch])
+
+  useEffect(() => {
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker
+          .register('viewer.js')
+          .then(() => {
+            console.log('[SW] registered:')
+          })
+          .catch(() => {
+            console.error('[SW] registration failed:')
+          })
+      })
+    }
+  }, [worker])
 
   useEffect(() => {
     if ('Worker' in window) {

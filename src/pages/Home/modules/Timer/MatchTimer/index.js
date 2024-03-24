@@ -10,22 +10,8 @@ import { setData } from 'store/HOME/actions/dataAction'
 
 import { checkCmd } from 'helpers/checkCmd'
 import { getDifferent } from 'helpers/getDifferent'
+import { getDifferentPeriod } from 'helpers/getDifferentPeriod'
 import { getToken } from 'helpers/getToken'
-
-const getDifferentPeriod = (start, end, delta) => {
-  const MAX = 90
-  const c = new Date().getTime() + delta
-
-  let r = 0,
-    result = '0'
-
-  if (end > c) {
-    r = new Date(end - c)
-    result = MAX - (r.getSeconds() + r.getMinutes() * 60)
-  }
-
-  return result
-}
 
 const checkType = (start, end, delta, type) => {
   if (type === gameType.FOOTBALL_LEAGUE || type === gameType.FOOTBALL) {
