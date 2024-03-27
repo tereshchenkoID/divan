@@ -1,61 +1,55 @@
-import { matchStatus } from 'constant/config'
+import { useTranslation } from 'react-i18next'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useTranslation } from 'react-i18next'
-
 import useSocket from 'hooks/useSocket'
+
+import { matchStatus } from 'constant/config'
 
 import { setLive } from 'store/HOME/actions/liveAction'
 import { setData } from 'store/HOME/actions/dataAction'
-
 import { getToken } from 'helpers/getToken'
-import { getDifferent } from 'helpers/getDifferent'
 
-const ResultTimer = ({ delta }) => {
+const ResultTimer = ({ active, setActive, timer, isActive, initTime }) => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
   const { sendMessage } = useSocket()
-  const { isConnected } = useSelector(state => state.socket)
-  const [timer, setTimer] = useState('')
-  const { data } = useSelector(state => state.data)
   const { game } = useSelector(state => state.game)
+  const { live } = useSelector(state => state.live)
+  const { delta } = useSelector(state => state.delta)
+  const { isConnected } = useSelector(state => state.socket)
+  const [isRequesting, setIsRequesting] = useState(false)
 
   useEffect(() => {
-    let r = getDifferent(data.events[0].nextUpdate, delta)
-    setTimer(r)
-  }, [data, delta])
-
-  useEffect(() => {
-    const a = setInterval(() => {
-      let r = getDifferent(data.events[0].nextUpdate, delta)
-      setTimer(r)
-
-      if (new Date().getTime() + delta >= data.events[0].nextUpdate) {
-        if (isConnected) {
-          sendMessage({
-            cmd: `feed/${getToken()}/${game.type}/${game.id}`,
-          })
-        } else {
-          dispatch(setData(game)).then(json => {
-            if (json && json.events[0].status === matchStatus.ANNOUNCEMENT) {
-              dispatch(setLive(4))
-              clearInterval(a)
-            }
-          })
+    if (live === 3 && isActive && new Date().getTime() + delta > active.nextUpdate) {
+      if (isConnected) {
+        sendMessage({
+          cmd: `feed/${getToken()}/${game.type}/${game.id}`,
+        })
+      } else {
+        if (!isRequesting) {
+          setIsRequesting(true)
+          dispatch(setData(game))
+            .then(json => {
+              if (json.events[0].status === matchStatus.ANNOUNCEMENT) {
+                setActive(json.events[0])
+                initTime(json.events[0])
+                dispatch(setLive(1))
+              }
+              setIsRequesting(false)
+            })
+            .catch(error => {
+              setIsRequesting(false)
+              console.error('Error:', error)
+            })
         }
       }
-    }, 1000)
-
-    return () => {
-      setTimer('')
-      clearInterval(a)
     }
-  }, [data, delta])
+  }, [dispatch, live, game, delta, timer])
 
   return (
     <>
       <div>{t('interface.results')}</div>
-      <div>{timer === '0' ? '00:00' : timer}</div>
+      <div>{timer.next}</div>
     </>
   )
 }

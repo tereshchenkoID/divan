@@ -11,6 +11,8 @@ import { setGame } from 'store/actions/gameAction'
 import { setProgress } from 'store/LIVE/actions/progressAction'
 import { setModal } from 'store/actions/modalAction'
 import { setTv } from 'store/LIVE/actions/tvAction'
+
+import { getDifferent } from 'helpers/getDifferent'
 import { conditionStatus } from 'helpers/conditionStatus'
 
 import Connection from 'components/Connection'
@@ -69,11 +71,19 @@ const Live = () => {
   const [preloader, setPreloader] = useState(true)
   const [active, setActive] = useState(false)
   const [timer, setTimer] = useState({
-    timer: '00:00',
+    time: '00:00',
     update: null,
     game: null,
   })
-  const worker = useMemo(() => new Worker('./viewer.js'), [])
+  const worker = useMemo(() => new Worker('./sw.js'), [])
+
+  const initTime = value => {
+    setTimer(prevState => ({
+      ...prevState,
+      time: getDifferent(value.nextUpdate, delta),
+      nextId: value.id,
+    }))
+  }
 
   useEffect(() => {
     dispatch(setSettings()).then(json => {
@@ -92,7 +102,7 @@ const Live = () => {
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker
-          .register('viewer.js')
+          .register('sw.js')
           .then(() => {
             console.log('[SW] registered:')
           })
@@ -112,6 +122,9 @@ const Live = () => {
       worker.postMessage({
         type: 'start',
         currentTime: tv?.event?.nextUpdate,
+        currentId: tv?.event?.id,
+        nextTime: tv?.event?.nextUpdate,
+        nextId: tv?.event?.id,
         game: tv?.event?.type,
         delta: delta,
       })
@@ -153,6 +166,7 @@ const Live = () => {
             if (json) {
               dispatch(setModal(0))
               dispatch(setProgress(conditionStatus(json.event.status)))
+              initTime(json.event)
               setPreloader(false)
             }
           })
@@ -185,7 +199,7 @@ const Live = () => {
               <div className={style.content}>
                 {tv.event ? (
                   <>
-                    <Header timer={timer} />
+                    <Header timer={timer} initTime={initTime} />
                     <div className={style.table}>{getGame(game.type)}</div>
                   </>
                 ) : (

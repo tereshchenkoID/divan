@@ -1,17 +1,15 @@
-import { gameType, matchStatus } from 'constant/config'
 import { useEffect, useState } from 'react'
+import { gameType, matchStatus } from 'constant/config'
 import { useDispatch, useSelector } from 'react-redux'
-
 import useSocket from 'hooks/useSocket'
 
+import { getDifferentPeriod } from 'helpers/getDifferentPeriod'
+import { getDifferent } from 'helpers/getDifferent'
+import { getToken } from 'helpers/getToken'
+
+import { setData } from 'store/HOME/actions/dataAction'
 import { setLive } from 'store/HOME/actions/liveAction'
 import { setLiveTimer } from 'store/HOME/actions/liveTimerAction'
-import { setData } from 'store/HOME/actions/dataAction'
-
-import { checkCmd } from 'helpers/checkCmd'
-import { getDifferent } from 'helpers/getDifferent'
-import { getDifferentPeriod } from 'helpers/getDifferentPeriod'
-import { getToken } from 'helpers/getToken'
 
 const checkType = (start, end, delta, type) => {
   if (type === gameType.FOOTBALL_LEAGUE || type === gameType.FOOTBALL) {
@@ -21,59 +19,50 @@ const checkType = (start, end, delta, type) => {
   }
 }
 
-const MatchTimer = ({ delta }) => {
+const MatchTimer = ({ active, setActive, timer, isActive, initTime }) => {
   const dispatch = useDispatch()
   const { sendMessage } = useSocket()
-  const { isConnected, receivedMessage } = useSelector(state => state.socket)
-  const [timer, setTimer] = useState('')
-  const { data } = useSelector(state => state.data)
+  const { delta } = useSelector(state => state.delta)
   const { game } = useSelector(state => state.game)
+  const { live } = useSelector(state => state.live)
+  const { liveTimer } = useSelector(state => state.liveTimer)
+  const { isConnected } = useSelector(state => state.socket)
+  const [isRequesting, setIsRequesting] = useState(false)
 
   useEffect(() => {
-    let r = checkType(data.events[0].start, data.events[0].nextUpdate, delta, game.type)
-    dispatch(setLiveTimer(r))
-    setTimer(r)
-  }, [data, delta])
-
-  useEffect(() => {
-    const a = setInterval(() => {
-      let r = checkType(data.events[0].start, data.events[0].nextUpdate, delta, game.type)
-
-      if (new Date().getTime() + delta >= data.events[0].nextUpdate) {
-        if (isConnected) {
-          sendMessage({
-            cmd: `feed/${getToken()}/${game.type}/${game.id}`,
-          })
-        } else {
-          dispatch(setData(game)).then(json => {
-            if (json && json.events[0].status === matchStatus.RESULTS) {
-              dispatch(setLive(3))
-              dispatch(setLiveTimer(0))
-              clearInterval(a)
-            }
-          })
-        }
+    if (live === 2 && isActive && new Date().getTime() + delta > active.nextUpdate) {
+      if (isConnected) {
+        sendMessage({
+          cmd: `feed/${getToken()}/${game.type}/${game.id}`,
+        })
       } else {
-        dispatch(setLiveTimer(r))
-        setTimer(r)
+        if (!isRequesting) {
+          setIsRequesting(true)
+          dispatch(setData(game))
+            .then(json => {
+              if (json.events[0].status === matchStatus.RESULTS) {
+                setActive(json.events[0])
+                initTime(json.events[0])
+                dispatch(setLive(3))
+                dispatch(setLiveTimer(0))
+              }
+              setIsRequesting(false)
+            })
+            .catch(error => {
+              setIsRequesting(false)
+              console.error('Error:', error)
+            })
+        }
       }
-    }, 1000)
-
-    return () => {
-      setTimer('')
-      clearInterval(a)
     }
-  }, [data, delta])
+  }, [dispatch, live, game, delta, timer])
 
   useEffect(() => {
-    if (receivedMessage !== '' && checkCmd('feed', receivedMessage.cmd)) {
-      if (receivedMessage && receivedMessage.events[0].status === matchStatus.PROGRESS) {
-        dispatch(setLive(2))
-      }
-    }
-  }, [receivedMessage])
+    let r = checkType(active.start, active.nextUpdate, delta, game.type)
+    dispatch(setLiveTimer(r))
+  }, [dispatch, delta, game, timer, active])
 
-  return <div>{timer === '0' ? '00:00' : timer}</div>
+  return <div>{liveTimer === '0' ? '00:00' : `${liveTimer}${game.type === gameType.FOOTBALL_LEAGUE ? `'` : ''}`}</div>
 }
 
 export default MatchTimer

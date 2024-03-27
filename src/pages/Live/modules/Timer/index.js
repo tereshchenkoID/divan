@@ -27,7 +27,7 @@ const checkType = (start, end, delta, type) => {
   }
 }
 
-const Timer = ({ timer }) => {
+const Timer = ({ timer, initTime }) => {
   const dispatch = useDispatch()
   const { t } = useTranslation()
   const { game } = useSelector(state => state.game)
@@ -51,14 +51,17 @@ const Timer = ({ timer }) => {
         dispatch(setTv(`${game.type}/${game.id}`))
           .then(json => {
             if (progress === 1 && json.event.status === matchStatus.PROGRESS) {
+              initTime(json.event)
               dispatch(setProgress(2))
               dispatch(setModal(0))
             }
             if (progress === 2 && json.event.status === matchStatus.RESULTS) {
+              initTime(json.event)
               dispatch(setProgress(3))
               dispatch(setLiveTimer(0))
             }
             if (progress === 3 && json.event.status === matchStatus.ANNOUNCEMENT) {
+              initTime(json.event)
               dispatch(setProgress(1))
             }
             setIsRequesting(false)

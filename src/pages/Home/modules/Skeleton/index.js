@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import useSocket from 'hooks/useSocket'
@@ -9,17 +9,16 @@ import { gameType, matchStatus } from 'constant/config'
 
 import { getDateTime } from 'helpers/getDateTime'
 import { conditionStatus } from 'helpers/conditionStatus'
+import { getDifferent } from 'helpers/getDifferent'
 import { checkCmd } from 'helpers/checkCmd'
 import { getToken } from 'helpers/getToken'
 
-import { setLiveTimer } from 'store/HOME/actions/liveTimerAction'
 import { setData } from 'store/HOME/actions/dataAction'
 import { setLive } from 'store/HOME/actions/liveAction'
 import { setModal } from 'store/actions/modalAction'
 
 import Loader from 'components/Loader'
 import Alert from 'components/Alert'
-import UpdateData from '../UpdateData'
 import SkipModal from '../SkipModal'
 import Timer from '../Timer'
 
@@ -60,27 +59,79 @@ const Skeleton = () => {
   const { sendMessage } = useSocket()
 
   const { data } = useSelector(state => state.data)
+  const { delta } = useSelector(state => state.delta)
   const { live } = useSelector(state => state.live)
   const { modal } = useSelector(state => state.modal)
   const { game } = useSelector(state => state.game)
   const { isConnected, receivedMessage } = useSelector(state => state.socket)
 
   const [loading, setLoading] = useState(true)
-  const [find, setFind] = useState(null)
   const [active, setActive] = useState(0)
-  const [type, setType] = useState(null)
   const [disabled, setDisabled] = useState(false)
 
+  const [timer, setTimer] = useState({
+    time: '00:00',
+    next: null,
+    game: null,
+    currentId: null,
+    nextId: null,
+    update: null,
+  })
+  const worker = useMemo(() => new Worker('./sw.js'), [])
+
+  useEffect(() => {
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker
+          .register('sw.js')
+          .then(() => {
+            console.log('[SW] registered:')
+          })
+          .catch(() => {
+            console.error('[SW] registration failed:')
+          })
+      })
+    }
+  }, [worker])
+
+  useEffect(() => {
+    if ('Worker' in window) {
+      worker.addEventListener('message', event => {
+        setTimer(event.data)
+      })
+
+      worker.postMessage({
+        type: 'start',
+        currentTime: data?.events?.[0].nextUpdate,
+        currentId: data?.events?.[0].id,
+        nextTime: active?.nextUpdate,
+        nextId: active?.id,
+        game: game?.type,
+        delta: delta,
+      })
+
+      return () => {
+        worker.postMessage('stop')
+      }
+    } else {
+      console.log('SW not supported')
+    }
+  }, [data, active, delta, worker])
+
+  const initTime = value => {
+    setTimer(prevState => ({
+      ...prevState,
+      next: getDifferent(value.nextUpdate, delta),
+      nextId: value.id,
+    }))
+  }
+
   const handleNext = () => {
+    initTime(data.events[1])
     setDisabled(true)
-    setFind(data.events[0])
     setActive(data.events[1])
     dispatch(setLive(1))
     dispatch(setModal(0))
-  }
-
-  const checkStatus = el => {
-    dispatch(setLive(conditionStatus(el.status)))
   }
 
   useEffect(() => {
@@ -88,81 +139,51 @@ const Skeleton = () => {
 
     if (game !== null) {
       if (isConnected) {
+        setLoading(true)
         sendMessage({
           cmd: `feed/${getToken()}/${game.type}/${game.id}`,
         })
       } else {
         dispatch(setData(game)).then(json => {
           if (json && json.events.length > 0) {
+            let find = null
             if (json.events[0].status !== matchStatus.ANNOUNCEMENT) {
-              setActive(json.events[1])
-              setFind(json.events[0])
-              checkStatus(json.events[1])
+              find = json.events[1]
+              dispatch(setLive(conditionStatus(json.events[1])))
             } else {
-              setActive(json.events[0])
+              find = json.events[0]
               dispatch(setLive(1))
-              setFind(null)
             }
+
+            initTime(find)
+            setActive(find)
           }
-          setType(game)
+          setDisabled(false)
           setLoading(false)
         })
       }
-    }
-
-    return () => {
-      setActive(0)
     }
   }, [game])
 
   useEffect(() => {
-    if (receivedMessage !== '' && checkCmd('feed', receivedMessage.cmd)) {
-      if (loading) {
-        dispatch(setData(game, receivedMessage)).then(() => {
-          if (receivedMessage && receivedMessage.events[0].status !== matchStatus.ANNOUNCEMENT) {
-            setActive(receivedMessage.events[1])
-            setFind(receivedMessage.events[0])
-            checkStatus(receivedMessage.events[1])
-          } else {
-            setActive(receivedMessage.events[0])
-            dispatch(setLive(1))
-          }
-
-          setLoading(false)
-          setType(game)
-        })
-      } else {
-        if (find?.id !== active.id) {
-          dispatch(setData(game, receivedMessage)).then(() => {
-            setFind(receivedMessage.events[0])
-          })
+    if (loading && receivedMessage !== '' && checkCmd('feed', receivedMessage.cmd)) {
+      dispatch(setData(game, receivedMessage)).then(() => {
+        let find = null
+        if (receivedMessage && receivedMessage.events[0].status !== matchStatus.ANNOUNCEMENT) {
+          find = receivedMessage.events[1]
+          dispatch(setLive(conditionStatus(receivedMessage.events[1])))
         } else {
-          dispatch(setData(game, receivedMessage)).then(() => {
-            if (receivedMessage && receivedMessage.events[0].status === matchStatus.PROGRESS) {
-              dispatch(setLive(2))
-            } else if (receivedMessage && receivedMessage.events[0].status === matchStatus.RESULTS) {
-              dispatch(setLive(3))
-              dispatch(setLiveTimer(0))
-            } else if (receivedMessage && receivedMessage.events[0].status === matchStatus.ANNOUNCEMENT) {
-              dispatch(setLive(4))
-            }
-          })
+          find = receivedMessage.events[0]
+          dispatch(setLive(1))
         }
-      }
+
+        setActive(find)
+        initTime(find)
+        setDisabled(false)
+        setLoading(false)
+      })
     }
   }, [receivedMessage])
-
-  useEffect(() => {
-    if (modal === 1) {
-      handleNext()
-    }
-
-    if (live === 4) {
-      setFind(null)
-      setActive(data.events[0])
-      dispatch(setLive(1))
-    }
-  }, [live])
 
   return (
     <div className={style.block}>
@@ -174,9 +195,9 @@ const Skeleton = () => {
             <>
               <div className={style.info}>
                 <div className={style.league}>
-                  <img src={type.logo} alt={type.name} width={135} height={70} loading={'lazy'} />
+                  <img src={game.logo} alt={game.name} width={135} height={70} loading={'lazy'} />
                 </div>
-                <Timer data={active} type={type.type} />
+                <Timer active={active} setActive={setActive} timer={timer} setDisabled={setDisabled} initTime={initTime} />
               </div>
               <div className={style.tab}>
                 {data.events.map((el, idx) => (
@@ -188,7 +209,8 @@ const Skeleton = () => {
                       disabled && idx === 0 && style.disabled,
                     )}
                     onClick={() => {
-                      checkStatus(el)
+                      initTime(el)
+                      dispatch(setLive(conditionStatus(el.status)))
                       setActive(el)
                     }}
                   >
@@ -198,11 +220,8 @@ const Skeleton = () => {
               </div>
               {live !== 0 && (
                 <>
-                  <div className={style.body}>{setGame(type.type, active)}</div>
+                  <div className={style.body}>{setGame(game.type, active)}</div>
                   {modal === 1 && <SkipModal action={handleNext} />}
-                  {active.id !== data.events[0].id && (
-                    <UpdateData find={find || data.events[0]} setActive={setActive} setFind={setFind} setDisabled={setDisabled} />
-                  )}
                 </>
               )}
             </>
