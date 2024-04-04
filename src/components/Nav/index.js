@@ -14,9 +14,11 @@ import Account from './Account'
 
 import style from './index.module.scss'
 
-const Nav = () => {
+const Nav = ({ isBetslip, setIsBetslip }) => {
   const dispatch = useDispatch()
+  const { resize } = useSelector(state => state.resize)
   const { ticket } = useSelector(state => state.ticket)
+  const { betslip } = useSelector(state => state.betslip)
   const { settings } = useSelector(state => state.settings)
   const [sm, setSm] = useState(false) // Settings Modal
   const [rm, setRm] = useState(false) // Reports Modal
@@ -29,6 +31,16 @@ const Nav = () => {
         <Clock />
       </div>
       <div className={style.options}>
+        <button
+          className={style.betslip}
+          onClick={() => {
+            setIsBetslip(!isBetslip)
+          }}
+          type="button"
+        >
+          Bet Slip
+          {betslip.length > 0 && <span>{betslip.length}</span>}
+        </button>
         <div className={style.option}>
           <Button
             type={'grey'}
@@ -49,7 +61,7 @@ const Nav = () => {
             }}
           />
         </div>
-        {settings.business.reports && settings.business.reports && (
+        {!resize && settings.business.reports && settings.business.reports && (
           <div className={style.option}>
             <Button
               type={'grey'}
@@ -61,7 +73,7 @@ const Nav = () => {
             />
           </div>
         )}
-        {settings.business.web_viewer && (
+        {!resize && settings.business.web_viewer && (
           <div className={style.option}>
             <Link to={'/viewer'} target={'_blank'} rel="noreferrer">
               <Button type={'grey'} size={'md'} icon={'tv'} />

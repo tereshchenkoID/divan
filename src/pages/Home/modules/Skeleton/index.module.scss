@@ -7,6 +7,10 @@
   position: relative;
   font-weight: var(--typography-bold);
   text-transform: uppercase;
+
+  @media (max-width: $min) {
+    height: unset;
+  }
 }
 
 .info {

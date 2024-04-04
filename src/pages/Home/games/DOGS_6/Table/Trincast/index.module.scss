@@ -17,6 +17,10 @@
     @include scroll;
 
     max-height: rem(335px);
+
+    @media (max-width: $min) {
+      max-height: unset;
+    }
   }
 }
 

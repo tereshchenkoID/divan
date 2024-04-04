@@ -1,7 +1,7 @@
 @import 'scss/config';
 
 .header {
-  @include make-spacer('my', 2);
+  @include make-spacer(my, 2);
 
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -9,6 +9,13 @@
   min-height: rem(92px);
   padding-left: rem(270px);
   column-gap: rem(40px);
+
+  @media (max-width: $min) {
+    @include make-spacer(pl, 0);
+    @include make-spacer(my, 0);
+
+    padding-top: 100px;
+  }
 }
 
 .wrapper {

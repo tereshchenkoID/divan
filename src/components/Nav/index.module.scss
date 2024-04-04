@@ -11,6 +11,11 @@
   border-bottom: rem(2px) solid var(--color-yellow);
   overflow: hidden;
   background: #ffd76d linear-gradient(360deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 100%);
+
+  @media (max-width: $min) {
+    z-index: 16;
+    height: rem(60px);
+  }
 }
 
 .setting {
@@ -28,9 +33,63 @@
   @include flex($align-items: center);
 
   gap: rem(10px);
+
+  @media (max-width: $min) {
+    @include make-spacer('px', 2);
+    @include flex(flex-end, center);
+
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: rem(60px);
+    background: #ffd76d linear-gradient(360deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 100%);
+  }
+}
+
+.betslip {
+  @include make-spacer(px, 2);
+  @include make-spacer(ml, 0);
+  @include make-spacer(mr, auto);
+
+  display: none;
+  position: relative;
+  height: rem(38px);
+  border: rem(1px) solid var(--color-black);
+  border-radius: rem(8px);
+  color: var(--color-white);
+  background: linear-gradient(360deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.1) 100%);
+  background-color: var(--color-thunder);
+
+  &::before {
+    position: absolute;
+    top: rem(1px);
+    right: rem(1px);
+    left: rem(1px);
+    height: rem(12px);
+    border-radius: rem(inherit);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.1) 100%);
+    content: '';
+  }
+
+  span {
+    @include flex(center, center);
+    @include size(rem(30px));
+
+    position: absolute;
+    top: rem(-18px);
+    right: rem(-18px);
+    border-radius: 50%;
+    background-color: var(--color-red);
+  }
+
+  @media (max-width: $min) {
+    display: block;
+  }
 }
 
 .option {
+
   button {
     width: rem(38px);
     box-shadow: 0 0 rem(2px) rem(3px) rgba(0, 0, 0, 0.4);

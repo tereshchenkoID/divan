@@ -17,6 +17,10 @@
   @include make-spacer(mt, 1);
   @include make-spacer(mb, 2);
   @include flex($align-items: center);
+
+  @media (max-width: $min) {
+    @include make-spacer(mb, 0);
+  }
 }
 
 .market {

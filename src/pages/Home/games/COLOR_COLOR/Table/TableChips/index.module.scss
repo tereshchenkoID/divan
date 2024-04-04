@@ -4,9 +4,13 @@
   display: grid;
   position: relative;
   grid-template-columns: 1fr rem(300px);
-  grid-gap: rem(5px);
+  gap: rem(5px);
   width: 100%;
   overflow: hidden;
+
+  @media (max-width: $min) {
+    grid-template-columns: 1fr;
+  }
 }
 
 .wrapper {
@@ -46,6 +50,12 @@
 
   min-height: rem(115px);
   background-color: #333;
+
+  @media (max-width: $min) {
+    @include make-spacer(p, 2);
+
+    min-height: unset;
+  }
 }
 
 .subtitle {

@@ -3,13 +3,11 @@
 .root {
   @include scroll;
 
-  min-width: rem(1366px);
-  min-height: rem(768px);
+  min-height: 100dvh;
   font-family: var(--font-family);
   font-size: var(--font-size);
   font-weight: var(--typography-regular);
   line-height: var(--line-height);
-  overflow: hidden;
   background-color: var(--color-green-100);
   user-select: none;
 
@@ -17,6 +15,9 @@
     @include size(rem(1366px), rem(768px));
 
     position: fixed;
+    min-width: rem(1366px);
+    min-height: rem(768px);
+    overflow: hidden;
     transform-origin: left top;
   }
 }

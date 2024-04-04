@@ -15,6 +15,7 @@ import style from './index.module.scss'
 
 const Games = () => {
   const dispatch = useDispatch()
+  const { resize } = useSelector(state => state.resize)
   const { settings } = useSelector(state => state.settings)
   const { game } = useSelector(state => state.game)
 
@@ -22,7 +23,7 @@ const Games = () => {
     dots: false,
     infinite: true,
     speed: 500,
-    slidesToShow: 7,
+    slidesToShow: resize ? 3 : 7,
     slidesToScroll: 1,
   }
 

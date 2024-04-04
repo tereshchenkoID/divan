@@ -18,6 +18,10 @@
     gap: rem(5px);
     flex-direction: row;
     justify-content: flex-start;
+
+    @media (max-width: $min) {
+      @include make-spacer('pl', 2);
+    }
   }
 }
 

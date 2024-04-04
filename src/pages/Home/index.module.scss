@@ -6,6 +6,10 @@
   position: relative;
   height: 100%;
   text-align: center;
+
+  @media (max-width: $min) {
+    height: calc(100vh - rem(60px));
+  }
 }
 
 .content {
@@ -15,18 +19,45 @@
   display: grid;
   z-index: 1;
   grid-template-columns: 1fr rem(357px);
+  gap: rem(10px);
   flex-grow: 1;
   overflow: hidden;
-  column-gap: rem(10px);
+
+  @media (max-width: $min) {
+    grid-template-columns: 1fr;
+    overflow-y: unset;
+  }
 }
 
 .column {
   position: relative;
   height: 100%;
   overflow: hidden;
+
+  &:nth-child(1) {
+    @media (max-width: $min) {
+      overflow-y: unset;
+    }
+  }
+
+  &:nth-child(2) {
+    @media (max-width: $min) {
+      display: none;
+    }
+
+    &.active {
+      display: block;
+    }
+  }
 }
 
 .banners {
   position: absolute;
   right: 0;
+
+  @media (max-width: $min) {
+    @include make-spacer(mb, 2);
+
+    position: static;
+  }
 }

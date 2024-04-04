@@ -7,18 +7,21 @@ import classNames from 'classnames'
 
 import { router } from 'router'
 
+import { setResize } from 'store/actions/resizeAction'
+
 import { getToken } from 'helpers/getToken'
+import { getHostName } from 'helpers/getHostName'
 
 import Notification from 'pages/Home/modules/Notification'
 import Login from 'pages/Login'
 import Loader from 'components/Loader'
 
 import style from './index.module.scss'
-import { getHostName } from '../helpers/getHostName'
 
 const App = () => {
   const dispatch = useDispatch()
   const { auth } = useSelector(state => state.auth)
+  const { resize } = useSelector(state => state.resize)
   const { isConnected } = useSelector(state => state.socket)
   const { notification } = useSelector(state => state.notification)
   const { connectSocket } = useSocket()
@@ -58,10 +61,20 @@ const App = () => {
   })
 
   const handleResize = () => {
-    setWindowSize({
-      x: window.innerWidth / WINDOW_SIZE.w,
-      y: window.innerHeight / WINDOW_SIZE.h,
-    })
+    const isMobile = window.screen.width < 1280
+
+    if (isMobile) {
+      setWindowSize({
+        x: 1,
+        y: 1,
+      })
+    } else {
+      setWindowSize({
+        x: window.innerWidth / WINDOW_SIZE.w,
+        y: window.innerHeight / WINDOW_SIZE.h,
+      })
+    }
+    dispatch(setResize(isMobile))
   }
 
   useEffect(() => {
@@ -71,7 +84,7 @@ const App = () => {
 
   return (
     <div
-      className={classNames(style.root, style.fixed)}
+      className={classNames(style.root, !resize && style.fixed)}
       style={{
         transform: `scale(${windowSize.x}, ${windowSize.y})`,
       }}

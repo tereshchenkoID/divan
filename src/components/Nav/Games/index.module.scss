@@ -4,6 +4,10 @@
   @include size(rem(700px), rem(55px));
 
   transform: translateY(rem(11px));
+
+  @media (max-width: $min) {
+    width: rem(320px);
+  }
 }
 
 .button {
@@ -47,11 +51,8 @@
   }
 
   .slick-track {
-    height: 100%;
-  }
-
-  .slick-track {
     gap: rem(10px);
+    height: 100%;
   }
 
   .slick-arrow {

@@ -91,17 +91,29 @@
     @include size(rem(28px));
 
     font-size: rem(18px);
+
+    @media (max-width: $min) {
+      @include size(rem(23px));
+    }
   }
 
   &.lg {
     @include size(rem(35px));
 
     font-size: rem(22px);
+
+    @media (max-width: $min) {
+      @include size(rem(30px));
+    }
   }
 
   &.xl {
     @include size(rem(50px));
 
     font-size: rem(30px);
+
+    @media (max-width: $min) {
+      @include size(rem(45px));
+    }
   }
 }

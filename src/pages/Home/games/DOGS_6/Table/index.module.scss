@@ -2,7 +2,7 @@
 
 .header {
   @include flex($align-items: center);
-  @include make-spacer('my', 2);
+  @include make-spacer(my, 2);
 
   flex-shrink: 0;
   min-height: rem(92px);
@@ -41,14 +41,14 @@
 .market {
   @include button;
   @include size(auto, rem(42px));
-  @include make-spacer('px', 2);
-  @include make-spacer('mr', half);
+  @include make-spacer(px, 2);
+  @include make-spacer(mr, half);
 
   width: auto;
   font-size: rem(14px);
 
   &:last-child {
-    @include make-spacer('mr', 0);
+    @include make-spacer(mr, 0);
   }
 
   &.disabled {

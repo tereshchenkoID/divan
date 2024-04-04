@@ -7,11 +7,25 @@
   width: 100%;
   padding: rem(26px) rem(8px);
   background-color: var(--color-heavy-metal);
+
+  @media (max-width: $min) {
+    @include make-spacer(p, 2);
+
+    flex-direction: column-reverse;
+  }
 }
 
 .body {
   @include make-spacer(mx, auto);
   @include make-spacer(mb, 10);
+
+  @media (max-width: $min) {
+    @include make-spacer(mb, 0);
+    @include make-spacer(mt, 1);
+    @include flex($direction: row-reverse);
+
+    max-width: rem(675px);
+  }
 }
 
 .footer {
@@ -29,12 +43,27 @@
   position: relative;
   grid-template-columns: rem(55px) rem(845px) rem(55px);
   width: fit-content;
+
+  @media (max-width: $min) {
+    grid-template-rows: rem(60px) rem(870px) rem(60px);
+    grid-template-columns: unset;
+  }
 }
 
 .top,
 .bottom {
   height: rem(55px);
   padding: 0 rem(2px);
+
+  @media (max-width: $min) {
+    @include size(rem(120px), auto);
+  }
+
+  .button {
+    @media (max-width: $min) {
+      writing-mode: vertical-rl;
+    }
+  }
 }
 
 .hidden-zero {
@@ -44,8 +73,17 @@
   top: rem(20px);
   bottom: rem(-17px);
   left: rem(32px);
-  z-index: 2;
+  z-index: 3;
   width: rem(45px);
+
+  @media (max-width: $min) {
+    @include size(unset, rem(50px));
+
+    top: rem(40px);
+    right: rem(40px);
+    left: rem(-45px);
+    flex-direction: row-reverse;
+  }
 
   .button {
     flex: 1;
@@ -67,7 +105,17 @@
   bottom: rem(-18px);
   left: rem(75px);
   z-index: 2;
-  padding: 5px 0;
+  padding: rem(5px) 0;
+
+  @media (max-width: $min) {
+    @include make-spacer(p, 0);
+
+    top: rem(35px);
+    right: rem(20px);
+    bottom: rem(80px);
+    left: rem(-25px);
+    flex-direction: row-reverse;
+  }
 
   .button {
     position: relative;
@@ -79,6 +127,12 @@
   justify-content: space-between;
   align-items: center;
   height: rem(30px);
+
+  @media (max-width: $min) {
+    @include flex($direction: column);
+
+    height: 100%;
+  }
 
   .button {
     @include size(100%);
@@ -96,6 +150,12 @@
     grid-gap: rem(5px);
     padding: 0 rem(2px);
 
+    @media (max-width: $min) {
+      flex: 1;
+      margin-top: rem(40px);
+      padding-bottom: rem(10px);
+    }
+
     .button {
       position: relative;
 
@@ -104,17 +164,33 @@
         @include size(rem(60px));
 
         transform: translate(rem(-15px), rem(-15px));
+
+        @media (max-width: $min) {
+          flex: 1;
+          width: 100%;
+          transform: translate(0, rem(-15px));
+        }
       }
 
       &:nth-child(even) {
         margin-top: rem(-30px);
+
+        @media (max-width: $min) {
+          height: rem(25px);
+          margin-top: rem(-35px);
+        }
       }
     }
   }
 
   &:nth-child(even) {
-    grid-template-columns: repeat(23, 30px);
+    grid-template-columns: repeat(23, rem(30px));
     padding: 0 rem(2px);
+
+    @media (max-width: $min) {
+      width: rem(45px);
+      padding-top: rem(45px);
+    }
   }
 }
 
@@ -136,6 +212,10 @@
 
   gap: rem(6px);
   padding: 0 rem(7px) 0 rem(3px);
+
+  @media (max-width: $min) {
+    flex-direction: column;
+  }
 }
 
 .dozens {
@@ -158,6 +238,11 @@
 
   gap: rem(8px);
   padding: rem(5px) 0;
+
+  @media (max-width: $min) {
+    flex-direction: row;
+    height: rem(60px);
+  }
 
   .button {
     flex-direction: column;
@@ -204,6 +289,10 @@
   z-index: 0;
   gap: rem(5px);
 
+  @media (max-width: $min) {
+    flex-direction: row;
+  }
+
   .button {
     @include size(rem(65px), rem(67px));
 
@@ -212,6 +301,11 @@
     font-size: rem(28px);
     color: var(--color-white);
     box-shadow: 0 rem(2px) rem(2px) rgba(255, 255, 255, 0.14);
+
+    @media (max-width: $min) {
+      flex: 1 1 30%;
+      width: auto;
+    }
 
     &::before {
       position: absolute;
@@ -277,7 +371,7 @@
 .actions {
   display: grid;
   grid-template-columns: repeat(2, rem(64px));
-  grid-gap: rem(10px);
+  gap: rem(10px);
   justify-content: center;
 
   button {
@@ -290,6 +384,10 @@
 
   gap: rem(10px);
   height: rem(94px);
+
+  @media (max-width: $min) {
+    height: rem(80px);
+  }
 }
 
 .coin {
@@ -302,6 +400,10 @@
   font-weight: var(--typography-bold);
   letter-spacing: rem(-2px);
   color: var(--color-white);
+
+  @media (max-width: $min) {
+    height: rem(60px);
+  }
 
   img {
     @include absolute-filled;
@@ -317,5 +419,10 @@
     font-size: rem(36px);
     transform: rotateZ(360deg);
     transition: var(--default-transition);
+
+    @media (max-width: $min) {
+      height: rem(80px);
+      font-size: rem(30px);
+    }
   }
 }

@@ -6,6 +6,7 @@ import gameReducer from './reducers/gameReducer'
 import settingsReducer from './reducers/settingsReducer'
 import deltaReducer from './reducers/deltaReducer'
 import modalReducer from './reducers/modalReducer'
+import resizeReducer from './reducers/resizeReducer'
 
 /* HOME REDUCERS */
 import betslipReducer from './HOME/reducers/betslipReducer'
@@ -29,6 +30,7 @@ const allReducer = combineReducers({
   game: gameReducer,
   delta: deltaReducer,
   modal: modalReducer,
+  resize: resizeReducer,
 
   /* HOME REDUCERS */
   data: dataReducer,

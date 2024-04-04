@@ -22,6 +22,7 @@ import Decor from 'pages/Home/modules/Decor'
 import Skeleton from './modules/Skeleton'
 
 import style from './index.module.scss'
+import classNames from 'classnames'
 
 const Home = () => {
   const { sendMessage } = useSocket()
@@ -30,6 +31,7 @@ const Home = () => {
   const { game } = useSelector(state => state.game)
   const { isConnected, receivedMessage } = useSelector(state => state.socket)
   const [loading, setLoading] = useState(true)
+  const [isBetslip, setIsBetslip] = useState(false)
 
   const handleRedirect = () => {
     dispatch(setAuth(null))
@@ -82,7 +84,7 @@ const Home = () => {
       ) : (
         <>
           <Decor type={game?.decor} />
-          <Nav />
+          <Nav isBetslip={isBetslip} setIsBetslip={setIsBetslip} />
           <div className={style.content}>
             <div className={style.column}>
               <div className={style.banners}>
@@ -90,7 +92,8 @@ const Home = () => {
               </div>
               <Skeleton />
             </div>
-            <div className={style.column}>
+
+            <div className={classNames(style.column, isBetslip && style.active)}>
               <Betslip />
             </div>
           </div>
