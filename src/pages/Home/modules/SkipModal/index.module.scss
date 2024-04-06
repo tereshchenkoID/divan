@@ -2,22 +2,28 @@
 
 .block {
   @include flex(center, center);
-  @include make-spacer('p', 2);
+  @include make-spacer(p, 2);
 
   position: fixed;
   top: rem(57px);
   right: rem(370px);
   bottom: 0;
   left: 0;
-  z-index: 11;
+  z-index: $z-index-11;
   background-color: var(--color-green-100);
+
+  @media (max-width: $min) {
+    top: rem(60px);
+    right: 0;
+    z-index: $z-index-11;
+  }
 }
 
 .button {
   @include link;
   @include size(auto, rem(48px));
-  @include make-spacer('px', 4);
-  @include make-spacer('py', 2);
+  @include make-spacer(px, 4);
+  @include make-spacer(py, 2);
 
   min-width: rem(150px);
   font-size: rem(16px);

@@ -1,7 +1,7 @@
 @import 'scss/config';
 
 .block {
-  @include make-spacer('px', 1);
+  @include make-spacer(px, 1);
 
   &.COLOR_COLOR,
   &.ROULETTE,
@@ -10,6 +10,10 @@
   &.HORSES_8_VR {
     .bet {
       grid-template-columns: rem(20px) 1fr rem(50px) rem(58px) rem(25px);
+
+      @media (max-width: $min) {
+        grid-template-columns: 1fr rem(50px) rem(70px) rem(25px);
+      }
     }
   }
 
@@ -18,12 +22,20 @@
     &.lg {
       .bet {
         grid-template-columns: rem(20px) rem(85px) 1fr rem(50px) rem(58px) rem(25px);
+
+        @media (max-width: $min) {
+          grid-template-columns: rem(80px) 1fr rem(50px) rem(70px) rem(25px);
+        }
       }
     }
 
     &.sm {
       .bet {
         grid-template-columns: rem(20px) rem(85px) 1fr rem(50px) rem(25px);
+
+        @media (max-width: $min) {
+          grid-template-columns: rem(80px) 1fr rem(70px) rem(25px);
+        }
       }
     }
   }
@@ -36,14 +48,22 @@
 }
 
 .bet {
-  @include make-spacer('mb', 2);
-
   display: grid;
   align-items: center;
   font-size: rem(12px);
   overflow: hidden;
   color: var(--color-white);
   column-gap: rem(5px);
+
+  & > div {
+
+    &:nth-child(1) {
+
+      @media (max-width: $min) {
+        display: none;
+      }
+    }
+  }
 }
 
 .keyboard {
@@ -74,19 +94,19 @@
 .field {
   @include size(100%, rem(25px));
 
-  border: 1px solid #808080;
+  border: rem(1px) solid var(--color-border);
   border-radius: rem(5px);
   font-weight: var(--typography-bold);
   line-height: 1;
   text-align: center;
   white-space: nowrap;
   overflow: hidden;
-  background-color: #363636;
+  background-color: var(--color-thunder);
 }
 
 .meta {
   @include flex($align-items: center);
-  @include make-spacer('px', 1);
+  @include make-spacer(px, 1);
 }
 
 .close {
@@ -109,15 +129,15 @@
 }
 
 .stake {
-  @include make-spacer('py', half);
-  @include make-spacer('px', 2);
+  @include make-spacer(py, half);
+  @include make-spacer(px, 2);
 
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   align-items: center;
   font-size: rem(13px);
   color: var(--color-white);
-  background-color: #333;
+  background-color: var(--color-thunder);
 
   div {
     &:last-child {

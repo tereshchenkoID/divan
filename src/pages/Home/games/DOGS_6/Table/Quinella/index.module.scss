@@ -4,6 +4,10 @@
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   color: var(--color-white);
+
+  @media (max-width: $min) {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 .cell {
@@ -25,5 +29,11 @@
 
   &:nth-child(6n) {
     border-right: 0;
+  }
+
+  &:nth-child(6n) {
+    @media (max-width: $min) {
+      border-right: rem(1px) solid var(--color-border);
+    }
   }
 }

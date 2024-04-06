@@ -4,11 +4,8 @@
   @include flex(center, center, column);
 
   position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 15;
+  inset: 0;
+  z-index: $z-index-14;
   border: rem(3px) solid var(--color-orange-900);
   border-radius: rem(9px);
   font-weight: var(--typography-bold);

@@ -5,15 +5,23 @@
 }
 
 .thead {
-  @include make-spacer('py', 2);
+  @include make-spacer(py, 2);
 
-  border-bottom: 1px solid #808080;
+  border-bottom: rem(1px) solid var(--color-border);
+
+  @media (max-width: $min) {
+    @include make-spacer(py, 1);
+  }
 }
 
 .tr {
   display: grid;
   grid-template-columns: rem(50px) rem(60px) rem(120px) 1fr;
   align-items: center;
+
+  @media (max-width: $min) {
+    grid-template-columns: rem(40px) rem(50px) 1fr 1fr;
+  }
 
   .tr {
     grid-template-columns: repeat(2, 1fr);
@@ -24,12 +32,16 @@
   font-size: rem(14px);
   text-align: center;
   color: var(--color-white);
+
+  @media (max-width: $min) {
+    font-size: rem(12px);
+  }
 }
 
 .item {
-  @include make-spacer('mb', 2);
+  @include make-spacer(mb, 2);
 
   &:last-child {
-    @include make-spacer('mb', 0);
+    @include make-spacer(mb, 0);
   }
 }

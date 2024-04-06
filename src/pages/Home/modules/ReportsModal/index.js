@@ -14,6 +14,7 @@ import style from './index.module.scss'
 const ReportsModal = ({ action }) => {
   const { t } = useTranslation()
   const { settings } = useSelector(state => state.settings)
+  const { resize } = useSelector(state => state.resize)
   const [active, setActive] = useState(settings.business.reports ? 0 : 2)
 
   return (
@@ -45,14 +46,16 @@ const ReportsModal = ({ action }) => {
                   >
                     {t('interface.general_overview')}
                   </button>
-                  <button
-                    className={classNames(style.link, active === 1 && style.active)}
-                    onClick={() => {
-                      setActive(1)
-                    }}
-                  >
-                    {t('interface.dail_sums')}
-                  </button>
+                  {!resize && (
+                    <button
+                      className={classNames(style.link, active === 1 && style.active)}
+                      onClick={() => {
+                        setActive(1)
+                      }}
+                    >
+                      {t('interface.dail_sums')}
+                    </button>
+                  )}
                 </>
               )}
               {settings.business.settlement && (

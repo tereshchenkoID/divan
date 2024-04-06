@@ -15,6 +15,10 @@
 
   &:nth-child(-n + 10) {
     height: rem(36px);
+
+    @media (max-width: $min) {
+      height: rem(26px);
+    }
   }
 
   &:nth-child(10n) {
@@ -28,6 +32,10 @@
   &:nth-child(2n + 10) {
     background-color: var(--color-heavy-metal);
   }
+
+  @media (max-width: $min) {
+    height: rem(40px);
+  }
 }
 
 .button {
@@ -40,5 +48,9 @@
 
   svg {
     transform: rotateZ(90deg);
+
+    @media (max-width: $min) {
+      @include size(rem(20px));
+    }
   }
 }

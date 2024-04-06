@@ -6,7 +6,9 @@
   transform: translateY(rem(11px));
 
   @media (max-width: $min) {
-    width: rem(320px);
+    @include size(100%, rem(40px));
+
+    transform: translateY(0);
   }
 }
 
@@ -22,16 +24,29 @@
   text-transform: uppercase;
   text-shadow: none;
   background: linear-gradient(360deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 100%);
+  color: var(--color-black);
 
   &.active {
     background-color: var(--color-yellow);
     pointer-events: none;
   }
+
+  @media (max-width: $min) {
+    @include size(100%, rem(40px));
+    @include make-spacer(p, 0);
+
+    border-radius: 0;
+    font-size: rem(11px);
+  }
 }
 
 .icon {
-  @include make-spacer('mb', half);
+  @include make-spacer(mb, half);
   @include size(rem(20px));
+
+  @media (max-width: $min) {
+    @include size(rem(17px));
+  }
 }
 
 :global {
@@ -41,6 +56,10 @@
     @include size(100%);
 
     padding: 0 rem(15px);
+
+    @media (max-width: $min) {
+      @include make-spacer(px, 0);
+    }
   }
 
   .slick-list,
@@ -50,13 +69,8 @@
     overflow: hidden;
   }
 
-  .slick-track {
-    gap: rem(10px);
-    height: 100%;
-  }
-
   .slick-arrow {
-    @include make-spacer('m', 0);
+    @include make-spacer(m, 0);
     @include size(rem(20px), rem(30px));
 
     position: absolute;
@@ -64,6 +78,10 @@
     font-size: 0;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23000000' viewBox='0 0 32 32'%3E%3Cpath d='M11.303 8l11.394 7.997L11.303 24z'/%3E%3C/svg%3E");
     background-size: cover;
+
+    @media (max-width: $min) {
+      display: none!important;
+    }
 
     &::after {
       display: none;

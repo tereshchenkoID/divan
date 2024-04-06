@@ -39,8 +39,18 @@
     border-bottom: 0;
     background-color: transparent;
   }
+
+  @media (max-width: $min) {
+    height: rem(40px);
+  }
 }
 
 .button {
   @include button;
+
+  @media (max-width: $min) {
+    height: rem(30px);
+    min-height: unset;
+    font-size: rem(13px);
+  }
 }

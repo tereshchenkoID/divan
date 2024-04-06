@@ -8,7 +8,7 @@
   display: grid;
   grid-template-columns: repeat(9, 1fr);
   height: rem(32px);
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: rem(1px) solid var(--color-border);
   color: var(--color-white);
 
   &:last-child {
@@ -16,37 +16,64 @@
   }
 
   @media (max-width: $min) {
-    grid-template-columns: rem(30px) repeat(8, 1fr);
+    grid-template-columns: rem(30px) repeat(4, 1fr);
+    height: rem(96px);
   }
 }
 
 .cell {
-  @include make-spacer('pl', 4);
+  @include make-spacer(pl, 4);
   @include flex($align-items: center);
 
   gap: rem(5px);
-  border-right: 1px solid var(--color-border);
+  border-right: rem(1px) solid var(--color-border);
   background-color: var(--color-thunder);
   cursor: pointer;
 
   @media (max-width: $min) {
-    @include make-spacer('pl', 1);
+    @include make-spacer(pl, 1);
   }
 
   &:nth-child(1) {
     @media (max-width: $min) {
-      @include make-spacer('pl', half);
+      @include make-spacer(pl, half);
 
       justify-content: center;
+      border-bottom: 0!important;
     }
   }
 
-  &:nth-child(9) {
+  &:last-child(5) {
+    @media (max-width: $min) {
+      border-right: 0;
+    }
+  }
+
+  &:nth-last-child(n + 6) {
+    @media (max-width: $min) {
+      border-bottom: rem(1px) solid var(--color-border);
+    }
+  }
+
+  &:nth-child(10) {
     border-right: 0;
+
+    @media (max-width: $min) {
+      border-right: rem(1px) solid var(--color-border);
+    }
   }
 
   &:hover {
     background-image: linear-gradient(0deg, #294329 0%, #00a900 52%, #00a900 100%);
+  }
+
+  &.hidden {
+    display: none;
+    border-top: none;
+
+    @media (max-width: $min) {
+      display: block;
+    }
   }
 
   &.disabled {

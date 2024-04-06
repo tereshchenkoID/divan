@@ -11,6 +11,8 @@
     max-height: rem(383px);
 
     @media (max-width: $min) {
+      grid-template-columns: repeat(4, 1fr);
+      overflow-x: hidden;
       max-height: unset;
     }
   }
@@ -41,8 +43,8 @@
   @include flex(center, center, column);
 
   height: rem(70px);
-  border-right: 1px solid var(--color-border);
-  border-bottom: 1px solid var(--color-border);
+  border-right: rem(1px) solid var(--color-border);
+  border-bottom: rem(1px) solid var(--color-border);
   background-color: var(--color-heavy-metal);
 
   &:nth-child(8n) {

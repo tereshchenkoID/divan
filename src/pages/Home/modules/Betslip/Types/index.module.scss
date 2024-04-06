@@ -1,12 +1,12 @@
 @import 'scss/config';
 
 .block {
-  @include make-spacer('mt', 2);
+  @include make-spacer(mt, 2);
   @include flex;
 
   height: rem(32px);
-  border-bottom: 1px solid #808080;
-  background-color: #333;
+  border-bottom: rem(px) solid var(--color-border);
+  background-color: var(--color-thunder);
 }
 
 .item {
@@ -16,7 +16,7 @@
   flex: 1;
   transition: var(--default-transition);
   height: 100%;
-  color: #808080;
+  color: var(--color-border);
 
   &::after {
     @include size(0, rem(2px));

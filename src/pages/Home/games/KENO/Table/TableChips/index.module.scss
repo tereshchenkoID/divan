@@ -15,14 +15,25 @@
   @include flex(center, center);
 
   gap: rem(10px);
+
+  @media (max-width: $min) {
+    @include make-spacer(mb, 1);
+  }
 }
 
 .button {
   @include button;
-  @include size(auto, rem(30px));
-  @include make-spacer('px', 4);
+  @include make-spacer(px, 4);
 
   min-width: rem(180px);
+
+  @media (max-width: $min) {
+    height: rem(30px);
+    min-height: unset;
+    font-size: rem(13px);
+    min-width: unset;
+    flex: 1;
+  }
 }
 
 .quantity {

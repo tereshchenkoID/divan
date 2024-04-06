@@ -25,4 +25,10 @@
   &.md {
     height: rem(40px);
   }
+
+  @media (max-width: $min) {
+    gap: rem(10px);
+    font-size: rem(13px);
+    height: rem(25px!important);
+  }
 }

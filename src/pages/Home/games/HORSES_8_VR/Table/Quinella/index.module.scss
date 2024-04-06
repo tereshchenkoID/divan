@@ -4,6 +4,10 @@
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   color: var(--color-white);
+
+  @media (max-width: $min) {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }
 
 .cell {
@@ -20,11 +24,17 @@
   &:nth-child(14n + 4),
   &:nth-child(14n + 5),
   &:nth-child(14n + 6),
-  &:nth-child(14n + 7){
+  &:nth-child(14n + 7) {
     background-color: var(--color-heavy-metal);
   }
 
   &:nth-child(7n) {
     border-right: 0;
+  }
+
+  &:nth-child(7n) {
+    @media (max-width: $min) {
+      border-right: rem(1px) solid var(--color-border);
+    }
   }
 }

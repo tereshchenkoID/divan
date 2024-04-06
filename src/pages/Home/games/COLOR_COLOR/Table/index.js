@@ -46,37 +46,41 @@ const Table = ({ active }) => {
       <div className={style.header}>
         {live === 1 && (
           <>
-            <Label text={t('games.COLOR_COLOR.random')} />
-            <Label text={t('games.COLOR_COLOR.repeat')} />
-            <div className={style.sort}>
-              {SORT.map((el, idx) => (
-                <button
-                  key={idx}
-                  className={style.market}
-                  onClick={() => {
-                    generateRandomArray(el)
-                  }}
-                >
-                  {el}
-                </button>
-              ))}
+            <div>
+              <Label text={t('games.COLOR_COLOR.random')} />
+              <div className={style.sort}>
+                {SORT.map((el, idx) => (
+                  <button
+                    key={idx}
+                    className={style.market}
+                    onClick={() => {
+                      generateRandomArray(el)
+                    }}
+                  >
+                    {el}
+                  </button>
+                ))}
+              </div>
             </div>
-            <div className={style.sort}>
-              {data.events.map((el, idx) => (
-                <button
-                  key={idx}
-                  className={classNames(
-                    style.market,
-                    data.events[0].status !== matchStatus.ANNOUNCEMENT && idx === data.events.length - 1 && style.disabled,
-                    idx + 1 === repeat && style.active,
-                  )}
-                  onClick={() => {
-                    setRepeat(idx + 1)
-                  }}
-                >
-                  {idx + 1}x
-                </button>
-              ))}
+            <div>
+              <Label text={t('games.COLOR_COLOR.repeat')} />
+              <div className={style.sort}>
+                {data.events.map((el, idx) => (
+                  <button
+                    key={idx}
+                    className={classNames(
+                      style.market,
+                      data.events[0].status !== matchStatus.ANNOUNCEMENT && idx === data.events.length - 1 && style.disabled,
+                      idx + 1 === repeat && style.active,
+                    )}
+                    onClick={() => {
+                      setRepeat(idx + 1)
+                    }}
+                  >
+                    {idx + 1}x
+                  </button>
+                ))}
+              </div>
             </div>
           </>
         )}

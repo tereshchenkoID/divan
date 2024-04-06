@@ -1,5 +1,12 @@
 @import 'scss/config';
 
+.odd,
+.label,
+.outcomes,
+.outcome {
+  flex: 1;
+}
+
 .sort {
   @include make-spacer(py, 3);
   @include make-spacer(mb, 1);
@@ -7,23 +14,37 @@
 
   height: rem(77px);
   padding-left: rem(270px);
+
+  @media (max-width: $min) {
+    @include make-spacer(pl, 0);
+    @include make-spacer(mb, 10);
+
+    padding-top: 140px;
+  }
 }
 
 .market {
   @include button;
-  @include make-spacer('mr', 1);
-  @include make-spacer('px', 2);
+  @include make-spacer(mr, 1);
+  @include make-spacer(px, 2);
 
   width: auto;
   font-size: rem(14px);
 
   &:last-child {
-    @include make-spacer('mr', 0);
+    @include make-spacer(mr, 0);
+  }
+
+  @media (max-width: $min) {
+    @include make-spacer(px, 1);
+
+    font-size: rem(14px);
+    flex-grow: 1;
   }
 }
 
 .dropdown {
-  @include make-spacer('p', 2);
+  @include make-spacer(p, 2);
 
   display: none;
   position: absolute;
@@ -31,14 +52,12 @@
   right: 0;
   bottom: 0;
   left: rem(270px);
-  z-index: 10;
+  z-index: $z-index-10;
   color: var(--color-white);
   background-color: var(--color-mine-shaft);
 
-  .meta {
-    @include make-spacer('mx', auto);
-
-    max-width: rem(350px);
+  @media (max-width: $min) {
+    left: rem(150px);
   }
 
   &.active {
@@ -53,7 +72,7 @@
 
   .row {
     height: rem(53px);
-    border-top: 1px solid var(--color-border);
+    border-top: rem(1px) solid var(--color-border);
     text-align: center;
 
     &:nth-child(even) {
@@ -75,7 +94,7 @@
 
   .column {
     position: relative;
-    border-right: 1px solid var(--color-border);
+    border-right: rem(1px) solid var(--color-border);
 
     &:last-child {
       border-right: 0;
@@ -99,6 +118,11 @@
   color: var(--color-white);
   column-gap: rem(10px);
 
+  @media (max-width: $min) {
+    grid-template-columns: rem(30px) rem(120px) 1fr;
+    column-gap: 0;
+  }
+
   &.head {
     height: rem(37px);
     padding-right: rem(2px);
@@ -112,9 +136,9 @@
 
     .column {
       height: 100%;
-      border-top: 1px solid var(--color-border);
-      border-right: 1px solid var(--color-border);
-      border-bottom: 1px solid transparent;
+      border-top: rem(1px) solid var(--color-border);
+      border-right: rem(1px) solid var(--color-border);
+      border-bottom: rem(1px) solid transparent;
 
       &:last-child {
         border-right: 0;
@@ -151,11 +175,24 @@
       transform: rotateZ(180deg);
     }
   }
+
+  @media (max-width: $min) {
+    grid-template-columns: 1fr rem(20px) 1fr;
+
+    & > * {
+
+      &:nth-child(1),
+      &:nth-child(5),
+      &:nth-child(6){
+        display: none;
+      }
+    }
+  }
 }
 
 .toggle {
-  @include make-spacer('mr', 0);
-  @include make-spacer('ml', auto);
+  @include make-spacer(mr, 0);
+  @include make-spacer(ml, auto);
   @include size(rem(30px));
 
   color: var(--color-white);
@@ -177,17 +214,19 @@
   flex: 1;
 }
 
-.odd,
-.label {
-  flex: 1;
-}
-
 .legend {
-  @include absolute-center-top(rem(-15px));
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: rem(-15px);
+
+  @media (max-width: $min) {
+    top: rem(-30px)
+  }
 }
 
 .logo {
-  @include make-spacer('p', 1);
+  @include make-spacer(p, 1);
   @include size(rem(40px));
 
   img {
@@ -196,15 +235,10 @@
 }
 
 .goals {
-  @include make-spacer('mb', 2);
+  @include make-spacer(mb, 2);
   @include flex(space-between);
 
   gap: rem(5px);
-}
-
-.outcomes,
-.outcome {
-  flex: 1;
 }
 
 .list {
@@ -214,8 +248,8 @@
 }
 
 .button {
-  @include make-spacer('mx', auto);
-  @include make-spacer('mt', 1);
+  @include make-spacer(mx, auto);
+  @include make-spacer(mt, 1);
 
   max-width: rem(110px);
 }

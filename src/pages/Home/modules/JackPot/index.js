@@ -2,6 +2,8 @@ import { useSelector } from 'react-redux'
 import { useState, useEffect } from 'react'
 import useSocket from 'hooks/useSocket'
 
+import Slider from 'react-slick'
+
 import classNames from 'classnames'
 
 import { checkCmd } from 'helpers/checkCmd'
@@ -20,8 +22,20 @@ const JackPot = ({ size = 'default' }) => {
   const [loading, setLoading] = useState(true)
   const [timer, setTimer] = useState('')
 
+  const { resize } = useSelector(state => state.resize)
   const { delta } = useSelector(state => state.delta)
   const { socket, isConnected, receivedMessage } = useSelector(state => state.socket)
+
+  const init = {
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: resize ? 1 : 3,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 5000,
+    pauseOnHover: true,
+  }
 
   useEffect(() => {
     if (isConnected) {
@@ -88,14 +102,13 @@ const JackPot = ({ size = 'default' }) => {
   return (
     <div className={classNames(style.block, style[size])}>
       {!loading && (
-        <>
-          {data &&
-            data.jackpots.map((el, idx) => (
-              <div key={idx} className={style.banner}>
-                <Banner data={el} timer={timer} />
-              </div>
-            ))}
-        </>
+        <Slider {...init}>
+          {data?.jackpots.map((el, idx) => (
+            <div key={idx} className={style.banner}>
+              <Banner data={el} timer={timer} />
+            </div>
+          ))}
+        </Slider>
       )}
     </div>
   )

@@ -2,8 +2,14 @@
 
 .block {
   display: grid;
-  grid-template-columns: 1fr 150px;
+  grid-template-columns: 1fr rem(150px);
+  align-items: center;
   column-gap: rem(10px);
+
+  @media (max-width: $min) {
+    grid-template-columns: 1fr rem(100px);
+    column-gap: rem(4px);
+  }
 }
 
 .row {
@@ -12,19 +18,41 @@
   display: grid;
   grid-template-columns: repeat(8, 1fr);
   color: var(--color-white);
+
+  @media (max-width: $min) {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }
 
 .cell {
-  border-right: 1px solid var(--color-border);
+  border-right: rem(1px) solid var(--color-border);
   background-color: var(--color-thunder);
 
   &:last-child {
     border-right: 0;
   }
+
+  &:nth-child(4) {
+    @media (max-width: $min) {
+      border-right: 0;
+    }
+  }
+
+  &:nth-last-child(n + 5) {
+    @media (max-width: $min) {
+      border-bottom: rem(1px) solid var(--color-border);
+    }
+  }
 }
 
 .button {
   @include button;
+
+  @media (max-width: $min) {
+    height: rem(30px);
+    min-height: unset;
+    font-size: rem(12px);
+  }
 }
 
 .odd {

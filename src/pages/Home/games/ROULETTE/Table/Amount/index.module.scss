@@ -5,6 +5,11 @@
   @include absolute-center;
 
   z-index: 1;
+  writing-mode: horizontal-tb;
+
+  @media (max-width: $min) {
+    @include size(rem(25px));
+  }
 }
 
 .animation {
@@ -26,6 +31,11 @@
 
   border-radius: 50%;
   font-size: rem(14px);
+  letter-spacing: -0.5px;
+
+  @media (max-width: $min) {
+    font-size: rem(8px);
+  }
 
   img {
     @include absolute-filled;

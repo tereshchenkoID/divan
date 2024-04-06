@@ -9,7 +9,8 @@
   text-transform: uppercase;
 
   @media (max-width: $min) {
-    height: unset;
+    height: auto;
+    flex-grow: 1;
   }
 }
 
@@ -17,10 +18,17 @@
   @include size(rem(250px), rem(97px));
 
   display: grid;
-  position: absolute;
-  top: rem(43px);
   grid-template-columns: 1fr rem(95px);
   align-items: center;
+  position: absolute;
+  top: rem(43px);
+
+  @media (max-width: $min) {
+    @include size(rem(220px), rem(70px));
+
+    top: 37px;
+    grid-template-columns: 1fr rem(70px);
+  }
 }
 
 .body {
@@ -47,4 +55,8 @@
   @include link;
 
   flex-direction: column;
+
+  @media (max-width: $min) {
+    height: rem(30px);
+  }
 }

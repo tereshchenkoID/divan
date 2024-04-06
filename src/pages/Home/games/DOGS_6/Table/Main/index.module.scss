@@ -3,10 +3,19 @@
 .block {
   @include make-spacer(px, 4);
   @include make-spacer(pb, 2);
+
+  @media (max-width: $min) {
+    @include make-spacer(px, 1);
+    @include make-spacer(pb, 1);
+  }
 }
 
 .panel {
   @include make-spacer(mb, 2);
+
+  @media (max-width: $min) {
+    @include make-spacer(mb, 0);
+  }
 
   &:last-child {
     @include make-spacer(mb, 0);
@@ -21,6 +30,10 @@
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   color: var(--color-white);
+
+  @media (max-width: $min) {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 .cell {
@@ -31,5 +44,17 @@
 
   &:last-child {
     border-right: 0;
+  }
+
+  &:nth-child(3) {
+    @media (max-width: $min) {
+      border-right: 0;
+    }
+  }
+
+  &:nth-last-child(n + 4) {
+    @media (max-width: $min) {
+      border-bottom: rem(1px) solid var(--color-border);
+    }
   }
 }

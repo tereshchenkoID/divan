@@ -12,9 +12,11 @@
 
   @media (max-width: $min) {
     @include make-spacer(pl, 0);
-    @include make-spacer(my, 0);
+    @include make-spacer(mt, 0);
+    @include make-spacer(mb, 1);
 
-    padding-top: 100px;
+    grid-template-columns: 1fr;
+    padding-top: 80px;
   }
 }
 
@@ -26,6 +28,10 @@
   @include make-spacer(mt, 1);
   @include make-spacer(mb, 2);
   @include flex($align-items: center);
+
+  @media (max-width: $min) {
+    @include make-spacer(my, 0);
+  }
 }
 
 .market {
@@ -35,5 +41,12 @@
 
   &:last-child {
     @include make-spacer(mr, 0);
+  }
+
+  @media (max-width: $min) {
+    @include size(rem(30px));
+
+    min-height: unset;
+    font-size: rem(12px);
   }
 }

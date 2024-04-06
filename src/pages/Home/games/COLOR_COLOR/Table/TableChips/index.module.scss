@@ -22,8 +22,13 @@
     background-color: var(--color-black);
 
     > .content {
-      @include make-spacer('pt', 2);
-      @include make-spacer('pb', 0);
+      @include make-spacer(pt, 2);
+      @include make-spacer(pb, 0);
+
+      @media (max-width: $min) {
+        @include make-spacer(pt, 1);
+        @include make-spacer(px, 1);
+      }
     }
   }
 }
@@ -31,38 +36,66 @@
 .labels {
   display: grid;
   grid-template-columns: rem(216px) 1fr;
+
+  @media (max-width: $min) {
+    grid-template-columns: 1fr;
+  }
+
+  & > * {
+
+    &:nth-child(1) {
+
+      @media (max-width: $min) {
+        display: none;
+      }
+    }
+  }
 }
 
 .button {
   @include button;
+
+  @media (max-width: $min) {
+    height: rem(30px);
+    min-height: unset;
+    font-size: rem(13px);
+  }
 }
 
 .content {
-  @include make-spacer('px', 2);
-  @include make-spacer('pt', 1);
-  @include make-spacer('pb', 2);
+  @include make-spacer(px, 2);
+  @include make-spacer(pt, 1);
+  @include make-spacer(pb, 2);
+
+  @media (max-width: $min) {
+    @include make-spacer(p, 0);
+  }
 }
 
 .panel {
-  @include make-spacer('py', 4);
-  @include make-spacer('px', 3);
+  @include make-spacer(py, 4);
+  @include make-spacer(px, 3);
   @include flex(center, center, column);
 
   min-height: rem(115px);
-  background-color: #333;
+  background-color: var(--color-thunder);
 
   @media (max-width: $min) {
-    @include make-spacer(p, 2);
+    @include make-spacer(p, 1);
 
     min-height: unset;
   }
 }
 
 .subtitle {
-  @include make-spacer('mb', 2);
+  @include make-spacer(mb, 2);
 
   font-size: rem(13px);
   color: var(--color-white);
+
+  @media (max-width: $min) {
+    @include make-spacer(mb, 1);
+  }
 }
 
 .quantity {
@@ -73,5 +106,12 @@
 
   .button {
     @include size(rem(43px));
+
+    @media (max-width: $min) {
+      @include size(rem(30px));
+
+      min-height: unset;
+      font-size: rem(13px);
+    }
   }
 }

@@ -13,8 +13,7 @@
 }
 
 .content {
-  @include make-spacer('px', 2);
-  @include make-spacer('py', 2);
+  @include make-spacer(p, 2);
 
   display: grid;
   z-index: 1;
@@ -24,6 +23,8 @@
   overflow: hidden;
 
   @media (max-width: $min) {
+    @include make-spacer(p, 0);
+
     grid-template-columns: 1fr;
     overflow-y: unset;
   }
@@ -36,6 +37,9 @@
 
   &:nth-child(1) {
     @media (max-width: $min) {
+      @include make-spacer(p, 1);
+      @include flex($direction: column);
+
       overflow-y: unset;
     }
   }
@@ -46,17 +50,28 @@
     }
 
     &.active {
+      @include make-spacer(p, 1);
+
       display: block;
+      position: fixed;
+      top: $nav;
+      left: 0;
+      right: 0;
+      bottom: rem(60px);
+      height: unset;
+      z-index: $z-index-12;
+      background-color: var(--color-green-100);
     }
   }
 }
 
 .banners {
   position: absolute;
-  right: 0;
+  top: rem(-2px);
+  right: rem(-15px);
 
   @media (max-width: $min) {
-    @include make-spacer(mb, 2);
+    @include make-spacer(mb, 1);
 
     position: static;
   }

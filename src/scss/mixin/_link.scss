@@ -14,6 +14,10 @@
   box-shadow: inset 0 3px 3.5px rgba(0, 0, 0, 0.18);
   transition: var(--default-transition);
 
+  @media (max-width: $min) {
+    border-radius: rem(3px!important);
+  }
+
   &:last-child {
     @include make-spacer(mr, 0);
   }

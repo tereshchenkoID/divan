@@ -11,4 +11,8 @@
 
 .diamond {
   @include size(rem(75px), rem(34px));
+
+  @media (max-width: $min) {
+    @include size(rem(30px), auto);
+  }
 }

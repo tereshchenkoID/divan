@@ -5,9 +5,9 @@
 }
 
 .row {
-  @include make-spacer('mb', 2);
-  @include make-spacer('pl', 1);
-  @include make-spacer('pr', 7);
+  @include make-spacer(mb, 2);
+  @include make-spacer(pl, 1);
+  @include make-spacer(pr, 7);
 
   display: grid;
   align-items: center;
@@ -18,19 +18,35 @@
   color: var(--color-orange);
   column-gap: rem(5px);
 
+  @media (max-width: $min) {
+    @include make-spacer(mb, 1);
+  }
+
   &.lg {
     grid-template-columns: 1fr rem(50px) rem(60px);
+
+    @media (max-width: $min) {
+      grid-template-columns: 1fr rem(50px) rem(70px);
+    }
   }
 
   &.sm {
     grid-template-columns: 1fr rem(50px);
+
+    @media (max-width: $min) {
+      grid-template-columns: 1fr rem(70px);
+    }
   }
 }
 
 .item {
-  @include make-spacer('mb', 2);
+  @include make-spacer(mb, 2);
 
   &:last-child {
-    @include make-spacer('mb', 0);
+    @include make-spacer(mb, 0);
+  }
+
+  @media (max-width: $min) {
+    @include make-spacer(mb, 1);
   }
 }

@@ -61,7 +61,7 @@ const App = () => {
   })
 
   const handleResize = () => {
-    const isMobile = window.screen.width < 1280
+    const isMobile = window.innerWidth < 1280
 
     if (isMobile) {
       setWindowSize({
@@ -78,6 +78,7 @@ const App = () => {
   }
 
   useEffect(() => {
+    handleResize()
     window.addEventListener('resize', handleResize)
     return () => window.removeEventListener('resize', handleResize)
   }, [])

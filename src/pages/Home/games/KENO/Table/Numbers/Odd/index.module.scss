@@ -6,4 +6,15 @@
 
 .color {
   @include circle;
+
+  @media (max-width: $min) {
+    @include size(rem(30px));
+
+    font-size: rem(14px);
+
+    &::before {
+      @include size(rem(20px));
+    }
+  }
 }
+

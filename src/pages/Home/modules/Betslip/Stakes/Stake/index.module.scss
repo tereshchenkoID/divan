@@ -5,13 +5,20 @@
 }
 
 .tr {
-  @include make-spacer('px', 1);
+  @include make-spacer(p, 1);
 
   display: grid;
   grid-template-columns: rem(50px) rem(60px) repeat(2, 60px) 1fr;
   align-items: center;
   height: rem(35px);
-  border-bottom: 1px solid #808080;
+  border-bottom: rem(1px) solid var(--color-border);
+
+  @media (max-width: $min) {
+    @include make-spacer(px, 0);
+
+    grid-template-columns: rem(40px) rem(50px) 1fr 1fr 2fr;
+    height: unset;
+  }
 
   &:last-child {
     border-bottom: 0;
@@ -25,6 +32,10 @@
   font-size: rem(14px);
   text-align: center;
   color: var(--color-white);
+
+  @media (max-width: $min) {
+    font-size: rem(12px);
+  }
 }
 
 .input {
@@ -41,10 +52,10 @@
 }
 
 .field {
-  @include make-spacer('pr', 6);
+  @include make-spacer(pr, 6);
   @include size(100%);
 
-  border: 1px solid #808080;
+  border: rem(1px) solid var(--color-border);
   border-radius: rem(5px);
   font-weight: var(--typography-bold);
   line-height: 1;
@@ -52,7 +63,7 @@
   white-space: nowrap;
   overflow: hidden;
   color: var(--color-white);
-  background-color: #363636;
+  background-color: var(--color-thunder);
   appearance: textfield;
 
   &::-webkit-outer-spin-button,
@@ -63,9 +74,9 @@
 }
 
 .keyboard {
-  @include make-spacer('px', 1);
-  @include make-spacer('pt', 2);
-  @include make-spacer('pb', 1);
+  @include make-spacer(px, 1);
+  @include make-spacer(pt, 2);
+  @include make-spacer(pb, 1);
   @include flex(space-between);
 
   gap: rem(5px);
@@ -76,15 +87,15 @@
 }
 
 .stake {
-  @include make-spacer('py', half);
-  @include make-spacer('px', 2);
+  @include make-spacer(py, half);
+  @include make-spacer(px, 2);
 
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   align-items: center;
   font-size: rem(13px);
+  background-color: var(--color-thunder);
   color: var(--color-white);
-  background-color: #333;
 
   div {
     &:last-child {

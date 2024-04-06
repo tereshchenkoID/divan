@@ -6,7 +6,7 @@
 
   .label,
   .odd {
-    @include make-spacer('p', half);
+    @include make-spacer(p, half);
   }
 
   .label {
@@ -17,10 +17,14 @@
   .odd {
     font-size: rem(21px);
     transition: var(--default-transition);
+
+    @media (max-width: $min) {
+      font-size: 16px;
+    }
   }
 
   &.sm {
-    border: 1px solid var(--color-green-800);
+    border: rem(1px) solid var(--color-green-800);
     overflow: hidden;
     background-color: var(--color-white);
 
@@ -33,6 +37,10 @@
       width: 100%;
       font-size: rem(16px);
       background: linear-gradient(0deg, #294329 0%, #00a900 52%, #00a900 100%);
+
+      @media (max-width: $min) {
+        font-size: 14px;
+      }
     }
 
     &:hover,

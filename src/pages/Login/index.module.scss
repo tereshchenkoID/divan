@@ -4,18 +4,19 @@
   @include flex(center, center, column);
 
   position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 12;
+  inset: 0;
+  z-index: $z-index-14;
   gap: rem(20px);
   background-color: var(--color-green-100);
+
+  @media (max-width: $min) {
+    @include make-spacer(p, 1);
+  }
 }
 
 .wrapper {
-  @include make-spacer('mx', auto);
-  @include make-spacer('p', 4);
+  @include make-spacer(mx, auto);
+  @include make-spacer(p, 4);
 
   width: 100%;
   max-width: rem(400px);
@@ -24,16 +25,24 @@
   overflow: hidden;
   color: var(--color-white);
   background-color: var(--color-black);
+
+  @media (max-width: $min) {
+    @include make-spacer(p, 2);
+  }
 }
 
 .row {
   @include flex(space-between, center);
-  @include make-spacer('mb', 4);
+  @include make-spacer(mb, 4);
 
   gap: rem(20px);
 
   &:last-child {
-    @include make-spacer('mb', 0);
+    @include make-spacer(mb, 0);
+  }
+
+  @media (max-width: $min) {
+    @include make-spacer(mb, 2);
   }
 }
 
@@ -52,7 +61,7 @@
 }
 
 .field {
-  @include make-spacer('px', 2);
+  @include make-spacer(px, 2);
   @include size(100%, rem(45px));
 
   border: 2px solid var(--color-orange);
@@ -66,8 +75,8 @@
 }
 
 .toggle {
-  @include make-spacer('ml', auto);
-  @include make-spacer('mr', 0);
+  @include make-spacer(ml, auto);
+  @include make-spacer(mr, 0);
 
   display: block;
   color: var(--color-white);
@@ -81,6 +90,10 @@
   overflow: hidden;
   opacity: 0;
   visibility: hidden;
+
+  @media (max-width: $min) {
+    display: none;
+  }
 
   &.show {
     max-height: rem(500px);
@@ -104,7 +117,7 @@
         height: rem(50px);
         border-width: rem(1px);
         border-style: solid;
-        border-color: #000;
+        border-color: var(--color-black);
         color: var(--color-white);
         background: linear-gradient(360deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.1) 100%);
         background-color: var(--color-thunder);

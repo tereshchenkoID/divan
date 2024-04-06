@@ -23,7 +23,7 @@ const Games = () => {
     dots: false,
     infinite: true,
     speed: 500,
-    slidesToShow: resize ? 3 : 7,
+    slidesToShow: resize ? 4 : 7,
     slidesToScroll: 1,
   }
 

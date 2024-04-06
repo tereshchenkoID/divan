@@ -21,6 +21,7 @@ import style from './index.module.scss'
 const Login = () => {
   const dispatch = useDispatch()
   const { notification } = useSelector(state => state.notification)
+  const { resize } = useSelector(state => state.resize)
   const [type, setType] = useState('password')
   const [show, setShow] = useState(false)
   // const [inputs, setInputs] = useState({
@@ -133,7 +134,7 @@ const Login = () => {
           </button>
         </div>
         <div className={style.row}>
-          {show && (
+          {!resize && show && (
             <div className={style.button}>
               <Button
                 type={'green'}

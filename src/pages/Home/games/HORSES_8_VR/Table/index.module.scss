@@ -2,11 +2,20 @@
 
 .header {
   @include flex($align-items: center);
-  @include make-spacer('my', 2);
+  @include make-spacer(my, 2);
 
   flex-shrink: 0;
   min-height: rem(92px);
   padding-left: rem(270px);
+
+  @media (max-width: $min) {
+    @include make-spacer(pl, 0);
+    @include make-spacer(mt, 0);
+    @include make-spacer(mb, 1);
+
+    grid-template-columns: 1fr;
+    padding-top: rem(85px);
+  }
 }
 
 .wrapper {
@@ -41,10 +50,9 @@
 .market {
   @include button;
   @include size(auto, rem(42px));
-  @include make-spacer('px', 2);
-  @include make-spacer('mr', half);
+  @include make-spacer(px, 2);
+  @include make-spacer(mr, half);
 
-  width: auto;
   font-size: rem(14px);
 
   &:last-child {
@@ -53,5 +61,11 @@
 
   &.disabled {
     pointer-events: auto;
+  }
+
+  @media (max-width: $min) {
+    height: rem(30px);
+    min-height: unset;
+    font-size: rem(12px);
   }
 }

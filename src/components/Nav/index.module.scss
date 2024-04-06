@@ -2,7 +2,7 @@
 
 .block {
   @include flex(space-between, center);
-  @include make-spacer('px', 2);
+  @include make-spacer(px, 2);
 
   position: relative;
   flex-shrink: 0;
@@ -13,20 +13,24 @@
   background: #ffd76d linear-gradient(360deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 100%);
 
   @media (max-width: $min) {
-    z-index: 16;
-    height: rem(60px);
+    @include make-spacer(px, 1);
+
+    justify-content: flex-start;
+    flex-direction: column-reverse;
+    gap: rem(15px);
+    height: rem(80px);
   }
 }
 
 .setting {
-  @include make-spacer('mr', 2);
-  @include make-spacer('ml', auto);
-  @include flex($align-items: center);
+  @include make-spacer(mr, 2);
+  @include make-spacer(ml, auto);
 
-  gap: rem(10px);
-  font-size: rem(13px);
-  font-weight: var(--typography-bold);
   transform: translateY(rem(5px));
+
+  @media (max-width: $min) {
+    @include make-spacer(mx, 0);
+  }
 }
 
 .options {
@@ -35,7 +39,7 @@
   gap: rem(10px);
 
   @media (max-width: $min) {
-    @include make-spacer('px', 2);
+    @include make-spacer(px, 2);
     @include flex(flex-end, center);
 
     position: fixed;
@@ -56,7 +60,7 @@
   position: relative;
   height: rem(38px);
   border: rem(1px) solid var(--color-black);
-  border-radius: rem(8px);
+  border-radius: rem(3px);
   color: var(--color-white);
   background: linear-gradient(360deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.1) 100%);
   background-color: var(--color-thunder);
@@ -94,9 +98,4 @@
     width: rem(38px);
     box-shadow: 0 0 rem(2px) rem(3px) rgba(0, 0, 0, 0.4);
   }
-}
-
-.language {
-  @include flex($direction: column);
-  @include make-spacer('mx', 1);
 }

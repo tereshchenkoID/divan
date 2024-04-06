@@ -1,20 +1,24 @@
 @import 'scss/config';
 
 .block {
-  @include make-spacer('p', 10);
+  @include make-spacer(p, 10);
 
   position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 12;
+  inset: 0;
+  z-index: $z-index-13;
   background-color: var(--color-green-100);
+
+  @media (max-width: $min) {
+    @include make-spacer(p, 1);
+
+    top: 0;
+    bottom: 0;
+  }
 }
 
 .wrapper {
   @include flex($direction: column);
-  @include make-spacer('mx', auto);
+  @include make-spacer(mx, auto);
   @include size(100%);
 
   max-width: rem(1200px);
@@ -22,12 +26,17 @@
   border-radius: rem(8px);
   overflow: hidden;
   background-color: var(--color-black);
+
+  @media (max-width: $min) {
+    border-radius: rem(3px);
+    border-width: rem(1px);
+  }
 }
 
 .header {
   @include flex(space-between, center);
-  @include make-spacer('pl', 4);
-  @include make-spacer('pr', 1);
+  @include make-spacer(pl, 4);
+  @include make-spacer(pr, 1);
   @include size(100%, rem(40px));
 
   flex-shrink: 0;
@@ -36,19 +45,34 @@
   text-transform: uppercase;
   color: var(--color-white);
   background-color: var(--color-orange-900);
+
+  @media (max-width: $min) {
+    @include make-spacer(px, 1);
+
+    height: rem(30px);
+    font-size: rem(12px);
+  }
 }
 
 .body {
-  @include make-spacer('p', 4);
+  @include make-spacer(p, 4);
 
   flex-grow: 1;
   overflow: hidden;
+
+  @media (max-width: $min) {
+    @include make-spacer(p, 1);
+  }
 }
 
 .button {
   &.sm {
     button {
       @include size(rem(35px) !important);
+
+      @media (max-width: $min) {
+        @include size(rem(25px) !important);
+      }
     }
   }
 }
@@ -61,6 +85,10 @@
   border-radius: rem(5px);
   overflow: hidden;
   color: var(--color-white);
+
+  @media (max-width: $min) {
+    border-radius: rem(3px);
+  }
 }
 
 .head {
@@ -69,12 +97,20 @@
   flex-shrink: 0;
   height: rem(50px);
   border-bottom: rem(1px) solid var(--color-border);
+
+  @media (max-width: $min) {
+    height: rem(30px);
+  }
 }
 
 .link {
   flex: 1;
   color: rgba(255, 255, 255, 0.5);
   background-color: var(--color-mine-shaft);
+
+  @media (max-width: $min) {
+    font-size: rem(12px);
+  }
 
   &:hover {
     color: var(--color-white);
@@ -86,9 +122,13 @@
 }
 
 .content {
-  @include make-spacer('p', 4);
+  @include make-spacer(p, 4);
   @include scroll;
 
   flex-grow: 1;
   background-color: var(--color-thunder);
+
+  @media (max-width: $min) {
+    @include make-spacer(p, 1);
+  }
 }

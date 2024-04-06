@@ -14,6 +14,10 @@
   background: linear-gradient(360deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 100%);
   background-color: var(--color-black);
 
+  @media (max-width: $min) {
+    grid-template-columns: 1fr 2fr;
+  }
+
   &.bronse {
     background-color: rgba(#6e6929, 0.8);
 
@@ -48,6 +52,11 @@
 
 .left {
   flex-direction: column;
+
+  @media (max-width: $min) {
+    flex-direction: row;
+    gap: rem(5px);
+  }
 }
 
 .right {
@@ -62,5 +71,5 @@
 }
 
 .symbol {
-  margin-left: 3px;
+  margin-left: rem(3px);
 }

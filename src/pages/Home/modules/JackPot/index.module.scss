@@ -1,12 +1,10 @@
 @import 'scss/config';
 
 .block {
-  @include flex;
-
-  gap: rem(3px);
-  height: rem(35px);
 
   &.lg {
+    margin-left: rem(-5px);
+
     .banner {
       min-width: rem(120px);
     }
@@ -14,7 +12,13 @@
 }
 
 .banner {
+  padding-left: rem(3px);
   flex: 1;
   min-width: rem(100px);
-  height: 100%;
+  height: rem(35px);
+
+  @media (max-width: $min) {
+    padding-left: 0;
+    height: rem(30px);
+  }
 }

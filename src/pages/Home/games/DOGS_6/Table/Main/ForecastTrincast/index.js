@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { dogsColor, gameType } from 'constant/config'
@@ -145,59 +145,65 @@ const ForecastTrincast = ({ data }) => {
         <div className={style.row}>
           <div className={style.cell}>1</div>
           {data.race.odds.markets[0].outcomes.map((el, idx) => (
-            <div
-              key={idx}
-              className={classNames(style.cell, (selectForecast && selectForecast.a) === el.a && style.active)}
-              onClick={() => {
-                addForecastStake(el)
-              }}
-            >
-              <Number key={idx} color={idx} data={idx + 1} />
-              {el.b}
-            </div>
+            <Fragment key={idx}>
+              {idx === 3 && <div className={classNames(style.cell, style.hidden)} />}
+              <div
+                className={classNames(style.cell, (selectForecast && selectForecast.a) === el.a && style.active)}
+                onClick={() => {
+                  addForecastStake(el)
+                }}
+              >
+                <Number key={idx} color={idx} data={idx + 1} />
+                {el.b}
+              </div>
+            </Fragment>
           ))}
         </div>
         <div className={style.row}>
           <div className={style.cell}>2</div>
-          {forecast.map((el, idx) =>
-            el.b ? (
-              <div
-                key={idx}
-                className={classNames(style.cell, (selectTrincast && selectTrincast.a) === el.a && style.active)}
-                onClick={() => {
-                  addTrincastStake(el)
-                }}
-              >
-                <Number key={idx} color={idx} data={idx + 1} />
-                {el.b}
-              </div>
-            ) : (
-              <div key={idx} className={classNames(style.cell, style.disabled)}>
-                <Number key={idx} color={idx} data={idx + 1} />
-              </div>
-            ),
-          )}
+          {forecast.map((el, idx) => (
+            <Fragment key={idx}>
+              {idx === 3 && <div className={classNames(style.cell, style.hidden)} />}
+              {el.b ? (
+                <div
+                  className={classNames(style.cell, (selectTrincast && selectTrincast.a) === el.a && style.active)}
+                  onClick={() => {
+                    addTrincastStake(el)
+                  }}
+                >
+                  <Number color={idx} data={idx + 1} />
+                  {el.b}
+                </div>
+              ) : (
+                <div key={idx} className={classNames(style.cell, style.disabled)}>
+                  <Number color={idx} data={idx + 1} />
+                </div>
+              )}
+            </Fragment>
+          ))}
         </div>
         <div className={style.row}>
           <div className={style.cell}>3</div>
-          {trincast.map((el, idx) =>
-            el.b ? (
-              <div
-                key={idx}
-                className={style.cell}
-                onClick={() => {
-                  addFullStake(el)
-                }}
-              >
-                <Number key={idx} color={idx} data={idx + 1} />
-                {el.b}
-              </div>
-            ) : (
-              <div key={idx} className={classNames(style.cell, style.disabled)}>
-                <Number key={idx} color={idx} data={idx + 1} />
-              </div>
-            ),
-          )}
+          {trincast.map((el, idx) => (
+            <Fragment key={idx}>
+              {idx === 3 && <div className={classNames(style.cell, style.hidden)} />}
+              {el.b ? (
+                <div
+                  className={style.cell}
+                  onClick={() => {
+                    addFullStake(el)
+                  }}
+                >
+                  <Number color={idx} data={idx + 1} />
+                  {el.b}
+                </div>
+              ) : (
+                <div className={classNames(style.cell, style.disabled)}>
+                  <Number color={idx} data={idx + 1} />
+                </div>
+              )}
+            </Fragment>
+          ))}
         </div>
       </div>
     </div>

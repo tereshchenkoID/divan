@@ -11,26 +11,26 @@
 
 .market {
   @include button;
-  @include make-spacer('mr', 1);
-  @include make-spacer('px', 2);
+  @include make-spacer(mr, 1);
+  @include make-spacer(px, 2);
 
   width: auto;
   font-size: rem(14px);
 
   &:last-child {
-    @include make-spacer('mr', 0);
+    @include make-spacer(mr, 0);
   }
 }
 
 .dropdown {
-  @include make-spacer('p', 2);
+  @include make-spacer(p, 2);
 
   color: var(--color-white);
   height: rem(477px);
   background-color: var(--color-mine-shaft);
 
   .meta {
-    @include make-spacer('mx', auto);
+    @include make-spacer(mx, auto);
 
     max-width: rem(350px);
   }
@@ -47,7 +47,7 @@
 
   .row {
     height: rem(53px);
-    border-bottom: 1px solid var(--color-border);
+    border-bottom: rem(1px) solid var(--color-border);
     background-color: var(--color-mine-shaft);
     text-align: center;
   }
@@ -58,7 +58,7 @@
 
   .column {
     position: relative;
-    border-right: 1px solid var(--color-border);
+    border-right: rem(1px) solid var(--color-border);
 
     &:last-child {
       border-right: 0;

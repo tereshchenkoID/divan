@@ -8,26 +8,31 @@
   border-radius: rem(10px);
   overflow: hidden;
   background-color: var(--color-black);
+
+  @media (max-width: $min) {
+    border-width: rem(1px);
+    border-radius: rem(3px);
+  }
 }
 
 .body {
   @include scroll;
-  @include make-spacer('py', 2);
+  @include make-spacer(py, 2);
 
   flex-grow: 1;
   overflow-x: hidden;
 }
 
 .stake {
-  @include make-spacer('py', half);
-  @include make-spacer('px', 2);
+  @include make-spacer(py, half);
+  @include make-spacer(px, 2);
 
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   align-items: center;
   font-size: rem(13px);
   color: var(--color-white);
-  background-color: #333;
+  background-color: var(--color-thunder);
 
   div {
     &:last-child {
@@ -37,7 +42,7 @@
 }
 
 .footer {
-  @include make-spacer('p', 1);
+  @include make-spacer(p, 1);
 
   display: grid;
   grid-template-columns: repeat(4, 1fr);

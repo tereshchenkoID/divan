@@ -8,7 +8,6 @@ import { setTicket } from 'store/HOME/actions/ticketAction'
 import SettingsModal from 'pages/Home/modules/SettingsModal'
 import ReportsModal from 'pages/Home/modules/ReportsModal'
 import Button from 'components/Button'
-import Clock from './Clock'
 import Games from './Games'
 import Account from './Account'
 
@@ -28,7 +27,6 @@ const Nav = ({ isBetslip, setIsBetslip }) => {
       <Games />
       <div className={style.setting}>
         <Account />
-        <Clock />
       </div>
       <div className={style.options}>
         <button

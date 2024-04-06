@@ -2,4 +2,8 @@
 
 .block {
   @include odd;
+
+  @media (max-width: $min) {
+    min-height: auto;
+  }
 }

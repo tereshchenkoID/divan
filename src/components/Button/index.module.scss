@@ -19,8 +19,12 @@
     content: '';
   }
 
+  @media (max-width: $min) {
+    border-radius: rem(3px!important);
+  }
+
   &.sm {
-    @include make-spacer('p', 1);
+    @include make-spacer(p, 1);
 
     height: rem(25px);
     border-radius: rem(3px);
@@ -32,7 +36,7 @@
   }
 
   &.md {
-    @include make-spacer('p', 1);
+    @include make-spacer(p, 1);
 
     height: rem(38px);
     border-radius: rem(5px);
@@ -43,14 +47,14 @@
   }
 
   &.lg {
-    @include make-spacer('p', 2);
+    @include make-spacer(p, 2);
 
     height: rem(64px);
     border-radius: rem(8px);
   }
 
   &.wide {
-    @include make-spacer('p', 2);
+    @include make-spacer(p, 2);
 
     height: 100%;
     border-radius: rem(5px);
