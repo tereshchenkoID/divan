@@ -92,7 +92,6 @@
   @media (max-width: $min) {
     @include make-spacer(p, 1);
 
-    min-height: auto;
     overflow-x: auto;
   }
 }

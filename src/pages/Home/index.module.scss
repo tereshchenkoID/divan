@@ -55,11 +55,11 @@
       display: block;
       position: fixed;
       top: $nav;
-      left: 0;
       right: 0;
       bottom: rem(60px);
-      height: unset;
+      left: 0;
       z-index: $z-index-12;
+      height: unset;
       background-color: var(--color-green-100);
     }
   }

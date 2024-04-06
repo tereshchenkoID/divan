@@ -12,13 +12,13 @@
 }
 
 .banner {
-  padding-left: rem(3px);
   flex: 1;
   min-width: rem(100px);
   height: rem(35px);
+  padding-left: rem(3px);
 
   @media (max-width: $min) {
-    padding-left: 0;
     height: rem(30px);
+    padding-left: 0;
   }
 }
