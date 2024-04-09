@@ -1,0 +1,42 @@
+@import 'scss/config';
+
+.block {
+  display: grid;
+  grid-template-columns: rem(20px) rem(115px) 1fr;
+  align-items: center;
+  height: rem(35px);
+  text-align: center;
+}
+
+.columns {
+  @include flex($align-items: center);
+
+  height: 100%;
+}
+
+.meta {
+  display: grid;
+  grid-template-columns: 1fr rem(15px) 1fr rem(15px);
+  align-items: center;
+  gap: rem(2px);
+  font-size: rem(13px);
+  color: var(--color-white);
+}
+
+.toggle {
+  @include size(rem(15px));
+}
+
+.logo {
+  @include make-spacer(p, 1);
+  @include size(rem(40px));
+
+  img {
+    object-fit: contain;
+  }
+}
+
+.odd {
+  height: 100%;
+  flex: 1;
+}

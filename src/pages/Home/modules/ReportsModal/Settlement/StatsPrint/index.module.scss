@@ -3,15 +3,16 @@
 $color: #000;
 
 .block {
-  @include make-spacer('p', 4);
+  @include make-spacer(p, 4);
 
   max-width: 450px;
+  font-family: Open Sans, sans-serif;
   font-size: rem(14px);
   color: $color;
 }
 
 .title {
-  @include make-spacer('mb', 2);
+  @include make-spacer(mb, 2);
 
   text-align: center;
   text-transform: uppercase;
@@ -21,14 +22,14 @@ $color: #000;
   width: 100%;
 
   li {
-    @include make-spacer('mb', 2);
+    @include make-spacer(mb, 2);
 
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     align-items: center;
 
     &:last-child {
-      @include make-spacer('mb', 0);
+      @include make-spacer(mb, 0);
     }
 
     > div {

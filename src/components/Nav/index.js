@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import classNames from 'classnames'
 
 import { setAuth } from 'store/actions/authAction'
 import { setTicket } from 'store/HOME/actions/ticketAction'
@@ -15,22 +16,34 @@ import style from './index.module.scss'
 
 const Nav = ({ isBetslip, setIsBetslip }) => {
   const dispatch = useDispatch()
-  const { resize } = useSelector(state => state.resize)
   const { ticket } = useSelector(state => state.ticket)
   const { betslip } = useSelector(state => state.betslip)
   const { settings } = useSelector(state => state.settings)
   const [sm, setSm] = useState(false) // Settings Modal
   const [rm, setRm] = useState(false) // Reports Modal
+  const [info, setInfo] = useState(false)
 
   return (
     <nav className={style.block}>
       <Games />
-      <div className={style.setting}>
+      <div className={style.meta}>
+        <div className={style.logo}>{settings.account.logo && <img src={settings.account.logo} alt="logo" loading="lazy" />}</div>
+        <button
+          className={classNames(style.button, style.alt)}
+          type="button"
+          onClick={() => {
+            setInfo(!info)
+          }}
+        >
+          Account
+        </button>
+      </div>
+      <div className={classNames(style.setting, info && style.show)}>
         <Account />
       </div>
       <div className={style.options}>
         <button
-          className={style.betslip}
+          className={style.button}
           onClick={() => {
             setIsBetslip(!isBetslip)
           }}
@@ -39,7 +52,7 @@ const Nav = ({ isBetslip, setIsBetslip }) => {
           Bet Slip
           {betslip.length > 0 && <span>{betslip.length}</span>}
         </button>
-        <div className={style.option}>
+        <div className={classNames(style.option, !isBetslip && style.disabled)}>
           <Button
             type={'grey'}
             size={'md'}
@@ -59,8 +72,8 @@ const Nav = ({ isBetslip, setIsBetslip }) => {
             }}
           />
         </div>
-        {!resize && settings.business.reports && settings.business.reports && (
-          <div className={style.option}>
+        {settings.business.reports && settings.business.reports && (
+          <div className={classNames(style.option, style.hide)}>
             <Button
               type={'grey'}
               size={'md'}
@@ -71,8 +84,8 @@ const Nav = ({ isBetslip, setIsBetslip }) => {
             />
           </div>
         )}
-        {!resize && settings.business.web_viewer && (
-          <div className={style.option}>
+        {settings.business.web_viewer && (
+          <div className={classNames(style.option, style.hide)}>
             <Link to={'/viewer'} target={'_blank'} rel="noreferrer">
               <Button type={'grey'} size={'md'} icon={'tv'} />
             </Link>

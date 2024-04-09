@@ -17,6 +17,10 @@
     border-radius: rem(inherit);
     background: linear-gradient(180deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.1) 100%);
     content: '';
+
+    @media (max-width: $min) {
+      height: rem(6px);
+    }
   }
 
   @media (max-width: $min) {

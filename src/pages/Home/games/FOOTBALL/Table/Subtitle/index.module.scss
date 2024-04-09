@@ -1,8 +1,8 @@
 @import 'scss/config';
 
 .block {
-  @include make-spacer('px', 1);
-  @include make-spacer('py', half);
+  @include make-spacer(px, 1);
+  @include make-spacer(py, half);
 
   display: inline-block;
   border-radius: rem(3px);

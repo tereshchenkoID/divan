@@ -102,5 +102,8 @@
             <path class="content" d="M193 225h-320v224h320V225zm-32 192H-95V257h256v160zM225 449v32h-384v-32c-35.3 0-64 28.7-64 64v192c0 17.7 14.3 32 32 32h448c17.7 0 32-14.3 32-32V513c0-35.3-28.7-64-64-64zm-32 224c0 17.7-14.3 32-32 32H-95c-17.7 0-32-14.3-32-32v-32h320v32zm48-96h-32c-8.8 0-16-7.2-16-16s7.2-16 16-16h32c8.8 0 16 7.2 16 16s-7.2 16-16 16z" fill="currentColor"/>
             <path class="content" fill="currentColor" d="M-63 289h192v32H-63zM-63 353h192v32H-63z"/>
         </symbol>
+        <symbol id="plus" viewBox="0 0 24 24" fill="none">
+          <path d="M6 12H18M12 6V18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </symbol>
     </defs>
 </svg>

@@ -5,12 +5,17 @@
   @include flex(center, center);
 
   position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
+  inset: 0;
   z-index: $z-index-13;
   background-color: var(--color-green-100);
+
+  @media (max-width: $min) {
+    @include make-spacer(p, 1);
+
+    top: $nav;
+    bottom: $footer;
+    align-items: stretch;
+  }
 }
 
 .body,
@@ -23,11 +28,15 @@
 }
 
 .content {
-  @include make-spacer('p', 3);
+  @include make-spacer(p, 3);
 
   min-width: rem(350px);
   border-radius: rem(12px);
   background-color: var(--color-black);
+
+  @media (max-width: $min) {
+    @include wrapper;
+  }
 }
 
 .header {
@@ -50,11 +59,11 @@
 }
 
 .body {
-  @include make-spacer('py', 3);
+  @include make-spacer(py, 3);
 }
 
 .field {
-  @include make-spacer('pr', 12);
+  @include make-spacer(pr, 12);
   @include size(100%);
 
   border: 0;
@@ -65,7 +74,7 @@
 }
 
 .keyboard {
-  @include make-spacer('mb', 3);
+  @include make-spacer(mb, 3);
 
   display: grid;
   grid-template-columns: repeat(3, 1fr);

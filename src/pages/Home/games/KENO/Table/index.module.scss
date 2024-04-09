@@ -16,7 +16,7 @@
     @include make-spacer(mb, 1);
 
     grid-template-columns: 1fr;
-    padding-top: 80px;
+    padding-top: rem(80px);
   }
 }
 

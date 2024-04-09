@@ -11,12 +11,6 @@
   left: 0;
   z-index: $z-index-11;
   background-color: var(--color-green-100);
-
-  @media (max-width: $min) {
-    top: rem(60px);
-    right: 0;
-    z-index: $z-index-11;
-  }
 }
 
 .button {

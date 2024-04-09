@@ -1,0 +1,195 @@
+@import 'scss/config';
+
+.block {
+  color: var(--color-white);
+  text-align: center;
+}
+
+.odd,
+.label,
+.outcomes,
+.outcome {
+  flex: 1;
+}
+
+.odds,
+.odd,
+.meta,
+.cell {
+  height: 100%;
+}
+
+.sort {
+  @include make-spacer(py, 3);
+  @include make-spacer(mb, 1);
+  @include flex($align-items: center);
+
+  height: rem(77px);
+  padding-left: rem(270px);
+}
+
+.market {
+  @include button;
+  @include make-spacer(mr, 1);
+  @include make-spacer(px, 2);
+
+  width: auto;
+  font-size: rem(14px);
+
+  &:last-child {
+    @include make-spacer(mr, 0);
+  }
+}
+
+.dropdown {
+  @include make-spacer(p, 2);
+
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: rem(270px);
+  z-index: $z-index-10;
+  background-color: var(--color-mine-shaft);
+
+  &.active {
+    display: block;
+  }
+}
+
+.wrapper {
+  @include wrapper;
+
+  position: relative;
+  background-color: var(--color-mine-shaft);
+
+  .row {
+    height: rem(53px);
+    border-top: rem(1px) solid var(--color-border);
+
+    &:nth-child(even) {
+      background-color: var(--color-thunder);
+    }
+
+    &:first-child {
+      border-top: 0;
+    }
+  }
+
+  .column {
+    position: relative;
+    border-right: rem(1px) solid var(--color-border);
+
+    &:last-child {
+      border-right: 0;
+    }
+  }
+
+  .odds {
+    gap: rem(1px);
+  }
+}
+
+.row {
+  display: grid;
+  grid-template-columns: rem(35px) rem(215px) 1fr;
+  align-items: center;
+  column-gap: rem(10px);
+
+  &.head {
+    height: rem(37px);
+    padding-right: rem(2px);
+    padding-left: rem(1px);
+
+    .column {
+      height: 100%;
+      border-top: rem(1px) solid var(--color-border);
+      border-right: rem(1px) solid var(--color-border);
+      border-bottom: rem(1px) solid transparent;
+
+      &:last-child {
+        border-right: 0;
+      }
+    }
+  }
+}
+
+.meta {
+  display: grid;
+  grid-template-columns: rem(40px) 1fr rem(20px) 1fr rem(40px) rem(35px);
+  align-items: center;
+  font-size: rem(15px);
+  cursor: pointer;
+
+  &.disabled {
+    opacity: 0.1;
+  }
+
+  &.active {
+    opacity: 1;
+
+    .toggle {
+      transform: rotateZ(180deg);
+    }
+  }
+}
+
+.toggle {
+  @include make-spacer(ml, auto);
+  @include size(rem(30px));
+
+  color: currentColor;
+}
+
+.odds {
+  @include flex;
+
+  &.hide {
+    opacity: 0;
+  }
+}
+
+.column {
+  @include flex(center, center);
+
+  position: relative;
+  gap: rem(1px);
+  flex: 1;
+}
+
+.legend {
+  position: absolute;
+  top: rem(-15px);
+  right: 0;
+  left: 0;
+}
+
+.logo {
+  @include make-spacer(p, 1);
+  @include size(rem(40px));
+
+  img {
+    object-fit: contain;
+  }
+}
+
+.goals {
+  @include make-spacer(mb, 2);
+  @include flex(space-between);
+
+  gap: rem(5px);
+}
+
+.list {
+  @include flex;
+
+  gap: rem(5px);
+}
+
+.button {
+  @include make-spacer(mx, auto);
+  @include make-spacer(mt, 1);
+
+  max-width: rem(110px);
+}

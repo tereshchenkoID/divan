@@ -1,0 +1,71 @@
+@import 'scss/config';
+
+.block {
+  @include wrapper;
+  @include make-spacer(mb, 1);
+
+  &:last-child {
+    @include make-spacer(mb, 0);
+  }
+
+  &.active {
+
+    .close {
+      transform: rotateZ(45deg);
+    }
+  }
+}
+
+.header {
+  @include flex(space-between, center);
+  @include size(100%, rem(35px));
+  @include make-spacer(pl, 1);
+
+  color: var(--color-white);
+  background-color: var(--color-thunder);
+  text-shadow: none;
+  font-size: rem(14px);
+}
+
+.wrapper {
+  border-top: rem(1px) solid var(--color-border);
+}
+
+.body {
+  @include make-spacer(mt, 1);
+  @include make-spacer(mb, 2);
+  @include flex($wrap: wrap);
+
+  gap: rem(5px);
+
+  &:last-child {
+    @include make-spacer(mb, 0);
+  }
+}
+
+.outcome {
+  @include flex($direction: column);
+
+  position: relative;
+  flex: 1;
+  gap: rem(5px);
+  min-width: 25%;
+}
+
+.odd {
+  background-color: var(--color-thunder);
+  border-radius: rem(3px);
+  height: rem(40px);
+}
+
+.label {
+  flex: 1;
+  font-size: rem(10px);
+}
+
+.close {
+  @include transition;
+  @include size(rem(30px));
+
+  color: var(--color-white);
+}

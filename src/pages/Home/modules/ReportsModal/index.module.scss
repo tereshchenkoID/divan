@@ -11,8 +11,8 @@
   @media (max-width: $min) {
     @include make-spacer(p, 1);
 
-    top: 0;
-    bottom: 0;
+    top: $nav;
+    bottom: $footer;
   }
 }
 

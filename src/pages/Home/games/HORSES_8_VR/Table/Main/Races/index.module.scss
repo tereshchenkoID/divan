@@ -32,9 +32,9 @@
     @include make-spacer(mt, 1);
     @include make-spacer(px, 2);
 
+    flex-grow: 1;
     height: rem(30px);
     min-height: unset;
     font-size: rem(12px);
-    flex-grow: 1;
   }
 }

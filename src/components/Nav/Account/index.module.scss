@@ -5,6 +5,13 @@
 
   gap: rem(10px);
   font-weight: var(--typography-bold);
+
+  @media (max-width: $min) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    background: var(--color-orange);
+  }
 }
 
 .cell {
@@ -13,6 +20,16 @@
   gap: rem(5px);
   max-width: rem(130px);
   font-size: rem(13px);
+
+  @media (max-width: $min) {
+    @include make-spacer(py, 1);
+    @include make-spacer(px, 2);
+
+    max-width: unset;
+    width: 100%;
+    gap: rem(5px);
+    border-bottom: rem(1px) solid var(--color-yellow);
+  }
 }
 
 .icon {

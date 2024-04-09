@@ -36,7 +36,7 @@ const Games = () => {
       {game && (
         <Slider {...init}>
           {settings.games.map((el, idx) => (
-            <div key={idx}>
+            <div key={idx} className={style.item}>
               <button
                 className={classNames(style.button, game.id === el.id && style.active)}
                 aria-label={el.name}

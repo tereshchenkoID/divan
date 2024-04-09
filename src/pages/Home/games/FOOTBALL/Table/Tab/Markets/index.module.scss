@@ -1,0 +1,41 @@
+@import 'scss/config';
+
+.block {
+  @include make-spacer(p, 1);
+
+  position: fixed;
+  top: $nav;
+  left: 0;
+  right: 0;
+  bottom: $footer;
+  z-index: $z-index-13;
+  background-color: var(--color-green-100);
+}
+
+.head {
+  @include flex(space-between, center);
+  @include make-spacer(px, 1);
+  @include size(100%, rem(30px));
+
+  flex-shrink: 0;
+  font-size: rem(12px);
+  font-weight: var(--typography-bold);
+  color: var(--color-white);
+  background-color: var(--color-orange-900);
+  border-radius: rem(3px) rem(3px) 0 0;
+}
+
+.wrapper {
+  @include make-spacer(p, 1);
+  @include scroll;
+
+  height: calc(100% - rem(30px));
+  border: rem(1px) solid var(--color-orange);
+  border-radius: 0 0 rem(3px) rem(3px);
+}
+
+.button {
+  button {
+    @include size(rem(25px) !important);
+  }
+}

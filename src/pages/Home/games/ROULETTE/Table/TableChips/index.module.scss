@@ -85,8 +85,8 @@
     @include size(unset, rem(50px));
 
     top: rem(30px);
-    right: rem(20px);
-    left: rem(-20px);
+    right: rem(22px);
+    left: rem(-18px);
     flex: 1;
     height: rem(30px);
     flex-direction: row-reverse;
@@ -122,6 +122,13 @@
     bottom: rem(70px);
     left: rem(-20px);
     flex-direction: row-reverse;
+  }
+
+  .h-row {
+
+    &:nth-child(odd) {
+      @include make-spacer(px, 0);
+    }
   }
 
   .button {
@@ -198,8 +205,8 @@
       @include size(rem(45px), auto);
 
       width: rem(45px);
-      padding-top: rem(32px);
-      margin-bottom: rem(-15px);
+      padding-top: rem(34px);
+      margin-bottom: rem(-17px);
       height: auto;
     }
 
@@ -287,7 +294,6 @@
     @media (max-width: $min) {
       font-size: rem(14px);
     }
-
   }
 }
 

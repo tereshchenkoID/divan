@@ -4,9 +4,13 @@
   @include odd;
   @include flex($direction: column);
 
+  @media (max-width: $min) {
+    min-height: auto;
+  }
+
   .label,
   .odd {
-    @include make-spacer('p', half);
+    @include make-spacer(p, half);
   }
 
   .label {
@@ -17,10 +21,14 @@
   .odd {
     font-size: rem(21px);
     transition: var(--default-transition);
+
+    @media (max-width: $min) {
+      font-size: rem(14px);
+    }
   }
 
   &.sm {
-    border: 1px solid var(--color-green-800);
+    border: rem(1px) solid var(--color-green-800);
     overflow: hidden;
     background-color: var(--color-white);
 
@@ -33,6 +41,10 @@
       width: 100%;
       font-size: rem(16px);
       background: linear-gradient(0deg, #294329 0%, #00a900 52%, #00a900 100%);
+
+      @media (max-width: $min) {
+        font-size: 12px;
+      }
     }
 
     &:hover,
@@ -52,8 +64,7 @@
       background-image: none;
 
       .odd {
-        background: linear-gradient(360deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.1) 100%);
-        background-color: var(--color-red);
+        background: var(--color-red) linear-gradient(360deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.1) 100%);
       }
     }
   }

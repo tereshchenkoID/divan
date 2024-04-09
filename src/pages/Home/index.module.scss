@@ -8,7 +8,7 @@
   text-align: center;
 
   @media (max-width: $min) {
-    height: calc(100vh - rem(60px));
+    height: calc(100vh - $footer);
   }
 }
 
@@ -56,9 +56,9 @@
       position: fixed;
       top: $nav;
       right: 0;
-      bottom: rem(60px);
+      bottom: $footer;
       left: 0;
-      z-index: $z-index-12;
+      z-index: $z-index-13;
       height: unset;
       background-color: var(--color-green-100);
     }

@@ -35,8 +35,16 @@
     @include size(100%, rem(40px));
     @include make-spacer(p, 0);
 
-    border-radius: 0;
+    border-radius: rem(2px) rem(2px) 0 0;
     font-size: rem(11px);
+    background-color: var(--color-orange);
+  }
+}
+
+.item {
+  @media (max-width: $min) {
+    padding-left: rem(2px);
+    padding-right: rem(2px);
   }
 }
 

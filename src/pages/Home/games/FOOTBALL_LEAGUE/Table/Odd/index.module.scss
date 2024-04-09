@@ -4,6 +4,10 @@
   @include odd;
   @include flex($direction: column);
 
+  @media (max-width: $min) {
+    min-height: auto;
+  }
+
   .label,
   .odd {
     @include make-spacer(p, half);
@@ -19,7 +23,7 @@
     transition: var(--default-transition);
 
     @media (max-width: $min) {
-      font-size: 16px;
+      font-size: rem(14px);
     }
   }
 
@@ -39,7 +43,7 @@
       background: linear-gradient(0deg, #294329 0%, #00a900 52%, #00a900 100%);
 
       @media (max-width: $min) {
-        font-size: 14px;
+        font-size: 12px;
       }
     }
 
@@ -60,8 +64,7 @@
       background-image: none;
 
       .odd {
-        background: linear-gradient(360deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.1) 100%);
-        background-color: var(--color-red);
+        background: var(--color-red) linear-gradient(360deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.1) 100%);
       }
     }
   }

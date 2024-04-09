@@ -15,6 +15,7 @@ const SORT = [1, 2, 3, 5, 7, 10]
 const Table = ({ active }) => {
   const { t } = useTranslation()
   const { live } = useSelector(state => state.live)
+  const { resize } = useSelector(state => state.resize)
   const { delta } = useSelector(state => state.delta)
   const [random, setRandom] = useState([])
 
@@ -60,7 +61,7 @@ const Table = ({ active }) => {
         )}
       </div>
       <div className={style.wrapper}>
-        <Live active={active} />
+        {!resize && <Live active={active} />}
         {live === 1 && <TableChips random={random} active={active} />}
       </div>
     </>

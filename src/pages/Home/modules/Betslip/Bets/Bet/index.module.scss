@@ -70,6 +70,10 @@
   @include flex(space-between);
 
   gap: rem(5px);
+
+  @media (max-width: $min) {
+    @include make-spacer(pt, 1);
+  }
 }
 
 .key {

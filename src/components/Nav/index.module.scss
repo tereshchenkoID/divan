@@ -15,11 +15,28 @@
   @media (max-width: $min) {
     @include make-spacer(px, 1);
 
-    justify-content: flex-start;
+    gap: rem(3px);
     flex-direction: column-reverse;
-    gap: rem(15px);
+    justify-content: flex-start;
     height: rem(80px);
+    overflow: unset;
+    z-index: $z-index-14;
   }
+}
+
+.meta {
+  @include size(100%, rem(35px));
+
+  display: none;
+  overflow: hidden;
+
+  @media (max-width: $min) {
+    @include flex(space-between, center);
+  }
+}
+
+.logo {
+  height: 100%;
 }
 
 .setting {
@@ -30,6 +47,17 @@
 
   @media (max-width: $min) {
     @include make-spacer(mx, 0);
+
+    display: none;
+    position: fixed;
+    top: rem(80px);
+    right: 0;
+    left: 0;
+    transform: translateY(0);
+
+    &.show {
+      display: block;
+    }
   }
 }
 
@@ -51,7 +79,7 @@
   }
 }
 
-.betslip {
+.button {
   @include make-spacer(px, 2);
   @include make-spacer(ml, 0);
   @include make-spacer(mr, auto);
@@ -62,15 +90,16 @@
   border: rem(1px) solid var(--color-black);
   border-radius: rem(3px);
   color: var(--color-white);
-  background: linear-gradient(360deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.1) 100%);
-  background-color: var(--color-thunder);
+  flex-shrink: 0;
+  font-size: rem(14px);
+  background: var(--color-thunder) linear-gradient(360deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.1) 100%);
 
   &::before {
     position: absolute;
     top: rem(1px);
     right: rem(1px);
     left: rem(1px);
-    height: rem(12px);
+    height: rem(6px);
     border-radius: rem(inherit);
     background: linear-gradient(180deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.1) 100%);
     content: '';
@@ -90,6 +119,14 @@
   @media (max-width: $min) {
     display: block;
   }
+
+  &.alt {
+    @include make-spacer(mr, 0);
+    @include make-spacer(ml, auto);
+
+    position: relative;
+    height: rem(30px);
+  }
 }
 
 .option {
@@ -97,5 +134,20 @@
   button {
     width: rem(38px);
     box-shadow: 0 0 rem(2px) rem(3px) rgba(0, 0, 0, 0.4);
+  }
+
+  &.disabled {
+
+    @media (max-width: $min) {
+      opacity: 0.8;
+      pointer-events: none;
+    }
+  }
+
+  &.hide {
+
+    @media (max-width: $min) {
+      display: none;
+    }
   }
 }

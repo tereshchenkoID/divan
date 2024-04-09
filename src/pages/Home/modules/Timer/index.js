@@ -25,6 +25,7 @@ const Timer = ({ active, setActive, timer, setDisabled, initTime }) => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
   const { sendMessage } = useSocket()
+  const { resize } = useSelector(state => state.resize)
   const { data } = useSelector(state => state.data)
   const { game } = useSelector(state => state.game)
   const { live } = useSelector(state => state.live)
@@ -48,7 +49,7 @@ const Timer = ({ active, setActive, timer, setDisabled, initTime }) => {
                 initTime(json.events[1])
                 dispatch(setLive(1))
                 setActive(json.events[1])
-                setDisabled(false)
+                !resize && setDisabled(false)
                 dispatch(setModal(0))
               } else if (live === 2 && json.events[0].status === matchStatus.RESULTS) {
                 setActive(json.events[0])
@@ -79,7 +80,7 @@ const Timer = ({ active, setActive, timer, setDisabled, initTime }) => {
             initTime(receivedMessage.events[1])
             dispatch(setLive(1))
             setActive(receivedMessage.events[1])
-            setDisabled(false)
+            !resize && setDisabled(false)
             dispatch(setModal(0))
           } else if (live === 2 && receivedMessage.events[0].status === matchStatus.RESULTS) {
             setActive(receivedMessage.events[0])
@@ -94,7 +95,7 @@ const Timer = ({ active, setActive, timer, setDisabled, initTime }) => {
         })
       } else {
         dispatch(setData(game, receivedMessage)).then(() => {
-          setDisabled(false)
+          !resize && setDisabled(false)
         })
       }
     }

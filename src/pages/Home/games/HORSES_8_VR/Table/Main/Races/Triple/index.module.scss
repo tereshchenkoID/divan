@@ -8,6 +8,7 @@
 
   @media (max-width: $min) {
     grid-template-columns: 1fr rem(100px);
+    align-items: flex-start;
     column-gap: rem(4px);
   }
 }
@@ -49,8 +50,7 @@
   @include button;
 
   @media (max-width: $min) {
-    height: rem(30px);
-    min-height: unset;
+    height: 50%;
     font-size: rem(12px);
   }
 }

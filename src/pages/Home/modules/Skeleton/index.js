@@ -63,6 +63,7 @@ const Skeleton = () => {
   const { live } = useSelector(state => state.live)
   const { modal } = useSelector(state => state.modal)
   const { game } = useSelector(state => state.game)
+  const { resize } = useSelector(state => state.resize)
   const { isConnected, receivedMessage } = useSelector(state => state.socket)
 
   const [loading, setLoading] = useState(true)
@@ -159,12 +160,22 @@ const Skeleton = () => {
             setActive(find)
           }
 
-          setDisabled(false)
+          !resize && setDisabled(false)
           setLoading(false)
         })
       }
     }
   }, [game])
+
+  useEffect(() => {
+    if (data?.events?.[0].status !== matchStatus.ANNOUNCEMENT) {
+      setDisabled(true)
+      setActive(data?.events?.[1])
+    } else {
+      setDisabled(false)
+      setActive(data?.events?.[0])
+    }
+  }, [data])
 
   useEffect(() => {
     if (loading && receivedMessage !== '' && checkCmd('feed', receivedMessage.cmd)) {
@@ -180,7 +191,8 @@ const Skeleton = () => {
 
         setActive(find)
         initTime(find)
-        setDisabled(false)
+
+        !resize && setDisabled(false)
         setLoading(false)
       })
     }
@@ -222,7 +234,7 @@ const Skeleton = () => {
               {live !== 0 && (
                 <>
                   <div className={style.body}>{setGame(game.type, active)}</div>
-                  {modal === 1 && <SkipModal action={handleNext} />}
+                  {!resize && modal === 1 && <SkipModal action={handleNext} />}
                 </>
               )}
             </>

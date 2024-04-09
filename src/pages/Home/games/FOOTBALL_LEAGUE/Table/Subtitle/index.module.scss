@@ -22,8 +22,4 @@
   &.lg {
     font-size: rem(16px);
   }
-
-  @media (max-width: $min) {
-    white-space: pre-wrap;
-  }
 }

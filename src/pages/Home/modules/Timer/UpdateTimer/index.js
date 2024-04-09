@@ -12,13 +12,14 @@ const UpdateTimer = ({ active, timer, setDisabled }) => {
   const { sendMessage } = useSocket()
   const { game } = useSelector(state => state.game)
   const { delta } = useSelector(state => state.delta)
+  const { resize } = useSelector(state => state.resize)
   const { isConnected } = useSelector(state => state.socket)
   const [isRequesting, setIsRequesting] = useState(false)
 
   useEffect(() => {
     const time = timer.time.split(':')
     if (active.status === matchStatus.ANNOUNCEMENT && Number(time[0]) === 0 && Number(time[1]) < 7 && Number(time[1]) > 0) {
-      setDisabled(true)
+      !resize && setDisabled(true)
     }
   }, [dispatch, timer, setDisabled])
 
@@ -33,7 +34,7 @@ const UpdateTimer = ({ active, timer, setDisabled }) => {
           setIsRequesting(true)
           dispatch(setData(game))
             .then(() => {
-              setDisabled(false)
+              !resize && setDisabled(false)
               setIsRequesting(false)
             })
             .catch(error => {
