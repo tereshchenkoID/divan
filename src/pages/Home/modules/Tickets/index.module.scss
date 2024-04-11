@@ -1,0 +1,123 @@
+@import 'scss/config';
+
+.block {
+  position: fixed;
+  top: rem(70px);
+  right: rem(12px);
+  bottom: rem(90px);
+  z-index: $z-index-13;
+  width: rem(352px);
+  border-radius: rem(10px);
+  background-color: var(--color-black);
+
+  @media (max-width: $min) {
+    @include make-spacer(p, 1);
+
+    top: $nav;
+    right: 0;
+    bottom: $footer;
+    left: 0;
+    width: unset;
+    border-radius: 0;
+    background-color: var(--color-green-100);
+  }
+}
+
+.header {
+  display: none;
+
+  @media (max-width: $min) {
+    @include flex(space-between, center);
+    @include make-spacer(p, 1);
+    @include size(100%, rem(30px));
+
+    font-size: rem(12px);
+    font-weight: var(--typography-bold);
+    text-transform: uppercase;
+    color: var(--color-white);
+    background-color: var(--color-orange-900);
+  }
+}
+
+.button {
+
+  button {
+    @include size(rem(35px) !important);
+
+    @media (max-width: $min) {
+      @include size(rem(25px) !important);
+    }
+  }
+}
+
+.content {
+  @include size(100%);
+
+  @media (max-width: $min) {
+    position: relative;
+    border: rem(1px) solid var(--color-orange);
+    border-radius: rem(3px);
+    overflow: hidden;
+    color: var(--color-white);
+    background-color: var(--color-black);
+    place-items: center;
+  }
+}
+
+.body {
+  @include make-spacer(pt, 1);
+  @include scroll;
+
+  height: 100%;
+
+  @media (max-width: $min) {
+    height: calc(100% - rem(30px));
+  }
+}
+
+.row {
+  @include make-spacer(mb, 2);
+  @include make-spacer(pl, 1);
+  @include make-spacer(pr, 2);
+
+  display: grid;
+  grid-template-columns: rem(50px) 1fr rem(80px) rem(100px);
+  align-items: center;
+  font-size: rem(12px);
+  font-weight: var(--typography-bold);
+  text-align: center;
+  overflow: hidden;
+  color: var(--color-orange);
+  column-gap: rem(5px);
+
+  & > * {
+
+    &:nth-child(2) {
+      text-align: left;
+    }
+
+    &:nth-child(3),
+    &:nth-child(4) {
+      text-align: right;
+    }
+  }
+
+  @media (max-width: $min) {
+    @include make-spacer(mb, 1);
+    @include make-spacer(px, 1);
+
+    grid-template-columns: rem(25px) 1fr 1fr rem(80px);
+  }
+}
+
+.item {
+  @include make-spacer(mb, 2);
+
+  @media (max-width: $min) {
+    @include make-spacer(mb, 1);
+  }
+}
+
+.empty {
+  @include make-spacer(px, 2);
+}

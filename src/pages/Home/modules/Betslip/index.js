@@ -29,7 +29,6 @@ import TicketModal from 'pages/Home/modules/TicketModal'
 import Button from 'components/Button'
 import Icon from 'components/Icon'
 
-import Tickets from './Tickets'
 import Stakes from './Stakes'
 import Bets from './Bets'
 import Types from './Types'
@@ -345,24 +344,20 @@ const Betslip = () => {
       )}
       {checkTicket && <TicketModal id={false} action={setCheckTicket} />}
       <div className={style.body}>
-        {ticket === 0 ? (
-          betslip.length > 0 ? (
-            <>
-              <Bets betslip={betslip} stake={stake} type={type} setInit={setInit} setDisabled={setDisabled} />
-              <Types type={type} setType={setType} disabled={disabled} />
-              <Stakes stake={stake} />
-            </>
-          ) : (
-            <div className={style.empty}>
-              {settings.account.logo && <img src={settings.account.logo} width={200} height={80} alt="logo" loading="lazy" />}
-              <div className={style.icon}>
-                <Icon id={'add'} />
-              </div>
-              <p>{t('notification.please_pick_up_bet')}</p>
-            </div>
-          )
+        {ticket === 0 && betslip.length > 0 ? (
+          <>
+            <Bets betslip={betslip} stake={stake} type={type} setInit={setInit} setDisabled={setDisabled} />
+            <Types type={type} setType={setType} disabled={disabled} />
+            <Stakes stake={stake} />
+          </>
         ) : (
-          <Tickets />
+          <div className={style.empty}>
+            {settings.account.logo && <img src={settings.account.logo} width={200} height={80} alt="logo" loading="lazy" />}
+            <div className={style.icon}>
+              <Icon id={'add'} />
+            </div>
+            <p>{t('notification.please_pick_up_bet')}</p>
+          </div>
         )}
       </div>
       {ticket.toggle === 0 && betslip.length && (

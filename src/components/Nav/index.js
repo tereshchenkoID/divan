@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import classNames from 'classnames'
 
@@ -16,6 +17,7 @@ import style from './index.module.scss'
 
 const Nav = ({ isBetslip, setIsBetslip }) => {
   const dispatch = useDispatch()
+  const { t } = useTranslation()
   const { ticket } = useSelector(state => state.ticket)
   const { betslip } = useSelector(state => state.betslip)
   const { settings } = useSelector(state => state.settings)
@@ -35,7 +37,7 @@ const Nav = ({ isBetslip, setIsBetslip }) => {
             setInfo(!info)
           }}
         >
-          Account
+          {t('interface.account')}
         </button>
       </div>
       <div className={classNames(style.setting, info && style.show)}>
@@ -49,10 +51,10 @@ const Nav = ({ isBetslip, setIsBetslip }) => {
           }}
           type="button"
         >
-          Bet Slip
+          {t('interface.betslip')}
           {betslip.length > 0 && <span>{betslip.length}</span>}
         </button>
-        <div className={classNames(style.option, !isBetslip && style.disabled)}>
+        <div className={style.option}>
           <Button
             type={'grey'}
             size={'md'}

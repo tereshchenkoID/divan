@@ -10,6 +10,7 @@
   background-color: var(--color-green-100);
 
   @media (max-width: $min) {
+    @include size(100vw, 100vh);
     @include make-spacer(p, 1);
   }
 }
@@ -103,7 +104,9 @@
 }
 
 :global {
+
   .simple-keyboard {
+
     &.custom {
       @include make-spacer(p, 4);
 
@@ -119,8 +122,7 @@
         border-style: solid;
         border-color: var(--color-black);
         color: var(--color-white);
-        background: linear-gradient(360deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.1) 100%);
-        background-color: var(--color-thunder);
+        background: var(--color-thunder) linear-gradient(360deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.1) 100%);
 
         &::before {
           position: absolute;

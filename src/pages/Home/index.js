@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import useSocket from 'hooks/useSocket'
 
+import classNames from 'classnames'
+
 import i18n from 'i18next'
 import { status } from 'constant/config'
 
@@ -20,15 +22,16 @@ import Betslip from 'pages/Home/modules/Betslip'
 import JackPot from 'pages/Home/modules/JackPot'
 import Decor from 'pages/Home/modules/Decor'
 import Skeleton from './modules/Skeleton'
+import Tickets from './modules/Tickets'
 
 import style from './index.module.scss'
-import classNames from 'classnames'
 
 const Home = () => {
   const { sendMessage } = useSocket()
   const dispatch = useDispatch()
   const { data } = useSelector(state => state.data)
   const { game } = useSelector(state => state.game)
+  const { ticket } = useSelector(state => state.ticket)
   const { isConnected, receivedMessage } = useSelector(state => state.socket)
   const [loading, setLoading] = useState(true)
   const [isBetslip, setIsBetslip] = useState(false)
@@ -96,6 +99,7 @@ const Home = () => {
             <div className={classNames(style.column, isBetslip && style.active)}>
               <Betslip />
             </div>
+            {ticket !== 0 && <Tickets />}
           </div>
         </>
       )}

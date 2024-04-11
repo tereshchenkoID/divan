@@ -13,7 +13,6 @@ import { postData } from 'helpers/api'
 import { setNotification } from 'store/HOME/actions/notificationAction'
 import { setAuth } from 'store/actions/authAction'
 
-import Notification from 'pages/Home/modules/Notification'
 import Button from 'components/Button'
 
 import style from './index.module.scss'
@@ -76,7 +75,7 @@ const Login = () => {
         password: inputs.password,
       }),
     ).then(json => {
-      if (json.code) {
+      if (!json || json.code) {
         dispatch(setNotification({ text: 'Invalid password or login', type: status.error }))
       } else {
         localStorage.setItem('authToken', json.authToken)
@@ -87,7 +86,6 @@ const Login = () => {
 
   return (
     <div className={style.block}>
-      {notification && <Notification text={notification} />}
       <form className={style.wrapper} onSubmit={handleSubmit} autoComplete="off">
         <div className={style.row}>
           <p className={style.title}>AUTHENTICATION</p>

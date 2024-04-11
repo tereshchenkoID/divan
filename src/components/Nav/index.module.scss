@@ -15,28 +15,36 @@
   @media (max-width: $min) {
     @include make-spacer(px, 1);
 
+    z-index: $z-index-14;
     gap: rem(3px);
     flex-direction: column-reverse;
     justify-content: flex-start;
     height: rem(80px);
     overflow: unset;
-    z-index: $z-index-14;
   }
 }
 
 .meta {
-  @include size(100%, rem(35px));
+  @include size(100%, rem(30px));
 
   display: none;
-  overflow: hidden;
 
   @media (max-width: $min) {
-    @include flex(space-between, center);
+    display: grid;
+    grid-template-columns: rem(100px) auto;
+    justify-content: space-between;
   }
 }
 
 .logo {
-  height: 100%;
+  @include size(100%);
+
+  overflow: hidden;
+
+  img {
+    width: auto;
+    object-fit: cover;
+  }
 }
 
 .setting {
@@ -86,12 +94,12 @@
 
   display: none;
   position: relative;
+  flex-shrink: 0;
   height: rem(38px);
   border: rem(1px) solid var(--color-black);
   border-radius: rem(3px);
-  color: var(--color-white);
-  flex-shrink: 0;
   font-size: rem(14px);
+  color: var(--color-white);
   background: var(--color-thunder) linear-gradient(360deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.1) 100%);
 
   &::before {
@@ -125,7 +133,7 @@
     @include make-spacer(ml, auto);
 
     position: relative;
-    height: rem(30px);
+    height: 100%;
   }
 }
 
@@ -137,7 +145,6 @@
   }
 
   &.disabled {
-
     @media (max-width: $min) {
       opacity: 0.8;
       pointer-events: none;
@@ -145,7 +152,6 @@
   }
 
   &.hide {
-
     @media (max-width: $min) {
       display: none;
     }

@@ -43,9 +43,9 @@
     @include size(100%);
     @include scroll;
 
-    border-radius: rem(3px);
-    border-width: rem(1px);
     min-width: auto;
+    border-width: rem(1px);
+    border-radius: rem(3px);
   }
 }
 
@@ -156,7 +156,6 @@
 
     .cell {
       @media (max-width: $min) {
-
         min-height: rem(30px);
 
         &:nth-child(1),
@@ -168,7 +167,6 @@
   }
 
   &.lg {
-
     @media (max-width: $min) {
       min-width: rem(700px);
     }
@@ -228,8 +226,8 @@
   @media (max-width: $min) {
     @include make-spacer(px, 1);
 
-    column-gap: 0;
     font-size: rem(12px);
+    column-gap: 0;
   }
 
   &:nth-child(even) {
@@ -245,9 +243,9 @@
   }
 
   &.head {
+    font-size: rem(10px);
     font-weight: var(--typography-bold);
     text-transform: uppercase;
-    font-size: rem(10px);
   }
 }
 
@@ -283,8 +281,8 @@
   @media (max-width: $min) {
     @include make-spacer(mr, 0);
 
-    border-radius: rem(3px);
     flex-shrink: 0;
+    border-radius: rem(3px);
   }
 }
 

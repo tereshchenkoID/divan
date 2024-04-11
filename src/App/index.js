@@ -32,6 +32,8 @@ const App = () => {
       .then(config => {
         localStorage.setItem('config', JSON.stringify(config.hostnames))
         if (config.hostnames.WSS_PROD) connectSocket()
+
+        console.log(config.theme)
       })
   }, [dispatch])
 
@@ -87,7 +89,7 @@ const App = () => {
     <div
       className={classNames(style.root, !resize && style.fixed)}
       style={{
-        transform: `scale(${windowSize.x}, ${windowSize.y})`,
+        transform: resize ? 'none' : `scale(${windowSize.x}, ${windowSize.y})`,
       }}
     >
       <main className={style.main}>
