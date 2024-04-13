@@ -2,11 +2,10 @@
 
 .block {
   @include make-spacer(pt, 5);
+  @include wrapper;
   @include absolute-filled;
 
   z-index: $z-index-14;
-  border: rem(3px) solid var(--color-orange-900);
-  border-radius: rem(9px);
   font-weight: var(--typography-bold);
   text-align: center;
   text-transform: uppercase;

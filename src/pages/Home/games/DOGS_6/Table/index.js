@@ -2,8 +2,7 @@ import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 
-import classNames from 'classnames'
-
+import Button from 'components/Button'
 import TableChips from './TableChips'
 
 import style from './index.module.scss'
@@ -27,15 +26,15 @@ const Table = ({ active }) => {
       <div className={style.header}>
         {live === 1 &&
           TYPES.map((el, idx) => (
-            <button
-              key={idx}
-              className={classNames(style.market, type === idx && style.active)}
-              onClick={() => {
+            <Button
+              props={'button'}
+              text={el}
+              initial={[style.market]}
+              classes={['green', type === idx && 'active']}
+              action={() => {
                 setType(idx)
               }}
-            >
-              {el}
-            </button>
+            />
           ))}
       </div>
       <div className={style.wrapper}>

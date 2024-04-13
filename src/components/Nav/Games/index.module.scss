@@ -3,7 +3,7 @@
 .block {
   @include size(rem(700px), rem(55px));
 
-  transform: translateY(rem(11px));
+  transform: translateY(rem(12px));
 
   @media (max-width: $min) {
     @include size(100%, rem(40px));
@@ -24,7 +24,6 @@
   text-transform: uppercase;
   text-shadow: none;
   background: linear-gradient(360deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 100%);
-  color: var(--color-black);
 
   &.active {
     background-color: var(--color-yellow);

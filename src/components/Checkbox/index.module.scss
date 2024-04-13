@@ -2,7 +2,7 @@
 
 .block {
   @include flex;
-  @include size(60px, 34px);
+  @include size(rem(60px), rem(34px));
 
   position: relative;
   border-radius: rem(34px);

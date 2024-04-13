@@ -22,16 +22,15 @@ const ReportsModal = ({ action }) => {
       <div className={style.wrapper}>
         <div className={style.header}>
           <p>Financial reports</p>
-          <div className={classNames(style.button, style.sm)}>
-            <Button
-              type={'red'}
-              size={'sm'}
-              icon={'close'}
-              action={() => {
-                action(false)
-              }}
-            />
-          </div>
+          <Button
+            props={'button'}
+            icon={'close'}
+            initial={[style.close]}
+            classes={['red']}
+            action={() => {
+              action(false)
+            }}
+          />
         </div>
         <div className={style.body}>
           <div className={style.tab}>

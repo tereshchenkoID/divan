@@ -35,6 +35,10 @@
 .right {
   overflow: hidden;
 
+  & > * {
+    padding: 0;
+  }
+
   .results {
     @include make-spacer(mb, 5);
 
@@ -127,8 +131,8 @@
   font-size: rem(10px);
   line-height: 1;
   white-space: nowrap;
-  color: var(--color-orange);
-  background-color: var(--color-green);
+  color: var(--color-white);
+  background-color: var(--color-primary);
 }
 
 .logo {
@@ -154,7 +158,7 @@
   overflow: hidden;
 
   &.w {
-    background: var(--color-green);
+    background-color: var(--color-green);
   }
 
   &.l {

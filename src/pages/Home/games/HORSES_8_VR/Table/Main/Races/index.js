@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react'
 
-import classNames from 'classnames'
-
 import style from './index.module.scss'
 
+import Button from 'components/Button'
 import Double from './Double'
 import Triple from './Triple'
 import Extra from './Extra'
@@ -32,15 +31,16 @@ const Races = ({ data }) => {
     <div className={style.block}>
       <div className={style.header}>
         {TYPES.map((el, idx) => (
-          <button
+          <Button
             key={idx}
-            className={classNames(style.button, active === idx && style.active)}
-            onClick={() => {
+            props={'button'}
+            text={el}
+            initial={[style.button]}
+            classes={['green', active === idx && 'active']}
+            action={() => {
               setActive(idx)
             }}
-          >
-            {el}
-          </button>
+          />
         ))}
       </div>
       <div className={style.body}>{getType(active, data)}</div>

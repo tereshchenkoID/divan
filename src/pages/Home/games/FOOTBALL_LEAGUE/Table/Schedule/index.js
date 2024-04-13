@@ -7,6 +7,7 @@ import classNames from 'classnames'
 
 import Label from 'components/Label'
 import Icon from 'components/Icon'
+import Button from 'components/Button'
 import Subtitle from '../Subtitle'
 import Odd from '../Odd'
 
@@ -83,19 +84,20 @@ const Schedule = ({ active }) => {
           (el, idx) =>
             el.name !== 'Score' &&
             el.name !== 'Total Goals' && (
-              <button
+              <Button
                 key={idx}
-                className={classNames(style.market, group === idx && style.active)}
-                onClick={() => {
+                props={'button'}
+                text={el.name.replaceAll('_', ' ')}
+                initial={[style.market]}
+                classes={['green', group === idx && 'active']}
+                action={() => {
                   setGroup(idx)
                   setToggle({
                     id: null,
                     toggle: false,
                   })
                 }}
-              >
-                {el.name}
-              </button>
+              />
             ),
         )}
       </div>

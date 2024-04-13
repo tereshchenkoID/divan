@@ -7,10 +7,10 @@
   position: relative;
   flex-shrink: 0;
   height: rem(57px);
+  overflow: hidden;
   border-top: rem(2px) solid var(--color-yellow);
   border-bottom: rem(2px) solid var(--color-yellow);
-  overflow: hidden;
-  background: #ffd76d linear-gradient(360deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 100%);
+  background: var(--color-orange) linear-gradient(360deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 100%);
 
   @media (max-width: $min) {
     @include make-spacer(px, 1);
@@ -33,6 +33,10 @@
     display: grid;
     grid-template-columns: rem(100px) auto;
     justify-content: space-between;
+  }
+
+  button {
+    @include make-spacer(px, 2);
   }
 }
 
@@ -72,7 +76,7 @@
 .options {
   @include flex($align-items: center);
 
-  gap: rem(10px);
+  gap: rem(5px);
 
   @media (max-width: $min) {
     @include make-spacer(px, 2);
@@ -82,36 +86,27 @@
     right: 0;
     bottom: 0;
     left: 0;
-    height: rem(60px);
-    background: #ffd76d linear-gradient(360deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 100%);
+    height: $footer;
+    background: var(--color-orange) linear-gradient(360deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 100%);
+  }
+}
+
+.option {
+  @include size(rem(38px));
+
+  &.hide {
+    @media (max-width: $min) {
+      display: none;
+    }
   }
 }
 
 .button {
-  @include make-spacer(px, 2);
   @include make-spacer(ml, 0);
   @include make-spacer(mr, auto);
 
   display: none;
   position: relative;
-  flex-shrink: 0;
-  height: rem(38px);
-  border: rem(1px) solid var(--color-black);
-  border-radius: rem(3px);
-  font-size: rem(14px);
-  color: var(--color-white);
-  background: var(--color-thunder) linear-gradient(360deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.1) 100%);
-
-  &::before {
-    position: absolute;
-    top: rem(1px);
-    right: rem(1px);
-    left: rem(1px);
-    height: rem(6px);
-    border-radius: rem(inherit);
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.1) 100%);
-    content: '';
-  }
 
   span {
     @include flex(center, center);
@@ -122,38 +117,16 @@
     right: rem(-18px);
     border-radius: 50%;
     background-color: var(--color-red);
+    color: var(--color-white);
+  }
+
+  button {
+    @include make-spacer(px, 2);
+
+    height: rem(38px);
   }
 
   @media (max-width: $min) {
     display: block;
-  }
-
-  &.alt {
-    @include make-spacer(mr, 0);
-    @include make-spacer(ml, auto);
-
-    position: relative;
-    height: 100%;
-  }
-}
-
-.option {
-
-  button {
-    width: rem(38px);
-    box-shadow: 0 0 rem(2px) rem(3px) rgba(0, 0, 0, 0.4);
-  }
-
-  &.disabled {
-    @media (max-width: $min) {
-      opacity: 0.8;
-      pointer-events: none;
-    }
-  }
-
-  &.hide {
-    @media (max-width: $min) {
-      display: none;
-    }
   }
 }

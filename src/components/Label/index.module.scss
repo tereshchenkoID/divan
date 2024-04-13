@@ -14,7 +14,7 @@
   &::after {
     @include size(100%, rem(1px));
 
-    background-color: var(--color-orange);
+    background-color: currentColor;
     content: '';
   }
 
@@ -27,8 +27,8 @@
   }
 
   @media (max-width: $min) {
-    gap: rem(10px);
-    font-size: rem(13px);
+    gap: rem(5px);
+    font-size: rem(12px);
     height: rem(25px!important);
   }
 }

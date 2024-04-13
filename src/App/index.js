@@ -25,6 +25,7 @@ const App = () => {
   const { isConnected } = useSelector(state => state.socket)
   const { notification } = useSelector(state => state.notification)
   const { connectSocket } = useSocket()
+  const [theme, setTheme] = useState()
 
   useEffect(() => {
     fetch('/config.json')
@@ -33,7 +34,7 @@ const App = () => {
         localStorage.setItem('config', JSON.stringify(config.hostnames))
         if (config.hostnames.WSS_PROD) connectSocket()
 
-        console.log(config.theme)
+        setTheme(config.theme)
       })
   }, [dispatch])
 
@@ -87,7 +88,7 @@ const App = () => {
 
   return (
     <div
-      className={classNames(style.root, !resize && style.fixed)}
+      className={classNames(style.root, style[theme], !resize && style.fixed)}
       style={{
         transform: resize ? 'none' : `scale(${windowSize.x}, ${windowSize.y})`,
       }}

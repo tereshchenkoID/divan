@@ -1,9 +1,8 @@
 import { useState } from 'react'
 
-import classNames from 'classnames'
-
 import style from './index.module.scss'
 
+import Button from 'components/Button'
 import Subtitle from '../Subtitle'
 import Match from './Match'
 import Markets from './Markets'
@@ -16,15 +15,16 @@ const Tab = ({ active }) => {
     <div className={style.block}>
       <div className={style.sort}>
         {active.league.matches[0].odds[0].groups[0].markets.map((el, idx) => (
-          <button
+          <Button
             key={idx}
-            className={classNames(style.market, group === idx && style.active)}
-            onClick={() => {
+            props={'button'}
+            text={el.name}
+            initial={[style.market]}
+            classes={['green', group === idx && 'active']}
+            action={() => {
               setGroup(idx)
             }}
-          >
-            {el.name.replaceAll('_', ' ')}
-          </button>
+          />
         ))}
       </div>
       <div className={style.head}>

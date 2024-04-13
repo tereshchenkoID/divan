@@ -17,10 +17,6 @@
 
   .cell {
 
-    &:nth-child(odd) {
-      background-color: var(--color-thunder);
-    }
-
     &:nth-child(even) {
       background-color: var(--color-heavy-metal);
     }
@@ -56,6 +52,5 @@
 
   &.sm {
     height: rem(47px);
-    background-color: var(--color-heavy-metal);
   }
 }

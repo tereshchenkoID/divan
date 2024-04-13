@@ -1,7 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { useState } from 'react'
-import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
+
 import classNames from 'classnames'
 
 import { setAuth } from 'store/actions/authAction'
@@ -17,6 +18,7 @@ import style from './index.module.scss'
 
 const Nav = ({ isBetslip, setIsBetslip }) => {
   const dispatch = useDispatch()
+
   const { t } = useTranslation()
   const { ticket } = useSelector(state => state.ticket)
   const { betslip } = useSelector(state => state.betslip)
@@ -30,80 +32,76 @@ const Nav = ({ isBetslip, setIsBetslip }) => {
       <Games />
       <div className={style.meta}>
         <div className={style.logo}>{settings.account.logo && <img src={settings.account.logo} alt="logo" loading="lazy" />}</div>
-        <button
-          className={classNames(style.button, style.alt)}
-          type="button"
-          onClick={() => {
+        <Button
+          props={'button'}
+          text={t('interface.account')}
+          initial={[style.account]}
+          classes={['grey']}
+          action={() => {
             setInfo(!info)
           }}
-        >
-          {t('interface.account')}
-        </button>
+        />
       </div>
       <div className={classNames(style.setting, info && style.show)}>
         <Account />
       </div>
       <div className={style.options}>
-        <button
-          className={style.button}
-          onClick={() => {
-            setIsBetslip(!isBetslip)
-          }}
-          type="button"
-        >
-          {t('interface.betslip')}
+        <div className={style.button}>
+          <Button
+            props={'button'}
+            text={t('interface.betslip')}
+            initial={[]}
+            classes={['grey']}
+            action={() => {
+              setIsBetslip(!isBetslip)
+            }}
+          />
           {betslip.length > 0 && <span>{betslip.length}</span>}
-        </button>
-        <div className={style.option}>
-          <Button
-            type={'grey'}
-            size={'md'}
-            icon={'file-check'}
-            action={() => {
-              dispatch(setTicket(ticket === 0 ? 1 : 0))
-            }}
-          />
         </div>
-        <div className={style.option}>
-          <Button
-            type={'grey'}
-            size={'md'}
-            icon={'diagram'}
-            action={() => {
-              setRm(true)
-            }}
-          />
-        </div>
+        <Button
+          props={'button'}
+          icon={'file-check'}
+          initial={[style.option]}
+          classes={['grey']}
+          action={() => {
+            dispatch(setTicket(ticket === 0 ? 1 : 0))
+          }}
+        />
+        <Button
+          props={'button'}
+          icon={'diagram'}
+          initial={[style.option]}
+          classes={['grey']}
+          action={() => {
+            setRm(true)
+          }}
+        />
         {settings.business.reports && settings.business.reports && (
-          <div className={classNames(style.option, style.hide)}>
-            <Button
-              type={'grey'}
-              size={'md'}
-              icon={'settings'}
-              action={() => {
-                setSm(true)
-              }}
-            />
-          </div>
+          <Button
+            props={'button'}
+            icon={'settings'}
+            initial={[style.option, style.hide]}
+            classes={['grey']}
+            action={() => {
+              setSm(true)
+            }}
+          />
         )}
         {settings.business.web_viewer && (
-          <div className={classNames(style.option, style.hide)}>
-            <Link to={'/viewer'} target={'_blank'} rel="noreferrer">
-              <Button type={'grey'} size={'md'} icon={'tv'} />
-            </Link>
-          </div>
+          <Link className={classNames(style.option, style.hide)} to={'/viewer'} target={'_blank'} rel="noreferrer">
+            <Button type={'button'} size={'md'} initial={[style.option]} classes={['grey']} icon={'tv'} />
+          </Link>
         )}
-        <div className={style.option}>
-          <Button
-            type={'grey'}
-            size={'md'}
-            icon={'turn-off'}
-            action={() => {
-              dispatch(setAuth(null))
-              localStorage.removeItem('authToken')
-            }}
-          />
-        </div>
+        <Button
+          props={'button'}
+          icon={'turn-off'}
+          initial={[style.option]}
+          classes={['grey']}
+          action={() => {
+            dispatch(setAuth(null))
+            localStorage.removeItem('authToken')
+          }}
+        />
       </div>
       {sm && <SettingsModal action={setSm} />}
       {rm && <ReportsModal action={setRm} />}

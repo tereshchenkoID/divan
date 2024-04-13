@@ -7,7 +7,7 @@
   position: fixed;
   inset: 0;
   z-index: $z-index-13;
-  background-color: var(--color-green-100);
+  background-color: var(--color-background);
 
   @media (max-width: $min) {
     @include make-spacer(p, 1);
@@ -15,15 +15,6 @@
     top: $nav;
     bottom: $footer;
     align-items: stretch;
-  }
-}
-
-.body,
-.header {
-  .key {
-    &:hover {
-      background-color: var(--color-mine-shaft);
-    }
   }
 }
 
@@ -88,6 +79,8 @@
 }
 
 .key {
+  height: rem(64px);
   flex: 1;
   font-size: rem(28px);
+  min-width: rem(53px);
 }

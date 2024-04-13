@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import { useEffect } from 'react'
 
-import Button from '../Button'
+import Button from 'components/Button'
 
 import style from './index.module.scss'
 
@@ -45,7 +45,15 @@ const Connection = ({ action }) => {
       <h2>{t('notification.no_connection')}</h2>
       <p>{t('notification.check_connection')}</p>
       <div className={style.button}>
-        <Button type={'green'} size={'md'} text={t('interface.try_again')} action={action} />
+        <Button
+          props={'button'}
+          text={t('interface.try_again')}
+          initial={[style.key]}
+          classes={['green']}
+          action={() => {
+            action()
+          }}
+        />
       </div>
     </div>
   )

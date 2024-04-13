@@ -13,10 +13,9 @@
 
   gap: rem(10px);
   border-right: rem(1px) solid var(--color-border);
-  background-color: var(--color-thunder);
 
   &:nth-child(odd) {
-    background-color: var(--color-heavy-metal);
+    background-color: var(--color-thunder);
   }
 
   &:last-child {

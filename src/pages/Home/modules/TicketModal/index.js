@@ -118,16 +118,15 @@ const TicketModal = ({ id, action }) => {
         <div className={style.content}>
           <div className={style.header}>
             <p>{t('interface.ticket_details')}</p>
-            <div className={classNames(style.button, style.sm)}>
-              <Button
-                type={'red'}
-                size={'sm'}
-                icon={'close'}
-                action={() => {
-                  action(false)
-                }}
-              />
-            </div>
+            <Button
+              props={'button'}
+              icon={'close'}
+              initial={[style.close]}
+              classes={['red']}
+              action={() => {
+                action(false)
+              }}
+            />
           </div>
           <div className={style.body}>
             {step === 0 && (
@@ -141,9 +140,7 @@ const TicketModal = ({ id, action }) => {
                       setFind(e.target.value || '')
                     }}
                   />
-                  <div className={classNames(style.button, style.md)}>
-                    <Button type={'green'} size={'md'} icon={'search'} props={'submit'} />
-                  </div>
+                  <Button props={'submit'} icon={'search'} initial={[style.action]} classes={['green']} />
                 </form>
               </>
             )}
@@ -324,39 +321,36 @@ const TicketModal = ({ id, action }) => {
           {step === 1 && !loading && (
             <div className={style.footer}>
               {settings.business.cancel && data.stake.status === 'OPEN' && (
-                <div className={classNames(style.button, style.lg)}>
-                  <Button
-                    type={'blue'}
-                    size={'lg'}
-                    icon={'cancelled'}
-                    action={() => {
-                      sendAction('cancel')
-                    }}
-                  />
-                </div>
-              )}
-              {settings.business.payout && data.stake.status === 'WIN' && data.stake.paid === '0' && (
-                <div className={classNames(style.button, style.lg)}>
-                  <Button
-                    type={'olive'}
-                    size={'lg'}
-                    icon={'dollar'}
-                    action={() => {
-                      sendAction('payout')
-                    }}
-                  />
-                </div>
-              )}
-              <div className={classNames(style.button, style.lg)}>
                 <Button
-                  type={'red'}
-                  size={'lg'}
-                  icon={'close'}
+                  props={'button'}
+                  icon={'cancelled'}
+                  initial={[style.option]}
+                  classes={['blue']}
                   action={() => {
-                    action(false)
+                    sendAction('cancel')
                   }}
                 />
-              </div>
+              )}
+              {settings.business.payout && data.stake.status === 'WIN' && data.stake.paid === '0' && (
+                <Button
+                  props={'button'}
+                  icon={'dollar'}
+                  initial={[style.option]}
+                  classes={['olive']}
+                  action={() => {
+                    sendAction('payout')
+                  }}
+                />
+              )}
+              <Button
+                props={'button'}
+                icon={'close'}
+                initial={[style.option]}
+                classes={['red']}
+                action={() => {
+                  action(false)
+                }}
+              />
             </div>
           )}
         </div>

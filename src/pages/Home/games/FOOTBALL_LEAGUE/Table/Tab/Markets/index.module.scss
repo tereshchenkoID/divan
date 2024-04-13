@@ -9,7 +9,7 @@
   right: 0;
   bottom: $footer;
   z-index: $z-index-13;
-  background-color: var(--color-green-100);
+  background-color: var(--color-background);
 }
 
 .head {
@@ -34,8 +34,10 @@
   border-radius: 0 0 rem(3px) rem(3px);
 }
 
-.button {
-  button {
-    @include size(rem(25px) !important);
+.close {
+  @include size(rem(35px));
+
+  @media (max-width: $min) {
+    @include size(rem(25px));
   }
 }

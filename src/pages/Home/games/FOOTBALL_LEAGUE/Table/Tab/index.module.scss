@@ -12,15 +12,12 @@
   @include flex($align-items: center);
 
   height: rem(30px);
-  gap: rem(5px);
+  gap: rem(2px);
 }
 
 .market {
-  @include button;
-  @include make-spacer(px, 1);
-
+  height: rem(30px);
   flex-grow: 1;
-  min-height: unset;
   font-size: rem(10px);
 }
 

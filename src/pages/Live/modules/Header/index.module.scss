@@ -49,11 +49,12 @@
 
 .weeks {
   @include flex($align-items: center);
+
+  gap: rem(5px);
 }
 
 .week {
-  @include link;
   @include make-spacer(px, 2);
 
-  width: auto;
+  height: rem(35px);
 }

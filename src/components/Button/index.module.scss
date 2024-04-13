@@ -1,12 +1,18 @@
 @import 'scss/config';
 
 .block {
+  @include flex(center, center);
+
   position: relative;
-  width: 100%;
-  border-width: rem(1px);
-  border-style: solid;
+  border: rem(1px) solid var(--color-primary-900);
+  font-size: rem(13px);
+  font-weight: var(--typography-bold);
+  text-align: center;
+  text-transform: uppercase;
   color: var(--color-white);
-  background: linear-gradient(360deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.1) 100%);
+  border-radius: rem(5px);
+  background: var(--gradient-hover);
+  cursor: pointer;
 
   &::before {
     position: absolute;
@@ -15,7 +21,7 @@
     left: rem(1px);
     height: rem(12px);
     border-radius: rem(inherit);
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.1) 100%);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.05) 100%);
     content: '';
 
     @media (max-width: $min) {
@@ -23,69 +29,49 @@
     }
   }
 
+  svg {
+    @include size(70%);
+  }
+
   @media (max-width: $min) {
-    border-radius: rem(3px!important);
-  }
-
-  &.sm {
-    @include make-spacer(p, 1);
-
-    height: rem(25px);
+    font-size: rem(11px);
     border-radius: rem(3px);
-    font-size: rem(13px);
-
-    &::before {
-      height: rem(3px);
-    }
   }
 
-  &.md {
-    @include make-spacer(p, 1);
-
-    height: rem(38px);
-    border-radius: rem(5px);
-
-    &::before {
-      height: rem(5px);
-    }
+  &:hover,
+  &.active {
+    border-color: var(--color-red)!important;
+    background: var(--gradient-active)!important;
   }
 
-  &.lg {
-    @include make-spacer(p, 2);
-
-    height: rem(64px);
-    border-radius: rem(8px);
-  }
-
-  &.wide {
-    @include make-spacer(p, 2);
-
-    height: 100%;
-    border-radius: rem(5px);
+  &.disabled {
+    border-color: var(--color-thunder);
+    background: var(--gradient-disabled);
+    pointer-events: none;
   }
 
   &.grey {
     border-color: var(--color-black);
-    background-color: var(--color-thunder);
+    background: var(--color-mine-shaft);
   }
 
   &.red {
     border-color: #8b0e26;
-    background-color: #d6233c;
+    background: #d6233c;
   }
 
   &.blue {
     border-color: #1d4c89;
-    background-color: #1b79c9;
+    background: #1b79c9;
+  }
+
+  &.green-dark {
+    border-color: #15490a;
+    background: #0b5a07;
   }
 
   &.olive {
     border-color: #113808;
-    background-color: #3fa025;
-  }
-
-  &.green {
-    border-color: #15490a;
-    background-color: #0b5a07;
+    background: #3fa025;
   }
 }

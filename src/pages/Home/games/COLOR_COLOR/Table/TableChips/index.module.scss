@@ -53,12 +53,10 @@
 }
 
 .button {
-  @include button;
+  @include size(100%, rem(40px));
 
   @media (max-width: $min) {
     height: rem(30px);
-    min-height: unset;
-    font-size: rem(13px);
   }
 }
 

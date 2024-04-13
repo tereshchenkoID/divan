@@ -2,9 +2,8 @@ import { useEffect, useState } from 'react'
 
 import { colorType } from 'constant/config'
 
-import classNames from 'classnames'
-
 import Label from 'components/Label'
+import Button from 'components/Button'
 
 import style from '../index.module.scss'
 
@@ -85,15 +84,16 @@ const Matched = ({ numbers, type, setType, t }) => {
         <div className={style.subtitle}>{t('games.COLOR_COLOR.numbers_description')}</div>
         <div className={style.quantity}>
           {quantity.map((el, idx) => (
-            <button
+            <Button
               key={idx}
-              className={classNames(style.button, el.disabled && style.disabled, type.indexOf(el.id) !== -1 && style.active)}
-              onClick={() => {
+              props={'button'}
+              text={el.id}
+              initial={[style.button]}
+              classes={['green', el.disabled && 'disabled', type.indexOf(el.id) !== -1 && 'active']}
+              action={() => {
                 addMatches(el.id)
               }}
-            >
-              {el.id}
-            </button>
+            />
           ))}
         </div>
       </div>

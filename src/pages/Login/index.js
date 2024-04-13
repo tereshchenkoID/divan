@@ -14,7 +14,6 @@ import { setNotification } from 'store/HOME/actions/notificationAction'
 import { setAuth } from 'store/actions/authAction'
 
 import Button from 'components/Button'
-
 import style from './index.module.scss'
 
 const Login = () => {
@@ -133,21 +132,17 @@ const Login = () => {
         </div>
         <div className={style.row}>
           {!resize && show && (
-            <div className={style.button}>
-              <Button
-                type={'green'}
-                size={'md'}
-                text={'Keyboard hide'}
-                props={'button'}
-                action={() => {
-                  setShow(false)
-                }}
-              />
-            </div>
+            <Button
+              props={'submit'}
+              text={'Keyboard hide'}
+              initial={[style.button]}
+              classes={['green']}
+              action={() => {
+                setShow(false)
+              }}
+            />
           )}
-          <div className={style.button}>
-            <Button type={'green'} size={'md'} text={'Login'} props={'submit'} />
-          </div>
+          <Button props={'submit'} text={'Login'} initial={[style.button]} classes={['green']} />
         </div>
       </form>
       <div className={classNames(style.keyboard, show && style.show)}>

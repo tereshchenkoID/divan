@@ -91,9 +91,10 @@ const CalculatorModal = ({ data, action, toggle }) => {
             }}
           />
           <Button
-            type={'grey'}
-            size={'lg'}
+            props={'button'}
             text={'CA'}
+            initial={[style.key]}
+            classes={['grey']}
             action={() => {
               handleClickDelete()
             }}
@@ -101,166 +102,151 @@ const CalculatorModal = ({ data, action, toggle }) => {
         </div>
         <div className={style.body}>
           <div className={style.keyboard}>
-            <div className={style.key}>
-              <Button
-                type={'green'}
-                size={'lg'}
-                text={'7'}
-                action={() => {
-                  handleClickNumber('7')
-                }}
-              />
-            </div>
-            <div className={style.key}>
-              <Button
-                type={'green'}
-                size={'lg'}
-                text={'8'}
-                action={() => {
-                  handleClickNumber('8')
-                }}
-              />
-            </div>
-            <div className={style.key}>
-              <Button
-                type={'green'}
-                size={'lg'}
-                text={'9'}
-                action={() => {
-                  handleClickNumber('9')
-                }}
-              />
-            </div>
-            <div className={style.key}>
-              <Button
-                type={'green'}
-                size={'lg'}
-                text={'4'}
-                action={() => {
-                  handleClickNumber('4')
-                }}
-              />
-            </div>
-            <div className={style.key}>
-              <Button
-                type={'green'}
-                size={'lg'}
-                text={'5'}
-                action={() => {
-                  handleClickNumber('5')
-                }}
-              />
-            </div>
-            <div className={style.key}>
-              <Button
-                type={'green'}
-                size={'lg'}
-                text={'6'}
-                action={() => {
-                  handleClickNumber('6')
-                }}
-              />
-            </div>
-            <div className={style.key}>
-              <Button
-                type={'green'}
-                size={'lg'}
-                text={'1'}
-                action={() => {
-                  handleClickNumber('1')
-                }}
-              />
-            </div>
-            <div className={style.key}>
-              <Button
-                type={'green'}
-                size={'lg'}
-                text={'2'}
-                action={() => {
-                  handleClickNumber('2')
-                }}
-              />
-            </div>
-            <div className={style.key}>
-              <Button
-                type={'green'}
-                size={'lg'}
-                text={'3'}
-                action={() => {
-                  handleClickNumber('3')
-                }}
-              />
-            </div>
-            <div className={style.key}>
-              <Button
-                type={'green'}
-                size={'lg'}
-                text={'c'}
-                action={() => {
-                  setDate(0)
-                }}
-              />
-            </div>
-            <div className={style.key}>
-              <Button
-                type={'green'}
-                size={'lg'}
-                text={'0'}
-                action={() => {
-                  handleClickSymbol('0')
-                }}
-              />
-            </div>
-            <div className={style.key}>
-              <Button
-                type={'green'}
-                size={'lg'}
-                text={'.'}
-                action={() => {
-                  handleClickSymbol('.')
-                }}
-              />
-            </div>
+            <Button
+              props={'button'}
+              text={7}
+              initial={[style.key]}
+              classes={['green']}
+              action={() => {
+                handleClickNumber('7')
+              }}
+            />
+            <Button
+              props={'button'}
+              text={8}
+              initial={[style.key]}
+              classes={['green']}
+              action={() => {
+                handleClickNumber('8')
+              }}
+            />
+            <Button
+              props={'button'}
+              text={9}
+              initial={[style.key]}
+              classes={['green']}
+              action={() => {
+                handleClickNumber('9')
+              }}
+            />
+            <Button
+              props={'button'}
+              text={4}
+              initial={[style.key]}
+              classes={['green']}
+              action={() => {
+                handleClickNumber('4')
+              }}
+            />
+            <Button
+              props={'button'}
+              text={5}
+              initial={[style.key]}
+              classes={['green']}
+              action={() => {
+                handleClickNumber('5')
+              }}
+            />
+            <Button
+              props={'button'}
+              text={6}
+              initial={[style.key]}
+              classes={['green']}
+              action={() => {
+                handleClickNumber('6')
+              }}
+            />
+            <Button
+              props={'button'}
+              text={1}
+              initial={[style.key]}
+              classes={['green']}
+              action={() => {
+                handleClickNumber('1')
+              }}
+            />
+            <Button
+              props={'button'}
+              text={2}
+              initial={[style.key]}
+              classes={['green']}
+              action={() => {
+                handleClickNumber('2')
+              }}
+            />
+            <Button
+              props={'button'}
+              text={3}
+              initial={[style.key]}
+              classes={['green']}
+              action={() => {
+                handleClickNumber('3')
+              }}
+            />
+            <Button
+              props={'button'}
+              text={'c'}
+              initial={[style.key]}
+              classes={['green']}
+              action={() => {
+                setDate(0)
+              }}
+            />
+            <Button
+              props={'button'}
+              text={0}
+              initial={[style.key]}
+              classes={['green']}
+              action={() => {
+                handleClickSymbol('0')
+              }}
+            />
+            <Button
+              props={'button'}
+              text={'.'}
+              initial={[style.key]}
+              classes={['green']}
+              action={() => {
+                handleClickSymbol('.')
+              }}
+            />
           </div>
 
           <div className={style.keys}>
             {Object.values(settings.betslip.steps).map((el, idx) => (
-              <div key={idx} className={style.key}>
-                <Button
-                  type={'green'}
-                  size={'lg'}
-                  text={el}
-                  action={() => {
-                    handleClickStake(el)
-                  }}
-                />
-              </div>
+              <Button
+                props={'button'}
+                text={el}
+                initial={[style.key]}
+                classes={['green']}
+                action={() => {
+                  handleClickStake(el)
+                }}
+              />
             ))}
           </div>
         </div>
         <div className={style.footer}>
           <div className={style.keys}>
-            <div className={style.key}>
-              <Button
-                type={'red'}
-                size={'lg'}
-                text={t('interface.close')}
-                action={() => {
-                  toggle(false)
-                }}
-              />
-            </div>
-            <div className={style.key}>
-              <Button
-                type={'green'}
-                size={'lg'}
-                text={t('interface.accept')}
-                action={() => {
-                  action(parseFloat(date))
-                  toggle(false)
-                }}
-              />
-            </div>
+            <Button
+              props={'button'}
+              text={t('interface.close')}
+              initial={[style.key]}
+              classes={['red']}
+              action={() => {
+                toggle(false)
+              }}
+            />
+            <Button
+              props={'button'}
+              text={t('interface.accept')}
+              initial={[style.key]}
+              classes={['green']}
+              action={() => {
+                action(parseFloat(date))
+                toggle(false)
+              }}
+            />
           </div>
         </div>
       </div>

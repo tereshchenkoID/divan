@@ -2,17 +2,15 @@
 
 .block {
   @include flex(center, center, column);
+  @include wrapper;
+  @include absolute-filled;
 
-  position: absolute;
-  inset: 0;
   z-index: $z-index-14;
-  border: rem(3px) solid var(--color-orange-900);
-  border-radius: rem(9px);
+  background-color: rgba(#09230a, 0.95);
   font-weight: var(--typography-bold);
   text-align: center;
   text-transform: uppercase;
   color: var(--color-white);
-  background-color: rgba(#09230a, 0.95);
 }
 
 .id,

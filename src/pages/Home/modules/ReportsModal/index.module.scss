@@ -6,7 +6,7 @@
   position: fixed;
   inset: 0;
   z-index: $z-index-13;
-  background-color: var(--color-green-100);
+  background-color: var(--color-background);
 
   @media (max-width: $min) {
     @include make-spacer(p, 1);
@@ -65,15 +65,11 @@
   }
 }
 
-.button {
-  &.sm {
-    button {
-      @include size(rem(35px) !important);
+.close {
+  @include size(rem(35px));
 
-      @media (max-width: $min) {
-        @include size(rem(25px) !important);
-      }
-    }
+  @media (max-width: $min) {
+    @include size(rem(25px));
   }
 }
 

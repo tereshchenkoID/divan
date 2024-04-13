@@ -1,16 +1,24 @@
 @import 'scss/config';
 
 .block {
-  @include make-spacer(p, 2);
+  @include make-spacer(p, 1);
 
   text-align: center;
 
   &.default {
     position: relative;
     border: rem(2px) solid var(--color-orange);
-    border-radius: rem(10px);
+    border-radius: rem(5px);
     overflow: hidden;
     color: var(--color-white);
     background-color: var(--color-mine-shaft);
+
+    @media (max-width: $min) {
+      @include make-spacer(p, 1);
+
+      border-width: rem(1px);
+      border-radius: rem(3px);
+      font-size: rem(12px);
+    }
   }
 }

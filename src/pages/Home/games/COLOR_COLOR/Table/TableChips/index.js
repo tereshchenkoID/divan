@@ -4,12 +4,11 @@ import { useEffect, useState } from 'react'
 
 import { colorType, gameType } from 'constant/config'
 
-import classNames from 'classnames'
-
 import { deleteBetslip } from 'store/HOME/actions/betslipAction'
 import { checkTime } from 'helpers/checkTime'
 
 import Label from 'components/Label'
+import Button from 'components/Button'
 import Numbers from '../Numbers'
 import Colors from '../Colors'
 import Anaconda from './Anaconda'
@@ -240,14 +239,15 @@ const TableChips = ({ events, repeat, random, data, setRepeat }) => {
 
       <div className={style.wrapper}>
         <div className={style.content}>
-          <button
-            className={classNames(style.button, disabled && style.disabled)}
-            onClick={() => {
+          <Button
+            props={'button'}
+            text={t('games.COLOR_COLOR.place_bets')}
+            initial={[style.button]}
+            classes={['green', disabled && 'disabled']}
+            action={() => {
               addStake()
             }}
-          >
-            {t('games.COLOR_COLOR.place_bets')}
-          </button>
+          />
         </div>
 
         <Matched numbers={numbers} type={type} setType={setType} t={t} />

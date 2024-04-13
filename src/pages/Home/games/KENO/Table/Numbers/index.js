@@ -1,4 +1,4 @@
-import Icon from 'components/Icon'
+import Button from 'components/Button'
 import Odd from './Odd'
 
 import style from './index.module.scss'
@@ -15,16 +15,16 @@ const Numbers = ({ numbers, setNumbers, random, setType }) => {
   return (
     <div className={style.block}>
       {Array.from({ length: 10 }).map((el, idx) => (
-        <div
-          key={idx}
-          className={style.cell}
-          onClick={() => {
-            setNumbers(getEvery(idx + 1, [...Array(81).keys()]))
-          }}
-        >
-          <button className={style.button}>
-            <Icon id={'arrow-right'} />
-          </button>
+        <div key={idx} className={style.cell}>
+          <Button
+            props={'button'}
+            icon={'arrow-right'}
+            initial={[style.button]}
+            classes={['grey']}
+            action={() => {
+              setNumbers(getEvery(idx + 1, [...Array(81).keys()]))
+            }}
+          />
         </div>
       ))}
       {Array.from({ length: 80 }).map((el, idx) => (

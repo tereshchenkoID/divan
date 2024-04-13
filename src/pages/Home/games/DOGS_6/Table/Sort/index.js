@@ -1,4 +1,4 @@
-import classNames from 'classnames'
+import Button from 'components/Button'
 
 import style from './index.module.scss'
 
@@ -17,16 +17,15 @@ const Sort = ({ date, data, action, id }) => {
   }
 
   return (
-    <button
-      className={classNames(style.block, data.indexOf(val) !== -1 && style.active)}
-      onClick={() => {
+    <Button
+      props={'button'}
+      text={(date === 1 && '1st') || (date === 2 && '2nd') || (date === 3 && '3rd')}
+      initial={[style.block]}
+      classes={['grey', data.indexOf(val) !== -1 && 'active']}
+      action={() => {
         addSort()
       }}
-    >
-      {date === 1 && '1st'}
-      {date === 2 && '2nd'}
-      {date === 3 && '3rd'}
-    </button>
+    />
   )
 }
 

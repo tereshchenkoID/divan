@@ -29,24 +29,17 @@
   @include make-spacer(mb, 2);
   @include flex($align-items: center);
 
+  gap: rem(2px);
+
   @media (max-width: $min) {
     @include make-spacer(my, 0);
   }
 }
 
 .market {
-  @include button;
-  @include make-spacer(mr, half);
   @include size(rem(43px));
-
-  &:last-child {
-    @include make-spacer(mr, 0);
-  }
 
   @media (max-width: $min) {
     @include size(rem(30px));
-
-    min-height: unset;
-    font-size: rem(12px);
   }
 }

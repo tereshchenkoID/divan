@@ -23,7 +23,7 @@
   }
 
   &.active {
-    background-image: linear-gradient(0deg, #294329 0%, #00a900 52%, #00a900 100%);
+    background: var(--gradient-hover);
   }
 }
 
@@ -41,10 +41,7 @@
   height: 100%;
 
   &.active {
-    border: 0 solid var(--color-black);
-    background-image: linear-gradient(0deg, #294329 0%, #00a900 52%, #00a900 100%);
-    filter: drop-shadow(0 0 0.5px rgba(0, 0, 0, 0.56));
-    box-shadow: inset 0 3px 3.5px rgba(0, 0, 0, 0.18);
+    background: var(--gradient-hover);
   }
 }
 

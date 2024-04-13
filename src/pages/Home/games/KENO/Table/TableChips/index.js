@@ -2,14 +2,13 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import classNames from 'classnames'
-
 import { gameType } from 'constant/config'
 
 import { deleteBetslip } from 'store/HOME/actions/betslipAction'
 
 import { checkTime } from 'helpers/checkTime'
 
+import Button from 'components/Button'
 import Numbers from '../Numbers'
 
 import style from './index.module.scss'
@@ -98,22 +97,24 @@ const TableChips = ({ events, repeat, random, data, setRepeat }) => {
   return (
     <div className={style.block}>
       <div className={style.header}>
-        <button
-          className={classNames(style.button, numbers.length === 0 && style.disabled)}
-          onClick={() => {
+        <Button
+          props={'button'}
+          text={t('games.KENO.reset_numbers')}
+          initial={[style.button]}
+          classes={['green', numbers.length === 0 && 'disabled']}
+          action={() => {
             setNumbers([])
           }}
-        >
-          {t('games.KENO.reset_numbers')}
-        </button>
-        <button
-          className={classNames(style.button, disabled && style.disabled)}
-          onClick={() => {
+        />
+        <Button
+          props={'button'}
+          text={t('games.KENO.place_bets')}
+          initial={[style.button]}
+          classes={['green', disabled && 'disabled']}
+          action={() => {
             addStake()
           }}
-        >
-          {t('games.KENO.place_bets')}
-        </button>
+        />
       </div>
       <div className={style.wrapper}>
         <Numbers numbers={numbers} setNumbers={setNumbers} random={random} />

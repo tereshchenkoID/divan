@@ -47,9 +47,15 @@ const Tickets = () => {
       <div className={style.content}>
         <div className={style.header}>
           <p>{t('interface.tickets')}</p>
-          <div className={style.button}>
-            <Button type={'red'} size={'sm'} icon={'close'} action={() => dispatch(setTicket(0))} />
-          </div>
+          <Button
+            props={'button'}
+            icon={'close'}
+            initial={[style.button]}
+            classes={['red']}
+            action={() => {
+              dispatch(setTicket(0))
+            }}
+          />
         </div>
         <div className={style.body}>
           <div className={style.row}>

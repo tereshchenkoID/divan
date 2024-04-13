@@ -16,10 +16,9 @@
   height: rem(34px);
   border-right: rem(1px) solid var(--color-border);
   border-bottom: rem(1px) solid var(--color-border);
-  background-color: var(--color-thunder);
 
   &:nth-child(even) {
-    background-color: var(--color-heavy-metal);
+    background-color: var(--color-thunder);
   }
 
   &:nth-child(2n) {

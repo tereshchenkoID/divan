@@ -11,6 +11,12 @@
   }
 }
 
+.options,
+.form,
+.stats {
+  max-width: rem(500px);
+}
+
 .header {
   @include flex;
 
@@ -45,27 +51,8 @@
   }
 }
 
-.options,
-.form,
-.stats {
-  max-width: rem(500px);
-}
-
-.button {
-  button {
-    height: rem(45px);
-
-    @media (max-width: $min) {
-      height: rem(30px)!important;
-      font-size: rem(12px);
-    }
-  }
-}
-
 .stats {
   @include make-spacer(mb, 2);
-
-  position: relative;
 
   @media (max-width: $min) {
     @include make-spacer(mb, 1);
@@ -84,17 +71,9 @@
 }
 
 .field {
-  @include make-spacer(px, 2);
-  @include size(100%, rem(45px));
+  @include field;
 
-  border: rem(2px) solid var(--color-orange);
-  border-radius: rem(5px);
-  color: var(--color-white);
-  background-color: var(--color-black);
-
-  &:focus {
-    outline: 0;
-  }
+  height: rem(45px);
 
   @media (max-width: $min) {
     border-width: rem(1px);
@@ -105,4 +84,12 @@
 
 .print {
   display: none;
+}
+
+.button {
+  @include size(100%, rem(45px));
+
+  @media (max-width: $min) {
+    height: rem(30px);
+  }
 }

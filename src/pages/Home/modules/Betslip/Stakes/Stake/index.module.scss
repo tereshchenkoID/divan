@@ -10,7 +10,7 @@
   display: grid;
   grid-template-columns: rem(50px) rem(60px) repeat(2, 60px) 1fr;
   align-items: center;
-  height: rem(35px);
+  min-height: rem(35px);
   border-bottom: rem(1px) solid var(--color-border);
 
   @media (max-width: $min) {
@@ -58,7 +58,6 @@
   border: rem(1px) solid var(--color-border);
   border-radius: rem(5px);
   font-weight: var(--typography-bold);
-  line-height: 1;
   text-align: right;
   white-space: nowrap;
   overflow: hidden;
@@ -74,19 +73,14 @@
 }
 
 .keyboard {
-  @include make-spacer(px, 1);
-  @include make-spacer(pt, 2);
-  @include make-spacer(pb, 1);
   @include flex(space-between);
+  @include make-spacer(pt, 1);
 
   gap: rem(5px);
-
-  @media (max-width: $min) {
-    @include make-spacer(pt, 1);
-  }
 }
 
 .key {
+  height: rem(30px);
   flex: 1;
 }
 

@@ -17,10 +17,9 @@ import { getData } from 'helpers/api'
 import { getToken } from 'helpers/getToken'
 
 import Button from 'components/Button'
-import Loader from 'components/Loader'
 import Table from './Table'
-import { StatsPrint } from './StatsPrint'
 
+import { StatsPrint } from './StatsPrint'
 import style from './index.module.scss'
 
 const Settlement = () => {
@@ -29,7 +28,6 @@ const Settlement = () => {
   const { sendMessage } = useSocket()
   const { isConnected, receivedMessage } = useSelector(state => state.socket)
 
-  const [loading, setLoading] = useState(false)
   const [data, setData] = useState(null)
   const [preview, setPreview] = useState(false)
   const [active, setActive] = useState('staff')
@@ -53,19 +51,16 @@ const Settlement = () => {
     } else {
       getData(`/settlement/${type}`).then(json => {
         setData(null)
-        setLoading(true)
 
         if (active === 'master') {
           if (json.code) {
             dispatch(setNotification({ text: t('notification.password_dont_match'), type: status.error }))
           } else {
             setData(json)
-            setLoading(false)
           }
         } else {
           if (json) {
             setData(json)
-            setLoading(false)
           }
         }
       })
@@ -75,19 +70,16 @@ const Settlement = () => {
   useEffect(() => {
     if (receivedMessage !== '' && checkCmd('settlement', receivedMessage.cmd)) {
       setData(null)
-      setLoading(true)
 
       if (active === 'master') {
         if (receivedMessage.code) {
           dispatch(setNotification({ text: t('notification.password_dont_match'), type: status.error }))
         } else {
           setData(receivedMessage)
-          setLoading(false)
         }
       } else {
         if (receivedMessage) {
           setData(receivedMessage)
-          setLoading(false)
         }
       }
     }
@@ -104,93 +96,81 @@ const Settlement = () => {
 
   const toggle = id => {
     setData(null)
-    setLoading(null)
     setPreview(false)
     setActive(id)
   }
 
   return (
     <div className={style.block}>
-      <div className={style.tab}>
-        <div className={style.header}>
-          <button
-            className={classNames(style.link, active === 'staff' && style.active)}
-            onClick={() => {
-              toggle('staff')
-            }}
-          >
-            {t('interface.staff')}
-          </button>
-          <button
-            className={classNames(style.link, active === 'master' && style.active)}
-            onClick={() => {
-              toggle('master')
-            }}
-          >
-            {t('interface.master')}
-          </button>
-        </div>
-        <div className={style.body}>
+      <div className={style.header}>
+        <button
+          className={classNames(style.link, active === 'staff' && style.active)}
+          onClick={() => {
+            toggle('staff')
+          }}
+        >
+          {t('interface.staff')}
+        </button>
+        <button
+          className={classNames(style.link, active === 'master' && style.active)}
+          onClick={() => {
+            toggle('master')
+          }}
+        >
+          {t('interface.master')}
+        </button>
+      </div>
+      <div className={style.body}>
+        {data && (
           <div className={style.stats}>
-            {loading && <Loader type={'block'} background={'transparent'} />}
-            {data && (
-              <>
-                <div className={style.print}>
-                  <StatsPrint data={data} ref={componentRef} />
-                </div>
-                <Table data={data} />
-              </>
-            )}
+            <div className={style.print}>
+              <StatsPrint data={data} ref={componentRef} />
+            </div>
+            <Table data={data} />
           </div>
-          <div className={style.options}>
-            {active === 'staff' && (
-              <div className={style.button}>
+        )}
+        <div className={style.options}>
+          {active === 'staff' && (
+            <Button
+              props={'button'}
+              text={preview ? t('interface.settlement') : t('interface.preview')}
+              initial={[style.button]}
+              classes={['green']}
+              action={() => {
+                preview ? handlePrint() : handleSubmit()
+                setPreview(true)
+              }}
+            />
+          )}
+          {active === 'master' && (
+            <>
+              {!data ? (
+                <form className={style.form} onSubmit={handleForm}>
+                  <input
+                    type={'password'}
+                    className={style.field}
+                    placeholder={t('interface.password')}
+                    onChange={e => {
+                      setPassword(e.target.value || '')
+                    }}
+                    defaultValue={password}
+                  />
+                  <Button props={'submit'} text={t('interface.login')} initial={[style.button]} classes={['green']} />
+                </form>
+              ) : (
                 <Button
-                  type={'green'}
-                  size={'md'}
-                  text={preview ? t('interface.settlement') : t('interface.preview')}
                   props={'button'}
+                  text={t('interface.settlement')}
+                  initial={[style.button]}
+                  classes={['green']}
                   action={() => {
-                    preview ? handlePrint() : handleSubmit()
+                    handlePrint()
                     setPreview(true)
                   }}
                 />
-              </div>
-            )}
-            {active === 'master' && (
-              <>
-                {!data ? (
-                  <form className={style.form} onSubmit={handleForm}>
-                    <input
-                      type={'password'}
-                      className={style.field}
-                      placeholder={t('interface.password')}
-                      onChange={e => {
-                        setPassword(e.target.value || '')
-                      }}
-                      defaultValue={password}
-                    />
-                    <div className={style.button}>
-                      <Button type={'green'} size={'md'} text={t('interface.login')} props={'submit'} />
-                    </div>
-                  </form>
-                ) : (
-                  <div className={style.button}>
-                    <Button
-                      type={'green'}
-                      size={'md'}
-                      text={t('interface.settlement')}
-                      props={'button'}
-                      action={() => {
-                        handlePrint()
-                        setPreview(true)
-                      }}
-                    />
-                  </div>
-                )}
-              </>
-            )}
-          </div>
+              )}
+            </>
+          )}
         </div>
       </div>
     </div>

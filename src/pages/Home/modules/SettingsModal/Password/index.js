@@ -123,17 +123,19 @@ const Password = ({ action }) => {
         <div />
         <div className={style.actions}>
           <Button
-            type={'green'}
-            size={'md'}
+            props={'button'}
             icon={'save'}
+            initial={[style.action]}
+            classes={['green-dark']}
             action={() => {
               checkNewPassword()
             }}
           />
           <Button
-            type={'red'}
-            size={'md'}
+            props={'button'}
             icon={'close'}
+            initial={[style.action]}
+            classes={['red']}
             action={() => {
               action(false)
             }}

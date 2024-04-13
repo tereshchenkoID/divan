@@ -10,16 +10,11 @@
   bottom: 0;
   left: 0;
   z-index: $z-index-11;
-  background-color: var(--color-green-100);
+  background-color: var(--color-background);
 }
 
 .button {
-  @include link;
-  @include size(auto, rem(48px));
-  @include make-spacer(px, 4);
-  @include make-spacer(py, 2);
-
   min-width: rem(150px);
-  font-size: rem(16px);
+  height: rem(48px);
   white-space: nowrap;
 }

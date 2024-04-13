@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react'
 
-import classNames from 'classnames'
-
 import { colorType } from 'constant/config'
 
 import Label from 'components/Label'
+import Button from 'components/Button'
 
 import style from '../index.module.scss'
 
@@ -27,14 +26,15 @@ const Anaconda = ({ numbers, type, setType, t }) => {
       </div>
       <div className={style.panel}>
         <div className={style.subtitle}>{t('games.COLOR_COLOR.anaconda_description')}</div>
-        <button
-          className={classNames(style.button, disabled && style.disabled, type === colorType.ANACONDA && style.active)}
-          onClick={() => {
+        <Button
+          props={'button'}
+          text={'ANACONDA'}
+          initial={[style.button]}
+          classes={['green', disabled && 'disabled', type === colorType.ANACONDA && 'active']}
+          action={() => {
             setType(type === colorType.ANACONDA ? '' : colorType.ANACONDA)
           }}
-        >
-          ANACONDA
-        </button>
+        />
       </div>
     </div>
   )

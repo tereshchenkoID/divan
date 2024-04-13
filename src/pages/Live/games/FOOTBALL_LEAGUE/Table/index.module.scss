@@ -34,6 +34,10 @@
 .right {
   overflow: hidden;
 
+  & > * {
+    padding: 0;
+  }
+
   .results {
     border-top: rem(3px) solid var(--color-orange-900);
     border-right: rem(3px) solid var(--color-orange-900);
@@ -48,7 +52,6 @@
 
 .results {
   overflow: hidden;
-  background-color: #1b1b1b;
 }
 
 .slide {
@@ -73,13 +76,10 @@
   height: rem(52px);
   border-top: rem(1px) solid var(--color-border);
   text-align: center;
-
-  &:nth-child(even) {
-    background-color: var(--color-thunder);
-  }
+  background-color: var(--color-mine-shaft);
 
   &:nth-child(odd) {
-    background-color: var(--color-mine-shaft);
+    background-color: var(--color-thunder);
   }
 
   &:first-child {
@@ -136,8 +136,8 @@
   font-size: rem(10px);
   line-height: 1;
   white-space: nowrap;
-  color: var(--color-orange);
-  background-color: var(--color-green);
+  color: var(--color-white);
+  background-color: var(--color-primary);
 }
 
 .logo {
@@ -163,7 +163,7 @@
   overflow: hidden;
 
   &.w {
-    background: var(--color-green);
+    background-color: var(--color-green);
   }
 
   &.l {

@@ -18,16 +18,15 @@ const Ticket = ({ data, currency }) => {
       {active && <TicketModal id={data.id} action={setActive} />}
       <div className={style.cell}>
         {!isShow && (
-          <div className={style.button}>
-            <Button
-              type={'red'}
-              size={'sm'}
-              icon={'info'}
-              action={() => {
-                setActive(true)
-              }}
-            />
-          </div>
+          <Button
+            props={'submit'}
+            icon={'info'}
+            initial={[style.button]}
+            classes={['red']}
+            action={() => {
+              setActive(true)
+            }}
+          />
         )}
       </div>
       <div className={classNames(style.cell, style.left)}>{isShow && data.id ? data.id.replace(/.{4}$/, '****') : data.id}</div>

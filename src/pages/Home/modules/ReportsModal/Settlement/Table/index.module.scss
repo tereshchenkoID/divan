@@ -16,16 +16,13 @@
   align-items: center;
   height: rem(50px);
   border-top: rem(1px) solid var(--color-border);
+  background-color: var(--color-mine-shaft);
 
   &:first-child {
     border-top: 0;
   }
 
   &:nth-child(odd) {
-    background-color: var(--color-mine-shaft);
-  }
-
-  &:nth-child(even) {
     background-color: var(--color-thunder);
   }
 

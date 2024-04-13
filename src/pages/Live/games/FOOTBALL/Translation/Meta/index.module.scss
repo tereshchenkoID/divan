@@ -3,12 +3,10 @@
 .block {
   @include make-spacer(p, 2);
   @include flex($direction: column);
+  @include wrapper;
 
   width: 250px;
-  border: rem(3px) solid var(--color-orange-900);
-  border-radius: rem(9px);
-  overflow: hidden;
-  background-color: rgba(#1b1b1b, 40%);
+  background-color: rgba(#000, 40%);
 }
 
 .top {

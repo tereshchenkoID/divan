@@ -68,15 +68,13 @@
 
 .keyboard {
   @include flex(space-between);
+  @include make-spacer(pt, 1);
 
   gap: rem(5px);
-
-  @media (max-width: $min) {
-    @include make-spacer(pt, 1);
-  }
 }
 
 .key {
+  height: rem(30px);
   flex: 1;
 }
 

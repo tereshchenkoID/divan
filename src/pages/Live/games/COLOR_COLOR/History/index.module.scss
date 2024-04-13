@@ -34,10 +34,9 @@
   height: rem(40px);
   border-right: rem(1px) solid var(--color-border);
   border-bottom: rem(1px) solid var(--color-border);
-  background-color: var(--color-thunder);
 
   &:nth-child(odd) {
-    background-color: var(--color-heavy-metal);
+    background-color: var(--color-thunder);
   }
 
   &:nth-child(4n) {

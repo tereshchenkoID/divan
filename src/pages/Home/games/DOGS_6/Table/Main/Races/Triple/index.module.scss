@@ -19,7 +19,6 @@
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   color: var(--color-white);
-  background-color: var(--color-thunder);
 
   @media (max-width: $min) {
     grid-template-columns: repeat(3, 1fr);
@@ -47,16 +46,13 @@
 }
 
 .button {
-  @include button;
+  height: rem(48px);
 
   @media (max-width: $min) {
     height: 50%;
-    font-size: rem(12px);
   }
 }
 
 .odd {
   @include odd;
-
-  background: none;
 }

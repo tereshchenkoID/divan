@@ -12,25 +12,19 @@
 
 .item {
   @include make-spacer(px, 2);
+  @include wrapper;
 
   display: grid;
   grid-template-columns: rem(30px) 1fr rem(40px) rem(40px) rem(40px) 1fr;
   flex-shrink: 0;
   align-items: center;
   height: 100%;
-  border: rem(3px) solid var(--color-orange-900);
-  border-radius: rem(9px);
   font-size: rem(15px);
   text-align: center;
-  overflow: hidden;
   color: var(--color-white);
 
   &:nth-child(even) {
     background-color: var(--color-thunder);
-  }
-
-  &:nth-child(odd) {
-    background-color: var(--color-mine-shaft);
   }
 }
 
@@ -39,7 +33,7 @@
 }
 
 .logo {
-  @include make-spacer('p', 1);
+  @include make-spacer(p, 1);
   @include size(rem(40px));
 
   img {

@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react'
 
-import classNames from 'classnames'
-
 import { colorType } from 'constant/config'
 
 import Label from 'components/Label'
+import Button from 'components/Button'
 
 import style from '../index.module.scss'
 
@@ -26,14 +25,15 @@ const Zero = ({ numbers, type, setType, t }) => {
       </div>
       <div className={style.panel}>
         <div className={style.subtitle}>{t('games.COLOR_COLOR.bet_zero_description')}</div>
-        <button
-          className={classNames(style.button, disabled && style.disabled, type === colorType.BET_ZERO && style.active)}
-          onClick={() => {
+        <Button
+          props={'button'}
+          text={'BET ZERO'}
+          initial={[style.button]}
+          classes={['green', disabled && 'disabled', type === colorType.BET_ZERO && 'active']}
+          action={() => {
             setType(type === colorType.BET_ZERO ? '' : colorType.BET_ZERO)
           }}
-        >
-          BET ZERO
-        </button>
+        />
       </div>
     </div>
   )

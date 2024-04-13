@@ -2,13 +2,9 @@
 
 .block {
   @include flex($direction: column);
+  @include wrapper;
 
-  position: relative;
   height: 100%;
-  border: rem(3px) solid var(--color-orange-900);
-  border-radius: rem(9px);
-  overflow: hidden;
-  background-color: #1b1b1b;
 }
 
 .row {
@@ -24,12 +20,8 @@
   overflow: hidden;
   color: var(--color-white);
 
-  &:nth-child(even) {
-    background-color: var(--color-thunder);
-  }
-
   &:nth-child(odd) {
-    background-color: var(--color-mine-shaft);
+    background-color: var(--color-thunder);
   }
 
   &:first-child {

@@ -7,9 +7,8 @@
   display: grid;
   position: fixed;
   inset: 0;
-  z-index: $z-index-13;
-  height: 100%;
-  background-color: var(--color-green-100);
+  z-index: $z-index-14;
+  background-color: var(--color-background);
 
   @media (max-width: $min) {
     @include make-spacer(p, 1);
@@ -30,13 +29,10 @@
 }
 
 .content {
-  position: relative;
+  @include wrapper;
+
   min-width: rem(600px);
-  border: rem(3px) solid var(--color-orange);
-  border-radius: rem(8px);
-  overflow: hidden;
   color: var(--color-white);
-  background-color: var(--color-black);
   place-items: center;
 
   @media (max-width: $min) {
@@ -98,27 +94,30 @@
 }
 
 .form {
-  @include flex;
+  @include flex($align-items: center);
+
+  gap: rem(5px);
 }
 
 .field {
-  @include make-spacer(px, 2);
-  @include make-spacer(mr, 2);
-  @include size(100%, rem(38px));
+  @include field;
 
-  border: rem(2px) solid var(--color-orange);
-  border-radius: rem(5px);
-  color: var(--color-white);
-  background-color: var(--color-black);
-
-  &:focus {
-    outline: 0;
-  }
+  height: rem(38px);
 
   @media (max-width: $min) {
     height: rem(30px);
     font-size: rem(12px);
     background-size: rem(20px);
+  }
+}
+
+.action {
+  @include size(rem(40px));
+
+  flex-shrink: 0;
+
+  @media (max-width: $min) {
+    @include size(rem(30px));
   }
 }
 
@@ -295,40 +294,21 @@
   }
 }
 
-.button {
+.option {
+  @include size(rem(64px));
 
-  &.sm {
+  flex-shrink: 0;
 
-    button {
-      @include size(rem(35px) !important);
-
-      @media (max-width: $min) {
-        @include size(rem(25px) !important);
-      }
-    }
+  @media (max-width: $min) {
+    @include size(rem(30px) !important);
   }
+}
 
-  &.md {
+.close {
+  @include size(rem(35px));
 
-    button {
-      @include size(rem(38px) !important);
-
-      @media (max-width: $min) {
-        @include size(rem(30px) !important);
-      }
-    }
-  }
-
-  &.lg {
-
-    button {
-      @include size(rem(64px) !important);
-
-      @media (max-width: $min) {
-        @include make-spacer(p, 1);
-        @include size(rem(30px) !important);
-      }
-    }
+  @media (max-width: $min) {
+    @include size(rem(25px));
   }
 }
 

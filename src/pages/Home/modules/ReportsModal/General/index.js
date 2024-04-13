@@ -3,15 +3,13 @@ import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import useSocket from 'hooks/useSocket'
 
-import classNames from 'classnames'
-
 import { getData } from 'helpers/api'
 import { getDateTime } from 'helpers/getDateTime'
 import { checkCmd } from 'helpers/checkCmd'
 import { getToken } from 'helpers/getToken'
 
-import Button from 'components/Button'
 import Loader from 'components/Loader'
+import Button from 'components/Button'
 import Table from './Table'
 
 import style from './index.module.scss'
@@ -105,7 +103,7 @@ const Settlement = () => {
   const [disabled, setDisabled] = useState(true)
   const [loading, setLoading] = useState(null)
   const [data, setData] = useState(null)
-  const [label, setLabel] = useState()
+  const [label, setLabel] = useState(null)
   const [time, setTime] = useState([getDateTime(new Date(), 4), getDateTime(new Date(), 4)])
 
   const handleSubmit = (from = null, to = null) => {
@@ -150,17 +148,18 @@ const Settlement = () => {
       <div className={style.header}>
         <div className={style.left}>
           {SORT.map((el, idx) => (
-            <div
+            <Button
               key={idx}
-              className={classNames(style.button, label === idx && style.active)}
-              onClick={() => {
+              props={'button'}
+              text={el}
+              initial={[style.button]}
+              classes={['green', label === idx && 'active']}
+              action={() => {
                 setLabel(idx)
                 setTime([setDate(idx, 0), setDate(idx, 1)])
                 handleSubmit(setDate(idx, 0), setDate(idx, 1))
               }}
-            >
-              <Button type={'green'} size={'wide'} text={el} props={'button'} />
-            </div>
+            />
           ))}
         </div>
         <div className={style.right}>
@@ -180,18 +179,15 @@ const Settlement = () => {
               handleChange(event, 1)
             }}
           />
-          <div />
-          <div className={classNames(disabled && style.disabled, style.button)}>
-            <Button
-              type={'green'}
-              size={'wide'}
-              text={t('interface.generate')}
-              props={'button'}
-              action={() => {
-                handleSubmit()
-              }}
-            />
-          </div>
+          <Button
+            props={'button'}
+            text={t('interface.generate')}
+            initial={[style.button]}
+            classes={['green', disabled && 'disabled']}
+            action={() => {
+              handleSubmit()
+            }}
+          />
         </div>
       </div>
       <div className={style.wrapper}>

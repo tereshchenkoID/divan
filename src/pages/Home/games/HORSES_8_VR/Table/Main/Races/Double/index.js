@@ -9,6 +9,7 @@ import classNames from 'classnames'
 
 import { gameType, horseColor } from 'constant/config'
 
+import Button from 'components/Button'
 import Number from '../../../Number'
 
 import style from './index.module.scss'
@@ -101,14 +102,15 @@ const Double = ({ data }) => {
           </div>
         ))}
       </div>
-      <button
-        className={classNames(style.button, select.length < 2 && style.disabled)}
-        onClick={() => {
+      <Button
+        props={'button'}
+        text={t('games.HORSES_8_VR.place_bets')}
+        initial={[style.button]}
+        classes={['green', select.length < 2 && 'disabled']}
+        action={() => {
           placeBets()
         }}
-      >
-        {t('games.HORSES_8_VR.place_bets')}
-      </button>
+      />
     </div>
   )
 }

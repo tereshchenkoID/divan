@@ -8,12 +8,12 @@
     flex-direction: column;
 
     .numbers {
-      @include make-spacer('mb', 1);
+      @include make-spacer(mb, 1);
     }
   }
 
   &.horizontal {
-    @include make-spacer('pl', 4);
+    @include make-spacer(pl, 4);
 
     gap: rem(5px);
     flex-direction: row;
@@ -21,13 +21,13 @@
   }
 
   &.disabled {
-    background-image: linear-gradient(0deg, #111 0%, #3f3f3f 17%, #6d6d6d 51%, #6d6d6d 100%);
+    background-image: var(--gradient-disabled);
     pointer-events: none;
   }
 }
 
 .market {
-  @include make-spacer('mr', 2);
+  @include make-spacer(mr, 2);
 }
 
 .numbers {

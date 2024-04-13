@@ -26,19 +26,12 @@
 
   height: rem(77px);
   padding-left: rem(270px);
+  gap: rem(2px);
 }
 
 .market {
-  @include button;
-  @include make-spacer(mr, 1);
-  @include make-spacer(px, 2);
-
-  width: auto;
-  font-size: rem(14px);
-
-  &:last-child {
-    @include make-spacer(mr, 0);
-  }
+  flex-grow: 1;
+  height: 100%;
 }
 
 .dropdown {
@@ -62,7 +55,6 @@
   @include wrapper;
 
   position: relative;
-  background-color: var(--color-mine-shaft);
 
   .row {
     height: rem(53px);

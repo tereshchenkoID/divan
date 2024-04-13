@@ -2,11 +2,10 @@ import { useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import classNames from 'classnames'
-
 import { matchStatus } from 'constant/config'
 
 import Label from 'components/Label'
+import Button from 'components/Button'
 import TableChips from './TableChips'
 import Live from '../Live'
 
@@ -50,15 +49,16 @@ const Table = ({ active }) => {
               <Label text={t('games.COLOR_COLOR.random')} />
               <div className={style.sort}>
                 {SORT.map((el, idx) => (
-                  <button
+                  <Button
                     key={idx}
-                    className={style.market}
-                    onClick={() => {
+                    props={'button'}
+                    text={el}
+                    initial={[style.market]}
+                    classes={['green']}
+                    action={() => {
                       generateRandomArray(el)
                     }}
-                  >
-                    {el}
-                  </button>
+                  />
                 ))}
               </div>
             </div>
@@ -66,19 +66,20 @@ const Table = ({ active }) => {
               <Label text={t('games.COLOR_COLOR.repeat')} />
               <div className={style.sort}>
                 {data.events.map((el, idx) => (
-                  <button
+                  <Button
                     key={idx}
-                    className={classNames(
-                      style.market,
-                      data.events[0].status !== matchStatus.ANNOUNCEMENT && idx === data.events.length - 1 && style.disabled,
-                      idx + 1 === repeat && style.active,
-                    )}
-                    onClick={() => {
+                    props={'button'}
+                    text={`${idx + 1}x`}
+                    initial={[style.market]}
+                    classes={[
+                      'green',
+                      data.events[0].status !== matchStatus.ANNOUNCEMENT && idx === data.events.length - 1 && 'disabled',
+                      idx + 1 === repeat && 'active',
+                    ]}
+                    action={() => {
                       setRepeat(idx + 1)
                     }}
-                  >
-                    {idx + 1}x
-                  </button>
+                  />
                 ))}
               </div>
             </div>

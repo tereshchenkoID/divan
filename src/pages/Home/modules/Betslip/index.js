@@ -26,8 +26,8 @@ import { getToken } from 'helpers/getToken'
 import { getData, postData } from 'helpers/api'
 
 import TicketModal from 'pages/Home/modules/TicketModal'
-import Button from 'components/Button'
 import Icon from 'components/Icon'
+import Button from 'components/Button'
 
 import Stakes from './Stakes'
 import Bets from './Bets'
@@ -377,9 +377,10 @@ const Betslip = () => {
       )}
       <div className={style.footer}>
         <Button
-          type={'red'}
-          size={'lg'}
+          props={'button'}
           icon={'trash'}
+          initial={[style.button]}
+          classes={['red']}
           action={() => {
             dispatch(setStake([]))
             dispatch(deleteBetslip([]))
@@ -389,27 +390,30 @@ const Betslip = () => {
           }}
         />
         <Button
-          type={'green'}
-          size={'lg'}
+          props={'button'}
           icon={'search'}
+          initial={[style.button]}
+          classes={['green-dark']}
           action={() => {
             setCheckTicket(true)
           }}
         />
         {settings.business.reprint && (
           <Button
-            type={'blue'}
-            size={'lg'}
+            props={'button'}
             icon={'repeat-print'}
+            initial={[style.button]}
+            classes={['blue']}
             action={() => {
               repeatPrint()
             }}
           />
         )}
         <Button
-          type={'olive'}
-          size={'lg'}
+          props={'button'}
           icon={'print'}
+          initial={[style.button]}
+          classes={['olive']}
           action={() => {
             sendStake()
           }}

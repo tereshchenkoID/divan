@@ -3,11 +3,7 @@
 .header {
   @include flex(center, center);
 
-  gap: rem(10px);
-
-  @media (max-width: $min) {
-    gap: rem(4px);
-  }
+  gap: rem(2px);
 }
 
 .body {
@@ -19,22 +15,12 @@
 }
 
 .button {
-  @include button;
   @include make-spacer(px, 4);
 
-  width: auto;
-
-  &.disabled {
-    pointer-events: auto;
-  }
+  height: rem(45px);
 
   @media (max-width: $min) {
-    @include make-spacer(mt, 1);
-    @include make-spacer(px, 2);
-
-    flex-grow: 1;
     height: rem(30px);
-    min-height: unset;
-    font-size: rem(12px);
+    flex-grow: 1;
   }
 }

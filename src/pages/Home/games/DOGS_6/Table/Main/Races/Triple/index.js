@@ -9,6 +9,7 @@ import classNames from 'classnames'
 
 import { dogsColor, gameType } from 'constant/config'
 
+import Button from 'components/Button'
 import Number from '../../../Number'
 
 import style from './index.module.scss'
@@ -104,14 +105,15 @@ const Triple = ({ data }) => {
           </div>
         ))}
       </div>
-      <button
-        className={classNames(style.button, select.length < 3 && style.disabled)}
-        onClick={() => {
+      <Button
+        props={'button'}
+        text={t('games.DOGS_6.place_bets')}
+        initial={[style.button]}
+        classes={['green', select.length < 3 && 'disabled']}
+        action={() => {
           placeBets()
         }}
-      >
-        {t('games.DOGS_6.place_bets')}
-      </button>
+      />
     </div>
   )
 }

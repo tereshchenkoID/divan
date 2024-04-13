@@ -12,11 +12,14 @@
 
 .column {
   @include flex(center, center, column);
-  @include make-spacer(pb, 2);
-  @include make-spacer(px, 2);
   @include wrapper;
 
   height: 100%;
+
+  &:nth-child(2) {
+    @include make-spacer(pb, 2);
+    @include make-spacer(px, 2);
+  }
 }
 
 .wheel {

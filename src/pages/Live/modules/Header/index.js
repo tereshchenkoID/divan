@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { gameType } from 'constant/config'
 
 import JackPot from 'pages/Home/modules/JackPot'
+import Button from 'components/Button'
 import Timer from '../Timer'
 
 import style from './index.module.scss'
@@ -35,17 +36,26 @@ const Header = ({ timer, initTime }) => {
         <div className={style.weeks}>
           {game.type === gameType.FOOTBALL_LEAGUE ? (
             <>
-              <div className={style.week}>
-                {t('interface.league')} {tv.event.league.league_id}
-              </div>
-              <div className={style.week}>
-                {t('interface.week')} {tv.event.league.week}
-              </div>
+              <Button
+                props={'button'}
+                text={`${t('interface.league')} ${tv.event.league.league_id}`}
+                initial={[style.week]}
+                classes={['green']}
+              />
+              <Button
+                props={'button'}
+                text={`${t('interface.week')} ${tv.event.league.week}`}
+                initial={[style.week]}
+                classes={['green']}
+              />
             </>
           ) : (
-            <div className={style.week}>
-              {t('interface.round')} #{tv.event.round ? tv.event.round.id : tv.event.id}
-            </div>
+            <Button
+              props={'button'}
+              text={`${t('interface.round')} #${tv.event.round ? tv.event.round.id : tv.event.id}`}
+              initial={[style.week]}
+              classes={['green']}
+            />
           )}
         </div>
       </div>

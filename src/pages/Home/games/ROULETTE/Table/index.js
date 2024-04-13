@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { checkTime } from 'helpers/checkTime'
 
 import Label from 'components/Label'
+import Button from 'components/Button'
 import TableChips from './TableChips'
 import Live from '../Live'
 
@@ -46,15 +47,16 @@ const Table = ({ active }) => {
             <Label text={t('games.ROULETTE.random')} />
             <div className={style.sort}>
               {SORT.map((el, idx) => (
-                <button
+                <Button
                   key={idx}
-                  className={style.market}
-                  onClick={() => {
+                  props={'button'}
+                  text={el}
+                  initial={[style.market]}
+                  classes={['green']}
+                  action={() => {
                     generateRandomArray(el)
                   }}
-                >
-                  {el}
-                </button>
+                />
               ))}
             </div>
           </>

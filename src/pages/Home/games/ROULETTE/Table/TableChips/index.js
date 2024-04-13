@@ -368,17 +368,19 @@ const TableChips = ({ random, active }) => {
 
         <div className={style.actions}>
           <Button
-            type={'blue'}
-            size={'lg'}
+            props={'button'}
             text={'2x'}
+            initial={[style.action]}
+            classes={['blue']}
             action={() => {
               doubleChips(active.id)
             }}
           />
           <Button
-            type={'red'}
-            size={'lg'}
+            props={'button'}
             icon={'close'}
+            initial={[style.action]}
+            classes={['red']}
             action={() => {
               clearBets(active.id)
             }}

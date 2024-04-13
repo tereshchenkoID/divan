@@ -117,16 +117,15 @@ const SettingsModal = ({ action }) => {
       <div className={style.wrapper}>
         <div className={style.header}>
           <p>{t('interface.general_settings')}</p>
-          <div className={classNames(style.button, style.sm)}>
-            <Button
-              type={'red'}
-              size={'sm'}
-              icon={'close'}
-              action={() => {
-                action(false)
-              }}
-            />
-          </div>
+          <Button
+            props={'button'}
+            icon={'close'}
+            initial={[style.button]}
+            classes={['red']}
+            action={() => {
+              action(false)
+            }}
+          />
         </div>
         <div className={style.body}>
           <div className={style.container}>
@@ -173,14 +172,15 @@ const SettingsModal = ({ action }) => {
                   </select>
                 </div>
                 <div>
-                  <div
-                    className={classNames(style.button, style.sm)}
-                    onClick={() => {
+                  <Button
+                    props={'button'}
+                    icon={'save'}
+                    initial={[style.button]}
+                    classes={['green']}
+                    action={() => {
                       save(printingRef, 'printMode')
                     }}
-                  >
-                    <Button type={'green'} size={'sm'} icon={'save'} />
-                  </div>
+                  />
                 </div>
               </div>
               <div className={style.row}>
@@ -192,14 +192,15 @@ const SettingsModal = ({ action }) => {
                   </select>
                 </div>
                 <div>
-                  <div
-                    className={classNames(style.button, style.sm)}
-                    onClick={() => {
+                  <Button
+                    props={'button'}
+                    icon={'save'}
+                    initial={[style.button]}
+                    classes={['green']}
+                    action={() => {
                       save(stakeRef, 'betMode')
                     }}
-                  >
-                    <Button type={'green'} size={'sm'} icon={'save'} />
-                  </div>
+                  />
                 </div>
               </div>
               <div className={style.row}>
@@ -208,16 +209,15 @@ const SettingsModal = ({ action }) => {
                   <input type={'number'} className={style.input} ref={printRef} />
                 </div>
                 <div>
-                  <div className={classNames(style.button, style.sm)}>
-                    <Button
-                      type={'green'}
-                      size={'sm'}
-                      icon={'repeat-print'}
-                      action={() => {
-                        print(printRef)
-                      }}
-                    />
-                  </div>
+                  <Button
+                    props={'button'}
+                    icon={'repeat-print'}
+                    initial={[style.button]}
+                    classes={['green']}
+                    action={() => {
+                      print(printRef)
+                    }}
+                  />
                 </div>
               </div>
               <div className={style.row}>

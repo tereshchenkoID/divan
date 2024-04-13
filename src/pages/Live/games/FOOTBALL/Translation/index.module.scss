@@ -15,7 +15,7 @@
   text-transform: uppercase;
   overflow: hidden;
   color: var(--color-white);
-  background-color: var(--color-green-100);
+  background-color: var(--color-background);
   column-gap: rem(10px);
 }
 
@@ -27,12 +27,7 @@
 
 .table {
   @include flex($direction: column);
-
-  position: relative;
-  border: rem(3px) solid var(--color-orange-900);
-  border-radius: rem(9px);
-  overflow: hidden;
-  background-color: #1b1b1b;
+  @include wrapper;
 }
 
 .info {

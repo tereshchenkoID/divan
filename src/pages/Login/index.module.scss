@@ -7,7 +7,7 @@
   inset: 0;
   z-index: $z-index-14;
   gap: rem(20px);
-  background-color: var(--color-green-100);
+  background-color: var(--color-background);
 
   @media (max-width: $min) {
     @include size(100vw, 100vh);
@@ -48,13 +48,7 @@
 }
 
 .button {
-  @include flex(flex-end);
-
-  flex: 1;
-
-  button {
-    @include size(100%, rem(45px) !important);
-  }
+  @include size(100%, rem(45px));
 }
 
 .title {
@@ -65,14 +59,10 @@
   @include make-spacer(px, 2);
   @include size(100%, rem(45px));
 
-  border: 2px solid var(--color-orange);
+  border: rem(2px) solid var(--color-orange);
   border-radius: rem(5px);
   color: var(--color-white);
   background-color: var(--color-black);
-
-  &:focus {
-    outline: 0;
-  }
 }
 
 .toggle {
@@ -135,9 +125,14 @@
           content: '';
         }
 
+        &:hover {
+          border-color: var(--color-red);
+          background: var(--gradient-active);
+        }
+
         &:active {
-          border-color: #15490a;
-          background-color: #0b5a07;
+          border-color: var(--color-primary);
+          background: var(--gradient-hover)
         }
       }
     }

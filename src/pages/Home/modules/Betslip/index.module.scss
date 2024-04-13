@@ -1,18 +1,11 @@
 @import 'scss/config';
 
 .block {
+  @include wrapper;
   @include flex($direction: column);
 
-  height: 100%;
-  border: rem(2px) solid var(--color-orange);
-  border-radius: rem(10px);
-  overflow: hidden;
   background-color: var(--color-black);
-
-  @media (max-width: $min) {
-    border-width: rem(1px);
-    border-radius: rem(3px);
-  }
+  height: 100%;
 }
 
 .body {
@@ -47,6 +40,10 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: rem(5px);
+}
+
+.button {
+  height: rem(64px);
 }
 
 .print {

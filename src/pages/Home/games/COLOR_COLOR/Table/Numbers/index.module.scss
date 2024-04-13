@@ -13,7 +13,6 @@
   height: rem(53px);
   border-right: rem(1px) solid var(--color-border);
   border-bottom: rem(1px) solid var(--color-border);
-  background-color: var(--color-thunder);
 
   &:nth-child(18n + 1),
   &:nth-child(18n + 2),
@@ -24,7 +23,7 @@
   &:nth-child(18n + 7),
   &:nth-child(18n + 8),
   &:nth-child(18n + 9) {
-    background-color: var(--color-heavy-metal);
+    background-color: var(--color-thunder);
   }
 
   &:last-child,
@@ -37,7 +36,6 @@
 
     flex-grow: 1;
     border-bottom: 0;
-    background-color: transparent;
   }
 
   @media (max-width: $min) {
@@ -46,11 +44,5 @@
 }
 
 .button {
-  @include button;
-
-  @media (max-width: $min) {
-    height: rem(30px);
-    min-height: unset;
-    font-size: rem(13px);
-  }
+  @include size(100%);
 }

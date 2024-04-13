@@ -23,14 +23,13 @@
   flex: 1;
   border-right: rem(1px) solid var(--color-border);
   border-bottom: rem(1px) solid var(--color-border);
-  background-color: var(--color-thunder);
 
   &:nth-child(odd) {
     font-size: rem(12px);
   }
 
   &:nth-child(even) {
-    background-color: var(--color-heavy-metal);
+    background-color: var(--color-thunder);
   }
 
   &:nth-child(2n) {

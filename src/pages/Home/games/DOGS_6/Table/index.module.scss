@@ -7,6 +7,7 @@
   flex-shrink: 0;
   min-height: rem(92px);
   padding-left: rem(270px);
+  gap: rem(2px);
 
   @media (max-width: $min) {
     @include make-spacer(pl, 0);
@@ -48,25 +49,11 @@
 }
 
 .market {
-  @include button;
-  @include size(auto, rem(42px));
   @include make-spacer(px, 2);
-  @include make-spacer(mr, half);
 
-  width: auto;
-  font-size: rem(14px);
-
-  &:last-child {
-    @include make-spacer(mr, 0);
-  }
-
-  &.disabled {
-    pointer-events: auto;
-  }
+  height: rem(45px);
 
   @media (max-width: $min) {
     height: rem(30px);
-    min-height: unset;
-    font-size: rem(12px);
   }
 }

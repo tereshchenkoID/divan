@@ -19,7 +19,7 @@
     left: 0;
     width: unset;
     border-radius: 0;
-    background-color: var(--color-green-100);
+    background-color: var(--color-background);
   }
 }
 
@@ -40,13 +40,10 @@
 }
 
 .button {
+  @include size(rem(35px));
 
-  button {
-    @include size(rem(35px) !important);
-
-    @media (max-width: $min) {
-      @include size(rem(25px) !important);
-    }
+  @media (max-width: $min) {
+    @include size(rem(25px) !important);
   }
 }
 

@@ -1,7 +1,7 @@
 @import 'scss/config';
 
 .block {
-  @include make-spacer('p', 4);
+  @include make-spacer(p, 4);
 
   button {
     color: var(--color-white);
@@ -9,7 +9,7 @@
 }
 
 .row {
-  @include make-spacer('mb', 2);
+  @include make-spacer(mb, 2);
 
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -17,7 +17,7 @@
   align-items: center;
 
   &:last-child {
-    @include make-spacer('mb', 0);
+    @include make-spacer(mb, 0);
   }
 }
 
@@ -25,10 +25,10 @@
   @include flex(flex-end, center);
 
   gap: rem(10px);
+}
 
-  button {
-    width: rem(38px);
-  }
+.action {
+  @include size(rem(38px));
 }
 
 .button {
@@ -36,15 +36,7 @@
 }
 
 .input {
-  @include make-spacer('px', 2);
-  @include size(100%, rem(38px));
+  @include field;
 
-  border: 2px solid var(--color-orange);
-  border-radius: rem(5px);
-  color: var(--color-white);
-  background-color: var(--color-black);
-
-  &:focus {
-    outline: 0;
-  }
+  height: rem(38px);
 }

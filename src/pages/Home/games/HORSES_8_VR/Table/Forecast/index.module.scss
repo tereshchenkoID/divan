@@ -8,7 +8,7 @@
   &:last-child {
     @include scroll;
 
-    max-height: rem(383px);
+    max-height: rem(384px);
 
     @media (max-width: $min) {
       grid-template-columns: repeat(4, 1fr);
@@ -21,10 +21,6 @@
 .column {
 
   .cell {
-
-    &:nth-child(odd) {
-      background-color: var(--color-thunder);
-    }
 
     &:nth-child(even) {
       background-color: var(--color-heavy-metal);
@@ -45,14 +41,13 @@
   height: rem(70px);
   border-right: rem(1px) solid var(--color-border);
   border-bottom: rem(1px) solid var(--color-border);
-  background-color: var(--color-heavy-metal);
+  background-color: var(--color-thunder);
 
   &:nth-child(8n) {
     border-right: 0;
   }
 
   &.sm {
-    height: auto;
-    background-color: var(--color-heavy-metal);
+    height: rem(42px);
   }
 }

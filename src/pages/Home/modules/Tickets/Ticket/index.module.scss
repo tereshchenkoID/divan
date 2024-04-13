@@ -37,11 +37,9 @@
 }
 
 .button {
-  button {
-    @include size(rem(30px) !important);
+  @include size(rem(30px));
 
-    @media (max-width: $min) {
-      @include size(rem(25px) !important);
-    }
+  @media (max-width: $min) {
+    @include size(rem(25px));
   }
 }

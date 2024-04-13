@@ -7,6 +7,7 @@ import classNames from 'classnames'
 
 import Label from 'components/Label'
 import Icon from 'components/Icon'
+import Button from 'components/Button'
 import Subtitle from '../Subtitle'
 import Odd from '../Odd'
 
@@ -83,19 +84,19 @@ const Schedule = ({ active }) => {
           (el, idx) =>
             el.name !== 'Score' &&
             el.name !== 'Total Goals' && (
-              <button
-                key={idx}
-                className={classNames(style.market, group === idx && style.active)}
-                onClick={() => {
+              <Button
+                props={'button'}
+                text={el.name}
+                initial={[style.market]}
+                classes={['green', group === idx && 'active']}
+                action={() => {
                   setGroup(idx)
                   setToggle({
                     id: null,
                     toggle: false,
                   })
                 }}
-              >
-                {el.name}
-              </button>
+              />
             ),
         )}
       </div>
@@ -121,7 +122,7 @@ const Schedule = ({ active }) => {
           </div>
         </div>
       </div>
-      <div className={style.wrapper}>
+      <div className={classNames(style.wrapper, toggle.toggle && style.active)}>
         {active.league.matches.map((el_m, idx_m) => (
           <div key={idx_m} className={style.row}>
             <div>{el_m.pos}</div>

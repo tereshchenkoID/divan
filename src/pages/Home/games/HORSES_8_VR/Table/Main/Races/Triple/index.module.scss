@@ -27,7 +27,6 @@
 
 .cell {
   border-right: rem(1px) solid var(--color-border);
-  background-color: var(--color-thunder);
 
   &:last-child {
     border-right: 0;
@@ -47,16 +46,13 @@
 }
 
 .button {
-  @include button;
+  height: rem(48px);
 
   @media (max-width: $min) {
     height: 50%;
-    font-size: rem(12px);
   }
 }
 
 .odd {
   @include odd;
-
-  background: none;
 }

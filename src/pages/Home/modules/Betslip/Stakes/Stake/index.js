@@ -35,7 +35,8 @@ const Stake = ({ data }) => {
 
   const updateBetslip = stake => {
     for (let i = 0; i < betslip.length; i++) {
-      betslip[i].stake = settings.betting.type === oddsType.PER_BET ? parseFloat(stake).toFixed(2) : parseFloat(stake / betslip.length).toFixed(2)
+      betslip[i].stake =
+        settings.betting.type === oddsType.PER_BET ? parseFloat(stake).toFixed(2) : parseFloat(stake / betslip.length).toFixed(2)
     }
 
     dispatch(deleteBetslip(betslip))
@@ -150,27 +151,25 @@ const Stake = ({ data }) => {
       {edit && (
         <div className={style.keyboard}>
           {Object.values(settings.betslip.steps).map((el, idx) => (
-            <div className={style.key} key={idx}>
-              <Button
-                type={'green'}
-                size={'sm'}
-                text={el}
-                action={() => {
-                  changeStake(el)
-                }}
-              />
-            </div>
-          ))}
-          <div className={style.key}>
             <Button
-              type={'green'}
-              size={'sm'}
-              text={t('interface.clear')}
+              props={'button'}
+              text={el}
+              initial={[style.key]}
+              classes={['green']}
               action={() => {
-                changeStake(null)
+                changeStake(el)
               }}
             />
-          </div>
+          ))}
+          <Button
+            props={'button'}
+            text={t('interface.clear')}
+            initial={[style.key]}
+            classes={['green']}
+            action={() => {
+              changeStake(null)
+            }}
+          />
         </div>
       )}
       {calculate && <CalculatorModal data={data.stake} action={setValue} toggle={setCalculate} />}

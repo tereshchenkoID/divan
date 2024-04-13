@@ -6,17 +6,16 @@
   position: fixed;
   inset: 0;
   z-index: $z-index-13;
-  background-color: var(--color-green-100);
+  background-color: var(--color-background);
 }
 
 .wrapper {
+  @include flex($direction: column);
+  @include wrapper;
   @include make-spacer(mx, auto);
   @include size(100%);
 
   max-width: rem(1200px);
-  border: rem(3px) solid var(--color-orange);
-  border-radius: rem(8px);
-  overflow: hidden;
   background-color: var(--color-black);
 }
 
@@ -31,25 +30,30 @@
   text-transform: uppercase;
   color: var(--color-white);
   background-color: var(--color-orange-900);
+  flex-shrink: 0;
 }
 
 .body {
-  @include make-spacer('p', 4);
+  @include scroll;
+  @include make-spacer(p, 4);
+
+
+  flex-grow: 1;
 }
 
 .container {
-  @include make-spacer('mb', 4);
+  @include make-spacer(mb, 4);
 
   color: var(--color-white);
 
   &:last-child {
-    @include make-spacer('mb', 0);
+    @include make-spacer(mb, 0);
   }
 }
 
 .title {
   @include flex(space-between, center);
-  @include make-spacer('mb', 4);
+  @include make-spacer(mb, 4);
 }
 
 .table {
@@ -67,13 +71,10 @@
   height: rem(50px);
   border-top: 1px solid var(--color-border);
   column-gap: rem(10px);
-
-  &:nth-child(even) {
-    background-color: var(--color-thunder);
-  }
+  background-color: var(--color-mine-shaft);
 
   &:nth-child(odd) {
-    background-color: var(--color-mine-shaft);
+    background-color: var(--color-thunder);
   }
 
   &:first-child {
@@ -86,13 +87,14 @@
 }
 
 .button {
-  &.sm {
-    text-align: right;
+  @include size(rem(35px));
 
-    button {
-      @include size(rem(35px) !important);
-    }
-  }
+  @include make-spacer(mr, 0);
+  @include make-spacer(ml, auto);
+}
+
+.close {
+  @include size(rem(35px));
 }
 
 .toggle {
@@ -105,17 +107,9 @@
 
 .input,
 .select {
-  @include make-spacer(px, 2);
-  @include size(100%, rem(38px));
+  @include field;
 
-  border: rem(2px) solid var(--color-orange);
-  border-radius: rem(5px);
-  color: var(--color-white);
-  background-color: var(--color-black);
-
-  &:focus {
-    outline: 0;
-  }
+  height: rem(38px);
 }
 
 .input {
@@ -123,7 +117,8 @@
 
   &::-webkit-outer-spin-button,
   &::-webkit-inner-spin-button {
-    margin: 0;
+    @include make-spacer(m, 0);
+
     appearance: none;
   }
 }

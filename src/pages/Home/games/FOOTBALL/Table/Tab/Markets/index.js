@@ -10,9 +10,15 @@ const Markets = ({ active, match, setToggle }) => {
         <div>
           {match.teams.home.name} - {match.teams.away.name}
         </div>
-        <div className={style.button}>
-          <Button type={'red'} size={'sm'} icon={'close'} action={() => setToggle(null)} />
-        </div>
+        <Button
+          props={'button'}
+          icon={'close'}
+          initial={[style.close]}
+          classes={['red']}
+          action={() => {
+            setToggle(null)
+          }}
+        />
       </div>
       <div className={style.wrapper}>
         {match.odds[0].groups.map((el_m, idx_m) => (

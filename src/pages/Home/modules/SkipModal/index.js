@@ -1,5 +1,7 @@
 import { useTranslation } from 'react-i18next'
 
+import Button from 'components/Button'
+
 import style from './index.module.scss'
 
 const SkipModal = ({ action }) => {
@@ -7,14 +9,15 @@ const SkipModal = ({ action }) => {
 
   return (
     <div className={style.block}>
-      <button
-        className={style.button}
-        onClick={() => {
+      <Button
+        props={'button'}
+        text={t('interface.skip_next_game')}
+        initial={[style.button]}
+        classes={['green']}
+        action={() => {
           action()
         }}
-      >
-        {t('interface.skip_next_game')}
-      </button>
+      />
     </div>
   )
 }

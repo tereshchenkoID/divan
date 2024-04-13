@@ -12,37 +12,22 @@
 
 .header {
   @include make-spacer(mb, 4);
-  @include flex(center, center);
+  @include flex($align-items: center);
 
-  gap: rem(10px);
+  padding-left: rem(270px);
+  gap: rem(2px);
 
   @media (max-width: $min) {
     @include make-spacer(mb, 1);
+    @include make-spacer(pl, 0);
   }
 }
 
 .button {
-  @include button;
-  @include make-spacer(px, 4);
-
-  min-width: rem(180px);
+  @include size(rem(178px), rem(45px));
 
   @media (max-width: $min) {
     height: rem(30px);
-    min-height: unset;
-    font-size: rem(13px);
-    min-width: unset;
     flex: 1;
-  }
-}
-
-.quantity {
-  display: grid;
-  grid-template-columns: repeat(5, auto);
-  justify-content: center;
-  column-gap: rem(5px);
-
-  .button {
-    @include size(rem(43px));
   }
 }

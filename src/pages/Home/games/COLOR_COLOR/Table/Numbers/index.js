@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import classNames from 'classnames'
-
+import Button from 'components/Button'
 import Odd from './Odd'
 
 import style from './index.module.scss'
@@ -69,15 +68,16 @@ const Numbers = ({ numbers, setNumbers, random, setType }) => {
         </div>
       ))}
       <div className={style.cell}>
-        <button
-          className={classNames(style.button, !disabled && style.disabled)}
-          onClick={() => {
+        <Button
+          props={'button'}
+          text={t('games.COLOR_COLOR.reset_numbers')}
+          initial={[style.button]}
+          classes={['green', !disabled && 'disabled']}
+          action={() => {
             setNumbers([])
             setType('')
           }}
-        >
-          {t('games.COLOR_COLOR.reset_numbers')}
-        </button>
+        />
       </div>
     </div>
   )

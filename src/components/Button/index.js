@@ -4,10 +4,14 @@ import Icon from 'components/Icon'
 
 import style from './index.module.scss'
 
-const Button = ({ type, size, icon, text, action, props = 'button' }) => {
+const Button = ({ icon, text, action, initial, classes, props = 'button' }) => {
   return (
     <button
-      className={classNames(style.block, style[type], style[size])}
+      className={classNames(
+        style.block,
+        initial.map(el => el),
+        classes.map(el => style[el]),
+      )}
       onClick={() => {
         action && action()
       }}

@@ -3,8 +3,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import useSocket from 'hooks/useSocket'
 
-import classNames from 'classnames'
-
 import { gameType, matchStatus } from 'constant/config'
 
 import { getDateTime } from 'helpers/getDateTime'
@@ -19,6 +17,7 @@ import { setModal } from 'store/actions/modalAction'
 
 import Loader from 'components/Loader'
 import Alert from 'components/Alert'
+import Button from 'components/Button'
 import SkipModal from '../SkipModal'
 import Timer from '../Timer'
 
@@ -214,21 +213,18 @@ const Skeleton = () => {
               </div>
               <div className={style.tab}>
                 {data.events.map((el, idx) => (
-                  <button
+                  <Button
                     key={idx}
-                    className={classNames(
-                      style.link,
-                      el.id === active.id && style.active,
-                      disabled && idx === 0 && style.disabled,
-                    )}
-                    onClick={() => {
+                    props={'button'}
+                    text={el.league?.week ? `${t('interface.week')} ${el.league.week}` : getDateTime(el.start, 3)}
+                    initial={[style.link]}
+                    classes={['green', el.id === active.id && 'active', disabled && idx === 0 && 'disabled']}
+                    action={() => {
                       initTime(el)
                       dispatch(setLive(conditionStatus(el.status)))
                       setActive(el)
                     }}
-                  >
-                    {el.league?.week ? `${t('interface.week')} ${el.league.week}` : getDateTime(el.start, 3)}
-                  </button>
+                  />
                 ))}
               </div>
               {live !== 0 && (

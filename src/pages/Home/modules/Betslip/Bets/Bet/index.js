@@ -159,42 +159,40 @@ const Bet = ({ id, data, betslip, type, setInit, setDisabled }) => {
           </div>
         )}
         <div>
-          <div className={style.close}>
-            <Button
-              type={'red'}
-              size={'sm'}
-              icon={'close'}
-              action={() => {
-                removeBet()
-              }}
-            />
-          </div>
+          <Button
+            props={'button'}
+            icon={'close'}
+            initial={[style.close]}
+            classes={['red']}
+            action={() => {
+              removeBet()
+            }}
+          />
         </div>
       </div>
       {edit && (
         <div className={style.keyboard}>
           {Object.values(settings.betslip.steps).map((el, idx) => (
-            <div className={style.key} key={idx}>
-              <Button
-                type={'green'}
-                size={'sm'}
-                text={el}
-                action={() => {
-                  changeBet(el)
-                }}
-              />
-            </div>
-          ))}
-          <div className={style.key}>
             <Button
-              type={'green'}
-              size={'sm'}
-              text={t('interface.clear')}
+              key={idx}
+              props={'button'}
+              text={el}
+              initial={[style.key]}
+              classes={['green']}
               action={() => {
-                changeBet(null)
+                changeBet(el)
               }}
             />
-          </div>
+          ))}
+          <Button
+            props={'button'}
+            text={t('interface.clear')}
+            initial={[style.key]}
+            classes={['green']}
+            action={() => {
+              changeBet(null)
+            }}
+          />
         </div>
       )}
     </div>
