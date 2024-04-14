@@ -333,6 +333,10 @@ const Betslip = () => {
       setDisabled(true)
       setInit(false)
     }
+
+    if (betslip.length > 0) {
+      dispatch(setTicket(0))
+    }
   }, [betslip])
 
   return (

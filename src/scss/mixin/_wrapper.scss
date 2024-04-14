@@ -1,12 +1,12 @@
 @mixin wrapper {
   position: relative;
   border: rem(3px) solid var(--color-orange-900);
-  border-radius: rem(9px);
+  border-radius: var(--border-radius-lg);
   overflow: hidden;
   background-color: var(--color-mine-shaft);
 
   @media (max-width: $min) {
     border-width: rem(1px);
-    border-radius: rem(3px);
+    border-radius: var(--border-radius-sm);
   }
 }

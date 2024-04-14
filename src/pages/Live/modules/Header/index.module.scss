@@ -51,6 +51,7 @@
   @include flex($align-items: center);
 
   gap: rem(5px);
+  transform: translateX(rem(-3px));
 }
 
 .week {

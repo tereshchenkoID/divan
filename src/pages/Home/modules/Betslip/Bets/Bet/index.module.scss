@@ -97,7 +97,7 @@
   @include size(100%, rem(25px));
 
   border: rem(1px) solid var(--color-border);
-  border-radius: rem(5px);
+  border-radius: var(--border-radius-md);
   font-weight: var(--typography-bold);
   line-height: 1;
   text-align: center;

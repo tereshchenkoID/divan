@@ -14,11 +14,11 @@ import { setNotification } from 'store/HOME/actions/notificationAction'
 import { setAuth } from 'store/actions/authAction'
 
 import Button from 'components/Button'
+
 import style from './index.module.scss'
 
 const Login = () => {
   const dispatch = useDispatch()
-  const { notification } = useSelector(state => state.notification)
   const { resize } = useSelector(state => state.resize)
   const [type, setType] = useState('password')
   const [show, setShow] = useState(false)

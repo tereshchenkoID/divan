@@ -2,11 +2,11 @@
 
 .block {
   border: rem(1px) solid var(--color-border);
-  border-radius: rem(5px);
+  border-radius: var(--border-radius-md);
   overflow: hidden;
 
   @media (max-width: $min) {
-    border-radius: rem(3px);
+    border-radius: var(--border-radius-sm);
   }
 }
 
@@ -14,8 +14,8 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   align-items: center;
-  height: rem(50px);
   border-top: rem(1px) solid var(--color-border);
+  height: rem(50px);
 
   &:first-child {
     border-top: 0;

@@ -11,10 +11,14 @@
 
   &.block {
     position: absolute;
-    border-radius: rem(8px);
+    border-radius: var(--border-radius-lg);
 
     .wrapper {
       @include size(75px);
+    }
+
+    @media (max-width: $min) {
+      border-radius: var(--border-radius-sm);
     }
   }
 
@@ -27,8 +31,12 @@
   }
 
   &.default {
-    border: rem(2px) solid var(--color-orange);
+    border: rem(3px) solid var(--color-orange-900);
     background-color: var(--color-background);
+
+    @media (max-width: $min) {
+      border-width: rem(1px);
+    }
   }
 
   &.transparent {

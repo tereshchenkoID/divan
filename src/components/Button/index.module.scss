@@ -10,7 +10,7 @@
   text-align: center;
   text-transform: uppercase;
   color: var(--color-white);
-  border-radius: rem(5px);
+  border-radius: var(--border-radius-sm);
   background: var(--gradient-hover);
   cursor: pointer;
 
@@ -35,7 +35,6 @@
 
   @media (max-width: $min) {
     font-size: rem(11px);
-    border-radius: rem(3px);
   }
 
   &:hover,

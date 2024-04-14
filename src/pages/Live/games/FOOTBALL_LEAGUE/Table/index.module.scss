@@ -27,7 +27,7 @@
     border-top: rem(3px) solid var(--color-orange-900);
     border-bottom: rem(3px) solid var(--color-orange-900);
     border-left: rem(3px) solid var(--color-orange-900);
-    border-radius: rem(9px) 0 0 rem(9px);
+    border-radius: var(--border-radius-lg) 0 0 var(--border-radius-lg);
   }
 }
 
@@ -42,7 +42,7 @@
     border-top: rem(3px) solid var(--color-orange-900);
     border-right: rem(3px) solid var(--color-orange-900);
     border-bottom: rem(3px) solid var(--color-orange-900);
-    border-radius: 0 rem(9px) rem(9px) 0;
+    border-radius: 0 var(--border-radius-lg) var(--border-radius-lg) 0;
   }
 
   .row {
@@ -132,7 +132,7 @@
 
   display: inline-block;
   z-index: 1;
-  border-radius: rem(3px);
+  border-radius: var(--border-radius-sm);
   font-size: rem(10px);
   line-height: 1;
   white-space: nowrap;

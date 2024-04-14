@@ -6,13 +6,12 @@
   display: grid;
   grid-template-columns: minmax(rem(60px), rem(90px)) 1fr;
   padding: rem(2px);
-  border-radius: rem(3px);
+  border-radius: var(--border-radius-sm);
   font-size: rem(10px);
   line-height: 1;
   overflow: hidden;
   color: var(--color-white);
-  background: linear-gradient(360deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 100%);
-  background-color: var(--color-black);
+  background: var(--color-black) linear-gradient(360deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 100%);
 
   @media (max-width: $min) {
     grid-template-columns: 1fr 2fr;

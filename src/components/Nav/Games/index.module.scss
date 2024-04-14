@@ -18,7 +18,7 @@
 
   padding-top: rem(5px);
   padding-bottom: rem(9px);
-  border-radius: rem(10px);
+  border-radius: var(--border-radius-sm);
   font-size: rem(12px);
   font-weight: var(--typography-bold);
   text-transform: uppercase;
@@ -34,7 +34,6 @@
     @include size(100%, rem(40px));
     @include make-spacer(p, 0);
 
-    border-radius: rem(2px) rem(2px) 0 0;
     font-size: rem(11px);
     background-color: var(--color-orange);
   }

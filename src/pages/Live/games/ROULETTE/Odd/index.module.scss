@@ -7,7 +7,7 @@
   position: relative;
   flex-shrink: 0;
   border: rem(2px) solid var(--color-black);
-  border-radius: rem(6px);
+  border-radius: var(--border-radius-md);
   font-size: rem(14px);
   color: var(--color-white);
 

@@ -398,12 +398,12 @@
   @include flex(center, center);
 
   position: relative;
-  border-radius: rem(9px);
+  border-radius: var(--border-radius-lg);
   overflow: hidden;
   cursor: pointer;
 
   @media (max-width: $min) {
-    border-radius: rem(3px);
+    border-radius: var(--border-radius-sm);
   }
 
   &::after {

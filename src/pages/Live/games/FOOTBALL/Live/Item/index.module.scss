@@ -57,7 +57,7 @@
   &:nth-child(odd) {
     .market {
       border-left: rem(3px) solid var(--color-orange-900);
-      border-radius: rem(9px) 0 0 rem(9px);
+      border-radius: var(--border-radius-lg) 0 0 var(--border-radius-lg);
     }
   }
 
@@ -103,7 +103,7 @@
   border-top: rem(3px) solid var(--color-orange-900);
   border-bottom: rem(3px) solid var(--color-orange-900);
   border-left: rem(3px) solid var(--color-orange-900);
-  border-radius: rem(9px) 0 0 rem(9px);
+  border-radius: var(--border-radius-lg) 0 0 var(--border-radius-lg);
   font-size: rem(15px);
   background-color: var(--color-thunder);
 }

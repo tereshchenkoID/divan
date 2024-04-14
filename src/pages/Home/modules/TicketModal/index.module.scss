@@ -40,8 +40,6 @@
     @include scroll;
 
     min-width: auto;
-    border-width: rem(1px);
-    border-radius: rem(3px);
   }
 }
 
@@ -134,11 +132,11 @@
 
 .table {
   border: rem(1px) solid var(--color-border);
-  border-radius: rem(5px);
+  border-radius: var(--border-radius-md);
   overflow: hidden;
 
   @media (max-width: $min) {
-    border-radius: rem(3px);
+    border-radius: var(--border-radius-sm);
   }
 
   &.sm {
@@ -269,7 +267,7 @@
 
   height: rem(25px);
   border: rem(1px) solid var(--color-border);
-  border-radius: rem(5px);
+  border-radius: var(--border-radius-md);
   font-weight: var(--typography-bold);
   line-height: 1;
   text-align: center;
@@ -281,7 +279,7 @@
     @include make-spacer(mr, 0);
 
     flex-shrink: 0;
-    border-radius: rem(3px);
+    border-radius: var(--border-radius-sm);
   }
 }
 

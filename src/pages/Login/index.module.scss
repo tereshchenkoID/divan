@@ -22,7 +22,7 @@
   width: 100%;
   max-width: rem(400px);
   border: rem(3px) solid var(--color-orange);
-  border-radius: rem(8px);
+  border-radius: var(--border-radius-md);
   overflow: hidden;
   color: var(--color-white);
   background-color: var(--color-black);
@@ -60,7 +60,7 @@
   @include size(100%, rem(45px));
 
   border: rem(2px) solid var(--color-orange);
-  border-radius: rem(5px);
+  border-radius: var(--border-radius-md);
   color: var(--color-white);
   background-color: var(--color-black);
 }

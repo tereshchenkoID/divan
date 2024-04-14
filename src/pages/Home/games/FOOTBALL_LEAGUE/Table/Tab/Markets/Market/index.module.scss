@@ -54,7 +54,7 @@
 
 .odd {
   background-color: var(--color-thunder);
-  border-radius: rem(3px);
+  border-radius: var(--border-radius-sm);
   height: rem(40px);
 }
 

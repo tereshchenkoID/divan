@@ -4,11 +4,11 @@
   width: 100%;
   color: var(--color-white);
   border: rem(2px) solid var(--color-orange);
-  border-radius: rem(5px);
+  border-radius: var(--border-radius-md);
   background-color: var(--color-black);
 
   @media (max-width: $min) {
     border-width: rem(1px);
-    border-radius: rem(3px);
+    border-radius: var(--border-radius-sm);
   }
 }

@@ -36,7 +36,7 @@
   @include size(rem(90px), rem(75px));
   @include make-spacer(py, 2);
 
-  border-radius: rem(10px);
+  border-radius: var(--border-radius-lg);
   font-size: rem(12px);
   font-weight: var(--typography-bold);
   text-transform: uppercase;
