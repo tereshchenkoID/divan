@@ -1,8 +1,8 @@
 @import 'scss/config';
 
 .block {
-  color: var(--color-white);
   text-align: center;
+  color: var(--color-white);
 }
 
 .odd,
@@ -24,9 +24,9 @@
   @include make-spacer(mb, 1);
   @include flex($align-items: center);
 
+  gap: rem(2px);
   height: rem(77px);
   padding-left: rem(270px);
-  gap: rem(2px);
 }
 
 .market {
@@ -57,10 +57,6 @@
 
   position: relative;
 
-  &.active {
-    height: rem(537px);
-  }
-
   .row {
     height: rem(53px);
     border-top: rem(1px) solid var(--color-border);
@@ -85,6 +81,10 @@
 
   .odds {
     gap: rem(1px);
+  }
+
+  &.active {
+    height: rem(537px);
   }
 }
 

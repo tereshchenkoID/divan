@@ -5,12 +5,12 @@
 
   position: relative;
   border: rem(1px) solid var(--color-primary-900);
+  border-radius: var(--border-radius);
   font-size: rem(13px);
   font-weight: var(--typography-bold);
   text-align: center;
   text-transform: uppercase;
   color: var(--color-white);
-  border-radius: var(--border-radius-sm);
   background: var(--gradient-hover);
   cursor: pointer;
 
@@ -33,14 +33,15 @@
     @include size(70%);
   }
 
-  @media (max-width: $min) {
-    font-size: rem(11px);
-  }
-
   &:hover,
   &.active {
     border-color: var(--color-red)!important;
     background: var(--gradient-active)!important;
+  }
+
+  &.green-dark {
+    border-color: #15490a;
+    background: #0b5a07;
   }
 
   &.disabled {
@@ -64,13 +65,12 @@
     background: #1b79c9;
   }
 
-  &.green-dark {
-    border-color: #15490a;
-    background: #0b5a07;
-  }
-
   &.olive {
     border-color: #113808;
     background: #3fa025;
+  }
+
+  @media (max-width: $min) {
+    font-size: rem(11px);
   }
 }

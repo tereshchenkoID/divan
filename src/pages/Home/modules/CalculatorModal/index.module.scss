@@ -22,7 +22,7 @@
   @include make-spacer(p, 3);
 
   min-width: rem(350px);
-  border-radius: var(--border-radius-lg);
+  border-radius: var(--border-radius);
   background-color: var(--color-black);
 
   @media (max-width: $min) {
@@ -33,7 +33,7 @@
 .header {
   position: relative;
   height: rem(65px);
-  border-radius: var(--border-radius-sm);
+  border-radius: var(--border-radius);
   overflow: hidden;
   background-color: rgba(255, 255, 255, 0.3);
 
@@ -44,7 +44,7 @@
     top: 0;
     right: 0;
     bottom: 0;
-    border-radius: 0 var(--border-radius-sm) var(--border-radius-sm) 0 !important;
+    border-radius: 0 var(--border-radius) var(--border-radius) 0 !important;
     font-size: rem(25px);
   }
 }

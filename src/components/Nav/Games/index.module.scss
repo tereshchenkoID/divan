@@ -1,57 +1,54 @@
 @import 'scss/config';
 
 .block {
-  @include size(rem(700px), rem(55px));
+  @include size(rem(690px), rem(50px));
 
-  transform: translateY(rem(12px));
+  align-self: flex-end;
 
   @media (max-width: $min) {
     @include size(100%, rem(40px));
-
-    transform: translateY(0);
   }
 }
 
 .button {
   @include flex(center, center, column);
   @include size(rem(90px), rem(50px));
+  @include make-spacer(pt, 1);
 
-  padding-top: rem(5px);
-  padding-bottom: rem(9px);
-  border-radius: var(--border-radius-sm);
-  font-size: rem(12px);
+  gap: rem(5px);
+  border-radius: var(--border-radius) var(--border-radius) 0 0;
+  font-size: rem(11px);
   font-weight: var(--typography-bold);
   text-transform: uppercase;
   text-shadow: none;
+  color: var(--nav-color);
   background: linear-gradient(360deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 100%);
 
   &.active {
-    background-color: var(--color-yellow);
+    background-color: var(--nav-active);
     pointer-events: none;
   }
 
   @media (max-width: $min) {
     @include size(100%, rem(40px));
-    @include make-spacer(p, 0);
 
-    font-size: rem(11px);
-    background-color: var(--color-orange);
+    gap: rem(3px);
+    font-size: rem(10px);
   }
 }
 
 .item {
   @media (max-width: $min) {
-    padding-left: rem(2px);
     padding-right: rem(2px);
+    padding-left: rem(2px);
   }
 }
 
 .icon {
-  @include make-spacer(mb, half);
   @include size(rem(20px));
 
   @media (max-width: $min) {
-    @include size(rem(17px));
+    @include size(rem(16px));
   }
 }
 
@@ -77,13 +74,15 @@
 
   .slick-arrow {
     @include make-spacer(m, 0);
-    @include size(rem(20px), rem(30px));
+    @include size(0);
 
     position: absolute;
-    top: rem(8px);
+    top: rem(20px);
+    border-right: rem(8px) solid transparent;
+    border-bottom: rem(8px) solid currentColor;
+    border-left: rem(8px) solid transparent;
     font-size: 0;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23000000' viewBox='0 0 32 32'%3E%3Cpath d='M11.303 8l11.394 7.997L11.303 24z'/%3E%3C/svg%3E");
-    background-size: cover;
+    color: var(--nav-color);
 
     @media (max-width: $min) {
       display: none!important;
@@ -95,11 +94,12 @@
 
     &.slick-next {
       right: 0;
+      transform: rotateZ(90deg);
     }
 
     &.slick-prev {
       left: 0;
-      transform: scaleX(-1);
+      transform: rotateZ(-90deg);
     }
   }
 }

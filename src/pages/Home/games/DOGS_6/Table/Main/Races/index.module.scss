@@ -2,6 +2,7 @@
 
 .header {
   @include flex(center, center);
+  @include make-spacer(mt, 1);
 
   gap: rem(2px);
 }
@@ -20,7 +21,7 @@
   height: rem(45px);
 
   @media (max-width: $min) {
-    height: rem(30px);
     flex-grow: 1;
+    height: rem(30px);
   }
 }

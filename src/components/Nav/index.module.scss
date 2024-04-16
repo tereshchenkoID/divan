@@ -7,10 +7,11 @@
   position: relative;
   flex-shrink: 0;
   height: rem(57px);
+  border-top: rem(2px) solid var(--nav-border);
+  border-bottom: rem(2px) solid var(--nav-border);
   overflow: hidden;
-  border-top: rem(2px) solid var(--color-yellow);
-  border-bottom: rem(2px) solid var(--color-yellow);
-  background: var(--color-orange) linear-gradient(360deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 100%);
+  color: var(--nav-color);
+  background: var(--nav-background) linear-gradient(360deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 100%);
 
   @media (max-width: $min) {
     @include make-spacer(px, 1);
@@ -55,7 +56,6 @@
   @include make-spacer(mr, 2);
   @include make-spacer(ml, auto);
 
-  transform: translateY(rem(5px));
 
   @media (max-width: $min) {
     @include make-spacer(mx, 0);
@@ -65,7 +65,6 @@
     top: rem(80px);
     right: 0;
     left: 0;
-    transform: translateY(0);
 
     &.show {
       display: block;
@@ -87,12 +86,15 @@
     bottom: 0;
     left: 0;
     height: $footer;
-    background: var(--color-orange) linear-gradient(360deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 100%);
+    border-top: rem(2px) solid var(--nav-border);
+    background: var(--nav-background) linear-gradient(360deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 100%);
   }
 }
 
 .option {
   @include size(rem(38px));
+
+  color: var(--color-white);
 
   &.hide {
     @media (max-width: $min) {
@@ -116,8 +118,8 @@
     top: rem(-18px);
     right: rem(-18px);
     border-radius: 50%;
-    background-color: var(--color-red);
     color: var(--color-white);
+    background-color: var(--color-red);
   }
 
   button {

@@ -25,17 +25,13 @@
     top: 100%;
     right: 0;
     left: 0;
-    background-color: var(--color-orange-900);
+    background-color: var(--color-orange);
     content: '';
     transition: var(--default-transition);
   }
 
-  &:hover {
-    color: var(--color-orange-900);
-  }
-
   &.active {
-    color: var(--color-orange-900);
+    color: var(--color-orange);
 
     &::after {
       width: 100%;

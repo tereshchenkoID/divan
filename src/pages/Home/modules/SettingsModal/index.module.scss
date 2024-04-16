@@ -25,12 +25,12 @@
   @include make-spacer(pr, 1);
   @include size(100%, rem(40px));
 
+  flex-shrink: 0;
   font-size: rem(14px);
   font-weight: var(--typography-bold);
   text-transform: uppercase;
   color: var(--color-white);
   background-color: var(--color-orange-900);
-  flex-shrink: 0;
 }
 
 .body {
@@ -58,7 +58,7 @@
 
 .table {
   border: rem(1px) solid var(--color-border);
-  border-radius: var(--border-radius-md);
+  border-radius: var(--border-radius);
   overflow: hidden;
 }
 
@@ -70,8 +70,8 @@
   align-items: center;
   height: rem(50px);
   border-top: 1px solid var(--color-border);
-  column-gap: rem(10px);
   background-color: var(--color-mine-shaft);
+  column-gap: rem(10px);
 
   &:nth-child(odd) {
     background-color: var(--color-thunder);
@@ -88,7 +88,6 @@
 
 .button {
   @include size(rem(35px));
-
   @include make-spacer(mr, 0);
   @include make-spacer(ml, auto);
 }

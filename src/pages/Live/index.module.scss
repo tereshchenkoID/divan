@@ -50,10 +50,10 @@
   position: relative;
   flex-shrink: 0;
   height: rem(58px);
-  border-top: rem(2px) solid var(--color-yellow);
-  border-bottom: rem(2px) solid var(--color-yellow);
+  border-top: rem(2px) solid var(--nav-border);
+  border-bottom: rem(2px) solid var(--nav-border);
   overflow: hidden;
-  background: #ffd76d linear-gradient(360deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 100%);
+  background: var(--nav-background) linear-gradient(360deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 100%);
 }
 
 .winner {

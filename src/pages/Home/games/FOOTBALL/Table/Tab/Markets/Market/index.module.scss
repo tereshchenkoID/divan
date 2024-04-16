@@ -21,10 +21,10 @@
   @include size(100%, rem(35px));
   @include make-spacer(pl, 1);
 
+  font-size: rem(14px);
+  text-shadow: none;
   color: var(--color-white);
   background-color: var(--color-thunder);
-  text-shadow: none;
-  font-size: rem(14px);
 }
 
 .wrapper {
@@ -47,15 +47,16 @@
   @include flex($direction: column);
 
   position: relative;
-  flex: 1;
   gap: rem(5px);
+  flex: 1;
   min-width: 25%;
 }
 
 .odd {
-  background-color: var(--color-thunder);
-  border-radius: var(--border-radius-sm);
   height: rem(40px);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  background-color: var(--color-thunder);
 }
 
 .label {

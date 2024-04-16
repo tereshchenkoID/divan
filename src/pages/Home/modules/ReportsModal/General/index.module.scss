@@ -9,12 +9,10 @@
   @include make-spacer(p, 4);
 
   border: rem(1px) solid var(--color-border);
-  border-radius: var(--border-radius-md);
+  border-radius: var(--border-radius);
 
   @media (max-width: $min) {
     @include make-spacer(p, 1);
-
-    border-radius: var(--border-radius-sm);
   }
 }
 

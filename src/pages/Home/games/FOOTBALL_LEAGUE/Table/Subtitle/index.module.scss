@@ -5,7 +5,7 @@
   @include make-spacer(py, half);
 
   display: inline-block;
-  border-radius: var(--border-radius-sm);
+  border-radius: var(--border-radius);
   line-height: 1;
   white-space: nowrap;
   color: var(--color-white);

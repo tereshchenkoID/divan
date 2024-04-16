@@ -28,7 +28,7 @@
     border-top: rem(3px) solid var(--color-orange-900);
     border-bottom: rem(3px) solid var(--color-orange-900);
     border-left: rem(3px) solid var(--color-orange-900);
-    border-radius: var(--border-radius-lg) 0 0 var(--border-radius-lg);
+    border-radius: var(--border-radius) 0 0 var(--border-radius);
   }
 }
 
@@ -45,7 +45,7 @@
     border-top: rem(3px) solid var(--color-orange-900);
     border-right: rem(3px) solid var(--color-orange-900);
     border-bottom: rem(3px) solid var(--color-orange-900);
-    border-radius: 0 var(--border-radius-lg) var(--border-radius-lg) 0;
+    border-radius: 0 var(--border-radius) var(--border-radius) 0;
   }
 
   .row {
@@ -53,10 +53,12 @@
   }
 
   .table {
+
     &:nth-child(n + 2) {
+
       .results {
         border-left: rem(3px) solid var(--color-orange-900);
-        border-radius: var(--border-radius-lg);
+        border-radius: var(--border-radius);
       }
 
       .head {
@@ -127,7 +129,7 @@
 
   display: inline-block;
   z-index: 1;
-  border-radius: var(--border-radius-sm);
+  border-radius: var(--border-radius);
   font-size: rem(10px);
   line-height: 1;
   white-space: nowrap;

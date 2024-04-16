@@ -6,7 +6,7 @@
   display: grid;
   grid-template-columns: minmax(rem(60px), rem(90px)) 1fr;
   padding: rem(2px);
-  border-radius: var(--border-radius-sm);
+  border-radius: var(--border-radius);
   font-size: rem(10px);
   line-height: 1;
   overflow: hidden;

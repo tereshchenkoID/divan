@@ -11,13 +11,13 @@
   @include make-spacer(mb, 3);
   @include flex($align-items: center);
 
-  height: rem(30px);
   gap: rem(2px);
+  height: rem(30px);
 }
 
 .market {
-  height: rem(30px);
   flex-grow: 1;
+  height: rem(30px);
   font-size: rem(10px);
 }
 
@@ -27,9 +27,9 @@
 
 .head {
   position: relative;
+  height: rem(30px);
   margin-left: rem(135px);
   border-top: rem(1px) solid var(--color-border);
-  height: rem(30px);
 }
 
 .columns {

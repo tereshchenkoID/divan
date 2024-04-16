@@ -22,7 +22,7 @@
   font-weight: var(--typography-bold);
   color: var(--color-white);
   background-color: var(--color-orange-900);
-  border-radius: var(--border-radius-sm) var(--border-radius-sm) 0 0;
+  border-radius: var(--border-radius) var(--border-radius) 0 0;
 }
 
 .wrapper {
@@ -31,7 +31,7 @@
 
   height: calc(100% - rem(30px));
   border: rem(1px) solid var(--color-orange);
-  border-radius: 0 0 rem(3px) rem(3px);
+  border-radius: 0 0 var(--border-radius) var(--border-radius);
 }
 
 .close {

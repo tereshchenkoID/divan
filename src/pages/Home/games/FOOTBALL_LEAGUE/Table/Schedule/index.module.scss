@@ -1,8 +1,8 @@
 @import 'scss/config';
 
 .block {
-  color: var(--color-white);
   text-align: center;
+  color: var(--color-white);
 }
 
 .odd,
@@ -24,9 +24,9 @@
   @include make-spacer(mb, 1);
   @include flex($align-items: center);
 
+  gap: rem(2px);
   height: rem(77px);
   padding-left: rem(270px);
-  gap: rem(2px);
 }
 
 .market {
@@ -90,7 +90,7 @@
   column-gap: rem(10px);
 
   &.head {
-    height: rem(37px);
+    height: rem(38px);
     padding-right: rem(2px);
     padding-left: rem(1px);
 

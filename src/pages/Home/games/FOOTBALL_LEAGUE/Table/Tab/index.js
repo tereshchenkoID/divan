@@ -18,7 +18,7 @@ const Tab = ({ active }) => {
           <Button
             key={idx}
             props={'button'}
-            text={el.name}
+            text={el.name.replaceAll('_', ' ')}
             initial={[style.market]}
             classes={['green', group === idx && 'active']}
             action={() => {

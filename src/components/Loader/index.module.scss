@@ -11,14 +11,10 @@
 
   &.block {
     position: absolute;
-    border-radius: var(--border-radius-lg);
+    border-radius: var(--border-radius);
 
     .wrapper {
       @include size(75px);
-    }
-
-    @media (max-width: $min) {
-      border-radius: var(--border-radius-sm);
     }
   }
 

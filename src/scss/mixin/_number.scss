@@ -1,7 +1,7 @@
 @mixin number {
   @include flex(center, center);
 
-  border-radius: var(--border-radius-md);
+  border-radius: var(--border-radius);
   font-weight: var(--typography-extra-bold);
   text-shadow: none;
 
@@ -83,7 +83,7 @@
   &.sm {
     @include size(rem(20px));
 
-    border-radius: var(--border-radius-sm);
+    border-radius: var(--border-radius);
     font-size: rem(14px);
   }
 

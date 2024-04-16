@@ -20,7 +20,6 @@
 
   .odd {
     font-size: rem(21px);
-    transition: var(--default-transition);
 
     @media (max-width: $min) {
       font-size: rem(14px);

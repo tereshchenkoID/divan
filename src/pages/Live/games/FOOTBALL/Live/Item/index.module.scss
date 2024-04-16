@@ -8,6 +8,7 @@
   transition: var(--default-transition);
 
   &.active {
+
     .meta {
       background: var(--gradient-hover);
     }
@@ -43,10 +44,12 @@
 }
 
 .column {
+
   &:nth-child(even) {
+
     .market {
       border-right: rem(3px) solid var(--color-orange-900);
-      border-radius: 0 rem(9px) rem(9px) 0;
+      border-radius: 0 var(--border-radius) var(--border-radius) 0;
     }
 
     .head {
@@ -55,13 +58,15 @@
   }
 
   &:nth-child(odd) {
+
     .market {
       border-left: rem(3px) solid var(--color-orange-900);
-      border-radius: var(--border-radius-lg) 0 0 var(--border-radius-lg);
+      border-radius: var(--border-radius) 0 0 var(--border-radius);
     }
   }
 
   &:nth-child(1) {
+
     .market {
       border-left: 0;
       border-radius: 0;
@@ -103,7 +108,7 @@
   border-top: rem(3px) solid var(--color-orange-900);
   border-bottom: rem(3px) solid var(--color-orange-900);
   border-left: rem(3px) solid var(--color-orange-900);
-  border-radius: var(--border-radius-lg) 0 0 var(--border-radius-lg);
+  border-radius: var(--border-radius) 0 0 var(--border-radius);
   font-size: rem(15px);
   background-color: var(--color-thunder);
 }

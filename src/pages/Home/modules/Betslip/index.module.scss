@@ -4,8 +4,8 @@
   @include wrapper;
   @include flex($direction: column);
 
-  background-color: var(--color-black);
   height: 100%;
+  background-color: var(--color-black);
 }
 
 .body {
@@ -28,6 +28,7 @@
   background-color: var(--color-thunder);
 
   div {
+
     &:last-child {
       text-align: right;
     }

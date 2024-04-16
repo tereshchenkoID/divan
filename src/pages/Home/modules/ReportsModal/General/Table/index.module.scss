@@ -2,20 +2,16 @@
 
 .block {
   border: rem(1px) solid var(--color-border);
-  border-radius: var(--border-radius-md);
+  border-radius: var(--border-radius);
   overflow: hidden;
-
-  @media (max-width: $min) {
-    border-radius: var(--border-radius-sm);
-  }
 }
 
 .row {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   align-items: center;
-  border-top: rem(1px) solid var(--color-border);
   height: rem(50px);
+  border-top: rem(1px) solid var(--color-border);
 
   &:first-child {
     border-top: 0;
@@ -30,8 +26,8 @@
   }
 
   @media (max-width: $min) {
-    min-height: rem(30px);
     height: auto;
+    min-height: rem(30px);
     font-size: rem(12px);
   }
 }
