@@ -12,13 +12,15 @@ import { getIcon } from 'helpers/getIcon'
 import Icon from 'components/Icon'
 
 import style from './index.module.scss'
+import classNames from 'classnames'
 
 export const TicketPrint = React.forwardRef((data, ref) => {
   const { t } = useTranslation()
   const { settings } = useSelector(state => state.settings)
+  const { resize } = useSelector(state => state.resize)
 
   return (
-    <div className={style.block} ref={ref}>
+    <div className={classNames(style.block, resize && style.sm)} ref={ref}>
       <div className={style.header}>
         <div>
           {settings.print.logo && (
@@ -106,33 +108,31 @@ export const TicketPrint = React.forwardRef((data, ref) => {
             <div className={style.wrapper}>
               <div>{getDateTime(el.details.start, 0)}</div>
               <div>
-                {el.market} : {el.selection}
+                {el.market.replaceAll('_', ' ')} : {el.selection.replaceAll('_', ' ')}
               </div>
               <div className={style.odd}>{el.odds}</div>
             </div>
           </div>
         ))}
       </div>
-      <div className={style.footer}>
-        <ul className={style.info}>
-          <li>
-            <div>{t('interface.total_stake')}: </div>
-            <div>
-              {settings.account.symbol} {data.data.stake.amount}
-            </div>
-          </li>
-          <li>
-            <div>
-              {t('interface.min')}/{t('interface.max')} {t('interface.win')}:{' '}
-            </div>
-            <div>
-              {settings.account.symbol} {data.data.stake.minwin ? data.data.stake.minwin.toFixed(2) : 0} /{' '}
-              {settings.account.symbol} {data.data.stake.maxwin ? data.data.stake.maxwin.toFixed(2) : 0}
-            </div>
-          </li>
-        </ul>
-        {settings.print.text !== '' && <div className={style.text}>{settings.print.text}</div>}
-      </div>
+      <ul className={style.info}>
+        <li>
+          <div>{t('interface.total_stake')}: </div>
+          <div>
+            {settings.account.symbol} {data.data.stake.amount}
+          </div>
+        </li>
+        <li>
+          <div>
+            {t('interface.min')}/{t('interface.max')} {t('interface.win')}:{' '}
+          </div>
+          <div>
+            {settings.account.symbol} {data.data.stake.minwin ? data.data.stake.minwin.toFixed(2) : 0} / {settings.account.symbol}{' '}
+            {data.data.stake.maxwin ? data.data.stake.maxwin.toFixed(2) : 0}
+          </div>
+        </li>
+      </ul>
+      {settings.print.text !== '' && <div className={style.text}>{settings.print.text}</div>}
     </div>
   )
 })

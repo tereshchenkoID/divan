@@ -45,7 +45,6 @@
   left: rem(270px);
   z-index: $z-index-10;
   background-color: var(--color-mine-shaft);
-  //border-top: rem(1px) solid var(--color-border);
 
   &.active {
     display: block;
@@ -54,8 +53,6 @@
 
 .wrapper {
   @include wrapper;
-
-  position: relative;
 
   .row {
     height: rem(53px);

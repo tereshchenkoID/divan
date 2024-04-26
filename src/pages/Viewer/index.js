@@ -16,6 +16,7 @@ import Loader from 'components/Loader'
 import Icon from 'components/Icon'
 
 import style from './index.module.scss'
+import { gameType } from '../../constant/config'
 
 const Viewer = () => {
   const { t } = useTranslation()
@@ -56,7 +57,7 @@ const Viewer = () => {
               <div key={idx}>
                 <Link
                   to={'/live'}
-                  className={style.button}
+                  className={classNames(style.button, el.type === gameType.SPORT_PR && style.disabled)}
                   aria-label={el.name}
                   target={active ? '_blank' : '_self'}
                   onClick={() => {

@@ -1,0 +1,49 @@
+@import 'scss/config';
+
+.block {
+  @include make-spacer(p, 2);
+  @include size(100%);
+
+  color: var(--color-white);
+}
+
+.table {
+  border: rem(1px) solid var(--color-border);
+  border-radius: var(--border-radius);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  height: rem(25px);
+  border-bottom: rem(1px) solid var(--color-border);
+  font-size: rem(12px);
+
+  &.alt {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  &:first-child,
+  &:last-child {
+    font-weight: var(--typography-bold);
+    color: var(--color-orange);
+  }
+
+  &:last-child {
+    border-bottom: 0;
+  }
+}
+
+.cell {
+  @include flex(center, center);
+
+  border-right: rem(1px) solid var(--color-border);
+
+  &:last-child {
+    border-right: 0;
+  }
+}
+
+.icon {
+  @include size(rem(15px));
+}

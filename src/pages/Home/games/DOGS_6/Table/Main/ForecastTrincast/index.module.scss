@@ -30,10 +30,6 @@
   background-color: var(--color-thunder);
   cursor: pointer;
 
-  @media (max-width: $min) {
-    @include make-spacer(pl, 1);
-  }
-
   &:nth-child(1) {
     @media (max-width: $min) {
       @include make-spacer(pl, half);
@@ -49,23 +45,27 @@
     }
   }
 
-  &:last-child(4) {
+  &:nth-child(8) {
+    border-right: 0;
+  }
+
+  &:nth-child(4) {
     @media (max-width: $min) {
       border-right: 0;
     }
   }
 
+  &:hover {
+    background: var(--gradient-hover);
+  }
+
   &.hidden {
     display: none;
-    border-top: none;
+    border-top: 0;
 
     @media (max-width: $min) {
       display: block;
     }
-  }
-
-  &:hover {
-    background: var(--gradient-hover);
   }
 
   &.disabled {
@@ -75,5 +75,9 @@
 
   &.active {
     background: var(--gradient-active);
+  }
+
+  @media (max-width: $min) {
+    @include make-spacer(pl, 1);
   }
 }

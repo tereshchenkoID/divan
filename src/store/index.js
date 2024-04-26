@@ -10,6 +10,7 @@ import resizeReducer from './reducers/resizeReducer'
 
 /* HOME REDUCERS */
 import betslipReducer from './HOME/reducers/betslipReducer'
+import forecastReducer from './HOME/reducers/forecastReducer'
 import stakeReducer from './HOME/reducers/stakeReducer'
 import liveReducer from './HOME/reducers/liveReducer'
 import dataReducer from './HOME/reducers/dataReducer'
@@ -38,6 +39,7 @@ const allReducer = combineReducers({
   live: liveReducer,
   liveTimer: liveTimerReducer,
   betslip: betslipReducer,
+  forecast: forecastReducer,
   stake: stakeReducer,
   ticket: ticketReducer,
   balance: balanceReducer,

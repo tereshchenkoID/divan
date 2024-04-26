@@ -1,12 +1,14 @@
 let timerID
 
 const getDifferent = (data, delta) => {
-  const c = new Date().getTime() + delta
-  let r = new Date(data - c),
-    result = '00:00'
+  const now = new Date()
+  const c = now.getTime() + delta
+  const o = now.getTimezoneOffset() * 60 * 1000
+  const r = new Date(data - c + o)
+  let result = '00:00:00:00'
 
   if (data > c) {
-    result = `${('0' + r.getMinutes()).slice(-2)}:${('0' + r.getSeconds()).slice(-2)}`
+    result = `${('0' + (r.getDate() - 1)).slice(-2)}:${('0' + r.getHours()).slice(-2)}:${('0' + r.getMinutes()).slice(-2)}:${('0' + r.getSeconds()).slice(-2)}`
   }
   return result
 }

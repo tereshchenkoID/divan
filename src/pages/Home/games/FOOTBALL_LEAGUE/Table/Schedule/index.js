@@ -8,7 +8,7 @@ import classNames from 'classnames'
 import Label from 'components/Label'
 import Icon from 'components/Icon'
 import Button from 'components/Button'
-import Subtitle from '../Subtitle'
+import Subtitle from 'components/Subtitle'
 import Odd from '../Odd'
 
 import style from './index.module.scss'

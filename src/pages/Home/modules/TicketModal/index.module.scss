@@ -249,6 +249,7 @@
 
   &.left {
     justify-content: flex-start !important;
+    text-align: left!important;
 
     @media (max-width: $min) {
       flex-wrap: wrap;
@@ -261,6 +262,7 @@
   @include make-spacer(px, 1);
   @include flex($align-items: center);
 
+  flex-shrink: 0;
   height: rem(25px);
   border: rem(1px) solid var(--color-border);
   border-radius: var(--border-radius);

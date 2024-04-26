@@ -9,6 +9,70 @@ $color: #000;
   font-family: Open Sans, sans-serif;
   font-size: rem(12px);
   color: $color;
+
+  &.sm {
+    @include make-spacer(p, 1);
+
+    max-width: rem(220px);
+    font-size: rem(11px);
+
+    .logo {
+      height: rem(50px);
+    }
+
+    .code {
+      @include make-spacer(mb, 2);
+
+      height: rem(80px);
+      font-size: rem(16px);
+    }
+
+    .header {
+      gap: rem(5px);
+    }
+
+    .body {
+      @include make-spacer(py, 1);
+    }
+
+    .title {
+      @include make-spacer(mb, 1);
+    }
+
+    .icon {
+      @include make-spacer(mr, 1);
+      @include size(rem(16px));
+    }
+
+    .info {
+      width: 100%;
+
+      li {
+        @include make-spacer(mb, 1);
+      }
+    }
+
+    .bet {
+      @include make-spacer(py, 1);
+    }
+
+    .wrapper {
+      @include make-spacer(mb, 1);
+
+      > div {
+        @include make-spacer(mr, 1);
+      }
+    }
+
+    .text {
+      @include make-spacer(mt, 2);
+    }
+
+    .copy {
+      top: rem(140px);
+      font-size: rem(60px);
+    }
+  }
 }
 
 .logo {
@@ -35,7 +99,7 @@ $color: #000;
 .header {
   display: grid;
   grid-template-columns: 2fr 3fr;
-  grid-gap: rem(10px);
+  gap: rem(10px);
   align-items: center;
 }
 
@@ -72,6 +136,10 @@ $color: #000;
     }
 
     > div {
+
+      &:nth-child(1) {
+        text-align: left;
+      }
 
       &:nth-child(2) {
         text-align: right;

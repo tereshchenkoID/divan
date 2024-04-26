@@ -30,6 +30,7 @@ import ROULETTE from 'pages/Home/games/ROULETTE/Table'
 import KENO from 'pages/Home/games/KENO/Table'
 import DOGS_6 from 'pages/Home/games/DOGS_6/Table'
 import HORSES_8_VR from 'pages/Home/games/HORSES_8_VR/Table'
+import SPORT_PR from 'pages/Home/games/SPORT_PR/Table'
 
 const setGame = (id, active) => {
   switch (id) {
@@ -47,6 +48,8 @@ const setGame = (id, active) => {
       return <DOGS_6 active={active} />
     case gameType.HORSES_8_VR:
       return <HORSES_8_VR active={active} />
+    case gameType.SPORT_PR:
+      return <SPORT_PR active={active} />
     default:
       return <FOOTBALL_LEAGUE active={active} />
   }
@@ -70,7 +73,7 @@ const Skeleton = () => {
   const [disabled, setDisabled] = useState(false)
 
   const [timer, setTimer] = useState({
-    time: '00:00',
+    time: '00:00:00:00',
     next: null,
     game: null,
     currentId: null,
@@ -102,8 +105,8 @@ const Skeleton = () => {
 
       worker.postMessage({
         type: 'start',
-        currentTime: data?.events?.[0].nextUpdate,
-        currentId: data?.events?.[0].id,
+        currentTime: data?.events?.[0]?.nextUpdate,
+        currentId: data?.events?.[0]?.id,
         nextTime: active?.nextUpdate,
         nextId: active?.id,
         game: game?.type,
@@ -121,7 +124,7 @@ const Skeleton = () => {
   const initTime = value => {
     setTimer(prevState => ({
       ...prevState,
-      next: getDifferent(value.nextUpdate, delta),
+      next: getDifferent(value.nextUpdate, delta, 2),
       nextId: value.id,
     }))
   }
@@ -167,7 +170,7 @@ const Skeleton = () => {
   }, [game])
 
   useEffect(() => {
-    if (data?.events?.[0].status !== matchStatus.ANNOUNCEMENT) {
+    if (data?.events?.[0]?.status !== matchStatus.ANNOUNCEMENT) {
       setDisabled(true)
       setActive(data?.events?.[1])
     } else {
@@ -197,6 +200,12 @@ const Skeleton = () => {
     }
   }, [receivedMessage])
 
+  const getEventsName = data => {
+    if (data.league?.week) return `${t('interface.week')} ${data.league.week}`
+    else if (data.league?.round) return `${t('interface.round')} ${data.league.round}`
+    else return getDateTime(data.start, 3)
+  }
+
   return (
     <div className={style.block}>
       {loading ? (
@@ -216,7 +225,7 @@ const Skeleton = () => {
                   <Button
                     key={idx}
                     props={'button'}
-                    text={el.league?.week ? `${t('interface.week')} ${el.league.week}` : getDateTime(el.start, 3)}
+                    text={getEventsName(el)}
                     initial={[style.link]}
                     classes={['green', el.id === active.id && 'active', disabled && idx === 0 && 'disabled']}
                     action={() => {

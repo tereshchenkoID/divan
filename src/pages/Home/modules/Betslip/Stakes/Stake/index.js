@@ -152,6 +152,7 @@ const Stake = ({ data }) => {
         <div className={style.keyboard}>
           {Object.values(settings.betslip.steps).map((el, idx) => (
             <Button
+              key={idx}
               props={'button'}
               text={el}
               initial={[style.key]}

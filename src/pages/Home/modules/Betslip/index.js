@@ -12,7 +12,6 @@ import {
   getSystemBetMinMaxSystem,
   getSystemCombination,
   getTotalStakeSingle,
-  getTotalStakeSystem,
 } from 'hooks/useStake'
 
 import { deleteBetslip } from 'store/HOME/actions/betslipAction'
@@ -20,6 +19,7 @@ import { setStake } from 'store/HOME/actions/stakeAction'
 import { setTicket } from 'store/HOME/actions/ticketAction'
 import { setBalance } from 'store/HOME/actions/balanceAction'
 import { setNotification } from 'store/HOME/actions/notificationAction'
+import { setForecast } from 'store/HOME/actions/forecatsAction'
 
 import { checkCmd } from 'helpers/checkCmd'
 import { getToken } from 'helpers/getToken'
@@ -32,6 +32,7 @@ import Button from 'components/Button'
 import Stakes from './Stakes'
 import Bets from './Bets'
 import Types from './Types'
+import Forecast from './Forecast'
 import { TicketPrint } from 'pages/Home/modules/TicketPrint'
 
 import style from './index.module.scss'
@@ -42,8 +43,8 @@ const Betslip = () => {
   const dispatch = useDispatch()
   const { isConnected, receivedMessage } = useSelector(state => state.socket)
   const { betslip } = useSelector(state => state.betslip)
+  const { forecast } = useSelector(state => state.forecast)
   const { stake } = useSelector(state => state.stake)
-  const { ticket } = useSelector(state => state.ticket)
   const { settings } = useSelector(state => state.settings)
   const { balance } = useSelector(state => state.balance)
 
@@ -58,10 +59,10 @@ const Betslip = () => {
   const [min, setMin] = useState(0)
   const [max, setMax] = useState(0)
 
-  const sendStake = () => {
-    if (stake.length) {
-      let type = 0
+  const isEmpty = forecast.hasOwnProperty('id') || betslip.length > 0
 
+  const sendStake = () => {
+    if (stake.length || forecast.hasOwnProperty('id')) {
       const a = {
         a: balance.account.currency,
         b: settings.betting.type,
@@ -70,40 +71,93 @@ const Betslip = () => {
         e: [],
       }
 
-      for (let i = 0; i < stake.length; i++) {
-        if (stake[i].stake !== 0) {
-          let s = {}
-          s.b = stake[i].gr
-          type = stake[i].type
-
-          if (type === 1) {
-            s.a = stake[i].stake
-          }
-
-          a.d.push(s)
+      if (forecast.hasOwnProperty('id')) {
+        a.f = forecast.market.name
+        a.d.push({
+          b: 2,
+          a: forecast.stake,
+        })
+        for (let i = 0; i < forecast.data.length; i++) {
+          a.e.push({
+            a: gameType.SPORT_PR,
+            b: forecast.data[i].id,
+            b_1: forecast.data[i].b_1 ? 1 : 0,
+            b_2: forecast.data[i].b_2 ? 1 : 0,
+            outcomes: forecast.data[i].outcomes,
+          })
         }
+      } else {
+        let type = 0
+
+        for (let i = 0; i < stake.length; i++) {
+          if (stake[i].stake !== 0) {
+            let s = {}
+            s.b = stake[i].gr
+            type = stake[i].type
+
+            if (type === 1) {
+              s.a = stake[i].stake
+            }
+
+            a.d.push(s)
+          }
+        }
+
+        for (let i = 0; i < betslip.length; i++) {
+          if (betslip[i].stake !== 0) {
+            let s = {
+              a: betslip[i].type,
+              b: betslip[i].mid || betslip[i].roundId,
+              c: betslip[i].b,
+              e: betslip[i].m_old, // Change after
+              f: betslip[i].o_old, // Change after
+            }
+
+            if (type === 0) {
+              s.g = betslip[i].stake.toString()
+            }
+
+            a.e.push(s)
+          }
+        }
+
+        setMin(stake[0].type === 1 ? settings.betslip.system.min : settings.betslip.single.min)
+        setMax(stake[0].type === 1 ? settings.betslip.system.max : settings.betslip.single.max)
+
+        // if (isConnected) {
+        //   sendMessage({
+        //     cmd: `account/${getToken()}/placebet`,
+        //     payload: a,
+        //   })
+        //   sendMessage({
+        //     cmd: `account/${getToken()}/balance`,
+        //   })
+        // } else {
+        //   postData('/placebet', JSON.stringify(a)).then(json => {
+        //     if (json.hasOwnProperty('account')) {
+        //       if (settings.print.mode === printMode.WEB_PRINT && settings.print.payout) {
+        //         setResponse(json)
+        //       }
+        //
+        //       dispatch(setBalance())
+        //       dispatch(deleteBetslip([]))
+        //       dispatch(setStake([]))
+        //     } else {
+        //       dispatch(
+        //         setNotification({
+        //           text: t('notification.stake_lower_upper')
+        //             .replaceAll('${symbol}', settings.account.symbol)
+        //             .replace('${min}', min)
+        //             .replace('${max}', max),
+        //           type: status.error,
+        //         }),
+        //       )
+        //     }
+        //   })
+        // }
       }
 
-      for (let i = 0; i < betslip.length; i++) {
-        if (betslip[i].stake !== 0) {
-          let s = {
-            a: betslip[i].type,
-            b: betslip[i].mid || betslip[i].roundId,
-            c: betslip[i].b,
-            e: betslip[i].m_old, // Change after
-            f: betslip[i].o_old, // Change after
-          }
-
-          if (type === 0) {
-            s.g = betslip[i].stake.toString()
-          }
-
-          a.e.push(s)
-        }
-      }
-
-      setMin(stake[0].type === 1 ? settings.betslip.system.min : settings.betslip.single.min)
-      setMax(stake[0].type === 1 ? settings.betslip.system.max : settings.betslip.single.max)
+      console.log(a)
 
       if (isConnected) {
         sendMessage({
@@ -161,38 +215,6 @@ const Betslip = () => {
       })
     }
   }
-
-  useEffect(() => {
-    if (receivedMessage !== '' && checkCmd('reprint', receivedMessage.cmd)) {
-      if (receivedMessage.hasOwnProperty('stake')) {
-        if (settings.print.mode === printMode.WEB_PRINT && settings.print.payout) {
-          setResponse(receivedMessage)
-        }
-      } else {
-        dispatch(setNotification({ text: t('notification.ticket_not_found'), type: status.error }))
-      }
-    } else if (receivedMessage !== '' && checkCmd('placebet', receivedMessage.cmd)) {
-      if (!receivedMessage.data) {
-        if (settings.print.mode === printMode.WEB_PRINT && settings.print.payout) {
-          setResponse(receivedMessage)
-        }
-
-        // dispatch(setBalance())
-        dispatch(deleteBetslip([]))
-        dispatch(setStake([]))
-      } else {
-        dispatch(
-          setNotification({
-            text: t('notification.stake_lower_upper')
-              .replaceAll('${symbol}', settings.account.symbol)
-              .replace('${min}', min)
-              .replace('${max}', max),
-            type: status.error,
-          }),
-        )
-      }
-    }
-  }, [receivedMessage])
 
   const checkGames = () => {
     if (betslip.length) {
@@ -313,6 +335,37 @@ const Betslip = () => {
   })
 
   useEffect(() => {
+    if (receivedMessage !== '' && checkCmd('reprint', receivedMessage.cmd)) {
+      if (receivedMessage.hasOwnProperty('stake')) {
+        if (settings.print.mode === printMode.WEB_PRINT && settings.print.payout) {
+          setResponse(receivedMessage)
+        }
+      } else {
+        dispatch(setNotification({ text: t('notification.ticket_not_found'), type: status.error }))
+      }
+    } else if (receivedMessage !== '' && checkCmd('placebet', receivedMessage.cmd)) {
+      if (!receivedMessage.data) {
+        if (settings.print.mode === printMode.WEB_PRINT && settings.print.payout) {
+          setResponse(receivedMessage)
+        }
+
+        dispatch(deleteBetslip([]))
+        dispatch(setStake([]))
+      } else {
+        dispatch(
+          setNotification({
+            text: t('notification.stake_lower_upper')
+              .replaceAll('${symbol}', settings.account.symbol)
+              .replace('${min}', min)
+              .replace('${max}', max),
+            type: status.error,
+          }),
+        )
+      }
+    }
+  }, [receivedMessage])
+
+  useEffect(() => {
     response && a()
   }, [response])
 
@@ -320,6 +373,7 @@ const Betslip = () => {
     checkType()
 
     if (betslip.length) {
+      dispatch(setForecast({}))
       if (type === 0) {
         dispatch(setStake(singleHandler()))
       } else {
@@ -348,11 +402,16 @@ const Betslip = () => {
       )}
       {checkTicket && <TicketModal id={false} action={setCheckTicket} />}
       <div className={style.body}>
-        {ticket === 0 && betslip.length > 0 ? (
+        {isEmpty ? (
           <>
-            <Bets betslip={betslip} stake={stake} type={type} setInit={setInit} setDisabled={setDisabled} />
-            <Types type={type} setType={setType} disabled={disabled} />
-            <Stakes stake={stake} />
+            {forecast.hasOwnProperty('id') && <Forecast data={forecast} />}
+            {betslip.length > 0 && (
+              <>
+                <Bets betslip={betslip} stake={stake} type={type} setInit={setInit} setDisabled={setDisabled} />
+                <Types type={type} setType={setType} disabled={disabled} />
+                <Stakes stake={stake} />
+              </>
+            )}
           </>
         ) : (
           <div className={style.empty}>
@@ -364,21 +423,6 @@ const Betslip = () => {
           </div>
         )}
       </div>
-      {ticket.toggle === 0 && betslip.length && (
-        <div className={style.stake}>
-          <div>{t('interface.total_stake')}</div>
-          {type === 0 && (
-            <div>
-              {balance.account.symbol} {getTotalStakeSingle(betslip).toFixed(2)}
-            </div>
-          )}
-          {type === 1 && (
-            <div>
-              {balance.account.symbol} {getTotalStakeSystem(stake, settings.betting.type).toFixed(2)}
-            </div>
-          )}
-        </div>
-      )}
       <div className={style.footer}>
         <Button
           props={'button'}
@@ -388,6 +432,7 @@ const Betslip = () => {
           action={() => {
             dispatch(setStake([]))
             dispatch(deleteBetslip([]))
+            dispatch(setForecast({}))
             dispatch(setTicket(0))
             setDisabled(true)
             setInit(false)

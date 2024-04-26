@@ -8,6 +8,7 @@ import classNames from 'classnames'
 import { getIcon } from 'helpers/getIcon'
 import { setGame } from 'store/actions/gameAction'
 import { setLive } from 'store/HOME/actions/liveAction'
+import { setModal } from 'store/actions/modalAction'
 
 import Icon from 'components/Icon'
 
@@ -43,6 +44,7 @@ const Games = () => {
                 onClick={() => {
                   dispatch(setLive(0))
                   dispatch(setGame(el))
+                  dispatch(setModal(0))
                 }}
               >
                 <div className={style.icon}>

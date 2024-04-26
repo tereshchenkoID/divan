@@ -3,8 +3,8 @@ import style from './index.module.scss'
 import classNames from 'classnames'
 
 import Icon from 'components/Icon'
+import Subtitle from 'components/Subtitle'
 import Odd from 'pages/Home/games/FOOTBALL_LEAGUE/Table/Odd'
-import Subtitle from 'pages/Home/games/FOOTBALL_LEAGUE/Table/Subtitle'
 
 const Market = ({ id, active, match, group }) => {
   const [toggle, setToggle] = useState(false)

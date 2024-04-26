@@ -1,15 +1,3 @@
-import { oddsType } from 'constant/config'
-
-const getAccumulatorPrice = priceArray => {
-  let result = 1
-
-  for (let i = 0; i < priceArray.length; i++) {
-    result = result * priceArray[i]
-  }
-
-  return result
-}
-
 const getAccumulatorPrices = priceArray => {
   let result = 1
 
@@ -63,7 +51,6 @@ const calculateBetsCombinations = bets => {
 
     for (let j = 0; j < currentBets.length; j++) {
       const currentObject = currentBets[j]
-      // const currentNumber = currentObject.b;
       const currentId = currentObject.id
 
       for (let k = 0; k < r.length; k++) {
@@ -117,8 +104,6 @@ export const getSystemBetMinMaxSystem = (data, type) => {
     r.push(getAccumulatorPrices(data[i]))
   }
 
-  // console.log(r)
-
   switch (type) {
     case 0:
       return Math.min(...r)
@@ -156,45 +141,6 @@ export const getSystemCombination = arr => {
   return calculateBetsCombinations(Object.values(r))
 }
 
-export const getCoverBetMaxSingle = data => {
-  let result = 0
-
-  for (let i = 0; i < data.length; i++) {
-    result += data[i].stake > 0 ? data[i].b * data[i].stake : 0
-  }
-
-  return result
-}
-
-export const getCoverStakeMaxSystem = data => {
-  let result = 0
-
-  for (let i = 0; i < data.length; i++) {
-    result += data[i].maxWin
-  }
-
-  return result
-}
-
-export const getBetMinMaxSystem = (data, type) => {
-  const r = []
-  for (let i = 0; i < data.length; i++) {
-    r.push(getAccumulatorPrice(data[i]))
-  }
-
-  switch (type) {
-    case 0:
-      return Math.min(...r)
-    case 1:
-      return Math.max(...r)
-    case 2:
-      const add = arr => arr.reduce((a, b) => a + b, 0)
-      return add(r)
-    default:
-      return 0
-  }
-}
-
 export const getOdds = data => {
   let a = []
 
@@ -222,16 +168,6 @@ export const getTotalStakeSingle = data => {
 
   for (let i = 0; i < data.length; i++) {
     result += parseFloat(data[i].stake)
-  }
-
-  return result
-}
-
-export const getTotalStakeSystem = (data, mode) => {
-  let result = 0
-
-  for (let i = 0; i < data.length; i++) {
-    result = mode === oddsType.PER_BET ? result + parseFloat(data[i].stake) : result + parseFloat(data[i].stake) * data[i].combi
   }
 
   return result

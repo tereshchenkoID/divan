@@ -40,7 +40,10 @@ const Timer = ({ timer, initTime }) => {
     if (!isRequesting) {
       if (progress === 1) {
         const time = timer.time.split(':')
-        if (Number(time[0]) === 0 && Number(time[1]) < 4 && Number(time[1]) > 0) {
+        const [hours, minutes, seconds, milliseconds] = time.map(Number)
+        const r = ((hours * 60 + minutes) * 60 + seconds) * 1000 + milliseconds
+
+        if (r !== 0 && r <= 3) {
           dispatch(setModal(1))
         }
       }
@@ -51,17 +54,17 @@ const Timer = ({ timer, initTime }) => {
         dispatch(setTv(`${game.type}/${game.id}`))
           .then(json => {
             if (progress === 1 && json.event.status === matchStatus.PROGRESS) {
-              initTime(json.event)
+              initTime(json.event, 2)
               dispatch(setProgress(2))
               dispatch(setModal(0))
             }
             if (progress === 2 && json.event.status === matchStatus.RESULTS) {
-              initTime(json.event)
+              initTime(json.event, 2)
               dispatch(setProgress(3))
               dispatch(setLiveTimer(0))
             }
             if (progress === 3 && json.event.status === matchStatus.ANNOUNCEMENT) {
-              initTime(json.event)
+              initTime(json.event, 2)
               dispatch(setProgress(1))
             }
             setIsRequesting(false)

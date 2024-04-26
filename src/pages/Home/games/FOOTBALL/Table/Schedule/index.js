@@ -8,7 +8,7 @@ import classNames from 'classnames'
 import Label from 'components/Label'
 import Icon from 'components/Icon'
 import Button from 'components/Button'
-import Subtitle from '../Subtitle'
+import Subtitle from 'components/Subtitle'
 import Odd from '../Odd'
 
 import style from './index.module.scss'
@@ -85,6 +85,7 @@ const Schedule = ({ active }) => {
             el.name !== 'Score' &&
             el.name !== 'Total Goals' && (
               <Button
+                key={idx}
                 props={'button'}
                 text={el.name}
                 initial={[style.market]}

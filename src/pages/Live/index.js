@@ -71,7 +71,7 @@ const Live = () => {
   const [preloader, setPreloader] = useState(true)
   const [active, setActive] = useState(false)
   const [timer, setTimer] = useState({
-    time: '00:00',
+    time: '00:00:00:00',
     update: null,
     game: null,
   })
@@ -80,7 +80,7 @@ const Live = () => {
   const initTime = value => {
     setTimer(prevState => ({
       ...prevState,
-      time: getDifferent(value.nextUpdate, delta),
+      time: getDifferent(value.nextUpdate, delta, 2),
       nextId: value.id,
     }))
   }

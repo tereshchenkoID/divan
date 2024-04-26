@@ -9,8 +9,11 @@
   text-transform: uppercase;
 
   @media (max-width: $min) {
-    height: auto;
+    @include make-spacer(p, 1);
+    @include scroll;
+
     flex-grow: 1;
+    height: auto;
   }
 }
 
@@ -18,10 +21,10 @@
   @include size(rem(250px), rem(97px));
 
   display: grid;
-  grid-template-columns: 1fr rem(95px);
-  align-items: center;
   position: absolute;
   top: rem(43px);
+  grid-template-columns: 1fr rem(95px);
+  align-items: center;
 
   @media (max-width: $min) {
     @include size(rem(220px), rem(70px));
@@ -53,7 +56,7 @@
 }
 
 .link {
-  @include size(rem(70px), rem(35px));
+  @include size(rem(80px), rem(35px));
 
   @media (max-width: $min) {
     height: rem(30px);

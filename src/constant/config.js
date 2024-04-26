@@ -35,6 +35,7 @@ export const gameType = {
   KENO: 'KENO',
   DOGS_6: 'DOGS_6',
   HORSES_8_VR: 'HORSES_8_VR',
+  SPORT_PR: 'SPORT_PR',
 }
 
 export const matchStatus = {

@@ -1,18 +1,19 @@
 @import 'scss/config';
 
 .block {
+  @include transition(background);
   @include flex;
-  @include size(rem(60px), rem(34px));
+  @include size(rem(25px));
 
   position: relative;
-  border-radius: rem(34px);
+  border: rem(1px) solid var(--color-orange-900);
+  border-radius: var(--border-radius);
   overflow: hidden;
-  outline: rem(1px) solid var(--color-orange-900);
+  background: var(--color-black);
+  cursor: pointer;
 
   &:hover {
-    .slide {
-      background-color: var(--color-black);
-    }
+    background: var(--gradient-hover);
   }
 }
 
@@ -22,35 +23,13 @@
   opacity: 0;
 
   &:checked + .label {
-    background-color: var(--color-black);
-
-    &::before {
-      transform: translateX(26px);
-      content: 'on';
-    }
+    opacity: 1;
   }
 }
 
 .label {
-  @include transition;
   @include absolute-filled;
 
-  background-color: darken(#ccc, 30);
-  cursor: pointer;
-
-  &::before {
-    @include flex(center, center);
-    @include size(rem(26px));
-
-    position: absolute;
-    bottom: rem(4px);
-    left: rem(4px);
-    border-radius: 50%;
-    font-size: rem(9px);
-    text-transform: uppercase;
-    color: var(--color-black);
-    background-color: var(--color-white);
-    content: 'off';
-    transition: inherit;
-  }
+  background: var(--gradient-active);
+  opacity: 0;
 }

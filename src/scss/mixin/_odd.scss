@@ -1,17 +1,16 @@
 @mixin odd {
+  @include transition(all);
   @include flex(center, center);
   @include size(100%);
 
   position: relative;
   min-height: rem(42px);
-  border: 0 solid var(--color-black);
   font-size: rem(17px);
   font-weight: var(--typography-bold);
   text-align: center;
   text-transform: uppercase;
   color: var(--color-white);
   cursor: pointer;
-  transition: all 0.3s ease-in-out;
 
   &:hover {
     background: var(--gradient-hover);

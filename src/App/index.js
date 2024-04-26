@@ -64,7 +64,7 @@ const App = () => {
   })
 
   const handleResize = () => {
-    const isMobile = window.innerWidth < 1280
+    const isMobile = window.innerWidth < 1200
 
     if (isMobile) {
       setWindowSize({

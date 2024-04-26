@@ -1,0 +1,281 @@
+@import 'scss/config';
+
+.block {
+  @include flex($direction: column);
+
+  max-height: rem(655px);
+  padding-top: rem(15px);
+  text-align: center;
+  overflow: hidden;
+  color: var(--color-white);
+
+  @media (max-width: $min) {
+    max-height: 100%;
+    padding-top: rem(80px);
+  }
+}
+
+.odds,
+.odd,
+.meta,
+.cell {
+  height: 100%;
+}
+
+.id,
+.date {
+  flex-shrink: 0;
+}
+
+.sort {
+  @include make-spacer(mb, 4);
+  @include flex($align-items: center);
+
+  gap: rem(2px);
+  flex-shrink: 0;
+  height: rem(43px);
+  padding-left: rem(270px);
+
+  @media (max-width: $min) {
+    @include make-spacer(pl, 0);
+    @include make-spacer(mb, 1);
+
+    height: rem(30px);
+  }
+}
+
+.market {
+  @include make-spacer(px, 2);
+
+  height: 100%;
+
+  @media (max-width: $min) {
+    flex-grow: 1;
+    font-size: rem(10px);
+  }
+}
+
+.wrapper {
+  @include wrapper;
+  @include scroll;
+
+  flex-grow: 1;
+  height: 100%;
+
+  @media (max-width: $min) {
+    height: unset;
+    overflow-y: hidden;
+  }
+}
+
+.row {
+  @include flex;
+
+  position: relative;
+  align-items: center;
+  font-size: rem(15px);
+
+  @media (max-width: $min) {
+    font-size: rem(13px);
+  }
+
+  &.default {
+    height: rem(45px);
+    border-top: rem(1px) solid var(--color-border);
+
+    @media (max-width: $min) {
+      @include make-spacer(p, 1);
+
+      gap: rem(4px);
+      flex-wrap: wrap;
+      height: auto;
+    }
+
+    &:nth-child(1) {
+      border-top: 0;
+    }
+
+    &:nth-child(even) {
+      background-color: var(--color-thunder);
+    }
+
+    .cell {
+
+      &:nth-child(3),
+      &:nth-child(4) {
+        width: rem(50px);
+
+        @media (max-width: $min) {
+          width: rem(25px);
+        }
+      }
+
+      &:nth-child(1) {
+        width: rem(350px);
+
+        @media (max-width: $min) {
+          width: 100%;
+        }
+      }
+
+      &:nth-child(2) {
+        flex-grow: 1;
+      }
+    }
+
+    .column {
+      position: relative;
+      border-right: rem(1px) solid var(--color-border);
+
+      &:last-child {
+        border-right: 0;
+      }
+    }
+
+    .odds {
+      gap: rem(1px);
+    }
+  }
+
+  &.head {
+    flex-shrink: 0;
+    height: rem(32px);
+    margin-right: rem(1px);
+    margin-left: rem(353px);
+    border-top: rem(1px) solid var(--color-border);
+
+    @media (max-width: $min) {
+      display: none;
+    }
+
+    .label {
+
+      &:nth-child(1),
+      &:nth-child(2),
+      &:nth-child(3) {
+        flex: 1;
+      }
+
+      &:nth-child(4),
+      &:nth-child(5) {
+        width: rem(52px);
+      }
+    }
+  }
+}
+
+.cell {
+  @include flex(center, center);
+}
+
+.meta {
+  display: grid;
+  grid-template-columns: rem(40px) 1fr rem(20px) 1fr rem(40px);
+  flex-grow: 1;
+  align-items: center;
+
+  @media (max-width: $min) {
+    grid-template-columns: rem(30px) rem(45px) rem(20px) rem(45px) rem(30px);
+  }
+}
+
+.odds {
+  @include flex;
+
+  width: 100%;
+
+  @media (max-width: $min) {
+    height: rem(40px);
+    border: rem(1px) solid var(--color-border);
+    border-radius: var(--border-radius);
+  }
+}
+
+.odd {
+  @include odd;
+  @include make-spacer(px, 1);
+
+  flex: 1;
+  min-height: auto;
+  border-right: rem(1px) solid var(--color-border);
+
+  @media (max-width: $min) {
+    flex-direction: column;
+  }
+
+  &:last-child {
+    @media (max-width: $min) {
+      border-right: 0;
+    }
+  }
+
+  .outcome {
+
+    &:nth-child(2) {
+      border-left: rem(1px) solid var(--color-border);
+      opacity: 0.7;
+
+      @media (max-width: $min) {
+        border-left: 0;
+      }
+    }
+  }
+}
+
+.outcome {
+  @include flex(center, baseline);
+
+  flex: 1;
+  font-size: rem(20px);
+
+  @media (max-width: $min) {
+    flex: unset;
+    font-size: rem(14px);
+  }
+
+  span {
+
+    &:last-child {
+      @include make-spacer(ml, half);
+
+      font-size: rem(12px);
+
+      @media (max-width: $min) {
+        font-size: rem(10px);
+      }
+    }
+  }
+}
+
+.id {
+  width: rem(35px);
+}
+
+.date {
+  width: rem(100px);
+
+  @media (max-width: $min) {
+    flex-grow: 1;
+  }
+}
+
+.legend {
+  position: absolute;
+  top: rem(-15px);
+  right: rem(104px);
+  left: 0;
+}
+
+.logo {
+  @include make-spacer(p, 1);
+  @include size(rem(40px));
+
+  @media (max-width: $min) {
+    @include make-spacer(p, 0);
+    @include size(rem(25px));
+  }
+
+  img {
+    object-fit: contain;
+  }
+}

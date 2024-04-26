@@ -7,7 +7,7 @@ import StartTimer from './StartTimer'
 import ResultTimer from './ResultTimer'
 import UpdateTimer from './UpdateTimer'
 
-import { matchStatus } from 'constant/config'
+import { gameType, matchStatus } from 'constant/config'
 
 import useSocket from 'hooks/useSocket'
 import { convertTime } from 'helpers/convertTime'
@@ -20,6 +20,7 @@ import { setModal } from 'store/actions/modalAction'
 import { setLiveTimer } from 'store/HOME/actions/liveTimerAction'
 
 import style from './index.module.scss'
+import classNames from 'classnames'
 
 const Timer = ({ active, setActive, timer, setDisabled, initTime }) => {
   const { t } = useTranslation()
@@ -46,19 +47,19 @@ const Timer = ({ active, setActive, timer, setDisabled, initTime }) => {
           dispatch(setData(game))
             .then(json => {
               if (live === 1 && json.events[0].status === matchStatus.PROGRESS) {
-                initTime(json.events[1])
+                initTime(json.events[1], 2)
                 dispatch(setLive(1))
                 setActive(json.events[1])
                 !resize && setDisabled(false)
                 dispatch(setModal(0))
               } else if (live === 2 && json.events[0].status === matchStatus.RESULTS) {
                 setActive(json.events[0])
-                initTime(json.events[0])
+                initTime(json.events[0], 2)
                 dispatch(setLive(3))
                 dispatch(setLiveTimer(0))
               } else if (live === 3 && json.events[0].status === matchStatus.ANNOUNCEMENT) {
                 setActive(json.events[0])
-                initTime(json.events[0])
+                initTime(json.events[0], 2)
                 dispatch(setLive(1))
               }
               setIsRequesting(false)
@@ -77,19 +78,19 @@ const Timer = ({ active, setActive, timer, setDisabled, initTime }) => {
       if (isActive && new Date().getTime() + delta > active.nextUpdate) {
         dispatch(setData(game, receivedMessage)).then(() => {
           if (live === 1 && receivedMessage.events[0].status === matchStatus.PROGRESS) {
-            initTime(receivedMessage.events[1])
+            initTime(receivedMessage.events[1], 2)
             dispatch(setLive(1))
             setActive(receivedMessage.events[1])
             !resize && setDisabled(false)
             dispatch(setModal(0))
           } else if (live === 2 && receivedMessage.events[0].status === matchStatus.RESULTS) {
             setActive(receivedMessage.events[0])
-            initTime(receivedMessage.events[0])
+            initTime(receivedMessage.events[0], 2)
             dispatch(setLive(3))
             dispatch(setLiveTimer(0))
           } else if (live === 3 && receivedMessage.events[0].status === matchStatus.ANNOUNCEMENT) {
             setActive(receivedMessage.events[0])
-            initTime(receivedMessage.events[0])
+            initTime(receivedMessage.events[0], 2)
             dispatch(setLive(1))
           }
         })
@@ -107,8 +108,8 @@ const Timer = ({ active, setActive, timer, setDisabled, initTime }) => {
 
   return (
     <div className={style.block}>
-      <div className={style.top}>
-        {live === 1 && <StartTimer timer={timer} setDisabled={setDisabled} isActive={isActive} />}
+      <div className={classNames(style.top, game.type !== gameType.SPORT_PR && style.lg)}>
+        {live === 1 && <StartTimer timer={timer} game={game} setDisabled={setDisabled} isActive={isActive} />}
         {live === 2 && t('interface.live')}
       </div>
       <div className={style.bottom}>

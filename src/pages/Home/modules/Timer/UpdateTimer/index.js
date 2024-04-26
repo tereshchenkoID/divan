@@ -18,7 +18,7 @@ const UpdateTimer = ({ active, timer, setDisabled }) => {
 
   useEffect(() => {
     const time = timer.time.split(':')
-    if (active.status === matchStatus.ANNOUNCEMENT && Number(time[0]) === 0 && Number(time[1]) < 7 && Number(time[1]) > 0) {
+    if (active.status === matchStatus.ANNOUNCEMENT && Number(time[2]) === 0 && Number(time[3]) < 7 && Number(time[3]) > 0) {
       !resize && setDisabled(true)
     }
   }, [dispatch, timer, setDisabled])

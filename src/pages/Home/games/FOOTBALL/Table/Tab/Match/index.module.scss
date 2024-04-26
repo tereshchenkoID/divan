@@ -17,8 +17,8 @@
 .meta {
   display: grid;
   grid-template-columns: 1fr rem(15px) 1fr rem(15px);
-  align-items: center;
   gap: rem(2px);
+  align-items: center;
   font-size: rem(13px);
   color: var(--color-white);
 }
@@ -37,6 +37,6 @@
 }
 
 .odd {
-  height: 100%;
   flex: 1;
+  height: 100%;
 }

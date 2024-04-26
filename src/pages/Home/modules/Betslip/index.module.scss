@@ -16,25 +16,6 @@
   overflow-x: hidden;
 }
 
-.stake {
-  @include make-spacer(py, half);
-  @include make-spacer(px, 2);
-
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  align-items: center;
-  font-size: rem(13px);
-  color: var(--color-white);
-  background-color: var(--color-thunder);
-
-  div {
-
-    &:last-child {
-      text-align: right;
-    }
-  }
-}
-
 .footer {
   @include make-spacer(p, 1);
 

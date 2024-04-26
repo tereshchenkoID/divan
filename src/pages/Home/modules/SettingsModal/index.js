@@ -18,8 +18,8 @@ import { setNotification } from 'store/HOME/actions/notificationAction'
 
 import { TicketPrint } from 'pages/Home/modules/TicketPrint'
 import Button from 'components/Button'
-import Checkbox from 'components/Checkbox'
 import Password from './Password'
+import Toggle from 'components/Toggle'
 
 import style from './index.module.scss'
 
@@ -223,7 +223,7 @@ const SettingsModal = ({ action }) => {
               <div className={style.row}>
                 <div>{t('interface.video')}</div>
                 <div>
-                  <Checkbox
+                  <Toggle
                     data={settings.account.mode}
                     action={() => {
                       setVideo(video === '1' ? '0' : '1')
@@ -235,7 +235,7 @@ const SettingsModal = ({ action }) => {
               <div className={style.row}>
                 <div>{t('interface.volume')}</div>
                 <div>
-                  <Checkbox
+                  <Toggle
                     data={settings.account.sound}
                     action={() => {
                       setSound(sound === '1' ? '0' : '1')

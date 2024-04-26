@@ -4,5 +4,5 @@
     "WSS_PROD": "wss://socket.qool90.bet",
     "ASSETS": "https://view.divan.bet/engine/shop/resource"
   },
-  "theme": "red"
+  "theme": "default"
 }

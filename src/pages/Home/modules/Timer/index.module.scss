@@ -16,16 +16,22 @@
 }
 
 .top {
-  font-size: rem(22px);
   font-weight: var(--typography-bold);
 
   @media (max-width: $min) {
-    font-size: rem(16px);
+    font-size: rem(12px);
+  }
+
+  &.lg {
+    font-size: rem(22px);
+
+    @media (max-width: $min) {
+      font-size: rem(15px);
+    }
   }
 }
 
 .bottom {
-  min-height: rem(25px);
   font-size: rem(14px);
 
   @media (max-width: $min) {

@@ -9,6 +9,8 @@ import { getIcon } from 'helpers/getIcon'
 import Icon from 'components/Icon'
 
 import style from './index.module.scss'
+import classNames from 'classnames'
+import { gameType } from '../../../../constant/config'
 
 const Games = ({ action, setPreloader, setTimer }) => {
   const dispatch = useDispatch()
@@ -31,7 +33,7 @@ const Games = ({ action, setPreloader, setTimer }) => {
           <Link
             key={idx}
             to={'/live'}
-            className={style.button}
+            className={classNames(style.button, el.type === gameType.SPORT_PR && style.disabled)}
             aria-label={el.name}
             onClick={() => {
               setPreloader(true)

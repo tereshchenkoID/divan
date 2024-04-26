@@ -152,7 +152,11 @@
     "jackpot_3_contribution": "Jackpot 3 Contribution",
     "reversal": "Reversal",
     "commission": "Commission",
-    "profit": "Profit"
+    "profit": "Profit",
+    "reset_numbers": "Reset numbers",
+    "random": "Random",
+    "on_trend": "On trend",
+    "against_trend": "Against trend"
   },
   "games": {
     "FOOTBALL_LEAGUE": {

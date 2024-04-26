@@ -43,6 +43,11 @@
   &:hover {
     background-color: var(--color-orange-900);
   }
+
+  &.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
 }
 
 .icon {

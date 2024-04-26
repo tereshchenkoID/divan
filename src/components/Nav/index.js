@@ -22,10 +22,22 @@ const Nav = ({ isBetslip, setIsBetslip }) => {
   const { t } = useTranslation()
   const { ticket } = useSelector(state => state.ticket)
   const { betslip } = useSelector(state => state.betslip)
+  const { forecast } = useSelector(state => state.forecast)
   const { settings } = useSelector(state => state.settings)
   const [sm, setSm] = useState(false) // Settings Modal
   const [rm, setRm] = useState(false) // Reports Modal
   const [info, setInfo] = useState(false)
+
+  const handleFullscreen = () => {
+    const element = document.documentElement
+    if (document.fullscreenElement) {
+      document.exitFullscreen().then(r => console.log('Success to enable fullscreen'))
+    } else {
+      element.requestFullscreen().catch(err => {
+        console.error('Failed to enable fullscreen:', err)
+      })
+    }
+  }
 
   return (
     <nav className={style.block}>
@@ -57,6 +69,7 @@ const Nav = ({ isBetslip, setIsBetslip }) => {
             }}
           />
           {betslip.length > 0 && <span>{betslip.length}</span>}
+          {forecast.hasOwnProperty('id') && <span>1</span>}
         </div>
         <Button
           props={'button'}
@@ -92,6 +105,15 @@ const Nav = ({ isBetslip, setIsBetslip }) => {
             <Button type={'button'} size={'md'} initial={[style.option]} classes={['grey']} icon={'tv'} />
           </Link>
         )}
+        <Button
+          props={'button'}
+          icon={'fullscreen'}
+          initial={[style.option]}
+          classes={['grey']}
+          action={() => {
+            handleFullscreen()
+          }}
+        />
         <Button
           props={'button'}
           icon={'turn-off'}

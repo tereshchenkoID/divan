@@ -152,7 +152,11 @@
     "jackpot_3_contribution": "Jackpot 3 Contribution UA",
     "reversal": "Reversal UA",
     "commission": "Commission UA",
-    "profit": "Profit UA"
+    "profit": "Profit UA",
+    "reset_numbers": "Reset numbers UA",
+    "random": "Random UA",
+    "on_trend": "On trend UA",
+    "against_trend": "Against trend UA"
   },
   "games": {
     "FOOTBALL_LEAGUE": {

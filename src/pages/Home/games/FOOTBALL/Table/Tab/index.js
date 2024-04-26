@@ -1,9 +1,10 @@
 import { useState } from 'react'
 
 import Button from 'components/Button'
-import Subtitle from '../Subtitle'
+import Subtitle from 'components/Subtitle'
 import Match from './Match'
 import Markets from './Markets'
+
 import style from './index.module.scss'
 
 const Tab = ({ active }) => {

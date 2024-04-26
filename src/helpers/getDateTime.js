@@ -18,5 +18,7 @@ export const getDateTime = (data, type) => {
     return `${hours}:${minutes}`
   } else if (type === 4) {
     return `${year}-${month}-${day}T${hours}:${minutes}`
+  } else if (type === 5) {
+    return `${day}.${month} ${hours}:${minutes}`
   }
 }

@@ -283,7 +283,7 @@ const TicketModal = ({ id, action }) => {
                                   ? `${el.details.pos}.${el.details.teams.home}-${el.details.teams.away}`
                                   : getGameName(settings.games, el.details.game)}
                               </div>
-                              {el.market}: {el.selection}
+                              {el.market.replaceAll('_', ' ')}: {el.selection.replaceAll('_', ' ')}
                             </div>
                             <div className={style.cell}>
                               <div className={style.score}>
