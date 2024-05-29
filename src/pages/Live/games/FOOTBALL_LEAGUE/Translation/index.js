@@ -13,6 +13,7 @@ const Translation = () => {
   const { settings } = useSelector(state => state.settings)
   const { liveTimer } = useSelector(state => state.liveTimer)
   const [video, setVideo] = useState()
+  const [init, setInit] = useState()
   const videoRef = useRef(null)
   const stingerRef = useRef(null)
 
@@ -21,7 +22,11 @@ const Translation = () => {
 
     if (playPromise !== undefined) {
       playPromise
-        .then(_ => {})
+        .then(_ => {
+          videoRef.currentTime = init
+          videoRef.current.play()
+          console.log(init)
+        })
         .catch(error => {
           console.log(error)
         })
@@ -30,11 +35,17 @@ const Translation = () => {
 
   return (
     <div className={style.block}>
-      <video className={style.video} src={video} ref={videoRef} muted />
+      <video preload="none" className={style.video} src={video} ref={videoRef} muted />
       <video className={style.decor} src={settings.account.transition} ref={stingerRef} muted />
       <div>
         <div className={style.info}>
-          <Scoreboard data={tv.event.league.matches[0]} timer={liveTimer} setVideo={setVideo} stingerRef={stingerRef} />
+          <Scoreboard
+            data={tv.event.league.matches[0]}
+            timer={liveTimer}
+            setVideo={setVideo}
+            stingerRef={stingerRef}
+            setInit={setInit}
+          />
           <Timer timer={liveTimer} />
         </div>
       </div>

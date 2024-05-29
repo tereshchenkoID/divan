@@ -308,30 +308,61 @@
 }
 
 .score {
-  display: grid;
-  position: relative;
-  grid-template-columns: repeat(2, 1fr);
-  gap: rem(25px);
+  @include flex($justify-content: center, $align-items: center, $wrap: wrap);
+
+  gap: rem(5px);
   width: 100%;
 
-  @media (max-width: $min) {
-    gap: rem(5px);
-  }
-
   span {
+    @include flex;
 
-    &:nth-child(1) {
-      text-align: right;
+    position: relative;
+    gap: rem(2px);
+    white-space: nowrap;
 
-      &::before {
-        @include absolute-center;
-
-        content: '-';
-      }
+    &::after {
+      content: ',';
     }
 
-    &:nth-child(2) {
-      text-align: left;
+    &:last-child {
+
+      &::after {
+        display: none;
+      }
+    }
+  }
+
+  &.FOOTBALL,
+  &.FOOTBALL_LEAGUE {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: rem(25px);
+
+
+    @media (max-width: $min) {
+      gap: rem(5px);
+    }
+
+    span {
+
+      &:nth-child(1) {
+        justify-content: flex-end;
+        text-align: right;
+
+        &::after {
+          @include absolute-center-right(rem(-15px));
+
+          content: '-';
+
+          @media (max-width: $min) {
+            right: rem(-2px)
+          }
+        }
+      }
+
+      &:nth-child(2) {
+        text-align: left;
+      }
     }
   }
 }

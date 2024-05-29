@@ -1,9 +1,8 @@
 @import 'abstract/helpers/index';
 @import 'base/variables/abstract/index';
-
-/* Interface mixin parts */
 @import 'mixin/index';
 
-$min: 1200px;
+//$min: 1200px;
+$min: 0;
 $nav: 80px;
 $footer: 60px;

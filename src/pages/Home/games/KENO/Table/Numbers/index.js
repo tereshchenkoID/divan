@@ -11,7 +11,7 @@ const getEvery = (startPosition, arr) => {
   return result
 }
 
-const Numbers = ({ numbers, setNumbers, random, setType }) => {
+const Numbers = ({ numbers, setNumbers, random }) => {
   return (
     <div className={style.block}>
       {Array.from({ length: 10 }).map((el, idx) => (

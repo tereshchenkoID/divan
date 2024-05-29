@@ -62,6 +62,9 @@
 .column {
   @include flex($direction: column-reverse);
 
+  border-left: rem(3px) solid var(--color-orange-900);
+  border-right: rem(3px) solid var(--color-orange-900);
+  border-bottom: rem(3px) solid var(--color-orange-900);
   background: var(--color-mine-shaft) linear-gradient(
     to left,
     rgba(255, 255, 255, 0) 0,

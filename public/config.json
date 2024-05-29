@@ -1,8 +1,8 @@
 {
   "hostnames": {
-    "PROD": "https://api.qool90.bet",
-    "WSS_PROD": "wss://socket.qool90.bet",
-    "ASSETS": "https://view.divan.bet/engine/shop/resource"
+    "PROD": "https://api.oddsbit.io",
+    "WSS_PROD": null,
+    "ASSETS": "https://virtual.zoroplay.com/img/resource"
   },
   "theme": "default"
 }

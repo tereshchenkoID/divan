@@ -283,10 +283,11 @@ const TicketModal = ({ id, action }) => {
                                   ? `${el.details.pos}.${el.details.teams.home}-${el.details.teams.away}`
                                   : getGameName(settings.games, el.details.game)}
                               </div>
-                              {el.market.replaceAll('_', ' ')}: {el.selection.replaceAll('_', ' ')}
+                              {el.details.game !== gameType.KENO && `${el.market.replaceAll('_', ' ')}: `}
+                              {el.selection.replaceAll('_', ' ')}
                             </div>
                             <div className={style.cell}>
-                              <div className={style.score}>
+                              <div className={classNames(style.score, style[el.details.game])}>
                                 {el.status !== 'MANUALLY_CANCELLED' &&
                                   el.details.results &&
                                   el.details.results.map((el, idx) => <span key={idx}>{el}</span>)}

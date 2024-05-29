@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { getHostName } from 'helpers/getHostName'
@@ -7,13 +7,14 @@ import classNames from 'classnames'
 
 import style from './index.module.scss'
 
-const Scoreboard = ({ data, timer, setVideo, stingerRef }) => {
+const Scoreboard = ({ data, timer, setVideo, stingerRef, setInit }) => {
   const { t } = useTranslation()
   const [score, setScore] = useState([0, 0])
+  const TIME = 90
+  const DELAY = useMemo(() => Math.ceil(TIME / (data?.scenes.length || 1)), [data])
 
   const initScene = (scenes, timer) => {
-    const TIME = 90
-    const DELAY = Math.ceil(TIME / scenes.length)
+    // const DELAY = Math.ceil(TIME / scenes.length)
     const i = timer > DELAY ? Math.ceil(Number(timer) / DELAY) - 1 : 0
     const f = scenes[i]
     const period = (i + 1) * DELAY
@@ -21,22 +22,34 @@ const Scoreboard = ({ data, timer, setVideo, stingerRef }) => {
     if (f.update === timer) {
       setScore([f.home, f.away])
     }
-    setVideo(f.video)
 
     if (timer === period && timer !== TIME) {
       stingerRef.current.play()
+
+      setVideo(f.video)
+      setInit(timer - i * 15)
     }
   }
 
   useEffect(() => {
-    if (data && data.scenes && timer !== 0) {
+    if (data?.scenes) {
+      console.log(timer)
+      const i = timer > DELAY ? Math.ceil(Number(timer) / DELAY) - 1 : 0
+      const f = data.scenes[i]
+      setVideo(f.video)
+      setInit(timer - i * 15)
+    }
+  }, [data.scenes])
+
+  useEffect(() => {
+    if (data?.scenes && timer !== 0) {
       initScene(data.scenes, timer)
     }
 
     if (timer === 90) {
       setVideo(null)
     }
-  }, [timer])
+  }, [data.scenes, timer, setVideo])
 
   return (
     <div className={style.block}>

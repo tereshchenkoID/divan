@@ -11,8 +11,9 @@ import { getIcon } from 'helpers/getIcon'
 
 import Icon from 'components/Icon'
 
-import style from './index.module.scss'
 import classNames from 'classnames'
+
+import style from './index.module.scss'
 
 export const TicketPrint = React.forwardRef((data, ref) => {
   const { t } = useTranslation()

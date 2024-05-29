@@ -128,7 +128,9 @@ const Translation = ({ data }) => {
 
     setNumbers(newData)
 
-    const newColumns = Array.from({ length: 4 }, (_, columnIndex) => init.filter((_, index) => index % 4 === columnIndex).map(el => el))
+    const newColumns = Array.from({ length: 4 }, (_, columnIndex) =>
+      init.filter((_, index) => index % 4 === columnIndex).map(el => el),
+    )
 
     setColumn(newColumns)
   }
@@ -142,7 +144,7 @@ const Translation = ({ data }) => {
   useEffect(() => {
     const init = scenes ? scenes.filter(el => el.update <= getIndex()) : []
 
-    initActive(scenes.slice(0, init.length))
+    initActive((scenes || []).slice(0, init.length))
     setCurrent(init.length)
 
     if (scenes && current < scenes.length && getIndex() === scenes[current].update) {

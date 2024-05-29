@@ -2,14 +2,20 @@ let timerID
 
 const getDifferent = (data, delta) => {
   const now = new Date()
-  const c = now.getTime() + delta
-  const o = now.getTimezoneOffset() * 60 * 1000
-  const r = new Date(data - c + o)
+  const targetTime = new Date(data)
+  const adjustedNow = new Date(now.getTime() + delta)
+  const diff = targetTime - adjustedNow
   let result = '00:00:00:00'
 
-  if (data > c) {
-    result = `${('0' + (r.getDate() - 1)).slice(-2)}:${('0' + r.getHours()).slice(-2)}:${('0' + r.getMinutes()).slice(-2)}:${('0' + r.getSeconds()).slice(-2)}`
+  if (diff > 0) {
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24))
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))
+    const seconds = Math.floor((diff % (1000 * 60)) / 1000)
+
+    result = `${String(days).padStart(2, '0')}:${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`
   }
+
   return result
 }
 
