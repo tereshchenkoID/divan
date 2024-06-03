@@ -3,14 +3,40 @@ import { useSelector } from 'react-redux'
 
 import style from './index.module.scss'
 
-const Video = ({ data, preloadedVideos, period, time }) => {
+const preloadVideos = async urls => {
+  const videoPromises = urls.map(async url => {
+    const response = await fetch(url, { mode: 'cors' })
+    const videoBlob = await response.blob()
+    return URL.createObjectURL(videoBlob)
+  })
+  return Promise.all(videoPromises)
+}
+
+const Video = ({ data, period, time }) => {
   const { progress } = useSelector(state => state.progress)
+  const { video } = useSelector(state => state.video)
   const [isLoading, setIsLoading] = useState(false)
+  const [preloadedVideos, setPreloadedVideos] = useState([])
+
   const videoRef = useRef(null)
+
+  const loadVideos = async () => {
+    const preloadedUrls = await preloadVideos(video)
+    const preloadedCounts = data.event.league.matches[0].scenes.length - preloadedUrls.length
+    const nullArray = Array(preloadedCounts).fill(null)
+
+    setPreloadedVideos(nullArray.fill(null).concat(preloadedUrls))
+  }
+
+  useEffect(() => {
+    if(video.length) {
+      loadVideos()
+    }
+  }, [video])
+
 
   useEffect(() => {
     return () => {
-      console.log('Clean')
       preloadedVideos.forEach(url => {
         URL.revokeObjectURL(url)
       })

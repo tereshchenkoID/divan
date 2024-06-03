@@ -1,5 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+
+import { setVideo } from 'store/LIVE/actions/videoAction'
 
 import Scoreboard from './Scoreboard'
 import Timer from './Timer'
@@ -11,59 +13,40 @@ import style from './index.module.scss'
 
 const calculatePeriod = (timer, delay) => (timer > delay ? Math.ceil(Number(timer) / delay) - 1 : 0)
 
-const preloadVideos = async urls => {
-  const videoPromises = urls.map(async url => {
-    const response = await fetch(url, { mode: 'cors' })
-    const videoBlob = await response.blob()
-    return URL.createObjectURL(videoBlob)
-  })
-  return Promise.all(videoPromises)
-}
-
 const Translation = () => {
+  const dispatch = useDispatch()
   const { tv } = useSelector(state => state.tv)
   const { settings } = useSelector(state => state.settings)
   const { progress } = useSelector(state => state.progress)
   const { liveTimer } = useSelector(state => state.liveTimer)
-  const [preloadedVideos, setPreloadedVideos] = useState([])
-
-  const stingerRef = useRef(null)
-
-  const TIME = 90
-  const DELAY = useMemo(() => Math.ceil(TIME / (tv.event.league.matches[0]?.scenes.length || 1)), [tv])
   const [period, setPeriod] = useState(null)
-  const [scenes, setScenes] = useState(null)
   const [init, setInit] = useState(true)
 
-  const loadVideos = async () => {
-    const preloadedUrls = await preloadVideos(scenes)
-    const preloadedCounts = tv.event.league.matches[0].scenes.length - preloadedUrls.length
-    const nullArray = Array(preloadedCounts).fill(null)
-
-    setPreloadedVideos(nullArray.fill(null).concat(preloadedUrls))
-    setInit(false)
-  }
+  const stingerRef = useRef(null)
+  const TIME = 90
+  const DELAY = 15
 
   useEffect(() => {
-    if (progress === 1 || progress || 2) {
-      setScenes(
-        tv.event.league.matches[0].scenes
-          .slice(progress !== 2 ? 0 : calculatePeriod(liveTimer, DELAY), tv.event.league.matches[0].scenes.length)
-          .map(el => el.video) || null,
-      )
-
-      // console.log(scenes)
-
-      if (init && scenes) {
-        loadVideos()
-        setInit(false)
-      }
-    }
-
     if (progress === 2) {
       setPeriod(calculatePeriod(liveTimer, DELAY))
     }
-  }, [tv.event.id, init, DELAY, liveTimer])
+  }, [tv.event.id, liveTimer])
+
+  useEffect(() => {
+    if (progress === 1) {
+      dispatch(setVideo(tv.event.league.matches[0].scenes.map(el => el.video) || null))
+    }
+
+    if(progress === 2) {
+      if(init) {
+        setInit(false)
+
+        if(liveTimer !== 0) {
+          dispatch(setVideo(tv.event.league.matches[0].scenes.slice(calculatePeriod(liveTimer, DELAY), tv.event.league.matches[0].scenes.length).map(el => el.video) || null))
+        }
+      }
+    }
+  }, [tv.event.id, progress, init, period, liveTimer, DELAY, dispatch])
 
   useEffect(() => {
     if (progress === 2 && (period + 1) * 15 === liveTimer && liveTimer !== TIME) {
@@ -79,9 +62,10 @@ const Translation = () => {
 
   useEffect(() => {
     return () => {
-      setInit(true)
+      console.log("clear")
+      dispatch(setVideo(null))
     }
-  }, [tv.event.id])
+  }, [])
 
   return (
     <div className={style.block}>
@@ -111,7 +95,7 @@ const Translation = () => {
         </>
       )}
 
-      <Video data={tv} preloadedVideos={preloadedVideos} period={period} time={liveTimer} />
+      <Video data={tv} period={period} time={liveTimer} />
     </div>
   )
 }

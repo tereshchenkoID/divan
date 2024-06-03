@@ -25,6 +25,7 @@ import progressReducer from './LIVE/reducers/progressReducer'
 import tvReducer from './LIVE/reducers/tvReducer'
 import historyReducer from './LIVE/reducers/historyReducer'
 import jackpotReducer from './LIVE/reducers/jackpotReducer'
+import videoReducer from './LIVE/reducers/videoReducer'
 
 const allReducer = combineReducers({
   auth: authReducer,
@@ -51,6 +52,7 @@ const allReducer = combineReducers({
   history: historyReducer,
   tv: tvReducer,
   jackpot: jackpotReducer,
+  video: videoReducer,
 })
 
 const composeEnhancers =
