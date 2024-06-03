@@ -28,16 +28,6 @@ const getValue = (data, key) => {
   return r.join(', ')
 }
 
-const defaultProps = (id, start, roundId) => {
-  return {
-    roundId: roundId,
-    id: id,
-    start: start,
-    stake: 100,
-    type: gameType.COLOR_COLOR,
-  }
-}
-
 const findExists = (data, betslip) => {
   const r = []
 
@@ -57,8 +47,8 @@ const findExists = (data, betslip) => {
 const TableChips = ({ events, repeat, random, data, setRepeat }) => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
-
   const { betslip } = useSelector(state => state.betslip)
+  const { settings } = useSelector(state => state.settings)
   const { delta } = useSelector(state => state.delta)
 
   const [colors, setColors] = useState([])
@@ -66,6 +56,16 @@ const TableChips = ({ events, repeat, random, data, setRepeat }) => {
   const [disabled, setDisabled] = useState(true)
   const [type, setType] = useState('')
   const [event, setEvent] = useState(repeat === 1 ? [data] : events)
+
+  const defaultProps = (id, start, roundId) => {
+    return {
+      roundId: roundId,
+      id: id,
+      start: start,
+      stake: settings.betslip.single.min,
+      type: gameType.COLOR_COLOR,
+    }
+  }
 
   useEffect(() => {
     if (colors.length > 0) {

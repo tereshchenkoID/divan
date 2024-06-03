@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { dogsColor, gameType } from 'constant/config'
 
 import { generateCircles } from 'helpers/generateCircles'
+import { convertFixed } from 'helpers/convertFixed'
 import { deleteBetslip, setBetslip } from 'store/HOME/actions/betslipAction'
 
 import classNames from 'classnames'
@@ -154,7 +155,7 @@ const ForecastTrincast = ({ data }) => {
                 }}
               >
                 <Number key={idx} color={idx} data={idx + 1} />
-                {el.b}
+                {convertFixed(el.b)}
               </div>
             </Fragment>
           ))}
@@ -172,7 +173,7 @@ const ForecastTrincast = ({ data }) => {
                   }}
                 >
                   <Number color={idx} data={idx + 1} />
-                  {el.b}
+                  {convertFixed(el.b)}
                 </div>
               ) : (
                 <div key={idx} className={classNames(style.cell, style.disabled)}>
@@ -195,7 +196,7 @@ const ForecastTrincast = ({ data }) => {
                   }}
                 >
                   <Number color={idx} data={idx + 1} />
-                  {el.b}
+                  {convertFixed(el.b)}
                 </div>
               ) : (
                 <div className={classNames(style.cell, style.disabled)}>

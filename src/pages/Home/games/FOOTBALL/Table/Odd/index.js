@@ -36,7 +36,7 @@ const Odd = ({ data, label = false }) => {
           market: data.market || 'OVER_UNDER',
           c: data.c,
           type: data.type,
-          stake: settings.betslip.single.default.toFixed(2),
+          stake: settings.betslip.single.min,
           teams: {
             home: data.home,
             away: data.away,

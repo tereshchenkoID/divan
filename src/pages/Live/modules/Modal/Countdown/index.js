@@ -37,7 +37,7 @@ const useCountdown = (onDone, initialSeconds) => {
 const Countdown = () => {
   const { t } = useTranslation()
   const { tv } = useSelector(state => state.tv)
-  const { seconds } = useCountdown(() => {}, 3)
+  const { seconds } = useCountdown(() => {}, 5)
 
   return (
     <div className={style.block}>

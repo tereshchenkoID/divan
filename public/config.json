@@ -1,6 +1,6 @@
 {
   "hostnames": {
-    "PROD": "https://api.oddsbit.io",
+    "PROD": "https://api.zoroplay.com",
     "WSS_PROD": null,
     "ASSETS": "https://virtual.zoroplay.com/img/resource"
   },

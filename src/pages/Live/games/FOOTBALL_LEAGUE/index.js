@@ -11,21 +11,16 @@ const Page = () => {
   const { tv } = useSelector(state => state.tv)
   const { game } = useSelector(state => state.game)
   const { progress } = useSelector(state => state.progress)
-  const { liveTimer } = useSelector(state => state.liveTimer)
   const { settings } = useSelector(state => state.settings)
 
   return (
     <div className={style.block}>
+      <div className={style.column}>{progress === 1 ? <Table data={tv.event} /> : <Live data={tv.event} />}</div>
       <div className={style.column}>
-        {progress === 1 ? (
-          <Table data={tv.event} />
-        ) : settings.account.mode === '1' && progress === 2 && liveTimer !== 0 ? (
-          <Translation game={game} />
-        ) : (
-          <Live data={tv.event} />
-        )}
+        <History />
       </div>
-      <div className={style.column}>{progress !== 2 && <History />}</div>
+
+      {settings.account.mode === '1' && <Translation game={game} />}
     </div>
   )
 }

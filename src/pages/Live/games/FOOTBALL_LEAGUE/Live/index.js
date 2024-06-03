@@ -35,8 +35,6 @@ const MARKETS = [
 const Live = ({ data }) => {
   const { liveTimer } = useSelector(state => state.liveTimer)
 
-  if (data.status === matchStatus.ANNOUNCEMENT) return
-
   return (
     <div className={style.block}>
       <div className={style.head}>

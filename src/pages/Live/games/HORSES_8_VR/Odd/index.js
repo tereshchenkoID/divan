@@ -15,7 +15,7 @@ const Odd = ({ data, view, text }) => {
         </span>
       )}
       {text && <span className={style.market}>{text}</span>}
-      <span>{data.b.toFixed(1)}</span>
+      <span>{data.b.toFixed(2)}</span>
     </div>
   )
 }

@@ -1,0 +1,13 @@
+@import 'scss/config';
+
+.block {
+  @include absolute-filled;
+
+  z-index: 0;
+
+  video {
+    @include size(100%);
+
+    display: block;
+  }
+}

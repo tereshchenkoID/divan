@@ -39,7 +39,7 @@ const Ticker = () => {
       <div className={style.wrapper}>
         <div className={style.info}>
           <div>
-            {t('interface.event')}: <strong>{data.league.league_id}</strong>
+            {t('interface.league')}: <strong>{data.league.league_id}</strong>
           </div>
           <div>|</div>
           <div>

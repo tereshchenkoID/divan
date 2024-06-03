@@ -47,7 +47,7 @@ const TicketModal = ({ id, action }) => {
         if (json.hasOwnProperty('stake')) {
           setData(json)
         } else {
-          dispatch(setNotification({ text: t('notification.ticket_not_found'), type: status.error }))
+          dispatch(setNotification({ text: t('notification.unable_cancel'), type: status.error }))
         }
       })
     }

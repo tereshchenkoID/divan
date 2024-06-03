@@ -3,7 +3,7 @@ export const getDifferentPeriod = (start, end, delta) => {
   const c = new Date().getTime() + delta
 
   let r = 0,
-    result = '90'
+    result = 90
 
   if (end > c) {
     r = new Date(end - c)

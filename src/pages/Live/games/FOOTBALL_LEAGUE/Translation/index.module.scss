@@ -1,12 +1,29 @@
 @import 'scss/config';
 
 .block {
+  position: fixed;
+  inset: 0;
+  z-index: $z-index-14;
+}
+
+.background {
+  @include absolute-filled;
+
+  background-color: var(--color-background);
+}
+
+.table,
+.info,
+.meta {
+  z-index: 1;
+}
+
+.wrapper {
   @include make-spacer(p, 2);
 
   display: grid;
   position: fixed;
-  inset: 0;
-  z-index: $z-index-14;
+  z-index: 1;
   grid-template-columns: 1fr rem(257px);
   flex-grow: 1;
   align-items: flex-start;
@@ -15,14 +32,8 @@
   text-transform: uppercase;
   overflow: hidden;
   color: var(--color-white);
-  background-color: var(--color-background);
   column-gap: rem(10px);
-}
-
-.table,
-.info,
-.meta {
-  z-index: 1;
+  inset: 0;
 }
 
 .table {
@@ -58,5 +69,5 @@
 }
 
 .decor {
-  z-index: 1;
+  z-index: 2;
 }

@@ -38,21 +38,21 @@ const Main = ({ data }) => {
         <div>
           {data.race.odds.markets[0].outcomes.map((el, idx) => (
             <div key={idx} className={classNames(style.cell, style.center)}>
-              {el.b.toFixed(1)}
+              {el.b.toFixed(2)}
             </div>
           ))}
         </div>
         <div>
           {data.race.odds.markets[1].outcomes.map((el, idx) => (
             <div key={idx} className={classNames(style.cell, style.center)}>
-              {el.b.toFixed(1)}
+              {el.b.toFixed(2)}
             </div>
           ))}
         </div>
         <div>
           {data.race.odds.markets[2].outcomes.map((el, idx) => (
             <div key={idx} className={classNames(style.cell, style.center)}>
-              {el.b.toFixed(1)}
+              {el.b.toFixed(2)}
             </div>
           ))}
         </div>

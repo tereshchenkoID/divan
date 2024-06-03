@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { convertFixed } from 'helpers/convertFixed'
+
 import classNames from 'classnames'
 
 import Label from 'components/Label'
@@ -14,15 +16,15 @@ const findOutcomes = (data, outcomes) => {
     return a.a === r
   })
 
-  return f ? f.b : '1.0'
+  return f ? convertFixed(f.b) : '1.00'
 }
 
 const overUnder = (value, outcome) => {
-  return value > 3.5 ? outcome[0] : outcome[1]
+  return outcome[value > 3.5 ? 0 : 1]
 }
 
 const oddEven = (value, outcome) => {
-  return value % 2 === 0 ? outcome[0] : outcome[1]
+  return outcome[value % 2 === 0 ? 0 : 1]
 }
 
 const Results = ({ data }) => {
@@ -54,21 +56,21 @@ const Results = ({ data }) => {
               <div className={style.cell}>
                 {idx === 0
                   ? data.race.odds.markets[0].outcomes[el - 1]
-                    ? data.race.odds.markets[0].outcomes[el - 1].b
+                    ? convertFixed(data.race.odds.markets[0].outcomes[el - 1].b)
                     : '1.00'
                   : 'x'}
               </div>
               <div className={style.cell}>
                 {idx === 0 || idx === 1
                   ? data.race.odds.markets[1].outcomes[el - 1]
-                    ? data.race.odds.markets[1].outcomes[el - 1].b
+                    ? convertFixed(data.race.odds.markets[1].outcomes[el - 1].b)
                     : '1.00'
                   : 'x'}
               </div>
               <div className={style.cell}>
                 {idx === 0 || idx === 1 || idx === 2
                   ? data.race.odds.markets[2].outcomes[el - 1]
-                    ? data.race.odds.markets[2].outcomes[el - 1].b
+                    ? convertFixed(data.race.odds.markets[2].outcomes[el - 1].b)
                     : '1.00'
                   : 'x'}
               </div>
@@ -118,7 +120,9 @@ const Results = ({ data }) => {
         <div className={style.table}>
           <div className={classNames(style.row, style.alt)}>
             <div className={style.cell}>{overUnder(data.race.results[0], data.race.odds.markets[4].outcomes).a}</div>
-            <div className={style.cell}>{overUnder(data.race.results[0], data.race.odds.markets[4].outcomes).b}</div>
+            <div className={style.cell}>
+              {convertFixed(overUnder(data.race.results[0], data.race.odds.markets[4].outcomes).b)}
+            </div>
           </div>
         </div>
 
@@ -126,7 +130,7 @@ const Results = ({ data }) => {
         <div className={style.table}>
           <div className={classNames(style.row, style.alt)}>
             <div className={style.cell}>{oddEven(data.race.results[0], data.race.odds.markets[5].outcomes).a}</div>
-            <div className={style.cell}>{oddEven(data.race.results[0], data.race.odds.markets[5].outcomes).b}</div>
+            <div className={style.cell}>{convertFixed(oddEven(data.race.results[0], data.race.odds.markets[5].outcomes).b)}</div>
           </div>
         </div>
       </div>

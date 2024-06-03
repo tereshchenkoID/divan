@@ -25,7 +25,7 @@ const Table = ({ active }) => {
     let array = []
 
     while (array.length < length) {
-      let randomNumber = Math.floor(Math.random() * 80)
+      let randomNumber = Math.floor(Math.random() * 80) + 1
       if (!array.includes(randomNumber)) {
         array.push(randomNumber)
       }

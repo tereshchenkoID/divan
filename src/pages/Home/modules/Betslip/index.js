@@ -120,75 +120,56 @@ const Betslip = () => {
             a.e.push(s)
           }
         }
-
-        setMin(stake[0].type === 1 ? settings.betslip.system.min : settings.betslip.single.min)
-        setMax(stake[0].type === 1 ? settings.betslip.system.max : settings.betslip.single.max)
-
-        // if (isConnected) {
-        //   sendMessage({
-        //     cmd: `account/${getToken()}/placebet`,
-        //     payload: a,
-        //   })
-        //   sendMessage({
-        //     cmd: `account/${getToken()}/balance`,
-        //   })
-        // } else {
-        //   postData('/placebet', JSON.stringify(a)).then(json => {
-        //     if (json.hasOwnProperty('account')) {
-        //       if (settings.print.mode === printMode.WEB_PRINT && settings.print.payout) {
-        //         setResponse(json)
-        //       }
-        //
-        //       dispatch(setBalance())
-        //       dispatch(deleteBetslip([]))
-        //       dispatch(setStake([]))
-        //     } else {
-        //       dispatch(
-        //         setNotification({
-        //           text: t('notification.stake_lower_upper')
-        //             .replaceAll('${symbol}', settings.account.symbol)
-        //             .replace('${min}', min)
-        //             .replace('${max}', max),
-        //           type: status.error,
-        //         }),
-        //       )
-        //     }
-        //   })
-        // }
       }
 
-      console.log(a)
+      const minValue = stake[0].type === 1 ? settings.betslip.system.min : settings.betslip.single.min
+      const maxValue = stake[0].type === 1 ? settings.betslip.system.max : settings.betslip.single.max
 
-      if (isConnected) {
-        sendMessage({
-          cmd: `account/${getToken()}/placebet`,
-          payload: a,
-        })
-        sendMessage({
-          cmd: `account/${getToken()}/balance`,
-        })
+      setMin(minValue)
+      setMax(maxValue)
+
+      if (a.e.some(item => Number(item.g) < minValue || Number(item.g) > maxValue)) {
+        dispatch(
+          setNotification({
+            text: t('notification.stake_lower_upper')
+              .replaceAll('${symbol}', settings.account.symbol)
+              .replace('${min}', minValue)
+              .replace('${max}', maxValue),
+            type: status.error,
+          }),
+        )
       } else {
-        postData('/placebet', JSON.stringify(a)).then(json => {
-          if (json.hasOwnProperty('account')) {
-            if (settings.print.mode === printMode.WEB_PRINT && settings.print.payout) {
-              setResponse(json)
-            }
+        if (isConnected) {
+          sendMessage({
+            cmd: `account/${getToken()}/placebet`,
+            payload: a,
+          })
+          sendMessage({
+            cmd: `account/${getToken()}/balance`,
+          })
+        } else {
+          postData('/placebet', JSON.stringify(a)).then(json => {
+            if (json.hasOwnProperty('account')) {
+              if (settings.print.mode === printMode.WEB_PRINT && settings.print.payout) {
+                setResponse(json)
+              }
 
-            dispatch(setBalance())
-            dispatch(deleteBetslip([]))
-            dispatch(setStake([]))
-          } else {
-            dispatch(
-              setNotification({
-                text: t('notification.stake_lower_upper')
-                  .replaceAll('${symbol}', settings.account.symbol)
-                  .replace('${min}', min)
-                  .replace('${max}', max),
-                type: status.error,
-              }),
-            )
-          }
-        })
+              dispatch(setBalance())
+              dispatch(deleteBetslip([]))
+              dispatch(setStake([]))
+            } else {
+              dispatch(
+                setNotification({
+                  text: t('notification.stake_lower_upper')
+                    .replaceAll('${symbol}', settings.account.symbol)
+                    .replace('${min}', min)
+                    .replace('${max}', max),
+                  type: status.error,
+                }),
+              )
+            }
+          })
+        }
       }
     } else {
       dispatch(setNotification({ text: t('notification.please_pick_up_bet'), type: status.error }))
@@ -254,7 +235,7 @@ const Betslip = () => {
         max: max,
         minWin: min * st,
         maxWin: maxWin * st,
-        stake: st,
+        stake: 0,
       })
 
       return true

@@ -221,7 +221,7 @@ const Item = ({ data, timer }) => {
     const TIME = 90
     const DELAY = Math.ceil(TIME / scenes.length)
     const i = Math.ceil(parseInt(timer, 10) / DELAY) - 1
-    const f = scenes[i]
+    const f = scenes[i < 0 ? 0 : i]
 
     if (f) {
       setScore([f.home, f.away])
@@ -233,19 +233,19 @@ const Item = ({ data, timer }) => {
 
   useEffect(() => {
     if (init) {
+      if (progress === 2) {
+        initScene(data.scenes, timer)
+      }
+
       if (progress === 3) {
         setScore([data.results[0].home, data.results[0].away])
         filterMarket([data.results[0].home, data.results[0].away])
         setInit(false)
       }
-
-      if (progress === 2 && timer !== 0) {
-        initScene(data.scenes, timer)
-      }
     }
 
     if (!init) {
-      if (progress === 2 && timer !== 0) {
+      if (progress === 2) {
         updateScene(data.scenes, timer)
       }
 

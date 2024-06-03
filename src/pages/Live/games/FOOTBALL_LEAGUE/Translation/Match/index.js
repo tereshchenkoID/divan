@@ -6,19 +6,29 @@ import classNames from 'classnames'
 
 import style from './index.module.scss'
 
-const Match = ({ index, data, timer }) => {
+const Match = ({ index, data, timer, period }) => {
   const [score, setScore] = useState([0, 0])
   const [active, setActive] = useState(false)
+  const [init, setInit] = useState(false)
 
-  const initScene = (scenes, timer) => {
-    const TIME = 90
-    const DELAY = Math.ceil(TIME / scenes.length)
-    const i = timer > DELAY ? Math.ceil(Number(timer) / DELAY) - 1 : 0
-    const f = scenes[i]
+  const initScene = (scene, timer) => {
+    if (!init) {
+      // if (!scene.update || scene.update < timer) {
+      //   setScore([scene.home, scene.away])
+      // }
 
-    if (f.update === timer) {
+      // if (scene.update > timer) {
+      //   setScore([data.scenes[Math.max(period - 1, 0)].home, data.scenes[Math.max(period - 1, 0)].away])
+      // } else {
+      setScore([scene.home, scene.away])
+      // }
+
+      setInit(true)
+    }
+
+    if (scene.update === timer) {
       setActive(true)
-      setScore([f.home, f.away])
+      setScore([scene.home, scene.away])
 
       setTimeout(() => {
         setActive(false)
@@ -27,8 +37,10 @@ const Match = ({ index, data, timer }) => {
   }
 
   useEffect(() => {
-    data && data.scenes && timer !== 0 && initScene(data.scenes, timer)
-  }, [timer])
+    if (data?.scenes && timer !== 0) {
+      initScene(data.scenes[period], timer)
+    }
+  }, [data.scenes, timer, period])
 
   return (
     <div className={classNames(style.block, active && style.active)}>

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { getHostName } from 'helpers/getHostName'
@@ -7,49 +7,35 @@ import classNames from 'classnames'
 
 import style from './index.module.scss'
 
-const Scoreboard = ({ data, timer, setVideo, stingerRef, setInit }) => {
+const Scoreboard = ({ data, timer, period }) => {
   const { t } = useTranslation()
   const [score, setScore] = useState([0, 0])
-  const TIME = 90
-  const DELAY = useMemo(() => Math.ceil(TIME / (data?.scenes.length || 1)), [data])
+  const [init, setInit] = useState(false)
 
-  const initScene = (scenes, timer) => {
-    // const DELAY = Math.ceil(TIME / scenes.length)
-    const i = timer > DELAY ? Math.ceil(Number(timer) / DELAY) - 1 : 0
-    const f = scenes[i]
-    const period = (i + 1) * DELAY
+  const initScene = (scene, timer) => {
+    if (!init) {
+      // if (!scene.update || scene.update < timer) {
+      // }
 
-    if (f.update === timer) {
-      setScore([f.home, f.away])
+      // if (scene.update > timer) {
+      //   setScore([data.scenes[period - 1].home, data.scenes[period - 1].away])
+      // } else {
+      setScore([scene.home, scene.away])
+      // }
+
+      setInit(true)
     }
 
-    if (timer === period && timer !== TIME) {
-      stingerRef.current.play()
-
-      setVideo(f.video)
-      setInit(timer - i * 15)
+    if (scene.update === timer) {
+      setScore([scene.home, scene.away])
     }
   }
 
   useEffect(() => {
-    if (data?.scenes) {
-      console.log(timer)
-      const i = timer > DELAY ? Math.ceil(Number(timer) / DELAY) - 1 : 0
-      const f = data.scenes[i]
-      setVideo(f.video)
-      setInit(timer - i * 15)
-    }
-  }, [data.scenes])
-
-  useEffect(() => {
     if (data?.scenes && timer !== 0) {
-      initScene(data.scenes, timer)
+      initScene(data.scenes[period], timer)
     }
-
-    if (timer === 90) {
-      setVideo(null)
-    }
-  }, [data.scenes, timer, setVideo])
+  }, [data.scenes, timer, period])
 
   return (
     <div className={style.block}>

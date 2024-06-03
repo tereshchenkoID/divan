@@ -43,7 +43,7 @@ const Timer = ({ timer, initTime }) => {
         const [hours, minutes, seconds, milliseconds] = time.map(Number)
         const r = ((hours * 60 + minutes) * 60 + seconds) * 1000 + milliseconds
 
-        if (r !== 0 && r <= 3) {
+        if (r !== 0 && r <= 5) {
           dispatch(setModal(1))
         }
       }
@@ -54,17 +54,17 @@ const Timer = ({ timer, initTime }) => {
         dispatch(setTv(`${game.type}/${game.id}`))
           .then(json => {
             if (progress === 1 && json.event.status === matchStatus.PROGRESS) {
-              initTime(json.event, 2)
+              initTime(json.event)
               dispatch(setProgress(2))
               dispatch(setModal(0))
             }
             if (progress === 2 && json.event.status === matchStatus.RESULTS) {
-              initTime(json.event, 2)
+              initTime(json.event)
               dispatch(setProgress(3))
               dispatch(setLiveTimer(0))
             }
             if (progress === 3 && json.event.status === matchStatus.ANNOUNCEMENT) {
-              initTime(json.event, 2)
+              initTime(json.event)
               dispatch(setProgress(1))
             }
             setIsRequesting(false)
@@ -78,8 +78,10 @@ const Timer = ({ timer, initTime }) => {
   }, [dispatch, progress, game, tv, delta, timer])
 
   useEffect(() => {
-    let r = checkType(tv.event.start, tv.event.nextUpdate, delta, game.type)
-    dispatch(setLiveTimer(r))
+    if (progress === 2) {
+      let r = checkType(tv.event.start, tv.event.nextUpdate, delta, game.type)
+      dispatch(setLiveTimer(r))
+    }
   }, [dispatch, delta, game, timer, tv])
 
   if (!progress) {

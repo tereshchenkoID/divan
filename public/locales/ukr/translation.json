@@ -8,6 +8,7 @@
     "saved": "Saved UA",
     "something_wrong": "Something wrong UA",
     "ticket_not_found": "Ticket not found UA",
+    "unable_cancel": "Unable to cancel ticket UA",
     "please_pick_up_bet": "Please pick up a bet to start UA",
     "stake_already_exists": "Stake already exists UA",
     "stake_lower_upper": "Stake per bet is lower than minimum ${symbol} ${min} or upper than maximum ${symbol} ${max} UA",

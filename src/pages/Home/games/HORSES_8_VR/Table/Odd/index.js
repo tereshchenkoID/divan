@@ -20,6 +20,7 @@ const findBet = (data, id) => {
 const Odd = ({ market, start, data, view, text, roundId }) => {
   const dispatch = useDispatch()
   const { betslip } = useSelector(state => state.betslip)
+  const { settings } = useSelector(state => state.settings)
 
   const addStake = () => {
     const a = betslip.slice(0)
@@ -38,7 +39,7 @@ const Odd = ({ market, start, data, view, text, roundId }) => {
           print: text ? `${market}: ${data.a}` : market,
           m_old: market,
           o_old: data.a,
-          stake: 100,
+          stake: settings.betslip.single.min,
           circles: text ? [] : generateCircles(data.a, horseColor),
           type: gameType.HORSES_8_VR,
         }),
@@ -61,7 +62,7 @@ const Odd = ({ market, start, data, view, text, roundId }) => {
         </span>
       )}
       {text && <span className={style.market}>{text}</span>}
-      <span>{data.b.toFixed(1)}</span>
+      <span>{data.b.toFixed(2)}</span>
     </button>
   )
 }

@@ -1,3 +1,5 @@
+import betslip from '../pages/Home/modules/Betslip'
+
 const getAccumulatorPrices = priceArray => {
   let result = 1
 

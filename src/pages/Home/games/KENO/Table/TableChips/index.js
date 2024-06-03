@@ -32,6 +32,7 @@ const findExists = (data, betslip) => {
 const TableChips = ({ events, repeat, random, data, setRepeat }) => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
+  const { settings } = useSelector(state => state.settings)
   const { betslip } = useSelector(state => state.betslip)
   const { delta } = useSelector(state => state.delta)
 
@@ -73,7 +74,7 @@ const TableChips = ({ events, repeat, random, data, setRepeat }) => {
           market: round.round.odds.markets[0].name,
           circles: numbers,
           print: round.round.odds.markets[0].printname,
-          stake: 100,
+          stake: settings.betslip.single.min,
           type: gameType.KENO,
         })
       }

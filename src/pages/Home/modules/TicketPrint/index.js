@@ -109,7 +109,8 @@ export const TicketPrint = React.forwardRef((data, ref) => {
             <div className={style.wrapper}>
               <div>{getDateTime(el.details.start, 0)}</div>
               <div>
-                {el.market.replaceAll('_', ' ')} : {el.selection.replaceAll('_', ' ')}
+                {el.details.game !== gameType.KENO && `${el.market.replaceAll('_', ' ')} `}
+                {el.selection.replaceAll('_', ' ')}
               </div>
               <div className={style.odd}>{el.odds}</div>
             </div>
@@ -128,8 +129,12 @@ export const TicketPrint = React.forwardRef((data, ref) => {
             {t('interface.min')}/{t('interface.max')} {t('interface.win')}:{' '}
           </div>
           <div>
-            {settings.account.symbol} {data.data.stake.minwin ? data.data.stake.minwin.toFixed(2) : 0} / {settings.account.symbol}{' '}
-            {data.data.stake.maxwin ? data.data.stake.maxwin.toFixed(2) : 0}
+            <div>
+              {settings.account.symbol} {data.data.stake.minwin ? data.data.stake.minwin.toFixed(2) : 0}
+            </div>
+            <div>
+              {settings.account.symbol} {data.data.stake.maxwin ? data.data.stake.maxwin.toFixed(2) : 0}
+            </div>
           </div>
         </li>
       </ul>
