@@ -1,7 +1,9 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 
 import style from './index.module.scss'
+
+import { preloadVideo } from 'helpers/preloadVideo'
 
 const getDifferent = (start, end, delta) => {
   const s = end - start + delta
@@ -17,24 +19,34 @@ const getDifferent = (start, end, delta) => {
 }
 
 const Translation = ({ data }) => {
-  const video = data.event.race.scenes[0].video
   const { delta } = useSelector(state => state.delta)
+  const [video, setVideo] = useState(null)
   const videoRef = useRef(null)
 
+  const loadVideo = async () => {
+    setVideo(await preloadVideo(data.event.race.scenes[0].video))
+  }
+
   useEffect(() => {
-    const { current: videoElement } = videoRef
+    loadVideo()
+  }, [])
 
-    if (videoElement) {
-      videoElement.currentTime = getDifferent(data.event.start, data.event.nextUpdate, delta)
-      videoElement.play()
+  useEffect(() => {
+    if (video && videoRef.current) {
+      console.log(video)
+      videoRef.current.src = video
+      videoRef.current.load()
+      videoRef.current.currentTime = getDifferent(data.event.start, data.event.nextUpdate, delta)
+
+      videoRef.current.play().catch(error => {
+        console.error('Error playing video:', error)
+      })
     }
-  }, [videoRef])
-
-  if (!video) return false
+  }, [video])
 
   return (
     <div className={style.block}>
-      <video className={style.video} src={video} ref={videoRef} muted />
+      <video className={style.video} ref={videoRef} muted />
     </div>
   )
 }

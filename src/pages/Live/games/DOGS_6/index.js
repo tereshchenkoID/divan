@@ -9,11 +9,10 @@ const Table = () => {
   const { tv } = useSelector(state => state.tv)
   const { progress } = useSelector(state => state.progress)
   const { settings } = useSelector(state => state.settings)
-  const { liveTimer } = useSelector(state => state.liveTimer)
 
   return (
     <>
-      {settings.account.mode === '1' && progress === 2 && liveTimer !== 0 && <Translation data={tv} />}
+      {settings.account.mode === '1' && progress === 2 && <Translation data={tv} />}
       {progress === 1 && <Markets data={tv.event} />}
       {progress === 2 && <Live />}
       {progress === 3 && <Results data={tv.event} />}

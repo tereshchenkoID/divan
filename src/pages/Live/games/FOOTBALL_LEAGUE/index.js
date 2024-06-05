@@ -1,4 +1,4 @@
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import Translation from './Translation'
 import History from './History'
@@ -8,6 +8,7 @@ import Table from './Table'
 import style from './index.module.scss'
 
 const Page = () => {
+  const dispatch = useDispatch()
   const { tv } = useSelector(state => state.tv)
   const { game } = useSelector(state => state.game)
   const { progress } = useSelector(state => state.progress)

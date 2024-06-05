@@ -1,7 +1,8 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useEffect, useRef, useState } from 'react'
+import { useSelector } from 'react-redux'
 
-import { setVideo } from 'store/LIVE/actions/videoAction'
+import { preloadVideo } from 'helpers/preloadVideo'
+import { calculatePeriod } from 'helpers/calculatePeriod'
 
 import Scoreboard from './Scoreboard'
 import Timer from './Timer'
@@ -11,42 +12,31 @@ import Video from './Video'
 
 import style from './index.module.scss'
 
-const calculatePeriod = (timer, delay) => (timer > delay ? Math.ceil(Number(timer) / delay) - 1 : 0)
-
 const Translation = () => {
-  const dispatch = useDispatch()
   const { tv } = useSelector(state => state.tv)
   const { settings } = useSelector(state => state.settings)
   const { progress } = useSelector(state => state.progress)
   const { liveTimer } = useSelector(state => state.liveTimer)
   const [period, setPeriod] = useState(null)
-  const [init, setInit] = useState(true)
+  const [stinger, setStinger] = useState()
 
   const stingerRef = useRef(null)
   const TIME = 90
   const DELAY = 15
+
+  const loadVideo = async () => {
+    setStinger(await preloadVideo(settings.account.transition))
+  }
+
+  useEffect(() => {
+    loadVideo()
+  }, [])
 
   useEffect(() => {
     if (progress === 2) {
       setPeriod(calculatePeriod(liveTimer, DELAY))
     }
   }, [tv.event.id, liveTimer])
-
-  useEffect(() => {
-    if (progress === 1) {
-      dispatch(setVideo(tv.event.league.matches[0].scenes.map(el => el.video) || null))
-    }
-
-    if(progress === 2) {
-      if(init) {
-        setInit(false)
-
-        if(liveTimer !== 0) {
-          dispatch(setVideo(tv.event.league.matches[0].scenes.slice(calculatePeriod(liveTimer, DELAY), tv.event.league.matches[0].scenes.length).map(el => el.video) || null))
-        }
-      }
-    }
-  }, [tv.event.id, progress, init, period, liveTimer, DELAY, dispatch])
 
   useEffect(() => {
     if (progress === 2 && (period + 1) * 15 === liveTimer && liveTimer !== TIME) {
@@ -60,19 +50,11 @@ const Translation = () => {
     }
   }, [progress])
 
-  useEffect(() => {
-    return () => {
-      console.log("clear")
-      dispatch(setVideo(null))
-    }
-  }, [])
-
   return (
     <div className={style.block}>
-      <video className={style.decor} src={settings.account.transition} ref={stingerRef} muted />
-
       {progress === 2 && (
         <>
+          <video className={style.decor} src={stinger} ref={stingerRef} muted />
           <div className={style.background} />
           {period !== null && (
             <div className={style.wrapper}>
