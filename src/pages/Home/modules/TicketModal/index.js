@@ -303,7 +303,7 @@ const TicketModal = ({ id, action }) => {
                                 <div className={style.cell}>
                                   {settings.account.symbol} {el.amount}
                                 </div>
-                                <div className={style.cell}>{el.win && `${settings.account.symbol} ${data.stake.win || 0}`}</div>
+                                <div className={style.cell}>{el.win && `${settings.account.symbol} ${el.win || 0}`}</div>
                               </>
                             ) : (
                               <>

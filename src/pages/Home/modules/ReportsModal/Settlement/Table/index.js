@@ -20,7 +20,13 @@ const Table = ({ data }) => {
       <div className={style.row}>
         <div className={style.cell}>{t('interface.last_settlement')}</div>
         <div className={style.cell}>
-          #{data.Last_Number} ({getDateTime(data.Last_Date, 1)})
+          {
+            data.Last_Number
+              ?
+              <>#{data.Last_Number} ({getDateTime(data.Last_Date, 1)})</>
+              :
+              <>-</>
+          }
         </div>
       </div>
       <div className={style.row}>

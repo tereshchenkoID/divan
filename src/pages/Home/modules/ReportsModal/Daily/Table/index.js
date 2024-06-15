@@ -1,4 +1,5 @@
 import { useSelector } from 'react-redux'
+import { useTranslation } from 'react-i18next'
 
 import { convertFixed } from 'helpers/convertFixed'
 import { getDateTime } from 'helpers/getDateTime'
@@ -6,7 +7,6 @@ import { getDateTime } from 'helpers/getDateTime'
 import classNames from 'classnames'
 
 import style from './index.module.scss'
-import { useTranslation } from 'react-i18next'
 
 const sumField = (data, field) => {
   if (data.data) return data.data.reduce((sum, item) => sum + Number(item[field]), 0)
@@ -46,50 +46,7 @@ const profitPercent = (el, data) => {
 }
 
 const Table = ({ data }) => {
-  // const data = {
-  //     Currency: 'USD',
-  //     Symbol: '$',
-  //     data: [
-  //         {
-  //             Date: 1688234400000,
-  //             Profit: -20746.74,
-  //             Tickets: 554
-  //         },
-  //         {
-  //             Date: 1688234400000,
-  //             Profit: 131840.53,
-  //             Tickets: 762
-  //         },
-  //         {
-  //             Date: 1688234400000,
-  //             Profit: 61593.42,
-  //             Tickets: 597
-  //         },
-  //         {
-  //             Date: 1688234400000,
-  //             Profit: 12315.49,
-  //             Tickets: 506
-  //         },
-  //         {
-  //             Date: 1688234400000,
-  //             Profit: 34522.61,
-  //             Tickets: 94
-  //         },
-  //         {
-  //             Date: 1688234400000,
-  //             Profit: 31649.70,
-  //             Tickets: 315
-  //         },
-  //         {
-  //             Date: 1688234400000,
-  //             Profit: 35979.12,
-  //             Tickets: 158
-  //         }
-  //     ]
-  // }
-
   const { t } = useTranslation()
-
   const { balance } = useSelector(state => state.balance)
   const currency = data.Symbol || balance.account.symbol
   const tickets = findMinMax(data, 'Tickets')
@@ -102,8 +59,8 @@ const Table = ({ data }) => {
         <div className={style.cell}>{t('interface.tickets_count')}</div>
         <div className={style.cell}>{t('interface.profit')}</div>
       </div>
-      {data.data &&
-        data.data.map((el, idx) => (
+      {
+        data.data?.map((el, idx) => (
           <div key={idx} className={style.row}>
             <div className={style.cell}>{getDateTime(el.Date, 2)}</div>
             <div className={style.cell}>

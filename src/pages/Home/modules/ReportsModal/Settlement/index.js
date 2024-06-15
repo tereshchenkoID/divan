@@ -91,7 +91,14 @@ const Settlement = () => {
   }
 
   const handlePrint = () => {
-    a()
+    const type = active === 'master' ? `${active}/${MD5(password).toString()}` : active
+
+    getData(`/settlement/${type}/print`).then(json => {
+      if (json) {
+        setData(json)
+        a()
+      }
+    })
   }
 
   const toggle = id => {

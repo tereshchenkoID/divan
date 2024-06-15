@@ -33,7 +33,13 @@ export const StatsPrint = React.forwardRef((data, ref) => {
         <li>
           <div>{t('interface.previous')}:</div>
           <div>
-            #{data.data.Last_Number} ({getDateTime(data.data.Last_Date, 1)})
+            {
+              data.data.Last_Number
+                ?
+                <>#{data.Last_Number} ({getDateTime(data.data.Last_Date, 1)})</>
+                :
+                <>-</>
+            }
           </div>
         </li>
         <li>

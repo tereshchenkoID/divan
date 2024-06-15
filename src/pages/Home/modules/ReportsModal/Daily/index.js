@@ -124,6 +124,7 @@ const Daily = () => {
         <div className={style.left}>
           {SORT.map((el, idx) => (
             <Button
+              key={idx}
               props={'button'}
               text={el}
               initial={[style.button]}
