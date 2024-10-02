@@ -18,7 +18,8 @@
     "place_your_bets": "Place your bets UA",
     "bets_close_in": "Bets close in UA",
     "no_connection": "No connection UA",
-    "check_connection": "Please check your Internet connection and try again UA"
+    "check_connection": "Please check your Internet connection and try again UA",
+    "no_money": "Insufficient balance UA"
   },
   "interface": {
     "copy": "Copy UA",
@@ -114,6 +115,8 @@
     "total": "Total",
     "tickets_count": "Tickets count UA",
     "date": "Date UA",
+    "payout_date": "Payout date UA",
+    "cancel_date": "Cancel date UA",
     "type": "Type UA",
     "previous": "Previous UA",
     "to": "To UA",
@@ -157,7 +160,8 @@
     "reset_numbers": "Reset numbers UA",
     "random": "Random UA",
     "on_trend": "On trend UA",
-    "against_trend": "Against trend UA"
+    "against_trend": "Against trend UA",
+    "goal": "Goal UA"
   },
   "games": {
     "FOOTBALL_LEAGUE": {

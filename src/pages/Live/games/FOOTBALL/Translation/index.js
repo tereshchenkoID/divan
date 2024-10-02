@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux'
 
 import Scoreboard from './Scoreboard'
 import Timer from './Timer'
-import Match from './Match'
 import Meta from './Meta'
 
 import style from './index.module.scss'
@@ -37,11 +36,6 @@ const Translation = () => {
           <Scoreboard data={tv.event.league.matches[0]} timer={liveTimer} setVideo={setVideo} stingerRef={stingerRef} />
           <Timer timer={liveTimer} />
         </div>
-      </div>
-      <div className={style.table}>
-        {tv.event.league.matches.map((item, index) => (
-          <Match key={index} index={index} data={item} timer={liveTimer} />
-        ))}
       </div>
       <div className={style.meta}>
         <Meta data={tv} />

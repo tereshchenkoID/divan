@@ -26,8 +26,7 @@ const Video = ({ data, period, time }) => {
   const videoRef = useRef(null)
 
   const loadVideos = async () => {
-    const countFrom =
-      data.event.status === matchStatus.PROGRESS ? getDifferentPeriod(data.event.start, data.event.nextUpdate, delta) : 0
+    const countFrom = data.event.status === matchStatus.PROGRESS ? getDifferentPeriod(data.event.start, data.event.nextUpdate, delta) : 0
     const preloadedUrls = await preloadVideos(video.slice(calculatePeriod(countFrom, 15), video.length))
     const preloadedCounts = data.event.league.matches[0].scenes.length - preloadedUrls.length
     const nullArray = Array(preloadedCounts).fill(null)

@@ -25,6 +25,7 @@ import { checkCmd } from 'helpers/checkCmd'
 import { getToken } from 'helpers/getToken'
 import { getData, postData } from 'helpers/api'
 
+import { TicketPrint } from 'pages/Home/modules/TicketPrint'
 import TicketModal from 'pages/Home/modules/TicketModal'
 import Icon from 'components/Icon'
 import Button from 'components/Button'
@@ -33,7 +34,6 @@ import Stakes from './Stakes'
 import Bets from './Bets'
 import Types from './Types'
 import Forecast from './Forecast'
-import { TicketPrint } from 'pages/Home/modules/TicketPrint'
 
 import style from './index.module.scss'
 
@@ -76,6 +76,7 @@ const Betslip = () => {
         a.d.push({
           b: 2,
           a: forecast.stake,
+          g: forecast.stake
         })
         for (let i = 0; i < forecast.data.length; i++) {
           a.e.push({
@@ -86,7 +87,8 @@ const Betslip = () => {
             outcomes: forecast.data[i].outcomes,
           })
         }
-      } else {
+      } 
+      else {
         let type = 0
 
         for (let i = 0; i < stake.length; i++) {
@@ -122,13 +124,21 @@ const Betslip = () => {
         }
       }
 
-      const minValue = stake[0].type === 1 ? settings.betslip.system.min : settings.betslip.single.min
-      const maxValue = stake[0].type === 1 ? settings.betslip.system.max : settings.betslip.single.max
+      const minValue = stake[0]?.type === 1 ? settings.betslip.system.min : settings.betslip.single.min
+      const maxValue = stake[0]?.type === 1 ? settings.betslip.system.max : settings.betslip.single.max
 
       setMin(minValue)
       setMax(maxValue)
 
-      if (a.e.some(item => Number(item.g) < minValue || Number(item.g) > maxValue)) {
+      if(getTotalStakeSingle(stake) > balance.account.balance) {
+        dispatch(
+          setNotification({
+            text: t('notification.no_money'),
+            type: status.error,
+          }),
+        )
+      }
+      else if ((isEmpty ? a.d : a.e).some(item => Number(item.g) < minValue || Number(item.g) > maxValue)) {
         dispatch(
           setNotification({
             text: t('notification.stake_lower_upper')
@@ -138,7 +148,8 @@ const Betslip = () => {
             type: status.error,
           }),
         )
-      } else {
+      } 
+      else {
         if (isConnected) {
           sendMessage({
             cmd: `account/${getToken()}/placebet`,
@@ -153,6 +164,9 @@ const Betslip = () => {
               if (settings.print.mode === printMode.WEB_PRINT && settings.print.payout) {
                 setResponse(json)
               }
+              if (settings.print.mode === printMode.POS) {
+                window.printTicket(JSON.stringify(json), 1)
+              }
 
               dispatch(setBalance())
               dispatch(deleteBetslip([]))
@@ -160,10 +174,7 @@ const Betslip = () => {
             } else {
               dispatch(
                 setNotification({
-                  text: t('notification.stake_lower_upper')
-                    .replaceAll('${symbol}', settings.account.symbol)
-                    .replace('${min}', min)
-                    .replace('${max}', max),
+                  text: json.error_message,
                   type: status.error,
                 }),
               )
@@ -177,23 +188,28 @@ const Betslip = () => {
   }
 
   const repeatPrint = () => {
-    if (isConnected) {
-      sendMessage({
-        cmd: `account/${getToken()}/reprint`,
-      })
-    } else {
-      getData(`/reprint`).then(json => {
-        if (json.hasOwnProperty('stake')) {
-          if (settings.print.mode === printMode.WEB_PRINT && settings.print.payout) {
-            setResponse({
-              ...json,
-              reprint: true,
-            })
+    if(settings.print.mode !== printMode.DISABLED) {
+      if (isConnected) {
+        sendMessage({
+          cmd: `account/${getToken()}/reprint`,
+        })
+      } else {
+        getData(`/reprint`).then(json => {
+          if (json.hasOwnProperty('stake')) {
+            if (settings.print.mode === printMode.WEB_PRINT && settings.print.payout) {
+              setResponse({
+                ...json,
+                reprint: true,
+              })
+            }
+            else {
+              window.printTicket(JSON.stringify(json), 2)
+            }
+          } else {
+            dispatch(setNotification({ text: t('notification.ticket_not_found'), type: status.error }))
           }
-        } else {
-          dispatch(setNotification({ text: t('notification.ticket_not_found'), type: status.error }))
-        }
-      })
+        })
+      }
     }
   }
 
@@ -321,13 +337,20 @@ const Betslip = () => {
         if (settings.print.mode === printMode.WEB_PRINT && settings.print.payout) {
           setResponse(receivedMessage)
         }
+        if (settings.print.mode === printMode.POS) {
+          window.printTicket(JSON.stringify(receivedMessage), 2)
+        }
       } else {
         dispatch(setNotification({ text: t('notification.ticket_not_found'), type: status.error }))
       }
-    } else if (receivedMessage !== '' && checkCmd('placebet', receivedMessage.cmd)) {
+    } 
+    else if (receivedMessage !== '' && checkCmd('placebet', receivedMessage.cmd)) {
       if (!receivedMessage.data) {
         if (settings.print.mode === printMode.WEB_PRINT && settings.print.payout) {
           setResponse(receivedMessage)
+        }
+        if (settings.print.mode === printMode.POS) {
+          window.printTicket(JSON.stringify(receivedMessage), 1)
         }
 
         dispatch(deleteBetslip([]))

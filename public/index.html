@@ -4,7 +4,6 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-<!--    <meta name="viewport" content="width=1366, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">-->
     <meta name="format-detection" content="telephone=no" />
     <meta name="theme-color" content="#2e4565" />
     <meta name="description" content="Divan" />
@@ -13,9 +12,24 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Libre&family=Open+Sans:wght@400;700;800&display=swap" rel="stylesheet">
     <title>Cashier</title>
+
+    <script>
+      window.printAction = () => {
+        alert("Print action")
+      }
+
+      window.scanBarcode = () => {
+        alert("Scan barcode")
+      }
+
+      window.printTicket = () => {
+        alert("Print ticket")
+      }
+    </script>
   </head>
   <body style="width: 100vw; height: 100dvh; overflow: hidden">
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
+    <script src="bundle.js"></script>
   </body>
 </html>

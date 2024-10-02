@@ -1,10 +1,11 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
+import { useReactToPrint } from 'react-to-print'
 
 import classNames from 'classnames'
 
-import { gameType, status } from 'constant/config'
+import { gameType, status, printMode } from 'constant/config'
 
 import useSocket from 'hooks/useSocket'
 
@@ -17,6 +18,7 @@ import { getToken } from 'helpers/getToken'
 
 import { setNotification } from 'store/HOME/actions/notificationAction'
 
+import { TicketPrint } from './TicketPrint'
 import Loader from 'components/Loader'
 import Icon from 'components/Icon'
 import Button from 'components/Button'
@@ -36,6 +38,13 @@ const TicketModal = ({ id, action }) => {
   const [step, setStep] = useState(id ? 1 : 0)
   const [loading, setLoading] = useState(true)
   const [type, setType] = useState(0)
+  const [response, setResponse] = useState(null)
+
+  const componentRef = useRef()
+
+  const a = useReactToPrint({
+    content: () => componentRef.current,
+  })
 
   const sendAction = action => {
     if (isConnected) {
@@ -46,6 +55,15 @@ const TicketModal = ({ id, action }) => {
       getData(`/${action}/${find}`).then(json => {
         if (json.hasOwnProperty('stake')) {
           setData(json)
+          if (settings.print.mode === printMode.POS && settings.print[action]) {
+            window.printTicket(JSON.stringify(json), action === 'payout' ? 3 : 4)
+          }
+          if (settings.print.mode === printMode.WEB_PRINT && settings.print[action]) {
+            setResponse({
+              action: action,
+              data: json
+            })
+          }
         } else {
           dispatch(setNotification({ text: t('notification.unable_cancel'), type: status.error }))
         }
@@ -96,24 +114,37 @@ const TicketModal = ({ id, action }) => {
             setLoading(false)
           }
         }
-        // else {
-        //     dispatch(setNotification(t('notification.ticket_not_found')))
-        // }
       }
 
       if (checkCmd('payout', receivedMessage.cmd) || checkCmd('cancel', receivedMessage.cmd)) {
         if (receivedMessage.hasOwnProperty('stake')) {
           setData(receivedMessage)
+
+          if (settings.print.mode === printMode.POS && settings.print[action]) {
+            window.printTicket(JSON.stringify(receivedMessage), receivedMessage.cmd === 'payout' ? 3 : 4)
+          }
+          if (settings.print.mode === printMode.WEB_PRINT && settings.print[action]) {
+            setResponse({
+              action: action,
+              data: receivedMessage
+            })
+          }
         }
-        // else {
-        //     dispatch(setNotification(t('notification.ticket_not_found')))
-        // }
       }
     }
   }, [receivedMessage])
 
+  useEffect(() => {
+    response && a()
+  }, [response])
+
   return (
     <div className={style.block}>
+      {response && 
+        <div className={style.print}>
+          <TicketPrint data={response?.data} action={response?.action} ref={componentRef} />
+        </div>
+      }
       <div className={style.overflow}>
         <div className={style.content}>
           <div className={style.header}>

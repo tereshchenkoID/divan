@@ -18,7 +18,8 @@
     "place_your_bets": "Place your bets",
     "bets_close_in": "Bets close in",
     "no_connection": "No connection",
-    "check_connection": "Please check your Internet connection and try again"
+    "check_connection": "Please check your Internet connection and try again",
+    "no_money": "Insufficient balance"
   },
   "interface": {
     "copy": "Copy",
@@ -114,6 +115,8 @@
     "total": "Total",
     "tickets_count": "Tickets count",
     "date": "Date",
+    "payout_date": "Payout date",
+    "cancel_date": "Cancel date",
     "type": "Type",
     "previous": "Previous",
     "to": "To",
@@ -157,7 +160,8 @@
     "reset_numbers": "Reset numbers",
     "random": "Random",
     "on_trend": "On trend",
-    "against_trend": "Against trend"
+    "against_trend": "Against trend",
+    "goal": "Goal"
   },
   "games": {
     "FOOTBALL_LEAGUE": {

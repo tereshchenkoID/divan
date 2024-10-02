@@ -2,7 +2,8 @@
   "hostnames": {
     "PROD": "https://api.zoroplay.com",
     "WSS_PROD": null,
-    "ASSETS": "https://virtual.zoroplay.com/img/resource"
+    "ASSETS": "https://virtual.zoroplay.com/img/resource",
+    "VIDEO": "http://127.0.0.1:1331/wait"
   },
   "theme": "default"
 }

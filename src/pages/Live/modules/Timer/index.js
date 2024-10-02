@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 
 import { gameType, matchStatus } from 'constant/config'
 
+import { getHostName } from 'helpers/getHostName'
 import { convertTime } from 'helpers/convertTime'
 import { getDifferent } from 'helpers/getDifferent'
 import { getDifferentPeriod } from 'helpers/getDifferentPeriod'
@@ -66,6 +67,12 @@ const Timer = ({ timer, initTime }) => {
             if (progress === 3 && json.event.status === matchStatus.ANNOUNCEMENT) {
               initTime(json.event)
               dispatch(setProgress(1))
+              
+              fetch(`${getHostName('VIDEO')}?id=${json.event.id}`)
+                .then(response => response.json())
+                .then(config => {
+                  console.log(config)
+              })
             }
             setIsRequesting(false)
           })

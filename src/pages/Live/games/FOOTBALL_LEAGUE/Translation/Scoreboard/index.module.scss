@@ -4,7 +4,7 @@
   @include flex($direction: column);
   @include wrapper;
 
-  height: rem(95px);
+  height: rem(100px);
   background-color: var(--color-mine-shaft);
 }
 
@@ -19,7 +19,7 @@
 
   display: grid;
   grid-template-columns: rem(50px) 1fr rem(50px);
-  align-items: center;
+  align-items: flex-start;
   border-bottom: rem(1px) solid var(--color-border);
 }
 
@@ -31,12 +31,32 @@
 .scoreboard {
   display: grid;
   grid-template-columns: 1fr rem(40px) rem(20px) rem(40px) 1fr;
-  align-items: center;
 }
 
 .score {
   &.win {
     font-weight: var(--typography-bold);
     color: var(--color-green-900);
+  }
+}
+
+.icon {
+  @include size(rem(40px), rem(15px));
+
+  &.reverse {
+    transform: scaleX(-1);
+  }
+}
+
+.name {
+
+  &.active {
+    animation: blink-animation 1s infinite;
+  }
+}
+
+@keyframes blink-animation {
+  100% {
+      color: var(--color-orange);
   }
 }

@@ -18,8 +18,8 @@ import { setNotification } from 'store/HOME/actions/notificationAction'
 
 import { TicketPrint } from 'pages/Home/modules/TicketPrint'
 import Button from 'components/Button'
-import Password from './Password'
 import Toggle from 'components/Toggle'
+import Password from './Password'
 
 import style from './index.module.scss'
 
@@ -165,7 +165,7 @@ const SettingsModal = ({ action }) => {
               <div className={style.row}>
                 <div>{t('interface.printing_mode')}</div>
                 <div>
-                  <select className={style.select} ref={printingRef}>
+                  <select className={style.select} ref={printingRef} defaultValue={settings.print.mode}>
                     <option value={printMode.POS}>{t('interface.pos_not_installed')}</option>
                     <option value={printMode.WEB_PRINT}>{t('interface.web_print')}</option>
                     <option value={printMode.DISABLED}>{t('interface.disabled')}</option>

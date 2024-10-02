@@ -8,7 +8,7 @@ import Scoreboard from './Scoreboard'
 import Timer from './Timer'
 import Match from './Match'
 import Meta from './Meta'
-import Video from './Video'
+// import Video from './Video'
 
 import style from './index.module.scss'
 
@@ -19,7 +19,9 @@ const Translation = () => {
   const { liveTimer } = useSelector(state => state.liveTimer)
   const [period, setPeriod] = useState(null)
   const [stinger, setStinger] = useState()
+  const [video, setVideo] = useState()
 
+  const videoRef = useRef(null)
   const stingerRef = useRef(null)
   const TIME = 90
   const DELAY = 15
@@ -50,17 +52,30 @@ const Translation = () => {
     }
   }, [progress])
 
+  useEffect(() => {
+    const playPromise = videoRef.current?.play()
+
+    if (playPromise !== undefined) {
+      playPromise
+        .then(_ => {})
+        .catch(error => {
+          console.log(error)
+        })
+    }
+  }, [video])
+
   return (
     <div className={style.block}>
       {progress === 2 && (
         <>
           <video className={style.decor} src={stinger} ref={stingerRef} muted />
+          <video className={style.video} src={video} ref={videoRef} muted />
           <div className={style.background} />
           {period !== null && (
             <div className={style.wrapper}>
               <div>
                 <div className={style.info}>
-                  <Scoreboard data={tv.event.league.matches[0]} timer={liveTimer} period={period} />
+                  <Scoreboard data={tv.event.league.matches[0]} timer={liveTimer} period={period} setVideo={setVideo} />
                   <Timer timer={liveTimer} />
                 </div>
               </div>
@@ -77,7 +92,7 @@ const Translation = () => {
         </>
       )}
 
-      <Video data={tv} period={period} time={liveTimer} />
+      {/* <Video data={tv} period={period} time={liveTimer} /> */}
     </div>
   )
 }

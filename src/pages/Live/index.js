@@ -12,6 +12,7 @@ import { setProgress } from 'store/LIVE/actions/progressAction'
 import { setModal } from 'store/actions/modalAction'
 import { setTv } from 'store/LIVE/actions/tvAction'
 
+import { getHostName } from 'helpers/getHostName'
 import { getDifferent } from 'helpers/getDifferent'
 import { conditionStatus } from 'helpers/conditionStatus'
 
@@ -149,6 +150,12 @@ const Live = () => {
         } else if (json.event.status === matchStatus.COMPLETED) {
           dispatch(setProgress(4))
         }
+
+        fetch(`${getHostName('VIDEO')}?id=${json.event.id}`)
+          .then(response => response.json())
+          .then(config => {
+            console.log(config)
+        })
       })
     }
   }, [dispatch, game])
@@ -176,43 +183,49 @@ const Live = () => {
 
   return (
     <div className={style.block}>
-      {loading ? (
-        <Loader />
-      ) : (
-        <>
-          <Decor type={game.decor} />
-          <div
-            className={style.wrapper}
-            onClick={() => {
-              setActive(true)
-            }}
-          >
-            <div className={style.ticker}>
-              <div className={style.winner}>
-                <JackPotWinner />
+      {
+        loading 
+        ?
+          <Loader />
+        :
+          <>
+            <Decor type={game.decor} />
+            <div
+              className={style.wrapper}
+              onClick={() => {
+                setActive(true)
+              }}
+            >
+              <div className={style.ticker}>
+                <div className={style.winner}>
+                  <JackPotWinner />
+                </div>
+                {game.type === gameType.FOOTBALL_LEAGUE && progress !== 2 && <Ticker />}
               </div>
-              {game.type === gameType.FOOTBALL_LEAGUE && progress !== 2 && <Ticker />}
+              {
+                preloader 
+                ?
+                  <Loader type={'block'} background={'transparent'} />
+                :
+                  <div className={style.content}>
+                    {
+                      tv.event 
+                      ?
+                        <>
+                          <Header timer={timer} initTime={initTime} />
+                          <div className={style.table}>{getGame(game.type)}</div>
+                        </>
+                      :
+                        <Alert text={t('notification.events_not_found')} type={'default'} />
+                    }
+                  </div>
+              }
+              {modal === 1 && <Countdown />}
+              {jackpot && <Jackpot />}
             </div>
-            {preloader ? (
-              <Loader type={'block'} background={'transparent'} />
-            ) : (
-              <div className={style.content}>
-                {tv.event ? (
-                  <>
-                    <Header timer={timer} initTime={initTime} />
-                    <div className={style.table}>{getGame(game.type)}</div>
-                  </>
-                ) : (
-                  <Alert text={t('notification.events_not_found')} type={'default'} />
-                )}
-              </div>
-            )}
-            {modal === 1 && <Countdown />}
-            {jackpot && <Jackpot />}
-          </div>
-          {active && <Games action={setActive} setPreloader={setPreloader} setTimer={setTimer} />}
-        </>
-      )}
+            {active && <Games action={setActive} setPreloader={setPreloader} setTimer={setTimer} />}
+          </>
+        }
     </div>
   )
 }

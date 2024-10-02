@@ -19,15 +19,9 @@
   column-gap: rem(10px);
 }
 
-.table,
 .info,
 .meta {
   z-index: 1;
-}
-
-.table {
-  @include flex($direction: column);
-  @include wrapper;
 }
 
 .info {

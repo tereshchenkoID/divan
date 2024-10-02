@@ -6,7 +6,7 @@ import useSocket from 'hooks/useSocket'
 
 import { MD5 } from 'crypto-js'
 
-import { status } from 'constant/config'
+import { status, printMode } from 'constant/config'
 
 import classNames from 'classnames'
 
@@ -16,10 +16,10 @@ import { checkCmd } from 'helpers/checkCmd'
 import { getData } from 'helpers/api'
 import { getToken } from 'helpers/getToken'
 
+import { StatsPrint } from './StatsPrint'
 import Button from 'components/Button'
 import Table from './Table'
 
-import { StatsPrint } from './StatsPrint'
 import style from './index.module.scss'
 
 const Settlement = () => {
@@ -27,6 +27,7 @@ const Settlement = () => {
   const dispatch = useDispatch()
   const { sendMessage } = useSocket()
   const { isConnected, receivedMessage } = useSelector(state => state.socket)
+  const { settings } = useSelector(state => state.settings)
 
   const [data, setData] = useState(null)
   const [preview, setPreview] = useState(false)
@@ -96,7 +97,13 @@ const Settlement = () => {
     getData(`/settlement/${type}/print`).then(json => {
       if (json) {
         setData(json)
-        a()
+
+        if (settings.print.mode === printMode.POS) {
+          window.printAction(JSON.stringify(json), 1)
+        }
+        if (settings.print.mode === printMode.WEB_PRINT) {
+          a()
+        }
       }
     })
   }
@@ -151,31 +158,32 @@ const Settlement = () => {
           )}
           {active === 'master' && (
             <>
-              {!data ? (
-                <form className={style.form} onSubmit={handleForm}>
-                  <input
-                    type={'password'}
-                    className={style.field}
-                    placeholder={t('interface.password')}
-                    onChange={e => {
-                      setPassword(e.target.value || '')
+              {
+                !data ?
+                  <form className={style.form} onSubmit={handleForm}>
+                    <input
+                      type={'password'}
+                      className={style.field}
+                      placeholder={t('interface.password')}
+                      onChange={e => {
+                        setPassword(e.target.value || '')
+                      }}
+                      defaultValue={password}
+                    />
+                    <Button props={'submit'} text={t('interface.login')} initial={[style.button]} classes={['green']} />
+                  </form>
+                :
+                  <Button
+                    props={'button'}
+                    text={t('interface.settlement')}
+                    initial={[style.button]}
+                    classes={['green']}
+                    action={() => {
+                      handlePrint()
+                      setPreview(true)
                     }}
-                    defaultValue={password}
                   />
-                  <Button props={'submit'} text={t('interface.login')} initial={[style.button]} classes={['green']} />
-                </form>
-              ) : (
-                <Button
-                  props={'button'}
-                  text={t('interface.settlement')}
-                  initial={[style.button]}
-                  classes={['green']}
-                  action={() => {
-                    handlePrint()
-                    setPreview(true)
-                  }}
-                />
-              )}
+              }
             </>
           )}
         </div>

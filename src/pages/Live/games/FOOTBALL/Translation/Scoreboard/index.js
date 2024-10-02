@@ -3,6 +3,9 @@ import { useTranslation } from 'react-i18next'
 
 import classNames from 'classnames'
 
+import Icon from 'components/Icon'
+import Goal from 'pages/Live/modules/Modal/Goal'
+
 import { getHostName } from 'helpers/getHostName'
 
 import style from './index.module.scss'
@@ -10,6 +13,8 @@ import style from './index.module.scss'
 const Scoreboard = ({ data, timer, setVideo, stingerRef }) => {
   const { t } = useTranslation()
   const [score, setScore] = useState([0, 0])
+  const [attack, setAttack] = useState(null)
+  const [goal, setGoal] = useState(null)
 
   const initScene = (scenes, timer) => {
     const TIME = 90
@@ -18,12 +23,20 @@ const Scoreboard = ({ data, timer, setVideo, stingerRef }) => {
     const f = scenes[i]
     const period = (i + 1) * DELAY
 
+    setAttack(f.team)
+
     if (f.update === timer) {
+      setGoal(f.home > score[0] ? data.teams.home.name : data.teams.away.name)
       setScore([f.home, f.away])
+
+      setTimeout(() => {
+        setGoal(null)
+      }, 3000)
     }
+    
     setVideo(f.video)
 
-    if (timer === period && timer !== 0) {
+    if (timer === period && timer !== 0 && timer !== 90) {
       stingerRef.current.play()
     }
   }
@@ -35,6 +48,7 @@ const Scoreboard = ({ data, timer, setVideo, stingerRef }) => {
 
     if (timer === 90) {
       setVideo(null)
+      setAttack(null)
     }
   }, [timer])
 
@@ -46,11 +60,31 @@ const Scoreboard = ({ data, timer, setVideo, stingerRef }) => {
         </div>
         <div className={style.cell}>
           <div className={style.scoreboard}>
-            <div>{data.teams.home.name}</div>
+            <div>
+              <div className={classNames(style.name, attack === 0 && style.active)}>
+                {data.teams.home.name}
+              </div>
+              {
+                attack === 0 &&
+                <div className={style.icon}>
+                  <Icon id={'angle-left'} />
+                </div>
+              }
+            </div>
             <div className={classNames(style.score, score[0] > score[1] && style.win)}>{score[0]}</div>
             <div>-</div>
             <div className={classNames(style.score, score[1] > score[0] && style.win)}>{score[1]}</div>
-            <div>{data.teams.away.name}</div>
+            <div>
+              <div className={classNames(style.name, attack === 1 && style.active)}>
+                {data.teams.away.name}
+              </div>
+              {
+                attack === 1 &&
+                <div className={classNames(style.icon, style.reverse)}>
+                  <Icon id={'angle-left'} />
+                </div>
+              }
+            </div>
           </div>
         </div>
         <div className={style.cell}>
@@ -60,6 +94,7 @@ const Scoreboard = ({ data, timer, setVideo, stingerRef }) => {
       <div className={style.bottom}>
         <div className={style.cell}>{timer < 45 ? `1 ${t('interface.half')}` : `2 ${t('interface.half')}`}</div>
       </div>
+      <Goal team={goal}/>
     </div>
   )
 }
