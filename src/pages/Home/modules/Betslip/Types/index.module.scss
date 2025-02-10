@@ -5,8 +5,8 @@
   @include flex;
 
   height: rem(32px);
-  border-bottom: rem(px) solid var(--color-border);
-  background-color: var(--color-thunder);
+  border-bottom: rem(px) solid var(--color_border);
+  background-color: var(--color_thunder);
 }
 
 .item {
@@ -16,7 +16,7 @@
   flex: 1;
   transition: var(--default-transition);
   height: 100%;
-  color: var(--color-border);
+  color: var(--color_border);
 
   &::after {
     @include size(0, rem(2px));
@@ -25,13 +25,13 @@
     top: 100%;
     right: 0;
     left: 0;
-    background-color: var(--color-orange);
+    background-color: var(--color_orange);
     content: '';
     transition: var(--default-transition);
   }
 
   &.active {
-    color: var(--color-orange);
+    color: var(--color_orange);
 
     &::after {
       width: 100%;

@@ -1,7 +1,7 @@
 @import 'scss/config';
 
 .block {
-  border: rem(1px) solid var(--color-border);
+  border: rem(1px) solid var(--color_border);
   border-radius: var(--border-radius);
   overflow: hidden;
   color: var(--color-white);
@@ -17,7 +17,7 @@
   @include flex;
 
   height: rem(50px);
-  border-bottom: rem(1px) solid var(--color-border);
+  border-bottom: rem(1px) solid var(--color_border);
 
   @media (max-width: $min) {
     height: rem(30px);
@@ -28,14 +28,14 @@
 .link {
   flex: 1;
   color: rgba(255, 255, 255, 0.5);
-  background-color: var(--color-mine-shaft);
+  background-color: var(--color_mine_shaft);
 
   &:hover {
     color: var(--color-white);
   }
 
   &.active {
-    color: var(--color-orange);
+    color: var(--color_orange);
   }
 }
 

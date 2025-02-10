@@ -1,7 +1,7 @@
 @import 'scss/config';
 
 .block {
-  border: rem(1px) solid var(--color-border);
+  border: rem(1px) solid var(--color_border);
   border-radius: var(--border-radius);
   overflow: hidden;
 }
@@ -11,18 +11,18 @@
   grid-template-columns: repeat(2, 1fr);
   align-items: center;
   height: rem(50px);
-  border-top: rem(1px) solid var(--color-border);
+  border-top: rem(1px) solid var(--color_border);
 
   &:first-child {
     border-top: 0;
   }
 
   &:nth-child(odd) {
-    background-color: var(--color-mine-shaft);
+    background-color: var(--color_mine_shaft);
   }
 
   &:nth-child(even) {
-    background-color: var(--color-thunder);
+    background-color: var(--color_thunder);
   }
 
   @media (max-width: $min) {

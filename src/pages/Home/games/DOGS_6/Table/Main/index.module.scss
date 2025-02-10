@@ -39,8 +39,8 @@
 .cell {
   @include flex(center, center, column);
 
-  border-right: rem(1px) solid var(--color-border);
-  background-color: var(--color-thunder);
+  border-right: rem(1px) solid var(--color_border);
+  background-color: var(--color_thunder);
 
   &:last-child {
     border-right: 0;
@@ -54,7 +54,7 @@
 
   &:nth-last-child(n + 4) {
     @media (max-width: $min) {
-      border-bottom: rem(1px) solid var(--color-border);
+      border-bottom: rem(1px) solid var(--color_border);
     }
   }
 }

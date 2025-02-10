@@ -29,7 +29,7 @@
   position: relative;
   height: rem(30px);
   margin-left: rem(135px);
-  border-top: rem(1px) solid var(--color-border);
+  border-top: rem(1px) solid var(--color_border);
 }
 
 .columns {
@@ -50,14 +50,14 @@
 }
 
 .row {
-  border-top: rem(1px) solid var(--color-border);
+  border-top: rem(1px) solid var(--color_border);
 
   &:nth-child(even) {
-    background-color: var(--color-thunder);
+    background-color: var(--color_thunder);
   }
 
   &:nth-child(odd) {
-    background-color: var(--color-mine-shaft);
+    background-color: var(--color_mine_shaft);
   }
 
   &:first-child {

@@ -32,11 +32,11 @@
 
   gap: rem(10px);
   height: rem(40px);
-  border-right: rem(1px) solid var(--color-border);
-  border-bottom: rem(1px) solid var(--color-border);
+  border-right: rem(1px) solid var(--color_border);
+  border-bottom: rem(1px) solid var(--color_border);
 
   &:nth-child(odd) {
-    background-color: var(--color-thunder);
+    background-color: var(--color_thunder);
   }
 
   &:nth-child(4n) {

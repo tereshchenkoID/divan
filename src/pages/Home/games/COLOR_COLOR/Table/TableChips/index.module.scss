@@ -76,7 +76,7 @@
   @include flex(center, center, column);
 
   min-height: rem(115px);
-  background-color: var(--color-thunder);
+  background-color: var(--color_thunder);
 
   @media (max-width: $min) {
     @include make-spacer(p, 1);

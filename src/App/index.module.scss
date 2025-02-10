@@ -1,17 +1,37 @@
 @import 'scss/config';
 
 .root {
-  --gradient-disabled: linear-gradient(0deg, #111 0%, #3f3f3f 17%, #6d6d6d 51%, #6d6d6d 100%);
-  --gradient-hover: linear-gradient(0deg, var(--color-primary-900) 0%, var(--color-primary) 52%, var(--color-primary) 100%);
-  --gradient-active: var(--color-red) linear-gradient(360deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.1) 100%);
   --border-radius: 3px;
+  --color_orange: #ffd565;
+  --color_orange_900: #e8b632;
+  --color_green_900: #0f0;
+  --color_border: #a7a7a7;
+  --color_thunder: #323232;
+  --color_heavy_metal: #262726;
+  --color_mine_shaft: #272727;
+  --color_yellow: #ffff8f;
+  --color_green: #157b15;
+  --color_red: #d60000;
+  --color_primary: #00a900;
+  --color_primary_900: #294329;
+  --color_background: #09230a;
+  --decor_alpha: 1;
+  --decor_filter: 0;
+  --nav_background: #ffd565;
+  --nav_border: #e8b632;
+  --nav_color: #000;
+  --nav_active: #ffff8f;
+
+  --gradient-disabled: linear-gradient(0deg, #111 0%, #3f3f3f 17%, #6d6d6d 51%, #6d6d6d 100%);
+  --gradient-hover: linear-gradient(0deg, var(--color_primary_900) 0%, var(--color_primary) 52%, var(--color_primary) 100%);
+  --gradient-active: var(--color_red) linear-gradient(360deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.1) 100%);
 
   min-height: 100dvh;
   font-family: var(--font-family);
   font-size: var(--font-size);
   font-weight: var(--typography-regular);
   line-height: var(--line-height);
-  background-color: var(--color-background);
+  background-color: var(--color_background);
   user-select: none;
 
   &.fixed {
@@ -22,50 +42,6 @@
     min-height: rem(768px);
     overflow: hidden;
     transform-origin: left top;
-  }
-
-  &.red {
-    --color-orange: rgba(255, 255, 255, 1);
-    --color-orange-900: rgba(255, 255, 255, 0.3);
-    --color-green-900: #0f0;
-    --color-border: #a2a2a2;
-    --color-thunder: #323232;
-    --color-heavy-metal: #262726;
-    --color-mine-shaft: #272727;
-    --color-yellow: #ffff8f;
-    --color-green: #157b15;
-    --color-red: #d60000;
-    --color-primary: #222;
-    --color-primary-900: #101010;
-    --color-background: #222;
-    --decor-alpha: 0.6;
-    --decor-filter: 1;
-    --nav-background: #222;
-    --nav-border: rgba(255, 255, 255, 0.4);
-    --nav-color: #fff;
-    --nav-active: #d60000;
-  }
-
-  &.default {
-    --color-orange: #ffd565;
-    --color-orange-900: #e8b632;
-    --color-green-900: #0f0;
-    --color-border: #a7a7a7;
-    --color-thunder: #323232;
-    --color-heavy-metal: #262726;
-    --color-mine-shaft: #272727;
-    --color-yellow: #ffff8f;
-    --color-green: #157b15;
-    --color-red: #d60000;
-    --color-primary: #00a900;
-    --color-primary-900: #294329;
-    --color-background: #09230a;
-    --decor-alpha: 1;
-    --decor-filter: 0;
-    --nav-background: #ffd565;
-    --nav-border: #e8b632;
-    --nav-color: #000;
-    --nav-active: #ffff8f;
   }
 }
 

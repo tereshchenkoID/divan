@@ -12,10 +12,10 @@
   @include flex(center, center);
 
   gap: rem(10px);
-  border-right: rem(1px) solid var(--color-border);
+  border-right: rem(1px) solid var(--color_border);
 
   &:nth-child(odd) {
-    background-color: var(--color-thunder);
+    background-color: var(--color_thunder);
   }
 
   &:last-child {

@@ -35,6 +35,7 @@ const Home = () => {
   const { isConnected, receivedMessage } = useSelector(state => state.socket)
   const [loading, setLoading] = useState(true)
   const [isBetslip, setIsBetslip] = useState(false)
+  const [theme, setTheme] = useState(false)
 
   const handleRedirect = () => {
     dispatch(setAuth(null))
@@ -52,6 +53,7 @@ const Home = () => {
           handleRedirect()
         } else {
           i18n.changeLanguage(json.account.language || 'en')
+          setTheme(json.theme)
           setLoading(false)
           dispatch(setNotification({ text: json.account.notification, type: status.info }))
         }
@@ -82,27 +84,32 @@ const Home = () => {
 
   return (
     <div className={style.block}>
-      {loading ? (
-        <Loader />
-      ) : (
-        <>
-          <Decor type={game?.decor} />
-          <Nav isBetslip={isBetslip} setIsBetslip={setIsBetslip} />
-          <div className={style.content}>
-            <div className={style.column}>
-              <div className={style.banners}>
-                <JackPot />
-              </div>
-              <Skeleton />
-            </div>
+      {
+        loading 
+          ?
+            <Loader />
+          :
+            <div 
+              className={style.container}
+              style={theme}
+            >
+              <Decor type={game?.decor} />
+              <Nav isBetslip={isBetslip} setIsBetslip={setIsBetslip} />
+              <div className={style.content}>
+                <div className={style.column}>
+                  <div className={style.banners}>
+                    <JackPot />
+                  </div>
+                  <Skeleton />
+                </div>
 
-            <div className={classNames(style.column, isBetslip && style.active)}>
-              <Betslip />
+                <div className={classNames(style.column, isBetslip && style.active)}>
+                  <Betslip />
+                </div>
+                {ticket !== 0 && <Tickets />}
+              </div>
             </div>
-            {ticket !== 0 && <Tickets />}
-          </div>
-        </>
-      )}
+      }
     </div>
   )
 }

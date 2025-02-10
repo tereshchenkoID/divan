@@ -24,9 +24,9 @@
   }
 
   .results {
-    border-top: rem(3px) solid var(--color-orange-900);
-    border-bottom: rem(3px) solid var(--color-orange-900);
-    border-left: rem(3px) solid var(--color-orange-900);
+    border-top: rem(3px) solid var(--color_orange_900);
+    border-bottom: rem(3px) solid var(--color_orange_900);
+    border-left: rem(3px) solid var(--color_orange_900);
     border-radius: var(--border-radius) 0 0 var(--border-radius);
   }
 }
@@ -39,9 +39,9 @@
   }
 
   .results {
-    border-top: rem(3px) solid var(--color-orange-900);
-    border-right: rem(3px) solid var(--color-orange-900);
-    border-bottom: rem(3px) solid var(--color-orange-900);
+    border-top: rem(3px) solid var(--color_orange_900);
+    border-right: rem(3px) solid var(--color_orange_900);
+    border-bottom: rem(3px) solid var(--color_orange_900);
     border-radius: 0 var(--border-radius) var(--border-radius) 0;
   }
 
@@ -68,18 +68,18 @@
   padding-right: rem(3px);
 
   .column {
-    border-top: rem(1px) solid var(--color-border);
+    border-top: rem(1px) solid var(--color_border);
   }
 }
 
 .row {
   height: rem(52px);
-  border-top: rem(1px) solid var(--color-border);
+  border-top: rem(1px) solid var(--color_border);
   text-align: center;
-  background-color: var(--color-mine-shaft);
+  background-color: var(--color_mine_shaft);
 
   &:nth-child(odd) {
-    background-color: var(--color-thunder);
+    background-color: var(--color_thunder);
   }
 
   &:first-child {
@@ -93,7 +93,7 @@
   position: relative;
   flex: 1;
   height: 100%;
-  border-right: rem(1px) solid var(--color-border);
+  border-right: rem(1px) solid var(--color_border);
 
   &:last-child {
     border-right: 0;
@@ -137,7 +137,7 @@
   line-height: 1;
   white-space: nowrap;
   color: var(--color-white);
-  background-color: var(--color-primary);
+  background-color: var(--color_primary);
 }
 
 .logo {
@@ -163,14 +163,14 @@
   overflow: hidden;
 
   &.w {
-    background-color: var(--color-green);
+    background-color: var(--color_green);
   }
 
   &.l {
-    background-color: var(--color-red);
+    background-color: var(--color_red);
   }
 
   &.d {
-    background: var(--color-orange-900);
+    background: var(--color_orange_900);
   }
 }

@@ -57,7 +57,7 @@
   text-shadow: none;
   color: var(--color-black);
   background: linear-gradient(360deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 100%);
-  background-color: var(--color-orange-900);
+  background-color: var(--color_orange_900);
 }
 
 .decor {
@@ -70,7 +70,7 @@
 }
 
 .title {
-  @include stroke(rem(1px), var(--color-orange), transparent);
+  @include stroke(rem(1px), var(--color_orange), transparent);
 
   display: block;
   font-size: rem(56px);
@@ -84,7 +84,7 @@
 
   font-size: rem(32px);
   text-align: center;
-  color: var(--color-thunder);
+  color: var(--color_thunder);
 
   span {
     @include make-spacer(ml, 1);

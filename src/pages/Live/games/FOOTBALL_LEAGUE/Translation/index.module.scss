@@ -9,7 +9,7 @@
 .background {
   @include absolute-filled;
 
-  background-color: var(--color-background);
+  background-color: var(--color_background);
 }
 
 .table,
@@ -40,7 +40,7 @@
   @include flex($direction: column);
   @include wrapper;
 
-  background-color: var(--color-mine-shaft);
+  background-color: var(--color_mine_shaft);
 }
 
 .info {

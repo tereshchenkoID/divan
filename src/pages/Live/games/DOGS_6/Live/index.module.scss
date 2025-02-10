@@ -7,7 +7,7 @@
   @include flex(center, center);
 
   font-size: rem(52px);
-  color: var(--color-orange);
+  color: var(--color_orange);
 
   * {
     animation: blink 1.5s infinite;

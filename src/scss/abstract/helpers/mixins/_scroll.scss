@@ -6,17 +6,17 @@
   }
 
   &::-webkit-scrollbar-corner {
-    background-color: var(--color-primary);
+    background-color: var(--color_primary);
   }
 
   &::-webkit-scrollbar-thumb {
-    border: rem(1px) solid var(--color-primary);
-    background-color: var(--color-primary);
+    border: rem(1px) solid var(--color_primary);
+    background-color: var(--color_primary);
     background-clip: content-box;
   }
 
   &::-webkit-scrollbar-track {
-    border: rem(1px) solid var(--color-orange);
-    background-color: var(--color-orange);
+    border: rem(1px) solid var(--color_orange);
+    background-color: var(--color_orange);
   }
 }

@@ -6,7 +6,7 @@
   position: fixed;
   inset: 0;
   z-index: $z-index-13;
-  background-color: var(--color-background);
+  background-color: var(--color_background);
 }
 
 .wrapper {
@@ -30,7 +30,7 @@
   font-weight: var(--typography-bold);
   text-transform: uppercase;
   color: var(--color-white);
-  background-color: var(--color-orange-900);
+  background-color: var(--color_orange_900);
 }
 
 .body {
@@ -57,7 +57,7 @@
 }
 
 .table {
-  border: rem(1px) solid var(--color-border);
+  border: rem(1px) solid var(--color_border);
   border-radius: var(--border-radius);
   overflow: hidden;
 }
@@ -69,12 +69,12 @@
   grid-template-columns: repeat(3, 1fr);
   align-items: center;
   height: rem(50px);
-  border-top: 1px solid var(--color-border);
-  background-color: var(--color-mine-shaft);
+  border-top: 1px solid var(--color_border);
+  background-color: var(--color_mine_shaft);
   column-gap: rem(10px);
 
   &:nth-child(odd) {
-    background-color: var(--color-thunder);
+    background-color: var(--color_thunder);
   }
 
   &:first-child {
@@ -100,7 +100,7 @@
   color: var(--color-white);
 
   &:hover {
-    color: var(--color-orange);
+    color: var(--color_orange);
   }
 }
 

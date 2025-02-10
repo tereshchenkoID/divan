@@ -1,15 +1,17 @@
 @import 'scss/config';
 
 .block {
+  position: relative;
+  height: 100%;
+}
+
+.container,
+.wrapper,
+.content {
   @include flex($direction: column);
 
   position: relative;
-  height: 100%;
-  font-weight: var(--typography-bold);
-  text-align: center;
-  text-transform: uppercase;
   overflow: hidden;
-  color: var(--color-white);
 }
 
 .ticker,
@@ -17,12 +19,18 @@
   pointer-events: none;
 }
 
-.wrapper,
-.content {
-  @include flex($direction: column);
+.container {
+  --gradient-disabled: linear-gradient(0deg, #111 0%, #3f3f3f 17%, #6d6d6d 51%, #6d6d6d 100%);
+  --gradient-hover: linear-gradient(0deg, var(--color_primary_900) 0%, var(--color_primary) 52%, var(--color_primary) 100%);
+  --gradient-active: var(--color_red) linear-gradient(360deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.1) 100%);
 
-  position: relative;
+  background-color: var(--color_background);
+  font-weight: var(--typography-bold);
+  text-align: center;
+  text-transform: uppercase;
   overflow: hidden;
+  height: 100%;
+  color: var(--color-white);
 }
 
 .wrapper {
@@ -50,10 +58,10 @@
   position: relative;
   flex-shrink: 0;
   height: rem(58px);
-  border-top: rem(2px) solid var(--nav-border);
-  border-bottom: rem(2px) solid var(--nav-border);
+  border-top: rem(2px) solid var(--nav_border);
+  border-bottom: rem(2px) solid var(--nav_border);
   overflow: hidden;
-  background: var(--nav-background) linear-gradient(360deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 100%);
+  background: var(--nav_background) linear-gradient(360deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 100%);
 }
 
 .winner {
@@ -78,7 +86,7 @@
 
     overflow: hidden;
 
-    & > div {
+    &>div {
       height: 100%;
     }
   }

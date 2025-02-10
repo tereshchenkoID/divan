@@ -44,7 +44,7 @@
   bottom: 0;
   left: rem(270px);
   z-index: $z-index-10;
-  background-color: var(--color-mine-shaft);
+  background-color: var(--color_mine_shaft);
 
   &.active {
     display: block;
@@ -56,10 +56,10 @@
 
   .row {
     height: rem(53px);
-    border-top: rem(1px) solid var(--color-border);
+    border-top: rem(1px) solid var(--color_border);
 
     &:nth-child(even) {
-      background-color: var(--color-thunder);
+      background-color: var(--color_thunder);
     }
 
     &:first-child {
@@ -69,7 +69,7 @@
 
   .column {
     position: relative;
-    border-right: rem(1px) solid var(--color-border);
+    border-right: rem(1px) solid var(--color_border);
 
     &:last-child {
       border-right: 0;
@@ -98,8 +98,8 @@
 
     .column {
       height: 100%;
-      border-top: rem(1px) solid var(--color-border);
-      border-right: rem(1px) solid var(--color-border);
+      border-top: rem(1px) solid var(--color_border);
+      border-right: rem(1px) solid var(--color_border);
       border-bottom: rem(1px) solid transparent;
 
       &:last-child {

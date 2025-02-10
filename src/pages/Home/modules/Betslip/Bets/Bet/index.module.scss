@@ -96,14 +96,14 @@
 .field {
   @include size(100%, rem(25px));
 
-  border: rem(1px) solid var(--color-border);
+  border: rem(1px) solid var(--color_border);
   border-radius: var(--border-radius);
   font-weight: var(--typography-bold);
   line-height: 1;
   text-align: center;
   white-space: nowrap;
   overflow: hidden;
-  background-color: var(--color-thunder);
+  background-color: var(--color_thunder);
 }
 
 .meta {
@@ -139,7 +139,7 @@
   align-items: center;
   font-size: rem(13px);
   color: var(--color-white);
-  background-color: var(--color-thunder);
+  background-color: var(--color_thunder);
 
   div {
     &:last-child {

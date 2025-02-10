@@ -14,9 +14,9 @@
   @include flex(center, center, column);
 
   height: rem(70px);
-  border-right: rem(1px) solid var(--color-border);
-  border-bottom: rem(1px) solid var(--color-border);
-  background-color: var(--color-thunder);
+  border-right: rem(1px) solid var(--color_border);
+  border-bottom: rem(1px) solid var(--color_border);
+  background-color: var(--color_thunder);
 
   &:nth-child(14n + 1),
   &:nth-child(14n + 2),
@@ -25,7 +25,7 @@
   &:nth-child(14n + 5),
   &:nth-child(14n + 6),
   &:nth-child(14n + 7) {
-    background-color: var(--color-heavy-metal);
+    background-color: var(--color_heavy_metal);
   }
 
   &:nth-child(7n) {
@@ -34,7 +34,7 @@
 
   &:nth-child(7n) {
     @media (max-width: $min) {
-      border-right: rem(1px) solid var(--color-border);
+      border-right: rem(1px) solid var(--color_border);
     }
   }
 }

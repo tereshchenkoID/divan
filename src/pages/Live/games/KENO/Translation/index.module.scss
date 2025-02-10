@@ -23,12 +23,12 @@
   @include flex(center, center);
 
   gap: rem(10px);
-  border-right: rem(1px) solid var(--color-border);
-  border-bottom: rem(1px) solid var(--color-border);
+  border-right: rem(1px) solid var(--color_border);
+  border-bottom: rem(1px) solid var(--color_border);
   opacity: 0.6;
 
   &:nth-child(even) {
-    background-color: var(--color-thunder);
+    background-color: var(--color_thunder);
   }
 
   &:nth-child(10n) {
@@ -57,10 +57,10 @@
 .column {
   @include flex($direction: column-reverse);
 
-  border-left: rem(3px) solid var(--color-orange-900);
-  border-right: rem(3px) solid var(--color-orange-900);
-  border-bottom: rem(3px) solid var(--color-orange-900);
-  background: var(--color-mine-shaft) linear-gradient(
+  border-left: rem(3px) solid var(--color_orange_900);
+  border-right: rem(3px) solid var(--color_orange_900);
+  border-bottom: rem(3px) solid var(--color_orange_900);
+  background: var(--color_mine_shaft) linear-gradient(
     to left,
     rgba(255, 255, 255, 0) 0,
     rgba(255, 255, 255, 0) 62%,

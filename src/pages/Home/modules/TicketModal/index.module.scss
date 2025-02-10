@@ -8,7 +8,7 @@
   position: fixed;
   inset: 0;
   z-index: $z-index-14;
-  background-color: var(--color-background);
+  background-color: var(--color_background);
 
   @media (max-width: $min) {
     @include make-spacer(p, 1);
@@ -60,7 +60,7 @@
   font-size: rem(14px);
   font-weight: var(--typography-bold);
   text-transform: uppercase;
-  background-color: var(--color-orange-900);
+  background-color: var(--color_orange_900);
 
   @media (max-width: $min) {
     @include make-spacer(px, 1);
@@ -75,7 +75,7 @@
   @include make-spacer(p, 1);
 
   gap: rem(5px);
-  border-top: rem(1px) solid var(--color-border);
+  border-top: rem(1px) solid var(--color_border);
 }
 
 .body {
@@ -135,7 +135,7 @@
 }
 
 .table {
-  border: rem(1px) solid var(--color-border);
+  border: rem(1px) solid var(--color_border);
   border-radius: var(--border-radius);
   overflow: hidden;
 
@@ -157,7 +157,7 @@
 
         &:nth-child(1),
         &:nth-child(2) {
-          border-bottom: rem(1px) solid var(--color-border);
+          border-bottom: rem(1px) solid var(--color_border);
         }
       }
     }
@@ -217,7 +217,7 @@
   display: grid;
   align-items: center;
   min-height: rem(35px);
-  border-top: rem(1px) solid var(--color-border);
+  border-top: rem(1px) solid var(--color_border);
   column-gap: rem(10px);
 
   @media (max-width: $min) {
@@ -228,11 +228,11 @@
   }
 
   &:nth-child(even) {
-    background-color: var(--color-thunder);
+    background-color: var(--color_thunder);
   }
 
   &:nth-child(odd) {
-    background-color: var(--color-mine-shaft);
+    background-color: var(--color_mine_shaft);
   }
 
   &:first-child {
@@ -268,14 +268,14 @@
 
   flex-shrink: 0;
   height: rem(25px);
-  border: rem(1px) solid var(--color-border);
+  border: rem(1px) solid var(--color_border);
   border-radius: var(--border-radius);
   font-weight: var(--typography-bold);
   line-height: 1;
   text-align: center;
   white-space: nowrap;
   overflow: hidden;
-  background-color: var(--color-mine-shaft);
+  background-color: var(--color_mine_shaft);
 
   @media (max-width: $min) {
     @include make-spacer(mr, 0);
@@ -376,19 +376,19 @@
   @include make-spacer(ml, 0);
   @include make-spacer(mr, 2);
 
-  border: rem(1px) solid var(--color-border);
+  border: rem(1px) solid var(--color_border);
 
   &.system_cancelled,
   &.cancelled {
-    background-color: var(--color-orange-900);
+    background-color: var(--color_orange_900);
   }
 
   &.win {
-    background-color: var(--color-green);
+    background-color: var(--color_green);
   }
 
   &.lost {
-    background-color: var(--color-red);
+    background-color: var(--color_red);
   }
 
   @media (max-width: $min) {

@@ -9,12 +9,12 @@
     @include wrapper;
 
     grid-template-columns: repeat(4, 1fr);
-    background-color: var(--color-thunder);
+    background-color: var(--color_thunder);
 
     .cell {
 
       &:nth-child(even) {
-        background-color: var(--color-heavy-metal);
+        background-color: var(--color_heavy_metal);
       }
     }
   }
@@ -25,7 +25,7 @@
   @include flex(center, center);
 
   height: rem(38px);
-  border-right: rem(1px) solid var(--color-border);
+  border-right: rem(1px) solid var(--color_border);
 
   &:last-child {
     border-right: 0;

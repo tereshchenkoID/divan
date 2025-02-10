@@ -1,11 +1,21 @@
 @import 'scss/config';
 
 .block {
+  position: relative;
+  height: 100%;
+}
+
+.container {
+  --gradient-disabled: linear-gradient(0deg, #111 0%, #3f3f3f 17%, #6d6d6d 51%, #6d6d6d 100%);
+  --gradient-hover: linear-gradient(0deg, var(--color_primary_900) 0%, var(--color_primary) 52%, var(--color_primary) 100%);
+  --gradient-active: var(--color_red) linear-gradient(360deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.1) 100%);
+
   @include flex($direction: column);
 
   position: relative;
   height: 100%;
   text-align: center;
+  background-color: var(--color_background);
 
   @media (max-width: $min) {
     height: calc(100dvh - $footer);
@@ -59,7 +69,7 @@
       left: 0;
       z-index: $z-index-13;
       height: unset;
-      background-color: var(--color-background);
+      background-color: var(--color_background);
     }
   }
 }

@@ -71,6 +71,7 @@ const Live = () => {
   const [loading, setLoading] = useState(true)
   const [preloader, setPreloader] = useState(true)
   const [active, setActive] = useState(false)
+  const [theme, setTheme] = useState(false)
   const [timer, setTimer] = useState({
     time: '00:00:00:00',
     update: null,
@@ -92,6 +93,7 @@ const Live = () => {
         localStorage.removeItem('authToken')
         dispatch(setAuth(null))
       } else {
+        setTheme(json.theme)
         i18n.changeLanguage(json.account.language || 'en')
         dispatch(setGame(game || JSON.parse(localStorage.getItem('game')) || json.games[0]))
         setLoading(false)
@@ -188,7 +190,10 @@ const Live = () => {
         ?
           <Loader />
         :
-          <>
+          <div 
+            className={style.container}
+            style={theme}
+          >
             <Decor type={game.decor} />
             <div
               className={style.wrapper}
@@ -224,7 +229,7 @@ const Live = () => {
               {jackpot && <Jackpot />}
             </div>
             {active && <Games action={setActive} setPreloader={setPreloader} setTimer={setTimer} />}
-          </>
+          </div>
         }
     </div>
   )

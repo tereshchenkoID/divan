@@ -4,7 +4,7 @@
   @include flex(center, center);
 
   position: relative;
-  border: rem(1px) solid var(--color-primary-900);
+  border: rem(1px) solid var(--color_primary_900);
   border-radius: var(--border-radius);
   font-size: rem(13px);
   font-weight: var(--typography-bold);
@@ -35,7 +35,7 @@
 
   &:hover,
   &.active {
-    border-color: var(--color-red)!important;
+    border-color: var(--color_red)!important;
     background: var(--gradient-active)!important;
   }
 
@@ -45,14 +45,14 @@
   }
 
   &.disabled {
-    border-color: var(--color-thunder);
+    border-color: var(--color_thunder);
     background: var(--gradient-disabled);
     pointer-events: none;
   }
 
   &.grey {
     border-color: var(--color-black);
-    background: var(--color-mine-shaft);
+    background: var(--color_mine_shaft);
   }
 
   &.red {

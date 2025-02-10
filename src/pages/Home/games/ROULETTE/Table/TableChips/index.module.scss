@@ -226,7 +226,7 @@
   .button {
     flex: 1;
     border: rem(2px) solid var(--color-white);
-    background-color: var(--color-thunder);
+    background-color: var(--color_thunder);
 
     @media (max-width: $min) {
       border-width: rem(1px);
@@ -309,7 +309,7 @@
 
   .button {
     flex: 1;
-    border: rem(2px) solid var(--color-green-900);
+    border: rem(2px) solid var(--color_green_900);
     font-size: rem(28px);
 
     @media (max-width: $min) {

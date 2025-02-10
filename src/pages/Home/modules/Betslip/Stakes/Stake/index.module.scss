@@ -11,7 +11,7 @@
   grid-template-columns: rem(50px) rem(60px) repeat(2, 60px) 1fr;
   align-items: center;
   min-height: rem(35px);
-  border-bottom: rem(1px) solid var(--color-border);
+  border-bottom: rem(1px) solid var(--color_border);
 
   @media (max-width: $min) {
     @include make-spacer(px, 0);
@@ -55,14 +55,14 @@
   @include make-spacer(pr, 6);
   @include size(100%);
 
-  border: rem(1px) solid var(--color-border);
+  border: rem(1px) solid var(--color_border);
   border-radius: var(--border-radius);
   font-weight: var(--typography-bold);
   text-align: right;
   white-space: nowrap;
   overflow: hidden;
   color: var(--color-white);
-  background-color: var(--color-thunder);
+  background-color: var(--color_thunder);
   appearance: textfield;
 
   &::-webkit-outer-spin-button,
@@ -92,7 +92,7 @@
   grid-template-columns: repeat(2, 1fr);
   align-items: center;
   font-size: rem(13px);
-  background-color: var(--color-thunder);
+  background-color: var(--color_thunder);
   color: var(--color-white);
 
   div {

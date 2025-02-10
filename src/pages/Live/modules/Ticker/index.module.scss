@@ -24,7 +24,7 @@
   color: var(--color-white);
 
   &:nth-child(even) {
-    background-color: var(--color-thunder);
+    background-color: var(--color_thunder);
   }
 }
 
@@ -52,7 +52,7 @@
 
   &.win {
     font-weight: var(--typography-bold);
-    color: var(--color-green-900);
+    color: var(--color_green_900);
   }
 }
 

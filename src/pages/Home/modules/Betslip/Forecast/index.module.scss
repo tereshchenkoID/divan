@@ -8,7 +8,7 @@
 }
 
 .table {
-  border: rem(1px) solid var(--color-border);
+  border: rem(1px) solid var(--color_border);
   border-radius: var(--border-radius);
 }
 
@@ -16,7 +16,7 @@
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   height: rem(25px);
-  border-bottom: rem(1px) solid var(--color-border);
+  border-bottom: rem(1px) solid var(--color_border);
   font-size: rem(12px);
 
   &.alt {
@@ -26,7 +26,7 @@
   &:first-child,
   &:last-child {
     font-weight: var(--typography-bold);
-    color: var(--color-orange);
+    color: var(--color_orange);
   }
 
   &:last-child {
@@ -37,7 +37,7 @@
 .cell {
   @include flex(center, center);
 
-  border-right: rem(1px) solid var(--color-border);
+  border-right: rem(1px) solid var(--color_border);
 
   &:last-child {
     border-right: 0;

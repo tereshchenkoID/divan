@@ -5,7 +5,7 @@
   @include wrapper;
 
   height: rem(100px);
-  background-color: var(--color-mine-shaft);
+  background-color: var(--color_mine_shaft);
 }
 
 .cell {
@@ -20,12 +20,12 @@
   display: grid;
   grid-template-columns: rem(50px) 1fr rem(50px);
   align-items: flex-start;
-  border-bottom: rem(1px) solid var(--color-border);
+  border-bottom: rem(1px) solid var(--color_border);
 }
 
 .bottom {
   flex-grow: 1;
-  background-color: var(--color-mine-shaft);
+  background-color: var(--color_mine_shaft);
 }
 
 .scoreboard {
@@ -36,7 +36,7 @@
 .score {
   &.win {
     font-weight: var(--typography-bold);
-    color: var(--color-green-900);
+    color: var(--color_green_900);
   }
 }
 
@@ -57,6 +57,6 @@
 
 @keyframes blink-animation {
   100% {
-      color: var(--color-orange);
+      color: var(--color_orange);
   }
 }

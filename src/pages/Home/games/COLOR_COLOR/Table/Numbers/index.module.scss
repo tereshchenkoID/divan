@@ -11,8 +11,8 @@
 
   flex: 0 0 calc(100% / 9);
   height: rem(53px);
-  border-right: rem(1px) solid var(--color-border);
-  border-bottom: rem(1px) solid var(--color-border);
+  border-right: rem(1px) solid var(--color_border);
+  border-bottom: rem(1px) solid var(--color_border);
 
   &:nth-child(18n + 1),
   &:nth-child(18n + 2),
@@ -23,7 +23,7 @@
   &:nth-child(18n + 7),
   &:nth-child(18n + 8),
   &:nth-child(18n + 9) {
-    background-color: var(--color-thunder);
+    background-color: var(--color_thunder);
   }
 
   &:last-child,

@@ -81,7 +81,7 @@
 
   &.default {
     height: rem(45px);
-    border-top: rem(1px) solid var(--color-border);
+    border-top: rem(1px) solid var(--color_border);
 
     @media (max-width: $min) {
       @include make-spacer(p, 1);
@@ -96,7 +96,7 @@
     }
 
     &:nth-child(even) {
-      background-color: var(--color-thunder);
+      background-color: var(--color_thunder);
     }
 
     .cell {
@@ -125,7 +125,7 @@
 
     .column {
       position: relative;
-      border-right: rem(1px) solid var(--color-border);
+      border-right: rem(1px) solid var(--color_border);
 
       &:last-child {
         border-right: 0;
@@ -142,7 +142,7 @@
     height: rem(32px);
     margin-right: rem(1px);
     margin-left: rem(353px);
-    border-top: rem(1px) solid var(--color-border);
+    border-top: rem(1px) solid var(--color_border);
 
     @media (max-width: $min) {
       display: none;
@@ -186,7 +186,7 @@
 
   @media (max-width: $min) {
     height: rem(40px);
-    border: rem(1px) solid var(--color-border);
+    border: rem(1px) solid var(--color_border);
     border-radius: var(--border-radius);
   }
 }
@@ -197,7 +197,7 @@
 
   flex: 1;
   min-height: auto;
-  border-right: rem(1px) solid var(--color-border);
+  border-right: rem(1px) solid var(--color_border);
 
   @media (max-width: $min) {
     flex-direction: column;
@@ -212,7 +212,7 @@
   .outcome {
 
     &:nth-child(2) {
-      border-left: rem(1px) solid var(--color-border);
+      border-left: rem(1px) solid var(--color_border);
       opacity: 0.7;
 
       @media (max-width: $min) {

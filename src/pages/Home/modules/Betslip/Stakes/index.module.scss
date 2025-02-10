@@ -7,7 +7,7 @@
 .thead {
   @include make-spacer(py, 2);
 
-  border-bottom: rem(1px) solid var(--color-border);
+  border-bottom: rem(1px) solid var(--color_border);
 
   @media (max-width: $min) {
     @include make-spacer(py, 1);

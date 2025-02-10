@@ -18,14 +18,14 @@
   .cell {
 
     &:nth-child(even) {
-      background-color: var(--color-heavy-metal);
+      background-color: var(--color_heavy_metal);
     }
 
     &:last-child {
       border-bottom: 0;
 
       @media (max-width: $min) {
-        border-bottom: rem(1px) solid var(--color-border);
+        border-bottom: rem(1px) solid var(--color_border);
       }
     }
   }
@@ -42,9 +42,9 @@
   @include flex(center, center, column);
 
   height: rem(74px);
-  border-right: rem(1px) solid var(--color-border);
-  border-bottom: rem(1px) solid var(--color-border);
-  background-color: var(--color-thunder);
+  border-right: rem(1px) solid var(--color_border);
+  border-bottom: rem(1px) solid var(--color_border);
+  background-color: var(--color_thunder);
 
   &:nth-child(6n) {
     border-right: 0;

@@ -76,7 +76,7 @@ $color: #000;
 }
 
 .logo {
-  @include size(100%, rem(80px));
+  @include size(100%, rem(60px));
 
   img {
     @include size(100%);
@@ -89,11 +89,17 @@ $color: #000;
 .code {
   @include flex(center, center);
   @include make-spacer(mx, auto);
-  @include make-spacer(mb, 4);
+  @include make-spacer(mb, 2);
 
-  height: rem(100px);
+  height: rem(40px);
   font-size: rem(20px);
   text-align: center;
+  overflow: hidden;
+  max-width: rem(200px);
+
+  svg {
+    height: unset;
+  }
 }
 
 .header {
@@ -110,7 +116,7 @@ $color: #000;
 }
 
 .title {
-  @include make-spacer(mb, 4);
+  @include make-spacer(mb, 1);
 
   text-align: center;
   text-transform: uppercase;
@@ -125,11 +131,12 @@ $color: #000;
   width: 100%;
 
   li {
-    @include make-spacer(mb, 2);
+    @include make-spacer(mb, 1);
 
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     align-items: center;
+    line-height: 1.2;
 
     &:last-child {
       @include make-spacer(mb, 0);
@@ -149,7 +156,7 @@ $color: #000;
 }
 
 .bet {
-  @include make-spacer(py, 2);
+  @include make-spacer(py, 1);
 
   border-top: rem(1px) solid $color;
 
@@ -160,10 +167,10 @@ $color: #000;
 
 .wrapper {
   @include flex($align-items: center);
-  @include make-spacer(mb, 2);
+  @include make-spacer(mb, 1);
 
   > div {
-    @include make-spacer(mr, 2);
+    @include make-spacer(mr, 1);
   }
 
   &:last-child {
@@ -186,14 +193,14 @@ $color: #000;
 }
 
 .text {
-  @include make-spacer(mt, 4);
+  @include make-spacer(mt, 2);
 
   text-align: center;
 }
 
 .copy {
   position: absolute;
-  top: rem(180px);
+  top: rem(140px);
   left: 50%;
   font-size: rem(100px);
   font-weight: var(--typography-extra-bold);

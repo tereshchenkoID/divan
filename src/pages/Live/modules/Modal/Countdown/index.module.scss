@@ -34,7 +34,7 @@
   text-transform: uppercase;
   text-shadow: none;
   color: var(--color-black);
-  background: var(--color-orange-900) linear-gradient(360deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 100%);
+  background: var(--color_orange_900) linear-gradient(360deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 100%);
 }
 
 .decor {
@@ -65,7 +65,7 @@
 
 .title {
   font-size: rem(42px);
-  color: var(--color-orange);
+  color: var(--color_orange);
 }
 
 .subtitle {

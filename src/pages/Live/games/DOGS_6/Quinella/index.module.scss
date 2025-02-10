@@ -12,12 +12,12 @@
   @include flex(center);
 
   height: rem(60px);
-  border-right: rem(1px) solid var(--color-border);
-  border-bottom: rem(1px) solid var(--color-border);
-  background-color: var(--color-thunder);
+  border-right: rem(1px) solid var(--color_border);
+  border-bottom: rem(1px) solid var(--color_border);
+  background-color: var(--color_thunder);
 
   &:nth-child(even) {
-    background-color: var(--color-heavy-metal);
+    background-color: var(--color_heavy_metal);
   }
 
   &:nth-child(5n) {

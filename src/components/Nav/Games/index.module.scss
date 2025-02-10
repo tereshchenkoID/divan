@@ -21,11 +21,11 @@
   font-weight: var(--typography-bold);
   text-transform: uppercase;
   text-shadow: none;
-  color: var(--nav-color);
+  color: var(--nav_color);
   background: linear-gradient(360deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 100%);
 
   &.active {
-    background-color: var(--nav-active);
+    background-color: var(--nav_active);
     pointer-events: none;
   }
 
@@ -82,7 +82,7 @@
     border-bottom: rem(8px) solid currentColor;
     border-left: rem(8px) solid transparent;
     font-size: 0;
-    color: var(--nav-color);
+    color: var(--nav_color);
 
     @media (max-width: $min) {
       display: none!important;

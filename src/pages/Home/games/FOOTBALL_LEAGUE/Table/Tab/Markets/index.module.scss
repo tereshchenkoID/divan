@@ -9,7 +9,7 @@
   right: 0;
   bottom: $footer;
   z-index: $z-index-13;
-  background-color: var(--color-background);
+  background-color: var(--color_background);
 }
 
 .head {
@@ -21,7 +21,7 @@
   font-size: rem(12px);
   font-weight: var(--typography-bold);
   color: var(--color-white);
-  background-color: var(--color-orange-900);
+  background-color: var(--color_orange_900);
   border-radius: var(--border-radius) var(--border-radius) 0 0;
 }
 
@@ -30,7 +30,7 @@
   @include scroll;
 
   height: calc(100% - rem(30px));
-  border: rem(1px) solid var(--color-orange);
+  border: rem(1px) solid var(--color_orange);
   border-radius: 0 0 var(--border-radius) var(--border-radius);
 }
 

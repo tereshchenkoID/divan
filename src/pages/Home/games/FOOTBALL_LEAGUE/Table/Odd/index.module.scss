@@ -27,7 +27,7 @@
   }
 
   &.sm {
-    border: rem(1px) solid var(--color-primary);
+    border: rem(1px) solid var(--color_primary);
     overflow: hidden;
     background-color: var(--color-white);
 
@@ -48,14 +48,14 @@
 
     &:hover,
     &.active {
-      border-color: var(--color-red);
+      border-color: var(--color_red);
     }
 
     &:hover {
       background-image: none;
 
       .label {
-        color: var(--color-red);
+        color: var(--color_red);
       }
     }
 

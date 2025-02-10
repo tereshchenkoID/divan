@@ -24,7 +24,7 @@
   display: grid;
   grid-template-columns: rem(50px) 1fr repeat(3, rem(100px));
   color: var(--color-white);
-  background-color: var(--color-thunder);
+  background-color: var(--color_thunder);
 
   &:last-child {
 
@@ -44,16 +44,16 @@
 
   gap: rem(5px);
   height: rem(44px);
-  border-right: rem(1px) solid var(--color-border);
-  border-bottom: rem(1px) solid var(--color-border);
+  border-right: rem(1px) solid var(--color_border);
+  border-bottom: rem(1px) solid var(--color_border);
   font-size: rem(18px);
 
   &:nth-child(odd) {
-    background-color: var(--color-thunder);
+    background-color: var(--color_thunder);
   }
 
   &:nth-child(even) {
-    background-color: var(--color-heavy-metal);
+    background-color: var(--color_heavy_metal);
   }
 
   &:last-child {

@@ -26,7 +26,7 @@ export const TicketPrint = React.forwardRef((data, ref) => {
         <div>
           {settings.print.logo && (
             <div className={style.logo}>
-              <img src={settings.print.logo} alt={'Logo'} loading={'lazy'} />
+              <img src={settings.print.logo} alt={'Logo'} />
             </div>
           )}
         </div>

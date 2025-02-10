@@ -4,10 +4,7 @@
   @include flex(center, center, column);
 
   position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
+  inset: 0;
   z-index: 15;
   height: 100%;
 }
@@ -15,7 +12,8 @@
 .shadow {
   @include absolute-filled;
 
-  background-color: rgba(#09230a, 0.95);
+  background: var(--gradient-hover);
+  // background-color: rgba(#09230a, 0.95);
 }
 
 .content {
@@ -23,12 +21,12 @@
   @include wrapper;
 
   display: grid;
+  justify-content: center;
+  align-items: center;
   position: relative;
   z-index: 1;
   grid-template-columns: repeat(4, rem(90px));
   gap: rem(15px);
-  justify-content: center;
-  align-items: center;
 }
 
 .button {
@@ -45,7 +43,7 @@
   background: linear-gradient(360deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 100%);
 
   &:hover {
-    background-color: var(--color-orange-900);
+    background-color: var(--color_orange_900);
   }
 
   &.disabled {

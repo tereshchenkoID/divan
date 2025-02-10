@@ -4,18 +4,18 @@
   display: grid;
   grid-template-columns: rem(35px) rem(215px) 1fr;
   height: rem(53px);
-  border-bottom: rem(1px) solid var(--color-border);
+  border-bottom: rem(1px) solid var(--color_border);
   text-align: center;
   color: var(--color-white);
   column-gap: rem(10px);
   transition: var(--default-transition);
 
   &:nth-child(even) {
-    background-color: var(--color-thunder);
+    background-color: var(--color_thunder);
   }
 
   &:nth-child(odd) {
-    background-color: var(--color-mine-shaft);
+    background-color: var(--color_mine_shaft);
   }
 
   &:last-child {
@@ -70,7 +70,7 @@
   display: grid;
   grid-template-columns: 1fr rem(5px) 1fr;
   font-weight: var(--typography-bold);
-  color: var(--color-orange-900);
+  color: var(--color_orange_900);
   column-gap: rem(5px);
 }
 

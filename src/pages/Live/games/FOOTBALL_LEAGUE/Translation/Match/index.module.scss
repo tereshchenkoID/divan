@@ -6,16 +6,16 @@
   display: grid;
   grid-template-columns: rem(25px) rem(30px) 1fr rem(30px) rem(10px) rem(30px) 1fr rem(30px);
   align-items: center;
-  border-top: rem(1px) solid var(--color-border);
+  border-top: rem(1px) solid var(--color_border);
   font-size: rem(15px);
   overflow: hidden;
 
   &:nth-child(even) {
-    background-color: var(--color-thunder);
+    background-color: var(--color_thunder);
   }
 
   &:nth-child(odd) {
-    background-color: var(--color-mine-shaft);
+    background-color: var(--color_mine_shaft);
   }
 
   &:first-child {
@@ -43,6 +43,6 @@
 .score {
   &.win {
     font-weight: var(--typography-bold);
-    color: var(--color-green-900);
+    color: var(--color_green_900);
   }
 }

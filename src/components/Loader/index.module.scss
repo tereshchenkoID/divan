@@ -27,8 +27,8 @@
   }
 
   &.default {
-    border: rem(3px) solid var(--color-orange-900);
-    background-color: var(--color-background);
+    border: rem(3px) solid var(--color_orange_900);
+    background-color: var(--color_background);
 
     @media (max-width: $min) {
       border-width: rem(1px);
@@ -44,7 +44,7 @@
   display: block;
   position: relative;
   border: rem(3px) solid transparent;
-  border-top-color: var(--color-green);
+  border-top-color: var(--color_green);
   border-radius: 50%;
   animation: spin 2s linear infinite;
 }
@@ -63,7 +63,7 @@
     right: rem(5px);
     bottom: rem(5px);
     left: rem(5px);
-    border-top-color: var(--color-orange-900);
+    border-top-color: var(--color_orange_900);
     animation: spin 3s linear infinite;
   }
 
@@ -72,7 +72,7 @@
     right: rem(15px);
     bottom: rem(15px);
     left: rem(15px);
-    border-top-color: var(--color-orange);
+    border-top-color: var(--color_orange);
     animation: spin 1.5s linear infinite;
   }
 }
