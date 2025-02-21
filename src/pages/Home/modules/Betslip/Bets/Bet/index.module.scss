@@ -5,6 +5,7 @@
 
   &.COLOR_COLOR,
   &.ROULETTE,
+  &.ROULETTE_DELUXE,
   &.KENO,
   &.DOGS_6,
   &.HORSES_8_VR {
@@ -85,6 +86,8 @@
 
   span {
     font-size: rem(12px);
+    text-align: left;
+    text-transform: capitalize;
   }
 }
 

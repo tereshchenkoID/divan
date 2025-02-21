@@ -114,10 +114,9 @@ const Bet = ({ id, data, betslip, type, setInit, setDisabled }) => {
         )}
         <div className={style.market}>
           <span>
-            {(data.type === gameType.FOOTBALL || data.type === gameType.FOOTBALL_LEAGUE) &&
-              `${data.market.replaceAll('_', ' ')}:${data.c || data.a}`}
-            {data.type === gameType.ROULETTE && (data.print || data.market).replace('_', ' ')}
-            {data.type === gameType.COLOR_COLOR && data.print.replace('_', '/')}
+            {(data.type === gameType.FOOTBALL || data.type === gameType.FOOTBALL_LEAGUE) && `${data.market.replaceAll('_', ' ')}:${data.c || data.a}`}
+            {(data.type === gameType.ROULETTE || data.type === gameType.ROULETTE_DELUXE) && (data.print || data.market).replaceAll('_', ' ').toLowerCase()}
+            {data.type === gameType.COLOR_COLOR && data.print.replaceAll('_', '/')}
             {(data.type === gameType.KENO || data.type === gameType.DOGS_6 || data.type === gameType.HORSES_8_VR) && data.print}
           </span>
           {data.circles && (

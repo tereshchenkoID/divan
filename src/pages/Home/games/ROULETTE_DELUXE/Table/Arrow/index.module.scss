@@ -1,0 +1,62 @@
+@import 'scss/config';
+
+.block {
+  @include size(rem(70px), rem(55px));
+
+  position: relative;
+  cursor: pointer;
+}
+
+.arrow {
+  @include size(rem(70px), rem(50px));
+  
+  position: absolute;
+  left: 0;
+  background-color: var(--color-black);
+
+  &.high {
+    --x: 0deg;
+
+    top: 0;
+    border-radius: 0 0 var(--border-radius) var(--border-radius);
+    clip-path: polygon(50% 0, 100% 30%, 100% 100%, 0 100%, 0 30%);
+
+    &::before {
+      border-radius: 0 0 rem(2px) rem(2px);
+    }
+  }
+
+  &.low {
+    --x: 180deg;
+
+    bottom: 0;
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
+    clip-path: polygon(100% 0, 100% 70%, 50% 100%, 0 70%, 0 0);
+
+    &::before {
+      border-radius: rem(2px) rem(2px) 0 0;
+    }
+  }
+
+  &::before {
+    position: absolute;
+    inset: rem(2px);
+    clip-path: inherit;
+    z-index: -1;
+    content: '';
+  }
+
+  &.red {
+
+    &::before {
+      background: linear-gradient(var(--x), #111 0%, #9f0021 17%, #c91e37 52%, #c91e37 100%);
+    }
+  }
+
+  &.black {
+    
+    &::before {
+      background: linear-gradient(var(--x), #2a2a2a 0%, #0d0d0d 7%, #111 50%, #0d0d0d 100%);
+    }
+  }
+}

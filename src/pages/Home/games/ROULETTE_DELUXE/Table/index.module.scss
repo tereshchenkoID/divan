@@ -1,0 +1,43 @@
+@import 'scss/config';
+
+.header {
+  @include make-spacer(my, 2);
+
+  width: fit-content;
+  min-height: rem(92px);
+  padding-left: rem(270px);
+
+  @media (max-width: $min) {
+    @include make-spacer(pl, 0);
+    @include make-spacer(mt, 0);
+    @include make-spacer(mb, 1);
+
+    grid-template-columns: 1fr;
+    padding-top: 80px;
+  }
+}
+
+.wrapper {
+  position: relative;
+  flex-grow: 1;
+}
+
+.sort {
+  @include make-spacer(mt, 1);
+  @include make-spacer(mb, 2);
+  @include flex($align-items: center);
+
+  gap: rem(2px);
+
+  @media (max-width: $min) {
+    @include make-spacer(my, 0);
+  }
+}
+
+.market {
+  @include size(rem(43px));
+
+  @media (max-width: $min) {
+    @include size(rem(30px));
+  }
+}

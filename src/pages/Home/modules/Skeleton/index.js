@@ -27,6 +27,7 @@ import FOOTBALL_LEAGUE from 'pages/Home/games/FOOTBALL_LEAGUE/Table'
 import FOOTBALL from 'pages/Home/games/FOOTBALL/Table'
 import COLOR_COLOR from 'pages/Home/games/COLOR_COLOR/Table'
 import ROULETTE from 'pages/Home/games/ROULETTE/Table'
+import ROULETTE_DELUXE from 'pages/Home/games/ROULETTE_DELUXE/Table'
 import KENO from 'pages/Home/games/KENO/Table'
 import DOGS_6 from 'pages/Home/games/DOGS_6/Table'
 import HORSES_8_VR from 'pages/Home/games/HORSES_8_VR/Table'
@@ -40,6 +41,8 @@ const setGame = (id, active) => {
       return <FOOTBALL_LEAGUE active={active} />
     case gameType.ROULETTE:
       return <ROULETTE active={active} />
+    case gameType.ROULETTE_DELUXE:
+      return <ROULETTE_DELUXE active={active} />  
     case gameType.COLOR_COLOR:
       return <COLOR_COLOR active={active} />
     case gameType.KENO:

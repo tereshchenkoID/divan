@@ -7,7 +7,7 @@ import classNames from 'classnames'
 
 import { router } from 'router'
 
-// import { setResize } from 'store/actions/resizeAction'
+import { setResize } from 'store/actions/resizeAction'
 
 import { getToken } from 'helpers/getToken'
 import { getHostName } from 'helpers/getHostName'
@@ -30,7 +30,6 @@ const App = () => {
     fetch('/config.json')
       .then(response => response.json())
       .then(config => {
-        console.log(config.theme)
         localStorage.setItem('config', JSON.stringify(config.hostnames))
         if (config.hostnames.WSS_PROD) connectSocket()
       })
@@ -62,8 +61,8 @@ const App = () => {
   })
 
   const handleResize = () => {
-    // const isMobile = window.innerWidth < 1200
-    const isMobile = false
+    const isMobile = window.innerWidth < 1200
+    // const isMobile = false
 
     if (isMobile) {
       setWindowSize({
@@ -76,7 +75,7 @@ const App = () => {
         y: window.innerHeight / WINDOW_SIZE.h,
       })
     }
-    // dispatch(setResize(isMobile))
+    dispatch(setResize(isMobile))
   }
 
   useEffect(() => {

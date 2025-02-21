@@ -19,7 +19,7 @@ const getFixed = data => {
 
 const currentStakeColor = (value, steps) => {
   let previous = null
-  
+
   for (let i = 0; i < steps.length; i++) {
     if (value < steps[0].amount) {
       previous = steps[0].color

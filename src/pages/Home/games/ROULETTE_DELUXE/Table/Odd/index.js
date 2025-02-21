@@ -9,7 +9,7 @@ import style from './index.module.scss'
 
 const findBet = (data, id, outcome) => {
   return data.find(el => {
-    return el.id === id && el.market === outcome && el.type === gameType.ROULETTE
+    return el.id === id && el.market === outcome && el.type === gameType.ROULETTE_DELUXE
   })
 }
 
@@ -37,7 +37,7 @@ const Odd = ({ data, step, steps, active }) => {
           m_old: date.stake.split(':')[0],
           o_old: date.stake.split(':')[1].slice(1),
           stake: step.amount,
-          type: gameType.ROULETTE,
+          type: gameType.ROULETTE_DELUXE,
         }),
       )
     }
@@ -53,13 +53,15 @@ const Odd = ({ data, step, steps, active }) => {
       {betslip.length > 0 && findBet(betslip, active.id, outcome) && (
         <Amount data={findBet(betslip, active.id, outcome)} step={step} steps={steps} />
       )}
-      {data.name === 'red' || data.name === 'black' ? (
-        <div className={style.diamond}>
-          <img src={`/img/ROULETTE/decor/${data.name}.webp`} alt={'Chips'} loading={'lazy'} />
-        </div>
-      ) : (
-        data.name
-      )}
+      {
+        (data.name === 'red' || data.name === 'black')
+          ?
+            <div className={style.diamond}>
+              <img src={`/img/ROULETTE/decor/${data.name}.webp`} alt={'Chips'} loading={'lazy'} />
+            </div>
+          :
+            data.name
+      }
     </div>
   )
 }

@@ -31,6 +31,7 @@ export const gameType = {
   FOOTBALL: 'FOOTBALL',
   FOOTBALL_LEAGUE: 'FOOTBALL_LEAGUE',
   ROULETTE: 'ROULETTE',
+  ROULETTE_DELUXE: 'ROULETTE_DELUXE',
   COLOR_COLOR: 'COLOR_COLOR',
   KENO: 'KENO',
   DOGS_6: 'DOGS_6',
@@ -91,6 +92,11 @@ export const rouletteType = {
   EVEN_ODD: 'EVEN_ODD',
   LOW_HIGH: 'LOW_HIGH',
   DOZEN: 'DOZEN',
+  SECTOR: 'SECTOR',
+  LOW_HIGH_COLOR: 'LOW_HIGH_COLOR',
+  FINALS: 'FINALS',
+  TWINS: 'TWINS',
+  MIRROR: 'MIRROR'
 }
 
 export const rouletteColor = ['violet', 'blue', 'green', 'red', 'black', 'orange']

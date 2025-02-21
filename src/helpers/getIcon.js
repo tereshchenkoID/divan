@@ -6,6 +6,8 @@ export const getIcon = data => {
       return 'icon-1'
     case gameType.ROULETTE:
       return 'icon-2'
+    case gameType.ROULETTE_DELUXE:
+      return 'icon-2'  
     case gameType.COLOR_COLOR:
       return 'icon-3'
     case gameType.KENO:

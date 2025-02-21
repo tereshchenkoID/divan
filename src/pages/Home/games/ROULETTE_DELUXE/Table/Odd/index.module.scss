@@ -1,0 +1,18 @@
+@import 'scss/config';
+
+.block {
+  @include flex(center, center);
+  @include size(100%);
+
+  position: relative;
+  z-index: 1;
+  color: var(--color-white);
+}
+
+.diamond {
+  @include size(rem(75px), rem(34px));
+
+  @media (max-width: $min) {
+    @include size(rem(30px), auto);
+  }
+}

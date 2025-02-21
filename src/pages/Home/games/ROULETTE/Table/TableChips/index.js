@@ -1,9 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import classNames from 'classnames'
 
 import { gameType, rouletteColor } from 'constant/config'
-
-import classNames from 'classnames'
 
 import { deleteBetslip } from 'store/HOME/actions/betslipAction'
 import { setStake } from 'store/HOME/actions/stakeAction'
@@ -142,7 +141,8 @@ const TableChips = ({ random, active }) => {
 
     for (let i = 0; i < a.length; i++) {
       if (a[i].id === id) {
-        a[i].stake = (a[i].stake * 2).toFixed(2)
+        a[i].stake = (a[i].stake * 2)
+        // a[i].stake = (a[i].stake * 2).toFixed(2)
       }
     }
 
@@ -152,7 +152,8 @@ const TableChips = ({ random, active }) => {
   const addRandomChips = () => {
     const a = betslip.slice(0)
     const r = a.filter(el => el.id !== active.id)
-    const s = buttonStepGet().amount.toFixed(2)
+    // const s = buttonStepGet().amount.toFixed(2)
+    const s = buttonStepGet().amount
 
     for (let i = 0; i < random.length; i++) {
       r.push({

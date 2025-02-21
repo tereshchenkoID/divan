@@ -1,0 +1,86 @@
+@import 'scss/config';
+
+.block {
+  @include size(rem(40px));
+  @include absolute-center;
+
+  z-index: 1;
+  writing-mode: horizontal-tb;
+
+  @media (max-width: $min) {
+    @include size(rem(25px));
+  }
+}
+
+.animation {
+  position: absolute;
+  top: rem(-5px);
+  right: 0;
+  left: 0;
+  color: var(--color_orange);
+  opacity: 0;
+
+  &.active {
+    animation: amount_move 0.5s linear 0.5s forwards;
+  }
+}
+
+.amount {
+  @include size(100%);
+  @include flex(center, center);
+
+  border-radius: 50%;
+  font-size: rem(14px);
+  letter-spacing: -0.5px;
+
+  @media (max-width: $min) {
+    font-size: rem(8px);
+  }
+
+  img {
+    @include absolute-filled;
+  }
+
+  p {
+    position: relative;
+  }
+
+  &.active {
+    animation: chip_move 0.3s ease-in-out forwards;
+  }
+}
+
+@keyframes amount_move {
+
+  0% {
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  50% {
+    transform: translateY(-50%);
+  }
+
+  100% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+}
+
+@keyframes chip_move {
+
+  0% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-20%);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
