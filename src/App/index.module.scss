@@ -2,25 +2,45 @@
 
 .root {
   --border-radius: 3px;
-  --color_orange: #ffd565;
-  --color_orange_900: #e8b632;
+  // --color_orange: #ffd565;
+  // --color_orange_900: #e8b632;
+  // --color_green_900: #0f0;
+  // --color_border: #a7a7a7;
+  // --color_thunder: #323232;
+  // --color_heavy_metal: #262726;
+  // --color_mine_shaft: #272727;
+  // --color_yellow: #ffff8f;
+  // --color_green: #157b15;
+  // --color_red: #d60000;
+  // --color_primary: #00a900;
+  // --color_primary_900: #294329;
+  // --color_background: #09230a;
+  // --decor_alpha: 1;
+  // --decor_filter: 0;
+  // --nav_background: #ffd565;
+  // --nav_border: #e8b632;
+  // --nav_color: #000;
+  // --nav_active: #ffff8f;
+
+  --color_orange: rgba(255, 255, 255, 1);
+  --color_orange_900: rgba(255, 255, 255, 0.3);
   --color_green_900: #0f0;
-  --color_border: #a7a7a7;
+  --color_border: #a2a2a2;
   --color_thunder: #323232;
   --color_heavy_metal: #262726;
   --color_mine_shaft: #272727;
   --color_yellow: #ffff8f;
   --color_green: #157b15;
   --color_red: #d60000;
-  --color_primary: #00a900;
-  --color_primary_900: #294329;
-  --color_background: #09230a;
-  --decor_alpha: 1;
-  --decor_filter: 0;
-  --nav_background: #ffd565;
-  --nav_border: #e8b632;
-  --nav_color: #000;
-  --nav_active: #ffff8f;
+  --color_primary: #222;
+  --color_primary_900: #101010;
+  --color_background: #222;
+  --decor_alpha: 0.6;
+  --decor_filter: 1;
+  --nav_background: #222;
+  --nav_border: rgba(255, 255, 255, 0.4);
+  --nav_color: #fff;
+  --nav_active: #d60000;
 
   --gradient-disabled: linear-gradient(0deg, #111 0%, #3f3f3f 17%, #6d6d6d 51%, #6d6d6d 100%);
   --gradient-hover: linear-gradient(0deg, var(--color_primary_900) 0%, var(--color_primary) 52%, var(--color_primary) 100%);

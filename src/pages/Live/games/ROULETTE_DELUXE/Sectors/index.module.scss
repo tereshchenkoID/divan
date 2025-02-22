@@ -1,0 +1,44 @@
+@import 'scss/config';
+
+.block {
+  @include flex($direction: column);
+}
+
+.row {
+  @include wrapper;
+
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  flex-grow: 1;
+  color: var(--color-white);
+}
+
+.cell {
+  @include make-spacer(px, 1);
+  @include flex(null, center);
+
+  gap: rem(5px);
+  flex: 1;
+  border-right: rem(1px) solid var(--color_border);
+  border-bottom: rem(1px) solid var(--color_border);
+
+  &:nth-child(odd) {
+    font-size: rem(12px);
+  }
+
+  &:nth-child(even) {
+    background-color: var(--color_thunder);
+  }
+
+  &:nth-child(2n) {
+    border-right: 0;
+  }
+
+  &:nth-last-child(-n + 2) {
+    border-bottom: 0;
+  }
+
+  &.center {
+    justify-content: center;
+  }
+}

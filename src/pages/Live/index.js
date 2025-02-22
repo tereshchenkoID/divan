@@ -26,6 +26,7 @@ import FOOTBALL_LEAGUE from './games/FOOTBALL_LEAGUE'
 import HORSES_8_VR from './games/HORSES_8_VR'
 import COLOR_COLOR from './games/COLOR_COLOR'
 import ROULETTE from './games/ROULETTE'
+import ROULETTE_DELUXE from './games/ROULETTE_DELUXE'
 import DOGS_6 from './games/DOGS_6'
 import KENO from './games/KENO'
 
@@ -48,6 +49,8 @@ const getGame = id => {
       return <DOGS_6 />
     case gameType.ROULETTE:
       return <ROULETTE />
+    case gameType.ROULETTE_DELUXE:
+      return <ROULETTE_DELUXE />  
     case gameType.KENO:
       return <KENO />
     case gameType.COLOR_COLOR:

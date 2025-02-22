@@ -6,9 +6,7 @@ import useSocket from 'hooks/useSocket'
 import classNames from 'classnames'
 
 import { router } from 'router'
-
-// import { setResize } from 'store/actions/resizeAction'
-
+import { setResize } from 'store/actions/resizeAction'
 import { getToken } from 'helpers/getToken'
 import { getHostName } from 'helpers/getHostName'
 
@@ -61,8 +59,8 @@ const App = () => {
   })
 
   const handleResize = () => {
-    // const isMobile = window.innerWidth < 1200
-    const isMobile = false
+    const isMobile = window.innerWidth < 1200
+    // const isMobile = false
 
     if (isMobile) {
       setWindowSize({
@@ -75,7 +73,7 @@ const App = () => {
         y: window.innerHeight / WINDOW_SIZE.h,
       })
     }
-    // dispatch(setResize(isMobile))
+    dispatch(setResize(isMobile))
   }
 
   useEffect(() => {

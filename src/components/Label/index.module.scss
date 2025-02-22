@@ -18,6 +18,11 @@
     content: '';
   }
 
+  &.xs {
+    height: rem(25px);
+    font-size: rem(12px);
+  }
+
   &.sm {
     height: rem(30px);
   }

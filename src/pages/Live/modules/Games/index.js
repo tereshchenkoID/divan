@@ -1,16 +1,15 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import classNames from 'classnames'
 
+import { gameType } from 'constant/config'
 import { setGame } from 'store/actions/gameAction'
 import { setModal } from 'store/actions/modalAction'
-
 import { getIcon } from 'helpers/getIcon'
 
 import Icon from 'components/Icon'
 
 import style from './index.module.scss'
-import classNames from 'classnames'
-import { gameType } from '../../../../constant/config'
 
 const Games = ({ action, setPreloader, setTimer }) => {
   const dispatch = useDispatch()
