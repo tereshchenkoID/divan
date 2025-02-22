@@ -3,11 +3,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import classNames from 'classnames'
 
 import { gameType, rouletteColor } from 'constant/config'
-
 import { deleteBetslip } from 'store/HOME/actions/betslipAction'
 import { setStake } from 'store/HOME/actions/stakeAction'
 
-import { data } from './data'
+import { data } from 'data/ROULETTE'
 
 import Button from 'components/Button'
 import Odd from '../Odd'
@@ -83,10 +82,7 @@ const onHoverChips = (el, type, data, value) => {
       b = generateArrayFromRange('0-36', value)
       break
     case 'counts':
-      b = a
-        .slice(a.indexOf(':') + 1, a.length)
-        .replaceAll(' ', '')
-        .split(',')
+      b = a.slice(a.indexOf(':') + 1, a.length).replaceAll(' ', '').split(',')
       break
     case 'line':
       b = generateIncreasingArray(el.name, 12)
@@ -152,7 +148,6 @@ const TableChips = ({ random, active }) => {
   const addRandomChips = () => {
     const a = betslip.slice(0)
     const r = a.filter(el => el.id !== active.id)
-    // const s = buttonStepGet().amount.toFixed(2)
     const s = buttonStepGet().amount
 
     for (let i = 0; i < random.length; i++) {

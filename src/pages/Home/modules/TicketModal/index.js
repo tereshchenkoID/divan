@@ -2,12 +2,11 @@ import { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import { useReactToPrint } from 'react-to-print'
-
+import useSocket from 'hooks/useSocket'
 import classNames from 'classnames'
 
 import { gameType, status, printMode } from 'constant/config'
-
-import useSocket from 'hooks/useSocket'
+import { setNotification } from 'store/HOME/actions/notificationAction'
 
 import { checkCmd } from 'helpers/checkCmd'
 import { getIcon } from 'helpers/getIcon'
@@ -15,8 +14,6 @@ import { getData } from 'helpers/api'
 import { getDateTime } from 'helpers/getDateTime'
 import { getGameName } from 'helpers/getGameName'
 import { getToken } from 'helpers/getToken'
-
-import { setNotification } from 'store/HOME/actions/notificationAction'
 
 import { TicketPrint } from './TicketPrint'
 import Loader from 'components/Loader'

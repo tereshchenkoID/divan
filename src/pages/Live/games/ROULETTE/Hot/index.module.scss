@@ -26,6 +26,10 @@
     border-right: 0;
   }
 
+  &:nth-last-child(-n + 6) {
+    border-bottom: 0;
+  }
+
   &.center {
     justify-content: center;
   }

@@ -6,7 +6,7 @@ import { gameType, rouletteColor } from 'constant/config'
 import { deleteBetslip } from 'store/HOME/actions/betslipAction'
 import { setStake } from 'store/HOME/actions/stakeAction'
 
-import { data } from './data'
+import { data } from 'data/ROULETTE'
 
 import Button from 'components/Button'
 import Label from 'components/Label'

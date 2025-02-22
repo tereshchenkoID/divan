@@ -154,10 +154,20 @@ const Live = () => {
         }
 
         fetch(`${getHostName('VIDEO')}?id=${json.event.id}`)
-          .then(response => response.json())
+          .then(response => {
+            if (!response.ok) {
+              throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+          })
           .then(config => {
-            console.log(config)
-        })
+            console.log(config);
+          })
+          .catch(error => {
+            console.warn("Ошибка при запросе данных:", error);
+
+            // console.error('Ошибка при запросе данных:', error);
+          })
       })
     }
   }, [dispatch, game])
