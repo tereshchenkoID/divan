@@ -1,5 +1,7 @@
 import { useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { postData } from 'hooks/useRequest'
+
 import classNames from 'classnames'
 
 import { status } from 'constant/config'
@@ -9,7 +11,6 @@ import Keyboard from 'react-simple-keyboard'
 import 'simple-keyboard/build/css/index.css'
 
 import { getHostName } from 'helpers/getHostName'
-import { postData } from 'helpers/api'
 import { setNotification } from 'store/HOME/actions/notificationAction'
 import { setAuth } from 'store/actions/authAction'
 

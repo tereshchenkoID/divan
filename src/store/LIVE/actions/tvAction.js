@@ -1,4 +1,4 @@
-import { useRequest } from 'hooks/useRequest'
+import { getData } from 'hooks/useRequest'
 import { setDelta } from 'store/actions/deltaAction'
 import { setVideo } from './videoAction'
 
@@ -8,9 +8,9 @@ import { types } from '../actionTypes'
 
 export const setTv = url => async dispatch => {
   dispatch(setVideo(null))
-  const { get } = useRequest('viewer/event')
+  
   try {
-    const data = await get(url)
+    const data = await getData(url, {}, 'viewer/event')
     dispatch(setDelta(data.timer))
     dispatch({
       type: types.SET_LIVE_TV,

@@ -51,7 +51,7 @@
 .market {
   @include make-spacer(px, 2);
 
-  height: rem(45px);
+  height: rem(43px);
 
   @media (max-width: $min) {
     height: rem(30px);

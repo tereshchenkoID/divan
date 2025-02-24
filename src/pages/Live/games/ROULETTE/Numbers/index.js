@@ -1,18 +1,18 @@
-import { odds } from '../data'
+import { data } from 'data/ROULETTE'
 
 import Label from 'components/Label'
 import Odd from '../Odd'
 
 import style from './index.module.scss'
 
-const Numbers = ({ data }) => {
+const Numbers = ({ history }) => {
   return (
     <div>
       <Label text={'Numbers'} />
       <div className={style.row}>
-        {data.statistics.numbers.map((el, idx) => (
+        {history.statistics.numbers.map((el, idx) => (
           <div key={idx} className={style.cell}>
-            <Odd type={odds[el.num].color} number={el.num} />
+            <Odd type={data.chips[el.num].color} number={el.num} />
             <div>{el.count}</div>
           </div>
         ))}

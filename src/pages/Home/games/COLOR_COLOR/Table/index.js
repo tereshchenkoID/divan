@@ -65,7 +65,7 @@ const Table = ({ active }) => {
             <div>
               <Label text={t('games.COLOR_COLOR.repeat')} />
               <div className={style.sort}>
-                {data.events.map((el, idx) => (
+                {data.events.map((_, idx) => (
                   <Button
                     key={idx}
                     props={'button'}
@@ -87,11 +87,13 @@ const Table = ({ active }) => {
         )}
       </div>
       <div className={style.wrapper}>
-        {live === 1 ? (
-          <TableChips events={data.events} repeat={repeat} random={random} data={active} setRepeat={setRepeat} />
-        ) : (
-          <Live />
-        )}
+        {
+          live === 1 
+            ?
+              <TableChips events={data.events} repeat={repeat} random={random} data={active} setRepeat={setRepeat} />
+            :
+              <Live />
+        }
       </div>
     </>
   )

@@ -90,18 +90,19 @@ const App = () => {
       }}
     >
       <main className={style.main}>
-        {auth || getToken() ? (
-          <Suspense fallback={<Loader />}>
-            <Routes>
-              {router.map(item => (
-                <Route key={new Date().getTime()} path={item.path} element={item.element} />
-              ))}
-            </Routes>
-          </Suspense>
-        ) : (
-          <Login />
-        )}
-
+        {
+          (auth || getToken())
+            ? 
+              <Suspense fallback={<Loader />}>
+                <Routes>
+                  {router.map(item => (
+                    <Route key={new Date().getTime()} path={item.path} element={item.element} />
+                  ))}
+                </Routes>
+              </Suspense>
+            :
+              <Login />
+        }
         {notification && <Notification data={notification} />}
       </main>
     </div>

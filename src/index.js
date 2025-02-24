@@ -7,8 +7,6 @@ import './i18n'
 
 import './scss/app.scss'
 
-import reportWebVitals from './reportWebVitals'
-
 import store from './store'
 
 import App from './App'
@@ -21,5 +19,3 @@ root.render(
     </BrowserRouter>
   </Provider>,
 )
-
-reportWebVitals()

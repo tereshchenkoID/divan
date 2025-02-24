@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-
 import { useSelector } from 'react-redux'
 
 import { getHostName } from 'helpers/getHostName'
@@ -48,7 +47,7 @@ const Table = ({ data }) => {
         <div className={style.column}>
           <div className={style.grid}>
             <div>
-              <Hot data={data} />
+              <Hot history={data} />
             </div>
             <div>
               <Dozens data={data} />
@@ -57,13 +56,13 @@ const Table = ({ data }) => {
               <Colors data={data} />
             </div>
             <div>
-              <History data={data} />
+              <History history={data} />
             </div>
             <div>
               <Pay />
             </div>
             <div>
-              <Numbers data={data} />
+              <Numbers history={data} />
             </div>
           </div>
         </div>

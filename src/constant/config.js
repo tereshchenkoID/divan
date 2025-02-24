@@ -64,8 +64,8 @@ export const matchOutcomes = {
   UNDER: 'UNDER_2.5',
   OVER: 'OVER_2.5',
   '1X': '1X',
-  X2: 'X2',
-  12: '12',
+  'X2': 'X2',
+  '12': '12',
 }
 
 export const oddsType = {
@@ -99,14 +99,14 @@ export const rouletteType = {
   MIRROR: 'MIRROR'
 }
 
-export const rouletteColor = ['violet', 'blue', 'green', 'red', 'black', 'orange']
-
 export const colorType = {
   COLOR: 'COLOR',
   MATCHED: 'MATCHED',
   ANACONDA: 'ANACONDA',
   BET_ZERO: 'BET ZERO',
 }
+
+export const rouletteColor = ['violet', 'blue', 'green', 'red', 'black', 'orange']
 
 export const dogsColor = ['red', 'blue', 'white', 'black', 'orange', 'mixed']
 

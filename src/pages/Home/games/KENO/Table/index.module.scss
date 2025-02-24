@@ -37,7 +37,7 @@
 }
 
 .market {
-  @include size(rem(43px));
+  @include size(rem(42px));
 
   @media (max-width: $min) {
     @include size(rem(30px));

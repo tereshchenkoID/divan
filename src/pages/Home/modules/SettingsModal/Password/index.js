@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
+import { postData } from 'hooks/useRequest'
 import useSocket from 'hooks/useSocket'
 
 import { status } from 'constant/config'
 
-import { postData } from 'helpers/api'
 import { checkCmd } from 'helpers/checkCmd'
 import { getToken } from 'helpers/getToken'
 

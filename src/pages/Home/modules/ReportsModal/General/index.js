@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
+import { getData } from 'hooks/useRequest'
 import useSocket from 'hooks/useSocket'
 
-import { getData } from 'helpers/api'
 import { getDateTime } from 'helpers/getDateTime'
 import { checkCmd } from 'helpers/checkCmd'
 import { getToken } from 'helpers/getToken'

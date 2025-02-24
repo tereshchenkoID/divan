@@ -14,5 +14,7 @@
 
   @media (max-width: $min) {
     @include size(rem(30px), auto);
+
+    transform: rotateZ(90deg);
   }
 }

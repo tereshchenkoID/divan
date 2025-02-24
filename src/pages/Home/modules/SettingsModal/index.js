@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useReactToPrint } from 'react-to-print'
 import { useTranslation } from 'react-i18next'
+import { getData, postData } from 'hooks/useRequest'
 import useSocket from 'hooks/useSocket'
 import i18n from 'i18next'
 
@@ -10,7 +11,6 @@ import { status, printMode, oddsType } from 'constant/config'
 import classNames from 'classnames'
 
 import { checkCmd } from 'helpers/checkCmd'
-import { getData, postData } from 'helpers/api'
 import { getToken } from 'helpers/getToken'
 
 import { deleteBetslip } from 'store/HOME/actions/betslipAction'

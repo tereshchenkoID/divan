@@ -49,7 +49,7 @@ const Table = ({ data }) => {
         <div className={style.column}>
           <div className={style.grid}>
             <div>
-              <Hot data={data} />
+              <Hot history={data} />
             </div>
             <div>
               <Dozens data={data} />
@@ -58,14 +58,14 @@ const Table = ({ data }) => {
               <Colors data={data} />
             </div>
             <div>
-              <History data={data} />
+              <History history={data} />
             </div>
             <div>
               <Pay />
               <Sectors data={data} />
             </div>
             <div>
-              <Numbers data={data} />
+              <Numbers history={data} />
             </div>
           </div>
         </div>

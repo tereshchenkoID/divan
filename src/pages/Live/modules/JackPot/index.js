@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
+import { getData } from 'hooks/useRequest'
 
 import Slider from 'react-slick'
 
-import { getData } from 'helpers/api'
 import { getHostName } from 'helpers/getHostName'
 import { getToken } from 'helpers/getToken'
 

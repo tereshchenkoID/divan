@@ -53,13 +53,17 @@ const Odd = ({ data, step, steps, active }) => {
       {betslip.length > 0 && findBet(betslip, active.id, outcome) && (
         <Amount data={findBet(betslip, active.id, outcome)} step={step} steps={steps} />
       )}
-      {data.name === 'red' || data.name === 'black' ? (
-        <div className={style.diamond}>
-          <img src={`/img/ROULETTE/decor/${data.name}.webp`} alt={'Chips'} loading={'lazy'} />
-        </div>
-      ) : (
-        data.name
-      )}
+      {
+        (data.name === 'red' || data.name === 'black')
+          ?
+            <div className={style.diamond}>
+              <svg viewBox="0 0 75 34" xmlns="http://www.w3.org/2000/svg">
+                <polygon points="10,17 37.5,2 65,17 37.5,32" fill={data.name} stroke="var(--color-white)" strokeWidth="2" strokeLinejoin="round"/>
+              </svg>
+            </div>
+          :
+            data.name
+      }
     </div>
   )
 }

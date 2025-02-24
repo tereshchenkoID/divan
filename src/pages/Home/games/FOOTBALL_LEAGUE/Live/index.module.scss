@@ -40,9 +40,9 @@
 
   flex: 1;
   height: 100%;
-  border-top: 1px solid var(--color_border);
-  border-right: 1px solid var(--color_border);
-  border-bottom: 1px solid transparent;
+  border-top: rem(1px) solid var(--color_border);
+  border-right: rem(1px) solid var(--color_border);
+  border-bottom: rem(1px) solid transparent;
 
   &:last-child {
     border-right: 0;

@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
+import { getData } from 'hooks/useRequest'
 
 import classNames from 'classnames'
 
-import { getData } from 'helpers/api'
 import { getHostName } from 'helpers/getHostName'
 
 import style from './index.module.scss'

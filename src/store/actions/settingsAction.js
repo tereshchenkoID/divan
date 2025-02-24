@@ -1,12 +1,10 @@
-import { useRequest } from 'hooks/useRequest'
+import { getData } from 'hooks/useRequest'
 
 import { types } from 'store/actionTypes'
 
 export const setSettings = value => async dispatch => {
-  const { get } = useRequest()
-
   try {
-    const data = value || (await get('/settings'))
+    const data = value || (await getData('/settings'))
 
     dispatch({
       type: types.SET_SETTINGS,

@@ -1,5 +1,6 @@
 import { useSelector } from 'react-redux'
 import { useState, useEffect } from 'react'
+import { getData } from 'hooks/useRequest'
 import useSocket from 'hooks/useSocket'
 
 import Slider from 'react-slick'
@@ -7,7 +8,6 @@ import Slider from 'react-slick'
 import classNames from 'classnames'
 
 import { checkCmd } from 'helpers/checkCmd'
-import { getData } from 'helpers/api'
 import { getDifferent } from 'helpers/getDifferent'
 import { getToken } from 'helpers/getToken'
 

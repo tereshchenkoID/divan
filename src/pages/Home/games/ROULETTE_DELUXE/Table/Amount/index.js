@@ -4,19 +4,6 @@ import classNames from 'classnames'
 
 import style from './index.module.scss'
 
-const getFixed = data => {
-  if (data) {
-    let a = data.split('.')
-    if (parseInt(a[1], 10) === 0) {
-      return 0
-    } else {
-      return 2
-    }
-  } else {
-    return 0
-  }
-}
-
 const currentStakeColor = (value, steps) => {
   let previous = null
 
@@ -59,7 +46,6 @@ const Amount = ({ data, step, steps }) => {
             loading={'lazy'}
           />
           <p>{data.stake}</p>
-          {/* <p>{parseFloat(data.stake).toFixed(getFixed(data.stake))}</p> */}
           <div className={classNames(style.animation, toggle && style.active)}>+{step.amount}</div>
         </div>
       )}

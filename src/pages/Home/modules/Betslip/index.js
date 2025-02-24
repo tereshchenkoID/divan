@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useReactToPrint } from 'react-to-print'
 import { useTranslation } from 'react-i18next'
+import { getData, postData } from 'hooks/useRequest'
 import useSocket from 'hooks/useSocket'
 
 import { status, gameType, oddsType, printMode } from 'constant/config'
@@ -23,7 +24,6 @@ import { setForecast } from 'store/HOME/actions/forecatsAction'
 
 import { checkCmd } from 'helpers/checkCmd'
 import { getToken } from 'helpers/getToken'
-import { getData, postData } from 'helpers/api'
 
 import { TicketPrint } from 'pages/Home/modules/TicketPrint'
 import TicketModal from 'pages/Home/modules/TicketModal'

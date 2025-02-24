@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import { useReactToPrint } from 'react-to-print'
+import { getData } from 'hooks/useRequest'
 import useSocket from 'hooks/useSocket'
 
 import { MD5 } from 'crypto-js'
@@ -13,7 +14,6 @@ import classNames from 'classnames'
 import { setNotification } from 'store/HOME/actions/notificationAction'
 
 import { checkCmd } from 'helpers/checkCmd'
-import { getData } from 'helpers/api'
 import { getToken } from 'helpers/getToken'
 
 import { StatsPrint } from './StatsPrint'
