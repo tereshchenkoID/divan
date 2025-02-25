@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 
@@ -215,6 +215,7 @@ const CalculatorModal = ({ data, action, toggle }) => {
           <div className={style.keys}>
             {Object.values(settings.betslip.steps).map((el, idx) => (
               <Button
+                key={idx}
                 props={'button'}
                 text={el}
                 initial={[style.key]}

@@ -1,6 +1,6 @@
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
-import { useEffect, useState } from 'react'
 
 import { colorType, gameType } from 'constant/config'
 

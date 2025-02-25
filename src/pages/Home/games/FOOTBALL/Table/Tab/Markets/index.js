@@ -1,3 +1,5 @@
+import React from 'react'
+
 import style from './index.module.scss'
 
 import Button from 'components/Button'

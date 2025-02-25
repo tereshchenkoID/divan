@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import { useReactToPrint } from 'react-to-print'
@@ -50,7 +50,7 @@ const TicketModal = ({ id, action }) => {
       })
     } else {
       getData(`/${action}/${find}`).then(json => {
-        if (json.hasOwnProperty('stake')) {
+        if (Object.prototype.hasOwnProperty.call(json, 'stake')) {
           setData(json)
           if (settings.print.mode === printMode.POS && settings.print[action]) {
             window.printTicket(JSON.stringify(json), action === 'payout' ? 3 : 4)
@@ -77,7 +77,7 @@ const TicketModal = ({ id, action }) => {
       })
     } else {
       getData(`/details/${find}`).then(json => {
-        if (json.hasOwnProperty('stake')) {
+        if (Object.prototype.hasOwnProperty.call(json, 'stake')) {
           setData(json)
           setStep(1)
           setType(json.stake.group.length > 0 ? 1 : 0)
@@ -103,7 +103,7 @@ const TicketModal = ({ id, action }) => {
   useEffect(() => {
     if (receivedMessage !== '') {
       if (checkCmd('details', receivedMessage.cmd)) {
-        if (receivedMessage.hasOwnProperty('stake')) {
+        if (Object.prototype.hasOwnProperty.call(receivedMessage, 'stake')) {
           if (receivedMessage.stake.id === find) {
             setData(receivedMessage)
             setStep(1)
@@ -114,7 +114,7 @@ const TicketModal = ({ id, action }) => {
       }
 
       if (checkCmd('payout', receivedMessage.cmd) || checkCmd('cancel', receivedMessage.cmd)) {
-        if (receivedMessage.hasOwnProperty('stake')) {
+        if (Object.prototype.hasOwnProperty.call(receivedMessage, 'stake')) {
           setData(receivedMessage)
 
           if (settings.print.mode === printMode.POS && settings.print[action]) {

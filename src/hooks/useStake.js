@@ -104,13 +104,14 @@ export const getSystemBetMinMaxSystem = (data, type) => {
     r.push(getAccumulatorPrices(data[i]))
   }
 
+  const add = arr => arr.reduce((a, b) => a + b, 0);
+
   switch (type) {
     case 0:
       return Math.min(...r)
     case 1:
       return Math.max(...r)
     case 2:
-      const add = arr => arr.reduce((a, b) => a + b, 0)
       return add(r)
     default:
       return 0

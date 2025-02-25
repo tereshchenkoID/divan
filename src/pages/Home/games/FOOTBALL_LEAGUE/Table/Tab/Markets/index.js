@@ -1,7 +1,9 @@
-import style from './index.module.scss'
+import React from 'react'
 
 import Button from 'components/Button'
 import Market from './Market'
+
+import style from './index.module.scss'
 
 const Markets = ({ active, match, setToggle }) => {
   return (

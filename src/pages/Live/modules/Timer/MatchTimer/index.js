@@ -1,5 +1,6 @@
-import { gameType } from 'constant/config'
+import React from 'react'
 import { useSelector } from 'react-redux'
+import { gameType } from 'constant/config'
 
 const MatchTimer = () => {
   const { game } = useSelector(state => state.game)

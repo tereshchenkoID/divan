@@ -1,10 +1,10 @@
-import { Fragment, useState } from 'react'
+import React, { Fragment, useState } from 'react'
 import style from './index.module.scss'
 import classNames from 'classnames'
 
 import Icon from 'components/Icon'
 import Subtitle from 'components/Subtitle'
-import Odd from 'pages/Home/games/FOOTBALL_LEAGUE/Table/Odd'
+import Odd from '../../../Odd'
 
 const Market = ({ id, active, match, group }) => {
   const [toggle, setToggle] = useState(false)

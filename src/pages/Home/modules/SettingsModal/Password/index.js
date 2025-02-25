@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import { postData } from 'hooks/useRequest'
@@ -48,7 +48,7 @@ const Password = ({ action }) => {
             old_password: newPassword,
           }),
         ).then(json => {
-          if (json.hasOwnProperty('data')) {
+          if (Object.prototype.hasOwnProperty.call(json, 'data')) {
             dispatch(setNotification({ text: t('notification.old_password_invalid'), type: status.error }))
           } else {
             dispatch(setNotification({ text: t('notification.password_changed'), type: status.success }))
@@ -64,7 +64,7 @@ const Password = ({ action }) => {
 
   useEffect(() => {
     if (receivedMessage !== '' && checkCmd('password', receivedMessage.cmd)) {
-      if (receivedMessage.hasOwnProperty('code')) {
+      if (Object.prototype.hasOwnProperty.call(receivedMessage, 'code')) {
         dispatch(setNotification({ text: t('notification.old_password_invalid'), type: status.error }))
       } else {
         dispatch(setNotification({ text: t('notification.password_changed'), type: status.success }))

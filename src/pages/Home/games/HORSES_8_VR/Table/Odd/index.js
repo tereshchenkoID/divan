@@ -1,3 +1,4 @@
+import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import classNames from 'classnames'
@@ -49,6 +50,7 @@ const Odd = ({ market, start, data, view, text, roundId }) => {
 
   return (
     <button
+      type={'button'}
       className={classNames(style.block, style[view], findBet(betslip, data.id) && style.active)}
       onClick={() => {
         addStake()

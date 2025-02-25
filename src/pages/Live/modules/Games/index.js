@@ -1,5 +1,7 @@
+import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+
 import classNames from 'classnames'
 
 import { gameType } from 'constant/config'
@@ -11,7 +13,7 @@ import Icon from 'components/Icon'
 
 import style from './index.module.scss'
 
-const Games = ({ action, setPreloader, setTimer }) => {
+const Games = ({ action, setPreloader }) => {
   const dispatch = useDispatch()
   const { settings } = useSelector(state => state.settings)
 

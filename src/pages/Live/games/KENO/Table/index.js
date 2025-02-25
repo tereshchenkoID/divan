@@ -1,3 +1,5 @@
+import React from 'react'
+
 import Numbers from '../Numbers'
 
 import style from './index.module.scss'

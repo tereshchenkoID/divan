@@ -15,7 +15,7 @@ import classNames from 'classnames'
 
 import style from './index.module.scss'
 
-export const TicketPrint = React.forwardRef((data, ref) => {
+export const TicketPrint = React.forwardRef(function TicketPrint(data, ref) {
   const { t } = useTranslation()
   const { settings } = useSelector(state => state.settings)
   const { resize } = useSelector(state => state.resize)

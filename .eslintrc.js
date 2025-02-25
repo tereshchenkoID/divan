@@ -1,5 +1,7 @@
 module.exports = {
+  extends: ['eslint:recommended', 'plugin:react/recommended'],
   rules: {
-    'no-template-curly-in-string': 'off',
+    'react/prop-types': 'off',
+    'react-hooks/exhaustive-deps': 'off'
   },
-}
+};

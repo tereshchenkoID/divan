@@ -1,13 +1,12 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
-
-import { generateCircles } from 'helpers/generateCircles'
-import { deleteBetslip } from 'store/HOME/actions/betslipAction'
-
 import classNames from 'classnames'
 
 import { gameType, horseColor } from 'constant/config'
+
+import { generateCircles } from 'helpers/generateCircles'
+import { deleteBetslip } from 'store/HOME/actions/betslipAction'
 
 import Button from 'components/Button'
 import Number from '../../../Number'

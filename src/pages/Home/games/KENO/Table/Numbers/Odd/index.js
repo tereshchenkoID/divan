@@ -1,3 +1,5 @@
+import React from 'react'
+
 import classNames from 'classnames'
 
 import style from './index.module.scss'
@@ -14,6 +16,7 @@ const Odd = ({ data, date, action }) => {
 
   return (
     <button
+      type={'button'}
       className={classNames(style.block, date.indexOf(data) !== -1 && style.active)}
       onClick={() => {
         addMatched()

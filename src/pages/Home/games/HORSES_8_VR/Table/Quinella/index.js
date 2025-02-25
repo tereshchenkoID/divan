@@ -1,3 +1,5 @@
+import React from 'react'
+
 import Odd from '../Odd'
 
 import style from './index.module.scss'

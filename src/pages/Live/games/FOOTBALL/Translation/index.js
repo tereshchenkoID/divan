@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 
 import Scoreboard from './Scoreboard'
@@ -20,7 +20,7 @@ const Translation = () => {
 
     if (playPromise !== undefined) {
       playPromise
-        .then(_ => {})
+        .then(() => {})
         .catch(error => {
           console.log(error)
         })

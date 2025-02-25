@@ -1,5 +1,7 @@
+import React from 'react'
+
 import Icon from 'components/Icon'
-import Odd from 'pages/Home/games/FOOTBALL_LEAGUE/Table/Odd'
+import Odd from '../../Odd'
 
 import style from './index.module.scss'
 

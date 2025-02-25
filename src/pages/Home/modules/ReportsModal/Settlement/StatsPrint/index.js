@@ -7,7 +7,7 @@ import { convertFixed } from 'helpers/convertFixed'
 
 import style from './index.module.scss'
 
-export const StatsPrint = React.forwardRef((data, ref) => {
+export const StatsPrint = React.forwardRef(function StatsPrint(data, ref) {
   const { t } = useTranslation()
   const { balance } = useSelector(state => state.balance)
   const currency = data.data.Symbol || balance.account.symbol

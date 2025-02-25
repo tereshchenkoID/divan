@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useReactToPrint } from 'react-to-print'
 import { useTranslation } from 'react-i18next'
@@ -59,10 +59,10 @@ const Betslip = () => {
   const [min, setMin] = useState(0)
   const [max, setMax] = useState(0)
 
-  const isEmpty = forecast.hasOwnProperty('id') || betslip.length > 0
+  const isEmpty = Object.prototype.hasOwnProperty.call(forecast, 'id') || betslip.length > 0
 
   const sendStake = () => {
-    if (stake.length || forecast.hasOwnProperty('id')) {
+    if (stake.length || Object.prototype.hasOwnProperty.call(forecast, 'id')) {
       const a = {
         a: balance.account.currency,
         b: settings.betting.type,
@@ -71,7 +71,7 @@ const Betslip = () => {
         e: [],
       }
 
-      if (forecast.hasOwnProperty('id')) {
+      if (Object.prototype.hasOwnProperty.call(forecast, 'id')) {
         a.f = forecast.market.name
         a.d.push({
           b: 2,
@@ -160,7 +160,7 @@ const Betslip = () => {
           })
         } else {
           postData('/placebet', JSON.stringify(a)).then(json => {
-            if (json.hasOwnProperty('account')) {
+            if (Object.prototype.hasOwnProperty.call(json, 'account')) {
               if (settings.print.mode === printMode.WEB_PRINT && settings.print.payout) {
                 setResponse(json)
               }
@@ -195,7 +195,7 @@ const Betslip = () => {
         })
       } else {
         getData(`/reprint`).then(json => {
-          if (json.hasOwnProperty('stake')) {
+          if (Object.prototype.hasOwnProperty.call(json, 'stake')) {
             if (settings.print.mode === printMode.WEB_PRINT && settings.print.payout) {
               setResponse({
                 ...json,
@@ -333,7 +333,7 @@ const Betslip = () => {
 
   useEffect(() => {
     if (receivedMessage !== '' && checkCmd('reprint', receivedMessage.cmd)) {
-      if (receivedMessage.hasOwnProperty('stake')) {
+      if (Object.prototype.hasOwnProperty.call(receivedMessage, 'stake')) {
         if (settings.print.mode === printMode.WEB_PRINT && settings.print.payout) {
           setResponse(receivedMessage)
         }
@@ -408,7 +408,7 @@ const Betslip = () => {
       <div className={style.body}>
         {isEmpty ? (
           <>
-            {forecast.hasOwnProperty('id') && <Forecast data={forecast} />}
+            {Object.prototype.hasOwnProperty.call(forecast, 'id') && <Forecast data={forecast} />}
             {betslip.length > 0 && (
               <>
                 <Bets betslip={betslip} stake={stake} type={type} setInit={setInit} setDisabled={setDisabled} />

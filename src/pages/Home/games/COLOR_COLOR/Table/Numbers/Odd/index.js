@@ -1,3 +1,5 @@
+import React from 'react'
+
 import classNames from 'classnames'
 
 import Number from '../../Number'
@@ -34,6 +36,7 @@ const Odd = ({ data, color, date, action }) => {
 
   return (
     <button
+      type={'button'}
       className={classNames(style.block, check(date, data.id) && style.active)}
       onClick={() => {
         addMatched()

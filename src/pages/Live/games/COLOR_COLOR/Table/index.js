@@ -1,3 +1,5 @@
+import React from 'react'
+
 import Translation from '../Translation'
 import Statistics from '../Statistics'
 import History from '../History'

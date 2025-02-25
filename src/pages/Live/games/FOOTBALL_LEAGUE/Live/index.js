@@ -1,5 +1,7 @@
-import { matchMarkets, matchStatus } from 'constant/config'
+import React from 'react'
 import { useSelector } from 'react-redux'
+
+import { matchMarkets } from 'constant/config'
 
 import Item from './Item'
 

@@ -6,7 +6,7 @@ const useSocket = () => {
   const dispatch = useDispatch()
   const { socket, receivedMessage } = useSelector(state => state.socket)
 
-  const handleConnectSocket = hostname => {
+  const handleConnectSocket = () => {
     const newSocket = new WebSocket(getHostName('WSS_PROD'))
 
     newSocket.addEventListener('open', () => {
@@ -21,7 +21,7 @@ const useSocket = () => {
       dispatch(disconnectSocket())
     })
 
-    newSocket.addEventListener('error', error => {
+    newSocket.addEventListener('error', () => {
       dispatch(disconnectSocket())
     })
   }

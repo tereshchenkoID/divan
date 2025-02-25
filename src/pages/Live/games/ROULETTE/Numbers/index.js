@@ -1,3 +1,5 @@
+import React from 'react'
+
 import { data } from 'data/ROULETTE'
 
 import Label from 'components/Label'

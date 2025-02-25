@@ -1,5 +1,5 @@
+import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import { useState, useEffect } from 'react'
 import { getData } from 'hooks/useRequest'
 import useSocket from 'hooks/useSocket'
 

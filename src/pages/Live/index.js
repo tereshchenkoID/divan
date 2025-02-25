@@ -1,8 +1,9 @@
-import { gameType, matchStatus } from 'constant/config'
-import { useState, useEffect, useMemo } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import { setAuth } from 'store/actions/authAction'
+
+import { gameType, matchStatus } from 'constant/config'
 
 import i18n from 'i18next'
 
@@ -179,7 +180,7 @@ const Live = () => {
     if (game?.type === timer.game) setPreloader(false)
   }, [timer, game])
 
-  if (tv.hasOwnProperty('error'))
+  if (Object.prototype.hasOwnProperty.call(tv, 'error'))
     return (
       <Connection
         action={() => {
@@ -241,7 +242,7 @@ const Live = () => {
               {modal === 1 && <Countdown />}
               {jackpot && <Jackpot />}
             </div>
-            {active && <Games action={setActive} setPreloader={setPreloader} setTimer={setTimer} />}
+            {active && <Games action={setActive} setPreloader={setPreloader} />}
           </div>
         }
     </div>

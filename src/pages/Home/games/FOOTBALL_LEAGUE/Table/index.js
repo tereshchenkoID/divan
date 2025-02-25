@@ -1,7 +1,7 @@
+import React from 'react'
 import { useSelector } from 'react-redux'
 
 import Live from '../Live'
-
 import Schedule from './Schedule'
 import Tab from './Tab'
 

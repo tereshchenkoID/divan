@@ -1,7 +1,5 @@
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { useEffect, useState } from 'react'
-
-import { getHostName } from 'helpers/getHostName'
 
 import style from './index.module.scss'
 
@@ -21,6 +19,7 @@ const getStatus = id => {
 const Live = ({ active }) => {
   const { live } = useSelector(state => state.live)
   const { delta } = useSelector(state => state.delta)
+  const { game } = useSelector(state => state.game)
   const [params, setParams] = useState('')
 
   useEffect(() => {
@@ -30,7 +29,7 @@ const Live = ({ active }) => {
   return (
     <div className={style.block}>
       <div className={style.wheel}>
-        <iframe src={`${getHostName()}/iframe/wheel/#/${params}`} title={'Wheel'} />
+        <iframe src={`${game.iframe}#/${params}`} title={'Wheel'} />
       </div>
     </div>
   )

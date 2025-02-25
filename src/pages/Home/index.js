@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import useSocket from 'hooks/useSocket'
 
@@ -63,7 +63,7 @@ const Home = () => {
 
   useEffect(() => {
     if (receivedMessage !== '' && checkCmd('settings', receivedMessage.cmd)) {
-      if (receivedMessage.hasOwnProperty('code')) {
+      if (Object.prototype.hasOwnProperty.call(receivedMessage, 'code')) {
         handleRedirect()
       } else {
         dispatch(setSettings(receivedMessage))
@@ -73,7 +73,7 @@ const Home = () => {
     }
   }, [receivedMessage])
 
-  if (data.hasOwnProperty('error'))
+  if (Object.prototype.hasOwnProperty.call(data, 'error'))
     return (
       <Connection
         action={() => {

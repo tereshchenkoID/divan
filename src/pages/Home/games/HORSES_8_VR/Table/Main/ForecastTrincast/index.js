@@ -1,13 +1,12 @@
-import { Fragment, useEffect, useState } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import classNames from 'classnames'
 
 import { gameType, horseColor } from 'constant/config'
 
 import { generateCircles } from 'helpers/generateCircles'
 import { convertFixed } from 'helpers/convertFixed'
 import { deleteBetslip, setBetslip } from 'store/HOME/actions/betslipAction'
-
-import classNames from 'classnames'
 
 import Number from '../../Number'
 

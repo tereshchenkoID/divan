@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useReactToPrint } from 'react-to-print'
 import { useTranslation } from 'react-i18next'
@@ -68,7 +68,7 @@ const SettingsModal = ({ action }) => {
       sendMessage({ cmd: `account/${getToken()}/details/${ref.current.value}` })
     } else {
       getData(`/details/${ref.current.value}`).then(json => {
-        if (json.hasOwnProperty('stake')) {
+        if (Object.prototype.hasOwnProperty.call(json, 'stake')) {
           if (settings.print.mode === printMode.WEB_PRINT && settings.print.payout) {
             setResponse(json)
           }
@@ -81,7 +81,7 @@ const SettingsModal = ({ action }) => {
 
   useEffect(() => {
     if (receivedMessage !== '' && checkCmd('details', receivedMessage.cmd)) {
-      if (receivedMessage.hasOwnProperty('stake')) {
+      if (Object.prototype.hasOwnProperty.call(receivedMessage, 'stake')) {
         if (receivedMessage.stake.id === printRef.current.value) {
           if (settings.print.mode === printMode.WEB_PRINT && settings.print.payout) {
             setResponse(receivedMessage)
@@ -224,7 +224,6 @@ const SettingsModal = ({ action }) => {
                 <div>{t('interface.video')}</div>
                 <div>
                   <Toggle
-                    data={settings.account.mode}
                     action={() => {
                       setVideo(video === '1' ? '0' : '1')
                       save(null, 'mode', video === '1' ? '0' : '1')
@@ -236,7 +235,6 @@ const SettingsModal = ({ action }) => {
                 <div>{t('interface.volume')}</div>
                 <div>
                   <Toggle
-                    data={settings.account.sound}
                     action={() => {
                       setSound(sound === '1' ? '0' : '1')
                       save(null, 'sound', sound === '1' ? '0' : '1')

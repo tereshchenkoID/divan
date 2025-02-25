@@ -35,13 +35,18 @@
     "web-vitals": "^2.1.4"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "eslint": "^8.57.1",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "eslint-plugin-react": "^7.37.4",
+    "eslint-plugin-react-hooks": "^5.1.0",
     "postcss": "^8.4.35",
     "postcss-lit": "^1.1.1",
     "prettier": "^3.2.4",
     "stylelint": "^16.2.1",
     "stylelint-config-concentric-order": "^5.2.0",
     "stylelint-config-sass-guidelines": "^11.0.0",
-    "stylelint-config-standard": "^36.0.0"
+    "stylelint-config-standard": "^36.0.1"
   },
   "scripts": {
     "start": "react-scripts start",

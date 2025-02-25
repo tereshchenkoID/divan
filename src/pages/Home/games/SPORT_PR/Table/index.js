@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -51,7 +51,7 @@ const Table = ({ active }) => {
   }, [active])
 
   useEffect(() => {
-    if (!forecast.hasOwnProperty('id') && init) {
+    if (!Object.prototype.hasOwnProperty.call(forecast, 'id') && init) {
       setData(prevMatches => {
         return prevMatches.map(match => {
           return {

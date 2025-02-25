@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 
@@ -11,7 +11,6 @@ const TYPES = ['Main', 'Forecast', 'Quinella', 'Trincast']
 
 const Table = ({ active }) => {
   const { t } = useTranslation()
-  const { data } = useSelector(state => state.data)
   const { live } = useSelector(state => state.live)
   const [type, setType] = useState(0)
 
@@ -40,7 +39,7 @@ const Table = ({ active }) => {
       </div>
       <div className={style.wrapper}>
         {live === 1 ? (
-          <TableChips type={type} events={data.events} data={active} />
+          <TableChips type={type} data={active} />
         ) : (
           <div className={style.live}>
             <div>{t('interface.live')}</div>

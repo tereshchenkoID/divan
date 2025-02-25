@@ -1,3 +1,4 @@
+import React from 'react'
 import { getTimerFormat } from 'helpers/getTimerFormat'
 
 const StartTimer = ({ timer }) => {

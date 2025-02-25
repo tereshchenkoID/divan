@@ -1,5 +1,5 @@
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 
@@ -31,7 +31,7 @@ const Nav = ({ isBetslip, setIsBetslip }) => {
   const handleFullscreen = () => {
     const element = document.documentElement
     if (document.fullscreenElement) {
-      document.exitFullscreen().then(r => console.log('Success to enable fullscreen'))
+      document.exitFullscreen().then(() => console.log('Success to enable fullscreen'))
     } else {
       element.requestFullscreen().catch(err => {
         console.error('Failed to enable fullscreen:', err)
@@ -69,7 +69,7 @@ const Nav = ({ isBetslip, setIsBetslip }) => {
             }}
           />
           {betslip.length > 0 && <span>{betslip.length}</span>}
-          {forecast.hasOwnProperty('id') && <span>1</span>}
+          {Object.prototype.hasOwnProperty.call(forecast, 'id') && <span>1</span>}
         </div>
         <Button
           props={'button'}

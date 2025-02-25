@@ -1,3 +1,4 @@
+import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 import style from './index.module.scss'
@@ -8,7 +9,7 @@ const Timer = ({ timer }) => {
   return (
     <div className={style.block}>
       <div className={style.top}>{t('interface.live')}</div>
-      <div className={style.bottom}>{timer}'</div>
+      <div className={style.bottom}>{timer}&apos;</div>
     </div>
   )
 }

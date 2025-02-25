@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import classNames from 'classnames'
 
@@ -40,6 +40,7 @@ const Odd = ({ data, color, size = null, date, action, market, print }) => {
 
   return (
     <button
+      type={'button'}
       className={classNames(style.block, active && style.active)}
       onClick={() => {
         addSingleStake(data, color)

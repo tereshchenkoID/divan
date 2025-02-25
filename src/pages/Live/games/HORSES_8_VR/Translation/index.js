@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 
 import classNames from 'classnames'
@@ -37,7 +37,7 @@ const Translation = ({ data }) => {
   }, [videoRef])
 
   useEffect(() => {
-    const [minutes, seconds] = liveTimer?.split(':')
+    const [minutes, seconds] = liveTimer ? liveTimer.split(':') : null
     const totalSeconds = parseInt(minutes, 10) * 60 + parseInt(seconds, 10)
 
     if (totalSeconds === 10) {

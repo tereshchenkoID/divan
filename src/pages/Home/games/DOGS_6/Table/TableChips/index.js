@@ -1,3 +1,5 @@
+import React from 'react'
+
 import Main from '../Main'
 import Forecast from '../Forecast'
 import Quinella from '../Quinella'
@@ -20,7 +22,7 @@ const getType = (type, data) => {
   }
 }
 
-const TableChips = ({ type, events, data }) => {
+const TableChips = ({ type, data }) => {
   return <div className={style.block}>{getType(type, data)}</div>
 }
 
