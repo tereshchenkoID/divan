@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react'
 
 import { useSelector } from 'react-redux'
 
-import { getHostName } from 'helpers/getHostName'
-
 import Pay from '../Pay'
 import Numbers from '../Numbers'
 import Colors from '../Colors'
@@ -30,6 +28,7 @@ const getStatus = id => {
 const Table = ({ data }) => {
   const { progress } = useSelector(state => state.progress)
   const { delta } = useSelector(state => state.delta)
+  const { game } = useSelector(state => state.game)
   const [params, setParams] = useState('')
 
   useEffect(() => {
@@ -43,7 +42,7 @@ const Table = ({ data }) => {
       <div className={style.wrapper}>
         <div className={style.column}>
           <div className={style.wheel}>
-            <iframe title={'Wheel'} src={`${getHostName()}/iframe/wheel/#/${params}`} />
+            <iframe src={`${game.iframe}#/${params}`} title={'Wheel'} />
           </div>
         </div>
         <div className={style.column}>

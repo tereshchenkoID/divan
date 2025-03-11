@@ -6,7 +6,7 @@
   @include absolute-filled;
 
   z-index: $z-index-14;
-  background-color: rgba(#09230a, 0.95);
+  background-color: var(--color_background);
   font-weight: var(--typography-bold);
   text-align: center;
   text-transform: uppercase;

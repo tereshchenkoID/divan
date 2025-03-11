@@ -3,17 +3,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useReactToPrint } from 'react-to-print'
 import { useTranslation } from 'react-i18next'
 import { getData, postData } from 'hooks/useRequest'
+import { getBetMaxSingle, getMinMaxOdd, getSystemBetMinMaxSystem, getSystemCombination, getTotalStakeSingle } from 'hooks/useStake'
 import useSocket from 'hooks/useSocket'
 
 import { status, gameType, oddsType, printMode } from 'constant/config'
-
-import {
-  getBetMaxSingle,
-  getMinMaxOdd,
-  getSystemBetMinMaxSystem,
-  getSystemCombination,
-  getTotalStakeSingle,
-} from 'hooks/useStake'
 
 import { deleteBetslip } from 'store/HOME/actions/betslipAction'
 import { setStake } from 'store/HOME/actions/stakeAction'
@@ -51,6 +44,7 @@ const Betslip = () => {
   const componentRef = useRef()
 
   const [init, setInit] = useState(false)
+  const [change, setChange] = useState(true)
   const [disabled, setDisabled] = useState(true)
   const [type, setType] = useState(0)
   const [checkTicket, setCheckTicket] = useState(false)
@@ -318,6 +312,10 @@ const Betslip = () => {
           setDisabled(true)
           setType(0)
         } else {
+          if(change) {
+            setType(1)
+            setChange(false)
+          }
           setDisabled(false)
         }
       }
@@ -373,59 +371,73 @@ const Betslip = () => {
     response && a()
   }, [response])
 
+  // useEffect(() => {
+  //   checkType()
+
+  //   if (betslip.length) {
+  //     dispatch(setForecast({}))
+  //     if (type === 0) {
+  //       dispatch(setStake(singleHandler()))
+  //     } else {
+  //       dispatch(setStake(systemHandler()))
+  //     }
+  //   }
+  // }, [betslip, type])
+
   useEffect(() => {
     checkType()
 
-    if (betslip.length) {
-      dispatch(setForecast({}))
+    if (betslip.length === 0 && stake.length === 0) {
+      setDisabled(true)
+      setInit(false)
+      setChange(true)
+    }
+
+    if (betslip.length > 0) {
+      // dispatch(setForecast({}))
       if (type === 0) {
         dispatch(setStake(singleHandler()))
       } else {
         dispatch(setStake(systemHandler()))
       }
-    }
-  }, [betslip, type])
 
-  useEffect(() => {
-    if (betslip.length === 0 && stake.length === 0) {
-      setDisabled(true)
-      setInit(false)
-    }
-
-    if (betslip.length > 0) {
       dispatch(setTicket(0))
     }
   }, [betslip])
 
   return (
     <div className={style.block}>
-      {response && (
+      {response && 
         <div className={style.print}>
           <TicketPrint data={response} ref={componentRef} />
         </div>
-      )}
-      {checkTicket && <TicketModal id={false} action={setCheckTicket} />}
+      }
+      {checkTicket && 
+        <TicketModal id={false} action={setCheckTicket} />
+      }
       <div className={style.body}>
-        {isEmpty ? (
-          <>
-            {Object.prototype.hasOwnProperty.call(forecast, 'id') && <Forecast data={forecast} />}
-            {betslip.length > 0 && (
+        {
+          isEmpty 
+            ?
               <>
-                <Bets betslip={betslip} stake={stake} type={type} setInit={setInit} setDisabled={setDisabled} />
-                <Types type={type} setType={setType} disabled={disabled} />
-                <Stakes stake={stake} />
+                {Object.prototype.hasOwnProperty.call(forecast, 'id') && <Forecast data={forecast} />}
+                {betslip.length > 0 && (
+                  <>
+                    <Bets betslip={betslip} stake={stake} type={type} setInit={setInit} setDisabled={setDisabled} />
+                    <Types type={type} setType={setType} disabled={disabled} />
+                    <Stakes stake={stake} />
+                  </>
+                )}
               </>
-            )}
-          </>
-        ) : (
-          <div className={style.empty}>
-            {settings.account.logo && <img src={settings.account.logo} width={200} height={80} alt="logo" loading="lazy" />}
-            <div className={style.icon}>
-              <Icon id={'add'} />
-            </div>
-            <p>{t('notification.please_pick_up_bet')}</p>
-          </div>
-        )}
+            :
+              <div className={style.empty}>
+                {settings.account.logo && <img src={settings.account.logo} width={200} height={80} alt="logo" loading="lazy" />}
+                <div className={style.icon}>
+                  <Icon id={'add'} />
+                </div>
+                <p>{t('notification.please_pick_up_bet')}</p>
+              </div>
+        }
       </div>
       <div className={style.footer}>
         <Button
@@ -440,6 +452,7 @@ const Betslip = () => {
             dispatch(setTicket(0))
             setDisabled(true)
             setInit(false)
+            setChange(true)
           }}
         />
         <Button
