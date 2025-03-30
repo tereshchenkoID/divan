@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useReactToPrint } from 'react-to-print'
 import { useTranslation } from 'react-i18next'
 import { getData, postData } from 'hooks/useRequest'
-import { getBetMaxSingle, getMinMaxOdd, getSystemBetMinMaxSystem, getSystemCombination, getTotalStakeSingle } from 'hooks/useStake'
+import { getBetMaxSingle, getMinMaxOdd, getSystemBetMinMaxSystem, getSystemCombination, getTotalStakeSingle, calculateStakeSum } from 'hooks/useStake'
 import useSocket from 'hooks/useSocket'
 
 import { status, gameType, oddsType, printMode } from 'constant/config'
@@ -40,6 +40,7 @@ const Betslip = () => {
   const { stake } = useSelector(state => state.stake)
   const { settings } = useSelector(state => state.settings)
   const { balance } = useSelector(state => state.balance)
+  const STAKE_TYPE = settings.betting.type
 
   const componentRef = useRef()
 
@@ -49,17 +50,41 @@ const Betslip = () => {
   const [type, setType] = useState(0)
   const [checkTicket, setCheckTicket] = useState(false)
   const [response, setResponse] = useState(null)
-
   const [min, setMin] = useState(0)
   const [max, setMax] = useState(0)
-
+  const [loading, setLoading] = useState(false)
   const isEmpty = Object.prototype.hasOwnProperty.call(forecast, 'id') || betslip.length > 0
+
+  // System PER_BET
+  const isSystemPerBetMinMax = (a, minValue, maxValue) => {
+    const isValid = a.d.some(item => parseFloat(item.a) < parseFloat(minValue) || parseFloat(item.a) > parseFloat(maxValue))
+    return isValid
+  }
+
+  // Single PER_BET
+  const isSinglePerBetMinMax = (a, minValue, maxValue) => {
+    const isValid = a.some(item => parseFloat(item.stake) < parseFloat(minValue) || parseFloat(item.stake) > parseFloat(maxValue))
+    return isValid
+  }
+
+  // Single PER_GROUP
+  const isSinglePerGroupMinMax = (a, minValue, maxValue) => {
+    const isValid = a.e.some(item => parseFloat(item.g) < parseFloat(minValue) || parseFloat(item.g) > parseFloat(maxValue))
+    return isValid
+  }
+
+  // System PER_GROUP
+  const isSystemPerGroupMinMax = (a, minValue, maxValue) => {
+    const s = a.filter(item => item.stake !== 0)
+    const isValid = s.some(item => (parseFloat(item.stake) / item.combi) < parseFloat(minValue) || (parseFloat(item.stake) / item.combi) > parseFloat(maxValue))
+    return isValid
+  }
 
   const sendStake = () => {
     if (stake.length || Object.prototype.hasOwnProperty.call(forecast, 'id')) {
       const a = {
         a: balance.account.currency,
-        b: settings.betting.type,
+        b: STAKE_TYPE,
         c: settings.betting.odds,
         d: [],
         e: [],
@@ -120,11 +145,30 @@ const Betslip = () => {
 
       const minValue = stake[0]?.type === 1 ? settings.betslip.system.min : settings.betslip.single.min
       const maxValue = stake[0]?.type === 1 ? settings.betslip.system.max : settings.betslip.single.max
+      const isStakeExceeded = getTotalStakeSingle(stake) > balance.account.balance;
+      let isError = true
+
+      if(type === 0) {
+        if(STAKE_TYPE === oddsType.PER_BET) {
+          isError = isSinglePerBetMinMax(betslip, minValue, maxValue)
+        }
+        else {
+          isError = isSinglePerGroupMinMax(a, minValue, maxValue)
+        }
+      }
+      else {
+        if(STAKE_TYPE === oddsType.PER_BET) {
+          isError = isSystemPerBetMinMax(a, minValue, maxValue)
+        }
+        else {
+          isError = isSystemPerGroupMinMax(stake, minValue, maxValue)
+        }
+      }
 
       setMin(minValue)
       setMax(maxValue)
 
-      if(getTotalStakeSingle(stake) > balance.account.balance) {
+      if(isStakeExceeded) {
         dispatch(
           setNotification({
             text: t('notification.no_money'),
@@ -132,48 +176,53 @@ const Betslip = () => {
           }),
         )
       }
-      else if ((isEmpty ? a.d : a.e).some(item => Number(item.g) < minValue || Number(item.g) > maxValue)) {
-        dispatch(
-          setNotification({
-            text: t('notification.stake_lower_upper')
-              .replaceAll('${symbol}', settings.account.symbol)
-              .replace('${min}', minValue)
-              .replace('${max}', maxValue),
-            type: status.error,
-          }),
-        )
-      } 
       else {
-        if (isConnected) {
-          sendMessage({
-            cmd: `account/${getToken()}/placebet`,
-            payload: a,
-          })
-          sendMessage({
-            cmd: `account/${getToken()}/balance`,
-          })
-        } else {
-          postData('/placebet', JSON.stringify(a)).then(json => {
-            if (Object.prototype.hasOwnProperty.call(json, 'account')) {
-              if (settings.print.mode === printMode.WEB_PRINT && settings.print.payout) {
-                setResponse(json)
-              }
-              if (settings.print.mode === printMode.POS) {
-                window.printTicket(JSON.stringify(json), 1)
-              }
+        if(isError) {
+          dispatch(
+            setNotification({
+              text: t('notification.stake_lower_upper')
+                .replaceAll('${symbol}', settings.account.symbol)
+                .replace('${min}', minValue)
+                .replace('${max}', maxValue),
+              type: status.error,
+            }),
+          )
+        }
+        else {
+          setLoading(true)
 
-              dispatch(setBalance())
-              dispatch(deleteBetslip([]))
-              dispatch(setStake([]))
-            } else {
-              dispatch(
-                setNotification({
-                  text: json.error_message,
-                  type: status.error,
-                }),
-              )
-            }
-          })
+          if (isConnected) {
+            sendMessage({
+              cmd: `account/${getToken()}/placebet`,
+              payload: a,
+            })
+            sendMessage({
+              cmd: `account/${getToken()}/balance`,
+            })
+          } else {
+            postData('/placebet', JSON.stringify(a)).then(json => {
+              if (Object.prototype.hasOwnProperty.call(json, 'account')) {
+                if (settings.print.mode === printMode.WEB_PRINT && settings.print.payout) {
+                  setResponse(json)
+                }
+                if (settings.print.mode === printMode.POS) {
+                  window.printTicket(JSON.stringify(json), 1)
+                }
+
+                dispatch(setBalance())
+                dispatch(deleteBetslip([]))
+                dispatch(setStake([]))
+                setLoading(false)
+              } else {
+                dispatch(
+                  setNotification({
+                    text: json.error_message,
+                    type: status.error,
+                  }),
+                )
+              }
+            })
+          }
         }
       }
     } else {
@@ -267,10 +316,15 @@ const Betslip = () => {
     } else {
       if (!init) {
         if (betslip[0].type === gameType.FOOTBALL_LEAGUE) {
-          s =
-            settings.betting.type === oddsType.PER_BET
+          s = STAKE_TYPE === oddsType.PER_BET
               ? settings.betslip.single.default
-              : settings.betslip.single.default / betslip.length
+              : getTotalStakeSingle(betslip)
+
+          // s = settings.betslip.single.default
+
+          // s = STAKE_TYPE === oddsType.PER_BET
+          //     ? settings.betslip.single.default
+          //     : settings.betslip.single.default * betslip.length
         } else {
           s = getTotalStakeSingle(betslip)
         }
@@ -289,7 +343,7 @@ const Betslip = () => {
         max: maxOdd,
         minWin: minOdd * s,
         maxWin: maxWin * s,
-        stake: s,
+        stake: parseInt(s),
       },
     ]
   }
@@ -372,6 +426,10 @@ const Betslip = () => {
   }, [response])
 
   // useEffect(() => {
+  //   update()
+  // }, [betslip])
+
+  // useEffect(() => {
   //   checkType()
 
   //   if (betslip.length) {
@@ -401,9 +459,12 @@ const Betslip = () => {
         dispatch(setStake(systemHandler()))
       }
 
-      dispatch(setTicket(0))
+      // dispatch(setTicket(0))
     }
-  }, [betslip])
+    else {
+      dispatch(setStake([]))
+    }
+  }, [betslip, type])
 
   return (
     <div className={style.block}>
@@ -421,13 +482,13 @@ const Betslip = () => {
             ?
               <>
                 {Object.prototype.hasOwnProperty.call(forecast, 'id') && <Forecast data={forecast} />}
-                {betslip.length > 0 && (
+                {betslip.length > 0 &&
                   <>
                     <Bets betslip={betslip} stake={stake} type={type} setInit={setInit} setDisabled={setDisabled} />
                     <Types type={type} setType={setType} disabled={disabled} />
                     <Stakes stake={stake} />
                   </>
-                )}
+                }
               </>
             :
               <div className={style.empty}>
@@ -439,9 +500,15 @@ const Betslip = () => {
               </div>
         }
       </div>
+      {
+        betslip.length > 0 &&
+        <div className={style.total}>    
+          <span>{t('interface.total_stake')}:</span>
+          <strong>{settings.account.symbol} {calculateStakeSum(type === 0 ? betslip : stake, type, STAKE_TYPE)}</strong>
+        </div>
+      }
       <div className={style.footer}>
         <Button
-          props={'button'}
           icon={'trash'}
           initial={[style.button]}
           classes={['red']}
@@ -456,7 +523,6 @@ const Betslip = () => {
           }}
         />
         <Button
-          props={'button'}
           icon={'search'}
           initial={[style.button]}
           classes={['green-dark']}
@@ -466,7 +532,6 @@ const Betslip = () => {
         />
         {settings.business.reprint && (
           <Button
-            props={'button'}
             icon={'repeat-print'}
             initial={[style.button]}
             classes={['blue']}
@@ -476,9 +541,9 @@ const Betslip = () => {
           />
         )}
         <Button
-          props={'button'}
           icon={'print'}
           initial={[style.button]}
+          loading={loading}
           classes={['olive']}
           action={() => {
             sendStake()

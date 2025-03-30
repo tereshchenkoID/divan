@@ -19,7 +19,6 @@ const Numbers = ({ numbers, setNumbers, random }) => {
       {Array.from({ length: 10 }).map((el, idx) => (
         <div key={idx} className={style.cell}>
           <Button
-            props={'button'}
             icon={'arrow-right'}
             initial={[style.button]}
             classes={['grey']}

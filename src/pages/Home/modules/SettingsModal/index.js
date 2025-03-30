@@ -118,7 +118,6 @@ const SettingsModal = ({ action }) => {
         <div className={style.header}>
           <p>{t('interface.general_settings')}</p>
           <Button
-            props={'button'}
             icon={'close'}
             initial={[style.button]}
             classes={['red']}
@@ -173,7 +172,6 @@ const SettingsModal = ({ action }) => {
                 </div>
                 <div>
                   <Button
-                    props={'button'}
                     icon={'save'}
                     initial={[style.button]}
                     classes={['green']}
@@ -186,14 +184,13 @@ const SettingsModal = ({ action }) => {
               <div className={style.row}>
                 <div>{t('interface.stake_mode')}</div>
                 <div>
-                  <select className={style.select} ref={stakeRef}>
+                  <select className={style.select} ref={stakeRef} defaultValue={settings.betting.type}>
                     <option value={oddsType.PER_BET}>{t('interface.per_bet')}</option>
                     <option value={oddsType.PER_GROUP}>{t('interface.per_group')}</option>
                   </select>
                 </div>
                 <div>
                   <Button
-                    props={'button'}
                     icon={'save'}
                     initial={[style.button]}
                     classes={['green']}
@@ -210,7 +207,6 @@ const SettingsModal = ({ action }) => {
                 </div>
                 <div>
                   <Button
-                    props={'button'}
                     icon={'repeat-print'}
                     initial={[style.button]}
                     classes={['green']}
@@ -224,6 +220,7 @@ const SettingsModal = ({ action }) => {
                 <div>{t('interface.video')}</div>
                 <div>
                   <Toggle
+                    data={video}
                     action={() => {
                       setVideo(video === '1' ? '0' : '1')
                       save(null, 'mode', video === '1' ? '0' : '1')
@@ -235,6 +232,7 @@ const SettingsModal = ({ action }) => {
                 <div>{t('interface.volume')}</div>
                 <div>
                   <Toggle
+                    data={sound}
                     action={() => {
                       setSound(sound === '1' ? '0' : '1')
                       save(null, 'sound', sound === '1' ? '0' : '1')

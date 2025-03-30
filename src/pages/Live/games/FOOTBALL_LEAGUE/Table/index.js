@@ -69,7 +69,7 @@ const Table = ({ data }) => {
       </div>
       <div className={style.right}>
         <Slider {...init}>
-          {data.league.matches[0].odds[0].groups.slice(0, data.league.matches[0].odds[0].groups.length - 1).map((el_o, idx_o) => (
+          {data.league.matches[0].odds[0].groups.slice(0, data.league.matches[0].odds[0].groups.length - 1).map((_, idx_o) => (
             <div key={idx_o} className={style.slide}>
               <div className={style.head}>
                 {data.league.matches[0].odds[0].groups[idx_o].markets.map((el_ma, idx_ma) => (

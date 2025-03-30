@@ -38,13 +38,11 @@ const Header = ({ timer, initTime }) => {
           {game.type === gameType.FOOTBALL_LEAGUE ? (
             <>
               <Button
-                props={'button'}
                 text={`${t('interface.league')} ${tv.event.league.league_id}`}
                 initial={[style.week]}
                 classes={['green']}
               />
               <Button
-                props={'button'}
                 text={`${t('interface.week')} ${tv.event.league.week}`}
                 initial={[style.week]}
                 classes={['green']}
@@ -52,7 +50,6 @@ const Header = ({ timer, initTime }) => {
             </>
           ) : (
             <Button
-              props={'button'}
               text={`${t('interface.round')} #${tv.event.round ? tv.event.round.id : tv.event.id}`}
               initial={[style.week]}
               classes={['green']}

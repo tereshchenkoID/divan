@@ -27,7 +27,6 @@ const Anaconda = ({ numbers, type, setType, t }) => {
       <div className={style.panel}>
         <div className={style.subtitle}>{t('games.COLOR_COLOR.anaconda_description')}</div>
         <Button
-          props={'button'}
           text={'ANACONDA'}
           initial={[style.button]}
           classes={['green', disabled && 'disabled', type === colorType.ANACONDA && 'active']}

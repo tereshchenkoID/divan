@@ -125,7 +125,6 @@ const Daily = () => {
           {SORT.map((el, idx) => (
             <Button
               key={idx}
-              props={'button'}
               text={el}
               initial={[style.button]}
               classes={['green', label === idx && 'active']}
@@ -155,7 +154,6 @@ const Daily = () => {
             }}
           />
           <Button
-            props={'button'}
             text={t('interface.generate')}
             initial={[style.button]}
             classes={['green', disabled && 'disabled']}

@@ -22,6 +22,15 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: rem(5px);
+  position: relative;
+}
+
+.total {
+  @include make-spacer(p, 1);
+  @include flex(space-between, center);
+
+  background-color: var(--color_mine_shaft);
+  color: var(--color-white);
 }
 
 .button {

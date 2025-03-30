@@ -119,15 +119,16 @@ const TableChips = ({ events, repeat, random, data, setRepeat }) => {
       if (idx <= repeat && checkTime(round.start, delta)) {
         type.map(el => {
           const o = getValue(numbers, 'id')
-
+          const outcome = round.round.odds.markets[0].outcomes[el - 1]
+          
           r.push({
-            ...defaultProps(round.round.odds.markets[0].outcomes[el - 1].id, round.start, round.round.id),
-            b: round.round.odds.markets[0].outcomes[el - 1].b || 0,
+            ...defaultProps(outcome.id, round.start, round.round.id),
+            b: parseFloat(outcome.d[numbers.length]) || outcome.b || 0,
             m_old: round.round.odds.markets[0].name,
             o_old: o,
             circles: numbers,
             market: round.round.odds.markets[0].name,
-            print: `${round.round.odds.markets[0].printname}: (${round.round.odds.markets[0].outcomes[el - 1].a})`,
+            print: `${round.round.odds.markets[0].printname}: (${outcome.a})`,
           })
 
           return true
@@ -240,7 +241,6 @@ const TableChips = ({ events, repeat, random, data, setRepeat }) => {
       <div className={style.wrapper}>
         <div className={style.content}>
           <Button
-            props={'button'}
             text={t('games.COLOR_COLOR.place_bets')}
             initial={[style.button]}
             classes={['green', disabled && 'disabled']}

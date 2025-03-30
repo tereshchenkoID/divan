@@ -1,3 +1,5 @@
+import { oddsType } from "constant/config"
+
 const getAccumulatorPrices = priceArray => {
   let result = 1
 
@@ -22,23 +24,6 @@ const twoDimArrayUnion = (arr1, arr2) => {
   }
 
   return arr1
-}
-
-export const getUniquePermutations = (arr, permLength) => {
-  if (arr.length <= permLength) return [arr]
-
-  let permutations = []
-  let newArr = []
-
-  newArr = arr.slice(0)
-
-  for (let i = 0; i < arr.length; i++) {
-    newArr = arr.slice(0)
-    newArr.splice(i, 1)
-    permutations = twoDimArrayUnion(permutations, getUniquePermutations(newArr, permLength))
-  }
-
-  return permutations
 }
 
 const calculateBetsCombinations = bets => {
@@ -96,6 +81,23 @@ const calculateBetsCombinations = bets => {
   })
 
   return { r, countList }
+}
+
+export const getUniquePermutations = (arr, permLength) => {
+  if (arr.length <= permLength) return [arr]
+
+  let permutations = []
+  let newArr = []
+
+  newArr = arr.slice(0)
+
+  for (let i = 0; i < arr.length; i++) {
+    newArr = arr.slice(0)
+    newArr.splice(i, 1)
+    permutations = twoDimArrayUnion(permutations, getUniquePermutations(newArr, permLength))
+  }
+
+  return permutations
 }
 
 export const getSystemBetMinMaxSystem = (data, type) => {
@@ -172,4 +174,31 @@ export const getTotalStakeSingle = data => {
   }
 
   return result
+}
+
+export const calculateStakeSum = (data, type, stake_type) => {
+  let stakeSum = 0;
+
+  data.forEach(obj => {
+    if(type === 0) {
+      stakeSum += parseFloat(obj.stake);
+
+      // if(stake_type === oddsType.PER_BET) {
+      //   stakeSum += parseInt(obj.stake);
+      // }
+      // else {
+      //   stakeSum += parseInt(obj.stake);
+      // }
+    }
+    else {
+      if(stake_type === oddsType.PER_BET) {
+        stakeSum += obj.combi * obj.stake;
+      }
+      else {
+        stakeSum += parseInt(obj.stake);
+      }
+    }
+  })
+
+  return stakeSum.toFixed(2)
 }

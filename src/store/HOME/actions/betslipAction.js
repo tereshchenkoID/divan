@@ -7,6 +7,13 @@ const setBetslip = data => {
   }
 }
 
+const updateBetslip = data => {
+  return {
+    type: types.UPDATE_BETSLIP,
+    payload: data,
+  }
+}
+
 const deleteBetslip = data => {
   return {
     type: types.DELETE_BETSLIP,
@@ -14,4 +21,4 @@ const deleteBetslip = data => {
   }
 }
 
-export { setBetslip, deleteBetslip }
+export { setBetslip, updateBetslip, deleteBetslip }

@@ -26,7 +26,6 @@ const Zero = ({ numbers, type, setType, t }) => {
       <div className={style.panel}>
         <div className={style.subtitle}>{t('games.COLOR_COLOR.bet_zero_description')}</div>
         <Button
-          props={'button'}
           text={'BET ZERO'}
           initial={[style.button]}
           classes={['green', disabled && 'disabled', type === colorType.BET_ZERO && 'active']}

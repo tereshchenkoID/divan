@@ -19,7 +19,15 @@ const Bets = ({ betslip, stake, type, setInit, setDisabled }) => {
       </div>
       {betslip.map((el, idx) => (
         <div key={idx} className={style.item}>
-          <Bet id={idx} data={el} betslip={betslip} stake={stake} type={type} setInit={setInit} setDisabled={setDisabled} />
+          <Bet 
+            id={idx} 
+            data={el} 
+            betslip={betslip} 
+            stake={stake} 
+            type={type} 
+            setInit={setInit} 
+            setDisabled={setDisabled} 
+          />
         </div>
       ))}
     </div>

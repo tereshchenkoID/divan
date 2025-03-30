@@ -123,7 +123,6 @@ const Password = ({ action }) => {
         <div />
         <div className={style.actions}>
           <Button
-            props={'button'}
             icon={'save'}
             initial={[style.action]}
             classes={['green-dark']}
@@ -132,7 +131,6 @@ const Password = ({ action }) => {
             }}
           />
           <Button
-            props={'button'}
             icon={'close'}
             initial={[style.action]}
             classes={['red']}

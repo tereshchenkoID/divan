@@ -10,6 +10,10 @@ const betslipReducer = (state = initialState, action) => {
       return {
         ...state,
       }
+    case types.UPDATE_BETSLIP:
+      return {
+        betslip: action.payload,
+      }
     case types.SET_BETSLIP:
       return {
         betslip: [...state.betslip, action.payload],

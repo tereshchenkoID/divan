@@ -69,7 +69,6 @@ const Numbers = ({ numbers, setNumbers, random, setType }) => {
       ))}
       <div className={style.cell}>
         <Button
-          props={'button'}
           text={t('games.COLOR_COLOR.reset_numbers')}
           initial={[style.button]}
           classes={['green', !disabled && 'disabled']}

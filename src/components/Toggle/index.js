@@ -4,10 +4,15 @@ import classNames from 'classnames'
 
 import style from './index.module.scss'
 
-const Toggle = ({ action = () => {} }) => {
+const Toggle = ({ data, action }) => {
   return (
     <label className={classNames(style.block)}>
-      <input className={style.input} type="checkbox" onChange={action} />
+      <input 
+        type="checkbox"
+        className={style.input} 
+        onChange={action} 
+        checked={data === '1'} 
+      />
       <span className={style.label} />
     </label>
   )

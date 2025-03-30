@@ -21,9 +21,8 @@ const ReportsModal = ({ action }) => {
     <div className={style.block}>
       <div className={style.wrapper}>
         <div className={style.header}>
-          <p>Financial reports</p>
+          <p>{t('interface.financial_reports')}</p>
           <Button
-            props={'button'}
             icon={'close'}
             initial={[style.close]}
             classes={['red']}
@@ -52,7 +51,7 @@ const ReportsModal = ({ action }) => {
                         setActive(1)
                       }}
                     >
-                      {t('interface.dail_sums')}
+                      {t('interface.daily_sums')}
                     </button>
                   )}
                 </>

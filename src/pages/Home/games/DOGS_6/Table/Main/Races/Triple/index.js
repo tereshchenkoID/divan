@@ -106,7 +106,6 @@ const Triple = ({ data }) => {
         ))}
       </div>
       <Button
-        props={'button'}
         text={t('games.DOGS_6.place_bets')}
         initial={[style.button]}
         classes={['green', select.length < 3 && 'disabled']}

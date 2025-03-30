@@ -86,7 +86,6 @@ const Schedule = ({ active }) => {
             el.name !== 'Total Goals' && (
               <Button
                 key={idx}
-                props={'button'}
                 text={el.name}
                 initial={[style.market]}
                 classes={['green', group === idx && 'active']}

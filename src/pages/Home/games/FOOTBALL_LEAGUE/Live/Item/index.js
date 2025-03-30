@@ -109,7 +109,7 @@ const DOUBLE_CHANCE = (score, data) => {
       }
     }
   })
-
+  
   return r
 }
 
@@ -293,7 +293,8 @@ const Item = ({ data, timer }) => {
             odds.map((el, idx) => (
               <div key={idx} className={style.odd}>
                 {el.a ? (
-                  <div className={classNames(style.odd, live === 2 && el.active && style.active)}>
+                  <div 
+                    className={classNames(style.odd, live === 2 && el.active && style.active)}>
                     <div className={style.label}>{el.c || el.a}</div>
                     <div className={style.value}>{el.b || '1.00'}</div>
                   </div>

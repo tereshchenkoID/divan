@@ -52,7 +52,6 @@ const Table = ({ active }) => {
                 {SORT.map((el, idx) => (
                   <Button
                     key={idx}
-                    props={'button'}
                     text={el}
                     initial={[style.market]}
                     classes={['green']}
@@ -69,7 +68,6 @@ const Table = ({ active }) => {
                 {data.events.map((el, idx) => (
                   <Button
                     key={idx}
-                    props={'button'}
                     text={`${idx + 1}x`}
                     initial={[style.market]}
                     classes={[

@@ -102,7 +102,6 @@ const Double = ({ data }) => {
         ))}
       </div>
       <Button
-        props={'button'}
         text={t('games.HORSES_8_VR.place_bets')}
         initial={[style.button]}
         classes={['green', select.length < 2 && 'disabled']}

@@ -1,13 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
-
-import MatchTimer from './MatchTimer'
-import StartTimer from './StartTimer'
-import ResultTimer from './ResultTimer'
-import UpdateTimer from './UpdateTimer'
-
 import { gameType, matchStatus } from 'constant/config'
+import classNames from 'classnames'
 
 import useSocket from 'hooks/useSocket'
 import { convertTime } from 'helpers/convertTime'
@@ -19,8 +14,12 @@ import { setLive } from 'store/HOME/actions/liveAction'
 import { setModal } from 'store/actions/modalAction'
 import { setLiveTimer } from 'store/HOME/actions/liveTimerAction'
 
+import MatchTimer from './MatchTimer'
+import StartTimer from './StartTimer'
+import ResultTimer from './ResultTimer'
+import UpdateTimer from './UpdateTimer'
+
 import style from './index.module.scss'
-import classNames from 'classnames'
 
 const Timer = ({ active, setActive, timer, setDisabled, initTime }) => {
   const { t } = useTranslation()

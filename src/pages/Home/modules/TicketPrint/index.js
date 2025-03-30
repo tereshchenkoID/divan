@@ -71,8 +71,8 @@ export const TicketPrint = React.forwardRef(function TicketPrint(data, ref) {
                     {t('interface.gr')}: {el.group}
                   </div>
                   <div>
-                    {el.group} x {settings.account.symbol} {parseFloat(el.unit).toFixed(2)} = {settings.account.symbol}{' '}
-                    {el.combi * el.unit}
+                    {el.combi} x {settings.account.symbol} {parseFloat(el.unit).toFixed(2)} = {settings.account.symbol}{' '}
+                    {parseFloat(el.combi * el.unit).toFixed(2)}
                   </div>
                 </li>
                 <li>
@@ -93,18 +93,25 @@ export const TicketPrint = React.forwardRef(function TicketPrint(data, ref) {
               <div className={style.icon}>
                 <Icon id={getIcon(el.details.game)} />
               </div>
-              {el.details.game.indexOf(gameType.FOOTBALL) !== -1 ? (
-                <>
-                  {el.details.pos}.
-                  <div className={style.teams}>
-                    <div>{el.details.teams.home}</div>
-                    <div>-</div>
-                    <div>{el.details.teams.away}</div>
+              {el.details.game.indexOf(gameType.FOOTBALL) !== -1 
+                ?
+                  <>
+                    {el.details.pos}.
+                    <div className={style.teams}>
+                      <div>{el.details.teams.home}</div>
+                      <div>-</div>
+                      <div>{el.details.teams.away}</div>
+                    </div>
+                  </>
+                :
+                  <div>
+                    {getGameName(settings.games, el.details.game)}
                   </div>
-                </>
-              ) : (
-                getGameName(settings.games, el.details.game)
-              )}
+              }
+              {
+                el.amount &&
+                <div className={style.amount}>{settings.account.symbol} {parseFloat(el.amount).toFixed(2)}</div>
+              }
             </div>
             <div className={style.wrapper}>
               <div>{getDateTime(el.details.start, 0)}</div>

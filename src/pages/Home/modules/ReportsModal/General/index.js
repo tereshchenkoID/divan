@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { getData } from 'hooks/useRequest'
 import useSocket from 'hooks/useSocket'
 
+import { getTimezone } from 'helpers/getTimezone'
 import { getDateTime } from 'helpers/getDateTime'
 import { checkCmd } from 'helpers/checkCmd'
 import { getToken } from 'helpers/getToken'
@@ -114,9 +115,9 @@ const Settlement = () => {
     setLoading(true)
 
     if (isConnected) {
-      sendMessage({ cmd: `account/${getToken()}/generalOverview/${f}/${t}` })
+      sendMessage({ cmd: `account/${getToken()}/generalOverview/${f}/${t}?timezoneId=${getTimezone()}` })
     } else {
-      getData(`/generalOverview/${f}/${t}`).then(json => {
+      getData(`/generalOverview/${f}/${t}?timezoneId=${getTimezone()}`).then(json => {
         if (json) {
           setLoading(false)
           setDisabled(false)
@@ -150,7 +151,6 @@ const Settlement = () => {
           {SORT.map((el, idx) => (
             <Button
               key={idx}
-              props={'button'}
               text={el}
               initial={[style.button]}
               classes={['green', label === idx && 'active']}
@@ -180,7 +180,6 @@ const Settlement = () => {
             }}
           />
           <Button
-            props={'button'}
             text={t('interface.generate')}
             initial={[style.button]}
             classes={['green', disabled && 'disabled']}

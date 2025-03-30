@@ -84,18 +84,24 @@ export const TicketPrint = React.forwardRef(function TicketPrint(data, ref) {
                   <div className={style.icon}>
                     <Icon id={getIcon(el.details.game)} />
                   </div>
-                  {el.details.game.indexOf(gameType.FOOTBALL) !== -1 ? (
-                    <>
-                      {el.details.pos}.
-                      <div className={style.teams}>
-                        <div>{el.details.teams.home}</div>
-                        <div>-</div>
-                        <div>{el.details.teams.away}</div>
-                      </div>
-                    </>
-                  ) : (
-                    getGameName(settings.games, el.details.game)
-                  )}
+                  {
+                    el.details.game.indexOf(gameType.FOOTBALL) !== -1
+                    ?
+                      <>
+                        {el.details.pos}.
+                        <div className={style.teams}>
+                          <div>{el.details.teams.home}</div>
+                          <div>-</div>
+                          <div>{el.details.teams.away}</div>
+                        </div>
+                      </>
+                    :
+                      getGameName(settings.games, el.details.game)
+                  }
+                  {
+                    el.amount &&
+                    <div className={style.amount}>{settings.account.symbol} {parseFloat(el.amount).toFixed(2)}</div>
+                  }
                 </div>
                 <div className={style.wrapper}>
                   <div>{getDateTime(el.details.start, 0)}</div>

@@ -97,7 +97,6 @@ const TableChips = ({ events, repeat, random, data, setRepeat }) => {
     <div className={style.block}>
       <div className={style.header}>
         <Button
-          props={'button'}
           text={t('games.KENO.reset_numbers')}
           initial={[style.button]}
           classes={['green', numbers.length === 0 && 'disabled']}
@@ -106,7 +105,6 @@ const TableChips = ({ events, repeat, random, data, setRepeat }) => {
           }}
         />
         <Button
-          props={'button'}
           text={t('games.KENO.place_bets')}
           initial={[style.button]}
           classes={['green', disabled && 'disabled']}

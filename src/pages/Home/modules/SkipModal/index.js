@@ -11,7 +11,6 @@ const SkipModal = ({ action }) => {
   return (
     <div className={style.block}>
       <Button
-        props={'button'}
         text={t('interface.skip_next_game')}
         initial={[style.button]}
         classes={['green']}

@@ -49,7 +49,6 @@ const Table = ({ active }) => {
               {SORT.map((el, idx) => (
                 <Button
                   key={idx}
-                  props={'button'}
                   text={el}
                   initial={[style.market]}
                   classes={['green']}

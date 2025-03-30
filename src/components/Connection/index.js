@@ -46,7 +46,6 @@ const Connection = ({ action }) => {
       <p>{t('notification.check_connection')}</p>
       <div className={style.button}>
         <Button
-          props={'button'}
           text={t('interface.try_again')}
           initial={[style.key]}
           classes={['green']}

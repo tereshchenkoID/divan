@@ -27,7 +27,6 @@ const Table = ({ active }) => {
           TYPES.map((el, idx) => (
             <Button
               key={idx}
-              props={'button'}
               text={el}
               initial={[style.market]}
               classes={['green', type === idx && 'active']}

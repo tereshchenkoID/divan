@@ -33,7 +33,6 @@ const Races = ({ data }) => {
         {TYPES.map((el, idx) => (
           <Button
             key={idx}
-            props={'button'}
             text={el}
             initial={[style.button]}
             classes={['green', active === idx && 'active']}

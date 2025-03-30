@@ -45,7 +45,6 @@ const Nav = ({ isBetslip, setIsBetslip }) => {
       <div className={style.meta}>
         <div className={style.logo}>{settings.account.logo && <img src={settings.account.logo} alt="logo" loading="lazy" />}</div>
         <Button
-          props={'button'}
           text={t('interface.account')}
           initial={[style.account]}
           classes={['grey']}
@@ -60,7 +59,6 @@ const Nav = ({ isBetslip, setIsBetslip }) => {
       <div className={style.options}>
         <div className={style.button}>
           <Button
-            props={'button'}
             text={t('interface.betslip')}
             initial={[]}
             classes={['grey']}
@@ -72,7 +70,6 @@ const Nav = ({ isBetslip, setIsBetslip }) => {
           {Object.prototype.hasOwnProperty.call(forecast, 'id') && <span>1</span>}
         </div>
         <Button
-          props={'button'}
           icon={'file-check'}
           initial={[style.option]}
           classes={['grey']}
@@ -81,7 +78,6 @@ const Nav = ({ isBetslip, setIsBetslip }) => {
           }}
         />
         <Button
-          props={'button'}
           icon={'diagram'}
           initial={[style.option]}
           classes={['grey']}
@@ -91,7 +87,6 @@ const Nav = ({ isBetslip, setIsBetslip }) => {
         />
         {settings.business.reports && settings.business.reports && (
           <Button
-            props={'button'}
             icon={'settings'}
             initial={[style.option, style.hide]}
             classes={['grey']}
@@ -106,7 +101,6 @@ const Nav = ({ isBetslip, setIsBetslip }) => {
           </Link>
         )}
         <Button
-          props={'button'}
           icon={'fullscreen'}
           initial={[style.option]}
           classes={['grey']}
@@ -115,7 +109,6 @@ const Nav = ({ isBetslip, setIsBetslip }) => {
           }}
         />
         <Button
-          props={'button'}
           icon={'turn-off'}
           initial={[style.option]}
           classes={['grey']}

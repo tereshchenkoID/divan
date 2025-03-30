@@ -22,6 +22,7 @@
     "no_money": "Insufficient balance UA"
   },
   "interface": {
+    "financial_reports": "Financial reports UA",
     "copy": "Copy UA",
     "duplicate": "Duplicate UA",
     "try_again": "Try again UA",
@@ -128,7 +129,7 @@
     "number": "Number UA",
     "login": "Login UA",
     "general_overview": "General overview UA",
-    "dail_sums": "Dail sums UA",
+    "daily_sums": "Daily sums UA",
     "settlement": "Settlement UA",
     "staff": "Staff UA",
     "master": "Master UA",

@@ -147,7 +147,6 @@ const TicketModal = ({ id, action }) => {
           <div className={style.header}>
             <p>{t('interface.ticket_details')}</p>
             <Button
-              props={'button'}
               icon={'close'}
               initial={[style.close]}
               classes={['red']}
@@ -259,8 +258,8 @@ const TicketModal = ({ id, action }) => {
                               <div className={style.cell}>{el.group}</div>
                               <div className={style.cell}>{el.combi}</div>
                               <div className={style.cell}>
-                                {el.combi} x {settings.account.symbol} {el.amount} = {settings.account.symbol}{' '}
-                                {el.combi * el.unit}
+                                {el.combi} x {settings.account.symbol} {parseFloat(el.unit).toFixed(2)} = {settings.account.symbol}{' '}
+                                {parseFloat(el.combi * el.unit).toFixed(2)}
                               </div>
                               <div className={style.cell}>
                                 {settings.account.symbol} {el.minwin.toFixed(2)}
@@ -351,7 +350,6 @@ const TicketModal = ({ id, action }) => {
             <div className={style.footer}>
               {settings.business.cancel && data.stake.status === 'OPEN' && (
                 <Button
-                  props={'button'}
                   icon={'cancelled'}
                   initial={[style.option]}
                   classes={['blue']}
@@ -362,7 +360,6 @@ const TicketModal = ({ id, action }) => {
               )}
               {settings.business.payout && data.stake.status === 'WIN' && data.stake.paid === '0' && (
                 <Button
-                  props={'button'}
                   icon={'dollar'}
                   initial={[style.option]}
                   classes={['olive']}
@@ -372,7 +369,6 @@ const TicketModal = ({ id, action }) => {
                 />
               )}
               <Button
-                props={'button'}
                 icon={'close'}
                 initial={[style.option]}
                 classes={['red']}

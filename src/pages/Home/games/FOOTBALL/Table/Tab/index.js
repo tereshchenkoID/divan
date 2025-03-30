@@ -17,7 +17,6 @@ const Tab = ({ active }) => {
         {active.league.matches[0].odds[0].groups[0].markets.map((el, idx) => (
           <Button
             key={idx}
-            props={'button'}
             text={el.name.replaceAll('_', ' ')}
             initial={[style.market]}
             classes={['green', group === idx && 'active']}

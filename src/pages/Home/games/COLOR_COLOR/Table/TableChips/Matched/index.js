@@ -86,7 +86,6 @@ const Matched = ({ numbers, type, setType, t }) => {
           {quantity.map((el, idx) => (
             <Button
               key={idx}
-              props={'button'}
               text={el.id}
               initial={[style.button]}
               classes={['green', el.disabled && 'disabled', type.indexOf(el.id) !== -1 && 'active']}

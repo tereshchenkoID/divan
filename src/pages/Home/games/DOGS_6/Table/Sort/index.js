@@ -20,7 +20,6 @@ const Sort = ({ date, data, action, id }) => {
 
   return (
     <Button
-      props={'button'}
       text={(date === 1 && '1st') || (date === 2 && '2nd') || (date === 3 && '3rd')}
       initial={[style.block]}
       classes={['grey', data.indexOf(val) !== -1 && 'active']}

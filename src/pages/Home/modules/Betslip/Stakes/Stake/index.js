@@ -1,19 +1,17 @@
 import React, { useRef, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
-
 import { useOutsideClick } from 'hooks/useOutsideClick'
 import { getBetMaxSingle, getMinMaxOdd } from 'hooks/useStake'
 
+import { oddsType } from 'constant/config'
+
 import { setStake } from 'store/HOME/actions/stakeAction'
+import { deleteBetslip } from 'store/HOME/actions/betslipAction'
 
 import CalculatorModal from 'pages/Home/modules/CalculatorModal'
 import Icon from 'components/Icon'
 import Button from 'components/Button'
-
-import { oddsType } from 'constant/config'
-
-import { deleteBetslip } from 'store/HOME/actions/betslipAction'
 
 import style from './index.module.scss'
 
@@ -92,11 +90,11 @@ const Stake = ({ data }) => {
     if (val) {
       if (f.stake.toString().indexOf('.') !== -1) {
         const a = f.stake.toString().split('.')
-        a[0] = parseInt(a[0]) + val
+        a[0] = parseInt(a[0]) + parseInt(val)
         a[1] = a[1] === '' ? 0 : a[1]
         r = a.join('.')
       } else {
-        r = parseInt(f.stake, 10) + val
+        r = parseInt(f.stake, 10) + parseInt(val)
       }
     } else {
       r = 0
@@ -153,7 +151,6 @@ const Stake = ({ data }) => {
           {Object.values(settings.betslip.steps).map((el, idx) => (
             <Button
               key={idx}
-              props={'button'}
               text={el}
               initial={[style.key]}
               classes={['green']}
@@ -163,7 +160,6 @@ const Stake = ({ data }) => {
             />
           ))}
           <Button
-            props={'button'}
             text={t('interface.clear')}
             initial={[style.key]}
             classes={['green']}

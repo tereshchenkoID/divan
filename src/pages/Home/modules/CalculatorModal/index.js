@@ -42,13 +42,13 @@ const CalculatorModal = ({ data, action, toggle }) => {
   const handleClickStake = n => {
     if (date.toString().indexOf('.') !== -1) {
       const a = date.toString().split('.')
-      a[0] = parseInt(a[0]) + n
+      a[0] = parseInt(a[0]) + parseInt(n)
       a[1] = a[1] === '' ? 0 : a[1]
       const r = a.join('.')
-
       set(r)
-    } else {
-      set(parseInt(date, 10) + n)
+    } 
+    else {
+      set(parseInt(date, 10) + parseInt(n))
     }
   }
 
@@ -91,7 +91,6 @@ const CalculatorModal = ({ data, action, toggle }) => {
             }}
           />
           <Button
-            props={'button'}
             text={'CA'}
             initial={[style.key]}
             classes={['grey']}
@@ -103,7 +102,6 @@ const CalculatorModal = ({ data, action, toggle }) => {
         <div className={style.body}>
           <div className={style.keyboard}>
             <Button
-              props={'button'}
               text={7}
               initial={[style.key]}
               classes={['green']}
@@ -112,7 +110,6 @@ const CalculatorModal = ({ data, action, toggle }) => {
               }}
             />
             <Button
-              props={'button'}
               text={8}
               initial={[style.key]}
               classes={['green']}
@@ -121,7 +118,6 @@ const CalculatorModal = ({ data, action, toggle }) => {
               }}
             />
             <Button
-              props={'button'}
               text={9}
               initial={[style.key]}
               classes={['green']}
@@ -130,7 +126,6 @@ const CalculatorModal = ({ data, action, toggle }) => {
               }}
             />
             <Button
-              props={'button'}
               text={4}
               initial={[style.key]}
               classes={['green']}
@@ -139,7 +134,6 @@ const CalculatorModal = ({ data, action, toggle }) => {
               }}
             />
             <Button
-              props={'button'}
               text={5}
               initial={[style.key]}
               classes={['green']}
@@ -148,7 +142,6 @@ const CalculatorModal = ({ data, action, toggle }) => {
               }}
             />
             <Button
-              props={'button'}
               text={6}
               initial={[style.key]}
               classes={['green']}
@@ -157,7 +150,6 @@ const CalculatorModal = ({ data, action, toggle }) => {
               }}
             />
             <Button
-              props={'button'}
               text={1}
               initial={[style.key]}
               classes={['green']}
@@ -166,7 +158,6 @@ const CalculatorModal = ({ data, action, toggle }) => {
               }}
             />
             <Button
-              props={'button'}
               text={2}
               initial={[style.key]}
               classes={['green']}
@@ -175,7 +166,6 @@ const CalculatorModal = ({ data, action, toggle }) => {
               }}
             />
             <Button
-              props={'button'}
               text={3}
               initial={[style.key]}
               classes={['green']}
@@ -184,7 +174,6 @@ const CalculatorModal = ({ data, action, toggle }) => {
               }}
             />
             <Button
-              props={'button'}
               text={'c'}
               initial={[style.key]}
               classes={['green']}
@@ -193,7 +182,6 @@ const CalculatorModal = ({ data, action, toggle }) => {
               }}
             />
             <Button
-              props={'button'}
               text={0}
               initial={[style.key]}
               classes={['green']}
@@ -202,7 +190,6 @@ const CalculatorModal = ({ data, action, toggle }) => {
               }}
             />
             <Button
-              props={'button'}
               text={'.'}
               initial={[style.key]}
               classes={['green']}
@@ -216,7 +203,6 @@ const CalculatorModal = ({ data, action, toggle }) => {
             {Object.values(settings.betslip.steps).map((el, idx) => (
               <Button
                 key={idx}
-                props={'button'}
                 text={el}
                 initial={[style.key]}
                 classes={['green']}
@@ -230,7 +216,6 @@ const CalculatorModal = ({ data, action, toggle }) => {
         <div className={style.footer}>
           <div className={style.keys}>
             <Button
-              props={'button'}
               text={t('interface.close')}
               initial={[style.key]}
               classes={['red']}
@@ -239,7 +224,6 @@ const CalculatorModal = ({ data, action, toggle }) => {
               }}
             />
             <Button
-              props={'button'}
               text={t('interface.accept')}
               initial={[style.key]}
               classes={['green']}

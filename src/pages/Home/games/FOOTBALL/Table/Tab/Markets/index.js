@@ -13,7 +13,6 @@ const Markets = ({ active, match, setToggle }) => {
           {match.teams.home.name} - {match.teams.away.name}
         </div>
         <Button
-          props={'button'}
           icon={'close'}
           initial={[style.close]}
           classes={['red']}

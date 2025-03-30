@@ -227,7 +227,6 @@ const Skeleton = () => {
                 {data.events.map((el, idx) => (
                   <Button
                     key={idx}
-                    props={'button'}
                     text={getEventsName(el)}
                     initial={[style.link]}
                     classes={['green', el.id === active.id && 'active', disabled && idx === 0 && 'disabled']}

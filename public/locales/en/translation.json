@@ -22,6 +22,7 @@
     "no_money": "Insufficient balance"
   },
   "interface": {
+    "financial_reports": "Financial reports",
     "copy": "Copy",
     "duplicate": "Duplicate",
     "try_again": "Try again",
@@ -128,7 +129,7 @@
     "number": "Number",
     "login": "Login",
     "general_overview": "General overview",
-    "dail_sums": "Dail sums",
+    "daily_sums": "Daily sums",
     "settlement": "Settlement",
     "staff": "Staff",
     "master": "Master",

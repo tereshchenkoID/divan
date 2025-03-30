@@ -364,7 +364,6 @@ const TableChips = ({ random, active }) => {
 
         <div className={style.actions}>
           <Button
-            props={'button'}
             text={'2x'}
             initial={[style.action]}
             classes={['blue']}
@@ -373,7 +372,6 @@ const TableChips = ({ random, active }) => {
             }}
           />
           <Button
-            props={'button'}
             icon={'close'}
             initial={[style.action]}
             classes={['red']}

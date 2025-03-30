@@ -13,6 +13,7 @@
   color: var(--color-white);
   background: var(--gradient-hover);
   cursor: pointer;
+  overflow: hidden;
 
   &::before {
     position: absolute;
@@ -37,6 +38,10 @@
   &.active {
     border-color: var(--color_red)!important;
     background: var(--gradient-active)!important;
+  }
+
+  &.loading {
+    pointer-events: none;
   }
 
   &.green-dark {
@@ -72,5 +77,28 @@
 
   @media (max-width: $min) {
     font-size: rem(11px);
+  }
+}
+
+.loader {
+  @include make-spacer(p, 1);
+  @include flex(center, center);
+
+  position: absolute;
+  inset: 0;
+  background: inherit;
+  z-index: 1;
+
+  svg {
+    animation: rotate 2s linear infinite;
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }

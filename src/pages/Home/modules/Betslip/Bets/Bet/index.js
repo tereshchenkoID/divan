@@ -1,14 +1,12 @@
 import React, { useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
-
 import classNames from 'classnames'
 
-import { gameType } from 'constant/config'
+import { gameType, oddsType } from 'constant/config'
 
 import { getIcon } from 'helpers/getIcon'
 import { useOutsideClick } from 'hooks/useOutsideClick'
-
 import { deleteBetslip } from 'store/HOME/actions/betslipAction'
 import { setStake } from 'store/HOME/actions/stakeAction'
 
@@ -30,10 +28,24 @@ const Bet = ({ id, data, betslip, type, setInit, setDisabled }) => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
   const { settings } = useSelector(state => state.settings)
+  const { stake } = useSelector(state => state.stake)
   const [edit, setEdit] = useState(false)
+  const STAKE_TYPE = settings.betting.type
 
   const buttonRef = useRef(null)
   const blockRef = useRef(null)
+
+  const getSingleStake = (stakes, c) => {
+    const count = stakes.filter(item => item.type === gameType.FOOTBALL_LEAGUE).length;
+    const s = (stake?.[0]?.stake || settings.betslip.single.min) / (count + c)
+    return s.toFixed(2)
+  }
+
+  const updateStakes = (stakes) => {
+    const isOnlyFootball = betslip.every(item => item.type === gameType.FOOTBALL_LEAGUE)
+    const a = (STAKE_TYPE === oddsType.PER_GROUP && isOnlyFootball) ? stakes.map(item => ({ ...item, stake: getSingleStake(stakes, 0) })) : stakes;
+    dispatch(deleteBetslip(a))
+  }
 
   const removeBet = () => {
     const a = betslip.slice(0)
@@ -44,7 +56,9 @@ const Bet = ({ id, data, betslip, type, setInit, setDisabled }) => {
       setDisabled(true)
       dispatch(setStake([]))
     }
-    dispatch(deleteBetslip(a))
+
+    updateStakes(a)
+    // dispatch(deleteBetslip(a))
   }
 
   const updateBet = val => {
@@ -80,7 +94,7 @@ const Bet = ({ id, data, betslip, type, setInit, setDisabled }) => {
     if (val) {
       if (f.stake.toString().indexOf('.') !== -1) {
         const a = f.stake.split('.')
-        a[0] = parseInt(a[0]) + val
+        a[0] = parseInt(a[0]) + parseInt(val)
         a[1] = a[1] === '' ? 0 : a[1]
         v = a.join('.')
       } else {
@@ -159,7 +173,6 @@ const Bet = ({ id, data, betslip, type, setInit, setDisabled }) => {
         )}
         <div>
           <Button
-            props={'button'}
             icon={'close'}
             initial={[style.close]}
             classes={['red']}
@@ -174,7 +187,6 @@ const Bet = ({ id, data, betslip, type, setInit, setDisabled }) => {
           {Object.values(settings.betslip.steps).map((el, idx) => (
             <Button
               key={idx}
-              props={'button'}
               text={el}
               initial={[style.key]}
               classes={['green']}
@@ -184,7 +196,6 @@ const Bet = ({ id, data, betslip, type, setInit, setDisabled }) => {
             />
           ))}
           <Button
-            props={'button'}
             text={t('interface.clear')}
             initial={[style.key]}
             classes={['green']}

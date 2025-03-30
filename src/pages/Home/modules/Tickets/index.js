@@ -48,7 +48,6 @@ const Tickets = () => {
         <div className={style.header}>
           <p>{t('interface.tickets')}</p>
           <Button
-            props={'button'}
             icon={'close'}
             initial={[style.button]}
             classes={['red']}

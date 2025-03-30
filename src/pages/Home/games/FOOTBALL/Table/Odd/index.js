@@ -60,7 +60,7 @@ const Odd = ({ data, label = false }) => {
       className={classNames(
         style.block,
         label && style.sm,
-        (!data.b || data.b === 1.0) && style.disabled,
+        (!data.b || data.b === '1.00' || data.b === '1.0') && style.disabled,
         betslip.length > 0 && activeClass(data.id) && style.active,
       )}
       onClick={() => {

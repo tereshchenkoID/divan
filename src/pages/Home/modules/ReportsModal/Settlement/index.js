@@ -4,20 +4,19 @@ import { useTranslation } from 'react-i18next'
 import { useReactToPrint } from 'react-to-print'
 import { getData } from 'hooks/useRequest'
 import useSocket from 'hooks/useSocket'
-
 import { MD5 } from 'crypto-js'
+import classNames from 'classnames'
 
 import { status, printMode } from 'constant/config'
 
-import classNames from 'classnames'
-
 import { setNotification } from 'store/HOME/actions/notificationAction'
 
+import { getTimezone } from 'helpers/getTimezone'
 import { checkCmd } from 'helpers/checkCmd'
 import { getToken } from 'helpers/getToken'
 
-import { StatsPrint } from './StatsPrint'
 import Button from 'components/Button'
+import { StatsPrint } from './StatsPrint'
 import Table from './Table'
 
 import style from './index.module.scss'
@@ -48,9 +47,9 @@ const Settlement = () => {
     const type = active === 'master' ? `${active}/${MD5(password).toString()}` : active
 
     if (isConnected) {
-      sendMessage({ cmd: `account/${getToken()}/settlement/${type}` })
+      sendMessage({ cmd: `account/${getToken()}/settlement/${type}?timezoneId=${getTimezone()}` })
     } else {
-      getData(`/settlement/${type}`).then(json => {
+      getData(`/settlement/${type}?timezoneId=${getTimezone()}`).then(json => {
         setData(null)
 
         if (active === 'master') {
@@ -146,7 +145,6 @@ const Settlement = () => {
         <div className={style.options}>
           {active === 'staff' && (
             <Button
-              props={'button'}
               text={preview ? t('interface.settlement') : t('interface.preview')}
               initial={[style.button]}
               classes={['green']}
@@ -174,7 +172,6 @@ const Settlement = () => {
                   </form>
                 :
                   <Button
-                    props={'button'}
                     text={t('interface.settlement')}
                     initial={[style.button]}
                     classes={['green']}

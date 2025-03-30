@@ -235,7 +235,6 @@ const Table = ({ active }) => {
         {SORT.map((el, idx) => (
           <Button
             key={idx}
-            props={'button'}
             text={t(el)}
             initial={[style.market]}
             classes={['green', sort === idx && sort !== 3 && 'active']}
